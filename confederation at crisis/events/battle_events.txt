@@ -1,0 +1,851 @@
+#On-action combat event: Character skill improves
+
+#On-action battle_won: Heroism shown.
+character_event = {
+	id = 260
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		is_alive = yes
+	}
+
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 4
+			has_focus = focus_tactics
+		}
+		modifier = {
+			factor = 1.5
+			trait = brave
+		}
+		modifier = {
+			factor = 1.5
+			martial = 10
+		}
+
+		modifier = {
+			trait = genius
+			factor = 1.2
+		}
+		modifier = {
+			trait = quick
+			factor = 1.1
+		}
+		modifier = {
+			trait = slow
+			factor = 0.9
+		}
+
+		modifier = {
+			trait = imbecile
+			factor = 0.2
+		}
+		modifier = {
+			trait = inbred
+			factor = 0.2
+		}
+		modifier = {
+			trait = strong
+			factor = 1.5
+		}
+		modifier = {
+			trait = weak
+			factor = 0.8
+		}
+				modifier = {
+			factor = 0.8
+			trait = stressed
+		}
+		modifier = {
+			factor = 0.8
+			trait = depressed
+		}
+		modifier = {
+			factor = 0.75
+			trait = lunatic
+		}
+		modifier = {
+			factor = 0.75
+			trait = possessed
+		}
+		modifier = {
+			factor = 0.9
+			trait = ill
+		}
+		modifier = {
+			factor = 0.8
+			trait = pneumonic
+		}
+		modifier = {
+			factor = 0.8
+			trait = syphilitic
+		}
+		modifier = {
+			factor = 0.5
+			trait = leper
+		}
+		modifier = {
+			factor = 0.9
+			trait = wounded
+		}
+		modifier = {
+			factor = 0.8
+			trait = maimed
+		}
+		modifier = {
+			factor = 0.5
+			trait = infirm
+		}
+		modifier = {
+			factor = 0.4
+			trait = incapable
+		}
+		modifier = {
+			factor = 0.5
+			trait = drunkard
+		}
+		modifier = {
+			factor = 0.5
+			trait = has_tuberculosis
+		}
+		modifier = {
+			factor = 0.5
+			trait = has_typhoid_fever
+		}
+		modifier = {
+			factor = 0.5
+			trait = has_typhus
+		}
+		modifier = {
+			factor = 0.5
+			trait = has_bubonic_plague
+		}
+		modifier = {
+			factor = 0.5
+			trait = has_measles
+		}
+		modifier = {
+			factor = 0.5
+			trait = has_small_pox
+		}
+
+	}
+
+	immediate = {
+		random_list = {
+			16 = { character_event = { id = 262 } }
+			16 = { character_event = { id = 263 } }
+			16 = { character_event = { id = 264 } }
+			16 = { character_event = { id = 265 } }
+			16 = { character_event = { id = 266 } }
+			16 = { character_event = { id = 267 } }
+		}
+	}
+
+	option = {
+		name = OK
+	}
+}
+
+
+#On-action battle_won: Soldier Distinguishes himself.
+character_event = {
+	id = 261
+	desc = EVTDESC261
+	picture = GFX_evt_battle
+	border = GFX_event_normal_frame_war
+
+	hide_from = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+		is_alive = yes
+	}
+
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 1.5
+			trait = disciplined
+		}
+		modifier = {
+			factor = 1.5
+			trait = radical
+		}
+		modifier = {
+			factor = 0.2
+			trait = cold
+		}
+		modifier = {
+			factor = 0.2
+			trait = pragmatic
+		}
+	}
+
+	option = {
+		name = EXCELLENT
+		create_random_soldier = {
+			random_traits = yes
+			female = no
+			religion = ROOT
+			culture = ROOT
+			dynasty = culture
+		}
+		new_character = { set_dynasty_flag = flag_approved_dynasty }
+	}
+}
+
+# Heroism Shown 1
+character_event = {
+	id = 262
+	desc = EVTDESC262
+	picture = GFX_evt_battle
+	border = GFX_event_normal_frame_war
+
+	is_triggered_only = yes
+
+	option = {
+		name = EVTOPTA262
+		prestige = 100
+	}
+}
+
+# Heroism Shown 2
+character_event = {
+	id = 263
+	desc = EVTDESC263
+	picture = GFX_evt_battle
+	border = GFX_event_normal_frame_war
+
+	is_triggered_only = yes
+
+	option = {
+		name = EVTOPTA262
+		prestige = 100
+	}
+}
+
+# Heroism Shown 3
+character_event = {
+	id = 264
+	desc = EVTDESC264
+	picture = GFX_evt_battle
+	border = GFX_event_normal_frame_war
+
+	is_triggered_only = yes
+
+	option = {
+		name = EVTOPTA262
+		prestige = 100
+	}
+}
+
+# Heroism Shown 4
+character_event = {
+	id = 265
+	desc = EVTDESC265
+	picture = GFX_evt_battle
+	border = GFX_event_normal_frame_war
+
+	is_triggered_only = yes
+
+	option = {
+		name = EVTOPTA262
+		prestige = 100
+	}
+}
+
+# Heroism Shown 5
+character_event = {
+	id = 266
+	desc = EVTDESC266
+	picture = GFX_evt_battle
+	border = GFX_event_normal_frame_war
+
+	is_triggered_only = yes
+
+	option = {
+		name = EVTOPTA262
+		prestige = 100
+	}
+}
+
+# Heroism Shown 6
+character_event = {
+	id = 267
+	desc = EVTDESC267
+	picture = GFX_evt_battle
+	border = GFX_event_normal_frame_war
+
+	is_triggered_only = yes
+
+	option = {
+		name = EVTOPTA262
+		prestige = 100
+	}
+}
+
+
+#On-action battle_lost: Imprisoned by the enemy
+character_event = {
+	id = 250
+	desc = EVTDESC250
+	picture = GFX_evt_into_the_dungeon
+	border = GFX_event_normal_frame_war
+
+	is_triggered_only = yes
+
+	trigger = {
+		is_alive = yes
+		prisoner = no
+		NOT = {
+			character = FROM
+		}
+	}
+
+	weight_multiplier = {
+		days = 1
+		
+		# Prioritize taking prisoners for assimilation
+		modifier = {
+			factor = 10
+			FROM = { trait = hiver_implant }
+			NOT = { trait = hiver_implant }
+		}
+
+		modifier = {
+			factor = 1.25
+			trait = brave
+		}
+		modifier = {
+			factor = 0.25
+			trait = craven
+		}
+		modifier = {
+			factor = 0.25
+			trait = cold
+		}
+
+		modifier = {
+			factor = 1.25
+			trait = stressed
+		}
+		modifier = {
+			factor = 1.25
+			trait = depressed
+		}
+		modifier = {
+			factor = 1.5
+			trait = lunatic
+		}
+		modifier = {
+			factor = 1.5
+			trait = possessed
+		}
+		modifier = {
+			factor = 1.1
+			trait = ill
+		}
+		modifier = {
+			factor = 1.25
+			trait = pneumonic
+		}
+		modifier = {
+			factor = 1.25
+			trait = syphilitic
+		}
+		modifier = {
+			factor = 2.0
+			trait = leper
+		}
+		modifier = {
+			factor = 1.15
+			trait = wounded
+		}
+		modifier = {
+			factor = 1.25
+			trait = maimed
+		}
+		modifier = {
+			factor = 2.0
+			trait = infirm
+		}
+		modifier = {
+			factor = 3.0
+			trait = incapable
+		}
+		modifier = {
+			factor = 1.1
+			trait = drunkard
+		}
+		modifier = {
+			factor = 1.1
+			trait = has_tuberculosis
+		}
+		modifier = {
+			factor = 1.1
+			trait = has_typhoid_fever
+		}
+		modifier = {
+			factor = 1.5
+			trait = has_typhus
+		}
+		modifier = {
+			factor = 1.5
+			trait = has_bubonic_plague
+		}
+		modifier = {
+			factor = 1.1
+			trait = has_measles
+		}
+		modifier = {
+			factor = 1.1
+			trait = has_small_pox
+		}
+		modifier = {
+			factor = 0.5
+			tier = duke
+		}
+		modifier = {
+			factor = 0.25
+			tier = king
+		}
+		modifier = {
+			factor = 0.125
+			tier = emperor
+		}
+	}
+
+	option = {
+		name = CURSES
+		imprison = FROM
+		hidden_tooltip = {
+			FROM = {
+				character_event = {
+					id = 50020 # imprisoned_events.txt
+				}
+			}
+		}
+	}
+}
+
+# Leading attacker dies, will never trigger from code
+letter_event = {
+	id = 251
+	is_triggered_only = yes
+	border = GFX_event_letter_frame_war
+
+	trigger = {
+		ai = no
+	}
+
+	desc = EVTDESC251
+
+	option = {
+		name = OK
+	}
+}
+
+# Leading defender dies, will never trigger from code
+letter_event = {
+	id = 252
+	desc = EVTDESC251
+	border = GFX_event_letter_frame_war
+
+	is_triggered_only = yes
+
+	trigger = {
+		ai = no
+	}
+
+	option = {
+		name = OK
+	}
+}
+
+### Combat Trait Events
+
+# Event 1
+character_event = {
+	id = 96500
+	desc = EVTDESC96500
+	picture = GFX_evt_battle
+	border = GFX_event_normal_frame_war
+
+	is_triggered_only = yes
+
+	trigger = {
+		can_have_more_leadership_traits = yes
+		is_alive = yes
+	}
+
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 4
+			has_focus = focus_tactics
+		}
+		modifier = {
+			factor = 1.5
+			martial = 10
+		}
+		modifier = {
+			factor = 1.5
+			martial = 14
+		}
+		modifier = {
+			factor = 1.5
+			trait = brave
+		}
+		modifier = {
+			factor = 0.5
+			trait = craven
+		}
+		modifier = {
+			trait = genius
+			factor = 1.5
+		}
+		modifier = {
+			trait = quick
+			factor = 1.2
+		}
+		modifier = {
+			trait = slow
+			factor = 0.5
+		}
+		modifier = {
+			trait = imbecile
+			factor = 0.1
+		}
+		modifier = {
+			trait = inbred
+			factor = 0.7
+		}
+		modifier = {
+			trait = strong
+			factor = 1.2
+		}
+		modifier = {
+			trait = weak
+			factor = 0.8
+		}
+		modifier = {
+			factor = 0.85
+			trait = stressed
+		}
+		modifier = {
+			factor = 0.85
+			trait = depressed
+		}
+		modifier = {
+			factor = 0.5
+			trait = lunatic
+		}
+		modifier = {
+			factor = 0.5
+			trait = possessed
+		}
+		modifier = {
+			factor = 0.9
+			trait = ill
+		}
+		modifier = {
+			factor = 0.6
+			trait = infirm
+		}
+		modifier = {
+			factor = 0.9
+			trait = drunkard
+		}
+	}
+
+	option = {
+		name = EVTOPTE96500 # Cavalry
+		trigger = {
+			NOT = {
+				trait = warship_captain
+				trait = fighter_pilot
+				trait = marine_colonel
+			}
+		}
+		add_trait = warship_captain
+	}
+	option = {
+		name = EVTOPTF96500 # Light Infantry
+		trigger = {
+			NOT = {
+				trait = warship_captain
+				trait = fighter_pilot
+				trait = marine_colonel
+			}
+		}
+		add_trait = fighter_pilot
+	}
+	option = {
+		name = EVTOPTG96500 # Heavy Infantry
+		trigger = {
+			NOT = {
+				trait = warship_captain
+				trait = fighter_pilot
+				trait = marine_colonel
+			}
+		}
+		add_trait = marine_colonel
+	}
+}
+
+# Event 2
+character_event = {
+	id = 96501
+	desc = EVTDESC96500
+	picture = GFX_evt_battle
+	border = GFX_event_normal_frame_war
+
+	is_triggered_only = yes
+
+	trigger = {
+		can_have_more_leadership_traits = yes
+		is_alive = yes
+	}
+
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 4
+			has_focus = focus_tactics
+		}
+		modifier = {
+			factor = 1.5
+			trait = brave
+		}
+		modifier = {
+			factor = 0.5
+			trait = craven
+		}
+		modifier = {
+			trait = genius
+			factor = 1.5
+		}
+		modifier = {
+			trait = quick
+			factor = 1.2
+		}
+		modifier = {
+			trait = slow
+			factor = 0.5
+		}
+		modifier = {
+			trait = imbecile
+			factor = 0.1
+		}
+		modifier = {
+			trait = inbred
+			factor = 0.7
+		}
+		modifier = {
+			trait = strong
+			factor = 1.2
+		}
+		modifier = {
+			trait = weak
+			factor = 0.8
+		}
+		modifier = {
+			factor = 0.85
+			trait = stressed
+		}
+		modifier = {
+			factor = 0.85
+			trait = depressed
+		}
+		modifier = {
+			factor = 0.5
+			trait = lunatic
+		}
+		modifier = {
+			factor = 0.5
+			trait = possessed
+		}
+		modifier = {
+			factor = 0.9
+			trait = ill
+		}
+		modifier = {
+			factor = 0.6
+			trait = infirm
+		}
+		modifier = {
+			factor = 0.9
+			trait = drunkard
+		}
+	}
+
+	option = { # Organizer
+		name = EVTOPTA96502
+		trigger = {
+			NOT = {
+				trait = organizer
+			}
+		}
+		add_trait = organizer
+	}
+	option = { # Experimenter
+		name = EVTOPTB96502
+		trigger = {
+			NOT = {
+				trait = experimenter
+			}
+		}
+		add_trait = experimenter
+	}
+	option = { # Holy Warrior
+		name = EVTOPTC96502
+		trigger = {
+			trait = radical
+			NOT = {
+				trait = holy_warrior
+				trait = skeptical
+			}
+		}
+		add_trait = holy_warrior
+	}
+	option = { # Unyielding
+		name = EVTOPTD96502
+		trigger = {
+			NOT = {
+				trait = unyielding_leader
+			}
+		}
+		add_trait = unyielding_leader
+	}
+}
+
+# Event 3
+character_event = {
+	id = 96502
+	desc = EVTDESC96500
+	picture = GFX_evt_battle
+	border = GFX_event_normal_frame_war
+
+	is_triggered_only = yes
+
+	trigger = {
+		can_have_more_leadership_traits = yes
+		is_alive = yes
+	}
+
+	weight_multiplier = {
+		days = 1
+		modifier = {
+			factor = 4
+			has_focus = focus_tactics
+		}
+		modifier = {
+			factor = 1.5
+			trait = brave
+		}
+		modifier = {
+			factor = 0.5
+			trait = craven
+		}
+		modifier = {
+			trait = genius
+			factor = 1.5
+		}
+		modifier = {
+			trait = quick
+			factor = 1.2
+		}
+		modifier = {
+			trait = slow
+			factor = 0.5
+		}
+		modifier = {
+			trait = imbecile
+			factor = 0.1
+		}
+		modifier = {
+			trait = inbred
+			factor = 0.7
+		}
+		modifier = {
+			trait = strong
+			factor = 1.2
+		}
+		modifier = {
+			trait = weak
+			factor = 0.8
+		}
+		modifier = {
+			factor = 0.85
+			trait = stressed
+		}
+		modifier = {
+			factor = 0.85
+			trait = depressed
+		}
+		modifier = {
+			factor = 0.5
+			trait = lunatic
+		}
+		modifier = {
+			factor = 0.5
+			trait = possessed
+		}
+		modifier = {
+			factor = 0.9
+			trait = ill
+		}
+		modifier = {
+			factor = 0.6
+			trait = infirm
+		}
+		modifier = {
+			factor = 0.9
+			trait = drunkard
+		}
+	}
+
+	option = {
+		name = EVTOPTH96500 # Aggressive
+		trigger = {
+			NOT = {
+				trait = defensive_leader
+				trait = aggressive_leader
+			}
+		}
+		add_trait = aggressive_leader
+	}
+	option = {
+		name = EVTOPTI96500 # Defensive
+		trigger = {
+			NOT = {
+				trait = defensive_leader
+				trait = aggressive_leader
+			}
+		}
+		add_trait = defensive_leader
+	}
+	option = {
+		name = EVTOPTJ96500 # Inspiring
+		trigger = {
+			NOT = {
+				trait = inspiring_leader
+			}
+		}
+		add_trait = inspiring_leader
+	}
+	option = { # Trickster
+		name = EVTOPTH96501
+		trigger = {
+			NOT = {
+				trait = trickster
+			}
+		}
+		add_trait = trickster
+	}
+}

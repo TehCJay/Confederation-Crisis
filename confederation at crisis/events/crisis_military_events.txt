@@ -1,0 +1,1171 @@
+namespace = military
+
+# Command Assignments
+# Given by liege
+character_event = {
+	id = military.100
+	desc = "EVTDESCMILITARY100"
+	picture = GFX_evt_promotion
+	is_triggered_only = yes
+	
+	trigger = { liege = { has_regent = no } }
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+# Given by regent
+character_event = {
+	id = military.101
+	desc = "EVTDESCMILITARY101"
+	picture = GFX_evt_promotion
+	is_triggered_only = yes
+	
+	trigger = { liege = { has_regent = yes } }
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+# Occupations Authorized
+character_event = {
+	id = military.300
+	desc = "EVTDESCMILITARY300"
+	picture = GFX_evt_war
+	border = GFX_evt_frame_character_war
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		prestige = -300
+		clr_character_flag = flag_authorizing_occupations
+		clr_character_flag = flag_authorized_occupations
+		set_character_flag = flag_authorized_occupations
+		any_vassal = {
+			limit = {
+				OR = {
+					government = military_directorate
+					government = military_command
+				}
+				demesne_size = 1
+				higher_tier_than = baron
+				liege = { character = ROOT }
+			}
+			opinion = { who = ROOT modifier = opinion_granted_me_claim }
+			hidden_tooltip = { character_event = { id = military.301 } }
+		}
+		any_current_enemy = {
+			limit = { liege_before_war = { character = ROOT } }
+			opinion = { who = ROOT modifier = opinion_granted_claim_on_my_title }
+			hidden_tooltip = {
+				character_event = { id = military.302 }
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTNEVERMIND"
+		clr_character_flag = flag_authorizing_occupations
+		ai_chance = { factor = 0 }
+	}
+}
+character_event = {
+	id = military.301
+	desc = "EVTDESCMILITARY301"
+	picture = GFX_evt_war
+	border = GFX_evt_frame_character_war
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		FROM = {
+			any_current_enemy = {
+				limit = { liege_before_war = { character = FROM } }
+				any_demesne_title = { add_claim = ROOT }
+			}
+		}
+	}
+}
+character_event = {
+	id = military.302
+	desc = "EVTDESCMILITARY302"
+	picture = GFX_evt_war
+	border = GFX_evt_frame_character_war
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+
+# Bounce to get officer
+character_event = {
+	id = military.1000
+	hide_window = yes
+	is_triggered_only = yes
+	
+	immediate = { liege = { character_event = { id = military.1001 } } }
+}
+# Select a target for the campaign
+character_event = {
+	id = military.1001
+	desc = "EVTDESCMILITARY1001"
+	picture = GFX_evt_battle
+	border = GFX_event_character_frame_war
+	is_triggered_only = yes
+	
+	option = {
+		trigger = {
+			any_current_enemy = {
+				top_liege = { character = PREV }
+				OR = {
+					any_war = {
+						attacker = { character = PREV }
+						any_defender = { character = ROOT }
+					}
+					any_war = {
+						defender = { character = PREV }
+						any_attacker = { character = ROOT }
+					}
+				}
+				NOT = {
+					any_war = {
+						using_cb = cb_military_campaign
+						attacker = { character = FROM }
+					}
+				}
+			}
+		}
+		# Go after the ringleaders
+		name = "EVTOPTAMILITARY1001"
+		any_current_enemy = {
+			limit = {
+				top_liege = { character = PREV }
+				OR = {
+					any_war = {
+						attacker = { character = PREV }
+						any_defender = { character = ROOT }
+					}
+					any_war = {
+						defender = { character = PREV }
+						any_attacker = { character = ROOT }
+					}
+				}
+				NOT = {
+					any_war = {
+						using_cb = cb_military_campaign
+						attacker = { character = FROM }
+					}
+				}
+			}
+			
+			character_event = { id = military.1002 }
+			reverse_unsafe_war = { target = FROM casus_belli = cb_military_campaign }
+		}
+		clr_character_flag = flag_ordering_military_campaign
+		ai_chance = {
+			factor = 100
+			# This enemy could easily be crushed
+			modifier = {
+				factor = 2
+				any_current_enemy = {
+					top_liege = { character = PREV }
+					OR = {
+						any_war = {
+							attacker = { character = PREV }
+							any_defender = { character = ROOT }
+						}
+						any_war = {
+							defender = { character = PREV }
+							any_attacker = { character = ROOT }
+						}
+					}
+					NOT = {
+						any_war = {
+							using_cb = cb_military_campaign
+							attacker = { character = FROM }
+						}
+					}
+					NOT = { higher_tier_than = count }
+				}
+			}
+			# Prioritize other types of enemies if this enemy is already occupied
+			modifier = {
+				factor = 0.5
+				any_current_enemy = {
+					top_liege = { character = PREV }
+					OR = {
+						any_war = {
+							attacker = { character = PREV }
+							any_defender = { character = ROOT }
+						}
+						any_war = {
+							defender = { character = PREV }
+							any_attacker = { character = ROOT }
+						}
+					}
+					NOT = {
+						any_war = {
+							using_cb = cb_military_campaign
+							attacker = { character = FROM }
+						}
+					}
+					any_war = {
+						using_cb = cb_military_campaign
+						attacker = { liege = { character = ROOT } }
+						war_score = -50
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				any_current_enemy = {
+					top_liege = { character = PREV }
+					OR = {
+						any_war = {
+							attacker = { character = PREV }
+							any_defender = { character = ROOT }
+						}
+						any_war = {
+							defender = { character = PREV }
+							any_attacker = { character = ROOT }
+						}
+					}
+					NOT = {
+						any_war = {
+							using_cb = cb_military_campaign
+							attacker = { character = FROM }
+						}
+					}
+					any_war = {
+						using_cb = cb_military_campaign
+						attacker = { liege = { character = ROOT } }
+						war_score = 0
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				any_current_enemy = {
+					top_liege = { character = PREV }
+					OR = {
+						any_war = {
+							attacker = { character = PREV }
+							any_defender = { character = ROOT }
+						}
+						any_war = {
+							defender = { character = PREV }
+							any_attacker = { character = ROOT }
+						}
+					}
+					NOT = {
+						any_war = {
+							using_cb = cb_military_campaign
+							attacker = { character = FROM }
+						}
+					}
+					any_war = {
+						using_cb = cb_military_campaign
+						attacker = { liege = { character = ROOT } }
+						war_score = 50
+					}
+				}
+			}
+		}
+	}
+	option = {
+		# Go after the single greatest threat
+		trigger = {
+			any_current_enemy = {
+				top_liege = { character = PREV }
+				ROOT = {
+					NOT = {
+						any_current_enemy = {
+							NOT = { character = PREVPREV }
+							relative_power = { who = PREVPREV power = 1 }
+						}
+					}
+				}
+				NOT = {
+					any_war = {
+						using_cb = cb_military_campaign
+						attacker = { character = FROM }
+					}
+				}
+			}
+		}
+		name = "EVTOPTBMILITARY1001"
+		random_current_enemy = {
+			limit = {
+				top_liege = { character = PREV }
+				ROOT = {
+					NOT = {
+						any_current_enemy = {
+							NOT = { character = PREVPREV }
+							relative_power = { who = PREVPREV power = 1 }
+						}
+					}
+				}
+				NOT = {
+					any_war = {
+						using_cb = cb_military_campaign
+						attacker = { character = FROM }
+					}
+				}
+			}
+			hidden_tooltip = { character_event = { id = military.1002 } }
+			reverse_unsafe_war = { target = FROM casus_belli = cb_military_campaign }
+		}
+		clr_character_flag = flag_ordering_military_campaign
+		ai_chance = {
+			factor = 50
+			# This enemy could easily be crushed
+			modifier = {
+				factor = 2
+				any_current_enemy = {
+					top_liege = { character = PREV }
+					ROOT = {
+						NOT = {
+							any_current_enemy = {
+								NOT = { character = PREVPREV }
+								relative_power = { who = PREVPREV power = 1 }
+							}
+						}
+					}
+					NOT = {
+						any_war = {
+							using_cb = cb_military_campaign
+							attacker = { character = FROM }
+						}
+					}
+					NOT = { higher_tier_than = count }
+				}
+			}
+			# Prioritize other types of enemies if this enemy is already occupied
+			modifier = {
+				factor = 0.5
+				any_current_enemy = {
+					top_liege = { character = PREV }
+					ROOT = {
+						NOT = {
+							any_current_enemy = {
+								NOT = { character = PREVPREV }
+								relative_power = { who = PREVPREV power = 1 }
+							}
+						}
+					}
+					NOT = {
+						any_war = {
+							using_cb = cb_military_campaign
+							attacker = { character = FROM }
+						}
+					}
+					any_war = {
+						using_cb = cb_military_campaign
+						attacker = { liege = { character = ROOT } }
+						war_score = -50
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				any_current_enemy = {
+					top_liege = { character = PREV }
+					ROOT = {
+						NOT = {
+							any_current_enemy = {
+								NOT = { character = PREVPREV }
+								relative_power = { who = PREVPREV power = 1 }
+							}
+						}
+					}
+					NOT = {
+						any_war = {
+							using_cb = cb_military_campaign
+							attacker = { character = FROM }
+						}
+					}
+					any_war = {
+						using_cb = cb_military_campaign
+						attacker = { liege = { character = ROOT } }
+						war_score = 0
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				any_current_enemy = {
+					top_liege = { character = PREV }
+					ROOT = {
+						NOT = {
+							any_current_enemy = {
+								NOT = { character = PREVPREV }
+								relative_power = { who = PREVPREV power = 1 }
+							}
+						}
+					}
+					NOT = {
+						any_war = {
+							using_cb = cb_military_campaign
+							attacker = { character = FROM }
+						}
+					}
+					any_war = {
+						using_cb = cb_military_campaign
+						attacker = { liege = { character = ROOT } }
+						war_score = 50
+					}
+				}
+			}
+		}
+	}
+	option = {
+		# Go after all enemies nearby
+		trigger = {
+			any_current_enemy = {
+				top_liege = { character = PREV }
+				any_realm_province = { NOT = { distance = { who = FROM value = 500 } } }
+				NOT = {
+					any_war = {
+						using_cb = cb_military_campaign
+						attacker = { character = FROM }
+					}
+				}
+			}
+		}
+		name = "EVTOPTCMILITARY1001"
+		any_current_enemy = {
+			limit = {
+				top_liege = { character = PREV }
+				any_realm_province = { NOT = { distance = { who = FROM value = 500 } } }
+				NOT = {
+					any_war = {
+						using_cb = cb_military_campaign
+						attacker = { character = FROM }
+					}
+				}
+			}
+			hidden_tooltip = { character_event = { id = military.1002 } }
+			reverse_unsafe_war = { target = FROM casus_belli = cb_military_campaign }
+		}
+		clr_character_flag = flag_ordering_military_campaign
+		ai_chance = {
+			factor = 25
+			# This enemy could easily be crushed
+			modifier = {
+				factor = 2
+				any_current_enemy = {
+					top_liege = { character = PREV }
+					any_realm_province = { NOT = { distance = { who = FROM value = 500 } } }
+					NOT = {
+						any_war = {
+							using_cb = cb_military_campaign
+							attacker = { character = FROM }
+						}
+					}
+					NOT = { higher_tier_than = count }
+				}
+			}
+			# Prioritize other types of enemies if this enemy is already occupied
+			modifier = {
+				factor = 0.5
+				any_current_enemy = {
+					top_liege = { character = PREV }
+					any_realm_province = { NOT = { distance = { who = FROM value = 500 } } }
+					NOT = {
+						any_war = {
+							using_cb = cb_military_campaign
+							attacker = { character = FROM }
+						}
+					}
+					any_war = {
+						using_cb = cb_military_campaign
+						attacker = { liege = { character = ROOT } }
+						war_score = -50
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				any_current_enemy = {
+					top_liege = { character = PREV }
+					any_realm_province = { NOT = { distance = { who = FROM value = 500 } } }
+					NOT = {
+						any_war = {
+							using_cb = cb_military_campaign
+							attacker = { character = FROM }
+						}
+					}
+					any_war = {
+						using_cb = cb_military_campaign
+						attacker = { liege = { character = ROOT } }
+						war_score = 0
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				any_current_enemy = {
+					top_liege = { character = PREV }
+					any_realm_province = { NOT = { distance = { who = FROM value = 500 } } }
+					NOT = {
+						any_war = {
+							using_cb = cb_military_campaign
+							attacker = { character = FROM }
+						}
+					}
+					any_war = {
+						using_cb = cb_military_campaign
+						attacker = { liege = { character = ROOT } }
+						war_score = 50
+					}
+				}
+			}
+		}
+	}
+	option = {
+		# Nevermind
+		name = "EVTOPTNEVERMIND"
+		clr_character_flag = flag_ordering_military_campaign
+		ai_chance = { factor = 0 }
+	}
+}
+
+# Bounce to get target
+character_event = {
+	id = military.1002
+	hide_window = yes
+	is_triggered_only = yes
+	
+	immediate = { FROMFROM = { letter_event = { id = military.1003 } } }
+}
+
+# Inform officer
+letter_event = {
+	id = military.1003
+	desc = "EVTDESCMILITARY1003"
+	show_from_from = yes
+	border = GFX_event_letter_frame_war
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+
+# Help the AI with identifying targets of opportunity
+# County Conquest
+character_event = {
+	id = military.2000
+	hide_window = yes
+	
+	min_age = 20
+	only_rulers = yes
+	only_capable = yes
+	prisoner = no
+	
+	trigger = {
+		ai = yes
+		independent = yes
+		has_regent = no
+		war = no
+		NOT = { has_character_modifier = constitutional_crisis }
+		wealth = 0
+		monthly_income = 0
+		OR = {
+			religion = terran_imperial
+			religion = astrist
+			religion = neo_feudal
+		}
+		any_realm_province = {
+			any_neighbor_province = {
+				county = {
+					holder_scope = {
+						top_liege = {
+							NOT = { same_realm = ROOT }
+							NOT = { reverse_opinion = { who = ROOT value = 0 } }
+							NOT = { has_truce = ROOT }
+							NOT = { relative_power = { power = 1.0 who = ROOT } }
+							NOT = {
+								any_allied_character = {
+									OR = {
+										character = ROOT
+										relative_power = { power = 1.0 who = ROOT }
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	mean_time_to_happen = {
+		months = 120
+		modifier = {
+			factor = 0.25
+			has_ambition = obj_become_emperor
+		}
+		modifier = {
+			factor = 0.5
+			trait = ambitious
+		}
+		modifier = {
+			factor = 0.5
+			trait = cold
+		}
+		modifier = {
+			factor = 2
+			trait = content
+		}
+		modifier = {
+			factor = 2
+			trait = friendly
+		}
+		modifier = {
+			factor = 2
+			trait = craven
+		}
+	}
+	immediate = {
+		random_realm_province = {
+			limit = {
+				any_neighbor_province = {
+					county = {
+						holder_scope = {
+							top_liege = {
+								NOT = { same_realm = ROOT }
+								NOT = { reverse_opinion = { who = ROOT value = 0 } }
+								NOT = { has_truce = ROOT }
+								NOT = { relative_power = { power = 1.0 who = ROOT } }
+								NOT = {
+									any_allied_character = {
+										OR = {
+											character = ROOT
+											relative_power = { power = 1.0 who = ROOT }
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			random_neighbor_province = {
+				limit = {
+					county = {
+						holder_scope = {
+							top_liege = {
+								NOT = { same_realm = ROOT }
+								NOT = { reverse_opinion = { who = ROOT value = 0 } }
+								NOT = { has_truce = ROOT }
+								NOT = { relative_power = { power = 1.0 who = ROOT } }
+								NOT = {
+									any_allied_character = {
+										OR = {
+											character = ROOT
+											relative_power = { power = 1.0 who = ROOT }
+										}
+									}
+								}
+
+							}
+						}
+					}
+				}
+				county = {
+					holder_scope = {
+						top_liege = {
+							reverse_war = {
+								target = ROOT
+								casus_belli = county_conquest
+								thirdparty_title = PREVPREV
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+# Religious Liberation
+character_event = {
+	id = military.2100
+	hide_window = yes
+	
+	min_age = 20
+	only_rulers = yes
+	only_capable = yes
+	prisoner = no
+	
+	trigger = {
+		ai = yes
+		independent = yes
+		has_regent = no
+		war = no
+		NOT = { has_character_modifier = constitutional_crisis }
+		wealth = 0
+		monthly_income = 0
+		not = { religion = space_pirate }
+		OR = {
+			trait = radical
+			trait = ambitious
+		}
+		NOT = { trait = content }
+		NOT = { trait = friendly }
+		any_realm_province = {
+			any_neighbor_province = {
+				religion = ROOT
+				duchy = {
+					holder_scope = {
+						top_liege = {
+							NOT = { same_realm = ROOT }
+							NOT = { reverse_opinion = { who = ROOT value = 0 } }
+							NOT = { religion = ROOT }
+							NOT = { has_truce = ROOT }
+							ROOT = { relative_power = { who = PREV power = 3.0 } }
+							NOT = { is_allied_with = ROOT }
+						}
+					}
+				}
+			}
+		}
+	}
+	mean_time_to_happen = {
+		months = 120
+		modifier = {
+			factor = 0.25
+			has_ambition = obj_become_emperor
+		}
+		modifier = {
+			factor = 0.5
+			trait = ambitious
+		}
+		modifier = {
+			factor = 0.5
+			trait = cold
+		}
+		modifier = {
+			factor = 0.5
+			trait = radical
+		}
+		modifier = {
+			factor = 2
+			trait = pragmatic
+		}
+		modifier = {
+			factor = 2
+			trait = craven
+		}
+	}
+	immediate = {
+		random_realm_province = {
+			limit = {
+				any_neighbor_province = {
+					religion = ROOT
+					duchy = {
+						holder_scope = {
+							top_liege = {
+								NOT = { same_realm = ROOT }
+								NOT = { reverse_opinion = { who = ROOT value = 0 } }
+								NOT = { religion = ROOT }
+								NOT = { has_truce = ROOT }
+								ROOT = { relative_power = { who = PREV power = 3.0 } }
+								NOT = { is_allied_with = ROOT }
+							}
+						}
+					}
+				}
+			}
+			random_neighbor_province = {
+				limit = {
+					religion = ROOT
+					duchy = {
+						holder_scope = {
+							top_liege = {
+								NOT = { same_realm = ROOT }
+								NOT = { reverse_opinion = { who = ROOT value = 0 } }
+								NOT = { religion = ROOT }
+								NOT = { has_truce = ROOT }
+								ROOT = { relative_power = { who = PREV power = 3.0 } }
+								NOT = { is_allied_with = ROOT }
+							}
+						}
+					}
+				}
+				duchy = {
+					holder_scope = {
+						top_liege = {
+							reverse_war = {
+								target = ROOT
+								casus_belli = religious_liberation
+								thirdparty_title = PREVPREV
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+# Cultural Liberation
+character_event = {
+	id = military.2200
+	hide_window = yes
+	
+	min_age = 20
+	only_rulers = yes
+	only_capable = yes
+	prisoner = no
+	
+	trigger = {
+		ai = yes
+		independent = yes
+		has_regent = no
+		war = no
+		NOT = { has_character_modifier = constitutional_crisis }
+		wealth = 0
+		monthly_income = 0
+		OR = {
+			trait = ambitious
+			trait = proud
+		}
+		NOT = { trait = content }
+		NOT = { trait = humble }
+		NOT = { trait = friendly }
+		any_realm_province = {
+			any_neighbor_province = {
+				culture_group = ROOT
+				duchy = {
+					holder_scope = {
+						top_liege = {
+							NOT = { same_realm = ROOT }
+							NOT = { reverse_opinion = { who = ROOT value = 0 } }
+							NOT = { has_truce = ROOT }
+							NOT = { relative_power = { power = 1.0 who = ROOT } }
+							NOT = { culture_group = PREVPREV }
+							NOT = {
+								any_allied_character = {
+									OR = {
+										character = ROOT
+										relative_power = { power = 1.0 who = ROOT }
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	mean_time_to_happen = {
+		months = 120
+		modifier = {
+			factor = 0.25
+			has_ambition = obj_become_emperor
+		}
+		modifier = {
+			factor = 0.5
+			trait = ambitious
+		}
+		modifier = {
+			factor = 0.5
+			trait = cold
+		}
+		modifier = {
+			factor = 2
+			trait = craven
+		}
+	}
+	immediate = {
+		random_realm_province = {
+			limit = {
+				any_neighbor_province = {
+					culture_group = ROOT
+					duchy = {
+						holder_scope = {
+							top_liege = {
+								NOT = { same_realm = ROOT }
+								NOT = { reverse_opinion = { who = ROOT value = 0 } }
+								NOT = { has_truce = ROOT }
+								NOT = { relative_power = { power = 1.0 who = ROOT } }
+								NOT = { culture_group = PREVPREV }
+								NOT = {
+									any_allied_character = {
+										OR = {
+											character = ROOT
+											relative_power = { power = 1.0 who = ROOT }
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			random_neighbor_province = {
+				limit = {
+					culture_group = ROOT
+					duchy = {
+						holder_scope = {
+							top_liege = {
+								NOT = { same_realm = ROOT }
+								NOT = { reverse_opinion = { who = ROOT value = 0 } }
+								NOT = { has_truce = ROOT }
+								NOT = { relative_power = { power = 1.0 who = ROOT } }
+								NOT = { culture_group = PREVPREV }
+								NOT = {
+									any_allied_character = {
+										OR = {
+											character = ROOT
+											relative_power = { power = 1.0 who = ROOT }
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				duchy = {
+					holder_scope = {
+						top_liege = {
+							reverse_war = {
+								target = ROOT
+								casus_belli = cultural_liberation
+								thirdparty_title = PREVPREV
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+# Have the AI transfer orphaned military commands to the military
+character_event = {
+	id = military.3000
+	hide_window = yes
+	
+	only_rulers = yes
+	min_age = 18
+	prisoner = no
+	capable_only = yes
+	
+	trigger = {
+		any_demesne_title = {
+			is_tribal_type_title = yes
+			dejure_liege_title = { holder_scope = { is_liege_of = ROOT } }
+		}
+		liege = {
+			ai = yes
+			any_vassal = {
+				OR = {
+					government = military_directorate
+					government = military_command
+				}
+				# Must be transferable
+				OR = {
+					tier = count
+					primary_title = { dejure_liege_title = { holder_scope = { character = ROOT } } }
+				}
+				primary_title = {
+					# Try to keep command chains localized
+					# i.e., don't assign a commander in al-Samawat to the Solar Guard
+					NOT = {
+						kingdom = {
+							ROOT = {
+								NOT = { has_landed_title = PREV }
+								NOT = {
+									any_realm_title = {
+										kingdom = { title = PREVPREVPREV }
+										is_tribal_type_title = yes
+										has_holder = yes
+										holder_scope = {
+											NOT = { character = ROOT }
+											same_liege = ROOT
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 120
+		modifier = {
+			factor = 2
+			liege = { is_military_trigger = yes }
+		}
+		modifier = {
+			factor = 0.8
+			reverse_opinion = { who = liege value = 100 }
+		}
+		modifier = {
+			factor = 0.8
+			reverse_opinion = { who = liege value = 90 }
+		}
+		modifier = {
+			factor = 0.8
+			reverse_opinion = { who = liege value = 80 }
+		}
+		modifier = {
+			factor = 0.8
+			reverse_opinion = { who = liege value = 70 }
+		}
+		modifier = {
+			factor = 0.8
+			reverse_opinion = { who = liege value = 60 }
+		}
+		modifier = {
+			factor = 0.8
+			reverse_opinion = { who = liege value = 50 }
+		}
+		modifier = {
+			factor = 0.8
+			reverse_opinion = { who = liege value = 40 }
+		}
+		modifier = {
+			factor = 0.8
+			reverse_opinion = { who = liege value = 30 }
+		}
+		modifier = {
+			factor = 0.8
+			reverse_opinion = { who = liege value = 20 }
+		}
+		modifier = {
+			factor = 0.8
+			reverse_opinion = { who = liege value = 10 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { reverse_opinion = { who = liege value = -9 } }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { reverse_opinion = { who = liege value = -19 } }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { reverse_opinion = { who = liege value = -29 } }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { reverse_opinion = { who = liege value = -39 } }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { reverse_opinion = { who = liege value = -49 } }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { reverse_opinion = { who = liege value = -59 } }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { reverse_opinion = { who = liege value = -69 } }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { reverse_opinion = { who = liege value = -79 } }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { reverse_opinion = { who = liege value = -89 } }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { reverse_opinion = { who = liege value = -99 } }
+		}
+	}
+	
+	immediate = { liege = { character_event = { id = military.3001 } } }
+}
+
+character_event = {
+	id = military.3001
+	hide_window = yes
+	is_triggered_only = yes
+	
+	trigger = { ai = yes } # Double-check
+	
+	immediate = {
+		random_vassal = {
+			limit = {
+				OR = {
+					government = military_directorate
+					government = military_command
+				}
+				# Must be transferable
+				OR = {
+					tier = count
+					primary_title = { dejure_liege_title = { holder_scope = { character = ROOT } } }
+				}
+				primary_title = {
+					# Try to keep command chains localized
+					# i.e., don't assign a commander in al-Samawat to the Solar Guard
+					NOT = {
+						kingdom = {
+							ROOT = {
+								NOT = { has_landed_title = PREV }
+								NOT = {
+									any_realm_title = {
+										kingdom = { title = PREVPREVPREV }
+										is_tribal_type_title = yes
+										has_holder = yes
+										holder_scope = {
+											NOT = { character = ROOT }
+											same_liege = ROOT
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			set_defacto_liege = FROM
+			letter_event = { id = military.3002 }
+		}
+		reverse_opinion = { who = FROM modifier = opinion_vassal_transfer }
+	}
+}
+letter_event = {
+	id = military.3002
+	desc = "EVTDESCMILITARY3002"
+	is_triggered_only = yes
+	
+	immediate = { FROMFROM = { letter_event = { id = military.3003 } } }
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		tooltip = { set_defacto_liege = FROMFROM }
+	}
+}
+letter_event = {
+	id = military.3003
+	desc = "EVTDESCMILITARY3003"
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		tooltip = { FROM = { set_defacto_liege = ROOT } }
+	}
+}
+
+character_event = {
+	id = military.3004
+	hide_window = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		set_government_type = military_command
+		primary_title = { add_law = succ_appointment }
+	}
+}
+
+character_event = {
+	id = military.3005
+	hide_window = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		set_government_type = military_republic
+		primary_title = { add_law = succ_appointment }
+	}
+}

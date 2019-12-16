@@ -1,0 +1,418 @@
+namespace = legitimacy
+
+# Automatic legitimacy changes based on vassal legitimacy laws
+# Military Monarchy
+character_event = {
+	id = legitimacy.100
+	desc = "EVTDESCLEGITIMACY100"
+	
+	only_rulers = yes
+	
+	trigger = {
+		independent = no
+		OR = {
+			government = military_republic
+			government = military_directorate
+		}
+		crownlaw_title = {
+			holder_scope = { is_liege_or_above = ROOT }
+			has_law = military_vassal_legitimacy_0
+			OR = {
+				has_law = centralization_2
+				has_law = centralization_3
+				has_law = centralization_4
+			}
+			OR = {
+				ROOT = { NOT = { higher_tier_than = duke } }
+				has_law = centralization_3
+				has_law = centralization_4
+			}
+			OR = {
+				holder_scope = { any_vassal = { character = ROOT } }
+				has_law = centralization_4
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		government = military_monarchy
+		any_demesne_title = {
+			limit = {
+				NOT = { has_law = succ_gavelkind }
+				NOT = { has_law = succ_primogeniture }
+				NOT = { has_law = succ_ultimogeniture }
+				NOT = { has_law = succ_seniority }
+				NOT = { has_law = succ_feudal_elective }
+			}
+			add_law = succ_feudal_elective
+		}
+	}
+}
+# Military Republic
+character_event = {
+	id = legitimacy.200
+	desc = "EVTDESCLEGITIMACY200"
+	
+	playable_only = yes
+	only_rulers = yes
+	
+	trigger = {
+		independent = no
+		OR = {
+			government = military_monarchy
+			government = military_directorate
+		}
+		crownlaw_title = {
+			holder_scope = { is_liege_or_above = ROOT }
+			has_law = military_vassal_legitimacy_1
+			OR = {
+				has_law = centralization_2
+				has_law = centralization_3
+				has_law = centralization_4
+			}
+			OR = {
+				ROOT = { NOT = { higher_tier_than = duke } }
+				has_law = centralization_3
+				has_law = centralization_4
+			}
+			OR = {
+				holder_scope = { any_vassal = { character = ROOT } }
+				has_law = centralization_4
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		government = military_republic
+		any_demesne_title = {
+			limit = {
+				NOT = { has_law = succ_open_elective_crisis }
+				NOT = { has_law = succ_tanistry }
+				NOT = { has_law = succ_feudal_elective }
+			}
+			add_law = succ_feudal_elective
+		}
+	}
+}
+# Military Directorate
+character_event = {
+	id = legitimacy.300
+	desc = "EVTDESCLEGITIMACY300"
+	
+	playable_only = yes
+	only_rulers = yes
+	
+	trigger = {
+		independent = no
+		OR = {
+			government = military_monarchy
+			government = military_republic
+		}
+		crownlaw_title = {
+			holder_scope = { is_liege_or_above = ROOT }
+			has_law = military_vassal_legitimacy_2
+			OR = {
+				has_law = centralization_2
+				has_law = centralization_3
+				has_law = centralization_4
+			}
+			OR = {
+				ROOT = { NOT = { higher_tier_than = duke } }
+				has_law = centralization_3
+				has_law = centralization_4
+			}
+			OR = {
+				holder_scope = { any_vassal = { character = ROOT } }
+				has_law = centralization_4
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		government = military_directorate
+		any_demesne_title = {
+			limit = { NOT = { has_law = succ_appointment } }
+			add_law = succ_appointment
+		}
+	}
+}
+# Corporate Monarchy
+character_event = {
+	id = legitimacy.400
+	desc = "EVTDESCLEGITIMACY400"
+	
+	only_rulers = yes
+	
+	trigger = {
+		independent = no
+		OR = {
+			government = corporate_republic
+			government = corporate_directorate
+		}
+		crownlaw_title = {
+			holder_scope = { is_liege_or_above = ROOT }
+			has_law = republic_vassal_legitimacy_0
+			OR = {
+				has_law = centralization_2
+				has_law = centralization_3
+				has_law = centralization_4
+			}
+			OR = {
+				ROOT = { NOT = { higher_tier_than = duke } }
+				has_law = centralization_3
+				has_law = centralization_4
+			}
+			OR = {
+				holder_scope = { any_vassal = { character = ROOT } }
+				has_law = centralization_4
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		government = corporate_monarchy
+		any_demesne_title = {
+			limit = {
+				NOT = { has_law = succ_gavelkind }
+				NOT = { has_law = succ_primogeniture }
+				NOT = { has_law = succ_ultimogeniture }
+				NOT = { has_law = succ_seniority }
+				NOT = { has_law = succ_feudal_elective }
+			}
+			add_law = succ_feudal_elective
+		}
+	}
+}
+# Corporate Republic
+character_event = {
+	id = legitimacy.500
+	desc = "EVTDESCLEGITIMACY500"
+	
+	playable_only = yes
+	only_rulers = yes
+	
+	trigger = {
+		independent = no
+		OR = {
+			government = corporate_monarchy
+			government = corporate_directorate
+		}
+		crownlaw_title = {
+			holder_scope = { is_liege_or_above = ROOT }
+			has_law = republic_vassal_legitimacy_1
+			OR = {
+				has_law = centralization_2
+				has_law = centralization_3
+				has_law = centralization_4
+			}
+			OR = {
+				ROOT = { NOT = { higher_tier_than = duke } }
+				has_law = centralization_3
+				has_law = centralization_4
+			}
+			OR = {
+				holder_scope = { any_vassal = { character = ROOT } }
+				has_law = centralization_4
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		government = corporate_republic
+		any_demesne_title = {
+			limit = {
+				NOT = { has_law = succ_open_elective_crisis }
+				NOT = { has_law = succ_tanistry }
+				NOT = { has_law = succ_feudal_elective }
+			}
+			add_law = succ_feudal_elective
+		}
+	}
+}
+# Military Directorate
+character_event = {
+	id = legitimacy.600
+	desc = "EVTDESCLEGITIMACY600"
+	
+	playable_only = yes
+	only_rulers = yes
+	
+	trigger = {
+		independent = no
+		OR = {
+			government = corporate_monarchy
+			government = corporate_republic
+		}
+		crownlaw_title = {
+			holder_scope = { is_liege_or_above = ROOT }
+			has_law = republic_vassal_legitimacy_2
+			OR = {
+				has_law = centralization_2
+				has_law = centralization_3
+				has_law = centralization_4
+			}
+			OR = {
+				ROOT = { NOT = { higher_tier_than = duke } }
+				has_law = centralization_3
+				has_law = centralization_4
+			}
+			OR = {
+				holder_scope = { any_vassal = { character = ROOT } }
+				has_law = centralization_4
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		government = corporate_directorate
+		any_demesne_title = {
+			limit = { NOT = { has_law = succ_appointment } }
+			add_law = succ_appointment
+		}
+	}
+}
+
+# Administrative Monarchy
+character_event = {
+	id = legitimacy.700
+	desc = "EVTDESCLEGITIMACY700"
+	
+	only_rulers = yes
+	
+	trigger = {
+		independent = no
+		OR = {
+			government = administrative_republic
+			government = administrative_directorate
+		}
+		crownlaw_title = {
+			holder_scope = { is_liege_or_above = ROOT }
+			has_law = theocracy_vassal_legitimacy_0
+			OR = {
+				has_law = centralization_2
+				has_law = centralization_3
+				has_law = centralization_4
+			}
+			OR = {
+				ROOT = { NOT = { higher_tier_than = duke } }
+				has_law = centralization_3
+				has_law = centralization_4
+			}
+			OR = {
+				holder_scope = { any_vassal = { character = ROOT } }
+				has_law = centralization_4
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		government = administrative_monarchy
+		any_demesne_title = {
+			limit = {
+				NOT = { has_law = succ_gavelkind }
+				NOT = { has_law = succ_primogeniture }
+				NOT = { has_law = succ_ultimogeniture }
+				NOT = { has_law = succ_seniority }
+				NOT = { has_law = succ_feudal_elective }
+			}
+			add_law = succ_feudal_elective
+		}
+	}
+}
+# Military Republic
+character_event = {
+	id = legitimacy.800
+	desc = "EVTDESCLEGITIMACY800"
+	
+	playable_only = yes
+	only_rulers = yes
+	
+	trigger = {
+		independent = no
+		OR = {
+			government = administrative_monarchy
+			government = administrative_directorate
+		}
+		crownlaw_title = {
+			holder_scope = { is_liege_or_above = ROOT }
+			has_law = theocracy_vassal_legitimacy_1
+			OR = {
+				has_law = centralization_2
+				has_law = centralization_3
+				has_law = centralization_4
+			}
+			OR = {
+				ROOT = { NOT = { higher_tier_than = duke } }
+				has_law = centralization_3
+				has_law = centralization_4
+			}
+			OR = {
+				holder_scope = { any_vassal = { character = ROOT } }
+				has_law = centralization_4
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		government = administrative_republic
+		any_demesne_title = {
+			limit = {
+				NOT = { has_law = succ_open_elective_crisis }
+				NOT = { has_law = succ_tanistry }
+				NOT = { has_law = succ_feudal_elective }
+			}
+			add_law = succ_feudal_elective
+		}
+	}
+}
+# Military Directorate
+character_event = {
+	id = legitimacy.900
+	desc = "EVTDESCLEGITIMACY900"
+	
+	playable_only = yes
+	only_rulers = yes
+	
+	trigger = {
+		independent = no
+		OR = {
+			government = administrative_monarchy
+			government = administrative_republic
+		}
+		crownlaw_title = {
+			holder_scope = { is_liege_or_above = ROOT }
+			has_law = theocracy_vassal_legitimacy_2
+			OR = {
+				has_law = centralization_2
+				has_law = centralization_3
+				has_law = centralization_4
+			}
+			OR = {
+				ROOT = { NOT = { higher_tier_than = duke } }
+				has_law = centralization_3
+				has_law = centralization_4
+			}
+			OR = {
+				holder_scope = { any_vassal = { character = ROOT } }
+				has_law = centralization_4
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		government = administrative_directorate
+		any_demesne_title = {
+			limit = { NOT = { has_law = succ_appointment } }
+			add_law = succ_appointment
+		}
+	}
+}

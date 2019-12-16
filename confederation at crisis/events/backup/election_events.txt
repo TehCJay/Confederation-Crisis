@@ -1,0 +1,2346 @@
+namespace = laws
+
+# Regular cycle elections
+# Annual
+character_event = {
+	id = laws.4000
+	desc = "EVTDESCLAWS4000"
+	picture = GFX_evt_election
+	
+	only_rulers = yes
+	
+	trigger = {
+		NOT = { has_character_modifier = constitutional_crisis }
+		any_demesne_title = {
+			OR = {
+				has_law = crown_term_length_0
+				has_law = local_term_length_0
+			}
+			OR = {
+				has_law = succ_feudal_elective
+				has_law = succ_patrician_elective
+				has_law = succ_open_elective_crisis
+				has_law = succ_tanistry
+			}
+			OR = {
+				NOT = { has_title_flag = flag_election_cycle }
+				had_title_flag = { flag = flag_election_cycle days = 365 }
+			}
+			NOT = { has_title_flag = flag_holding_election }
+		}
+	}
+	
+	option = {
+		trigger = { NOT = { is_primary_war_defender = yes } }
+		name = "EVTOPTACCEPT"
+		any_demesne_title = {
+			limit = {
+				OR = {
+					has_law = crown_term_length_0
+					has_law = local_term_length_0
+				}
+				OR = {
+					has_law = succ_feudal_elective
+					has_law = succ_patrician_elective
+					has_law = succ_open_elective_crisis
+					has_law = succ_tanistry
+				}
+				OR = {
+					NOT = { has_title_flag = flag_election_cycle }
+					had_title_flag = { flag = flag_election_cycle days = 365 }
+				}
+				NOT = { has_title_flag = flag_holding_election }
+			}
+			set_title_flag = flag_holding_election
+		}
+		character_event = { id = laws.5000 }
+		ai_chance = { factor = 100 }
+	}
+	option = {
+		trigger = {
+			NOT = { is_primary_war_defender = yes }
+			higher_tier_than = baron
+		}
+		name = "EVTOPTREFUSE"
+		# Begin a constitutional crisis
+		hidden_tooltip = { any_realm_character = { character_event = { id = laws.4001 } } }
+		add_character_modifier = { name = constitutional_crisis days = -1 }
+		add_character_modifier = { name = crisis_term_limit_defied days = -1 }
+		add_character_modifier = { name = law_against_ruler days = -1 }
+		clr_character_flag = flag_crisis_timer
+		set_character_flag = flag_crisis_timer
+		if = {
+			limit = { tier = emperor }
+			set_character_flag = flag_crisis_emperor
+		}
+		if = {
+			limit = { tier = king }
+			set_character_flag = flag_crisis_king
+		}
+		if = {
+			limit = { tier = duke }
+			set_character_flag = flag_crisis_duke
+		}
+		if = {
+			limit = { tier = count }
+			set_character_flag = flag_crisis_king
+		}
+		ai_chance = {
+			factor = 10
+			# Personality Effects
+			modifier = {
+				factor = 5
+				trait = ambitious
+			}
+			modifier = {
+				factor = 0.2
+				trait = content
+			}
+			# Ruler Type Effects
+			modifier = {
+				factor = 2
+				is_military_trigger = yes
+			}
+			# Ideological Effects
+			modifier = {
+				factor = 2
+				OR = {
+					religion = astrist
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = bio_directionist
+					religion = space_pirate
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = astrist
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = bio_directionist
+					religion = space_pirate
+				}
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = astrist
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = bio_directionist
+					religion = space_pirate
+				}
+				trait = radical
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = astrist
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = bio_directionist
+					religion = space_pirate
+				}
+				religion_authority = 0.25
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = astrist
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = bio_directionist
+					religion = space_pirate
+				}
+				religion_authority = 0.5
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = astrist
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = bio_directionist
+					religion = space_pirate
+				}
+				religion_authority = 0.75
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_republican
+					religion = terran_federalist
+					religion = neo_socialist
+					religion = colonial_separatist
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_republican
+					religion = terran_federalist
+					religion = neo_socialist
+					religion = colonial_separatist
+				}
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_republican
+					religion = terran_federalist
+					religion = neo_socialist
+					religion = colonial_separatist
+				}
+				trait = radical
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_republican
+					religion = terran_federalist
+					religion = neo_socialist
+					religion = colonial_separatist
+				}
+				religion_authority = 0.25
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_republican
+					religion = terran_federalist
+					religion = neo_socialist
+					religion = colonial_separatist
+				}
+				religion_authority = 0.5
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_republican
+					religion = terran_federalist
+					religion = neo_socialist
+					religion = colonial_separatist
+				}
+				religion_authority = 0.75
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTCLAWS4000" # Can't change horses in midstream
+		trigger = { is_primary_war_defender = yes }
+		hidden_tooltip = {
+			any_demesne_title = {
+				limit = {
+					OR = {
+						has_law = crown_term_length_0
+						has_law = local_term_length_0
+					}
+					OR = {
+						has_law = succ_feudal_elective
+						has_law = succ_patrician_elective
+						has_law = succ_open_elective_crisis
+						has_law = succ_tanistry
+					}
+					OR = {
+						NOT = { has_title_flag = flag_election_cycle }
+						had_title_flag = { flag = flag_election_cycle days = 365 }
+					}
+					NOT = { has_title_flag = flag_holding_election }
+				}
+				clr_title_flag = flag_election_cycle
+				set_title_flag = flag_election_cycle
+			}
+		}
+	}
+}
+
+# Inform vassals that the liege has defied their term
+character_event = {
+	id = laws.4001
+	desc = "EVTDESCLAWS4001"
+	picture = GFX_evt_scandal
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+
+# Every four years
+character_event = {
+	id = laws.4100
+	desc = "EVTDESCLAWS4100"
+	picture = GFX_evt_election
+	
+	only_rulers = yes
+	
+	trigger = {
+		NOT = { has_character_modifier = constitutional_crisis }
+		any_demesne_title = {
+			OR = {
+				has_law = crown_term_length_1
+				has_law = local_term_length_1
+			}
+			OR = {
+				has_law = succ_feudal_elective
+				has_law = succ_patrician_elective
+				has_law = succ_open_elective_crisis
+				has_law = succ_tanistry
+			}
+			OR = {
+				NOT = { has_title_flag = flag_election_cycle }
+				had_title_flag = { flag = flag_election_cycle days = 1460 }
+			}
+			NOT = { has_title_flag = flag_holding_election }
+		}
+	}
+	
+	option = {
+		trigger = { is_primary_war_defender = no }
+		name = "EVTOPTACCEPT"
+		any_demesne_title = {
+			limit = {
+				OR = {
+					has_law = crown_term_length_1
+					has_law = local_term_length_1
+				}
+				OR = {
+					has_law = succ_feudal_elective
+					has_law = succ_patrician_elective
+					has_law = succ_open_elective_crisis
+					has_law = succ_tanistry
+				}
+				OR = {
+					NOT = { has_title_flag = flag_election_cycle }
+					had_title_flag = { flag = flag_election_cycle days = 1460 }
+				}
+				NOT = { has_title_flag = flag_holding_election }
+			}
+			set_title_flag = flag_holding_election
+		}
+		character_event = { id = laws.5000 }
+		ai_chance = { factor = 100 }
+	}
+	option = {
+		trigger = {
+			is_primary_war_defender = no
+			higher_tier_than = baron
+		}
+		name = "EVTOPTREFUSE"
+		# Begin a constitutional crisis
+		hidden_tooltip = { any_realm_character = { character_event = { id = laws.4001 } } }
+		add_character_modifier = { name = constitutional_crisis days = -1 }
+		add_character_modifier = { name = crisis_term_limit_defied days = -1 }
+		add_character_modifier = { name = law_against_ruler days = -1 }
+		clr_character_flag = flag_crisis_timer
+		set_character_flag = flag_crisis_timer
+		if = {
+			limit = { tier = emperor }
+			set_character_flag = flag_crisis_emperor
+		}
+		if = {
+			limit = { tier = king }
+			set_character_flag = flag_crisis_king
+		}
+		if = {
+			limit = { tier = duke }
+			set_character_flag = flag_crisis_duke
+		}
+		if = {
+			limit = { tier = count }
+			set_character_flag = flag_crisis_king
+		}
+		ai_chance = {
+			factor = 10
+			# Personality Effects
+			modifier = {
+				factor = 5
+				trait = ambitious
+			}
+			modifier = {
+				factor = 0.2
+				trait = content
+			}
+			# Ruler Type Effects
+			modifier = {
+				factor = 2
+				is_military_trigger = yes
+			}
+			# Ideological Effects
+			modifier = {
+				factor = 2
+				OR = {
+					religion = astrist
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = bio_directionist
+					religion = space_pirate
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = astrist
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = bio_directionist
+					religion = space_pirate
+				}
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = astrist
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = bio_directionist
+					religion = space_pirate
+				}
+				trait = radical
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = astrist
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = bio_directionist
+					religion = space_pirate
+				}
+				religion_authority = 0.25
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = astrist
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = bio_directionist
+					religion = space_pirate
+				}
+				religion_authority = 0.5
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = astrist
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = bio_directionist
+					religion = space_pirate
+				}
+				religion_authority = 0.75
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_republican
+					religion = terran_federalist
+					religion = neo_socialist
+					religion = colonial_separatist
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_republican
+					religion = terran_federalist
+					religion = neo_socialist
+					religion = colonial_separatist
+				}
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_republican
+					religion = terran_federalist
+					religion = neo_socialist
+					religion = colonial_separatist
+				}
+				trait = radical
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_republican
+					religion = terran_federalist
+					religion = neo_socialist
+					religion = colonial_separatist
+				}
+				religion_authority = 0.25
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_republican
+					religion = terran_federalist
+					religion = neo_socialist
+					religion = colonial_separatist
+				}
+				religion_authority = 0.5
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_republican
+					religion = terran_federalist
+					religion = neo_socialist
+					religion = colonial_separatist
+				}
+				religion_authority = 0.75
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTCLAWS4000" # Can't change horses in midstream
+		trigger = { is_primary_war_defender = yes }
+		hidden_tooltip = {
+			any_demesne_title = {
+				limit = {
+					OR = {
+						has_law = crown_term_length_1
+						has_law = local_term_length_1
+					}
+					OR = {
+						has_law = succ_feudal_elective
+						has_law = succ_patrician_elective
+						has_law = succ_open_elective_crisis
+						has_law = succ_tanistry
+					}
+					OR = {
+						NOT = { has_title_flag = flag_election_cycle }
+						had_title_flag = { flag = flag_election_cycle days = 1460 }
+					}
+					NOT = { has_title_flag = flag_holding_election }
+				}
+				clr_title_flag = flag_election_cycle
+				set_title_flag = flag_election_cycle
+			}
+		}
+	}
+}
+
+# Every Six Years
+character_event = {
+	id = laws.4200
+	desc = "EVTDESCLAWS4200"
+	picture = GFX_evt_election
+	
+	only_rulers = yes
+	
+	trigger = {
+		NOT = { has_character_modifier = constitutional_crisis }
+		any_demesne_title = {
+			OR = {
+				has_law = crown_term_length_2
+				has_law = local_term_length_2
+			}
+			OR = {
+				has_law = succ_feudal_elective
+				has_law = succ_patrician_elective
+				has_law = succ_open_elective_crisis
+				has_law = succ_tanistry
+			}
+			OR = {
+				NOT = { has_title_flag = flag_election_cycle }
+				had_title_flag = { flag = flag_election_cycle days = 2190 }
+			}
+			NOT = { has_title_flag = flag_holding_election }
+		}
+	}
+	
+	option = {
+		trigger = { is_primary_war_defender = no }
+		name = "EVTOPTACCEPT"
+		any_demesne_title = {
+			limit = {
+				OR = {
+					has_law = crown_term_length_2
+					has_law = local_term_length_2
+				}
+				OR = {
+					has_law = succ_feudal_elective
+					has_law = succ_patrician_elective
+					has_law = succ_open_elective_crisis
+					has_law = succ_tanistry
+				}
+				OR = {
+					NOT = { has_title_flag = flag_election_cycle }
+					had_title_flag = { flag = flag_election_cycle days = 2190 }
+				}
+				NOT = { has_title_flag = flag_holding_election }
+			}
+			set_title_flag = flag_holding_election
+		}
+		character_event = { id = laws.5000 }
+		ai_chance = { factor = 100 }
+	}
+	option = {
+		trigger = {
+			is_primary_war_defender = no
+			higher_tier_than = baron
+		}
+		name = "EVTOPTREFUSE"
+		# Begin a constitutional crisis
+		hidden_tooltip = { any_realm_character = { character_event = { id = laws.4001 } } }
+		add_character_modifier = { name = constitutional_crisis days = -1 }
+		add_character_modifier = { name = crisis_term_limit_defied days = -1 }
+		add_character_modifier = { name = law_against_ruler days = -1 }
+		clr_character_flag = flag_crisis_timer
+		set_character_flag = flag_crisis_timer
+		if = {
+			limit = { tier = emperor }
+			set_character_flag = flag_crisis_emperor
+		}
+		if = {
+			limit = { tier = king }
+			set_character_flag = flag_crisis_king
+		}
+		if = {
+			limit = { tier = duke }
+			set_character_flag = flag_crisis_duke
+		}
+		if = {
+			limit = { tier = count }
+			set_character_flag = flag_crisis_king
+		}
+		ai_chance = {
+			factor = 10
+			# Personality Effects
+			modifier = {
+				factor = 5
+				trait = ambitious
+			}
+			modifier = {
+				factor = 0.2
+				trait = content
+			}
+			# Ruler Type Effects
+			modifier = {
+				factor = 2
+				is_military_trigger = yes
+			}
+			# Ideological Effects
+			modifier = {
+				factor = 2
+				OR = {
+					religion = astrist
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = bio_directionist
+					religion = space_pirate
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = astrist
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = bio_directionist
+					religion = space_pirate
+				}
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = astrist
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = bio_directionist
+					religion = space_pirate
+				}
+				trait = radical
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = astrist
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = bio_directionist
+					religion = space_pirate
+				}
+				religion_authority = 0.25
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = astrist
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = bio_directionist
+					religion = space_pirate
+				}
+				religion_authority = 0.5
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = astrist
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = bio_directionist
+					religion = space_pirate
+				}
+				religion_authority = 0.75
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_republican
+					religion = terran_federalist
+					religion = neo_socialist
+					religion = colonial_separatist
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_republican
+					religion = terran_federalist
+					religion = neo_socialist
+					religion = colonial_separatist
+				}
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_republican
+					religion = terran_federalist
+					religion = neo_socialist
+					religion = colonial_separatist
+				}
+				trait = radical
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_republican
+					religion = terran_federalist
+					religion = neo_socialist
+					religion = colonial_separatist
+				}
+				religion_authority = 0.25
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_republican
+					religion = terran_federalist
+					religion = neo_socialist
+					religion = colonial_separatist
+				}
+				religion_authority = 0.5
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_republican
+					religion = terran_federalist
+					religion = neo_socialist
+					religion = colonial_separatist
+				}
+				religion_authority = 0.75
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTCLAWS4000" # Can't change horses in midstream
+		trigger = { is_primary_war_defender = yes }
+		hidden_tooltip = {
+			any_demesne_title = {
+				limit = {
+					OR = {
+						has_law = crown_term_length_2
+						has_law = local_term_length_2
+					}
+					OR = {
+						has_law = succ_feudal_elective
+						has_law = succ_patrician_elective
+						has_law = succ_open_elective_crisis
+						has_law = succ_tanistry
+					}
+					OR = {
+						NOT = { has_title_flag = flag_election_cycle }
+						had_title_flag = { flag = flag_election_cycle days = 2190 }
+					}
+					NOT = { has_title_flag = flag_holding_election }
+				}
+				clr_title_flag = flag_election_cycle
+				set_title_flag = flag_election_cycle
+			}
+		}
+	}
+}
+
+# Every Ten Years
+character_event = {
+	id = laws.4300
+	desc = "EVTDESCLAWS4300"
+	picture = GFX_evt_election
+	
+	only_rulers = yes
+	
+	trigger = {
+		NOT = { has_character_modifier = constitutional_crisis }
+		any_demesne_title = {
+			OR = {
+				has_law = crown_term_length_3
+				has_law = local_term_length_3
+			}
+			OR = {
+				has_law = succ_feudal_elective
+				has_law = succ_patrician_elective
+				has_law = succ_open_elective_crisis
+				has_law = succ_tanistry
+			}
+			OR = {
+				NOT = { has_title_flag = flag_election_cycle }
+				had_title_flag = { flag = flag_election_cycle days = 3650 }
+			}
+			NOT = { has_title_flag = flag_holding_election }
+		}
+	}
+	
+	option = {
+		trigger = { is_primary_war_defender = no }
+		name = "EVTOPTACCEPT"
+		any_demesne_title = {
+			limit = {
+				OR = {
+					has_law = crown_term_length_3
+					has_law = local_term_length_3
+				}
+				OR = {
+					has_law = succ_feudal_elective
+					has_law = succ_patrician_elective
+					has_law = succ_open_elective_crisis
+					has_law = succ_tanistry
+				}
+				OR = {
+					NOT = { has_title_flag = flag_election_cycle }
+					had_title_flag = { flag = flag_election_cycle days = 3650 }
+				}
+				NOT = { has_title_flag = flag_holding_election }
+			}
+			set_title_flag = flag_holding_election
+		}
+		character_event = { id = laws.5000 }
+		ai_chance = { factor = 100 }
+	}
+	option = {
+		trigger = {
+			is_primary_war_defender = no
+			higher_tier_than = baron
+		}
+		name = "EVTOPTREFUSE"
+		# Begin a constitutional crisis
+		hidden_tooltip = { any_realm_character = { character_event = { id = laws.4001 } } }
+		add_character_modifier = { name = constitutional_crisis days = -1 }
+		add_character_modifier = { name = crisis_term_limit_defied days = -1 }
+		add_character_modifier = { name = law_against_ruler days = -1 }
+		clr_character_flag = flag_crisis_timer
+		set_character_flag = flag_crisis_timer
+		if = {
+			limit = { tier = emperor }
+			set_character_flag = flag_crisis_emperor
+		}
+		if = {
+			limit = { tier = king }
+			set_character_flag = flag_crisis_king
+		}
+		if = {
+			limit = { tier = duke }
+			set_character_flag = flag_crisis_duke
+		}
+		if = {
+			limit = { tier = count }
+			set_character_flag = flag_crisis_king
+		}
+		ai_chance = {
+			factor = 10
+			# Personality Effects
+			modifier = {
+				factor = 5
+				trait = ambitious
+			}
+			modifier = {
+				factor = 0.2
+				trait = content
+			}
+			# Ruler Type Effects
+			modifier = {
+				factor = 2
+				is_military_trigger = yes
+			}
+			# Ideological Effects
+			modifier = {
+				factor = 2
+				OR = {
+					religion = astrist
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = bio_directionist
+					religion = space_pirate
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = astrist
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = bio_directionist
+					religion = space_pirate
+				}
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = astrist
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = bio_directionist
+					religion = space_pirate
+				}
+				trait = radical
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = astrist
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = bio_directionist
+					religion = space_pirate
+				}
+				religion_authority = 0.25
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = astrist
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = bio_directionist
+					religion = space_pirate
+				}
+				religion_authority = 0.5
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = astrist
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = bio_directionist
+					religion = space_pirate
+				}
+				religion_authority = 0.75
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_republican
+					religion = terran_federalist
+					religion = neo_socialist
+					religion = colonial_separatist
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_republican
+					religion = terran_federalist
+					religion = neo_socialist
+					religion = colonial_separatist
+				}
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_republican
+					religion = terran_federalist
+					religion = neo_socialist
+					religion = colonial_separatist
+				}
+				trait = radical
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_republican
+					religion = terran_federalist
+					religion = neo_socialist
+					religion = colonial_separatist
+				}
+				religion_authority = 0.25
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_republican
+					religion = terran_federalist
+					religion = neo_socialist
+					religion = colonial_separatist
+				}
+				religion_authority = 0.5
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_republican
+					religion = terran_federalist
+					religion = neo_socialist
+					religion = colonial_separatist
+				}
+				religion_authority = 0.75
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTCLAWS4000" # Can't change horses in midstream
+		trigger = { is_primary_war_defender = yes }
+		hidden_tooltip = {
+			any_demesne_title = {
+				limit = {
+					OR = {
+						has_law = crown_term_length_3
+						has_law = local_term_length_3
+					}
+					OR = {
+						has_law = succ_feudal_elective
+						has_law = succ_patrician_elective
+						has_law = succ_open_elective_crisis
+						has_law = succ_tanistry
+					}
+					OR = {
+						NOT = { has_title_flag = flag_election_cycle }
+						had_title_flag = { flag = flag_election_cycle days = 3650 }
+					}
+					NOT = { has_title_flag = flag_holding_election }
+				}
+				clr_title_flag = flag_election_cycle
+				set_title_flag = flag_election_cycle
+			}
+		}
+	}
+}
+
+# You have agreed to hold elections!
+character_event = {
+	id = laws.5000
+	desc = "EVTDESCLAWS5000"
+	picture = GFX_evt_election
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		any_independent_ruler = { character_event = { id = laws.5001 } }
+		hidden_tooltip = {
+			any_demesne_title = {
+				limit = {
+					has_title_flag = flag_holding_election
+					has_law = succ_patrician_elective
+					is_primary_holder_title = no
+				}
+				clr_title_flag = flag_holding_election
+			}
+		}
+		# Federal Elections
+		any_demesne_title = {
+			limit = {
+				has_title_flag = flag_holding_election
+				OR = {
+					has_law = succ_feudal_elective
+					has_law = succ_elective_gavelkind
+					has_law = succ_tanistry
+				}
+				current_heir = { NOT = { has_character_flag = flag_already_chosen_for_federal_election } }
+			}
+			current_heir = {
+				clr_character_flag = flag_already_chosen_for_federal_election
+				set_character_flag = flag_already_chosen_for_federal_election
+				character_event = { id = laws.5100 tooltip = "EVTTOOLTIPLAWS5100" days = 1 }
+			}
+		}
+		# Popular Elections
+		any_demesne_title = {
+			limit = {
+				has_title_flag = flag_holding_election
+				OR = {
+					has_law = succ_open_elective_crisis
+					has_law = succ_patrician_elective
+				}
+				OR = {
+					has_law = succ_open_elective_crisis
+					is_primary_holder_title = yes
+				}
+				current_heir = { NOT = { has_character_flag = flag_already_chosen_for_popular_election } }
+			}
+			current_heir = {
+				clr_character_flag = flag_already_chosen_for_popular_election
+				set_character_flag = flag_already_chosen_for_popular_election
+				character_event = { id = laws.5200 tooltip = "EVTTOOLTIPLAWS5200" days = 1 }
+			}
+		}
+	}
+}
+
+# FEDERAL ELECTIONS
+character_event = {
+	id = laws.5100
+	desc = "EVTDESCLAWS5100"
+	picture = GFX_evt_election
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		set_variable = { which = "victory_margin_federal" value = -1 }
+		clr_character_flag = flag_already_chosen_for_federal_election
+		hidden_tooltip = {
+			FROM = {
+				character_event = { id = laws.5110 days = 1 }
+				character_event = { id = laws.5120 days = 1 }
+			}
+		}
+		FROM = {
+			any_vassal = {
+				limit = {
+					NOT = { character = FROM } # This shouldn't be possible, but you never know
+					# Must reside in the affected area
+					capital_scope = {
+						OR = {
+							county = {
+								has_title_flag = flag_holding_election
+								has_law = succ_feudal_elective
+								holder_scope = { character = FROM }
+								current_heir = { character = ROOT }
+							}
+							duchy = {
+								has_title_flag = flag_holding_election
+								has_law = succ_feudal_elective
+								holder_scope = { character = FROM }
+								current_heir = { character = ROOT }
+							}
+							kingdom = {
+								has_title_flag = flag_holding_election
+								has_law = succ_feudal_elective
+								holder_scope = { character = FROM }
+								current_heir = { character = ROOT }
+							}
+							empire = {
+								has_title_flag = flag_holding_election
+								has_law = succ_feudal_elective
+								holder_scope = { character = FROM }
+								current_heir = { character = ROOT }
+							}
+						}
+					}
+				}
+				character_event = { id = laws.5105 tooltip = "EVTTOOLTIPLAWS5105" }
+			}
+		}
+	}
+}
+
+# You are a voter in a federal election
+character_event = {
+	id = laws.5105
+	desc = "EVTDESCLAWS5105"
+	picture = GFX_evt_election
+	show_from_from = yes
+	is_triggered_only = yes
+	
+	option = {
+		# Vote for the incumbent
+		trigger = { NOT = { character = FROM } }
+		name = "EVTOPTALAWS5105"
+		tooltip = { FROMFROM = { } }
+		hidden_tooltip = { FROM = { change_variable = { which = "victory_margin_federal" value = -1 } } }
+		ai_chance = {
+			factor = 50
+			modifier = {	
+				factor = 0
+				opinion_diff = {
+					first = FROMFROM
+					second = FROM
+					value = 1
+					as_if_liege = yes
+				}
+			}
+		}
+	}
+	
+	option = {
+		# Vote for the challenger
+		trigger = { NOT = { character = FROMFROM } }
+		name = "EVTOPTBLAWS5105"
+		tooltip = { FROM = { } }
+		hidden_tooltip = { FROM = { change_variable = { which = "victory_margin_federal" value = 1 } } }
+		ai_chance = {
+			factor = 50
+			modifier = {	
+				factor = 0
+				opinion_diff = {
+					first = FROM
+					second = FROMFROM
+					value = 1
+					as_if_liege = yes
+				}
+			}
+		}
+	}
+}
+
+# A challenger has beaten you in a federal election!
+character_event = {
+	id = laws.5110
+	desc = "EVTDESCLAWS5110"
+	picture = GFX_evt_election
+	is_triggered_only = yes
+	
+	trigger = { FROM = { check_variable = { which = "victory_margin_federal" value = 1 } } }
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		any_demesne_title = {
+			limit = {
+				has_title_flag = flag_holding_election
+				has_law = succ_feudal_elective
+				current_heir = { character = FROM }
+			}
+			# If there's a designated capital, give it over as well
+			ROOT = {
+				random_demesne_province = {
+					limit = {
+						owner = { character = ROOT }
+						empire = { title = PREVPREVPREV }
+						has_province_modifier = empire_capital_system
+					}
+					usurp_title_plus_barony_if_unlanded_and_vassals  = FROM
+				}
+				random_demesne_province = {
+					limit = {
+						owner = { character = ROOT }
+						kingdom = { title = PREVPREVPREV }
+						has_province_modifier = kingdom_capital_system
+					}
+					usurp_title_plus_barony_if_unlanded_and_vassals  = FROM
+				}
+			}
+			set_title_flag = flag_just_won_federal_election
+			usurp_title_plus_barony_if_unlanded_and_vassals  = FROM
+		}
+	}
+}
+
+# Called from any titles you win in a federal election
+character_event = {
+	id = laws.5115
+	desc = "EVTDESCLAWS5115"
+	picture = GFX_evt_election
+	is_triggered_only = yes
+	
+	trigger = { FROM = { has_title_flag = flag_just_won_federal_election } }
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		FROM = {
+			# End election
+			clr_title_flag = flag_just_won_federal_election
+			clr_title_flag = flag_holding_election
+		}
+		# Gain prestige equivalent to gained titles
+		if = {
+			limit = { FROM = { tier = count } }
+			prestige = 25
+		}
+		if = {
+			limit = { FROM = { tier = duke } }
+			prestige = 50
+		}
+		if = {
+			limit = { FROM = { tier = king } }
+			prestige = 75
+		}
+		if = {
+			limit = { FROM = { tier = emperor } }
+			prestige = 100
+		}
+		# Inform all relevant personnel of the new incumbent
+		hidden_tooltip = {
+			any_realm_character = {
+				limit = {
+					NOT = { character = ROOT }
+					OR = {
+						any_liege = { character = ROOT }
+						any_vassal = { character = ROOT }
+					}
+				}
+				character_event = { id = laws.5116 }
+			}
+		}
+	}
+}
+
+character_event = {
+	id = laws.5116
+	desc = "EVTDESCLAWS5116"
+	notification = yes
+	is_triggered_only = yes
+	
+	immediate = { }
+	
+	option = { name = "EVTOPTCONFIRM" } # Escape option
+}
+
+# A challenger has lost to you in a federal election!
+character_event = {
+	id = laws.5120
+	desc = "EVTDESCLAWS5120"
+	picture = GFX_evt_election
+	is_triggered_only = yes
+	
+	trigger = { FROM = { NOT = { check_variable = { which = "victory_margin_federal" value = 1 } } } }
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		any_demesne_title = {
+			limit = {
+				has_title_flag = flag_holding_election
+				OR = {
+					has_law = succ_feudal_elective
+					has_law = succ_tanistry
+				}
+				current_heir = { character = FROM }
+			}
+			
+			# End the election and reset the election cycle
+			clr_title_flag = flag_holding_election
+			clr_title_flag = flag_election_cycle
+			set_title_flag = flag_election_cycle
+			
+			# Gain prestige based on title rank
+			if = {
+				limit = { tier = count }
+				ROOT = { prestige = 25 }
+			}
+			if = {
+				limit = { tier = duke }
+				ROOT = { prestige = 50 }
+			}
+			if = {
+				limit = { tier = king }
+				ROOT = { prestige = 75 }
+			}
+			if = {
+				limit = { tier = emperor }
+				ROOT = { prestige = 100 }
+			}
+			hidden_tooltip = {
+				current_heir = {
+					if = {
+						limit = { NOT = { has_character_flag = flag_informed_of_election_loss } }
+						set_character_flag = flag_informed_of_election_loss
+						character_event = { id = laws.5125 }
+					}
+				}
+			}
+		}
+		hidden_tooltip = {
+			ROOT = {
+				any_realm_character = {
+					limit = {
+						NOT = { character = ROOT }
+						OR = {
+							any_liege = { character = ROOT }
+							any_vassal = { character = ROOT }
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+# You lost the federal election
+character_event = {
+	id = laws.5125
+	desc = "EVTDESCLAWS5125"
+	picture = GFX_evt_election
+	is_triggered_only = yes
+	
+	option = {
+		clr_character_flag = flag_informed_of_election_loss
+		name = "EVTOPTCONFIRM"
+	}
+}
+
+character_event = {
+	id = laws.5126
+	desc = "EVTDESCLAWS5126"
+	notification = yes
+	is_triggered_only = yes
+	
+	immediate = { }
+	
+	option = { name = "EVTOPTCONFIRM" } # Escape option
+}
+
+
+# POPULAR ELECTIONS
+character_event = {
+	id = laws.5200
+	desc = "EVTDESCLAWS5200"
+	picture = GFX_evt_election
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		set_variable = { which = "victory_margin_popular" value = 0 }
+		clr_character_flag = flag_already_chosen_for_popular_election
+		hidden_tooltip = {
+			FROM = {
+				character_event = { id = laws.5210 days = 1 }
+				character_event = { id = laws.5220 days = 1 }
+				any_realm_province = {
+					limit = {
+						OR = {
+							county = {
+								has_title_flag = flag_holding_election
+								current_heir = { character = ROOT }
+								OR = {
+									has_law = succ_open_elective_crisis
+									has_law = succ_patrician_elective
+								}
+							}
+							duchy = {
+								has_title_flag = flag_holding_election
+								current_heir = { character = ROOT }
+								OR = {
+									has_law = succ_open_elective_crisis
+									has_law = succ_patrician_elective
+								}
+							}
+							kingdom = {
+								has_title_flag = flag_holding_election
+								current_heir = { character = ROOT }
+								OR = {
+									has_law = succ_open_elective_crisis
+									has_law = succ_patrician_elective
+								}
+							}
+							empire = {
+								has_title_flag = flag_holding_election
+								current_heir = { character = ROOT }
+								OR = {
+									has_law = succ_open_elective_crisis
+									has_law = succ_patrician_elective
+								}
+							}
+						}
+					}
+					province_event = { id = laws.5206 }
+				}
+				any_realm_character = {
+					limit = {
+						capital_scope = {
+							OR = {
+								county = {
+									has_title_flag = flag_holding_election
+									holder_scope = { character = FROM }
+									current_heir = { character = ROOT }
+									OR = {
+										has_law = succ_open_elective_crisis
+										has_law = succ_patrician_elective
+									}
+								}
+								duchy = {
+									has_title_flag = flag_holding_election
+									holder_scope = { character = FROM }
+									current_heir = { character = ROOT }
+									OR = {
+										has_law = succ_open_elective_crisis
+										has_law = succ_patrician_elective
+									}
+								}
+								kingdom = {
+									has_title_flag = flag_holding_election
+									holder_scope = { character = FROM }
+									current_heir = { character = ROOT }
+									OR = {
+										has_law = succ_open_elective_crisis
+										has_law = succ_patrician_elective
+									}
+								}
+								empire = {
+									has_title_flag = flag_holding_election
+									holder_scope = { character = FROM }
+									current_heir = { character = ROOT }
+									OR = {
+										has_law = succ_open_elective_crisis
+										has_law = succ_patrician_elective
+									}
+								}
+							}
+						}
+					}
+					character_event = { id = laws.5205 tooltip = "EVTTOOLTIPLAWS5105" }
+				}
+			}
+		}
+	}
+}
+
+# You are a voter in a popular election
+character_event = {
+	id = laws.5205
+	desc = "EVTDESCLAWS5205"
+	picture = GFX_evt_election
+	show_from_from = yes
+	is_triggered_only = yes
+	
+	option = {
+		# Vote for the incumbent
+		trigger = { NOT = { character = FROM } }
+		name = "EVTOPTALAWS5105"
+		tooltip = { FROMFROM = { } }
+		hidden_tooltip = { FROM = { change_variable = { which = "victory_margin_popular" value = -1 } } }
+		ai_chance = {
+			factor = 50
+			modifier = {	
+				factor = 0
+				opinion_diff = {
+					first = FROMFROM
+					second = FROM
+					value = 1
+					as_if_liege = yes
+				}
+			}
+		}
+	}
+	
+	option = {
+		# Vote for the challenger
+		trigger = { NOT = { character = FROMFROM } }
+		name = "EVTOPTBLAWS5105"
+		tooltip = { FROM = { } }
+		hidden_tooltip = { FROM = { change_variable = { which = "victory_margin_popular" value = 1 } } }
+		ai_chance = {
+			factor = 50
+			modifier = {	
+				factor = 0
+				opinion_diff = {
+					first = FROM
+					second = FROMFROM
+					value = 1
+					as_if_liege = yes
+				}
+			}
+		}
+	}
+}
+
+# Provincial votes in a popular election
+province_event = {
+	id = laws.5206
+	hide_window = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		# Incumbent's Ideology
+		if = {
+			limit = {
+				religion = FROMFROM
+				FROMFROM = { religion_authority = 0.1 }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = -2 } }
+		}
+		if = {
+			limit = {
+				religion = FROMFROM
+				FROMFROM = { religion_authority = 0.2 }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = -2 } }
+		}
+		if = {
+			limit = {
+				religion = FROMFROM
+				FROMFROM = { religion_authority = 0.3 }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = -2 } }
+		}
+		if = {
+			limit = {
+				religion = FROMFROM
+				FROMFROM = { religion_authority = 0.4 }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = -2 } }
+		}
+		if = {
+			limit = {
+				religion = FROMFROM
+				FROMFROM = { religion_authority = 0.5 }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = -2 } }
+		}
+		if = {
+			limit = {
+				religion = FROMFROM
+				FROMFROM = { religion_authority = 0.6 }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = -2 } }
+		}
+		if = {
+			limit = {
+				religion = FROMFROM
+				FROMFROM = { religion_authority = 0.7 }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = -2 } }
+		}
+		if = {
+			limit = {
+				religion = FROMFROM
+				FROMFROM = { religion_authority = 0.8 }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = -2 } }
+		}
+		if = {
+			limit = {
+				religion = FROMFROM
+				FROMFROM = { religion_authority = 0.9 }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = -2 } }
+		}
+		if = {
+			limit = {
+				religion = FROMFROM
+				FROMFROM = { religion_authority = 1 }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = -2 } }
+		}
+		if = {
+			limit = {
+				religion = FROMFROM
+				FROMFROM = { piety = 100 }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = -1 } }
+		}
+		if = {
+			limit = {
+				religion = FROMFROM
+				FROMFROM = { piety = 200 }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = -1 } }
+		}
+		if = {
+			limit = {
+				religion = FROMFROM
+				FROMFROM = { piety = 300 }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = -1 } }
+		}
+		if = {
+			limit = {
+				religion = FROMFROM
+				FROMFROM = { piety = 400 }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = -1 } }
+		}
+		if = {
+			limit = {
+				religion = FROMFROM
+				FROMFROM = { piety = 500 }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = -1 } }
+		}
+		if = {
+			limit = {
+				religion = FROMFROM
+				FROMFROM = { piety = 600 }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = -1 } }
+		}
+		if = {
+			limit = {
+				religion = FROMFROM
+				FROMFROM = { piety = 700 }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = -1 } }
+		}
+		if = {
+			limit = {
+				religion = FROMFROM
+				FROMFROM = { piety = 800 }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = -1 } }
+		}
+		if = {
+			limit = {
+				religion = FROMFROM
+				FROMFROM = { piety = 900 }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = -1 } }
+		}
+		if = {
+			limit = {
+				religion = FROMFROM
+				FROMFROM = { piety = 1000 }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = -1 } }
+		}
+		# Challenger's Ideology
+		if = {
+			limit = {
+				religion = FROM
+				FROM = { religion_authority = 0.1 }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = 2 } }
+		}
+		if = {
+			limit = {
+				religion = FROM
+				FROM = { religion_authority = 0.2 }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = 2 } }
+		}
+		if = {
+			limit = {
+				religion = FROM
+				FROM = { religion_authority = 0.3 }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = 2 } }
+		}
+		if = {
+			limit = {
+				religion = FROM
+				FROM = { religion_authority = 0.4 }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = 2 } }
+		}
+		if = {
+			limit = {
+				religion = FROM
+				FROM = { religion_authority = 0.5 }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = 2 } }
+		}
+		if = {
+			limit = {
+				religion = FROM
+				FROM = { religion_authority = 0.6 }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = 2 } }
+		}
+		if = {
+			limit = {
+				religion = FROM
+				FROM = { religion_authority = 0.7 }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = 2 } }
+		}
+		if = {
+			limit = {
+				religion = FROM
+				FROM = { religion_authority = 0.8 }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = 2 } }
+		}
+		if = {
+			limit = {
+				religion = FROM
+				FROM = { religion_authority = 0.9 }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = 2 } }
+		}
+		if = {
+			limit = {
+				religion = FROM
+				FROM = { religion_authority = 1 }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = 2 } }
+		}
+		if = {
+			limit = {
+				religion = FROM
+				FROM = { piety = 100 }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = 1 } }
+		}
+		if = {
+			limit = {
+				religion = FROM
+				FROM = { piety = 200 }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = 1 } }
+		}
+		if = {
+			limit = {
+				religion = FROM
+				FROM = { piety = 300 }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = 1 } }
+		}
+		if = {
+			limit = {
+				religion = FROM
+				FROM = { piety = 400 }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = 1 } }
+		}
+		if = {
+			limit = {
+				religion = FROM
+				FROM = { piety = 500 }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = 1 } }
+		}
+		if = {
+			limit = {
+				religion = FROM
+				FROM = { piety = 600 }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = 1 } }
+		}
+		if = {
+			limit = {
+				religion = FROM
+				FROM = { piety = 700 }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = 1 } }
+		}
+		if = {
+			limit = {
+				religion = FROM
+				FROM = { piety = 800 }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = 1 } }
+		}
+		if = {
+			limit = {
+				religion = FROM
+				FROM = { piety = 900 }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = 1 } }
+		}
+		if = {
+			limit = {
+				religion = FROM
+				FROM = { piety = 1000 }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = 1 } }
+		}
+		# Incumbent's Diplomacy
+		if = {
+			limit = { FROMFROM = { diplomacy = 2 } }
+			FROM = { change_variable = { which = "victory_margin_popular" value = -1 } }
+		}
+		if = {
+			limit = { FROMFROM = { diplomacy = 4 } }
+			FROM = { change_variable = { which = "victory_margin_popular" value = -1 } }
+		}
+		if = {
+			limit = { FROMFROM = { diplomacy = 6 } }
+			FROM = { change_variable = { which = "victory_margin_popular" value = -1 } }
+		}
+		if = {
+			limit = { FROMFROM = { diplomacy = 8 } }
+			FROM = { change_variable = { which = "victory_margin_popular" value = -1 } }
+		}
+		if = {
+			limit = { FROMFROM = { diplomacy = 10 } }
+			FROM = { change_variable = { which = "victory_margin_popular" value = -1 } }
+		}
+		if = {
+			limit = { FROMFROM = { diplomacy = 12 } }
+			FROM = { change_variable = { which = "victory_margin_popular" value = -1 } }
+		}
+		if = {
+			limit = { FROMFROM = { diplomacy = 14 } }
+			FROM = { change_variable = { which = "victory_margin_popular" value = -1 } }
+		}
+		if = {
+			limit = { FROMFROM = { diplomacy = 16 } }
+			FROM = { change_variable = { which = "victory_margin_popular" value = -1 } }
+		}
+		if = {
+			limit = { FROMFROM = { diplomacy = 18 } }
+			FROM = { change_variable = { which = "victory_margin_popular" value = -1 } }
+		}
+		if = {
+			limit = { FROMFROM = { diplomacy = 20 } }
+			FROM = { change_variable = { which = "victory_margin_popular" value = -1 } }
+		}
+		if = {
+			limit = { FROMFROM = { diplomacy = 22 } }
+			FROM = { change_variable = { which = "victory_margin_popular" value = -1 } }
+		}
+		if = {
+			limit = { FROMFROM = { diplomacy = 24 } }
+			FROM = { change_variable = { which = "victory_margin_popular" value = -1 } }
+		}
+		if = {
+			limit = { FROMFROM = { diplomacy = 26 } }
+			FROM = { change_variable = { which = "victory_margin_popular" value = -1 } }
+		}
+		if = {
+			limit = { FROMFROM = { diplomacy = 28 } }
+			FROM = { change_variable = { which = "victory_margin_popular" value = -1 } }
+		}
+		if = {
+			limit = { FROMFROM = { diplomacy = 30 } }
+			FROM = { change_variable = { which = "victory_margin_popular" value = -1 } }
+		}
+		# Challenger's Diplomacy
+		if = {
+			limit = { FROM = { diplomacy = 2 } }
+			FROM = { change_variable = { which = "victory_margin_popular" value = 1 } }
+		}
+		if = {
+			limit = { FROM = { diplomacy = 4 } }
+			FROM = { change_variable = { which = "victory_margin_popular" value = 1 } }
+		}
+		if = {
+			limit = { FROM = { diplomacy = 6 } }
+			FROM = { change_variable = { which = "victory_margin_popular" value = 1 } }
+		}
+		if = {
+			limit = { FROM = { diplomacy = 8 } }
+			FROM = { change_variable = { which = "victory_margin_popular" value = 1 } }
+		}
+		if = {
+			limit = { FROM = { diplomacy = 10 } }
+			FROM = { change_variable = { which = "victory_margin_popular" value = 1 } }
+		}
+		if = {
+			limit = { FROM = { diplomacy = 12 } }
+			FROM = { change_variable = { which = "victory_margin_popular" value = 1 } }
+		}
+		if = {
+			limit = { FROM = { diplomacy = 14 } }
+			FROM = { change_variable = { which = "victory_margin_popular" value = 1 } }
+		}
+		if = {
+			limit = { FROM = { diplomacy = 16 } }
+			FROM = { change_variable = { which = "victory_margin_popular" value = 1 } }
+		}
+		if = {
+			limit = { FROM = { diplomacy = 18 } }
+			FROM = { change_variable = { which = "victory_margin_popular" value = 1 } }
+		}
+		if = {
+			limit = { FROM = { diplomacy = 20 } }
+			FROM = { change_variable = { which = "victory_margin_popular" value = 1 } }
+		}
+		if = {
+			limit = { FROM = { diplomacy = 22 } }
+			FROM = { change_variable = { which = "victory_margin_popular" value = 1 } }
+		}
+		if = {
+			limit = { FROM = { diplomacy = 24 } }
+			FROM = { change_variable = { which = "victory_margin_popular" value = 1 } }
+		}
+		if = {
+			limit = { FROM = { diplomacy = 26 } }
+			FROM = { change_variable = { which = "victory_margin_popular" value = 1 } }
+		}
+		if = {
+			limit = { FROM = { diplomacy = 28 } }
+			FROM = { change_variable = { which = "victory_margin_popular" value = 1 } }
+		}
+		if = {
+			limit = { FROM = { diplomacy = 30 } }
+			FROM = { change_variable = { which = "victory_margin_popular" value = 1 } }
+		}
+		# General anti-incumbent sentiment
+		if = {
+			limit = {
+				revolt_risk = 0.1
+				NOT = { any_province_lord = { character = FROM } }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = 2 } }
+		}
+		if = {
+			limit = {
+				revolt_risk = 0.2
+				NOT = { any_province_lord = { character = FROM } }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = 2 } }
+		}
+		if = {
+			limit = {
+				revolt_risk = 0.3
+				NOT = { any_province_lord = { character = FROM } }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = 2 } }
+		}
+		if = {
+			limit = {
+				revolt_risk = 0.4
+				NOT = { any_province_lord = { character = FROM } }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = 2 } }
+		}
+		if = {
+			limit = {
+				revolt_risk = 0.5
+				NOT = { any_province_lord = { character = FROM } }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = 2 } }
+		}
+		if = {
+			limit = {
+				revolt_risk = 0.6
+				NOT = { any_province_lord = { character = FROM } }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = 2 } }
+		}
+		if = {
+			limit = {
+				revolt_risk = 0.7
+				NOT = { any_province_lord = { character = FROM } }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = 2 } }
+		}
+		if = {
+			limit = {
+				revolt_risk = 0.8
+				NOT = { any_province_lord = { character = FROM } }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = 2 } }
+		}
+		if = {
+			limit = {
+				revolt_risk = 0.9
+				NOT = { any_province_lord = { character = FROM } }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = 2 } }
+		}
+		if = {
+			limit = {
+				revolt_risk = 1
+				NOT = { any_province_lord = { character = FROM } }
+			}
+			FROM = { change_variable = { which = "victory_margin_popular" value = 2 } }
+		}
+	}
+}
+
+# A challenger has beaten you in a popular election!
+character_event = {
+	id = laws.5210
+	desc = "EVTDESCLAWS5210"
+	picture = GFX_evt_election
+	is_triggered_only = yes
+	
+	trigger = { FROM = { check_variable = { which = "victory_margin_popular" value = 1 } } }
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		if = {
+			limit = {
+				primary_title = {
+					has_title_flag = flag_holding_election
+					has_law = succ_patrician_elective
+					current_heir = { character = FROM }
+				}
+			}
+			primary_title = { set_title_flag = flag_just_won_popular_election }
+			hold_election = yes
+			hidden_tooltip = { character_event = { id = laws.5211 days = 1 } }
+		}
+		any_demesne_title = {
+			limit = {
+				has_title_flag = flag_holding_election
+				has_law = succ_open_elective_crisis
+				current_heir = { character = FROM }
+			}
+			set_title_flag = flag_just_won_popular_election
+			usurp_title_plus_barony_if_unlanded_and_vassals  = FROM
+		}
+	}
+}
+
+# Special case - the hold_election command needs to be finessed a little
+character_event = {
+	id = laws.5211
+	hide_window = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		liege = { character_event = { id = laws.5212 } }
+	}
+}
+
+# Apparently becoming doge is a special case
+character_event = {
+	id = laws.5212
+	desc = "EVTDESCLAWS5212"
+	picture = GFX_evt_election
+	is_triggered_only = yes
+	
+	trigger = {
+		any_demesne_title = {
+			has_title_flag = flag_just_won_popular_election
+			has_law = succ_patrician_elective
+		}
+	}
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		any_demesne_title = {
+			limit = {
+				has_title_flag = flag_just_won_popular_election
+				has_law = succ_patrician_elective
+			}
+			# End election
+			clr_title_flag = flag_just_won_popular_election
+			clr_title_flag = flag_holding_election
+			clr_title_flag = flag_election_cycle
+			set_title_flag = flag_election_cycle
+			if = {
+				limit = { tier = duke }
+				ROOT = { prestige = 50 }
+			}
+			if = {
+				limit = { tier = king }
+				ROOT = { prestige = 75 }
+			}
+			if = {
+				limit = { tier = emperor }
+				ROOT = { prestige = 100 }
+			}
+		}
+	}
+}
+
+character_event = {
+	id = laws.5213
+	desc = "EVTDESCLAWS5213"
+	notification = yes
+	is_triggered_only = yes
+	
+	immediate = { }
+	
+	option = { name = "EVTOPTCONFIRM" } # Escape option
+}
+
+# Called from any titles you win in a popular election
+character_event = {
+	id = laws.5215
+	desc = "EVTDESCLAWS5215"
+	picture = GFX_evt_election
+	is_triggered_only = yes
+	
+	trigger = { FROM = { has_title_flag = flag_just_won_popular_election } }
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		FROM = {
+			# End election
+			clr_title_flag = flag_just_won_popular_election
+			clr_title_flag = flag_holding_election
+		}
+		# Gain prestige equivalent to gained titles
+		if = {
+			limit = { FROM = { tier = count } }
+			prestige = 25
+		}
+		if = {
+			limit = { FROM = { tier = duke } }
+			prestige = 50
+		}
+		if = {
+			limit = { FROM = { tier = king } }
+			prestige = 75
+		}
+		if = {
+			limit = { FROM = { tier = emperor } }
+			prestige = 100
+		}
+		# Inform all relevant personnel of the new incumbent
+		hidden_tooltip = {
+			any_realm_character = {
+				limit = {
+					NOT = { character = ROOT }
+					OR = {
+						any_liege = { character = ROOT }
+						any_vassal = { character = ROOT }
+					}
+				}
+				character_event = { id = laws.5216 }
+			}
+		}
+	}
+}
+
+character_event = {
+	id = laws.5216
+	desc = "EVTDESCLAWS5216"
+	notification = yes
+	is_triggered_only = yes
+	
+	immediate = { }
+	
+	option = { name = "EVTOPTCONFIRM" } # Escape option
+}
+
+# A challenger has lost to you in a popular election!
+character_event = {
+	id = laws.5220
+	desc = "EVTDESCLAWS5220"
+	picture = GFX_evt_election
+	is_triggered_only = yes
+	
+	trigger = { FROM = { NOT = { check_variable = { which = "victory_margin_popular" value = 1 } } } }
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		any_demesne_title = {
+			limit = {
+				has_title_flag = flag_holding_election
+				OR = {
+					has_law = succ_open_elective_crisis
+					has_law = succ_patrician_elective
+				}
+				current_heir = { character = FROM }
+			}
+			
+			# End the election and reset the election cycle
+			clr_title_flag = flag_holding_election
+			clr_title_flag = flag_election_cycle
+			set_title_flag = flag_election_cycle
+			
+			# Gain prestige based on title rank
+			if = {
+				limit = { tier = count }
+				ROOT = { prestige = 25 }
+			}
+			if = {
+				limit = { tier = duke }
+				ROOT = { prestige = 50 }
+			}
+			if = {
+				limit = { tier = king }
+				ROOT = { prestige = 75 }
+			}
+			if = {
+				limit = { tier = emperor }
+				ROOT = { prestige = 100 }
+			}
+			hidden_tooltip = {
+				current_heir = {
+					if = {
+						limit = { NOT = { has_character_flag = flag_informed_of_election_loss } }
+						set_character_flag = flag_informed_of_election_loss
+						character_event = { id = laws.5225 }
+					}
+				}
+			}
+		}
+		hidden_tooltip = {
+			ROOT = {
+				any_realm_character = {
+					limit = {
+						NOT = { character = ROOT }
+						OR = {
+							any_liege = { character = ROOT }
+							any_vassal = { character = ROOT }
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+# You lost the federal election
+character_event = {
+	id = laws.5225
+	desc = "EVTDESCLAWS5225"
+	picture = GFX_evt_election
+	is_triggered_only = yes
+	
+	option = {
+		clr_character_flag = flag_informed_of_election_loss
+		name = "EVTOPTCONFIRM"
+	}
+}
+
+character_event = {
+	id = laws.5226
+	desc = "EVTDESCLAWS5226"
+	notification = yes
+	is_triggered_only = yes
+	
+	immediate = { }
+	
+	option = { name = "EVTOPTCONFIRM" } # Escape option
+}
+
+# Reset election cycle when a title changes hands
+character_event = {
+	id = laws.5500
+	hide_window = yes
+	is_triggered_only = yes
+	
+	trigger = {
+		FROM = {
+			OR = {
+				has_law = succ_patrician_elective
+				has_law = succ_feudal_elective
+				has_law = succ_open_elective_crisis
+				has_law = succ_tanistry
+			}
+			OR = {
+				has_law = crown_term_length_0
+				has_law = crown_term_length_1
+				has_law = crown_term_length_2
+				has_law = crown_term_length_3
+				has_law = local_term_length_0
+				has_law = local_term_length_1
+				has_law = local_term_length_2
+				has_law = local_term_length_3
+			}
+		}
+	}
+	
+	immediate = {
+		FROM = {
+			clr_title_flag = flag_election_cycle
+			set_title_flag = flag_election_cycle
+		}
+	}
+}
+
+# Election debug event - hold elections wherever they're valid
+character_event = {
+	id = laws.5250
+	hide_window = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		any_demesne_title = {
+			limit = {
+				is_primary_holder_title_tier = yes
+				OR = {
+					has_law = succ_patrician_elective
+					has_law = succ_feudal_elective
+					has_law = succ_tanistry
+					has_law = succ_open_elective_crisis
+				}
+			}
+			set_title_flag = flag_holding_election
+		}
+		character_event = { id = laws.5000 }
+	}
+}

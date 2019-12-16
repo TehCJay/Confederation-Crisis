@@ -1,0 +1,808 @@
+# Targetted decisions are possible vs _all_ other characters and shown are in the Diplomacy View, not the Intrigue View. The taker is in the FROM scope.
+#
+# ai_target_filter = [self/court/home_court/vassals/sub_realm/realm/dynasty/all] (which characters for which the AI evaluates the decision.)
+#	court: all characters in the AI's host court, including prisoners, and characters currently away (wards, prisoners, etc)
+#	home_court: all characters in the AI's home court, including prisoners, and characters currently away (wards, prisoners, etc)
+#	vassals: direct vassal rulers of the AI's employer
+#	sub_realm: all characters below the AI's employer
+#	realm: all characters in the same top realm as the AI
+#	dynasty: all members of the same dynasty
+#	rivals: your rivals plus any character you have an opinion modifier with 'crime = yes' set (the same set of characters the 'is_foe' trigger evaluates)
+#	all: all living characters (Avoid if possible. VERY CPU-HEAVY!)
+#	
+decisions = {
+	request_LP_title = {
+		is_high_prio = yes
+		only_playable = yes
+		ai_check_interval = 40 
+ potential = {
+			ai = no  # The AI is limited to the similar event 63076
+			age = 16
+			tier = DUKE
+			NOT = { trait = incapable }
+			demesne_size = 1
+			NOT = { government = military_command_government }
+			is_nomadic = no
+			liege = { 
+				tier = EMPEROR 
+				OR = {
+					any_vassal = { tier = KING }
+					num_of_king_titles = 2
+				}
+				NOT =  { #Interregnum
+					primary_title = {
+						is_variable_equal = { which = "lord_paramount_status" value = 2 }	
+					}
+				}
+			}
+			primary_title = {
+				dejure_liege_title = {
+					NOT = { any_war = { always = yes } } #is not being contested
+					OR = { #is either vacant or held by liege
+						has_holder = no 
+						holder_scope = {
+							is_liege_of = ROOT
+						}
+					}	
+					NOT = { #Cannot ask for primary LP title
+						holder_scope = {
+							any_demesne_title = {
+								tier = count
+								location = { is_capital = yes }
+								de_jure_liege_or_above = PREVPREV
+							}
+						}
+					}	
+					NAND = {  #Cannot ask for sole LP title in Iron Throne elective realm
+						holder_scope = { is_liege_of = ROOT }
+						dejure_liege_title = {
+							title = e_iron_throne
+							NOT = { has_global_flag = non_iron_throne_westeros }
+							has_law = succ_feudal_elective
+							holder_scope = {
+								is_liege_of = ROOT
+								NOT = { num_of_king_titles = 2 }
+							}
+						}
+					}		
+					OR = { #Must hold title or control all the territory
+						holder_scope = { is_liege_of = ROOT }
+						ROOT = { liege = { completely_controls = PREVPREV } }
+						NOT = { 
+							any_direct_de_jure_vassal_title = {
+								holder_scope = {
+									NOT = { same_realm = ROOT }
+									NOT = { culture_group = unoccupied_group }
+								}
+							}
+						}	
+					}					
+					OR = { #cannot request a vacant crownlands title
+						NOT = { title = k_crownlands }
+						has_holder = yes
+					}	
+					OR = { #Cannot request Sarnor or North Valyria if they have had no previous holder
+						NOT = { 
+							OR = {
+								title = k_sarnor
+								title = k_north_valyria
+							}	
+						}
+						any_previous_holder = { always = yes }
+					}
+					OR = { #Can only request Andalos or Rhoyne if correct culture
+						NOT = { title = k_andalos }
+						ROOT = { culture_group = andal }
+					}
+					OR = { #Can only request Andalos or Rhoyne if correct culture
+						NOT = { title = k_rhoynar }
+						ROOT = { culture_group = dornish }
+					}
+					NOT = { #cannot request a title if equivalent kingdom exists
+						OR = {
+							title = k_beyond_wall
+							title = k_nightswatch
+							title = k_dragonstone
+							title = k_crackclaw_point
+							AND = {
+								title = k_north
+								e_north = { has_holder = yes }
+							}
+							AND = {
+								title = k_riverlands
+								e_riverlands = { has_holder = yes }
+							}
+							AND = {
+								title = k_vale
+								e_vale = { has_holder = yes }
+							}
+							AND = {
+								title = k_westerlands
+								e_westerlands = { has_holder = yes }
+							}
+							AND = {
+								title = k_reach
+								e_reach = { has_holder = yes }
+							}
+							AND = {
+								title = k_stormlands
+								e_stormlands = { has_holder = yes }
+							}
+							AND = {
+								title = k_dorne
+								e_dorne = { has_holder = yes }
+							}
+							AND = {
+								title = k_iron_isles
+								e_iron_isles = { has_holder = yes }
+							}
+						}
+					}			
+				}
+			}
+			OR = {
+				NOT = { has_character_flag = requested_lord_paramountcy }
+				had_character_flag = { flag = requested_lord_paramountcy days = 3650 }
+			}
+		}
+		allow = {
+			liege = {
+				opinion = {
+					who = ROOT
+					value = 25
+				}
+			}
+			war = no
+			prisoner = no
+			NOT = { is_inaccessible_trigger = yes }
+		}
+		effect = {
+			set_character_flag = requested_lord_paramountcy
+			primary_title = { dejure_liege_title = { save_event_target_as = LP_title } } #for loc
+			liege = { letter_event = { id = 63077 days = 4 tooltip = "EVTTOOLTIP63077"  } } # "vassal_request_events.txt"
+		}
+	}
+	ask_liege_help = {
+		is_high_prio = yes
+		only_playable = yes
+		ai_check_interval = 40 
+ potential = { #thse conditions are also used in event interaction.899
+			is_ruler = yes
+			war = yes
+			prisoner = no
+			#OR = {
+				NOT = { liege = { character = ROOT } }
+				#primary_title = { NOT = { NOT = { check_variable = { which = "de_facto_empire" value = 1 } } } }
+				#}	
+			any_war = {
+				defender = { character = ROOT }
+				NOT = { using_cb = enforce_justice }
+				attacker = {
+					ROOT = {
+						liege = {
+							NOT = { character = PREVPREV }
+							is_vassal_or_below = PREVPREV	
+						}
+					}	
+					#liege = { 					
+						#OR = {
+							# is_vassal_or_below = ROOT
+							# AND = {
+								# higher_tier_than = ROOT
+								# reverse_has_opinion_modifier = { who = FROM modifier = opinion_de_facto_liege }
+								# NOT = { reverse_has_opinion_modifier = { who = FROM modifier = opinion_granted_independence } }
+								# }
+							#}		
+						#}
+					ROOT = {
+						liege = {
+							OR = {
+								AND = { 
+									primary_title = { NOT = { has_law = diplomacy_voting_power_1 } } 
+									has_regent = no
+								}
+								NOT = { reverse_has_opinion_modifier = { who = PREVPREV modifier = voted_on_stand_down } }
+							}
+						}
+					}	
+					OR = {
+						ROOT = { liege = { NOT = { reverse_has_opinion_modifier = { who = PREVPREV modifier = asked_to_stand_down } } } }
+						AND = {
+							prisoner = yes
+							host = { is_liege_of = ROOT }
+						}
+					}
+					NOT = { has_minor_title = title_triarch }
+				}
+			}
+			OR = {
+				had_character_flag = { flag = asked_help_liege days = 1000} 
+				NOT = { has_character_flag = asked_help_liege }
+			}		
+		}
+		allow = {
+			any_war = {
+				NOT = { war_score = 90 }
+				defender = { character = ROOT }
+				attacker = {
+					ROOT = {
+						liege = {
+							hidden_tooltip = { NOT = { character = PREVPREV } }
+							is_vassal_or_below = PREVPREV	
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			set_character_flag = asked_help_liege
+			prestige = -100
+			liege = {	
+				letter_event = { id = interaction.8 tooltip = TOOLTIPinteraction.8 }	
+			}	
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			
+			modifier = {
+				factor = 0.05
+			}
+			modifier = {
+				factor = 5
+				any_war = {
+					defender = { character = ROOT }
+					war_score = 70				
+				}
+			}
+			modifier = {
+				factor = 5
+				any_war = {
+					defender = { character = ROOT }
+					attacker = { relative_power = { who = ROOT power = 1.5 } }					
+				}
+			}
+			modifier = {
+				factor = 0.2
+				trait = proud
+			}
+			modifier = {
+				factor = 5
+				trait = humble
+			}
+			#don't ask before beaten
+			modifier = {
+				factor = 0
+				NOT = {
+					any_war = {
+						defender = { character = ROOT }
+						OR = {
+							war_score = 40
+							attacker = { relative_power = { who = ROOT power = 0.9 } }
+						}						
+					}
+				}
+				NOT = { trait = craven }
+				has_regent = no
+			}
+			modifier = { # Crownlands are protected by the King for non-crownlands wars
+				factor = 100
+				capital_scope = {
+					region = world_crownlands
+				}
+				top_liege = { has_landed_title = e_iron_throne }
+				any_war = {
+					defender = { character = ROOT }
+					attacker = {
+						NOT = {
+							capital_scope = {
+								region = world_crownlands
+							}	
+						}
+					}			
+				}
+			}
+		}
+	}
+}
+targetted_decisions = {
+	ask_to_surrender = {
+		#is_high_prio = yes
+		
+		from_potential = {
+			ai = no
+		}
+		
+		ai_check_interval = 40 
+ potential = {
+			war_with = FROM
+		}
+		
+		allow = {
+			any_war = {
+				defender = { character = ROOT }
+				attacker = { character = FROM }
+			}
+		}
+		
+		effect = {
+			ROOT = {
+				save_event_target_as = bend_knee
+			}
+			FROM = {
+				save_event_target_as = ask_bend_knee
+			}
+			ROOT = { #Surrender option
+				if = {
+					limit = { NOT = { has_character_flag = crownlander_resists } NOT = { trait = dragon_rider } }
+					set_character_flag = considering_surrender
+					character_event = { id = dragon.67 days = 7 tooltip = TOOLTIPdragon.67 } 
+				}	
+			}	
+		}
+	}
+	
+	stand_down = {
+		#is_high_prio = yes
+		ai_target_filter = self
+		filter = sub_realm
+		only_playable = yes
+		
+		from_potential = {
+			ai = no
+		}
+		ai_check_interval = 40 
+ potential = {		
+			is_ruler = yes
+			is_liege_or_above = FROM
+			any_war = {
+				NOT = { using_cb = enforce_justice }
+				attacker = {
+					character = ROOT
+					NOT = { has_minor_title = title_triarch }
+				}
+				defender = { 
+					OR = {
+						is_liege_or_above = FROM
+						AND = {
+							lower_tier_than = FROM
+							has_opinion_modifier = { who = FROM modifier = opinion_de_facto_liege }
+							NOT = { has_opinion_modifier = { who = FROM modifier = opinion_granted_independence } }
+						}
+						is_allied_with = FROM
+						has_non_aggression_pact_with = FROM
+					}	
+				}
+			}
+		}
+		allow = {			
+			OR = {
+				custom_tooltip = {
+					text = TOOLTIPstand_downCOUNCIL
+					hidden_tooltip = {
+						FROM = { 
+							primary_title = { NOT = { has_law = diplomacy_voting_power_1 } } 
+							has_regent = no
+						}
+					}
+				}	
+				custom_tooltip = {
+					text = TOOLTIPstand_downCOUNCILCOOLDOWN
+					hidden_tooltip = { NOT = { has_opinion_modifier = { who = FROM modifier = voted_on_stand_down } } }
+				}	
+			}	
+			OR = {
+				custom_tooltip = {
+					text = TOOLTIPstand_downASKED
+					hidden_tooltip = { NOT = { has_opinion_modifier = { who = FROM modifier = asked_to_stand_down } } }
+				}	
+				custom_tooltip = {
+					text = TOOLTIPstand_downPRISONER
+					hidden_tooltip = {
+						prisoner = yes
+						host = { character = FROM }
+					}	
+				}
+			}
+			diplomatic_immunity = no
+		}
+		effect = {
+			if = {
+				limit = {
+					NOT = { 
+						crownlaw_title = { 
+							OR = {
+								has_law = public_order_0
+							}	
+						} 
+					}
+				}
+				custom_tooltip = { text = TOOLTIPPIinteraction.10 } #High Authority
+			}
+			if = {
+				limit = {
+					crownlaw_title = { 
+						OR = {
+							has_law = public_order_0
+						}	
+					} 
+				}
+				custom_tooltip = { text = TOOLTIPPIinteraction.11 } # Low Authority
+			}
+			if = {
+				limit = { 
+					FROM = { 
+						primary_title = { NOT = { has_law = diplomacy_voting_power_1 } } 
+						has_regent = no
+					} 
+				}				
+				hidden_tooltip = {			
+					FROM = { character_event = { id = interaction.9 } }
+					opinion = { #Cooldown
+						who = FROM
+						modifier = asked_to_stand_down 
+						years = 2
+					} 
+				}
+			}	
+			if = { #if council decides on diplomacy, vote first
+				limit = { 
+					FROM = { 
+						OR = {
+							primary_title = { has_law = diplomacy_voting_power_1 }
+							has_regent = yes
+						}	
+					} 
+				}
+				custom_tooltip = {
+					text = TOOLTIPstand_downVOTE
+					hidden_tooltip = {
+						any_war = {
+							if = {
+								limit = {
+									attacker = {
+										character = ROOT
+										NOT = { has_minor_title = title_triarch }
+									}
+									defender = { 
+										OR = {									
+											is_liege_or_above = FROM
+											AND = {
+												lower_tier_than = FROM
+												has_opinion_modifier = { who = FROM modifier = opinion_de_facto_liege }
+												NOT = { has_opinion_modifier = { who = FROM modifier = opinion_granted_independence } }
+											}
+											is_allied_with = FROM
+											has_non_aggression_pact_with = FROM
+										}	
+									}
+								}	
+								defender = { save_event_target_as = stand_down_defender }
+							}	
+						}
+						FROM = {
+							if = {
+								limit = { has_regent = no }
+								set_character_flag = stand_down_vote_for
+								set_variable = { which = council_end_war_votes value = 1 } #one vote in favour
+							}
+							if = {
+								limit = { has_regent = yes }
+								set_variable = { which = council_end_war_votes value = 0 }
+							}							
+							any_courtier = {
+								limit = {
+									OR = {
+										is_councillor = yes
+										is_voter = yes
+									}	
+									liege = { character = PREVPREV }
+									NOT = { character = PREV }
+								}
+								character_event = { id = councillor.1 } #vote
+								if = {
+									limit = { ai = no }
+									character_event = { id = councillor.2 days = 2 } #result
+								}
+							}	
+							character_event = { id = councillor.2 days = 3 } #result
+						}	
+					}
+				}
+				hidden_tooltip = {			
+					opinion = { #Cooldown
+						who = FROM
+						modifier = voted_on_stand_down
+						years = 2
+					} 
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	grant_lp = {
+		ai_target_filter = self
+		filter = vassals
+		only_independent = yes
+		
+		from_potential = {
+			ai = no
+			tier = EMPEROR	
+		}
+		ai_check_interval = 40 
+ potential = {										
+			is_ruler = yes
+			NOT = { tier = BARON }
+			NOT = { tier = KING }
+			NOT = { character = FROM }
+			liege = { character = FROM }
+			capital_scope = {
+				kingdom = {
+					OR = {
+						has_holder = no 
+						AND = {
+							ROOT = { is_merchant_republic = yes }
+							holder_scope = { character = FROM }
+						}
+					}	
+					OR = { #Must hold title or control all the territory
+						holder_scope = { character = FROM }
+						FROM = { completely_controls = PREV }
+						NOT = { 
+							any_direct_de_jure_vassal_title = {
+								holder_scope = {
+									NOT = { is_liege_or_above = FROM }
+									NOT = { character = FROM }
+									NOT = { culture_group = unoccupied_group }
+								}
+							}
+						}	
+					}
+					NOT = { #cannot request a title if equivalent kingdom exists
+						OR = {
+							AND = {
+								title = k_north
+								e_north = { has_holder = yes }
+							}
+							AND = {
+								title = k_riverlands
+								e_riverlands = { has_holder = yes }
+							}
+							AND = {
+								title = k_vale
+								e_vale = { has_holder = yes }
+							}
+							AND = {
+								title = k_westerlands
+								e_westerlands = { has_holder = yes }
+							}
+							AND = {
+								title = k_reach
+								e_reach = { has_holder = yes }
+							}
+							AND = {
+								title = k_stormlands
+								e_stormlands = { has_holder = yes }
+							}
+							AND = {
+								title = k_dorne
+								e_dorne = { has_holder = yes }
+							}
+							AND = {
+								title = k_iron_isles
+								e_iron_isles = { has_holder = yes }
+							}
+						}
+					}		
+				}
+			}
+			NOT = { trait = dragon }
+		}
+		allow = {			
+			FROM = {
+				OR = {
+					has_regent = no
+					regent = { opinion = { who = ROOT value = 0 } }
+				}
+			}
+			war = no
+			NOT = { government = military_command_government }
+			is_nomadic = no
+			capital_scope = {
+				kingdom = {
+					NOT = { any_war = { always = yes } } #is not being contested
+					OR = { #cannot request a vacant crownlands title
+						NOT = { title = k_crownlands }
+						has_holder = yes
+					}	
+					OR = { #Cannot request Sarnor or North Valyria if they have had no previous holder
+						NOT = { 
+							OR = {
+								title = k_sarnor
+								title = k_north_valyria
+							}	
+						}
+						any_previous_holder = { always = yes }
+					}
+					OR = { #Can only request Andalos or Rhoyne if correct culture
+						NOT = { title = k_andalos }
+						ROOT = { culture_group = andal }
+					}
+					OR = { #Can only request Andalos or Rhoyne if correct culture
+						NOT = { title = k_rhoynar }
+						ROOT = { culture_group = dornish }
+					}
+					NOT = {
+						OR = {
+							title = k_beyond_wall
+							title = k_nightswatch
+							title = k_dragonstone
+							title = k_crackclaw_point
+						}
+					}	
+				}
+			}	
+			can_press_claims_trigger = yes
+		}
+		effect = {
+			clr_character_flag = requested_lord_paramountcy 
+			clr_character_flag = helped_king_LP
+			capital_scope = {
+				kingdom = {
+					if = { #ensure LP titles stay non-royal
+						limit = { is_variable_equal = { which = "lord_paramount_status" value = 1 } } #1 = lord paramount, 2 = interregnum
+						ROOT = { set_character_flag = lord_paramount }
+					}
+					grant_title = PREVPREV				
+				}	
+			}
+			if = {
+				limit = { NOT = { has_opinion_modifier = { who = FROM modifier = opinion_granted_kingdom } } }
+				opinion = {
+					who = FROM
+					modifier = opinion_granted_kingdom
+				}
+			} 
+			hidden_tooltip = { 
+				FROM = { character_event = { id = 639978 } }
+				if = {
+					limit = { liege = { NOT = { character = FROM } } }
+					set_defacto_liege = FROM
+				}	
+				if = {
+					limit = { has_character_flag = lord_paramount }
+					clr_character_flag = lord_paramount
+					primary_title = { set_variable = { which = "lord_paramount_status" value = 1 } } #1 = lord paramount, 2 = interregnum 
+					set_government_type = feudal_government_LP
+					#remove special titles
+					if = {
+						limit = {
+							primary_title = {
+								OR = {
+									title = k_wolfswoodTK
+									title = k_barrowlandsTK
+									title = k_theneckTK
+									title = k_dreadfortTK
+									title = k_winterfellTK
+									title = k_riverrunTK
+									title = k_dragonstone
+									title = k_duskendaleTK
+									title = k_shipbreakerTK
+								}
+							}	
+						}
+						remove_special_character_title = yes
+					}
+				}
+			}
+			FROM = {
+				any_vassal = {
+					limit = { 
+						tier = DUKE
+						NOT = { character = ROOT }
+						capital_scope = {
+							kingdom = {
+								any_realm_province = {
+									is_capital = yes
+									owner = { character = ROOT }
+								}
+							}
+						}
+						NOT = { reverse_has_opinion_modifier = { who = PREV modifier = opinion_dithered } }
+						OR = {
+							has_character_flag = helped_king_LP
+							reverse_has_opinion_modifier = { who = PREV modifier = opinion_loyal_to_crown }
+							reverse_has_opinion_modifier = { who = PREV modifier = opinion_joined_cause }
+						}			
+					}
+					opinion = {
+						who = PREV
+						modifier = opinion_denied_title
+						months = 60
+					}
+				}
+				hidden_tooltip = { character_event = { id = 45361 days = 1 } }#check for tyranny for going against council
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	
+	request_important_prisoners = {
+		is_high_prio = yes
+		ai_target_filter = sub_realm
+		filter = sub_realm
+		only_playable = yes
+		
+		from_potential = {
+			is_ruler = yes
+		}
+		ai_check_interval = 40 
+ potential = {
+			is_ruler = yes
+			is_liege_or_above = FROM
+			any_courtier = {
+				prisoner = yes
+				host = { character = PREVPREV }
+				OR = {
+					AND = {
+						is_ruler = yes
+						war_with = FROM
+					}
+					liege = {
+						is_close_relative = PREV
+						war_with = FROM
+					}							
+				}	
+				NOT = { has_character_flag = kidnapped_by_plot }
+			}
+		}
+
+		allow = { 
+			OR = {			
+				NOT = { reverse_has_opinion_modifier = { who = FROM modifier = opinion_refused_prisoner_transfer } }
+				AND = {
+					prisoner = yes
+					host = { character = FROM }
+				}
+			}	
+			NOT = { has_character_modifier = in_seclusion }
+		}
+
+		effect = {
+			letter_event = { id = diplomatic.200 tooltip = TOOLTIPdiplomatic.200 }
+			tooltip = {			
+				any_courtier = {
+					limit = {
+						prisoner = yes
+						host = { character = PREVPREV }
+						OR = {
+							AND = {
+								is_ruler = yes
+								war_with = FROM
+							}
+							liege = {
+								is_close_relative = PREV
+								war_with = FROM
+							}							
+						}	
+						NOT = { has_character_flag = kidnapped_by_plot }
+					}
+					custom_tooltip = { text = TOOLTIPrequest_important_prisoners }
+				}
+			}	
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}	
+}

@@ -1,0 +1,454 @@
+##########################################
+# COUNCILLOR TITLES
+##########################################
+
+#	attribute: This attribute is added to the ruler's for governance purposes
+#	viceroy: This is the Viceroy title for de jure Kingdoms
+#	allow: conditions for the character to hold the title
+#	gain_effect: fires when the title is granted
+#	lose_effect: fires when a title is lost if dismissal_trigger evaluates to false
+#	The other fields are all character modifiers.
+job_prime = { #maester
+	attribute = stewardship
+	dignity = 0.8
+	is_voter = yes
+	opinion_effect = 35
+	#show_as_title = yes
+	
+	monthly_salary = 0.3
+	monthly_prestige = 0.04
+	
+	allow = {
+	}
+	gain_effect = {
+		if = {
+			limit = {
+				has_opinion_modifier = {
+					who = FROM
+					modifier = opinion_fired_from_council
+				}
+			}
+			remove_opinion = { who = FROM modifier = opinion_fired_from_council }
+			opinion = { who = FROM modifier = opinion_job_security_concerns }
+		}
+		add_character_modifier = {
+			name = member_of_government
+			duration = 730
+		}
+			add_character_modifier = {
+			name = head_of_government
+			duration = 730
+		}
+		add_trait=new_council
+		remove_trait=hist_council
+	}
+	lose_effect = {
+		opinion = { who = FROM modifier = opinion_fired_from_council }
+		if = {
+			limit = { ai = no }
+			letter_event = { id = 45344 } #inform
+		}
+		remove_character_modifier = member_of_government
+		remove_character_modifier = head_of_government
+		remove_trait=new_council
+		add_trait=hist_council
+	}
+	retire_effect = {
+	remove_character_modifier = member_of_government
+		remove_character_modifier = head_of_government
+		remove_trait=new_council
+		add_trait=hist_council
+	}
+	dismiss_trigger = {
+		FROM = {
+			NOT = { 
+				AND = {
+					has_law = succession_voting_power_1
+					ROOT = { is_powerful_vassal = yes }
+				}
+			}
+			conditional_tooltip = {
+				trigger = {
+					has_character_flag = swapping_councillors
+				}
+				custom_tooltip = {
+					text = not_swapping_tt
+					hidden_tooltip = {
+						NOT = {
+							has_character_flag = swapping_councillors
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	action = action_build_legend
+	action = action_oversee_province
+	action = action_oversee_province_nomadic
+	action = action_organize_army
+	action = action_clan_sentiment
+	#action = action_executive_rules
+	#action = action_make_bureaucracy
+	#action = action_make_military
+	
+	lift_fow = yes
+}
+job_chancellor = {
+	is_chancellor = yes
+	attribute = diplomacy
+	dignity = 0.5
+	is_voter = yes
+	opinion_effect = 25
+	
+	monthly_salary = 0.15
+	monthly_prestige = 0.025
+	
+	allow = {
+		is_adult = yes
+		prisoner = no
+		NOT = { trait = incapable }
+	}
+	gain_effect = {
+		add_character_modifier = {
+			name = member_of_government
+			duration = 730
+		}
+		add_trait=new_council
+		remove_trait=hist_council
+	}
+	lose_effect = {
+		opinion = { who = FROM modifier = opinion_fired_from_council }
+		remove_character_modifier = member_of_government
+		remove_character_modifier = head_of_government
+		remove_trait=new_council
+		add_trait=hist_council
+	}
+	retire_effect = {
+	remove_character_modifier = member_of_government
+		remove_character_modifier = head_of_government
+		remove_trait=new_council
+		add_trait=hist_council
+	}
+	dismiss_trigger = {
+		FROM = {
+			NOT = { 
+				AND = {
+					has_law = succession_voting_power_1
+					ROOT = { is_powerful_vassal = yes }
+				}
+			}
+			conditional_tooltip = {
+				trigger = {
+					has_character_flag = swapping_councillors
+				}
+				custom_tooltip = {
+					text = not_swapping_tt
+					hidden_tooltip = {
+						NOT = {
+							has_character_flag = swapping_councillors
+						}
+					}
+				}
+			}
+		}
+	}
+	#action = action_build_legend
+	action = action_statecraft
+	action = action_improve_relations
+	action = action_sow_dissent
+	action = action_improve_castle_holding
+	action = action_fabricate_claims
+
+	lift_fow = yes
+}
+
+# NOTE: The allow trigger for this job also determines who can command armies!
+job_marshal = {
+	is_marshal = yes
+	attribute = martial
+	dignity = 0.33
+	is_voter = yes
+	opinion_effect = 15
+	
+	monthly_salary = 0.1
+	monthly_prestige = 0.015
+	
+	allow = {
+		is_adult = yes
+		prisoner = no
+		NOT = { trait = incapable }
+		NOT = { trait = in_hiding }
+		OR = {
+			#FROM = { is_military_trigger = yes }
+			is_military_trigger = yes
+			# trait = skilled_tactician
+			# trait = brilliant_strategist
+			# trait = experienced_captain
+			# trait = seasoned_commander
+			# trait = great_general
+			#martial = 17
+			has_minor_title = title_caesar
+			AND = {
+				government = pirate_kingdom
+				FROM = { government = pirate_kingdom }
+			}
+		}
+	}
+	
+	gain_effect = {
+			add_character_modifier = {
+			name = member_of_government
+			duration = 730
+		}
+		add_trait=new_council
+		remove_trait=hist_council
+	}
+	lose_effect = {
+		opinion = { who = FROM modifier = opinion_fired_from_council }
+		remove_character_modifier = member_of_government
+		remove_character_modifier = head_of_government
+		remove_trait=new_council
+		add_trait=hist_council
+	}
+	retire_effect = {
+	remove_character_modifier = member_of_government
+		remove_character_modifier = head_of_government
+		remove_trait=new_council
+		add_trait=hist_council
+	}
+	dismiss_trigger = {
+		FROM = {
+			NOT = { 
+				AND = {
+					has_law = succession_voting_power_1
+					ROOT = { is_powerful_vassal = yes }
+				}
+			}
+			conditional_tooltip = {
+				trigger = {
+					has_character_flag = swapping_councillors
+				}
+				custom_tooltip = {
+					text = not_swapping_tt
+					hidden_tooltip = {
+						NOT = {
+							has_character_flag = swapping_councillors
+						}
+					}
+				}
+			}
+		}
+	}
+
+	action = action_advance_mil_tech
+	action = action_pacify_province
+	action = action_pacify_province_nomadic
+	action = action_train_troops
+	action = action_train_troops_nomadic
+	action = action_improve_defenses
+
+	lift_fow = yes
+}
+
+job_treasurer = {
+	is_treasurer = yes
+	attribute = stewardship
+	dignity = 0.2
+	is_voter = yes
+	opinion_effect = 15
+	
+	monthly_salary = 0.1
+	monthly_prestige = 0.015
+	
+	allow = {
+		is_adult = yes
+		prisoner = no
+		NOT = { trait = incapable }
+	}
+	gain_effect = {
+			add_character_modifier = {
+			name = member_of_government
+			duration = 730
+		}
+		add_trait=new_council
+		remove_trait=hist_council
+	}
+	lose_effect = {
+		opinion = { who = FROM modifier = opinion_fired_from_council }
+		remove_character_modifier = member_of_government
+		remove_character_modifier = head_of_government
+		remove_trait=new_council
+		add_trait=hist_council
+	}
+	retire_effect = {
+	remove_character_modifier = member_of_government
+		remove_character_modifier = head_of_government
+		remove_trait=new_council
+		add_trait=hist_council
+	}
+	dismiss_trigger = {
+		FROM = {
+			NOT = { 
+				AND = {
+					has_law = succession_voting_power_1
+					ROOT = { is_powerful_vassal = yes }
+				}
+			}
+			conditional_tooltip = {
+				trigger = {
+					has_character_flag = swapping_councillors
+					}
+				custom_tooltip = {
+					text = not_swapping_tt
+					hidden_tooltip = {
+						NOT = {
+							has_character_flag = swapping_councillors
+						}
+					}
+				}
+			}
+		}
+	}
+	action = action_administer_realm
+	action = action_oversee_construction
+	action = action_squeeze_peasants
+	action = action_advance_eco_tech
+
+	lift_fow = yes
+}
+
+job_spymaster = {
+	is_spymaster = yes
+	attribute = intrigue
+	dignity = 0.1
+	is_voter = yes
+	opinion_effect = 15
+	
+	monthly_salary = 0.1
+	
+	allow = {
+		is_adult = yes
+		prisoner = no
+		NOT = { trait = incapable }
+	}
+	gain_effect = {
+			add_character_modifier = {
+			name = member_of_government
+			duration = 730
+		}
+		add_trait=new_council
+		remove_trait=hist_council
+	}
+	lose_effect = {
+		opinion = { who = FROM modifier = opinion_fired_from_council }
+		remove_character_modifier = member_of_government
+		remove_character_modifier = head_of_government
+		remove_trait=new_council
+		add_trait=hist_council
+	}
+	retire_effect = {
+	remove_character_modifier = member_of_government
+		remove_character_modifier = head_of_government
+		remove_trait=new_council
+		add_trait=hist_council
+	}
+	dismiss_trigger = {
+		FROM = {
+			NOT = { 
+				AND = {
+					has_law = succession_voting_power_1
+					ROOT = { is_powerful_vassal = yes }
+				}
+			}
+			conditional_tooltip = {
+				trigger = {
+					has_character_flag = swapping_councillors
+				}
+				custom_tooltip = {
+					text = not_swapping_tt
+					hidden_tooltip = {
+						NOT = {
+							has_character_flag = swapping_councillors
+						}
+					}
+				}
+			}
+		}
+	}
+	action = action_uncover_plots
+	#action = action_uncover_plots_offmap	Replaces action_uncover_plots if mystics is activated.
+	action = action_study_technology
+	action = action_assist_arrest
+
+	lift_neighbor_fow = yes
+}
+
+job_spiritual = {
+	is_spiritual = yes
+	attribute = learning
+	dignity = 0.15
+	is_voter = yes
+	opinion_effect = 15
+	
+	monthly_salary = 0.1
+	monthly_prestige = 0.015
+	
+	allow = {
+		is_adult = yes
+		prisoner = no
+		NOT = { trait = incapable }
+	}
+	gain_effect = {
+			add_character_modifier = {
+			name = member_of_government
+			duration = 730
+		}
+		add_trait=new_council
+		remove_trait=hist_council
+	}
+	lose_effect = {
+		opinion = { who = FROM modifier = opinion_fired_from_council }
+		remove_character_modifier = member_of_government
+		remove_character_modifier = head_of_government
+		remove_trait=new_council
+		add_trait=hist_council
+	}
+	retire_effect = {
+	remove_character_modifier = member_of_government
+		remove_character_modifier = head_of_government
+		remove_trait=new_council
+		add_trait=hist_council
+	}
+	dismiss_trigger = {
+		FROM = {
+			NOT = { 
+				AND = {
+					has_law = succession_voting_power_1
+					ROOT = { is_powerful_vassal = yes }
+				}
+			}
+			conditional_tooltip = {
+				trigger = {
+					has_character_flag = swapping_councillors
+				}
+				custom_tooltip = {
+					text = not_swapping_tt
+					hidden_tooltip = {
+						NOT = {
+							has_character_flag = swapping_councillors
+						}
+					}
+				}
+			}
+		}
+	}
+
+	lift_fow = yes
+	#action = action_hunt_heretics
+	action = action_inquisition
+	action = action_inquisition_emp
+	action = action_build_zeal
+	action = action_improve_rel_relations
+	action = action_advance_cul_tech
+}

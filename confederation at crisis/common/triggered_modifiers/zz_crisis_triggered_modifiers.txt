@@ -1,0 +1,231 @@
+##################################################
+#
+# STRATEGIC EFFECTS - A.K.A. "TRIGGERED MODIFIERS"
+#
+##################################################
+
+# Player isn't picking an ambition
+# We probably need this... Since foci have negative effect too.
+player_no_ambition = {
+	potential = {
+		is_ruler = yes
+	}
+
+	trigger = {
+		is_ruler = yes
+		OR = {
+			NOT = { has_character_flag = obj_aborted }
+			had_character_flag = {
+				flag = obj_aborted
+				days = 1095
+			}
+		}
+		has_regent = no
+		is_adult = yes
+		ai = no
+		NOT = { has_ambition = yes }
+	}
+
+	icon = 25
+
+	monthly_character_prestige = -1
+}
+
+
+
+##################################################
+#
+# STRATEGIC EFFECTS - A.K.A. "TRIGGERED MODIFIERS"
+#
+##################################################
+
+# Not commanding troops in war
+robmodcombat_not_in_command = {
+	potential = { is_ruler = yes }
+	
+	trigger = {
+		in_command = no
+		war = yes
+		OR = {
+			is_primary_war_attacker = yes
+			is_primary_war_defender = yes
+		}
+		OR = {
+			is_tribal = yes
+			is_feudal = yes
+		}
+		is_incapable = no
+		prisoner = no
+		is_ill = no
+		NOR = { 
+			trait = infirm
+			trait = severely_injured
+			trait = mangled
+			trait = imbecile
+			trait = blinded
+		}
+		has_job_action = no
+		age = 16
+		is_female = no
+	}
+	icon = 31
+	active = yes
+	
+	monthly_character_prestige = -1
+	vassal_opinion = -10
+	land_morale = -0.05
+}
+##################################################
+#
+# STRATEGIC EFFECTS - A.K.A. "TRIGGERED MODIFIERS"
+#
+##################################################
+
+command_modifier = {
+	potential = { always = yes }
+	trigger = { in_command = yes }
+
+	icon = 13
+
+	martial = 1
+	health = -0.2
+	fertility = -0.40
+	vassal_opinion = 5
+	same_opinion_if_same_religion = 10
+	monthly_character_prestige = 0.5
+	
+	is_abroad = yes
+}
+
+#####Most modifiers are now scripted for optimisation####
+
+#General modifiers for all rulers can be added to event maintenance.54
+
+#Modifiers intended for a particular group of characters can be added with events in the form:
+
+# #Pirate Fleet modifiers
+# character_event = {
+	# id = pirate.40
+
+	# only_playable = yes
+	# hide_window = yes
+	
+	# trigger = {
+		# trait = pirate
+		# NOT = { has_character_flag = pirate_fleet_modifier }
+	# }
+	
+	# immediate = {
+		# set_character_flag = pirate_fleet_modifier
+		# character_event = { id = pirate.41 days = 1 }
+	# }
+	
+	# option = {
+		# name = OK
+	# }
+# }
+# character_event = {
+	# id = pirate.41
+
+	# is_triggered_only = yes
+	# hide_window = yes
+	
+	# trigger = {
+		# has_character_flag = pirate_fleet_modifier
+	# }
+	
+	# immediate = {
+		# remove_character_modifier = pirate_fleet_20
+		# remove_character_modifier = pirate_fleet_18
+		# remove_character_modifier = pirate_fleet_16
+		# remove_character_modifier = pirate_fleet_14
+		# remove_character_modifier = pirate_fleet_12
+		# remove_character_modifier = pirate_fleet_10
+		# remove_character_modifier = pirate_fleet_8
+		# remove_character_modifier = pirate_fleet_6
+		# remove_character_modifier = pirate_fleet_4
+		# remove_character_modifier = pirate_fleet_3
+		# remove_character_modifier = pirate_fleet_2
+		# remove_character_modifier = pirate_fleet_1
+		# if = {
+			# limit = {
+				# OR = {
+					# NOT = { trait = pirate }
+					# NOT = { prestige = 100 }
+					# is_ruler = no
+				# }
+			# }
+			# clr_character_flag = pirate_fleet_modifier			
+			# break = yes
+		# }
+		# character_event = { id = pirate.41 days = 60 } #check modifier bi-monthly		
+		# if = {
+			# limit = { prestige = 2000 }
+			# add_character_modifier = { name = pirate_fleet_20 duration = -1 }
+			# break = yes
+		# }
+		# if = {
+			# limit = { prestige = 1800 }
+			# add_character_modifier = { name = pirate_fleet_18 duration = -1 }
+			# break = yes
+		# }
+		# if = {
+			# limit = { prestige = 1600 }
+			# add_character_modifier = { name = pirate_fleet_16 duration = -1 }
+			# break = yes
+		# }
+		# if = {
+			# limit = { prestige = 1400 }
+			# add_character_modifier = { name = pirate_fleet_14 duration = -1 }
+			# break = yes
+		# }
+		# if = {
+			# limit = { prestige = 1200 }
+			# add_character_modifier = { name = pirate_fleet_12 duration = -1 }
+			# break = yes
+		# }
+		# if = {
+			# limit = { prestige = 1000 }
+			# add_character_modifier = { name = pirate_fleet_10 duration = -1 }
+			# break = yes
+		# }
+		# if = {
+			# limit = { prestige = 800 }
+			# add_character_modifier = { name = pirate_fleet_8 duration = -1 }
+			# break = yes
+		# }
+		# if = {
+			# limit = { prestige = 600 }
+			# add_character_modifier = { name = pirate_fleet_6 duration = -1 }
+			# break = yes
+		# }
+		# if = {
+			# limit = { prestige = 400 }
+			# add_character_modifier = { name = pirate_fleet_4 duration = -1 }
+			# break = yes
+		# }
+		# if = {
+			# limit = { prestige = 300 }
+			# add_character_modifier = { name = pirate_fleet_3 duration = -1 }
+			# break = yes
+		# }
+		# if = {
+			# limit = { prestige = 200 }
+			# add_character_modifier = { name = pirate_fleet_2 duration = -1 }
+			# break = yes
+		# }
+		# if = {
+			# limit = { prestige = 100 }
+			# add_character_modifier = { name = pirate_fleet_1 duration = -1 }
+			# break = yes
+		# }
+	# }
+	
+	# option = {
+		# name = OK
+	# }
+# }
+
+
+
+

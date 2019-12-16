@@ -1,0 +1,2047 @@
+#FROM scope
+is_investiture_comp = {
+	OR = {
+		religion = terran_imperial
+		religion = orthodox
+		religion = cyberneticist
+		religion = machine_cultist
+	}
+}
+messianic_soul_trigger = {
+	OR = {
+		religion_group = religious_group
+		religion_group = transhumanist_group
+	}
+}
+
+statist_soul_trigger = {
+	OR = {
+		religion_group = political_group
+		religion_group = outlaw_group
+	}
+}
+
+emf_cb_can_use_gui = {
+	ROOT = {
+		custom_tooltip = {
+			text = emf_cb_ctt_no_peace_pledge
+			hidden_tooltip = { NOT = { has_character_modifier = emf_peace_pledge } }
+		}
+	}
+}
+emf_cb_can_use = {
+	ROOT = {
+		OR = {
+			ai = no
+			has_character_flag = emf_cb_pass_tmp
+			NOR = {
+				emf_mongol_invasion_mission = yes
+				has_character_flag = emf_planning_tournament
+				has_character_flag = emf_holding_tournament
+				has_character_flag = planning_coronation
+			}
+		}
+	}
+}
+emf_cb_can_use_title = {
+	OR = {
+		FROM = { ai = no }
+		ROOT = { ai = no }
+		ROOT = { is_merchant_republic = yes }
+		FROM = {
+			NAND = {
+				is_merchant_republic = yes
+				OR = {
+					capital_scope = { county = { title = PREVPREVPREV } }
+					capital_holding = { title = PREVPREV }
+					primary_title = { title = PREVPREV }
+					succ_law_title = { title = PREVPREV }
+				}
+			}
+		}
+	}
+	FROM = {
+		NAND = {
+			is_nomadic = yes
+			OR = {
+				primary_title = { title = PREVPREV }
+				clan_title = { title = PREVPREV }
+			}
+		}
+	}
+	holy_order = no
+	mercenary = no
+	emf_cb_can_use_magyar_title = yes
+}
+emf_cb_can_use_de_jure_title = {
+	emf_cb_can_use_sahara_title = yes
+	emf_cb_can_use_magyar_title = yes
+	FROM = {
+		OR = {
+			ai = no
+			is_merchant_republic = no
+			ROOT = { is_merchant_republic = yes }
+			ROOT = { ai = no }
+			NOT = { capital_holding = { de_jure_liege_or_above = PREVPREV } }
+		}
+	}
+}
+
+## Helper triggers for the above (used by some non-DJ-title CBs too, like county conquest)
+emf_cb_can_use_sahara_title = {
+	OR = {
+		NOT = {
+			location = {
+				# Audax Validator "." Ignore_1006
+				region = emf_region_sahara
+			}
+		}
+		ROOT = {
+			OR = {
+				ai = no
+				capital_scope = {
+					# Audax Validator "." Ignore_1006
+					region = emf_region_sahara
+				}
+			}
+		}
+		FROM = {
+			OR = {
+				ai = no
+				capital_scope = {
+					NOT = {
+						# Audax Validator "." Ignore_1006
+						region = emf_region_sahara
+					}
+				}
+			}
+		}
+	}
+}
+
+emf_cb_can_use_magyar_title = {
+	OR = {
+		ROOT = {
+			OR = {
+				ai = no
+				NOT = { culture = hungarian }
+				top_liege = { NOT = { culture = hungarian } }
+			}
+		}
+		title = k_hungary
+		de_jure_liege_or_above = k_hungary
+		capital_scope = { region = emf_region_carpathia }
+		has_global_flag = emf_conquest_hungary_completed
+		NOT = { has_global_flag = emf_magyar_migration_completed }
+	}
+	OR = {
+		ROOT = {
+			OR = {
+				ai = no
+				NOR = {
+					culture = hungarian
+					top_liege = { culture = hungarian }
+				}
+			}
+		}
+		location = { region = emf_region_etelkoz }
+		capital_scope = { region = emf_region_etelkoz }
+		has_global_flag = emf_magyar_migration_completed
+		year = 920
+	}
+}
+
+emf_cb_can_use_thirdparty_magyar_title = {
+	OR = {
+		FROMFROM = {
+			OR = {
+				ai = no
+				NOT = { culture = hungarian }
+				top_liege = { NOT = { culture = hungarian } }
+			}
+		}
+		title = k_hungary
+		de_jure_liege_or_above = k_hungary
+		capital_scope = { region = emf_region_carpathia }
+		has_global_flag = emf_conquest_hungary_completed
+		NOT = { has_global_flag = emf_magyar_migration_completed }
+	}
+	OR = {
+		FROMFROM = {
+			OR = {
+				ai = no
+				NOR = {
+					culture = hungarian
+					top_liege = { culture = hungarian }
+				}
+			}
+		}
+		location = { region = emf_region_etelkoz }
+		capital_scope = { region = emf_region_etelkoz }
+		has_global_flag = emf_magyar_migration_completed
+		year = 920
+	}
+}
+
+#### Standard global CB triggers (third-party variants) ####
+
+emf_cb_thirdparty_can_use_gui = {
+	custom_tooltip = {
+		text = emf_cb_ctt_no_peace_pledge
+		hidden_tooltip = { NOT = { has_character_modifier = emf_peace_pledge } }
+	}
+}
+emf_cb_thirdparty_can_use = {
+	# WHY AM I COMMENTED-OUT: issue w/ FROMFROM scope in other_de_jure_county_claim being invalid in its can_use clause
+	#                         plus the fact that we don't really care about this case currently, so just disabling for
+	#                         all 3rd-party CBs for now and moving logic into can_use_title below.   -ziji [2016-07-04]
+	#FROMFROM = {
+	#	OR = {
+	#		ai = no
+	#		NOR = {
+	#			has_landed_title = e_mongol_empire
+	#			has_character_flag = planning_coronation
+	#		}
+	#	}
+	#}
+}
+emf_cb_thirdparty_can_use_title = {
+	OR = {
+		FROM = { ai = no }
+		FROMFROM = { ai = no }
+		FROMFROM = { is_merchant_republic = yes }
+		FROM = {
+			NAND = {
+				is_merchant_republic = yes
+				OR = {
+					capital_scope = { county = { title = PREVPREVPREV } }
+					capital_holding = { title = PREVPREV }
+					primary_title = { title = PREVPREV }
+					succ_law_title = { title = PREVPREV }
+				}
+			}
+		}
+	}
+	FROM = {
+		NAND = {
+			is_nomadic = yes
+			OR = {
+				primary_title = { title = PREVPREV }
+				clan_title = { title = PREVPREV }
+			}
+		}
+	}
+	holy_order = no
+	mercenary = no
+	FROMFROM = {
+		OR = {
+			ai = no
+			has_character_flag = emf_cb_pass_tmp
+			NOR = {
+				emf_mongol_invasion_mission = yes
+				has_character_flag = emf_planning_tournament
+				has_character_flag = emf_holding_tournament
+				has_character_flag = planning_coronation
+			}
+		}
+	}
+	emf_cb_can_use_thirdparty_magyar_title = yes
+}
+emf_cb_thirdparty_can_use_de_jure_title = {
+	OR = {
+		NOT = { region = emf_region_sahara }
+		FROMFROM = {
+			OR = {
+				ai = no
+				capital_scope = { region = emf_region_sahara }
+			}
+		}
+		FROM = {
+			OR = {
+				ai = no
+				capital_scope = { NOT = { region = emf_region_sahara } }
+			}
+		}
+	}
+	OR = {
+		FROM = { ai = no }
+		FROM = { is_merchant_republic = no }
+		FROMFROM = { is_merchant_republic = yes }
+		FROMFROM = { ai = no }
+		NOT = { FROM = { capital_holding = { de_jure_liege_or_above = PREVPREV } } }
+	}
+	emf_cb_can_use_thirdparty_magyar_title = yes
+}
+
+
+#### Other, specific triggers ####
+
+# ROOT = claimant, FROMFROM = attacker, THIS = target title
+emf_cb_other_claimant_will_be_attacker_vassal = {
+	FROMFROM = {
+		primary_title = { higher_tier_than = PREVPREV } # Presser can bind target title
+	}
+	OR = {
+		FROMFROM = {
+			OR = {
+				dynasty = ROOT # Presser is same dynasty as claimant
+				any_demesne_title = { # Presser is de jure liege of target title, or...
+					de_jure_vassal_or_below = PREVPREV
+				}
+			}
+		}
+		ROOT = { # Claimant is vassal ruler of presser and no less than one tier below target title
+			is_ruler = yes
+			is_liege_or_above = FROMFROM
+			OR = {
+				NOT = { lower_tier_than = PREV }
+				PREV = { tier = COUNT }
+				AND = {
+					PREV = { tier = DUKE }
+					tier = COUNT
+				}
+				AND = {
+					PREV = { tier = KING }
+					tier = DUKE
+				}
+			}
+		}
+	}
+}
+
+# ROOT = claimant, THIS = claimed title
+emf_cb_can_press_claim = {
+	ROOT = {
+		OR = {
+			is_ruler = no
+			primary_title = {
+				OR = {
+					is_primary_type_title = no # Static Mercs, the Pope, Holy Orders, etc
+					NOT = { lower_tier_than = PREVPREV }
+				}
+			}
+		}
+	}
+	OR = {
+		ROOT = { has_strong_claim = PREV }
+		AND = {
+			ROOT = { has_weak_claim = PREV }
+			emf_cb_is_weak_claim_pressable = yes
+		}
+	}
+}
+
+emf_cb_is_weak_claim_pressable = {
+	OR = {
+		is_pretender = yes # CAUTION: checks vs ROOT implicitly!
+		is_contested = yes
+		holder_scope = { has_regent = yes }
+		holder_scope = {
+			trait = uncrowned
+			higher_real_tier_than = DUKE # JIC
+		}
+		AND = {
+			succ_law_title = { has_law = agnatic_succession }
+			ROOT = { is_female = no }
+			holder_scope = { is_female = yes }
+		}
+		AND = {
+			succ_law_title = { has_law = cognatic_succession }
+			holder_scope = { is_female = yes }
+		}
+		AND = {
+			succ_law_title = { has_law = enatic_succession }
+			ROOT = { is_female = yes }
+			holder_scope = { is_female = no }
+		}
+		AND = {
+			succ_law_title = { has_law = enatic_cognatic_succession }
+			holder_scope = { is_female = no }
+		}
+	}
+}
+
+# Shared `can_use` CB code for religious CBs
+emf_cb_can_use_religious = {
+	ROOT = {
+		is_nomadic = no
+		NOT = { same_realm = FROM }
+		NOR = {
+			mercenary = yes
+			pacifist = yes
+			religion = buddhist
+		}
+		emf_hostile_religion_to_FROM = yes
+		OR = { # Allow reformed pagans [only]
+			NOT = { religion_group = pagan_group }
+			is_reformed_religion = yes
+		}
+		OR = { # Hindus can only wage holy war on non-Indian rulers
+			NOT = { religion = hindu }
+			FROM = { NOT = { religion_group = indian_group } }
+			AND = {
+				religion_group = FROM
+				FROM = { has_character_modifier = known_satanist }
+				NOT = { has_character_modifier = known_satanist }
+			}
+		}
+		top_liege = {
+			religion_group = ROOT
+			OR = {
+				NOT = { religion = FROM }
+				AND = {
+					religion_group = FROM
+					FROM = { has_character_modifier = known_satanist }
+					NOT = { has_character_modifier = known_satanist }
+					NOT = { ROOT = { has_character_modifier = known_satanist } }
+				}
+			}
+			OR = {
+				religion = ROOT
+				AND = {
+					is_heretic = no
+					ROOT = { is_heretic = no }
+				}
+			}
+			OR = {
+				NOT = { religion_group = pagan_group }
+				religion = ROOT
+			}
+		}
+	}
+}
+
+# Standard `is_valid` CB code for religious CBs
+emf_cb_is_valid_religious = {
+	ROOT = {
+		NOT = { same_realm = FROM }
+		NOR = {
+			mercenary = yes
+			pacifist = yes
+			religion = buddhist
+		}
+		emf_hostile_religion_to_FROM = yes
+		top_liege = {
+			religion_group = ROOT
+			OR = {
+				NOT = { religion = FROM }
+				AND = {
+					religion_group = FROM
+					FROM = { has_character_modifier = known_satanist }
+					NOT = { has_character_modifier = known_satanist }
+					NOT = { ROOT = { has_character_modifier = known_satanist } }
+				}
+			}
+			OR = {
+				religion = ROOT
+				AND = {
+					is_heretic = no
+					ROOT = { is_heretic = no }
+				}
+			}
+		}
+	}
+}
+
+emf_cb_is_karling_kingdom = {
+	tier = KING
+	OR = {
+		title = k_italy
+		title = k_lotharingia
+		title = k_burgundy
+		title = k_france
+		title = k_aquitaine
+		title = k_germany
+		title = k_bavaria
+	}
+}
+
+emf_cb_unexpelled_holy_order_trigger = {
+	custom_tooltip = {
+		text = emf_cb_ctt_unexpelled_holy_order
+		hidden_tooltip = {
+			holy_order = yes
+			NOR = {
+				AND = {
+					primary_title = { title = d_knights_templar }
+					ROOT = { has_character_modifier = expelled_d_knights_templar }
+				}
+				AND = {
+					primary_title = { title = d_knights_hospitaler }
+					ROOT = { has_character_modifier = expelled_d_knights_hospitaler }
+				}
+				AND = {
+					primary_title = { title = d_teutonic_order }
+					ROOT = { has_character_modifier = expelled_d_teutonic_order }
+				}
+				AND = {
+					primary_title = { title = d_jomsvikings }
+					ROOT = { has_character_modifier = expelled_d_jomsvikings }
+				}
+				AND = {
+					primary_title = { title = d_hashshashin }
+					ROOT = { has_character_modifier = expelled_d_hashshashin }
+				}
+				AND = {
+					primary_title = { title = d_bektashi }
+					ROOT = { has_character_modifier = expelled_d_bektashi }
+				}
+				AND = {
+					primary_title = { title = d_haruriyyah }
+					ROOT = { has_character_modifier = expelled_d_haruriyyah }
+				}
+				AND = {
+					primary_title = { title = d_holy_sepulchre }
+					ROOT = { has_character_modifier = expelled_d_holy_sepulchre }
+				}
+				AND = {
+					primary_title = { title = d_saint_anthony }
+					ROOT = { has_character_modifier = expelled_d_saint_anthony }
+				}
+				AND = {
+					primary_title = { title = d_immortals }
+					ROOT = { has_character_modifier = expelled_d_immortals }
+				}
+				AND = {
+					primary_title = { title = d_zealots }
+					ROOT = { has_character_modifier = expelled_d_zealots }
+				}
+				AND = {
+					primary_title = { title = d_sky_lords }
+					ROOT = { has_character_modifier = expelled_d_sky_lords }
+				}
+				AND = {
+					primary_title = { title = d_spirit_guardians }
+					ROOT = { has_character_modifier = expelled_d_spirit_guardians }
+				}
+				AND = {
+					primary_title = { title = d_warriors_perun }
+					ROOT = { has_character_modifier = expelled_d_warriors_perun }
+				}
+				AND = {
+					primary_title = { title = d_chosen_perkunas }
+					ROOT = { has_character_modifier = expelled_d_chosen_perkunas }
+				}
+				AND = {
+					primary_title = { title = d_sons_kaleva }
+					ROOT = { has_character_modifier = expelled_d_sons_kaleva }
+				}
+				AND = {
+					primary_title = { title = d_huitzilopochtli }
+					ROOT = { has_character_modifier = expelled_d_huitzilopochtli }
+				}
+				AND = {
+					primary_title = { title = d_knights_santiago }
+					ROOT = { has_character_modifier = expelled_d_knights_santiago }
+				}
+				AND = {
+					primary_title = { title = d_knights_calatrava }
+					ROOT = { has_character_modifier = expelled_d_knights_calatrava }
+				}
+				AND = {
+					primary_title = { title = d_saint_addai }
+					ROOT = { has_character_modifier = expelled_d_saint_addai }
+				}
+				AND = {
+					primary_title = { title = d_zun_warriors }
+					ROOT = { has_character_modifier = expelled_d_zun_warriors }
+				}
+				AND = {
+					primary_title = { title = d_arsiyah }
+					ROOT = { has_character_modifier = expelled_d_arsiyah }
+				}
+				AND = {
+					primary_title = { title = d_saqaliba }
+					ROOT = { has_character_modifier = expelled_d_saqaliba }
+				}
+				AND = {
+					primary_title = { title = d_army_light }
+					ROOT = { has_character_modifier = expelled_d_army_light }
+				}
+				AND = {
+					primary_title = { title = d_knights_saint_mark }
+					ROOT = { has_character_modifier = expelled_d_knights_saint_mark }
+				}
+				AND = {
+					primary_title = { title = d_saint_blaise }
+					ROOT = { has_character_modifier = expelled_d_saint_blaise }
+				}
+			}
+		}
+	}
+}
+
+
+### CONVENIENCE TRIGGERS ###
+emf_laws_no_crown_law_title_trigger = {
+	custom_tooltip = {
+		text = emf_laws_ctt_no_crown_law_title
+		hidden_tooltip = { has_crown_law_title = no }
+	}
+}
+emf_laws_has_readable_succession_law_trigger = {
+	OR = {
+		has_law = succ_gavelkind
+		has_law = succ_elective_gavelkind
+		has_law = succ_seniority
+		has_law = succ_primogeniture
+		has_law = succ_feudal_elective
+		has_law = succ_tanistry
+		has_law = succ_ultimogeniture
+		has_law = succ_turkish_succession
+		has_law = succ_papal_succession
+		has_law = succ_appointment
+		has_law = succ_open_elective_crisis
+		has_law = succ_catholic_bishopric
+		has_law = succ_patrician_elective
+		has_law = succ_nomad_succession
+	}
+}
+emf_laws_crownlaw_title_limited_ca_plus_trigger = {
+	custom_tooltip = {
+		text = emf_laws_ctt_crownlaw_title_limited_ca_plus
+		hidden_tooltip = {
+			crownlaw_title = {
+				OR = {
+					has_law = crown_authority_1
+					has_law = crown_authority_2
+					has_law = crown_authority_3
+					has_law = crown_authority_4
+				}
+			}
+		}
+	}
+}
+emf_laws_crownlaw_title_medium_ca_plus_trigger = {
+	custom_tooltip = {
+		text = emf_laws_ctt_crownlaw_title_medium_ca_plus
+		hidden_tooltip = {
+			crownlaw_title = {
+				OR = {
+					has_law = crown_authority_2
+					has_law = crown_authority_3
+					has_law = crown_authority_4
+				}
+			}
+		}
+	}
+}
+emf_laws_crownlaw_title_high_ca_plus_trigger = {
+	custom_tooltip = {
+		text = emf_laws_ctt_crownlaw_title_high_ca_plus
+		hidden_tooltip = {
+			crownlaw_title = {
+				OR = {
+					has_law = crown_authority_3
+					has_law = crown_authority_4
+				}
+			}
+		}
+	}
+}
+emf_laws_holder_has_late_adminstration_plus_trigger = {
+	custom_tooltip = {
+		text = emf_laws_ctt_holder_has_late_adminstration_plus_raw
+		hidden_tooltip = {
+			holder_scope = {
+				primary_title = {
+					OR = {
+						has_law = late_feudal_administration
+						has_law = imperial_administration
+					}
+				}
+			}
+		}
+	}
+}
+
+# A lot nicer-looking to the user than the direct-coded version
+emf_laws_change_succ_prestige_cost_trigger = {
+	OR = {
+		custom_tooltip = {
+			text = emf_laws_ctt_baron_tier_and_requires_125_prestige_cost
+			hidden_tooltip = {
+				tier = BARON
+				holder_scope = { prestige = 125 }
+			}
+		}
+		custom_tooltip = {
+			text = emf_laws_ctt_count_tier_and_requires_250_prestige_cost
+			hidden_tooltip = {
+				tier = COUNT
+				holder_scope = { prestige = 250 }
+			}
+		}
+		custom_tooltip = {
+			text = emf_laws_ctt_duke_tier_and_requires_500_prestige_cost
+			hidden_tooltip = {
+				tier = DUKE
+				holder_scope = { prestige = 500 }
+			}
+		}
+		custom_tooltip = {
+			text = emf_laws_ctt_king_tier_and_requires_750_prestige_cost
+			hidden_tooltip = {
+				tier = KING
+				holder_scope = { prestige = 750 }
+			}
+		}
+		custom_tooltip = {
+			text = emf_laws_ctt_emperor_tier_and_requires_1000_prestige_cost
+			hidden_tooltip = {
+				tier = EMPEROR
+				holder_scope = { prestige = 1000 }
+			}
+		}
+	}
+}
+
+# Vassals are almost (always) upset by a succession law change; these are the ones that are affected:
+emf_laws_change_succ_affected_vassal_trigger = {
+	OR = {
+		event_target:emf_succ_title = {
+			OR = {
+				is_primary_holder_title = yes
+				is_titular = yes
+			}
+		}
+		capital_holding = { de_jure_liege_or_above = event_target:emf_succ_title }
+	}
+}
+
+# The succession law change reactions of the new heir, former heir, new pretenders, and former pretenders are all handled
+# by event and thus the succ_adopt_* effects should skip these characters in its blanket opinion effects. Note that we
+# don't use this for elective-style succession laws, because the new heir and pretenders will not really be valid for a bit,
+# and even so, it's subject to rapid change.
+emf_laws_change_succ_vip_trigger = {
+	OR = {
+		character = event_target:emf_heir
+		character = event_target:emf_former_heir
+		reverse_has_opinion_modifier = { who = event_target:emf_succ_changer modifier = opinion_succ_former_pretender }
+		any_pretender_title = { title = event_target:emf_succ_title }
+	}
+}
+
+# Additionally, as the succ_adopt_* effects hand-out blanket opinions, they do so in order of priority, and they mark each
+# "already reacted to this succession law change" character as they go with flags.
+#
+# Note that we distinguish the types of succession change reaction so that we may know which opinion modifier we've added
+# from the character to the succession law changer _for this law change only_ so that actual opinions may properly stack from
+# past reactions to law changes (alternative would be to check for the modifiers themselves, but that would not allow
+# coherent stacking across multiple law changes by the same ruler).
+emf_laws_change_succ_reaction_trigger = {
+	OR = {
+		has_character_flag = emf_mild_reaction
+		has_character_flag = emf_bad_reaction
+		has_character_flag = emf_good_reaction
+		has_character_flag = emf_bad2_reaction
+	}
+}
+
+
+# Used for most regular succession laws as PART of the potential. It's NOT common to every major succession type (e.g.,
+# primogeniture and turkish succession don't use it); it's just a convenience to clarify the succession laws code.
+emf_laws_succ_basic_potential_trigger = {
+	holder_scope = {
+		NOT = { religion_group = muslim }
+		OR = {
+			independent = yes
+			NOR = {
+				any_liege = { holy_order = yes }
+				any_demesne_title = { is_vice_royalty = yes }
+			}
+		}
+	}
+	is_primary_type_title = no
+	is_vice_royalty = no
+}
+
+aggressive_check = {
+	OR = {
+		trait = ambitious
+		trait = envious
+		trait = wroth
+		trait = proud
+		trait = brave
+		trait = reckless
+		trait = ruthless
+		trait = warlord
+		trait = greedy
+		trait = zealous
+		trait = adventurer
+		trait = cartographer
+		trait = gamer
+		trait = strategist
+	}
+}
+gm_can_distribute_title_senator_trigger = {
+	NOT = {
+		  any_realm_character = {
+			    count = 10
+			    liege = { character = ROOT }
+			    OR = { has_minor_title = title_senatorrome
+				has_character_flag = flag_senatorrome }
+			  }
+		}
+	}
+
+gm_can_rise_order_right_wing_party = {
+	OR = {
+		NOT = {
+		  any_courtier = {
+			count = 1
+			society_member_of = order_right_wing_party
+			society_rank == 4
+			landed = no
+		  }
+		  society_member_of = order_right_wing_party
+			society_rank == 3
+		}
+		society_member_of = order_right_wing_party
+		society_rank < 3
+	}
+}	
+
+
+# Scripted triggers for adventurer events
+
+# THIS = title, ROOT = adventurer
+plus_valid_adv_target_title_trigger = {
+	has_holder = yes
+	is_titular = no
+	is_landless_type_title = no
+	higher_tier_than = BARON
+	# Either Duke+ tier or it's their primary title
+	OR = {
+		higher_tier_than = COUNT
+		is_primary_holder_title = yes
+	}
+	# Weak claims only allowed against women/regencies/uncrowned unless claimant is ambitious
+	OR = {
+		ROOT = { has_strong_claim = PREV }
+		holder_scope = { is_female = yes }
+		holder_scope = { has_regent = yes }
+		holder_scope = { trait = uncrowned }
+		ROOT = { trait = ambitious }
+		ROOT = { has_character_flag = event_adventurer }
+	}
+	# Female claimants must be ambitious and can only target non-agnatic titles
+	OR = {
+		ROOT = { has_character_flag = event_adventurer }
+		AND = {
+			ROOT = { is_female = no }
+			NOT = { has_law = enatic_succession }
+		}
+		AND = {
+			ROOT = { is_female = yes }
+			ROOT = { trait = ambitious }
+			NOT = { has_law = agnatic_succession }
+		}
+	}
+	# Title holder must qualify
+	holder_scope = {
+		independent = yes
+		demesne_size = 1
+		# Not held by theocracy unless not of the claimant's religion
+		OR = {
+			is_theocracy = no
+			NOT = { religion = ROOT }
+		}
+		# Cannot target nomads for their clan title or primary title
+		NAND = {
+			government = nomadic_government
+			OR = {
+				clan_title = { title = PREVPREV }
+				primary_title = { title = PREVPREV }
+			}
+		}
+		# Cannot target merchant republics unless their capital is not de jure
+		OR = {
+			is_merchant_republic = no
+			NOT = { capital_holding = { de_jure_liege_or_above = PREVPREV } }
+		}
+		# Cannot target close relatives unless they are hated or the claimant is a bastard
+		OR = {
+			NOT = { reverse_opinion = { who = ROOT value = -25 } }
+			NOT = { is_close_relative = ROOT }
+			ROOT = { trait = bastard }
+		}
+		NOR = {
+			in_revolt = yes
+			any_liege = { in_revolt = yes }
+			any_spouse = { character = ROOT }
+			reverse_opinion = { who = ROOT value = 25 }
+			has_character_modifier = holy_truce_timer
+			has_character_modifier = adventurer_target_timer
+			has_any_opinion_modifier = opinion_targeted_by_adventurer
+		}
+	}
+}
+
+# THIS = adventurer
+plus_valid_adventurer_trigger = {
+	has_character_modifier = planning_claimant_adventure
+	NOR = {
+		prisoner = yes
+		trait = incapable
+		any_demesne_title = { adventurer = no }
+	}
+	any_opinion_modifier_target = {
+		independent = yes
+		demesne_size = 1
+		has_opinion_modifier = { who = PREV modifier = opinion_targeted_by_adventurer }
+		reverse_has_opinion_modifier = { who = PREV modifier = opinion_claimant_adventure_target }
+		any_demesne_title = { claimed_by = PREVPREV }
+	}
+}
+
+# ROOT = adventurer
+plus_adventurer_can_approach_trigger = {
+	is_playable = yes
+	num_of_count_titles = 1
+	capital_scope = {
+		NOT = { distance = { where = event_target:adventurer_origin value = 750 } }
+	}
+	OR = {
+		religion = ROOT
+		AND = {
+			religion_group = ROOT
+			NOT = { religion_group = muslim }
+			NOT = { religion_group = pagan_group }
+		}
+	}
+	OR = {
+		independent = yes
+		liege = {
+			OR = {
+				reverse_has_opinion_modifier = { who = ROOT modifier = let_adventurer_stay }
+				reverse_has_opinion_modifier = { who = ROOT modifier = backed_adventurer }
+			}
+		}
+	}
+	NOR = {
+		is_heresy_of = ROOT
+		is_parent_religion = ROOT
+		character = event_target:adventurer_target
+		is_liege_or_above = event_target:adventurer_target
+		reverse_has_opinion_modifier = { who = ROOT modifier = turned_adventurer_away }
+		reverse_has_opinion_modifier = { who = ROOT modifier = let_adventurer_stay }
+		reverse_has_opinion_modifier = { who = ROOT modifier = backed_adventurer }
+		reverse_has_opinion_modifier = { who = ROOT modifier = betrayed_adventurer }
+	}
+	OR = {
+		any_demesne_province = {
+			NOT = { has_province_modifier = adventurer_recruited }
+		}
+		any_vassal = {
+			is_playable = yes
+			num_of_count_titles = 1
+			OR = {
+				religion = ROOT
+				AND = {
+					religion_group = ROOT
+					NOT = { religion_group = muslim }
+					NOT = { religion_group = pagan_group }
+				}
+			}
+			NOR = {
+				is_heresy_of = ROOT
+				is_parent_religion = ROOT
+				character = event_target:adventurer_target
+				is_liege_or_above = event_target:adventurer_target
+				reverse_has_opinion_modifier = { who = ROOT modifier = turned_adventurer_away }
+				reverse_has_opinion_modifier = { who = ROOT modifier = let_adventurer_stay }
+				reverse_has_opinion_modifier = { who = ROOT modifier = backed_adventurer }
+				reverse_has_opinion_modifier = { who = ROOT modifier = betrayed_adventurer }
+			}
+		}
+	}
+}
+
+# ROOT = adventurer
+plus_common_cause_trigger = {
+	OR = {
+		is_close_relative = ROOT
+		opinion = { who = ROOT value = 40 }
+		NOT = { opinion = { who = event_target:adventurer_target value = -40 } }
+		war_with = event_target:adventurer_target
+	}
+}
+
+# ROOT = adventurer
+plus_likes_adventurer_target_trigger = {
+	opinion = { who = event_target:adventurer_target value = -20 }
+	OR = {
+		is_close_relative = event_target:adventurer_target
+		dynasty = event_target:adventurer_target
+		opinion = { who = event_target:adventurer_target value = 40 }
+	}
+}
+
+# ROOT = adventurer
+plus_not_bad_candidate_trigger = {
+	opinion = { who = ROOT value = -20 }
+	OR = {
+		opinion = { who = ROOT value = 0 }
+		NOT = { intrigue = 8 }
+		trait = honest
+		trait = kind
+		NOR = {
+			trait = deceitful
+			trait = ambitious
+			trait = cruel
+			is_allied_with = event_target:adventurer_target
+		}
+		has_truce = event_target:adventurer_target
+		war_with = event_target:adventurer_target
+		is_rival = event_target:adventurer_target
+		is_friend = ROOT
+	}
+}
+
+# ROOT = adventuer, THIS = approached liege
+plus_closest_to_adventurer_trigger = {
+	capital_scope = {
+		NOT = { distance = { where = event_target:adventurer_location value = 75 } }
+	}
+}
+
+# ROOT = adventuer, THIS = approached liege
+plus_close_to_adventurer_trigger = {
+	capital_scope = {
+		distance = { where = event_target:adventurer_location value = 75 }
+		NOT = { distance = { where = event_target:adventurer_location value = 125 } }
+	}
+}
+
+# ROOT = adventuer, THIS = approached liege
+plus_not_close_to_adventurer_trigger = {
+	capital_scope = {
+		distance = { where = event_target:adventurer_location value = 125 }
+		NOT = { distance = { where = event_target:adventurer_location value = 200 } }
+	}
+}
+
+# ROOT = adventuer, THIS = approached liege
+plus_far_from_adventurer_trigger = {
+	capital_scope = {
+		distance = { where = event_target:adventurer_location value = 200 }
+		NOT = { distance = { where = event_target:adventurer_location value = 300 } }
+	}
+}
+
+# ROOT = adventuer, THIS = approached liege
+plus_furthest_from_adventurer_trigger = {
+	capital_scope = {
+		distance = { where = event_target:adventurer_location value = 300 }
+		NOT = { distance = { where = event_target:adventurer_location value = 450 } }
+	}
+}
+
+# ROOT = approached liege, FROM = adventurer
+plus_adventurer_can_approach_vassal_trigger = {
+	wealth = 10
+	is_adult = yes
+	prisoner = no
+	OR = {
+		dynasty = FROM
+		is_close_relative = FROM
+		any_spouse = { is_close_relative = FROM }
+		opinion = { who = FROM value = 40 }
+		NOT = { opinion = { who = event_target:adventurer_target value = -40 } }
+	}
+	NOR = {
+		trait = incapable
+		reverse_has_opinion_modifier = { who = FROM modifier = turned_adventurer_away }
+		reverse_has_opinion_modifier = { who = FROM modifier = let_adventurer_stay }
+		reverse_has_opinion_modifier = { who = FROM modifier = backed_adventurer }
+		reverse_has_opinion_modifier = { who = FROM modifier = betrayed_adventurer }
+		reverse_has_opinion_modifier = { who = FROM modifier = refused_adventurer }
+	}
+}
+
+# ROOT = duchy adventurer, THIS = target
+plus_duchy_target_trigger = {
+	OR = {
+		is_theocracy = no
+		NOT = { religion = ROOT }
+	}
+	NOR = {
+		in_revolt = yes
+		same_realm = ROOT
+		dynasty = ROOT
+		any_spouse = { character = ROOT }
+		reverse_opinion = { who = ROOT value = 25 }
+		has_any_opinion_modifier = opinion_targeted_by_adventurer
+	}
+}
+
+# Scripted triggers for PlusFaction, prefixed by 'pf_'
+
+pf_leader_trigger = {
+	OR = {
+		leads_faction = faction_court
+		leads_faction = faction_prosperity
+		leads_faction = faction_glory
+		leads_faction = faction_tradition
+	}
+}
+
+pf_member_trigger = {
+	OR = {
+		in_faction = faction_court
+		in_faction = faction_prosperity
+		in_faction = faction_glory
+		in_faction = faction_tradition
+	}
+}
+
+pf_war_trait_trigger = {
+	OR = {
+		trait = pf_rebel
+		trait = pf_loyalist
+		trait = pf_neutral
+	}
+}
+
+pf_war_flag_trigger = {
+	OR = {
+		has_character_flag = faction_court_war
+		has_character_flag = faction_prosperity_war
+		has_character_flag = faction_glory_war
+		has_character_flag = faction_tradition_war
+		has_character_flag = faction_pretender_war
+		has_character_flag = faction_separatist_war
+		has_character_flag = faction_religious_war
+		has_character_flag = faction_succession_war
+		has_character_flag = faction_authority_war
+	}
+}
+
+pf_has_demands_trigger = {
+	OR = {
+		has_character_flag = demands_lower_CA
+		has_character_flag = demands_lower_TO
+		has_character_flag = demands_surrender_title
+		has_character_flag = demands_share_wealth
+		has_character_flag = demands_revert_succession
+		has_character_flag = demands_council_life_terms
+		has_character_flag = demands_lower_feudal_obligations
+		has_character_flag = demands_lower_tribal_obligations
+		has_character_flag = demands_lower_city_obligations
+		has_character_flag = demands_lower_temple_obligations
+		has_character_flag = demands_seniority
+		has_character_flag = demands_primogeniture
+		has_character_flag = demands_gavelkind
+		has_character_flag = demands_feudal_elective
+	}
+}
+
+pf_not_regular_faction_war_trigger = {
+	OR = {
+		has_character_flag = demands_seniority
+		has_character_flag = demands_primogeniture
+		has_character_flag = demands_gavelkind
+		has_character_flag = demands_feudal_elective
+		has_character_flag = preparing_claimant_faction_war
+		has_character_flag = preparing_religious_faction_war
+	}
+}
+
+# Not to be confused with "part of this revolt": this is the `in_revolt = yes`
+# equivalent for PF revolts (only)
+pf_in_revolt_trigger = {
+	in_revolt = yes
+	any_opinion_modifier_target = {
+		has_opinion_modifier = { who = PREV modifier = revolting_against_me }
+		any_war = {
+			defender = { character = PREV }
+			attacker = {
+				OR = {
+					character = PREVPREVPREV
+					is_vassal_or_below = PREVPREVPREV
+				}
+			}
+			OR = {
+				using_cb = cb_faction_overthrow_ruler
+				using_cb = claim_on_liege_plot
+				using_cb = other_claim_on_liege_plot
+				using_cb = religious_overthrow_ruler
+				using_cb = cb_faction_independence
+			}
+		}
+	}
+}
+
+# used inside of an any_faction_backer scope (typically), PREV is assumed to be
+# faction leader
+pf_my_faction_backer_trigger = {
+	NOT = { character = PREV }
+	OR = {
+		AND = {
+			PREV = { leads_faction = faction_court }
+			in_faction = faction_court
+		}
+		AND = {
+			PREV = { leads_faction = faction_prosperity }
+			in_faction = faction_prosperity
+		}
+		AND = {
+			PREV = { leads_faction = faction_glory }
+			in_faction = faction_glory
+		}
+		AND = {
+			PREV = { leads_faction = faction_tradition }
+			in_faction = faction_tradition
+		}
+	}
+}
+
+# used inside of an any_vassal scope (typically), ROOT is assumed to be
+# faction leader. identical to pf_my_faction_backer_trigger except that
+# ROOT is assumed to be the faction leader and not necessarily PREV.
+# [ see, this is why it'd be great if scripted triggers and effects could
+#   optionally take a scope / target as a right-hand-side parameter too! ]
+pf_root_faction_backer_trigger = {
+	NOT = { character = ROOT }
+	OR = {
+		AND = {
+			ROOT = { leads_faction = faction_court }
+			in_faction = faction_court
+		}
+		AND = {
+			ROOT = { leads_faction = faction_prosperity }
+			in_faction = faction_prosperity
+		}
+		AND = {
+			ROOT = { leads_faction = faction_glory }
+			in_faction = faction_glory
+		}
+		AND = {
+			ROOT = { leads_faction = faction_tradition }
+			in_faction = faction_tradition
+		}
+	}
+}
+
+# used inside of an any_vassal scope (typically), event_target:faction_leader is assumed to be
+# faction leader (and must be saved first). identical to pf_my_faction_backer_trigger except that
+# event_target:faction_leader is assumed to be the faction leader and not necessarily PREV.
+# [ see, this is why it'd be great if scripted triggers and effects could
+#   optionally take a scope / target as a right-hand-side parameter too! ]
+pf_event_target_faction_backer_trigger = {
+	NOT = { character = event_target:faction_leader }
+	OR = {
+		AND = {
+			event_target:faction_leader = { leads_faction = faction_court }
+			in_faction = faction_court
+		}
+		AND = {
+			event_target:faction_leader = { leads_faction = faction_prosperity }
+			in_faction = faction_prosperity
+		}
+		AND = {
+			event_target:faction_leader = { leads_faction = faction_glory }
+			in_faction = faction_glory
+		}
+		AND = {
+			event_target:faction_leader = { leads_faction = faction_tradition }
+			in_faction = faction_tradition
+		}
+	}
+}
+
+# see above (redundancy, be gone!)
+pf_from_faction_backer_trigger = {
+	OR = {
+		AND = {
+			FROM = { leads_faction = faction_court }
+			in_faction = faction_court
+		}
+		AND = {
+			FROM = { leads_faction = faction_prosperity }
+			in_faction = faction_prosperity
+		}
+		AND = {
+			FROM = { leads_faction = faction_glory }
+			in_faction = faction_glory
+		}
+		AND = {
+			FROM = { leads_faction = faction_tradition }
+			in_faction = faction_tradition
+		}
+	}
+}
+
+
+pf_my_faction_angry_trigger = {
+	OR = {
+		AND = {
+			leads_faction = faction_court
+			liege = { has_character_flag = faction_court_angry }
+		}
+		AND = {
+			leads_faction = faction_prosperity
+			liege = { has_character_flag = faction_prosperity_angry }
+		}
+		AND = {
+			leads_faction = faction_glory
+			liege = { has_character_flag = faction_glory_angry }
+		}
+		AND = {
+			leads_faction = faction_tradition
+			liege = { has_character_flag = faction_tradition_angry }
+		}
+	}
+}
+
+
+pf_councillor_court_trigger = {
+	any_voter = { in_faction = faction_court }
+}
+
+pf_councillor_prosperity_trigger = {
+	any_voter = { in_faction = faction_prosperity }
+}
+
+pf_councillor_glory_trigger = {
+	any_voter = { in_faction = faction_glory }
+}
+
+pf_councillor_tradition_trigger = {
+	any_voter = { in_faction = faction_tradition }
+}
+
+
+pf_tradition_approved_war_trigger = {
+	any_war = {
+		OR = {
+			AND = {
+				any_attacker = { character = PREVPREV }
+				OR = {
+					using_cb = crusade
+					using_cb = holy_war
+					using_cb = excommunicated_ruler
+					using_cb = depose_antipope
+				}
+			}
+			AND = {
+				any_defender = { character = PREVPREV }
+				attacker = { NOT = { religion = PREVPREV } }
+				OR = {
+					using_cb = tribal_invasion
+					using_cb = crusade
+					using_cb = holy_war
+					using_cb = viking_invasion
+					using_cb = pagan_county_conquest
+					using_cb = shia_caliphate_rising
+					using_cb = manifest_destiny_invasion
+					using_cb = tributary_cb
+					using_cb = nomad_invasion
+				}
+			}
+		}
+	}
+}
+
+# NOTE: This trigger can't support multiple simultaneous PF civil wars coherently until an extra layer of semantic relation
+# tracking is added to PF. Ergo, one should make sure that there cannot be multiple such wars until such is (re-)added.
+pf_part_of_this_revolt_trigger = {
+	reverse_has_opinion_modifier = { who = PREV modifier = revolting_against_me }
+}
+
+pf_pending_civil_war_trigger = {
+	liege = {
+		any_vassal = {
+			has_character_flag = civil_war_faction_leader
+		}
+	}
+}
+#	Example:
+# 
+#	example_trigger = {
+#		year = 1066
+#		num_of_spouses = 2
+#	}
+#
+#
+#	In a script file:
+#
+#	trigger = {
+#		exampel_trigger = yes
+#	}
+#
+# Naming convention:  xxxx_trigger
+#
+
+ai_not_busy_trigger = {
+	OR = {
+		ai = no
+		NOR = {
+			has_character_modifier = holding_epic_tournament
+			has_character_modifier = holding_nomad_wargames
+			trait = on_pilgrimage
+			trait = on_hajj
+		}
+	}
+}
+
+allowed_custom_titles_trigger = {
+	primary_title = {
+		NOR = {
+			title = k_armenia
+			title = k_bohemia
+			title = k_cornwall
+			title = k_denmark
+			title = k_egypt
+			title = k_england
+			title = k_finland
+			title = k_ghana
+			title = k_hungary
+			title = k_ireland
+			title = k_norway
+			title = k_nubia
+			title = k_scotland
+			title = k_serbia
+			title = k_sicily
+			title = k_wales
+			title = k_wend
+			title = k_takrur
+			title = k_abyssinia
+			title = k_andalusia
+			title = k_arabia
+			title = k_austria
+			title = k_bengal
+			title = k_bulgaria
+			title = k_carpathia
+			title = k_croatia
+			title = k_cuman
+			title = k_georgia
+			title = k_iceland
+			title = k_lithuania
+			title = k_mali
+			title = k_poland
+			title = k_prussia
+			title = k_sweden
+			title = k_syria
+			title = k_france
+			title = k_italy
+			title = k_germany
+			title = k_byzantium
+			title = k_north_sea
+			title = k_ottoman
+			title = d_antioch
+			title = d_epirus
+			title = d_gascogne
+			title = d_krete
+			title = d_mallorca
+			title = d_normandy
+			title = d_slavonia
+			title = d_swiss
+			title = d_osterreich
+			title = d_bavaria
+			title = d_franconia
+			title = d_luxembourg
+			title = d_saxony
+			title = d_swabia
+			title = d_cornwall
+			title = d_finland
+			title = d_lombardia
+			title = d_oman
+			title = d_moravia
+			title = d_gondar
+			title = d_prussia
+			title = d_cyprus
+			title = d_edessa
+			title = d_thessalonika
+			title = d_iceland
+			title = d_provence
+			title = d_algarve
+			title = d_bosnia
+			title = d_skane
+			title = d_armenia
+			title = d_croatia
+			title = d_valencia
+		}
+	}
+}
+
+
+# Test triggers
+is_feudal_trigger = {
+	religion = neo_feudal
+}
+is_flagged_republic_trigger = {
+	has_character_flag = flag_military_republic
+}
+
+# Ideology Class Checks
+is_democratic_trigger = {
+	OR = {
+		religion = terran_federalist
+		religion = terran_republican
+		religion = colonial_separatist
+	}
+}
+is_autocratic_trigger = {
+	OR = {
+		religion = terran_imperial
+		religion = neo_feudal
+		religion = astrist
+		religion = bio_directionist
+		religion = imperial_cult
+	}
+}
+is_theocratic_trigger = {
+	OR = {
+		religion = neo_socialist
+		religion = orthodox
+		religion = solarian
+		religion = xenoterran
+		religion = cyberneticist
+		religion = machine_cultist
+	}
+}
+
+# Government Class Checks
+is_military_trigger = {
+	custom_tooltip = {
+		text = "ISMILITARY"
+		hidden_tooltip = {
+			OR = {
+				government = military_monarchy
+				government = military_republic
+				government = military_directorate
+				government = military_command
+			}
+		}
+	}
+}
+is_corporate_trigger = {
+	custom_tooltip = {
+		text = "ISCORPORATE"
+		hidden_tooltip = {
+			OR = {
+				government = corporate_monarchy
+				government = corporate_republic
+				government = corporate_directorate
+				government = merchant_republic_government
+			}
+		}
+	}
+}
+is_administrative_trigger = {
+	custom_tooltip = {
+		text = "ISADMINISTRATIVE"
+		hidden_tooltip = {
+			OR = {
+				government = administrative_monarchy
+				government = administrative_republic
+				government = administrative_directorate
+			}
+		}
+	}
+}
+is_hereditary_trigger = {
+	custom_tooltip = {
+		text = "ISHEREDITARY"
+		hidden_tooltip = {
+			OR = {
+				government = military_monarchy
+				government = corporate_monarchy
+				government = administrative_monarchy
+				government = pirate_kingdom
+			}
+		}
+	}
+}
+is_elective_trigger = {
+	custom_tooltip = {
+		text = "ISELECTIVE"
+		hidden_tooltip = {
+			OR = {
+				government = military_republic
+				government = corporate_republic
+				government = administrative_republic
+				government = merchant_republic_government
+				government = pirate_republic
+			}
+		}
+	}
+}
+is_appointed_trigger = {
+	custom_tooltip = {
+		text = "ISAPPOINTED"
+		hidden_tooltip = {
+			OR = {
+				government = military_directorate
+				government = corporate_directorate
+				government = administrative_directorate
+				government = military_command
+				government = colonial_government
+			}
+		}
+	}
+}
+is_eligible_merchant_trigger = {
+	OR = {
+		AND = {
+			is_patrician = yes
+			OR = {
+				liege_before_war = {
+					NOT = { character = PREV }
+					is_merchant_republic = yes
+					NOT = {
+						liege_before_war = {
+							NOT = { character = PREV }
+							is_merchant_republic = yes
+						}
+					}
+				}
+				has_game_started = no
+			}
+		}
+		AND = {
+			higher_real_tier_than = count
+			any_demesne_province = {
+				always = yes
+			}
+			NOT = {
+				liege_before_war = {
+					NOT = { character = PREV }
+					is_merchant_republic = yes
+				}
+			}
+		}
+	}
+}
+military_monarchy_is_legal_trigger = {
+	custom_tooltip = {
+		text = "MILITARYMONARCHYLEGAL"
+		hidden_tooltip = {
+			OR = {
+				independent = yes
+				NOT = {
+					crownlaw_title = {
+						OR = {
+							has_law = military_vassal_legitimacy_1
+							has_law = military_vassal_legitimacy_2
+						}
+						OR = {
+							has_law = centralization_4
+							AND = {
+								has_law = centralization_3
+								holder_scope = { any_vassal = { character = PREVPREVPREV } }
+							}
+							AND = {
+								has_law = centralization_2
+								holder_scope = { any_vassal = { character = PREVPREVPREV } }
+								PREV = { NOT = { higher_tier_than = duke } }
+							}
+							AND = {
+								holder_scope = {
+									tier = emperor
+									any_vassal = { character = PREVPREVPREV }
+								}
+								PREV = { NOT = { higher_tier_than = duke } }
+							}
+							AND = {
+								holder_scope = { any_vassal = { character = PREVPREVPREV } }
+								PREV =  { NOT = { higher_tier_than = count } }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+military_republic_is_legal_trigger = {
+	custom_tooltip = {
+		text = "MILITARYREPUBLICLEGAL"
+		hidden_tooltip = {
+			OR = {
+				independent = yes
+				NOT = {
+					crownlaw_title = {
+						OR = {
+							has_law = military_vassal_legitimacy_0
+							has_law = military_vassal_legitimacy_2
+						}
+						OR = {
+							has_law = centralization_4
+							AND = {
+								has_law = centralization_3
+								holder_scope = { any_vassal = { character = PREVPREVPREV } }
+							}
+							AND = {
+								has_law = centralization_2
+								holder_scope = { any_vassal = { character = PREVPREVPREV } }
+								PREV =  { NOT = { higher_tier_than = duke } }
+							}
+							AND = {
+								holder_scope = {
+									tier = emperor
+									any_vassal = { character = PREVPREVPREV }
+								}
+								PREV =  { NOT = { higher_tier_than = duke } }
+							}
+							AND = {
+								holder_scope = { any_vassal = { character = PREVPREVPREV } }
+								PREV =  { NOT = { higher_tier_than = count } }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+military_directorate_is_legal_trigger = {
+	custom_tooltip = {
+		text = "MILITARYDIRECTORATELEGAL"
+		hidden_tooltip = {
+			OR = {
+				independent = yes
+				NOT = {
+					crownlaw_title = {
+						OR = {
+							has_law = military_vassal_legitimacy_1
+							has_law = military_vassal_legitimacy_0
+						}
+						OR = {
+							has_law = centralization_4
+							AND = {
+								has_law = centralization_3
+								holder_scope = { any_vassal = { character = PREVPREVPREV } }
+							}
+							AND = {
+								has_law = centralization_2
+								holder_scope = { any_vassal = { character = PREVPREVPREV } }
+								PREV =  { NOT = { higher_tier_than = duke } }
+							}
+							AND = {
+								holder_scope = {
+									tier = emperor
+									any_vassal = { character = PREVPREVPREV }
+								}
+								PREV =  { NOT = { higher_tier_than = duke } }
+							}
+							AND = {
+								holder_scope = { any_vassal = { character = PREVPREVPREV } }
+								PREV =  { NOT = { higher_tier_than = count } }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+corporate_monarchy_is_legal_trigger = {
+	custom_tooltip = {
+		text = "CORPORATEMONARCHYLEGAL"
+		hidden_tooltip = {
+			OR = {
+				independent = yes
+				NOT = {
+					crownlaw_title = {
+						OR = {
+							has_law = republic_vassal_legitimacy_1
+							has_law = republic_vassal_legitimacy_2
+						}
+						OR = {
+							has_law = centralization_4
+							AND = {
+								has_law = centralization_3
+								holder_scope = { any_vassal = { character = PREVPREVPREV } }
+							}
+							AND = {
+								has_law = centralization_2
+								holder_scope = { any_vassal = { character = PREVPREVPREV } }
+								PREV =  { NOT = { higher_tier_than = duke } }
+							}
+							AND = {
+								holder_scope = {
+									tier = emperor
+									any_vassal = { character = PREVPREVPREV }
+								}
+								PREV =  { NOT = { higher_tier_than = duke } }
+							}
+							AND = {
+								holder_scope = { any_vassal = { character = PREVPREVPREV } }
+								PREV =  { NOT = { higher_tier_than = count } }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+corporate_republic_is_legal_trigger = {
+	custom_tooltip = {
+		text = "CORPORATEREPUBLICLEGAL"
+		hidden_tooltip = {
+			OR = {
+				independent = yes
+				NOT = {
+					crownlaw_title = {
+						OR = {
+							has_law = republic_vassal_legitimacy_0
+							has_law = republic_vassal_legitimacy_2
+						}
+						OR = {
+							has_law = centralization_4
+							AND = {
+								has_law = centralization_3
+								holder_scope = { any_vassal = { character = PREVPREVPREV } }
+							}
+							AND = {
+								has_law = centralization_2
+								holder_scope = { any_vassal = { character = PREVPREVPREV } }
+								PREV =  { NOT = { higher_tier_than = duke } }
+							}
+							AND = {
+								holder_scope = {
+									tier = emperor
+									any_vassal = { character = PREVPREVPREV }
+								}
+								PREV =  { NOT = { higher_tier_than = duke } }
+							}
+							AND = {
+								holder_scope = { any_vassal = { character = PREVPREVPREV } }
+								PREV =  { NOT = { higher_tier_than = count } }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+corporate_directorate_is_legal_trigger = {
+	custom_tooltip = {
+		text = "CORPORATEDIRECTORATELEGAL"
+		hidden_tooltip = {
+			OR = {
+				independent = yes
+				NOT = {
+					crownlaw_title = {
+						OR = {
+							has_law = republic_vassal_legitimacy_1
+							has_law = republic_vassal_legitimacy_0
+						}
+						OR = {
+							has_law = centralization_4
+							AND = {
+								has_law = centralization_3
+								holder_scope = { any_vassal = { character = PREVPREVPREV } }
+							}
+							AND = {
+								has_law = centralization_2
+								holder_scope = { any_vassal = { character = PREVPREVPREV } }
+								PREV =  { NOT = { higher_tier_than = duke } }
+							}
+							AND = {
+								holder_scope = {
+									tier = emperor
+									any_vassal = { character = PREVPREVPREV }
+								}
+								PREV =  { NOT = { higher_tier_than = duke } }
+							}
+							AND = {
+								holder_scope = { any_vassal = { character = PREVPREVPREV } }
+								PREV =  { NOT = { higher_tier_than = count } }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+administrative_monarchy_is_legal_trigger = {
+	custom_tooltip = {
+		text = "ADMINISTRATIVEMONARCHYLEGAL"
+		hidden_tooltip = {
+			OR = {
+				independent = yes
+				NOT = {
+					crownlaw_title = {
+						OR = {
+							has_law = theocracy_vassal_legitimacy_1
+							has_law = theocracy_vassal_legitimacy_2
+						}
+						OR = {
+							has_law = centralization_4
+							AND = {
+								has_law = centralization_3
+								holder_scope = { any_vassal = { character = PREVPREVPREV } }
+							}
+							AND = {
+								has_law = centralization_2
+								holder_scope = { any_vassal = { character = PREVPREVPREV } }
+								PREV =  { NOT = { higher_tier_than = duke } }
+							}
+							AND = {
+								holder_scope = {
+									tier = emperor
+									any_vassal = { character = PREVPREVPREV }
+								}
+								PREV =  { NOT = { higher_tier_than = duke } }
+							}
+							AND = {
+								holder_scope = { any_vassal = { character = PREVPREVPREV } }
+								PREV =  { NOT = { higher_tier_than = count } }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+administrative_republic_is_legal_trigger = {
+	custom_tooltip = {
+		text = "ADMINISTRATIVEREPUBLICLEGAL"
+		custom_tooltip = {
+			OR = {
+				independent = yes
+				NOT = {
+					crownlaw_title = {
+						OR = {
+							has_law = theocracy_vassal_legitimacy_0
+							has_law = theocracy_vassal_legitimacy_2
+						}
+						OR = {
+							has_law = centralization_4
+							AND = {
+								has_law = centralization_3
+								holder_scope = { any_vassal = { character = PREVPREVPREV } }
+							}
+							AND = {
+								has_law = centralization_2
+								holder_scope = { any_vassal = { character = PREVPREVPREV } }
+								PREV =  { NOT = { higher_tier_than = duke } }
+							}
+							AND = {
+								holder_scope = {
+									tier = emperor
+									any_vassal = { character = PREVPREVPREV }
+								}
+								PREV =  { NOT = { higher_tier_than = duke } }
+							}
+							AND = {
+								holder_scope = { any_vassal = { character = PREVPREVPREV } }
+								PREV =  { NOT = { higher_tier_than = count } }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+administrative_directorate_is_legal_trigger = {
+	custom_tooltip = {
+		text = "ADMINISTRATIVEDIRECTORATELEGAL"
+		hidden_tooltip = {
+			OR = {
+				independent = yes
+				NOT = {
+					crownlaw_title = {
+						OR = {
+							has_law = theocracy_vassal_legitimacy_1
+							has_law = theocracy_vassal_legitimacy_0
+						}
+						OR = {
+							has_law = centralization_4
+							AND = {
+								has_law = centralization_3
+								holder_scope = { any_vassal = { character = PREVPREVPREV } }
+							}
+							AND = {
+								has_law = centralization_2
+								holder_scope = { any_vassal = { character = PREVPREVPREV } }
+								PREV =  { NOT = { higher_tier_than = duke } }
+							}
+							AND = {
+								holder_scope = {
+									tier = emperor
+									any_vassal = { character = PREVPREVPREV }
+								}
+								PREV =  { NOT = { higher_tier_than = duke } }
+							}
+							AND = {
+								holder_scope = { any_vassal = { character = PREVPREVPREV } }
+								PREV =  { NOT = { higher_tier_than = count } }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+monarchy_is_legal_trigger = {
+	OR = {
+		AND = {
+			is_military_trigger = yes
+			military_monarchy_is_legal_trigger = yes
+		}
+		AND = {
+			is_corporate_trigger = yes
+			corporate_monarchy_is_legal_trigger = yes
+		}
+		AND = {
+			is_administrative_trigger = yes
+			administrative_monarchy_is_legal_trigger = yes
+		}
+	}
+}
+republic_is_legal_trigger = {
+	OR = {
+		AND = {
+			is_military_trigger = yes
+			military_republic_is_legal_trigger = yes
+		}
+		AND = {
+			is_corporate_trigger = yes
+			corporate_republic_is_legal_trigger = yes
+		}
+		AND = {
+			is_administrative_trigger = yes
+			administrative_republic_is_legal_trigger = yes
+		}
+	}
+}
+directorate_is_legal_trigger = {
+	OR = {
+		AND = {
+			is_military_trigger = yes
+			military_directorate_is_legal_trigger = yes
+		}
+		AND = {
+			is_corporate_trigger = yes
+			corporate_directorate_is_legal_trigger = yes
+		}
+		AND = {
+			is_administrative_trigger = yes
+			administrative_directorate_is_legal_trigger = yes
+		}
+	}
+}
+# Other triggers
+is_military_officer_trigger = {
+	is_adult = yes
+	OR = {
+		has_job_title = job_marshal
+		has_minor_title = title_commander
+		AND = {
+			is_ruler = yes
+			is_military_trigger = yes
+		}
+	}
+}
+

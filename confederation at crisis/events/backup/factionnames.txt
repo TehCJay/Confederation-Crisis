@@ -1,0 +1,581 @@
+namespace = faction_names
+
+# Rename the Terran Confederation based on its current holder's form of government
+character_event = { # Terran Confederation
+	id = faction_names.0
+	desc = "EVTDESCFACTIONNAMES0"
+	picture = GFX_evt_terran
+	
+	min_age = 16
+	only_rulers = yes
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		has_landed_title = e_terran_confederation
+		OR = {
+			has_global_flag = flag_terran_empire_name
+			has_global_flag = flag_terran_hegemony_name
+			has_global_flag = flag_terran_republic_name
+			has_global_flag = flag_terran_directorate_name
+			has_global_flag = flag_holy_terran_empire_name
+			has_global_flag = flag_terran_peoples_union_name
+			has_global_flag = flag_terran_peoples_republic_name
+		}
+		OR = {
+			government = military_republic
+			government = corporate_republic
+			government = merchant_republic_government
+		}
+		e_terran_confederation = { NOT = { has_law = centralization_4 } }
+	}
+	
+	option = {
+		name = OK
+		clr_global_flag = flag_terran_empire_name
+		clr_global_flag = flag_terran_hegemony_name
+		clr_global_flag = flag_terran_republic_name
+		clr_global_flag = flag_terran_directorate_name
+		clr_global_flag = flag_holy_terran_empire_name
+		clr_global_flag = flag_terran_peoples_union_name
+		clr_global_flag = flag_terran_peoples_republic_name
+		e_terran_confederation = {
+			set_name = "Terran Confederation"
+			adjective = "Confederate"
+		}
+		k_terran_navy = {
+			set_name = "Confederate Space Command"
+			adjective = "Confederate Naval"
+		}
+		d_terran_first_fleet = {
+			set_name = "First Confederate Fleet"
+			adjective = "First Confederate Fleet"
+		}
+		d_terran_second_fleet = {
+			set_name = "Second Confederate Fleet"
+			adjective = "Second Confederate Fleet"
+		}
+		d_terran_third_fleet = {
+			set_name = "Third Confederate Fleet"
+			adjective = "Third Confederate Fleet"
+		}
+		d_terran_fourth_fleet = {
+			set_name = "Fourth Confederate Fleet"
+			adjective = "Fourth Confederate Fleet"
+		}
+		d_terran_fifth_fleet = {
+			set_name = "Fifth Confederate Fleet"
+			adjective = "Fifth Confederate Fleet"
+		}
+		hidden_tooltip = { character_event = { id = faction_names.1 } }
+	}
+}
+character_event = {
+	id = faction_names.1
+	desc = "EVTDESCFACTIONNAMES1"
+	picture = GFX_evt_terran
+	major = yes
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+character_event = { # Terran Empire
+	id = faction_names.2
+	desc = "EVTDESCFACTIONNAMES2"
+	picture = GFX_evt_terran
+	
+	min_age = 16
+	only_rulers = yes
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		has_landed_title = e_terran_confederation
+		OR = {
+			government = military_monarchy
+			government = corporate_monarchy
+			government = administrative_monarchy
+		}
+		NOT = { religion_group = religious_group }
+		NOT = { has_global_flag = flag_terran_empire_name }
+		NOT = { has_global_flag = flag_holy_terran_empire_name }
+	}
+	
+	option = {
+		name = OK
+		set_global_flag = flag_terran_empire_name
+		clr_global_flag = flag_terran_hegemony_name
+		clr_global_flag = flag_terran_republic_name
+		clr_global_flag = flag_terran_directorate_name
+		clr_global_flag = flag_holy_terran_empire_name
+		clr_global_flag = flag_terran_peoples_union_name
+		clr_global_flag = flag_terran_peoples_republic_name
+		e_terran_confederation = {
+			set_name = "Terran Empire"
+			adjective = "Imperial"
+		}
+		k_terran_navy = {
+			set_name = "Imperial Navy"
+			adjective = "Imperial Naval"
+		}
+		d_terran_first_fleet = {
+			set_name = "First Imperial Fleet"
+			adjective = "First Imperial Fleet"
+		}
+		d_terran_second_fleet = {
+			set_name = "Second Imperial Fleet"
+			adjective = "Second Imperial Fleet"
+		}
+		d_terran_third_fleet = {
+			set_name = "Third Imperial Fleet"
+			adjective = "Third Imperial Fleet"
+		}
+		d_terran_fourth_fleet = {
+			set_name = "Fourth Imperial Fleet"
+			adjective = "Fourth Imperial Fleet"
+		}
+		d_terran_fifth_fleet = {
+			set_name = "Fifth Imperial Fleet"
+			adjective = "Fifth Imperial Fleet"
+		}
+		hidden_tooltip = { character_event = { id = faction_names.3 } }
+	}
+}
+character_event = {
+	id = faction_names.3
+	desc = "EVTDESCFACTIONNAMES3"
+	picture = GFX_evt_terran
+	major = yes
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+character_event = { # Terran Hegemony
+	id = faction_names.4
+	desc = "EVTDESCFACTIONNAMES4"
+	picture = GFX_evt_terran
+	
+	min_age = 16
+	only_rulers = yes
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		has_landed_title = e_terran_confederation
+		OR = {
+			government = military_directorate
+			government = corporate_directorate
+		}
+		NOT = { has_global_flag = flag_terran_hegemony_name }
+		NOT = { has_global_flag = flag_terran_directorate_name }
+		e_terran_confederation = { NOT = { has_law = legislative_authority_1 } }
+	}
+	
+	option = {
+		name = OK
+		clr_global_flag = flag_terran_empire_name
+		set_global_flag = flag_terran_hegemony_name
+		clr_global_flag = flag_terran_republic_name
+		clr_global_flag = flag_terran_directorate_name
+		clr_global_flag = flag_holy_terran_empire_name
+		clr_global_flag = flag_terran_peoples_union_name
+		clr_global_flag = flag_terran_peoples_republic_name
+		e_terran_confederation = {
+			set_name = "Terran Hegemony"
+			adjective = "Terran"
+		}
+		k_terran_navy = {
+			set_name = "Terran Hegemony Armed Forces"
+			adjective = "Terran Naval"
+		}
+		d_terran_first_fleet = {
+			set_name = "First Terran Fleet"
+			adjective = "First Terran Fleet"
+		}
+		d_terran_second_fleet = {
+			set_name = "Second Terran Fleet"
+			adjective = "Second Terran Fleet"
+		}
+		d_terran_third_fleet = {
+			set_name = "Third Terran Fleet"
+			adjective = "Third Terran Fleet"
+		}
+		d_terran_fourth_fleet = {
+			set_name = "Fourth Terran Fleet"
+			adjective = "Fourth Terran Fleet"
+		}
+		d_terran_fifth_fleet = {
+			set_name = "Fifth Terran Fleet"
+			adjective = "Fifth Terran Fleet"
+		}
+		hidden_tooltip = { character_event = { id = faction_names.5 } }
+	}
+}
+character_event = {
+	id = faction_names.5
+	desc = "EVTDESCFACTIONNAMES5"
+	picture = GFX_evt_terran
+	major = yes
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+character_event = { # Terran Republic
+	id = faction_names.6
+	desc = "EVTDESCFACTIONNAMES6"
+	picture = GFX_evt_terran
+	
+	min_age = 16
+	only_rulers = yes
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		has_landed_title = e_terran_confederation
+		has_landed_title = e_terran_confederation
+		NOT = { has_global_flag = flag_terran_republic_name }
+		OR = {
+			government = military_republic
+			government = corporate_republic
+			government = merchant_republic_government
+		}
+		e_terran_confederation = { has_law = centralization_4 }
+	}
+	
+	option = {
+		name = OK
+		clr_global_flag = flag_terran_empire_name
+		clr_global_flag = flag_terran_hegemony_name
+		set_global_flag = flag_terran_republic_name
+		clr_global_flag = flag_terran_directorate_name
+		clr_global_flag = flag_holy_terran_empire_name
+		clr_global_flag = flag_terran_peoples_union_name
+		clr_global_flag = flag_terran_peoples_republic_name
+		e_terran_confederation = {
+			set_name = "Terran Republic"
+			adjective = "Terran"
+		}
+		k_terran_navy = {
+			set_name = "Terran Navy"
+			adjective = "Terran Naval"
+		}
+		d_terran_first_fleet = {
+			set_name = "First Terran Fleet"
+			adjective = "First Terran Fleet"
+		}
+		d_terran_second_fleet = {
+			set_name = "Second Terran Fleet"
+			adjective = "Second Terran Fleet"
+		}
+		d_terran_third_fleet = {
+			set_name = "Third Terran Fleet"
+			adjective = "Third Terran Fleet"
+		}
+		d_terran_fourth_fleet = {
+			set_name = "Fourth Terran Fleet"
+			adjective = "Fourth Terran Fleet"
+		}
+		d_terran_fifth_fleet = {
+			set_name = "Fifth Terran Fleet"
+			adjective = "Fifth Terran Fleet"
+		}
+		hidden_tooltip = { character_event = { id = faction_names.7 } }
+	}
+}
+character_event = {
+	id = faction_names.7
+	desc = "EVTDESCFACTIONNAMES7"
+	picture = GFX_evt_terran
+	major = yes
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+character_event = { # Terran Directorate
+	id = faction_names.8
+	desc = "EVTDESCFACTIONNAMES8"
+	picture = GFX_evt_terran
+	
+	min_age = 16
+	only_rulers = yes
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		has_landed_title = e_terran_confederation
+		government = administrative_directorate
+		NOT = { has_global_flag = flag_terran_directorate_name }
+	}
+	
+	option = {
+		name = OK
+		clr_global_flag = flag_terran_empire_name
+		clr_global_flag = flag_terran_hegemony_name
+		clr_global_flag = flag_terran_republic_name
+		set_global_flag = flag_terran_directorate_name
+		clr_global_flag = flag_holy_terran_empire_name
+		clr_global_flag = flag_terran_peoples_union_name
+		clr_global_flag = flag_terran_peoples_republic_name
+		e_terran_confederation = {
+			set_name = "Terran Directorate"
+			adjective = "Terran"
+		}
+		k_terran_navy = {
+			set_name = "Terran Navy"
+			adjective = "Terran Naval"
+		}
+		d_terran_first_fleet = {
+			set_name = "First Terran Fleet"
+			adjective = "First Terran Fleet"
+		}
+		d_terran_second_fleet = {
+			set_name = "Second Terran Fleet"
+			adjective = "Second Terran Fleet"
+		}
+		d_terran_third_fleet = {
+			set_name = "Third Terran Fleet"
+			adjective = "Third Terran Fleet"
+		}
+		d_terran_fourth_fleet = {
+			set_name = "Fourth Terran Fleet"
+			adjective = "Fourth Terran Fleet"
+		}
+		d_terran_fifth_fleet = {
+			set_name = "Fifth Terran Fleet"
+			adjective = "Fifth Terran Fleet"
+		}
+		hidden_tooltip = { character_event = { id = faction_names.9 } }
+	}
+}
+character_event = {
+	id = faction_names.9
+	desc = "EVTDESCFACTIONNAMES9"
+	picture = GFX_evt_terran
+	major = yes
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+character_event = { # Holy Terran Empire
+	id = faction_names.10
+	desc = "EVTDESCFACTIONNAMES10"
+	picture = GFX_evt_terran
+	
+	min_age = 16
+	only_rulers = yes
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		has_landed_title = e_terran_confederation
+		OR = {
+			government = military_monarchy
+			government = corporate_monarchy
+			government = administrative_monarchy
+		}
+		OR = {
+			religion_group = religious_group
+			religion = machine_cultist
+		}
+		NOT = { has_global_flag = flag_holy_terran_empire_name }
+	}
+	
+	option = {
+		name = OK
+		clr_global_flag = flag_terran_empire_name
+		clr_global_flag = flag_terran_hegemony_name
+		clr_global_flag = flag_terran_republic_name
+		clr_global_flag = flag_terran_directorate_name
+		set_global_flag = flag_holy_terran_empire_name
+		clr_global_flag = flag_terran_peoples_union_name
+		clr_global_flag = flag_terran_peoples_republic_name
+		e_terran_confederation = {
+			set_name = "Holy Terran Empire"
+			adjective = "Holy Terran"
+		}
+		k_terran_navy = {
+			set_name = "Military Order of Terra"
+			adjective = "Terran Military"
+		}
+		d_terran_first_fleet = {
+			set_name = "Chapter Protos"
+			adjective = "Chapter Protos"
+		}
+		d_terran_second_fleet = {
+			set_name = "Chapter Deuteros"
+			adjective = "Chapter Deuteros"
+		}
+		d_terran_third_fleet = {
+			set_name = "Chapter Tritos"
+			adjective = "Chapter Tritos"
+		}
+		d_terran_fourth_fleet = {
+			set_name = "Chapter Tetartos"
+			adjective = "Chapter Tetartos"
+		}
+		d_terran_fifth_fleet = {
+			set_name = "Chapter Pemptos"
+			adjective = "Chapter Pemptos"
+		}
+		hidden_tooltip = { character_event = { id = faction_names.11 } }
+	}
+}
+character_event = {
+	id = faction_names.11
+	desc = "EVTDESCFACTIONNAMES11"
+	picture = GFX_evt_terran
+	major = yes
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+character_event = { # Terran People's Union
+	id = faction_names.12
+	desc = "EVTDESCFACTIONNAMES12"
+	picture = GFX_evt_terran
+	
+	min_age = 16
+	only_rulers = yes
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		has_landed_title = e_terran_confederation
+		NOT = { has_global_flag = flag_terran_peoples_union_name }
+		government = administrative_republic
+		e_terran_confederation = { NOT = { has_law = centralization_4 } }
+	}
+	
+	option = {
+		name = OK
+		clr_global_flag = flag_terran_empire_name
+		clr_global_flag = flag_terran_hegemony_name
+		clr_global_flag = flag_terran_republic_name
+		clr_global_flag = flag_terran_directorate_name
+		clr_global_flag = flag_holy_terran_empire_name
+		set_global_flag = flag_terran_peoples_union_name
+		clr_global_flag = flag_terran_peoples_republic_name
+		e_terran_confederation = {
+			set_name = "Terran People's Union"
+			adjective = "Terran"
+		}
+		k_terran_navy = {
+			set_name = "Terran People's Navy"
+			adjective = "Terran Naval"
+		}
+		d_terran_first_fleet = {
+			set_name = "First Terran Fleet"
+			adjective = "First Terran Fleet"
+		}
+		d_terran_second_fleet = {
+			set_name = "Second Terran Fleet"
+			adjective = "Second Terran Fleet"
+		}
+		d_terran_third_fleet = {
+			set_name = "Third Terran Fleet"
+			adjective = "Third Terran Fleet"
+		}
+		d_terran_fourth_fleet = {
+			set_name = "Fourth Terran Fleet"
+			adjective = "Fourth Terran Fleet"
+		}
+		d_terran_fifth_fleet = {
+			set_name = "Fifth Terran Fleet"
+			adjective = "Fifth Terran Fleet"
+		}
+		hidden_tooltip = { character_event = { id = faction_names.13 } }
+	}
+}
+character_event = {
+	id = faction_names.13
+	desc = "EVTDESCFACTIONNAMES13"
+	picture = GFX_evt_terran
+	major = yes
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+character_event = { # Terran People's Republic
+	id = faction_names.14
+	desc = "EVTDESCFACTIONNAMES14"
+	picture = GFX_evt_terran
+	
+	min_age = 16
+	only_rulers = yes
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		has_landed_title = e_terran_confederation
+		NOT = { has_global_flag = flag_terran_peoples_republic_name }
+		government = administrative_republic
+		e_terran_confederation = { has_law = centralization_4 }
+	}
+	
+	option = {
+		name = OK
+		clr_global_flag = flag_terran_empire_name
+		clr_global_flag = flag_terran_hegemony_name
+		clr_global_flag = flag_terran_republic_name
+		clr_global_flag = flag_terran_directorate_name
+		clr_global_flag = flag_holy_terran_empire_name
+		clr_global_flag = flag_terran_peoples_union_name
+		set_global_flag = flag_terran_peoples_republic_name
+		e_terran_confederation = {
+			set_name = "Terran People's Republic"
+			adjective = "Terran"
+		}
+		k_terran_navy = {
+			set_name = "Terran People's Navy"
+			adjective = "Terran Naval"
+		}
+		d_terran_first_fleet = {
+			set_name = "First Terran Fleet"
+			adjective = "First Terran Fleet"
+		}
+		d_terran_second_fleet = {
+			set_name = "Second Terran Fleet"
+			adjective = "Second Terran Fleet"
+		}
+		d_terran_third_fleet = {
+			set_name = "Third Terran Fleet"
+			adjective = "Third Terran Fleet"
+		}
+		d_terran_fourth_fleet = {
+			set_name = "Fourth Terran Fleet"
+			adjective = "Fourth Terran Fleet"
+		}
+		d_terran_fifth_fleet = {
+			set_name = "Fifth Terran Fleet"
+			adjective = "Fifth Terran Fleet"
+		}
+		hidden_tooltip = { character_event = { id = faction_names.15 } }
+	}
+}
+character_event = {
+	id = faction_names.15
+	desc = "EVTDESCFACTIONNAMES15"
+	picture = GFX_evt_terran
+	major = yes
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+# Founded an empire
+character_event = {
+	id = faction_names.100
+	hide_window = yes
+	is_triggered_only = yes
+	
+	immediate = { narrative_event = { id = faction_names.101 } }
+}
+narrative_event = {
+	id = faction_names.101
+	desc = "EVTDESCFACTIONNAMES101"
+	major = yes
+	picture = GFX_evt_terran
+	border = GFX_event_normal_frame_economy
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
