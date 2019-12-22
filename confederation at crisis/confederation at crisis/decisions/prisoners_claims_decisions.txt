@@ -1,0 +1,29 @@
+targetted_decisions = {
+	prisoners_claims = {
+		filter = home_court
+		ai_target_filter = home_court
+		is_high_prio = yes
+
+		from_potential = {
+			ai = no
+		}
+		ai_check_interval = 10 
+ potential = {
+			prisoner = yes
+			host = { character = FROM }
+		}
+		allow = {
+			any_claim = {
+				holder_scope = {
+					character = FROM
+				}
+			}
+		}
+		effect = {
+			character_event = { id = prisoners_claim_events.0 }
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+}

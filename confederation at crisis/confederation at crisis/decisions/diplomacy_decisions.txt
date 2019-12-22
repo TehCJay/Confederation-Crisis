@@ -1,0 +1,424 @@
+# New diplomatic options, replacing or extending vanilla ones
+targetted_decisions = {
+	# Favors
+	ask_for_gift_as_favor = {
+		filter = all
+		ai_target_filter = all
+		
+		from_potential = {
+			is_ruler = yes
+			has_regent = no
+			NOT = { has_character_flag = flag_asking_for_favor }
+		}
+		ai_check_interval = 10 
+ potential = {
+			is_ruler = yes
+			has_regent = no
+			NOT = { character = FROM }
+			OR = {
+				FROM = { ai = no }
+				same_realm = FROM
+				AND = {
+					independent = yes
+					FROM = { independent = yes }
+				}
+				reverse_has_opinion_modifier = { who = FROM modifier = opinion_owes_me_a_favor }
+			}
+		}
+		allow = {
+			is_within_diplo_range = FROM
+			NOT = { has_opinion_modifier = { who = FROM modifier = opinion_owes_me_a_favor } }
+			NOT = { has_opinion_modifier = { who = FROM modifier = opinion_recent_request } }
+			yearly_income = 1 # Must have a meaningful positive income
+			scaled_wealth = 1
+		}
+		effect = {
+			hidden_tooltip = {
+				add_trait = target
+				opinion = { who = FROM modifier = opinion_gift_request_target }
+			}
+			FROM = {
+				set_character_flag = flag_asking_for_favor
+				character_event = { id = diplomacy.2000 tooltip = "EVTOOLTIPDIPLOMACY2000" }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				FROM = {
+					wealth = 0
+					monthly_income = 0
+					NOT = { has_ambition = obj_amass_wealth }
+				}
+			}
+			modifier = {
+				factor = 0
+				NOT = { opinion = { who = FROM value = 0 } }
+			}
+			modifier = {
+				factor = 0
+				trait = cold
+			}
+			
+			modifier = {
+				factor = 0
+				FROM = { trait = proud }
+			}
+			modifier = {
+				factor = 0
+				FROM = { trait = disciplined }
+			}
+			
+			# Don't bother pestering unrelated people
+			modifier = {
+				factor = 0
+				NOT = { reverse_has_opinion_modifier = { who = FROM modifier = opinion_owes_me_a_favor } }
+				NOT = { same_liege = FROM }
+				NOT = { is_liege_or_above = FROM }
+				NOT = { is_vassal_or_below = FROM }
+				NOT = { is_friend = FROM }
+				NOT = { is_lover = FROM }
+				NOT = { dynasty = FROM }
+				NOT = {
+					AND = {
+						independent = yes
+						FROM = { independent = yes }
+					}
+				}
+			}
+			
+			# Don't beg for money from people who massively outrank you
+			modifier = {
+				factor = 0
+				NOT = { reverse_has_opinion_modifier = { who = FROM modifier = opinion_owes_me_a_favor } }
+				higher_tier_than = count
+				FROM = { tier = baron }
+			}
+			modifier = {
+				factor = 0
+				higher_tier_than = duke
+				NOT = { reverse_has_opinion_modifier = { who = FROM modifier = opinion_owes_me_a_favor } }
+				FROM = { tier = count }
+			}
+			modifier = {
+				factor = 0
+				tier = emperor
+				NOT = { reverse_has_opinion_modifier = { who = FROM modifier = opinion_owes_me_a_favor } }
+				FROM = { tier = duke }
+			}
+			
+			# Prioritize rich people
+			modifier = {
+				factor = 2
+				yearly_income = 2
+			}
+			modifier = {
+				factor = 2
+				yearly_income = 10
+			}
+			modifier = {
+				factor = 2
+				yearly_income = 25
+			}
+			modifier = {
+				factor = 2
+				yearly_income = 50
+			}
+			modifier = {
+				factor = 2
+				yearly_income = 100
+			}
+		}
+	}
+	pro_centralization_favor = {
+		filter = realm
+		ai_target_filter = realm
+		
+		from_potential = {
+			leads_faction = faction_pro_centralization
+			NOT = { has_character_flag = flag_asking_for_favor }
+		}
+		ai_check_interval = 10 
+ potential = {
+			NOT = { character = FROM }
+			is_ruler = yes
+			OR = {
+				higher_tier_than = baron
+				liege = { tier = count }
+			}
+			NOT = { in_faction = faction_pro_centralization }
+			same_liege = FROM
+		}
+		allow = {
+			is_within_diplo_range = FROM
+			has_regent = no
+			NOT = { in_faction = faction_anti_centralization }
+			NOT = { has_opinion_modifier = { who = FROM modifier = opinion_owes_me_a_favor } }
+			NOT = { has_opinion_modifier = { who = FROM modifier = opinion_recent_request } }
+		}
+		effect = {
+			hidden_tooltip = {
+				add_trait = target
+				opinion = { who = FROM modifier = opinion_faction_request_target }
+			}
+			FROM = {
+				set_character_flag = flag_asking_for_favor
+				character_event = { id = diplomacy.3000 tooltip = "EVTOOLTIPDIPLOMACY3000" }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { religion = terran_imperial }
+				NOT = { religion = terran_republican }
+				NOT = { religion = pilgrim }
+				NOT = { religion = orthodox }
+				NOT = { opinion = { who = FROM value = 50 } }
+				NOT = { reverse_has_opinion_modifier = { who = FROM modifier = opinion_owes_me_a_favor } }
+				NOT = { FROM = { has_character_modifier = trustworthy } }
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { opinion = { who = FROM value = 0 } }
+					religion = colonial_separatist
+					religion = neo_feudal
+					religion = xenoterran
+				}
+				NOT = { reverse_has_opinion_modifier = { who = FROM modifier = opinion_owes_me_a_favor } }
+				NOT = { opinion = { who = FROM value = 100 } }
+			}
+			modifier = {
+				factor = 0
+				crownlaw_title = { has_law = legislative_authority_1 }
+				NOT = { any_demesne_province = { owner = { character = ROOT } } }
+			}
+			modifier = {
+				factor = 0
+				crownlaw_title = { has_law = legislative_authority_0 }
+				NOT = { relative_power_to_liege = 0.1 }
+			}
+			modifier = {
+				factor = 0
+				trait = radical
+				FROM = {
+					NOT = { trait = imbecile }
+					NOT = { trait = slow }
+					NOT = { trait = lunatic }
+				}
+			}
+		}
+	}
+	anti_centralization_favor = {
+		filter = realm
+		ai_target_filter = realm
+		
+		from_potential = {
+			leads_faction = faction_anti_centralization
+			NOT = { has_character_flag = flag_asking_for_favor }
+		}
+		ai_check_interval = 10 
+ potential = {
+			NOT = { character = FROM }
+			is_ruler = yes
+			OR = {
+				higher_tier_than = baron
+				liege = { tier = count }
+			}
+			NOT = { in_faction = faction_anti_centralization }
+			same_liege = FROM
+		}
+		allow = {
+			is_within_diplo_range = FROM
+			has_regent = no
+			NOT = { in_faction = faction_pro_centralization }
+			NOT = { has_opinion_modifier = { who = FROM modifier = opinion_owes_me_a_favor } }
+			NOT = { has_opinion_modifier = { who = FROM modifier = opinion_recent_request } }
+		}
+		effect = {
+			hidden_tooltip = {
+				add_trait = target
+				opinion = { who = FROM modifier = opinion_faction_request_target }
+			}
+			FROM = {
+				set_character_flag = flag_asking_for_favor
+				character_event = { id = diplomacy.3100 tooltip = "EVTOOLTIPDIPLOMACY3100" }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { religion = colonial_separatist }
+				NOT = { religion = neo_feudal }
+				NOT = { religion = xenoterran }
+				NOT = { opinion = { who = FROM value = 50 } }
+				NOT = { reverse_has_opinion_modifier = { who = FROM modifier = opinion_owes_me_a_favor } }
+				NOT = { FROM = { has_character_modifier = trustworthy } }
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { opinion = { who = FROM value = 0 } }
+					religion = terran_imperial
+					religion = terran_republican
+					religion = pilgrim
+					religion = orthodox
+				}
+				NOT = { reverse_has_opinion_modifier = { who = FROM modifier = opinion_owes_me_a_favor } }
+				NOT = { opinion = { who = FROM value = 100 } }
+			}
+			modifier = {
+				factor = 0
+				crownlaw_title = { has_law = legislative_authority_1 }
+				NOT = { any_demesne_province = { owner = { character = ROOT } } }
+			}
+			modifier = {
+				factor = 0
+				crownlaw_title = { has_law = legislative_authority_0 }
+				NOT = { relative_power_to_liege = 0.1 }
+			}
+			modifier = {
+				factor = 0
+				trait = radical
+				FROM = {
+					NOT = { trait = imbecile }
+					NOT = { trait = slow }
+					NOT = { trait = lunatic }
+				}
+			}
+		}
+	}
+	no_confidence_favor = {
+		filter = realm
+		ai_target_filter = realm
+		
+		from_potential = {
+			leads_faction = faction_no_confidence
+			NOT = { has_character_flag = flag_asking_for_favor }
+		}
+		ai_check_interval = 10 
+ potential = {
+			NOT = { character = FROM }
+			is_ruler = yes
+			OR = {
+				higher_tier_than = baron
+				liege = { tier = count }
+			}
+			NOT = { in_faction = faction_no_confidence }
+			same_liege = FROM
+		}
+		allow = {
+			is_within_diplo_range = FROM
+			has_regent = no
+			NOT = { has_opinion_modifier = { who = FROM modifier = opinion_owes_me_a_favor } }
+			NOT = { has_opinion_modifier = { who = FROM modifier = opinion_recent_request } }
+		}
+		effect = {
+			hidden_tooltip = {
+				add_trait = target
+				opinion = { who = FROM modifier = opinion_faction_request_target }
+			}
+			FROM = {
+				set_character_flag = flag_asking_for_favor
+				character_event = { id = diplomacy.3200 tooltip = "EVTOOLTIPDIPLOMACY3200" }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				opinion = { who = liege value = 0 }
+				NOT = { trait = pragmatic }
+				NOT = { trait = ambitious }
+				NOT = { reverse_has_opinion_modifier = { who = FROM modifier = opinion_owes_me_a_favor } }
+			}
+			modifier = {
+				factor = 0
+				opinion = { who = liege value = 50 }
+				NOT = { reverse_has_opinion_modifier = { who = FROM modifier = opinion_owes_me_a_favor } }
+			}
+			modifier = {
+				factor = 0
+				crownlaw_title = { has_law = legislative_authority_1 }
+				NOT = { any_demesne_province = { owner = { character = ROOT } } }
+			}
+			modifier = {
+				factor = 0
+				crownlaw_title = { has_law = legislative_authority_0 }
+				NOT = { relative_power_to_liege = 0.1 }
+			}
+			modifier = {
+				factor = 0
+				trait = radical
+				FROM = {
+					NOT = { trait = imbecile }
+					NOT = { trait = slow }
+					NOT = { trait = lunatic }
+				}
+			}
+		}
+	}
+	lovers_peace_decision = {
+		filter = all
+		ai_target_filter = all
+		
+		from_potential = {
+			is_ruler = yes
+			is_primary_war_defender = yes
+			has_lover = yes
+		}
+		ai_check_interval = 10 
+ potential = {
+			is_ruler = yes
+			any_lover = { character = FROM }
+		}
+		allow = {
+			any_war = {
+				NOT = { using_cb = cb_military_campaign }
+				attacker = { character = ROOT }
+				defender = { character = FROM }
+			}
+			FROM = { NOT = { has_character_flag = flag_making_lovers_peace } }
+		}
+		effect = {
+			hidden_tooltip = {
+				add_trait = target
+				opinion = { who = FROM modifier = opinion_lovers_peace_target }
+			}
+			FROM = {
+				set_character_flag = flag_making_lovers_peace
+				character_event = { id = lovers.80 tooltip = "EVTTOOLTIPLOVERS80" }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				FROM = { trait = neurotic }
+			}
+			modifier = {
+				factor = 0
+				FROM = { trait = proud }
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					any_war = {
+						NOT = { using_cb = cb_military_campaign }
+						attacker = { character = ROOT }
+						defender = { character = FROM }
+						war_score = 1
+					}
+				}
+				FROM = {
+					NOT = { trait = friendly }
+					NOT = { trait = content }
+					NOT = { trait = humble }
+				}
+			}
+		}
+	}
+}

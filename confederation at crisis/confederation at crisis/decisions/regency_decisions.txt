@@ -1,0 +1,1059 @@
+# Regency decisions
+targetted_decisions = {
+	# Council management
+	regent_appoint_chancellor = {
+		filter = sub_realm
+		ai_target_filter = sub_realm
+		from_potential = {
+			has_minor_title = title_regent
+			NOT = { has_job_title = job_chancellor }
+		}
+		ai_check_interval = 10 
+ potential = {
+			same_liege = FROM
+			is_adult = yes
+			prisoner = no
+			NOT = { trait = incapable }
+			is_councillor = no
+		}
+		allow = {
+			FROM = {
+				NOT = { has_character_flag = flag_appointing_liege_councillor }
+				prestige = 25
+				custom_tooltip = {
+					text = "ONEYEARCOOLDOWN"
+					hidden_tooltip = {
+						OR = {
+							NOT = { has_character_flag = flag_appointed_liege_chancellor }
+							had_character_flag = { flag = flag_appointed_liege_chancellor days = 365 }
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = {
+				text = "REGENTAPPOINTCHANCELLOR"
+				hidden_tooltip = {
+					FROM = { set_character_flag = flag_appointing_liege_councillor }
+					letter_event = { id = regent.1300 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			# Must have a positive reason to do this
+			modifier = {
+				factor = 0
+				NOT = {
+					AND = {
+						has_ambition = obj_become_chancellor
+						OR = {
+							AND = {
+								relative_power_to_liege = 0.1
+								FROM = { trait = ambitious }
+							}
+							AND = {
+								reverse_opinion = { who = FROM value = 75 }
+								liege = { job_chancellor = { NOT = { reverse_opinion = { who = FROM value = 50 } } } }
+							}
+							has_opinion_modifier = { who = FROM modifier = opinion_owes_me_a_favor }
+						}
+					}
+				}
+				liege = {
+					OR = {
+						job_chancellor = { diplomacy = ROOT }
+						any_realm_character = {
+							liege = { character = PREV }
+							is_councillor = no
+							is_adult = yes
+							prisoner = no
+							NOT = { trait = incapable }
+							ROOT = { NOT = { diplomacy = PREV } }
+						}
+					}
+				}
+			}
+			# Avoid antagonizing a very powerful existing chancellor
+			modifier = {
+				factor = 0
+				liege = { job_chancellor = { relative_power = { who = FROM power = 1.0 } } }
+				NOT = { relative_power = { who = FROM power = 1.0 } }
+				FROM = {
+					NOT = { trait = imbecile }
+					NOT = { trait = slow }
+					NOT = { trait = lunatic }
+					NOT = { trait = brave }
+				}
+			}
+			modifier = {
+				factor = 0
+				liege = { job_chancellor = { relative_power = { who = FROM power = 2.0 } } }
+				NOT = { relative_power = { who = FROM power = 2.0 } }
+				FROM = {
+					NOT = { trait = imbecile }
+					NOT = { trait = lunatic }
+				}
+			}
+			# Don't replace a more competent chancellor that you like
+			modifier = {
+				factor = 0
+				liege = {
+					job_chancellor = {
+						ROOT = { NOT = { diplomacy = PREV } }
+						reverse_opinion = { who = FROM value = 25 }
+						OR = {
+							relative_power = { who = ROOT power = 1 }
+							FROM = { trait = lunatic }
+							FROM = { trait = imbecile }
+							FROM = { trait = content }
+							FROM = { trait = radical }
+							FROM = { trait = friendly }
+						}
+					}
+				}
+			}
+			# Don't replace a chancellor you appointed as a favor
+			modifier = {
+				factor = 0
+				liege = {
+					job_chancellor = {
+						has_opinion_modifier = { who = FROM modifier = opinion_favor_ongoing_council }
+						OR = {
+							FROM = { NOT = { trait = pragmatic } }
+							relative_power = { who = ROOT power = 1 }
+						}
+					}
+				}
+			}
+			# Don't spam
+			modifier = {
+				factor = 0
+				has_opinion_modifier = { who = FROM modifier = opinion_recent_request }
+			}
+		}
+	}
+	regent_appoint_marshal = {
+		filter = sub_realm
+		ai_target_filter = sub_realm
+		from_potential = {
+			has_minor_title = title_regent
+			NOT = { has_job_title = job_marshal }
+		}
+		ai_check_interval = 10 
+ potential = {
+			same_liege = FROM
+			is_adult = yes
+			prisoner = no
+			NOT = { trait = incapable }
+			is_councillor = no
+		}
+		allow = {
+			FROM = {
+				NOT = { has_character_flag = flag_appointing_liege_councillor }
+				prestige = 25
+				custom_tooltip = {
+					text = "ONEYEARCOOLDOWN"
+					hidden_tooltip = {
+						OR = {
+							NOT = { has_character_flag = flag_appointed_liege_marshal }
+							had_character_flag = { flag = flag_appointed_liege_marshal days = 365 }
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = {
+				text = "REGENTAPPOINTMARSHAL"
+				hidden_tooltip = {
+					FROM = { set_character_flag = flag_appointing_liege_councillor }
+					letter_event = { id = regent.1400 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			# Must have a positive reason to do this
+			modifier = {
+				factor = 0
+				NOT = {
+					AND = {
+						has_ambition = obj_become_marshal
+						OR = {
+							AND = {
+								relative_power_to_liege = 0.1
+								FROM = { trait = ambitious }
+							}
+							AND = {
+								reverse_opinion = { who = FROM value = 75 }
+								liege = { job_marshal = { NOT = { reverse_opinion = { who = FROM value = 50 } } } }
+							}
+							has_opinion_modifier = { who = FROM modifier = opinion_owes_me_a_favor }
+						}
+					}
+				}
+				liege = {
+					OR = {
+						job_marshal = { martial = ROOT }
+						any_realm_character = {
+							liege = { character = PREV }
+							is_councillor = no
+							is_adult = yes
+							prisoner = no
+							NOT = { trait = incapable }
+							ROOT = { NOT = { martial = PREV } }
+						}
+					}
+				}
+			}
+			# Avoid antagonizing a very powerful existing marshal
+			modifier = {
+				factor = 0
+				liege = { job_marshal = { relative_power = { who = FROM power = 1.0 } } }
+				NOT = { relative_power = { who = FROM power = 1.0 } }
+				FROM = {
+					NOT = { trait = imbecile }
+					NOT = { trait = slow }
+					NOT = { trait = lunatic }
+					NOT = { trait = brave }
+				}
+			}
+			modifier = {
+				factor = 0
+				liege = { job_marshal = { relative_power = { who = FROM power = 2.0 } } }
+				NOT = { relative_power = { who = FROM power = 2.0 } }
+				FROM = {
+					NOT = { trait = imbecile }
+					NOT = { trait = lunatic }
+				}
+			}
+			# Don't replace a more competent marshal that you like
+			modifier = {
+				factor = 0
+				liege = {
+					job_marshal = {
+						ROOT = { NOT = { martial = PREV } }
+						reverse_opinion = { who = FROM value = 25 }
+						OR = {
+							relative_power = { who = ROOT power = 1 }
+							FROM = { trait = lunatic }
+							FROM = { trait = imbecile }
+							FROM = { trait = content }
+							FROM = { trait = radical }
+							FROM = { trait = friendly }
+						}
+					}
+				}
+			}
+			# Don't replace a marshal you appointed as a favor
+			modifier = {
+				factor = 0
+				liege = {
+					job_marshal = {
+						has_opinion_modifier = { who = FROM modifier = opinion_favor_ongoing_council }
+						OR = {
+							FROM = { NOT = { trait = pragmatic } }
+							relative_power = { who = ROOT power = 1 }
+						}
+					}
+				}
+			}
+			# Don't spam
+			modifier = {
+				factor = 0
+				has_opinion_modifier = { who = FROM modifier = opinion_recent_request }
+			}
+		}
+	}
+	regent_appoint_treasurer = {
+		filter = sub_realm
+		ai_target_filter = sub_realm
+		from_potential = {
+			has_minor_title = title_regent
+			NOT = { has_job_title = job_treasurer }
+		}
+		ai_check_interval = 10 
+ potential = {
+			same_liege = FROM
+			is_adult = yes
+			prisoner = no
+			NOT = { trait = incapable }
+			is_councillor = no
+		}
+		allow = {
+			FROM = {
+				NOT = { has_character_flag = flag_appointing_liege_councillor }
+				prestige = 25
+				custom_tooltip = {
+					text = "ONEYEARCOOLDOWN"
+					hidden_tooltip = {
+						OR = {
+							NOT = { has_character_flag = flag_appointed_liege_treasurer }
+							had_character_flag = { flag = flag_appointed_liege_treasurer days = 365 }
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = {
+				text = "REGENTAPPOINTTREASURER"
+				hidden_tooltip = {
+					FROM = { set_character_flag = flag_appointing_liege_councillor }
+					letter_event = { id = regent.1500 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			# Must have a positive reason to do this
+			modifier = {
+				factor = 0
+				NOT = {
+					AND = {
+						has_ambition = obj_become_treasurer
+						OR = {
+							AND = {
+								relative_power_to_liege = 0.1
+								FROM = { trait = ambitious }
+							}
+							AND = {
+								reverse_opinion = { who = FROM value = 75 }
+								liege = { job_treasurer = { NOT = { reverse_opinion = { who = FROM value = 50 } } } }
+							}
+							has_opinion_modifier = { who = FROM modifier = opinion_owes_me_a_favor }
+						}
+					}
+				}
+				liege = {
+					OR = {
+						job_treasurer = { stewardship = ROOT }
+						any_realm_character = {
+							liege = { character = PREV }
+							is_councillor = no
+							is_adult = yes
+							prisoner = no
+							NOT = { trait = incapable }
+							ROOT = { NOT = { stewardship = PREV } }
+						}
+					}
+				}
+			}
+			# Avoid antagonizing a very powerful existing treasurer
+			modifier = {
+				factor = 0
+				liege = { job_treasurer = { relative_power = { who = FROM power = 1.0 } } }
+				NOT = { relative_power = { who = FROM power = 1.0 } }
+				FROM = {
+					NOT = { trait = imbecile }
+					NOT = { trait = slow }
+					NOT = { trait = lunatic }
+					NOT = { trait = brave }
+				}
+			}
+			modifier = {
+				factor = 0
+				liege = { job_treasurer = { relative_power = { who = FROM power = 2.0 } } }
+				NOT = { relative_power = { who = FROM power = 2.0 } }
+				FROM = {
+					NOT = { trait = imbecile }
+					NOT = { trait = lunatic }
+				}
+			}
+			# Don't replace a more competent treasurer that you like
+			modifier = {
+				factor = 0
+				liege = {
+					job_treasurer = {
+						ROOT = { NOT = { stewardship = PREV } }
+						reverse_opinion = { who = FROM value = 25 }
+						OR = {
+							relative_power = { who = ROOT power = 1 }
+							FROM = { trait = lunatic }
+							FROM = { trait = imbecile }
+							FROM = { trait = content }
+							FROM = { trait = radical }
+							FROM = { trait = friendly }
+						}
+					}
+				}
+			}
+			# Don't replace a treasurer you appointed as a favor
+			modifier = {
+				factor = 0
+				liege = {
+					job_treasurer = {
+						has_opinion_modifier = { who = FROM modifier = opinion_favor_ongoing_council }
+						OR = {
+							FROM = { NOT = { trait = pragmatic } }
+							relative_power = { who = ROOT power = 1 }
+						}
+					}
+				}
+			}
+			# Don't spam
+			modifier = {
+				factor = 0
+				has_opinion_modifier = { who = FROM modifier = opinion_recent_request }
+			}
+		}
+	}
+	regent_appoint_spymaster = {
+		filter = sub_realm
+		ai_target_filter = sub_realm
+		from_potential = {
+			has_minor_title = title_regent
+			NOT = { has_job_title = job_spymaster }
+		}
+		ai_check_interval = 10 
+ potential = {
+			same_liege = FROM
+			is_adult = yes
+			prisoner = no
+			NOT = { trait = incapable }
+			is_councillor = no
+		}
+		allow = {
+			FROM = {
+				NOT = { has_character_flag = flag_appointing_liege_councillor }
+				prestige = 25
+				custom_tooltip = {
+					text = "ONEYEARCOOLDOWN"
+					hidden_tooltip = {
+						OR = {
+							NOT = { has_character_flag = flag_appointed_liege_spymaster }
+							had_character_flag = { flag = flag_appointed_liege_spymaster days = 365 }
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = {
+				text = "REGENTAPPOINTSPYMASTER"
+				hidden_tooltip = {
+					FROM = { set_character_flag = flag_appointing_liege_councillor }
+					letter_event = { id = regent.1600 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			# Must have a positive reason to do this
+			modifier = {
+				factor = 0
+				NOT = {
+					AND = {
+						has_ambition = obj_become_spymaster
+						OR = {
+							AND = {
+								relative_power_to_liege = 0.1
+								FROM = { trait = ambitious }
+							}
+							AND = {
+								reverse_opinion = { who = FROM value = 75 }
+								liege = { job_spymaster = { NOT = { reverse_opinion = { who = FROM value = 50 } } } }
+							}
+							has_opinion_modifier = { who = FROM modifier = opinion_owes_me_a_favor }
+						}
+					}
+				}
+				liege = {
+					OR = {
+						job_spymaster = { intrigue = ROOT }
+						any_realm_character = {
+							liege = { character = PREV }
+							is_councillor = no
+							is_adult = yes
+							prisoner = no
+							NOT = { trait = incapable }
+							ROOT = { NOT = { intrigue = PREV } }
+						}
+					}
+				}
+			}
+			# Avoid antagonizing a very powerful existing spymaster
+			modifier = {
+				factor = 0
+				liege = { job_spymaster = { relative_power = { who = FROM power = 1.0 } } }
+				NOT = { relative_power = { who = FROM power = 1.0 } }
+				FROM = {
+					NOT = { trait = imbecile }
+					NOT = { trait = slow }
+					NOT = { trait = lunatic }
+					NOT = { trait = brave }
+				}
+			}
+			modifier = {
+				factor = 0
+				liege = { job_spymaster = { relative_power = { who = FROM power = 2.0 } } }
+				NOT = { relative_power = { who = FROM power = 2.0 } }
+				FROM = {
+					NOT = { trait = imbecile }
+					NOT = { trait = lunatic }
+				}
+			}
+			# Don't replace a more competent spymaster that you like
+			modifier = {
+				factor = 0
+				liege = {
+					job_spymaster = {
+						ROOT = { NOT = { intrigue = PREV } }
+						reverse_opinion = { who = FROM value = 25 }
+						OR = {
+							relative_power = { who = ROOT power = 1 }
+							FROM = { trait = lunatic }
+							FROM = { trait = imbecile }
+							FROM = { trait = content }
+							FROM = { trait = radical }
+							FROM = { trait = friendly }
+						}
+					}
+				}
+			}
+			# Don't replace a spymaster you appointed as a favor
+			modifier = {
+				factor = 0
+				liege = {
+					job_spymaster = {
+						has_opinion_modifier = { who = FROM modifier = opinion_favor_ongoing_council }
+						OR = {
+							FROM = { NOT = { trait = pragmatic } }
+							relative_power = { who = ROOT power = 1 }
+						}
+					}
+				}
+			}
+			# Don't spam
+			modifier = {
+				factor = 0
+				has_opinion_modifier = { who = FROM modifier = opinion_recent_request }
+			}
+		}
+	}
+	regent_appoint_spiritual = {
+		filter = sub_realm
+		ai_target_filter = sub_realm
+		from_potential = {
+			has_minor_title = title_regent
+			NOT = { has_job_title = job_spiritual }
+		}
+		ai_check_interval = 10 
+ potential = {
+			same_liege = FROM
+			is_adult = yes
+			prisoner = no
+			NOT = { trait = incapable }
+			is_councillor = no
+		}
+		allow = {
+			FROM = {
+				NOT = { has_character_flag = flag_appointing_liege_councillor }
+				prestige = 25
+				custom_tooltip = {
+					text = "ONEYEARCOOLDOWN"
+					hidden_tooltip = {
+						OR = {
+							NOT = { has_character_flag = flag_appointed_liege_spiritual }
+							had_character_flag = { flag = flag_appointed_liege_spiritual days = 365 }
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = {
+				text = "REGENTAPPOINTSPIRITUAL"
+				hidden_tooltip = {
+					FROM = { set_character_flag = flag_appointing_liege_councillor }
+					letter_event = { id = regent.1700 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			# Must have a positive reason to do this
+			modifier = {
+				factor = 0
+				NOT = {
+					AND = {
+						has_ambition = obj_become_spiritual
+						OR = {
+							AND = {
+								relative_power_to_liege = 0.1
+								FROM = { trait = ambitious }
+							}
+							AND = {
+								reverse_opinion = { who = FROM value = 75 }
+								liege = { job_spiritual = { NOT = { reverse_opinion = { who = FROM value = 50 } } } }
+							}
+							has_opinion_modifier = { who = FROM modifier = opinion_owes_me_a_favor }
+						}
+					}
+				}
+				liege = {
+					OR = {
+						job_spiritual = { learning = ROOT }
+						any_realm_character = {
+							liege = { character = PREV }
+							is_councillor = no
+							is_adult = yes
+							prisoner = no
+							NOT = { trait = incapable }
+							ROOT = { NOT = { learning = PREV } }
+						}
+					}
+				}
+			}
+			# Avoid antagonizing a very powerful existing spiritual
+			modifier = {
+				factor = 0
+				liege = { job_spiritual = { relative_power = { who = FROM power = 1.0 } } }
+				NOT = { relative_power = { who = FROM power = 1.0 } }
+				FROM = {
+					NOT = { trait = imbecile }
+					NOT = { trait = slow }
+					NOT = { trait = lunatic }
+					NOT = { trait = brave }
+				}
+			}
+			modifier = {
+				factor = 0
+				liege = { job_spiritual = { relative_power = { who = FROM power = 2.0 } } }
+				NOT = { relative_power = { who = FROM power = 2.0 } }
+				FROM = {
+					NOT = { trait = imbecile }
+					NOT = { trait = lunatic }
+				}
+			}
+			# Don't replace a more competent spiritual that you like
+			modifier = {
+				factor = 0
+				liege = {
+					job_spiritual = {
+						ROOT = { NOT = { learning = PREV } }
+						reverse_opinion = { who = FROM value = 25 }
+						OR = {
+							relative_power = { who = ROOT power = 1 }
+							FROM = { trait = lunatic }
+							FROM = { trait = imbecile }
+							FROM = { trait = content }
+							FROM = { trait = radical }
+							FROM = { trait = friendly }
+						}
+					}
+				}
+			}
+			# Don't replace a spiritual you appointed as a favor
+			modifier = {
+				factor = 0
+				liege = {
+					job_spiritual = {
+						has_opinion_modifier = { who = FROM modifier = opinion_favor_ongoing_council }
+						OR = {
+							FROM = { NOT = { trait = pragmatic } }
+							relative_power = { who = ROOT power = 1 }
+						}
+					}
+				}
+			}
+			# Don't spam
+			modifier = {
+				factor = 0
+				has_opinion_modifier = { who = FROM modifier = opinion_recent_request }
+			}
+		}
+	}
+	regent_release_decision = {
+		filter = court
+		ai_target_filter = court
+		from_potential = { has_minor_title = title_regent }
+		ai_check_interval = 10 
+ potential = {
+			prisoner = yes
+			host = { FROM = { liege = { character = PREVPREV } } }
+			NOT = { has_character_flag = flag_prisoner_decision_target }
+		}
+		allow = { FROM = { prestige = 100 } }
+		effect = {
+			FROM = { prestige = -100 }
+			set_character_flag = flag_prisoner_decision_target
+			custom_tooltip = {
+				text = "REGENTRELEASETOOLTIP"
+				hidden_tooltip = { character_event = { id = regent.1000 } }
+			}
+			if = {
+				limit = { has_opinion_modifier = { who = ROOT modifier = opinion_owes_me_a_favor } }
+				custom_tooltip = { text = "FAVORFULFILLED" }
+			}
+			if = {
+				limit = {
+					NOT = { has_opinion_modifier = { who = ROOT modifier = opinion_owes_me_a_favor } }
+					NOT = { reverse_has_opinion_modifier = { who = ROOT modifier = opinion_owes_me_a_favor } }
+				}
+				custom_tooltip = { text = "THEYWILLOWEFAVOR" }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			# Must have a positive reason for this
+			modifier = {
+				factor = 0
+				NOT = { reverse_opinion = { who = FROM value = 75 } }
+				OR = {
+					NOT = { reverse_opinion = { who = FROM value = 50 } }
+					NOT = { FROM = { trait = friendly } }
+				}
+				NOT = { has_opinion_modifier = { who = FROM modifier = opinion_owes_me_a_favor } }
+				OR = {
+					NOT = {
+						AND = {
+							same_liege = FROM
+							relative_power_to_liege = 0.1
+						}
+					}
+					has_opinion_modifier = { who = FROM modifier = opinion_owes_me_a_favor }
+					reverse_has_opinion_modifier = { who = FROM modifier = opinion_owes_me_a_favor }
+					FROM = { NOT = { trait = ambitious } }
+				}
+			}
+			# Don't release people you hate
+			modifier = {
+				factor = 0
+				NOT = { reverse_opinion = { who = FROM value = 0 } }
+			}
+			# Or POWs
+			modifier = {
+				factor = 0
+				war_with = FROM
+			}
+			# Or criminals (unless you're pragmatic)
+			modifier = {
+				factor = 0
+				FROM = {
+					has_opinion_modifier = { who = ROOT modifier = opinion_criminal }
+					NOT = { trait = pragmatic }
+					religion_authority = 0.25
+				}
+			}
+			# Or potential threats
+			modifier = {
+				factor = 0
+				FROM = {
+					NOT = { trait = radical }
+					NOT = { trait = lunatic }
+					NOT = { trait = imbecile }
+					NOT = { trait = slow }
+				}
+				NOT = { opinion = { who = FROM value = -50 } }
+				relative_power = { who = FROM power = 2 }
+			}
+		}
+	}
+	regent_execute_decision = {
+		filter = court
+		ai_target_filter = court
+		from_potential = { has_minor_title = title_regent }
+		ai_check_interval = 10 
+ potential = {
+			prisoner = yes
+			host = { FROM = { liege = { character = PREVPREV } } }
+			NOT = { has_character_flag = flag_prisoner_decision_target }
+		}
+		allow = {
+			FROM = {
+				prestige = 200
+				piety = 100
+			}
+		}
+		effect = {
+			FROM = {
+				prestige = -200
+				piety = -100
+			}
+			set_character_flag = flag_prisoner_decision_target
+			custom_tooltip = {
+				text = "REGENTEXECUTETOOLTIP"
+				hidden_tooltip = { character_event = { id = regent.1100 } }
+			}
+			if = {
+				limit = { NOT = { age = 18 } }
+				FROM = { religion_authority = { modifier = executed_child years = 30 } }
+			}
+			if = {
+				limit = { host = { opinion = { who = ROOT value = 0 } } }
+				FROM = { liege = { opinion = { who = FROM modifier = opinion_disloyal_regent } } }
+			}
+			if = {
+				limit = { host = { NOT = { opinion = { who = ROOT value = 0 } } } }
+				FROM = { liege = { opinion = { who = FROM modifier = opinion_loyal_regent } } }
+			}
+			if = {
+				limit = { NOT = { reverse_has_opinion_modifier = { who = FROM modifier = opinion_sentenced_to_death } } }
+				FROM = { liege = { any_vassal = { opinion = { who = FROM modifier = opinion_tyrannical_regent } } } }
+			}
+			if = {
+				limit = { NOT = { age = 18 } }
+				FROM = { liege = { any_vassal = { opinion = { who = FROM modifier = opinion_tyrannical_regent } } } }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			# Must actually want this person dead
+			modifier = {
+				factor = 0
+				NOT = {
+					FROM = {
+						OR = {
+							has_plot = plot_kill_character
+							has_plot = plot_kill_spouse
+						}
+						plot_target_char = { character = ROOT }
+					}
+				}
+				NOT = {
+					FROM = {
+						any_backed_character = {
+							OR = {
+								has_plot = plot_kill_character
+								has_plot = plot_kill_spouse
+							}
+							plot_target_char = { character = ROOT }
+						}
+					}
+				}
+			}
+			# Don't offend really powerful people
+			modifier = {
+				factor = 0
+				relative_power = { who = FROM power = 2.0 }
+				primary_title = { current_heir = { NOT = { character = FROM } } }
+				FROM = {
+					NOT = { trait = imbecile }
+					NOT = { trait = lunatic }
+				}
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					any_friend = { relative_power = { who = FROM power = 2.0 } }
+					any_lover = { relative_power = { who = FROM power = 2.0 } }
+					spouse = { relative_power = { who = FROM power = 2.0 } }
+					father = { relative_power = { who = FROM power = 2.0 } }
+					mother = { relative_power = { who = FROM power = 2.0 } }
+					any_sibling = { relative_power = { who = FROM power = 2.0 } }
+					any_child = { relative_power = { who = FROM power = 2.0 } }
+				}
+				FROM = {
+					NOT = { trait = imbecile }
+					NOT = { trait = slow }
+					NOT = { trait = lunatic }
+				}
+			}
+		}
+	}
+	regent_take_vassal_decision = {
+		filter = sub_realm
+		ai_target_filter = sub_realm
+		
+		from_potential = {
+			has_minor_title = title_regent
+			higher_tier_than = baron
+		}
+		ai_check_interval = 10 
+ potential = {
+			same_liege = FROM
+			NOT = { character = FROM }
+			is_landed = yes
+			is_patrician = no
+			OR = {
+				AND = {
+					tier = baron
+					FROM = { higher_tier_than = baron }
+				}
+				AND = {
+					tier = count
+					FROM = { higher_tier_than = count }
+				}
+				AND = {
+					tier = duke
+					FROM = { higher_tier_than = duke }
+				}
+			}
+			NOT = { has_character_flag = flag_regent_decision_target }
+		}
+		allow = {
+			# Cannot vassalize another merchant republic.
+			OR = {
+				is_merchant_republic = no
+				FROM = { is_merchant_republic = no }
+			}
+			OR = {
+				AND = {
+					tier = baron
+					primary_title = {
+						OR = {
+							county = { holder_scope = { character = FROM } }
+							duchy = { holder_scope = { character = FROM } }
+							kingdom = { holder_scope = { character = FROM } }
+						}
+					}
+					FROM = { prestige = 50 }
+				}
+				AND = {
+					tier = baron
+					FROM = { prestige = 150 }
+				}
+				AND = {
+					tier = count
+					primary_title = {
+						OR = {
+							duchy = { holder_scope = { character = FROM } }
+							kingdom = { holder_scope = { character = FROM } }
+						}
+					}
+					FROM = { prestige = 100 }
+				}
+				AND = {
+					tier = count
+					FROM = { prestige = 250 }
+				}
+				AND = {
+					tier = duke
+					primary_title = { kingdom = { holder_scope = { character = FROM } } }
+					FROM = { prestige = 200 }
+				}
+				AND = {
+					tier = duke
+					FROM = { prestige = 350 }
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					tier = baron
+					primary_title = {
+						OR = {
+							county = { holder_scope = { character = FROM } }
+							duchy = { holder_scope = { character = FROM } }
+							kingdom = { holder_scope = { character = FROM } }
+						}
+					}
+				}
+				FROM = { prestige = -50 }
+			}
+			if = {
+				limit = {
+					tier = baron
+					NOT = {
+						primary_title = {
+							OR = {
+								county = { holder_scope = { character = FROM } }
+								duchy = { holder_scope = { character = FROM } }
+								kingdom = { holder_scope = { character = FROM } }
+							}
+						}
+					}
+				}
+				FROM = { prestige = -150 }
+			}
+			if = {
+				limit = {
+					tier = count
+					primary_title = {
+						OR = {
+							duchy = { holder_scope = { character = FROM } }
+							kingdom = { holder_scope = { character = FROM } }
+						}
+					}
+				}
+				FROM = { prestige = -100 }
+			}
+			if = {
+				limit = {
+					tier = count
+					NOT = {
+						primary_title = {
+							OR = {
+								duchy = { holder_scope = { character = FROM } }
+								kingdom = { holder_scope = { character = FROM } }
+							}
+						}
+					}
+				}
+				FROM = { prestige = -250 }
+			}
+			if = {
+				limit = {
+					tier = duke
+					primary_title = { kingdom = { holder_scope = { character = FROM } } }
+				}
+				FROM = { prestige = -200 }
+			}
+			if = {
+				limit = {
+					tier = duke
+					NOT = { primary_title = { kingdom = { holder_scope = { character = FROM } } } }
+				}
+				FROM = { prestige = -350 }
+			}
+			custom_tooltip = {
+				text = "REGENTBECOMEDIRECTVASSAL"
+				hidden_tooltip = {
+					letter_event = { id = regent.1200 }
+					set_character_flag = flag_regent_decision_target
+				}
+			}
+			FROM = { liege = { opinion = { who = FROM modifier = opinion_disloyal_regent } } } # There's no possible way this could look good
+			if = {
+				limit = {
+					NOT = {
+						primary_title = {
+							OR = {
+								county = { holder_scope = { character = FROM } }
+								duchy = { holder_scope = { character = FROM } }
+								kingdom = { holder_scope = { character = FROM } }
+							}
+						}
+}
+				}
+				liege = { any_vassal = { opinion = { who = FROM modifier = opinion_tyrannical_regent } } }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				FROM = { trait = content }
+			}
+			modifier = {
+				factor = 0
+				FROM = {
+					opinion = { who = liege value = 50 }
+					NOT = { trait = ambitious }
+				}
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					primary_title = {
+						OR = {
+							county = { holder_scope = { character = FROM } }
+							duchy = { holder_scope = { character = FROM } }
+							kingdom = { holder_scope = { character = FROM } }
+						}
+					}
+				}
+				FROM = { NOT = { trait = pragmatic } }
+			}
+			modifier = {
+				factor = 0
+				tier = baron
+				NOT = { capital_holding = { location = { owner = { character = FROM } } } }
+			}
+		}
+	}
+}

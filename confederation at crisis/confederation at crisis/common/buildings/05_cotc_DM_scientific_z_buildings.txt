@@ -1,0 +1,1192 @@
+###############################################################
+#
+#	Written by The Dark Master
+#
+###############################################################
+
+temple = {
+	tp_primary_q_0 = {
+		desc = tp_primary_q_0_desc
+		trigger = { TECH_LEGALISM = 0 }
+		potential = {  }
+		
+		build_cost = 0
+		build_time = 0
+		ai_creation_factor = 500
+		
+		extra_tech_building_start = 0
+	}
+	tp_primary_q_1 = {
+		desc = tp_primary_q_1_desc
+		trigger = {
+			TECH_LEGALISM = 0
+		}
+		potential = { }
+		upgrades_from = tp_primary_q_0
+		garrison_size = 0.25
+		military_techpoints = 0.05
+		economy_techpoints = 0.05
+		culture_techpoints = 0.05
+		build_cost = 1000
+		build_time = 365
+		ai_creation_factor = 50
+		extra_tech_building_start = 10.0
+	}
+	
+	tp_primary_q_2 = {
+		desc = tp_primary_q_2_desc
+		trigger = {
+			always = yes
+		}
+		potential = { }
+		prerequisites = { tp_environment_1 }
+		upgrades_from = tp_primary_q_1	#Make sure all planets upgrade from each other in order
+		garrison_size = 0.5
+		military_techpoints = 0.05
+		economy_techpoints = 0.05
+		culture_techpoints = 0.05
+		build_cost = 2000
+		build_time = 730
+		ai_creation_factor = 49
+		extra_tech_building_start = 10.0
+	}
+	tp_primary_q_3 = {
+		desc = tp_primary_q_3_desc
+		trigger = {
+			always = yes
+		}
+		potential = { }
+		prerequisites = { tp_environment_2 }
+		upgrades_from = tp_primary_q_2
+		garrison_size = 0.5
+		military_techpoints = 0.05
+		economy_techpoints = 0.05
+		culture_techpoints = 0.05
+		build_cost = 3000
+		build_time = 1460
+		ai_creation_factor = 48
+		extra_tech_building_start = 10.0
+	}
+	tp_primary_q_4 = {
+		desc = tp_primary_q_4_desc
+		trigger = {
+			always = yes
+		}
+		potential = { }
+		prerequisites = { tp_environment_3 }
+		upgrades_from = tp_primary_q_3
+		garrison_size = 0.5
+		military_techpoints = 0.05
+		economy_techpoints = 0.05
+		culture_techpoints = 0.05
+		build_cost = 4000
+		build_time = 2920
+		ai_creation_factor = 47
+		extra_tech_building_start = 10.0
+	}
+	tp_primary_q_5 = {
+		desc = tp_primary_q_5_desc
+		trigger = {
+			always = yes
+		}
+		potential = { }
+		prerequisites = { tp_environment_4 }
+		upgrades_from = tp_primary_q_4
+		garrison_size = 0.2
+		military_techpoints = 0.05
+		economy_techpoints = 0.05
+		culture_techpoints = 0.05
+		build_cost = 5000
+		build_time = 5840
+		ai_creation_factor = 46
+		extra_tech_building_start = 10.0
+	}
+	tp_hospital_q_1 = {
+		desc = tp_hospital_q_1_desc
+		trigger = {
+			TECH_NOBLE_CUSTOMS = 0
+		}
+		prerequisites = { }
+		build_cost = 200
+		build_time = 365
+		disease_defence = 0.15
+		ai_creation_factor = 200
+		extra_tech_building_start = 0.8
+	}
+	tp_hospital_q_2 = {
+		desc = tp_hospital_q_2_desc
+		trigger = {
+			TECH_NOBLE_CUSTOMS = 2
+		}
+		upgrades_from = tp_hospital_q_1
+		prerequisites = { tp_energy_2 }
+		build_cost = 400
+		build_time = 730
+		disease_defence = 0.15
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_hospital_q_3 = {
+		desc = tp_hospital_q_3_desc
+		trigger = {
+			TECH_NOBLE_CUSTOMS = 4
+		}
+		upgrades_from = tp_hospital_q_2
+		prerequisites = { tp_energy_3 }
+		build_cost = 600
+		build_time = 1095
+		disease_defence = 0.15
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_cybernetics_lab_q_1 = {
+		desc = tp_cybernetics_lab_q_1_desc
+		trigger = {
+			TECH_POPULAR_CUSTOMS = 0
+		}
+		prerequisites = { 
+			tp_hospital_q_1
+			tp_energy_1
+		}
+		build_cost = 300
+		build_time = 365
+		ai_creation_factor = 150
+		extra_tech_building_start = 0.8
+	}
+	tp_cybernetics_lab_q_2 = {
+		desc = tp_cybernetics_lab_q_2_desc
+		potential = { 
+			OR = {
+				religion = cyberneticist
+				religion = machine_cultist
+				religion = hiver
+			}
+		}
+		trigger = {
+			TECH_POPULAR_CUSTOMS = 3
+		}
+		upgrades_from = tp_cybernetics_lab_q_1
+		prerequisites = { 
+			tp_hospital_q_2
+			tp_energy_3
+		}
+		build_cost = 600
+		build_time = 730
+		liege_piety = 0.2
+		ai_creation_factor = 125
+		extra_tech_building_start = 0.8
+	}
+	tp_cybernetics_lab_q_3 = {
+		desc = tp_cybernetics_lab_q_3_desc
+		potential = { 
+			OR = {
+				religion = cyberneticist
+				religion = machine_cultist
+				religion = hiver
+			}
+		}
+		trigger = {
+			TECH_POPULAR_CUSTOMS = 6
+		}
+		upgrades_from = tp_cybernetics_lab_q_2
+		prerequisites = { 
+			tp_hospital_q_3
+			tp_energy_4
+		}
+		build_cost = 900
+		build_time = 1095
+		liege_piety = 0.2
+		ai_creation_factor = 125
+		extra_tech_building_start = 0.8
+	}
+	tp_biogenetics_lab_q_1 = {
+		desc = tp_biogenetics_lab_q_1_desc
+		trigger = {
+			TECH_RELIGIOUS_CUSTOMS = 0
+		}
+		prerequisites = { 
+			tp_hospital_q_1
+			tp_energy_1
+		}
+		build_cost = 300
+		build_time = 365
+		ai_creation_factor = 150
+		extra_tech_building_start = 0.8
+	}
+	tp_biogenetics_lab_q_2 = {
+		desc = tp_biogenetics_lab_q_2_desc
+		potential = { 
+			OR = {
+				religion = bio_directionist
+			}
+		}
+		trigger = {
+			TECH_RELIGIOUS_CUSTOMS = 3
+		}
+		upgrades_from = tp_biogenetics_lab_q_1
+		prerequisites = { 
+			tp_hospital_q_2
+			tp_energy_3
+		}
+		build_cost = 600
+		build_time = 730
+		liege_piety = 0.2
+		ai_creation_factor = 125
+		extra_tech_building_start = 0.8
+	}
+	tp_biogenetics_lab_q_3 = {
+		desc = tp_biogenetics_lab_q_3_desc
+		potential = { 
+			OR = {
+				religion = bio_directionist
+			}
+		}
+		trigger = {
+			TECH_RELIGIOUS_CUSTOMS = 6
+		}
+		upgrades_from = tp_biogenetics_lab_q_2
+		prerequisites = { 
+			tp_hospital_q_3
+			tp_energy_4
+		}
+		build_cost = 900
+		build_time = 1095
+		liege_piety = 0.2
+		ai_creation_factor = 125
+		extra_tech_building_start = 0.8
+	}
+	tp_social_sciences_lab_q_1 = {
+		desc = tp_social_sciences_lab_q_1_desc
+		trigger = {
+			TECH_CITY_CONSTRUCTION = 0
+		}
+		prerequisites = { 
+			tp_primary_q_1
+			tp_energy_1
+		}
+		build_cost = 300
+		build_time = 365
+		liege_prestige = 0.2
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_social_sciences_lab_q_2 = {
+		desc = tp_social_sciences_lab_q_2_desc
+		potential = { 
+			OR = {
+				religious_group = political_group
+			}
+		}
+		trigger = {
+			TECH_CITY_CONSTRUCTION = 3
+		}
+		upgrades_from = tp_social_sciences_lab_q_1
+		prerequisites = { 
+			tp_primary_q_3
+			tp_energy_2
+		}
+		build_cost = 600
+		build_time = 730
+		liege_prestige = 0.2
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_social_sciences_lab_q_3 = {
+		desc = tp_social_sciences_lab_q_3_desc
+		potential = { 
+			OR = {
+				religious_group = political_group
+			}
+		}
+		trigger = {
+			TECH_CITY_CONSTRUCTION = 6
+		}
+		upgrades_from = tp_social_sciences_lab_q_2
+		prerequisites = {
+			tp_primary_q_5
+			tp_energy_3
+		}
+		build_cost = 900
+		build_time = 1095
+		liege_prestige = 0.2
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_theological_school_q_1 = {
+		desc = tp_theological_school_q_1_desc
+		trigger = {
+			TECH_CITY_CONSTRUCTION = 0
+		}
+		prerequisites = { 
+			tp_primary_q_1
+			tp_energy_1
+		}
+		build_cost = 300
+		build_time = 365
+		liege_piety = 0.2
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_theological_school_q_2 = {
+		desc = tp_theological_school_q_2_desc
+		potential = { 
+			OR = {
+				religious_group = religious_group
+			}
+		}
+		trigger = {
+			TECH_CITY_CONSTRUCTION = 3
+		}
+		upgrades_from = tp_theological_school_q_1
+		prerequisites = { 
+			tp_primary_q_3
+			tp_energy_2
+		}
+		build_cost = 600
+		build_time = 730
+		liege_piety = 0.2
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_theological_school_q_3 = {
+		desc = tp_theological_school_q_3_desc
+		potential = { 
+			OR = {
+				religious_group = religious_group
+			}
+		}
+		trigger = {
+			TECH_CITY_CONSTRUCTION = 6
+		}
+		upgrades_from = tp_theological_school_q_2
+		prerequisites = {
+			tp_primary_q_5
+			tp_energy_3
+		}
+		build_cost = 900
+		build_time = 1095
+		liege_piety = 0.2
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_robotics_lab_q_1 = {
+		desc = tp_robotics_lab_q_1_desc
+		trigger = {
+			TECH_MAJESTY = 0
+		}
+		build_cost = 100
+		build_time = 365
+		pikemen = 20
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_robotics_lab_q_2 = {
+		desc = tp_robotics_lab_q_2_desc
+		trigger = {
+			TECH_MAJESTY = 2
+		}
+		upgrades_from = tp_robotics_lab_q_1
+		prerequisites = { tp_energy_1 }
+		build_cost = 120
+		build_time = 365
+		pikemen = 25
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_robotics_lab_q_3 = {
+		desc = tp_robotics_lab_q_3_desc
+		trigger = {
+			TECH_MAJESTY = 4
+		}
+		upgrades_from = tp_robotics_lab_q_2
+		prerequisites = { tp_energy_2 }
+		build_cost = 180
+		build_time = 365
+		pikemen = 30
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_robotics_lab_q_4 = {
+		desc = tp_robotics_lab_q_4_desc
+		trigger = {
+			TECH_MAJESTY = 6
+		}
+		upgrades_from = tp_robotics_lab_q_3
+		prerequisites = { tp_energy_3 }
+		build_cost = 280
+		build_time = 548
+		pikemen = 35
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_robotics_lab_q_5 = {
+		desc = tp_robotics_lab_q_5_desc
+		trigger = {
+			TECH_MAJESTY = 8
+		}
+		upgrades_from = tp_robotics_lab_q_4
+		prerequisites = { tp_energy_4 }
+		build_cost = 400
+		build_time = 730
+		pikemen = 40
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	# tp_robotics_lab_q_6 = {
+		# desc = tp_robotics_lab_q_6_desc
+		# trigger = {
+			# TECH_TEMPLE_CONSTRUCTION = 3
+		# }
+		# upgrades_from = tp_robotics_lab_q_5
+		# prerequisites = { tp_primary_q_3 }
+		# build_cost = 540
+		# build_time = 730
+		# pikemen = 45
+		# ai_creation_factor = 100
+		# extra_tech_building_start = 0.8
+	# }
+	tp_security_q_1 = {
+		desc = tp_security_q_1_desc
+		trigger = {
+			TECH_TEMPLE_CONSTRUCTION = 0
+		}
+		prerequisites = { tp_primary_q_1 }
+		build_cost = 120
+		build_time = 365
+		light_infantry = 30
+		garrison_size = 0.1
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_security_q_2 = {
+		desc = tp_security_q_2_desc
+		trigger = {
+			TECH_TEMPLE_CONSTRUCTION = 1
+		}
+		upgrades_from = tp_security_q_1
+		prerequisites = {
+			tp_primary_q_2
+			tp_materials_1
+		}
+		build_cost = 200
+		build_time = 548
+		light_infantry = 35
+		garrison_size = 0.1
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_security_q_3 = {
+		desc = tp_security_q_3_desc
+		trigger = {
+			TECH_TEMPLE_CONSTRUCTION = 3
+		}
+		upgrades_from = tp_security_q_2
+		prerequisites = {
+			tp_primary_q_3
+			tp_materials_1
+		}
+		build_cost = 280
+		build_time = 730
+		light_infantry = 40
+		garrison_size = 0.1
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_security_q_4 = {
+		desc = tp_security_q_4_desc
+		trigger = {
+			TECH_TEMPLE_CONSTRUCTION = 5
+		}
+		upgrades_from = tp_security_q_3
+		prerequisites = {
+			tp_primary_q_4
+			tp_materials_2
+		}
+		build_cost = 360
+		build_time = 730
+		light_infantry = 45
+		garrison_size = 0.1
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_security_q_5 = {
+		desc = tp_security_q_5_desc
+		trigger = {
+			TECH_TEMPLE_CONSTRUCTION = 7
+		}
+		upgrades_from = tp_security_q_4
+		prerequisites = {
+			tp_primary_q_5
+			tp_materials_2
+		}
+		build_cost = 440
+		build_time = 730
+		light_infantry = 50
+		garrison_size = 0.1
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_digital_economics_q_1 = {
+		desc = tp_digital_economics_q_1_desc
+		trigger = {
+			TECH_CITY_CONSTRUCTION = 0
+		}
+		prerequisites = { tp_energy_1 }
+		build_cost = 150
+		build_time = 365
+		economy_techpoints = 0.05
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_digital_economics_q_2 = {
+		desc = tp_digital_economics_q_2_desc
+		trigger = {
+			TECH_CITY_CONSTRUCTION = 0
+		}
+		upgrades_from = tp_digital_economics_q_1
+		prerequisites = { tp_energy_1 }
+		build_cost = 200
+		build_time = 548
+		economy_techpoints = 0.05
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_digital_economics_q_3 = {
+		desc = tp_digital_economics_q_3_desc
+		trigger = {
+			TECH_CITY_CONSTRUCTION = 2
+		}
+		upgrades_from = tp_digital_economics_q_2
+		prerequisites = { tp_energy_2 }
+		build_cost = 260
+		build_time = 548
+		economy_techpoints = 0.05
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_digital_economics_q_4 = {
+		desc = tp_digital_economics_q_4_desc
+		trigger = {
+			TECH_CITY_CONSTRUCTION = 4
+		}
+		upgrades_from = tp_digital_economics_q_3
+		prerequisites = { tp_energy_2 }
+		build_cost = 330
+		build_time = 730
+		economy_techpoints = 0.05
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_digital_economics_q_5 = {
+		desc = tp_digital_economics_q_5_desc
+		trigger = {
+			TECH_CITY_CONSTRUCTION = 6
+		}
+		upgrades_from = tp_digital_economics_q_4
+		prerequisites = { tp_energy_3 }
+		build_cost = 400
+		build_time = 730
+		economy_techpoints = 0.05
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_digital_economics_q_6 = {
+		desc = tp_digital_economics_q_6_desc
+		trigger = {
+			TECH_CITY_CONSTRUCTION = 8
+		}
+		upgrades_from = tp_digital_economics_q_5
+		prerequisites = { tp_energy_4 }
+		build_cost = 480
+		build_time = 730
+		economy_techpoints = 0.05
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_theoretical_physics_q_1 = {
+		desc = tp_theoretical_physics_q_1_desc
+		trigger = {
+			TECH_CITY_CONSTRUCTION = 0
+		}
+		prerequisites = { tp_energy_1 }
+		build_cost = 150
+		build_time = 365
+		culture_techpoints = 0.05
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_theoretical_physics_q_2 = {
+		desc = tp_theoretical_physics_q_2_desc
+		trigger = {
+			TECH_CITY_CONSTRUCTION = 0
+		}
+		upgrades_from = tp_theoretical_physics_q_1
+		prerequisites = { tp_energy_1 }
+		build_cost = 200
+		build_time = 548
+		culture_techpoints = 0.05
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_theoretical_physics_q_3 = {
+		desc = tp_theoretical_physics_q_3_desc
+		trigger = {
+			TECH_CITY_CONSTRUCTION = 2
+		}
+		upgrades_from = tp_theoretical_physics_q_2
+		prerequisites = { tp_energy_2 }
+		build_cost = 260
+		build_time = 548
+		culture_techpoints = 0.05
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_theoretical_physics_q_4 = {
+		desc = tp_theoretical_physics_q_4_desc
+		trigger = {
+			TECH_CITY_CONSTRUCTION = 4
+		}
+		upgrades_from = tp_theoretical_physics_q_3
+		prerequisites = { tp_energy_2 }
+		build_cost = 330
+		build_time = 730
+		culture_techpoints = 0.05
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_theoretical_physics_q_5 = {
+		desc = tp_theoretical_physics_q_5_desc
+		trigger = {
+			TECH_CITY_CONSTRUCTION = 6
+		}
+		upgrades_from = tp_theoretical_physics_q_4
+		prerequisites = { tp_energy_3 }
+		build_cost = 400
+		build_time = 730
+		culture_techpoints = 0.05
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_theoretical_physics_q_6 = {
+		desc = tp_theoretical_physics_q_6_desc
+		trigger = {
+			TECH_CITY_CONSTRUCTION = 8
+		}
+		upgrades_from = tp_theoretical_physics_q_5
+		prerequisites = { tp_energy_4 }
+		build_cost = 480
+		build_time = 730
+		culture_techpoints = 0.05
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_military_mathematics_q_1 = {
+		desc = tp_military_mathematics_q_1_desc
+		trigger = {
+			TECH_CITY_CONSTRUCTION = 0
+		}
+		prerequisites = { tp_energy_1 }
+		build_cost = 150
+		build_time = 365
+		military_techpoints = 0.05
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_military_mathematics_q_2 = {
+		desc = tp_military_mathematics_q_2_desc
+		trigger = {
+			TECH_CITY_CONSTRUCTION = 0
+		}
+		upgrades_from = tp_military_mathematics_q_1
+		prerequisites = { tp_energy_1 }
+		build_cost = 200
+		build_time = 548
+		military_techpoints = 0.05
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_military_mathematics_q_3 = {
+		desc = tp_military_mathematics_q_3_desc
+		trigger = {
+			TECH_CITY_CONSTRUCTION = 2
+		}
+		upgrades_from = tp_military_mathematics_q_2
+		prerequisites = { tp_energy_2 }
+		build_cost = 260
+		build_time = 548
+		military_techpoints = 0.05
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_military_mathematics_q_4 = {
+		desc = tp_military_mathematics_q_4_desc
+		trigger = {
+			TECH_CITY_CONSTRUCTION = 4
+		}
+		upgrades_from = tp_military_mathematics_q_3
+		prerequisites = { tp_energy_2 }
+		build_cost = 330
+		build_time = 730
+		military_techpoints = 0.05
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_military_mathematics_q_5 = {
+		desc = tp_military_mathematics_q_5_desc
+		trigger = {
+			TECH_CITY_CONSTRUCTION = 6
+		}
+		upgrades_from = tp_military_mathematics_q_4
+		prerequisites = { tp_energy_3 }
+		build_cost = 400
+		build_time = 730
+		military_techpoints = 0.05
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_military_mathematics_q_6 = {
+		desc = tp_military_mathematics_q_6_desc
+		trigger = {
+			TECH_CITY_CONSTRUCTION = 8
+		}
+		upgrades_from = tp_military_mathematics_q_5
+		prerequisites = { tp_energy_4 }
+		build_cost = 480
+		build_time = 730
+		military_techpoints = 0.05
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_archive_q_1 = {
+		desc = tp_archive_q_1_desc
+		trigger = {
+			TECH_CASTLE_CONSTRUCTION = 1
+		}
+		prerequisites = { tp_primary_q_1 }
+		build_cost = 200
+		build_time = 548
+		liege_piety = 0.25
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_archive_q_2 = {
+		desc = tp_archive_q_2_desc
+		trigger = {
+			TECH_CASTLE_CONSTRUCTION = 2
+		}
+		upgrades_from = tp_archive_q_1
+		prerequisites = { tp_primary_q_1 }
+		build_cost = 220
+		build_time = 548
+		liege_piety = 0.25
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_archive_q_3 = {
+		desc = tp_archive_q_3_desc
+		trigger = {
+			TECH_CASTLE_CONSTRUCTION = 3
+		}
+		upgrades_from = tp_archive_q_2
+		prerequisites = { tp_primary_q_1 }
+		build_cost = 240
+		build_time = 548
+		liege_piety = 0.25
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_archive_q_4 = {
+		desc = tp_archive_q_4_desc
+		trigger = {
+			TECH_CASTLE_CONSTRUCTION = 4
+		}
+		upgrades_from = tp_archive_q_3
+		prerequisites = { tp_primary_q_1 }
+		build_cost = 260
+		build_time = 548
+		liege_piety = 0.25
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_archive_q_5 = {
+		desc = tp_archive_q_5_desc
+		trigger = {
+			TECH_CASTLE_CONSTRUCTION = 5
+		}
+		upgrades_from = tp_archive_q_4
+		prerequisites = { tp_primary_q_1 }
+		build_cost = 280
+		build_time = 548
+		liege_piety = 0.25
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_archive_q_6 = {
+		desc = tp_archive_q_6_desc
+		trigger = {
+			TECH_CASTLE_CONSTRUCTION = 6
+		}
+		upgrades_from = tp_archive_q_5
+		prerequisites = { tp_primary_q_1 }
+		build_cost = 300
+		build_time = 730
+		liege_piety = 0.25
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_archive_q_7 = {
+		desc = tp_archive_q_7_desc
+		trigger = {
+			TECH_CASTLE_CONSTRUCTION = 7
+		}
+		upgrades_from = tp_archive_q_6
+		prerequisites = { tp_primary_q_1 }
+		build_cost = 320
+		build_time = 730
+		liege_piety = 0.25
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_archive_q_8 = {
+		desc = tp_archive_q_8_desc
+		trigger = {
+			TECH_CASTLE_CONSTRUCTION = 8
+		}
+		upgrades_from = tp_archive_q_7
+		prerequisites = { tp_primary_q_1 }
+		build_cost = 340
+		build_time = 730
+		liege_piety = 0.25
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_administrative_sector_q_1 = {
+		desc = tp_administrative_sector_q_1_desc
+		trigger = {
+			TECH_CASTLE_CONSTRUCTION = 1
+		}
+		prerequisites = { tp_primary_q_1 }
+		build_cost = 200
+		build_time = 548
+		liege_prestige = 0.25
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_administrative_sector_q_2 = {
+		desc = tp_administrative_sector_q_2_desc
+		trigger = {
+			TECH_CASTLE_CONSTRUCTION = 2
+		}
+		upgrades_from = tp_administrative_sector_q_1
+		prerequisites = { tp_primary_q_1 }
+		build_cost = 220
+		build_time = 548
+		liege_prestige = 0.25
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_administrative_sector_q_3 = {
+		desc = tp_administrative_sector_q_3_desc
+		trigger = {
+			TECH_CASTLE_CONSTRUCTION = 3
+		}
+		upgrades_from = tp_administrative_sector_q_2
+		prerequisites = { tp_primary_q_1 }
+		build_cost = 240
+		build_time = 548
+		liege_prestige = 0.25
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_administrative_sector_q_4 = {
+		desc = tp_administrative_sector_q_4_desc
+		trigger = {
+			TECH_CASTLE_CONSTRUCTION = 4
+		}
+		upgrades_from = tp_administrative_sector_q_3
+		prerequisites = { tp_primary_q_1 }
+		build_cost = 260
+		build_time = 548
+		liege_prestige = 0.25
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_administrative_sector_q_5 = {
+		desc = tp_administrative_sector_q_5_desc
+		trigger = {
+			TECH_CASTLE_CONSTRUCTION = 5
+		}
+		upgrades_from = tp_administrative_sector_q_4
+		prerequisites = { tp_primary_q_1 }
+		build_cost = 280
+		build_time = 548
+		liege_prestige = 0.25
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_administrative_sector_q_6 = {
+		desc = tp_administrative_sector_q_6_desc
+		trigger = {
+			TECH_CASTLE_CONSTRUCTION = 6
+		}
+		upgrades_from = tp_administrative_sector_q_5
+		prerequisites = { tp_primary_q_1 }
+		build_cost = 300
+		build_time = 730
+		liege_prestige = 0.25
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_administrative_sector_q_7 = {
+		desc = tp_administrative_sector_q_7_desc
+		trigger = {
+			TECH_CASTLE_CONSTRUCTION = 7
+		}
+		upgrades_from = tp_administrative_sector_q_6
+		prerequisites = { tp_primary_q_1 }
+		build_cost = 320
+		build_time = 730
+		liege_prestige = 0.25
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_administrative_sector_q_8 = {
+		desc = tp_administrative_sector_q_8_desc
+		trigger = {
+			TECH_CASTLE_CONSTRUCTION = 8
+		}
+		upgrades_from = tp_administrative_sector_q_7
+		prerequisites = { tp_primary_q_1 }
+		build_cost = 340
+		build_time = 730
+		liege_prestige = 0.25
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_classrooms_q_1 = {
+		desc = tp_classrooms_q_1_desc
+		trigger = {
+			TECH_CASTLE_CONSTRUCTION = 0
+		}
+		build_cost = 100
+		build_time = 365
+		tax_income = 0.75
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_classrooms_q_2 = {
+		desc = tp_classrooms_q_2_desc
+		trigger = {
+			TECH_CASTLE_CONSTRUCTION = 0
+		}
+		upgrades_from = tp_classrooms_q_1
+		prerequisites = { tp_primary_q_1 }
+		build_cost = 120
+		build_time = 365
+		tax_income = 0.75
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_classrooms_q_3 = {
+		desc = tp_classrooms_q_3_desc
+		trigger = {
+			TECH_CASTLE_CONSTRUCTION = 1
+		}
+		upgrades_from = tp_classrooms_q_2
+		prerequisites = { tp_primary_q_1 }
+		build_cost = 180
+		build_time = 365
+		tax_income = 0.75
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_classrooms_q_4 = {
+		desc = tp_classrooms_q_4_desc
+		trigger = {
+			TECH_CASTLE_CONSTRUCTION = 3
+		}
+		upgrades_from = tp_classrooms_q_3
+		prerequisites = { tp_primary_q_2 }
+		build_cost = 280
+		build_time = 548
+		tax_income = 0.75
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_classrooms_q_5 = {
+		desc = tp_classrooms_q_5_desc
+		trigger = {
+			TECH_CASTLE_CONSTRUCTION = 5
+		}
+		upgrades_from = tp_classrooms_q_4
+		prerequisites = { tp_primary_q_3 }
+		build_cost = 400
+		build_time = 730
+		tax_income = 0.75
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_classrooms_q_6 = {
+		desc = tp_classrooms_q_6_desc
+		trigger = {
+			TECH_CASTLE_CONSTRUCTION = 7
+		}
+		upgrades_from = tp_classrooms_q_5
+		prerequisites = { tp_primary_q_4 }
+		build_cost = 480
+		build_time = 730
+		tax_income = 0.75
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_exotic_research_q_1 = {
+		desc = tp_exotic_research_q_1_desc
+		trigger = {
+			TECH_TEMPLE_CONSTRUCTION = 0
+		}
+		prerequisites = {
+			tp_energy_4
+		}
+		build_cost = 200
+		build_time = 365
+		tax_income = 0.25
+		tech_growth_modifier = 0.1
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_exotic_research_q_2 = {
+		desc = tp_exotic_research_q_2_desc
+		trigger = {
+			TECH_TEMPLE_CONSTRUCTION = 2
+		}
+		upgrades_from = tp_exotic_research_q_1
+		prerequisites = {
+			tp_energy_4
+			tp_primary_q_1
+		}
+		build_cost = 280
+		build_time = 548
+		tax_income = 0.25
+		tech_growth_modifier = 0.1
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_exotic_research_q_3 = {
+		desc = tp_exotic_research_q_3_desc
+		trigger = {
+			TECH_TEMPLE_CONSTRUCTION = 4
+		}
+		upgrades_from = tp_exotic_research_q_2
+		prerequisites = {
+			tp_energy_4
+			tp_primary_q_2
+		}
+		build_cost = 400
+		build_time = 730
+		tax_income = 0.25
+		tech_growth_modifier = 0.1
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_exotic_research_q_4 = {
+		desc = tp_exotic_research_q_4_desc
+		trigger = {
+			TECH_TEMPLE_CONSTRUCTION = 6
+		}
+		upgrades_from = tp_exotic_research_q_3
+		prerequisites = {
+			tp_energy_4
+			tp_primary_q_3
+		}
+		build_cost = 560
+		build_time = 730
+		tax_income = 0.25
+		tech_growth_modifier = 0.1
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_exotic_research_q_5 = {
+		desc = tp_exotic_research_q_5_desc
+		trigger = {
+			TECH_TEMPLE_CONSTRUCTION = 8
+		}
+		upgrades_from = tp_exotic_research_q_4
+		prerequisites = {
+			tp_energy_4
+			tp_primary_q_4
+		}
+		build_cost = 760
+		build_time = 1095
+		tax_income = 0.25
+		tech_growth_modifier = 0.1
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_super_computer_q_1 = {
+		desc = tp_super_computer_q_1_desc
+		trigger = {
+			TECH_MAJESTY = 1
+		}
+		prerequisites = {
+			tp_primary_q_2
+			tp_energy_1
+		}
+		build_cost = 200
+		build_time = 548
+		pikemen = 5
+		tech_growth_modifier = 0.2
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_super_computer_q_2 = {
+		desc = tp_super_computer_q_2_desc
+		trigger = {
+			TECH_MAJESTY = 3
+		}
+		upgrades_from = tp_super_computer_q_1
+		prerequisites = {
+			tp_primary_q_2
+			tp_energy_2
+		}
+		build_cost = 220
+		build_time = 548
+		pikemen = 10
+		tech_growth_modifier = 0.2
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_super_computer_q_3 = {
+		desc = tp_super_computer_q_3_desc
+		trigger = {
+			TECH_MAJESTY = 5
+		}
+		upgrades_from = tp_super_computer_q_2
+		prerequisites = {
+			tp_primary_q_2
+			tp_energy_3
+		}
+		build_cost = 240
+		build_time = 548
+		pikemen = 20
+		tech_growth_modifier = 0.2
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	tp_super_computer_q_4 = {
+		desc = tp_super_computer_q_4_desc
+		trigger = {
+			TECH_MAJESTY = 7
+		}
+		upgrades_from = tp_super_computer_q_3
+		prerequisites = {
+			tp_primary_q_2
+			tp_energy_4
+		}
+		build_cost = 260
+		build_time = 548
+		pikemen = 25
+		tech_growth_modifier = 0.2
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+}

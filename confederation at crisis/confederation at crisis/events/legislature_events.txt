@@ -1,0 +1,5606 @@
+namespace = laws
+
+# PASS ANTI-CENTRALIZATION BILL
+character_event = {
+	id = laws.10000
+	desc = "EVTDESCLAWS10000"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	# Liege has no regent
+	option = {
+		trigger = {
+			NOT = {
+				any_realm_character = {
+					has_minor_title = title_regent
+					same_liege = ROOT
+				}
+			}
+		}
+		name = "EVTOPTCONFIRM"
+		liege = { character_event = { id = laws.10010 tooltip = "EVTTOOLTIPLAWS10010" } }
+	}
+	
+	# Liege has a regent, who is in the faction and can pass the bill automatically
+	option = {
+		trigger = {
+			any_realm_character = {
+				has_minor_title = title_regent
+				same_liege = ROOT
+			}
+		}
+		name = "EVTOPTBLAWS10000"
+		random_realm_character = {
+			limit = {
+				has_minor_title = title_regent
+				same_liege = ROOT
+			}
+			character_event = { id = laws.10001 tooltip = "EVTTOOLTIPLAWS10001" }
+		}
+		clr_character_flag = flag_making_faction_ultimatum
+	}
+	
+	# Nevermind
+	option = {
+		name = "EVTOPTNEVERMIND"
+		clr_character_flag = flag_making_faction_ultimatum
+		ai_chance = { factor = 0 }
+	}
+}
+
+# You are the regent, and in the anti-centralization faction, and they've just passed a bill
+character_event = {
+	id = laws.10001
+	desc = "EVTDESCLAWS10001"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		liege = { character_event = { id = laws.10002 tooltip = "EVTTOOLTIPLAWS10002" } }
+	}
+}
+
+# You are the liege, and your regent has just authorized an anti-centralization bill in your name
+character_event = {
+	id = laws.10002
+	desc = "EVTDESCLAWS10002"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		# Apathy
+		trigger = {
+			OR = {
+				not = { age = 16 }
+				trait = carefree
+			}
+		}
+		name = "EVTOPTALAWS10002"
+		FROM = {
+			FROM = {
+				faction_anti_centralization = {
+					if = {
+						limit = { has_law = centralization_1 }
+						add_law = centralization_0
+					}
+					if = {
+						limit = { has_law = centralization_2 }
+						add_law = centralization_1
+					}
+					if = {
+						limit = { has_law = centralization_3 }
+						add_law = centralization_2
+					}
+					if = {
+						limit = { has_law = centralization_4 }
+						add_law = centralization_3
+					}
+					ROOT = {
+						any_vassal = {
+							limit = { crownlaw_title = { title = PREVPREVPREV } }
+							character_event = { id = laws.10011 }
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		# Anger
+		trigger = {
+			age = 16
+			NOT = { opinion = { who = FROM value = 50 } }
+			NOT = { trait = content }
+			NOT = { trait = humble }
+		}
+		name = "EVTOPTBLAWS10002"
+		FROM = {
+			reverse_opinion = { who = ROOT modifier = opinion_disloyal_regent }
+			FROM = {
+				faction_anti_centralization = {
+					if = {
+						limit = { has_law = centralization_1 }
+						add_law = centralization_0
+					}
+					if = {
+						limit = { has_law = centralization_2 }
+						add_law = centralization_1
+					}
+					if = {
+						limit = { has_law = centralization_3 }
+						add_law = centralization_2
+					}
+					if = {
+						limit = { has_law = centralization_4 }
+						add_law = centralization_3
+					}
+					hidden_tooltip = {
+						ROOT = {
+							any_vassal = {
+								limit = { crownlaw_title = { title = PREVPREVPREV } }
+								character_event = { id = laws.10011 }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		# Approval
+		trigger = {
+			age = 16
+			OR = {
+				opinion = { who = FROM value = 50 }
+				trait = content
+				trait = humble
+			}
+		}
+		name = "EVTOPTCLAWS10002"
+		FROM = {
+			reverse_opinion = { who = ROOT modifier = opinion_loyal_regent }
+			FROM = {
+				faction_anti_centralization = {
+					if = {
+						limit = { has_law = centralization_1 }
+						add_law = centralization_0
+					}
+					if = {
+						limit = { has_law = centralization_2 }
+						add_law = centralization_1
+					}
+					if = {
+						limit = { has_law = centralization_3 }
+						add_law = centralization_2
+					}
+					if = {
+						limit = { has_law = centralization_4 }
+						add_law = centralization_3
+					}
+					hidden_tooltip = {
+						ROOT = {
+							any_vassal = {
+								limit = { crownlaw_title = { title = PREVPREVPREV } }
+								character_event = { id = laws.10011 }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+# A bill has passed in the senate demanding decentralization
+character_event = {
+	id = laws.10010
+	desc = "EVTDESCLAWS10010"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTACCEPT"
+		FROM = {
+			faction_anti_centralization = {
+				if = {
+					limit = { has_law = centralization_1 }
+					add_law = centralization_0
+				}
+				if = {
+					limit = { has_law = centralization_2 }
+					add_law = centralization_1
+				}
+				if = {
+					limit = { has_law = centralization_3 }
+					add_law = centralization_2
+				}
+				if = {
+					limit = { has_law = centralization_4 }
+					add_law = centralization_3
+				}
+				hidden_tooltip = {
+					ROOT = {
+						any_vassal = {
+							limit = { crownlaw_title = { title = PREVPREVPREV } }
+							character_event = { id = laws.10011 }
+						}
+					}
+				}
+			}
+		}
+		# Lieges who are annoyed by this demand
+		hidden_tooltip = {
+			if = {
+				limit = {
+					OR = {
+						trait = ambitious
+						trait = proud
+						trait = cold
+						religion = terran_republican
+						religion = terran_imperial
+						religion = astrist
+						religion = neo_socialist
+						religion = orthodox
+						religion = solarian
+						war = yes
+						has_character_flag = flag_increased_centralization
+					}
+					NOT = { trait = content }
+					NOT = { trait = friendly }
+					NOT = { trait = humble }
+					NOT = {
+						AND = {
+							OR = {
+								religion = terran_federalist
+								religion = colonial_separatist
+								religion = neo_feudal
+								religion = adoptionist_cultist
+								religion = adoptionist
+								religion = xenoterran
+							}
+							NOT = { trait = pragmatic }
+						}
+					}
+				}
+				FROM = {
+					reverse_opinion = { who = ROOT modifier = opinion_passed_bad_bill months = 120 }
+					any_faction_backer = {
+						faction = faction_anti_centralization
+						reverse_opinion = { who = ROOT modifier = opinion_passed_bad_bill months = 120 }
+					}
+				}
+			}
+		}
+	}
+}
+
+# A bill lowering centralization has been passed!
+character_event = {
+	id = laws.10011
+	desc = "EVTDESCLAWS10011"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			limit = { leads_faction = faction_anti_centralization }
+			clr_character_flag = flag_making_faction_ultimatum
+		}
+	}
+	
+	option = {
+		trigger = { NOT = { in_faction = faction_pro_centralization } }
+		name = "EVTOPTAPPROVE"
+		opinion = { who = FROM modifier = opinion_lowered_crown_authority_good }
+		hidden_tooltip = {
+			FROM = {
+				FROM = {
+					reverse_opinion = { who = ROOT modifier = opinion_passed_good_bill months = 120 }
+					any_faction_backer = {
+						faction = faction_anti_centralization
+						reverse_opinion = { who = ROOT modifier = opinion_passed_good_bill months = 120 }
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		trigger = { NOT = { in_faction = faction_anti_centralization } }
+		name = "EVTOPTDISAPPROVE"
+		opinion = { who = FROM modifier = opinion_lowered_crown_authority_bad }
+		hidden_tooltip = {
+			FROM = {
+				FROM = {
+					reverse_opinion = { who = ROOT modifier = opinion_passed_bad_bill months = 120 }
+					any_faction_backer = {
+						faction = faction_anti_centralization
+						reverse_opinion = { who = ROOT modifier = opinion_passed_bad_bill months = 120 }
+					}
+				}
+			}
+		}
+	}
+}
+# MAKE ANTI-CENTRALIZATION DEMAND
+character_event = {
+	id = laws.10050
+	desc = "EVTDESCLAWS10050"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	# Liege has no regent
+	option = {
+		trigger = {
+			NOT = {
+				any_realm_character = {
+					has_minor_title = title_regent
+					same_liege = ROOT
+				}
+			}
+		}
+		name = "EVTOPTACONFIRM"
+		liege = { character_event = { id = laws.10060 tooltip = "EVTTOOLTIPLAWS10060" } }
+	}
+	
+	# Liege has a regent, who is in the faction and can pass the bill automatically
+	option = {
+		trigger = {
+			any_realm_character = {
+				has_minor_title = title_regent
+				same_liege = ROOT
+			}
+		}
+		name = "EVTOPTBLAWS10000"
+		random_realm_character = {
+			limit = {
+				has_minor_title = title_regent
+				same_liege = ROOT
+			}
+			character_event = { id = laws.10051 tooltip = "EVTTOOLTIPLAWS10051" }
+		}
+		clr_character_flag = flag_making_faction_ultimatum
+	}
+	
+	# Nevermind
+	option = {
+		name = "EVTOPTNEVERMIND"
+		clr_character_flag = flag_making_faction_ultimatum
+		ai_chance = { factor = 0 }
+	}
+}
+
+# You are the regent, and in the anti-centralization faction, and they want to decentralize
+character_event = {
+	id = laws.10051
+	desc = "EVTDESCLAWS10051"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		liege = { character_event = { id = laws.10052 tooltip = "EVTTOOLTIPLAWS10052" } }
+	}
+}
+
+# You are the liege, and your regent has just granted an anti-centralization demand in your name
+character_event = {
+	id = laws.10052
+	desc = "EVTDESCLAWS10052"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		# Apathy
+		trigger = {
+			OR = {
+				not = { age = 16 }
+				trait = carefree
+			}
+		}
+		name = "EVTOPTALAWS10002"
+		FROM = {
+			FROM = {
+				faction_anti_centralization = {
+					if = {
+						limit = { has_law = centralization_1 }
+						add_law = centralization_0
+					}
+					if = {
+						limit = { has_law = centralization_2 }
+						add_law = centralization_1
+					}
+					if = {
+						limit = { has_law = centralization_3 }
+						add_law = centralization_2
+					}
+					if = {
+						limit = { has_law = centralization_4 }
+						add_law = centralization_3
+					}
+					ROOT = {
+						any_vassal = {
+							limit = { crownlaw_title = { title = PREVPREVPREV } }
+							character_event = { id = laws.10061 }
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		# Anger
+		trigger = {
+			age = 16
+			NOT = { opinion = { who = FROM value = 50 } }
+			NOT = { trait = content }
+			NOT = { trait = humble }
+		}
+		name = "EVTOPTBLAWS10002"
+		FROM = {
+			reverse_opinion = { who = ROOT modifier = opinion_disloyal_regent }
+			FROM = {
+				faction_anti_centralization = {
+					if = {
+						limit = { has_law = centralization_1 }
+						add_law = centralization_0
+					}
+					if = {
+						limit = { has_law = centralization_2 }
+						add_law = centralization_1
+					}
+					if = {
+						limit = { has_law = centralization_3 }
+						add_law = centralization_2
+					}
+					if = {
+						limit = { has_law = centralization_4 }
+						add_law = centralization_3
+					}
+					hidden_tooltip = {
+						ROOT = {
+							any_vassal = {
+								limit = { crownlaw_title = { title = PREVPREVPREV } }
+								character_event = { id = laws.10061 }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		# Approval
+		trigger = {
+			age = 16
+			OR = {
+				opinion = { who = FROM value = 50 }
+				trait = content
+				trait = humble
+			}
+		}
+		name = "EVTOPTCLAWS10002"
+		FROM = {
+			reverse_opinion = { who = ROOT modifier = opinion_loyal_regent }
+			FROM = {
+				faction_anti_centralization = {
+					if = {
+						limit = { has_law = centralization_1 }
+						add_law = centralization_0
+					}
+					if = {
+						limit = { has_law = centralization_2 }
+						add_law = centralization_1
+					}
+					if = {
+						limit = { has_law = centralization_3 }
+						add_law = centralization_2
+					}
+					if = {
+						limit = { has_law = centralization_4 }
+						add_law = centralization_3
+					}
+					hidden_tooltip = {
+						ROOT = {
+							any_vassal = {
+								limit = { crownlaw_title = { title = PREVPREVPREV } }
+								character_event = { id = laws.10011 }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+# A faction has demanded decentralization
+character_event = {
+	id = laws.10060
+	desc = "EVTDESCLAWS10060"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTACCEPT"
+		FROM = {
+			faction_anti_centralization = {
+				if = {
+					limit = { has_law = centralization_1 }
+					add_law = centralization_0
+				}
+				if = {
+					limit = { has_law = centralization_2 }
+					add_law = centralization_1
+				}
+				if = {
+					limit = { has_law = centralization_3 }
+					add_law = centralization_2
+				}
+				if = {
+					limit = { has_law = centralization_4 }
+					add_law = centralization_3
+				}
+				hidden_tooltip = {
+					ROOT = {
+						any_vassal = {
+							limit = { crownlaw_title = { title = PREVPREVPREV } }
+							character_event = { id = laws.10061 }
+						}
+					}
+				}
+			}
+		}
+		# Lieges who are annoyed by this demand
+		hidden_tooltip = {
+			if = {
+				limit = {
+					OR = {
+						trait = ambitious
+						trait = proud
+						trait = cold
+						religion = terran_republican
+						religion = terran_imperial
+						religion = astrist
+						religion = neo_socialist
+						religion = orthodox
+						religion = solarian
+						war = yes
+						has_character_flag = flag_increased_centralization
+					}
+					NOT = { trait = content }
+					NOT = { trait = friendly }
+					NOT = { trait = humble }
+					NOT = {
+						AND = {
+							OR = {
+								religion = terran_federalist
+								religion = colonial_separatist
+								religion = neo_feudal
+								religion = adoptionist_cultist
+								religion = adoptionist
+								religion = xenoterran
+							}
+							NOT = { trait = pragmatic }
+						}
+					}
+				}
+				FROM = {
+					reverse_opinion = { who = ROOT modifier = opinion_passed_bad_bill months = 120 }
+					any_faction_backer = {
+						faction = faction_anti_centralization
+						reverse_opinion = { who = ROOT modifier = opinion_passed_bad_bill months = 120 }
+					}
+				}
+			}
+		}
+		ai_chance = {
+			factor = 25
+			
+			# Personality
+			modifier = {
+				factor = 2
+				trait = content
+			}
+			modifier = {
+				factor = 0.5
+				trait = ambitious
+			}
+			modifier = {
+				factor = 2
+				trait = carefree
+			}
+			modifier = {
+				factor = 0.5
+				trait = disciplined
+			}
+			modifier = {
+				factor = 2
+				trait = friendly
+			}
+			modifier = {
+				factor = 0.5
+				trait = cold
+			}
+			
+			# Faction Strength Evaluation
+			modifier = {
+				factor = 2
+				NOT = { trait = imbecile }
+				NOT = { trait = slow }
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				FROM = { 
+					faction_power = {
+						faction = faction_anti_centralization
+						power = 0.5
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				NOT = { trait = imbecile }
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				FROM = { 
+					faction_power = {
+						faction = faction_anti_centralization
+						power = 1
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				FROM = { 
+					faction_power = {
+						faction = faction_anti_centralization
+						power = 1.5
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				FROM = { 
+					faction_power = {
+						faction = faction_anti_centralization
+						power = 2
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				FROM = { 
+					faction_power = {
+						faction = faction_anti_centralization
+						power = 2.5
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				FROM = { 
+					faction_power = {
+						faction = faction_anti_centralization
+						power = 3
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				any_vassal = { 
+					faction_power = {
+						faction = faction_pro_centralization
+						power = 0.5
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				any_vassal = { 
+					faction_power = {
+						faction = faction_pro_centralization
+						power = 1
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				any_vassal = { 
+					faction_power = {
+						faction = faction_pro_centralization
+						power = 1.5
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				any_vassal = { 
+					faction_power = {
+						faction = faction_pro_centralization
+						power = 2
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				any_vassal = { 
+					faction_power = {
+						faction = faction_pro_centralization
+						power = 2.5
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				any_vassal = { 
+					faction_power = {
+						faction = faction_pro_centralization
+						power = 3
+					}
+				}
+			}
+			
+			# Since there is no legal force behind this demand, the liege
+			# will make decisions based on their opinion of the relevant
+			# faction leaders
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -99 } }
+			}
+			modifier = {
+				factor = 1.25
+				any_vassal = {
+					leads_faction = faction_pro_centralization
+					NOT = { reverse_opinion = { who = ROOT value = -99 } }
+				}
+			}
+			modifier = {
+				factor = 1.25
+				any_vassal = {
+					leads_faction = faction_pro_centralization
+					NOT = { reverse_opinion = { who = ROOT value = -89 } }
+				}
+			}
+			modifier = {
+				factor = 1.25
+				any_vassal = {
+					leads_faction = faction_pro_centralization
+					NOT = { reverse_opinion = { who = ROOT value = -79 } }
+				}
+			}
+			modifier = {
+				factor = 1.25
+				any_vassal = {
+					leads_faction = faction_pro_centralization
+					NOT = { reverse_opinion = { who = ROOT value = -69 } }
+				}
+			}
+			modifier = {
+				factor = 1.25
+				any_vassal = {
+					leads_faction = faction_pro_centralization
+					NOT = { reverse_opinion = { who = ROOT value = -59 } }
+				}
+			}
+			modifier = {
+				factor = 1.25
+				any_vassal = {
+					leads_faction = faction_pro_centralization
+					NOT = { reverse_opinion = { who = ROOT value = -49 } }
+				}
+			}
+			modifier = {
+				factor = 1.25
+				any_vassal = {
+					leads_faction = faction_pro_centralization
+					NOT = { reverse_opinion = { who = ROOT value = -39 } }
+				}
+			}
+			modifier = {
+				factor = 1.25
+				any_vassal = {
+					leads_faction = faction_pro_centralization
+					NOT = { reverse_opinion = { who = ROOT value = -29 } }
+				}
+			}
+			modifier = {
+				factor = 1.25
+				any_vassal = {
+					leads_faction = faction_pro_centralization
+					NOT = { reverse_opinion = { who = ROOT value = -19 } }
+				}
+			}
+			modifier = {
+				factor = 1.25
+				any_vassal = {
+					leads_faction = faction_pro_centralization
+					NOT = { reverse_opinion = { who = ROOT value = -9 } }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				any_vassal = {
+					leads_faction = faction_pro_centralization
+					reverse_opinion = { who = ROOT value = 10 }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				any_vassal = {
+					leads_faction = faction_pro_centralization
+					reverse_opinion = { who = ROOT value = 20 }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				any_vassal = {
+					leads_faction = faction_pro_centralization
+					reverse_opinion = { who = ROOT value = 30 }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				any_vassal = {
+					leads_faction = faction_pro_centralization
+					reverse_opinion = { who = ROOT value = 40 }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				any_vassal = {
+					leads_faction = faction_pro_centralization
+					reverse_opinion = { who = ROOT value = 50 }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				any_vassal = {
+					leads_faction = faction_pro_centralization
+					reverse_opinion = { who = ROOT value = 60 }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				any_vassal = {
+					leads_faction = faction_pro_centralization
+					reverse_opinion = { who = ROOT value = 70 }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				any_vassal = {
+					leads_faction = faction_pro_centralization
+					reverse_opinion = { who = ROOT value = 80 }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				any_vassal = {
+					leads_faction = faction_pro_centralization
+					reverse_opinion = { who = ROOT value = 90 }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				any_vassal = {
+					leads_faction = faction_pro_centralization
+					reverse_opinion = { who = ROOT value = 100 }
+				}
+			}
+			
+			# Ideological Preferences
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_federalist
+					religion = colonial_separatist
+					religion = neo_feudal
+					religion = adoptionist_cultist
+					religion = adoptionist
+					religion = xenoterran
+				}
+				religion_authority = 0.5
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_federalist
+					religion = colonial_separatist
+					religion = neo_feudal
+					religion = adoptionist_cultist
+					religion = adoptionist
+					religion = xenoterran
+				}
+				religion_authority = 0.25
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_federalist
+					religion = colonial_separatist
+					religion = neo_feudal
+					religion = adoptionist_cultist
+					religion = adoptionist
+					religion = xenoterran
+				}
+				trait = radical
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_republican
+					religion = terran_imperial
+					religion = astrist
+					religion = neo_socialist
+					religion = orthodox
+					religion = solarian
+				}
+				religion_authority = 0.5
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_republican
+					religion = terran_imperial
+					religion = astrist
+					religion = neo_socialist
+					religion = orthodox
+					religion = solarian
+				}
+				religion_authority = 0.25
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_republican
+					religion = terran_imperial
+					religion = astrist
+					religion = neo_socialist
+					religion = orthodox
+					religion = solarian
+				}
+				trait = radical
+			}
+			
+			# This weakens the realm either way, so situational bonuses do not apply
+		}
+	}
+	
+	option = {
+		name = "EVTOPTREFUSE"
+		FROM = {
+			opinion = { who = ROOT modifier = opinion_vetoed_my_proposal }
+			hidden_tooltip = { character_event = { id = laws.10062 } }
+			any_faction_backer = {
+				faction = faction_anti_centralization
+				opinion = { who = ROOT modifier = opinion_vetoed_my_proposal }
+				hidden_tooltip = { character_event = { id = laws.10062 } }
+			}
+		}
+	}
+}
+
+# The liege has granted a demand lowering centralization!
+character_event = {
+	id = laws.10061
+	desc = "EVTDESCLAWS10061"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			limit = { leads_faction = faction_anti_centralization }
+			clr_character_flag = flag_making_faction_ultimatum
+		}
+	}
+	
+	option = {
+		trigger = { NOT = { in_faction = faction_pro_centralization } }
+		name = "EVTOPTAPPROVE"
+		opinion = { who = FROM modifier = opinion_lowered_crown_authority_good }
+	}
+	
+	option = {
+		trigger = { NOT = { in_faction = faction_anti_centralization } }
+		name = "EVTOPTDISAPPROVE"
+		opinion = { who = FROM modifier = opinion_lowered_crown_authority_bad }
+	}
+}
+
+# The liege has refused a demand to lower centralization
+character_event = {
+	id = laws.10062
+	desc = "EVTDESCLAWS10062"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			limit = { leads_faction = faction_anti_centralization }
+			clr_character_flag = flag_making_faction_ultimatum
+		}
+	}
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+
+# PASS PRO-CENTRALIZATION BILL
+character_event = {
+	id = laws.10100
+	desc = "EVTDESCLAWS10100"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	# Liege has no regent
+	option = {
+		trigger = {
+			NOT = {
+				any_realm_character = {
+					has_minor_title = title_regent
+					same_liege = ROOT
+				}
+			}
+		}
+		name = "EVTOPTACONFIRM"
+		liege = { character_event = { id = laws.10110 tooltip = "EVTTOOLTIPLAWS10110" } }
+	}
+	
+	# Liege has a regent, who is in the faction and can pass the bill automatically
+	option = {
+		trigger = {
+			any_realm_character = {
+				has_minor_title = title_regent
+				same_liege = ROOT
+			}
+		}
+		name = "EVTOPTBLAWS10000"
+		random_realm_character = {
+			limit = {
+				has_minor_title = title_regent
+				same_liege = ROOT
+			}
+			character_event = { id = laws.10101 tooltip = "EVTTOOLTIPLAWS10101" }
+		}
+		clr_character_flag = flag_making_faction_ultimatum
+	}
+	
+	# Nevermind
+	option = {
+		name = "EVTOPTNEVERMIND"
+		clr_character_flag = flag_making_faction_ultimatum
+		ai_chance = { factor = 0 }
+	}
+}
+
+# You are the regent, and in the pro-centralization faction, and they've just passed a bill
+character_event = {
+	id = laws.10101
+	desc = "EVTDESCLAWS10101"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		liege = { character_event = { id = laws.10102 tooltip = "EVTTOOLTIPLAWS10102" } }
+	}
+}
+
+# You are the liege, and your regent has just authorized a pro-centralization bill in your name
+character_event = {
+	id = laws.10102
+	desc = "EVTDESCLAWS10102"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		# Apathy
+		trigger = {
+			OR = {
+				not = { age = 16 }
+				trait = carefree
+			}
+		}
+		name = "EVTOPTALAWS10002"
+		FROM = {
+			FROM = {
+				faction_pro_centralization = {
+					if = {
+						limit = { has_law = centralization_3 }
+						add_law = centralization_4
+					}
+					if = {
+						limit = { has_law = centralization_2 }
+						add_law = centralization_3
+					}
+					if = {
+						limit = { has_law = centralization_1 }
+						add_law = centralization_2
+					}
+					if = {
+						limit = { has_law = centralization_0 }
+						add_law = centralization_1
+					}
+					hidden_tooltip = {
+						ROOT = {
+							any_vassal = {
+								limit = { crownlaw_title = { title = PREVPREVPREV } }
+								character_event = { id = laws.10111 }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		# Anger
+		trigger = {
+			age = 16
+			NOT = { opinion = { who = FROM value = 50 } }
+			OR = {
+				trait = ambitious
+				trait = proud
+				trait = pragmatic
+			}
+		}
+		name = "EVTOPTBLAWS10002"
+		FROM = {
+			reverse_opinion = { who = ROOT modifier = opinion_disloyal_regent }
+			FROM = {
+				faction_pro_centralization = {
+					if = {
+						limit = { has_law = centralization_3 }
+						add_law = centralization_4
+					}
+					if = {
+						limit = { has_law = centralization_2 }
+						add_law = centralization_3
+					}
+					if = {
+						limit = { has_law = centralization_1 }
+						add_law = centralization_2
+					}
+					if = {
+						limit = { has_law = centralization_0 }
+						add_law = centralization_1
+					}
+					hidden_tooltip = {
+						ROOT = {
+							any_vassal = {
+								limit = { crownlaw_title = { title = PREVPREVPREV } }
+								character_event = { id = laws.10111 }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		# Approval
+		trigger = {
+			age = 16
+			OR = {
+				opinion = { who = FROM value = 50 }
+				AND = {
+					NOT = { trait = ambitious }
+					NOT = { trait = proud }
+					NOT = { trait = pragmatic }
+				}
+			}
+		}
+		name = "EVTOPTCLAWS10002"
+		FROM = {
+			reverse_opinion = { who = ROOT modifier = opinion_loyal_regent }
+			FROM = {
+				faction_pro_centralization = {
+					if = {
+						limit = { has_law = centralization_3 }
+						add_law = centralization_4
+					}
+					if = {
+						limit = { has_law = centralization_2 }
+						add_law = centralization_3
+					}
+					if = {
+						limit = { has_law = centralization_1 }
+						add_law = centralization_2
+					}
+					if = {
+						limit = { has_law = centralization_0 }
+						add_law = centralization_1
+					}
+					hidden_tooltip = {
+						ROOT = {
+							any_vassal = {
+								limit = { crownlaw_title = { title = PREVPREVPREV } }
+								character_event = { id = laws.10111 }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+# A bill has passed in the senate demanding centralization
+character_event = {
+	id = laws.10110
+	desc = "EVTDESCLAWS10110"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTACCEPT"
+		FROM = {
+			faction_pro_centralization = {
+				if = {
+					limit = { has_law = centralization_3 }
+					add_law = centralization_4
+				}
+				if = {
+					limit = { has_law = centralization_2 }
+					add_law = centralization_3
+				}
+				if = {
+					limit = { has_law = centralization_1 }
+					add_law = centralization_2
+				}
+				if = {
+					limit = { has_law = centralization_0 }
+					add_law = centralization_1
+				}
+				hidden_tooltip = {
+					ROOT = {
+						any_vassal = {
+							limit = { crownlaw_title = { title = PREVPREVPREV } }
+							character_event = { id = laws.10111 }
+						}
+					}
+				}
+			}
+		}
+		# Lieges who are annoyed by this demand
+		hidden_tooltip = {
+			if = {
+				limit = {
+					OR = {
+						trait = carefree
+						AND = {
+							trait = radical
+							OR = {
+								religion = terran_federalist
+								religion = colonial_separatist
+								religion = neo_feudal
+								religion = adoptionist_cultist
+								religion = adoptionist
+								religion = xenoterran
+							}
+						}
+						has_character_flag = flag_decreased_centralization
+					}
+					NOT = { trait = ambitious }
+					NOT = { trait = friendly }
+					NOT = { trait = humble }
+					NOT = {
+						AND = {
+							OR = {
+								religion = terran_republican
+								religion = terran_imperial
+								religion = astrist
+								religion = neo_socialist
+								religion = orthodox
+								religion = solarian
+							}
+							NOT = { trait = pragmatic }
+						}
+					}
+				}
+				FROM = {
+					reverse_opinion = { who = ROOT modifier = opinion_passed_bad_bill months = 120 }
+					any_faction_backer = {
+						faction = faction_pro_centralization
+						reverse_opinion = { who = ROOT modifier = opinion_passed_bad_bill months = 120 }
+					}
+				}
+			}
+		}
+	}
+}
+
+# A bill increasing centralization has been passed!
+character_event = {
+	id = laws.10111
+	desc = "EVTDESCLAWS10111"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			limit = { leads_faction = faction_pro_centralization }
+			clr_character_flag = flag_making_faction_ultimatum
+		}
+	}
+	
+	option = {
+		trigger = { NOT = { in_faction = faction_pro_centralization } }
+		name = "EVTOPTAPPROVE"
+		opinion = { who = FROM modifier = opinion_raised_crown_authority_bad }
+		hidden_tooltip = {
+			FROM = {
+				FROM = {
+					reverse_opinion = { who = ROOT modifier = opinion_passed_bad_bill months = 120 }
+					any_faction_backer = {
+						faction = faction_pro_centralization
+						reverse_opinion = { who = ROOT modifier = opinion_passed_bad_bill months = 120 }
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		trigger = { NOT = { in_faction = faction_anti_centralization } }
+		name = "EVTOPTDISAPPROVE"
+		opinion = { who = FROM modifier = opinion_raised_crown_authority_good }
+		hidden_tooltip = {
+			FROM = {
+				FROM = {
+					reverse_opinion = { who = ROOT modifier = opinion_passed_good_bill months = 120 }
+					any_faction_backer = {
+						faction = faction_pro_centralization
+						reverse_opinion = { who = ROOT modifier = opinion_passed_good_bill months = 120 }
+					}
+				}
+			}
+		}
+	}
+}
+
+# MAKE PRO-CENTRALIZATION DEMAND
+character_event = {
+	id = laws.10150
+	desc = "EVTDESCLAWS10150"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	# Liege has no regent
+	option = {
+		trigger = {
+			NOT = {
+				any_realm_character = {
+					has_minor_title = title_regent
+					same_liege = ROOT
+				}
+			}
+		}
+		name = "EVTOPTACONFIRM"
+		liege = { character_event = { id = laws.10160 tooltip = "EVTTOOLTIPLAWS10160" } }
+	}
+	
+	# Liege has a regent, who is in the faction and can pass the bill automatically
+	option = {
+		trigger = {
+			any_realm_character = {
+				has_minor_title = title_regent
+				same_liege = ROOT
+			}
+		}
+		name = "EVTOPTBLAWS10150"
+		random_realm_character = {
+			limit = {
+				has_minor_title = title_regent
+				same_liege = ROOT
+			}
+			character_event = { id = laws.10151 tooltip = "EVTTOOLTIPLAWS10151" }
+		}
+		clr_character_flag = flag_making_faction_ultimatum
+	}
+	
+	# Nevermind
+	option = {
+		name = "EVTOPTNEVERMIND"
+		clr_character_flag = flag_making_faction_ultimatum
+		ai_chance = { factor = 0 }
+	}
+}
+
+# You are the regent, and in the pro-centralization faction, and they want to centralize
+character_event = {
+	id = laws.10151
+	desc = "EVTDESCLAWS10151"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		liege = { character_event = { id = laws.10152 tooltip = "EVTTOOLTIPLAWS10152" } }
+	}
+}
+
+character_event = {
+	id = laws.10152
+	desc = "EVTDESCLAWS10152"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		# Apathy
+		trigger = {
+			OR = {
+				not = { age = 16 }
+				trait = carefree
+			}
+		}
+		name = "EVTOPTALAWS10002"
+		FROM = {
+			FROM = {
+				faction_pro_centralization = {
+					if = {
+						limit = { has_law = centralization_3 }
+						add_law = centralization_4
+					}
+					if = {
+						limit = { has_law = centralization_2 }
+						add_law = centralization_3
+					}
+					if = {
+						limit = { has_law = centralization_1 }
+						add_law = centralization_2
+					}
+					if = {
+						limit = { has_law = centralization_0 }
+						add_law = centralization_1
+					}
+					hidden_tooltip = {
+						ROOT = {
+							any_vassal = {
+								limit = { crownlaw_title = { title = PREVPREVPREV } }
+								character_event = { id = laws.10161 }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		# Anger
+		trigger = {
+			age = 16
+			NOT = { opinion = { who = FROM value = 50 } }
+			OR = {
+				trait = ambitious
+				trait = proud
+				trait = pragmatic
+			}
+		}
+		name = "EVTOPTBLAWS10002"
+		FROM = {
+			reverse_opinion = { who = ROOT modifier = opinion_disloyal_regent }
+			FROM = {
+				faction_pro_centralization = {
+					if = {
+						limit = { has_law = centralization_3 }
+						add_law = centralization_4
+					}
+					if = {
+						limit = { has_law = centralization_2 }
+						add_law = centralization_3
+					}
+					if = {
+						limit = { has_law = centralization_1 }
+						add_law = centralization_2
+					}
+					if = {
+						limit = { has_law = centralization_0 }
+						add_law = centralization_1
+					}
+					hidden_tooltip = {
+						ROOT = {
+							any_vassal = {
+								limit = { crownlaw_title = { title = PREVPREVPREV } }
+								character_event = { id = laws.10161 }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		# Approval
+		trigger = {
+			age = 16
+			OR = {
+				opinion = { who = FROM value = 50 }
+				AND = {
+					NOT = { trait = ambitious }
+					NOT = { trait = proud }
+					NOT = { trait = pragmatic }
+				}
+			}
+		}
+		name = "EVTOPTCLAWS10002"
+		FROM = {
+			reverse_opinion = { who = ROOT modifier = opinion_loyal_regent }
+			FROM = {
+				faction_pro_centralization = {
+					if = {
+						limit = { has_law = centralization_3 }
+						add_law = centralization_4
+					}
+					if = {
+						limit = { has_law = centralization_2 }
+						add_law = centralization_3
+					}
+					if = {
+						limit = { has_law = centralization_1 }
+						add_law = centralization_2
+					}
+					if = {
+						limit = { has_law = centralization_0 }
+						add_law = centralization_1
+					}
+					hidden_tooltip = {
+						ROOT = {
+							any_vassal = {
+								limit = { crownlaw_title = { title = PREVPREVPREV } }
+								character_event = { id = laws.10161 }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+# A faction has demanded centralization
+character_event = {
+	id = laws.10160
+	desc = "EVTDESCLAWS10160"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTACCEPT"
+		FROM = {
+			faction_pro_centralization = {
+				if = {
+					limit = { has_law = centralization_3 }
+					add_law = centralization_4
+				}
+				if = {
+					limit = { has_law = centralization_2 }
+					add_law = centralization_3
+				}
+				if = {
+					limit = { has_law = centralization_1 }
+					add_law = centralization_2
+				}
+				if = {
+					limit = { has_law = centralization_0 }
+					add_law = centralization_1
+				}
+				hidden_tooltip = {
+					ROOT = {
+						any_vassal = {
+							limit = { crownlaw_title = { title = PREVPREVPREV } }
+							character_event = { id = laws.10161 }
+						}
+					}
+				}
+			}
+		}
+		# Lieges who are annoyed by this demand
+		hidden_tooltip = {
+			if = {
+				limit = {
+					OR = {
+						trait = carefree
+						AND = {
+							trait = radical
+							OR = {
+								religion = terran_federalist
+								religion = colonial_separatist
+								religion = neo_feudal
+								religion = adoptionist_cultist
+								religion = adoptionist
+								religion = xenoterran
+							}
+						}
+						has_character_flag = flag_decreased_centralization
+					}
+					NOT = { trait = ambitious }
+					NOT = { trait = friendly }
+					NOT = { trait = humble }
+					NOT = {
+						AND = {
+							OR = {
+								religion = terran_republican
+								religion = terran_imperial
+								religion = astrist
+								religion = neo_socialist
+								religion = orthodox
+								religion = solarian
+							}
+							NOT = { trait = pragmatic }
+						}
+					}
+				}
+				FROM = {
+					reverse_opinion = { who = ROOT modifier = opinion_passed_bad_bill months = 120 }
+					any_faction_backer = {
+						faction = faction_pro_centralization
+						reverse_opinion = { who = ROOT modifier = opinion_passed_bad_bill months = 120 }
+					}
+				}
+			}
+		}
+		ai_chance = {
+			# This is a demand being made of the liege without legal force,
+			# so the starting odds are much lower and the faction does not
+			# get a moral authority bonus
+			factor = 25
+			
+			# Personality
+			modifier = {
+				factor = 0.5
+				trait = carefree
+			}
+			modifier = {
+				factor = 2
+				trait = disciplined
+			}
+			
+			# Self-Interest
+			modifier = {
+				factor = 5
+				NOT = { trait = lunatic }
+				NOT = { trait = content }
+			}
+			
+			# Faction Strength Evaluation
+			modifier = {
+				factor = 2
+				NOT = { trait = imbecile }
+				NOT = { trait = slow }
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				FROM = { 
+					faction_power = {
+						faction = faction_pro_centralization
+						power = 0.5
+					}
+				}
+			}
+			modifier = {
+				NOT = { trait = imbecile }
+				factor = 2
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				FROM = { 
+					faction_power = {
+						faction = faction_pro_centralization
+						power = 1
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				FROM = { 
+					faction_power = {
+						faction = faction_pro_centralization
+						power = 1.5
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				FROM = { 
+					faction_power = {
+						faction = faction_pro_centralization
+						power = 2
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				FROM = { 
+					faction_power = {
+						faction = faction_pro_centralization
+						power = 2.5
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				FROM = { 
+					faction_power = {
+						faction = faction_pro_centralization
+						power = 3
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { trait = imbecile }
+				NOT = { trait = slow }
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				any_vassal = { 
+					faction_power = {
+						faction = faction_anti_centralization
+						power = 0.5
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { trait = imbecile }
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				any_vassal = { 
+					faction_power = {
+						faction = faction_anti_centralization
+						power = 1
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				any_vassal = { 
+					faction_power = {
+						faction = faction_anti_centralization
+						power = 1.5
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				any_vassal = { 
+					faction_power = {
+						faction = faction_anti_centralization
+						power = 2
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				any_vassal = { 
+					faction_power = {
+						faction = faction_anti_centralization
+						power = 2.5
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				any_vassal = {
+					faction_power = {
+						faction = faction_anti_centralization
+						power = 3
+					}
+				}
+			}
+			
+			# Since there is no legal force behind this demand, the liege
+			# will make decisions based on their opinion of the relevant
+			# faction leaders
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -99 } }
+			}
+			modifier = {
+				factor = 1.25
+				any_vassal = {
+					leads_faction = faction_anti_centralization
+					NOT = { reverse_opinion = { who = ROOT value = -99 } }
+				}
+			}
+			modifier = {
+				factor = 1.25
+				any_vassal = {
+					leads_faction = faction_anti_centralization
+					NOT = { reverse_opinion = { who = ROOT value = -89 } }
+				}
+			}
+			modifier = {
+				factor = 1.25
+				any_vassal = {
+					leads_faction = faction_anti_centralization
+					NOT = { reverse_opinion = { who = ROOT value = -79 } }
+				}
+			}
+			modifier = {
+				factor = 1.25
+				any_vassal = {
+					leads_faction = faction_anti_centralization
+					NOT = { reverse_opinion = { who = ROOT value = -69 } }
+				}
+			}
+			modifier = {
+				factor = 1.25
+				any_vassal = {
+					leads_faction = faction_anti_centralization
+					NOT = { reverse_opinion = { who = ROOT value = -59 } }
+				}
+			}
+			modifier = {
+				factor = 1.25
+				any_vassal = {
+					leads_faction = faction_anti_centralization
+					NOT = { reverse_opinion = { who = ROOT value = -49 } }
+				}
+			}
+			modifier = {
+				factor = 1.25
+				any_vassal = {
+					leads_faction = faction_anti_centralization
+					NOT = { reverse_opinion = { who = ROOT value = -39 } }
+				}
+			}
+			modifier = {
+				factor = 1.25
+				any_vassal = {
+					leads_faction = faction_anti_centralization
+					NOT = { reverse_opinion = { who = ROOT value = -29 } }
+				}
+			}
+			modifier = {
+				factor = 1.25
+				any_vassal = {
+					leads_faction = faction_anti_centralization
+					NOT = { reverse_opinion = { who = ROOT value = -19 } }
+				}
+			}
+			modifier = {
+				factor = 1.25
+				any_vassal = {
+					leads_faction = faction_anti_centralization
+					NOT = { reverse_opinion = { who = ROOT value = -9 } }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				any_vassal = {
+					leads_faction = faction_anti_centralization
+					reverse_opinion = { who = ROOT value = 10 }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				any_vassal = {
+					leads_faction = faction_anti_centralization
+					reverse_opinion = { who = ROOT value = 20 }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				any_vassal = {
+					leads_faction = faction_anti_centralization
+					reverse_opinion = { who = ROOT value = 30 }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				any_vassal = {
+					leads_faction = faction_anti_centralization
+					reverse_opinion = { who = ROOT value = 40 }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				any_vassal = {
+					leads_faction = faction_anti_centralization
+					reverse_opinion = { who = ROOT value = 50 }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				any_vassal = {
+					leads_faction = faction_anti_centralization
+					reverse_opinion = { who = ROOT value = 60 }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				any_vassal = {
+					leads_faction = faction_anti_centralization
+					reverse_opinion = { who = ROOT value = 70 }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				any_vassal = {
+					leads_faction = faction_anti_centralization
+					reverse_opinion = { who = ROOT value = 80 }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				any_vassal = {
+					leads_faction = faction_anti_centralization
+					reverse_opinion = { who = ROOT value = 90 }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				any_vassal = {
+					leads_faction = faction_anti_centralization
+					reverse_opinion = { who = ROOT value = 100 }
+				}
+			}
+			
+			# Ideological Preferences
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_federalist
+					religion = colonial_separatist
+					religion = neo_feudal
+					religion = adoptionist_cultist
+					religion = adoptionist
+					religion = xenoterran
+				}
+				religion_authority = 0.5
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_federalist
+					religion = colonial_separatist
+					religion = neo_feudal
+					religion = adoptionist_cultist
+					religion = adoptionist
+					religion = xenoterran
+				}
+				religion_authority = 0.25
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_federalist
+					religion = colonial_separatist
+					religion = neo_feudal
+					religion = adoptionist_cultist
+					religion = adoptionist
+					religion = xenoterran
+				}
+				trait = radical
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_republican
+					religion = terran_imperial
+					religion = astrist
+					religion = neo_socialist
+					religion = orthodox
+					religion = solarian
+				}
+				religion_authority = 0.5
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_republican
+					religion = terran_imperial
+					religion = astrist
+					religion = neo_socialist
+					religion = orthodox
+					religion = solarian
+				}
+				religion_authority = 0.25
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_republican
+					religion = terran_imperial
+					religion = astrist
+					religion = neo_socialist
+					religion = orthodox
+					religion = solarian
+				}
+				trait = radical
+			}
+			
+			# This weakens the realm either way, so situational bonuses do not apply
+		}
+	}
+	
+	option = {
+		name = "EVTOPTREFUSE"
+		FROM = {
+			opinion = { who = ROOT modifier = opinion_vetoed_my_proposal }
+			any_faction_backer = {
+				faction = faction_pro_centralization
+				opinion = { who = ROOT modifier = opinion_vetoed_my_proposal }
+			}
+		}
+	}
+}
+
+# The liege has granted a demand raising centralization!
+character_event = {
+	id = laws.10161
+	desc = "EVTDESCLAWS10161"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			limit = { leads_faction = faction_pro_centralization }
+			clr_character_flag = flag_making_faction_ultimatum
+		}
+	}
+	
+	option = {
+		trigger = { NOT = { in_faction = faction_pro_centralization } }
+		name = "EVTOPTAPPROVE"
+		opinion = { who = FROM modifier = opinion_raised_crown_authority_bad }
+	}
+	
+	option = {
+		trigger = { NOT = { in_faction = faction_anti_centralization } }
+		name = "EVTOPTDISAPPROVE"
+		opinion = { who = FROM modifier = opinion_raised_crown_authority_good }
+	}
+}
+
+# The liege has refused to a demand to raise centralization
+character_event = {
+	id = laws.10162
+	desc = "EVTDESCLAWS10162"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			limit = { leads_faction = faction_pro_centralization }
+			clr_character_flag = flag_making_faction_ultimatum
+		}
+	}
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+
+
+# MAKE DEMOCRATIC LEGISLATURE DEMAND
+character_event = {
+	id = laws.10250
+	desc = "EVTDESCLAWS10250"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	# Liege has no regent
+	option = {
+		trigger = {
+			NOT = {
+				any_realm_character = {
+					has_minor_title = title_regent
+					same_liege = ROOT
+				}
+			}
+		}
+		name = "EVTOPTACONFIRM"
+		liege = { character_event = { id = laws.10260 tooltip = "EVTTOOLTIPLAWS10260" } }
+	}
+	
+	# Liege has a regent, who is in the faction and can pass the bill automatically
+	option = {
+		trigger = {
+			any_realm_character = {
+				has_minor_title = title_regent
+				same_liege = ROOT
+			}
+		}
+		name = "EVTOPTBLAWS10250"
+		random_realm_character = {
+			limit = {
+				has_minor_title = title_regent
+				same_liege = ROOT
+			}
+			character_event = { id = laws.10251 tooltip = "EVTTOOLTIPLAWS10251" }
+		}
+		clr_character_flag = flag_making_faction_ultimatum
+	}
+	
+	# Nevermind
+	option = {
+		name = "EVTOPTNEVERMIND"
+		clr_character_flag = flag_making_faction_ultimatum
+		ai_chance = { factor = 0 }
+	}
+}
+
+# You are the regent, and in the democratic legislature faction, and they want to found a senate
+character_event = {
+	id = laws.10251
+	desc = "EVTDESCLAWS10251"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		liege = { character_event = { id = laws.10252 tooltip = "EVTTOOLTIPLAWS10252" } }
+	}
+}
+
+character_event = {
+	id = laws.10252
+	desc = "EVTDESCLAWS10252"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		# Apathy
+		trigger = {
+			OR = {
+				not = { age = 16 }
+				trait = carefree
+			}
+		}
+		name = "EVTOPTALAWS10152"
+		FROM = {
+			FROM = {
+				faction_democratic_legislature = {
+					add_law = legislative_authority_1
+					hidden_tooltip = {
+						ROOT = {
+							any_vassal = {
+								limit = { crownlaw_title = { title = PREVPREVPREV } }
+								character_event = { id = laws.10261 }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		# Anger
+		trigger = {
+			age = 16
+			NOT = { opinion = { who = FROM value = 50 } }
+			OR = {
+				trait = ambitious
+				trait = proud
+				trait = pragmatic
+			}
+		}
+		name = "EVTOPTBLAWS10152"
+		FROM = {
+			reverse_opinion = { who = ROOT modifier = opinion_disloyal_regent }
+			FROM = {
+				faction_democratic_legislature = {
+					add_law = legislative_authority_1
+					hidden_tooltip = {
+						ROOT = {
+							any_vassal = {
+								limit = { crownlaw_title = { title = PREVPREVPREV } }
+								character_event = { id = laws.10261 }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	option = {
+		# Approval
+		trigger = {
+			age = 16
+			OR = {
+				opinion = { who = FROM value = 50 }
+				AND = {
+					NOT = { trait = ambitious }
+					NOT = { trait = proud }
+					NOT = { trait = pragmatic }
+				}
+			}
+		}
+		name = "EVTOPTCLAWS10152"
+		FROM = {
+			reverse_opinion = { who = ROOT modifier = opinion_loyal_regent }
+			FROM = {
+				faction_democratic_legislature = {
+					add_law = legislative_authority_1
+					hidden_tooltip = {
+						ROOT = {
+							any_vassal = {
+								limit = { crownlaw_title = { title = PREVPREVPREV } }
+								character_event = { id = laws.10261 }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+# A faction has demanded that you found a senate
+character_event = {
+	id = laws.10260
+	desc = "EVTDESCLAWS10260"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTACCEPT"
+		FROM = {
+			faction_democratic_legislature = {
+				add_law = legislative_authority_1
+				hidden_tooltip = {
+					ROOT = {
+						any_vassal = {
+							limit = { crownlaw_title = { title = PREVPREVPREV } }
+							character_event = { id = laws.10261 }
+						}
+					}
+				}
+			}
+		}
+		# Lieges who are annoyed by this demand
+		hidden_tooltip = {
+			if = {
+				limit = {
+					OR = {
+						trait = ambitious
+						trait = cold
+						trait = proud
+						AND = {
+							NOT = { trait = pragmatic }
+							OR = {
+								religion = terran_imperial
+								religion = astrist
+								religion = neo_feudal
+							}
+						}
+					}
+					OR = {
+						AND = {
+							NOT = { religion = terran_federalist }
+							NOT = { religion = terran_republican }
+							NOT = { religion = colonial_separatist }
+						}
+						trait = pragmatic
+					}
+				}
+				FROM = {
+					reverse_opinion = { who = ROOT modifier = opinion_passed_bad_bill months = 120 }
+					any_faction_backer = {
+						faction = faction_democratic_legislature
+						reverse_opinion = { who = ROOT modifier = opinion_passed_bad_bill months = 120 }
+					}
+				}
+			}
+		}
+		ai_chance = {
+			# This is a demand being made of the liege without legal force,
+			# so the starting odds are much lower and the faction does not
+			# get a moral authority bonus
+			factor = 25
+			
+			# Personality
+			modifier = {
+				factor = 0.2
+				trait = ambitious
+			}
+			modifier = {
+				factor = 2
+				trait = content
+			}
+			modifier = {
+				factor = 4
+				trait = carefree
+			}
+			modifier = {
+				factor = 0.5
+				trait = disciplined
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					AND = {
+						NOT = { trait = lunatic }
+						NOT = { trait = proud }
+					}
+					trait = craven
+				}
+				FROM = {
+					faction_power = {
+						faction = faction_democratic_legislature
+						power = 1
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					AND = {
+						NOT = { trait = lunatic }
+						NOT = { trait = proud }
+					}
+					trait = craven
+				}
+				FROM = {
+					faction_power = {
+						faction = faction_democratic_legislature
+						power = 1.25
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					AND = {
+						NOT = { trait = lunatic }
+						NOT = { trait = proud }
+					}
+					trait = craven
+				}
+				FROM = {
+					faction_power = {
+						faction = faction_democratic_legislature
+						power = 1.5
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					AND = {
+						NOT = { trait = lunatic }
+						NOT = { trait = proud }
+					}
+					trait = craven
+				}
+				FROM = {
+					faction_power = {
+						faction = faction_democratic_legislature
+						power = 1.75
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					AND = {
+						NOT = { trait = lunatic }
+						NOT = { trait = proud }
+					}
+					trait = craven
+				}
+				FROM = {
+					faction_power = {
+						faction = faction_democratic_legislature
+						power = 2
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					AND = {
+						NOT = { trait = lunatic }
+						NOT = { trait = proud }
+					}
+					trait = craven
+				}
+				FROM = {
+					faction_power = {
+						faction = faction_democratic_legislature
+						power = 2.25
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					AND = {
+						NOT = { trait = lunatic }
+						NOT = { trait = proud }
+					}
+					trait = craven
+				}
+				FROM = {
+					faction_power = {
+						faction = faction_democratic_legislature
+						power = 2.5
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					AND = {
+						NOT = { trait = lunatic }
+						NOT = { trait = proud }
+					}
+					trait = craven
+				}
+				FROM = {
+					faction_power = {
+						faction = faction_democratic_legislature
+						power = 2.75
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					AND = {
+						NOT = { trait = lunatic }
+						NOT = { trait = proud }
+					}
+					trait = craven
+				}
+				FROM = {
+					faction_power = {
+						faction = faction_democratic_legislature
+						power = 3
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					AND = {
+						NOT = { trait = lunatic }
+						NOT = { trait = proud }
+					}
+					trait = craven
+				}
+				FROM = {
+					faction_power = {
+						faction = faction_abolish_legislature
+						power = 1
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					AND = {
+						NOT = { trait = lunatic }
+						NOT = { trait = proud }
+					}
+					trait = craven
+				}
+				FROM = {
+					faction_power = {
+						faction = faction_abolish_legislature
+						power = 1.25
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					AND = {
+						NOT = { trait = lunatic }
+						NOT = { trait = proud }
+					}
+					trait = craven
+				}
+				FROM = {
+					faction_power = {
+						faction = faction_abolish_legislature
+						power = 1.5
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					AND = {
+						NOT = { trait = lunatic }
+						NOT = { trait = proud }
+					}
+					trait = craven
+				}
+				FROM = {
+					faction_power = {
+						faction = faction_abolish_legislature
+						power = 1.75
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					AND = {
+						NOT = { trait = lunatic }
+						NOT = { trait = proud }
+					}
+					trait = craven
+				}
+				FROM = {
+					faction_power = {
+						faction = faction_abolish_legislature
+						power = 2
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					AND = {
+						NOT = { trait = lunatic }
+						NOT = { trait = proud }
+					}
+					trait = craven
+				}
+				FROM = {
+					faction_power = {
+						faction = faction_abolish_legislature
+						power = 2.25
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					AND = {
+						NOT = { trait = lunatic }
+						NOT = { trait = proud }
+					}
+					trait = craven
+				}
+				FROM = {
+					faction_power = {
+						faction = faction_abolish_legislature
+						power = 2.5
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					AND = {
+						NOT = { trait = lunatic }
+						NOT = { trait = proud }
+					}
+					trait = craven
+				}
+				FROM = {
+					faction_power = {
+						faction = faction_abolish_legislature
+						power = 2.75
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					AND = {
+						NOT = { trait = lunatic }
+						NOT = { trait = proud }
+					}
+					trait = craven
+				}
+				FROM = {
+					faction_power = {
+						faction = faction_abolish_legislature
+						power = 3
+					}
+				}
+			}
+			
+			# Since there is no legal force behind this demand, the liege
+			# will make decisions based on their opinion of the relevant
+			# faction leaders
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -99 } }
+			}
+			modifier = {
+				factor = 0.8
+				any_vassal = {
+					leads_faction = faction_abolish_legislature
+					reverse_opinion = { who = ROOT value = 100 }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				any_vassal = {
+					leads_faction = faction_abolish_legislature
+					reverse_opinion = { who = ROOT value = 90 }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				any_vassal = {
+					leads_faction = faction_abolish_legislature
+					reverse_opinion = { who = ROOT value = 80 }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				any_vassal = {
+					leads_faction = faction_abolish_legislature
+					reverse_opinion = { who = ROOT value = 70 }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				any_vassal = {
+					leads_faction = faction_abolish_legislature
+					reverse_opinion = { who = ROOT value = 60 }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				any_vassal = {
+					leads_faction = faction_abolish_legislature
+					reverse_opinion = { who = ROOT value = 50 }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				any_vassal = {
+					leads_faction = faction_abolish_legislature
+					reverse_opinion = { who = ROOT value = 40 }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				any_vassal = {
+					leads_faction = faction_abolish_legislature
+					reverse_opinion = { who = ROOT value = 30 }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				any_vassal = {
+					leads_faction = faction_abolish_legislature
+					reverse_opinion = { who = ROOT value = 20 }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				any_vassal = {
+					leads_faction = faction_abolish_legislature
+					reverse_opinion = { who = ROOT value = 10 }
+				}
+			}
+			
+			# Ideological Preferences
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = astrist
+				}
+				religion_authority = 0.5
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = astrist
+				}
+				religion_authority = 0.25
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = astrist
+				}
+				trait = radical
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_republican
+					religion = terran_federalist
+					religion = colonial_separatist
+				}
+				religion_authority = 0.5
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_republican
+					religion = terran_federalist
+					religion = colonial_separatist
+				}
+				religion_authority = 0.25
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_republican
+					religion = terran_federalist
+					religion = colonial_separatist
+				}
+				trait = radical
+			}
+			
+			# This weakens the realm either way, so situational bonuses do not apply
+		}
+	}
+	
+	option = {
+		name = "EVTOPTREFUSE"
+		# Starts a constitutional crisis
+		add_character_modifier = { name = constitutional_crisis duration = -1 }
+		add_character_modifier = { name = crisis_refused_democratic_legislature_demand duration = -1 }
+		add_character_modifier = { name = crisis_law_for_ruler duration = -1 }
+		clr_character_flag = flag_crisis_timer
+		set_character_flag = flag_crisis_timer
+		
+		if = {
+			limit = { primary_title = { tier = EMPEROR } }
+			set_character_flag = flag_crisis_emperor
+		}
+		if = {
+			limit = { primary_title = { tier = KING } }
+			set_character_flag = flag_crisis_king
+		}
+		FROM = {
+			opinion = { who = ROOT modifier = opinion_tyrant }
+			any_faction_backer = {
+				faction = faction_democratic_legislature
+				opinion = { who = ROOT modifier = opinion_tyrant }
+			}
+		}
+		hidden_tooltip = {
+			any_realm_character = {
+				limit = { liege = { character = ROOT } }
+				character_event = { id = laws.10262 } # Inform vassals
+			}
+		}
+		ai_chance = { factor = 75 }
+	}
+}
+
+# The liege has granted a demand founding a senate!
+character_event = {
+	id = laws.10261
+	desc = "EVTDESCLAWS10261"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			limit = { leads_faction = faction_democratic_legislature }
+			clr_character_flag = flag_making_faction_ultimatum
+		}
+	}
+	
+	option = {
+		trigger = { NOT = { in_faction = faction_democratic_legislature } }
+		name = "EVTOPTAPPROVE"
+		opinion = { who = FROM modifier = opinion_founded_legislature_bad }
+	}
+	
+	option = {
+		name = "EVTOPTDISAPPROVE"
+		opinion = { who = FROM modifier = opinion_founded_legislature_good }
+	}
+}
+
+# The liege has refused to a demand to found a senate
+character_event = {
+	id = laws.10262
+	desc = "EVTDESCLAWS10262"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			limit = { leads_faction = faction_democratic_legislature }
+			clr_character_flag = flag_making_faction_ultimatum
+		}
+	}
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+
+# PASS DEVOLVE LOCAL GOVERNMENT BILL
+character_event = {
+	id = laws.10300
+	desc = "EVTDESCLAWS10300"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	# Liege has no regent
+	option = {
+		trigger = {
+			NOT = {
+				any_realm_character = {
+					has_minor_title = title_regent
+					same_liege = ROOT
+				}
+			}
+		}
+		name = "EVTOPTACONFIRM"
+		liege = { character_event = { id = laws.10310 tooltip = "EVTTOOLTIPLAWS10310" } }
+	}
+	
+	# Liege has a regent, who is in the faction and can pass the bill automatically
+	option = {
+		trigger = {
+			any_realm_character = {
+				has_minor_title = title_regent
+				same_liege = ROOT
+			}
+		}
+		name = "EVTOPTBLAWS10000"
+		random_realm_character = {
+			limit = {
+				has_minor_title = title_regent
+				same_liege = ROOT
+			}
+			character_event = { id = laws.10301 tooltip = "EVTTOOLTIPLAWS10301" }
+		}
+		clr_character_flag = flag_making_faction_ultimatum
+	}
+	
+	# Nevermind
+	option = {
+		name = "EVTOPTNEVERMIND"
+		clr_character_flag = flag_making_faction_ultimatum
+		ai_chance = { factor = 0 }
+	}
+}
+
+# You are the regent, and in the local government faction, and they've just passed a bill
+character_event = {
+	id = laws.10301
+	desc = "EVTDESCLAWS10301"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		liege = { character_event = { id = laws.10302 tooltip = "EVTTOOLTIPLAWS10302" } }
+	}
+}
+
+# You are the liege, and your regent has just authorized a local government bill in your name
+character_event = {
+	id = laws.10302
+	desc = "EVTDESCLAWS10302"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		# Apathy
+		name = "EVTOPTALAWS10002"
+		FROM = {
+			FROM = {
+				supported_claimant = {
+					if = {
+						limit = {
+							prisoner = yes
+							host = { character = ROOT }
+						}
+						prisoner = no
+					}
+					FROMFROM = {
+						supported_claimant_title = {
+							usurp_title_plus_barony_if_unlanded_and_vassals = PREVPREV
+							remove_claim = ROOT
+						}
+					}
+					set_defacto_liege = ROOT
+				}
+			}
+		}
+	}
+	
+	option = {
+		# Anger
+		trigger = {
+			age = 16
+			OR = {
+				religion = terran_republican
+				religion = terran_imperialist
+				religion = astrist
+				trait = ambitious
+				trait = pragmatic
+			}
+		}
+		name = "EVTOPTBLAWS10002"
+		FROM = {
+			reverse_opinion = { who = ROOT modifier = opinion_disloyal_regent }
+			FROM = {
+				supported_claimant = {
+					if = {
+						limit = {
+							prisoner = yes
+							host = { character = ROOT }
+						}
+						prisoner = no
+					}
+					FROMFROM = {
+						supported_claimant_title = {
+							usurp_title_plus_barony_if_unlanded_and_vassals = PREVPREV
+							remove_claim = ROOT
+						}
+					}
+					set_defacto_liege = ROOT
+				}
+			}
+		}
+	}
+	
+	option = {
+		# Approval
+		trigger = {
+			age = 16
+			NOT = { trait = ambitious }
+			NOT = { trait = pragmatic }
+		}
+		name = "EVTOPTCLAWS10002"
+		FROM = {
+			reverse_opinion = { who = ROOT modifier = opinion_loyal_regent }
+			FROM = {
+				supported_claimant = {
+					if = {
+						limit = {
+							prisoner = yes
+							host = { character = ROOT }
+						}
+						prisoner = no
+					}
+					FROMFROM = {
+						supported_claimant_title = {
+							usurp_title_plus_barony_if_unlanded_and_vassals = PREVPREV
+							remove_claim = ROOT
+						}
+					}
+					set_defacto_liege = ROOT
+				}
+			}
+		}
+	}
+}
+
+# A bill has passed in the senate granting local autonomy to a region
+character_event = {
+	id = laws.10310
+	desc = "EVTDESCLAWS10310"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTACCEPT"
+		FROM = {
+			supported_claimant = {
+				if = {
+					limit = {
+						prisoner = yes
+						host = { character = ROOT }
+					}
+					prisoner = no
+				}
+				FROM = {
+					supported_claimant_title = {
+						usurp_title_plus_barony_if_unlanded_and_vassals = PREVPREV
+						remove_claim = ROOT
+					}
+				}
+				set_defacto_liege = ROOT
+			}
+		}
+		# Lieges who are annoyed by this demand
+		hidden_tooltip = {
+			if = {
+				limit = {
+					OR = {
+						trait = ambitious
+						trait = proud
+						trait = cold
+						religion = terran_republican
+						religion = terran_imperial
+						religion = astrist
+						religion = neo_socialist
+						religion = orthodox
+						religion = solarian
+						war = yes
+						has_character_flag = flag_increased_centralization
+					}
+					NOT = { trait = content }
+					NOT = { trait = friendly }
+					NOT = { trait = humble }
+					NOT = {
+						AND = {
+							OR = {
+								religion = terran_federalist
+								religion = colonial_separatist
+								religion = neo_feudal
+								religion = adoptionist_cultist
+								religion = adoptionist
+								religion = xenoterran
+							}
+							NOT = { trait = pragmatic }
+						}
+					}
+				}
+				FROM = {
+					reverse_opinion = { who = ROOT modifier = opinion_passed_bad_bill months = 120 }
+					any_faction_backer = {
+						faction = faction_devolve_local_government
+						reverse_opinion = { who = ROOT modifier = opinion_passed_bad_bill months = 120 }
+					}
+				}
+			}
+		}
+	}
+}
+
+# PASS INDEPENDENCE BILL
+character_event = {
+	id = laws.10400
+	desc = "EVTDESCLAWS10400"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	# Liege has no regent
+	option = {
+		trigger = {
+			NOT = {
+				any_realm_character = {
+					has_minor_title = title_regent
+					same_liege = ROOT
+				}
+			}
+		}
+		name = "EVTOPTACONFIRM"
+		liege = { character_event = { id = laws.10410 tooltip = "EVTTOOLTIPLAWS10410" } }
+	}
+	
+	# Liege has a regent, who is in the faction and can pass the bill automatically
+	option = {
+		trigger = {
+			any_realm_character = {
+				has_minor_title = title_regent
+				same_liege = ROOT
+			}
+		}
+		name = "EVTOPTBLAWS10000"
+		random_realm_character = {
+			limit = {
+				has_minor_title = title_regent
+				same_liege = ROOT
+			}
+			character_event = { id = laws.10401 tooltip = "EVTTOOLTIPLAWS10401" }
+		}
+		clr_character_flag = flag_making_faction_ultimatum
+	}
+	
+	# Nevermind
+	option = {
+		name = "EVTOPTNEVERMIND"
+		clr_character_flag = flag_making_faction_ultimatum
+		ai_chance = { factor = 0 }
+	}
+}
+
+# You are the regent, and in the independence faction, and they've just passed a bill
+character_event = {
+	id = laws.10401
+	desc = "EVTDESCLAWS10401"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		liege = { character_event = { id = laws.10402 tooltip = "EVTTOOLTIPLAWS10402" } }
+	}
+}
+
+# You are the liege, and your regent has just authorized an independence bill in your name
+character_event = {
+	id = laws.10402
+	desc = "EVTDESCLAWS10402"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		# Apathy
+		trigger = {
+			OR = {
+				not = { age = 16 }
+				trait = carefree
+			}
+		}
+		hidden_tooltip = { any_realm_character = { character_event = { id = laws.10411 } } }
+		name = "EVTOPTALAWS10402"
+		FROM = {
+			FROM = {
+				any_faction_backer = {
+					faction = faction_independence
+					set_defacto_liege = THIS
+					hidden_tooltip = { any_demesne_title = { add_weak_claim = ROOT } }
+				}
+				set_defacto_liege = THIS
+				hidden_tooltip = { any_demesne_title = { add_weak_claim = ROOT } }
+			}
+		}
+	}
+	
+	option = {
+		# Anger
+		trigger = {
+			age = 16
+			NOT = { opinion = { who = FROM value = 50 } }
+			NOT = { trait = content }
+			NOT = { trait = humble }
+		}
+		hidden_tooltip = { any_realm_character = { character_event = { id = laws.10411 } } }
+		name = "EVTOPTBLAWS10402"
+		FROM = {
+			reverse_opinion = { who = ROOT modifier = opinion_disloyal_regent }
+			FROM = {
+				any_faction_backer = {
+					faction = faction_independence
+					set_defacto_liege = THIS
+					hidden_tooltip = { any_demesne_title = { add_weak_claim = ROOT } }
+				}
+				set_defacto_liege = THIS
+				hidden_tooltip = { any_demesne_title = { add_weak_claim = ROOT } }
+			}
+		}
+	}
+	
+	option = {
+		# Approval
+		trigger = {
+			age = 16
+			OR = {
+				opinion = { who = FROM value = 50 }
+				trait = content
+				trait = humble
+			}
+		}
+		hidden_tooltip = { any_realm_character = { character_event = { id = laws.10411 } } }
+		name = "EVTOPTCLAWS10402"
+		FROM = {
+			reverse_opinion = { who = ROOT modifier = opinion_loyal_regent }
+			FROM = {
+				any_faction_backer = {
+					faction = faction_independence
+					set_defacto_liege = THIS
+					hidden_tooltip = { any_demesne_title = { add_weak_claim = ROOT } }
+				}
+				set_defacto_liege = THIS
+				hidden_tooltip = { any_demesne_title = { add_weak_claim = ROOT } }
+			}
+		}
+	}
+}
+
+# A bill has passed in the senate demanding independence
+character_event = {
+	id = laws.10410
+	desc = "EVTDESCLAWS10410"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		hidden_tooltip = { any_realm_character = { character_event = { id = laws.10411 } } }
+		name = "EVTOPTACCEPT"
+		clr_character_flag = flag_dissolved_legislature_over_secession
+		FROM = {
+			any_faction_backer = {
+				faction = faction_independence
+				set_defacto_liege = THIS
+				hidden_tooltip = { any_demesne_title = { add_weak_claim = ROOT } }
+			}
+			set_defacto_liege = THIS
+			hidden_tooltip = { any_demesne_title = { add_weak_claim = ROOT } }
+		}
+		# Lieges who are annoyed by this demand
+		hidden_tooltip = {
+			if = {
+				limit = {
+					OR = {
+						trait = ambitious
+						trait = proud
+						trait = cold
+						religion = terran_republican
+						religion = terran_imperial
+						religion = astrist
+						religion = neo_socialist
+						religion = orthodox
+						religion = solarian
+						religion = terran_federalist
+						religion = neo_feudal
+						war = yes
+						has_character_flag = flag_independence_bill_passed
+					}
+					NOT = { trait = content }
+					NOT = { trait = friendly }
+					NOT = { trait = humble }
+					NOT = {
+						AND = {
+							OR = {
+								religion = colonial_separatist
+								religion = adoptionist_cultist
+								religion = adoptionist
+								religion = xenoterran
+							}
+							NOT = { trait = pragmatic }
+						}
+					}
+				}
+				FROM = {
+					reverse_opinion = { who = ROOT modifier = opinion_passed_bad_bill months = 120 }
+					any_faction_backer = {
+						faction = faction_pro_centralization
+						reverse_opinion = { who = ROOT modifier = opinion_passed_bad_bill months = 120 }
+					}
+					any_faction_backer = {
+						faction = faction_anti_centralization
+						reverse_opinion = { who = ROOT modifier = opinion_passed_bad_bill months = 120 }
+					}
+				}
+			}
+		}
+		ai_chance = {
+			factor = 50
+			# Claim effects
+			modifier = {
+				factor = 0.5
+				any_vassal = {
+					in_faction = faction_independence
+					any_demesne_title = {
+						OR = {
+							has_weak_claim = ROOT
+							has_strong_claim = ROOT
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				any_vassal = {
+					in_faction = faction_independence
+					any_demesne_title = { has_strong_claim = ROOT }
+				}
+			}
+			modifier = {
+				factor = 0.5
+				any_vassal = {
+					in_faction = faction_independence
+					OR = {
+						empire = { holder_scope = { character = ROOT } }
+						kingdom = { holder_scope = { character = ROOT } }
+						duchy = { holder_scope = { character = ROOT } }
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				NOT = {
+					any_vassal = {
+						in_faction = faction_independence
+						NOT = { empire = { holder_scope = { character = ROOT } } }
+						NOT = { kingdom = { holder_scope = { character = ROOT } } }
+						NOT = { duchy = { holder_scope = { character = ROOT } } }
+					}
+				}
+			}
+			
+			# Personality effects
+			modifier = {
+				factor = 4
+				trait = friendly
+			}
+			modifier = {
+				factor = 0.25
+				trait = cold
+			}
+			modifier = {
+				factor = 4
+				trait = content
+			}
+			modifier = {
+				factor = 0.25
+				trait = ambitious
+			}
+			modifier = {
+				factor = 2
+				trait = humble
+			}
+			modifier = {
+				factor = 0.5
+				trait = proud
+			}
+			
+			# Ideological effects
+			modifier = {
+				factor = 2
+				OR = {
+					religion = colonial_separatist
+					religion = xenoterran
+				}
+				trait = radical
+			}
+			modifier = {
+				factor = 5
+				OR = {
+					religion = colonial_separatist
+					religion = xenoterran
+				}
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 0.5
+				religion = terran_republican
+			}
+			modifier = {
+				factor = 0.5
+				religion = terran_republican
+				trait = radical
+			}
+			modifier = {
+				factor = 0.1
+				OR = {
+					religion = terran_imperial
+					religion = astrist
+				}
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					religion = terran_imperial
+					religion = astrist
+				}
+				trait = radical
+			}
+		}
+	}
+	
+	option = {	# This has gone too far! Dissolve the senate!
+		name = "EVTOPTBLAWS10410"
+		FROM = { character_event = { id = laws.10412 tooltip = "EVTTOOLTIPLAWS10412" } }
+		# Begin a constitutional crisis
+		add_character_modifier = { name = constitutional_crisis days = -1 }
+		add_character_modifier = { name = crisis_dissolved_legislature days = -1 }
+		add_character_modifier = { name = law_against_ruler days = -1 }
+		clr_character_flag = flag_crisis_timer
+		set_character_flag = flag_crisis_timer
+		set_character_flag = flag_dissolved_legislature_over_secession
+		if = {
+			limit = { tier = emperor }
+			set_character_flag = flag_crisis_emperor
+		}
+		if = {
+			limit = { tier = king }
+			set_character_flag = flag_crisis_king
+		}
+		# Democratic ideologies take a piety and moral authority hit
+		if = {
+			limit = {
+				OR = {
+					religion = terran_federalist
+					religion = terran_republican
+					religion = colonial_separatist
+					religion = neo_socialist
+				}
+			}
+			piety = -500
+			religion_authority = { modifier = major_hypocritical_reform years = 50 }
+		}
+		# Autocratic ideologies get a piety and moral authority bonus
+		if = {
+			limit = {
+				OR = {
+					religion = terran_imperial
+					religion = astrist
+					religion = neo_feudal
+				}
+			}
+			piety = 500
+			religion_authority = { modifier = major_compatible_reform years = 50 }
+		}
+		# Vassals react
+		any_vassal = {
+			limit = {
+				OR = {
+					AND = {
+						NOT = { religion = terran_imperial }
+						NOT = { religion = astrist }
+						NOT = { religion = neo_feudal }
+					}
+					trait = pragmatic
+				}
+			}
+			opinion = { who = ROOT modifier = opinion_tyrant }
+		}
+		any_vassal = {
+			limit = {
+				OR = {
+					religion = terran_federalist
+					religion = terran_republican
+					religion = colonial_separatist
+					religion = neo_socialist
+				}
+			}
+			opinion = { who = ROOT modifier = opinion_tyrant }
+		}
+		any_vassal = {
+			limit = {
+				OR = {
+					religion = terran_federalist
+					religion = terran_republican
+					religion = colonial_separatist
+					religion = neo_socialist
+				}
+				trait = radical
+			}
+			opinion = { who = ROOT modifier = opinion_tyrant }
+		}
+		any_vassal = {
+			limit = { trait = ambitious }
+			opinion = { who = ROOT modifier = opinion_tyrant }
+		}
+		any_vassal = {
+			limit = { trait = proud }
+			opinion = { who = ROOT modifier = opinion_tyrant }
+		}
+		hidden_tooltip = { any_realm_character = { character_event = { id = laws.20000 } } } # Inform vassals
+		ai_chance = {
+			factor = 50
+			# Already tried dissolving the senate, didn't work
+			modifier = {
+				factor = 0
+				has_character_flag = flag_dissolved_legislature_over_secession
+				NOT = { trait = imbecile }
+				NOT = { trait = lunatic }
+			}
+		}
+	}
+}
+
+# A bill granting independence has been passed!
+character_event = {
+	id = laws.10411
+	desc = "EVTDESCLAWS10411"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			limit = { leads_faction = faction_independence }
+			clr_character_flag = flag_making_faction_ultimatum
+		}
+	}
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+	}
+}
+# The ruler dissolved the legislature rather than approve the bill
+character_event = {
+	id = laws.10412
+	desc = "EVTDESCLAWS10412"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTALAWS10412" # Bide our time
+		clr_character_flag = flag_making_faction_ultimatum
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 4
+				trait = friendly
+			}
+			modifier = {
+				factor = 0.25
+				trait = cold
+			}
+			modifier = {
+				factor = 10
+				trait = craven
+			}
+			modifier = {
+				factor = 0.5
+				trait = brave
+			}
+			modifier = {
+				factor = 4
+				trait = content
+			}
+			modifier = {
+				factor = 0.25
+				trait = ambitious
+			}
+			modifier = {
+				factor = 10
+				trait = pragmatic
+			}
+			modifier = {
+				factor = 0
+				trait = radical
+			}
+		}
+	}
+	
+	option = {
+		# This means war
+		name = "EVTOPTBLAWS10412"
+		war = {
+			target = FROM
+			casus_belli = cb_faction_independence
+			faction = faction_independence
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+# Independence demands
+character_event = {
+	id = laws.10450
+	desc = "EVTDESCLAWS10450"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	# Liege has no regent
+	option = {
+		trigger = {
+			NOT = {
+				any_realm_character = {
+					has_minor_title = title_regent
+					same_liege = ROOT
+				}
+			}
+		}
+		name = "EVTOPTACONFIRM"
+		liege = { character_event = { id = laws.10460 tooltip = "EVTTOOLTIPLAWS10460" } }
+	}
+	
+	# Liege has a regent, who is in the faction and can pass the bill automatically
+	option = {
+		trigger = {
+			any_realm_character = {
+				has_minor_title = title_regent
+				same_liege = ROOT
+			}
+		}
+		name = "EVTOPTBLAWS10450"
+		random_realm_character = {
+			limit = {
+				has_minor_title = title_regent
+				same_liege = ROOT
+			}
+			character_event = { id = laws.10451 tooltip = "EVTTOOLTIPLAWS10451" }
+		}
+		clr_character_flag = flag_making_faction_ultimatum
+	}
+	
+	# Nevermind
+	option = {
+		name = "EVTOPTNEVERMIND"
+		clr_character_flag = flag_making_faction_ultimatum
+		ai_chance = { factor = 0 }
+	}
+}
+# You are the regent, and in the independence faction, and they want to be granted independence.
+character_event = {
+	id = laws.10451
+	desc = "EVTDESCLAWS10401"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		liege = { character_event = { id = laws.10452 tooltip = "EVTTOOLTIPLAWS10452" } }
+	}
+}
+
+# You are the liege, and your regent has just granted an independence demand in your name
+character_event = {
+	id = laws.10452
+	desc = "EVTDESCLAWS10452"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		# Apathy
+		trigger = {
+			OR = {
+				not = { age = 16 }
+				trait = carefree
+			}
+		}
+		name = "EVTOPTALAWS10452"
+		FROM = {
+			FROM = {
+				any_faction_backer = {
+					faction = faction_independence
+					set_defacto_liege = THIS
+					hidden_tooltip = { any_demesne_title = { add_claim = ROOT } }
+				}
+				set_defacto_liege = THIS
+				hidden_tooltip = { any_demesne_title = { add_claim = ROOT } }
+			}
+		}
+	}
+	
+	option = {
+		# Anger
+		trigger = {
+			age = 16
+			NOT = { opinion = { who = FROM value = 50 } }
+			NOT = { trait = content }
+			NOT = { trait = humble }
+		}
+		name = "EVTOPTBLAWS10052"
+		FROM = {
+			reverse_opinion = { who = ROOT modifier = opinion_disloyal_regent }
+			FROM = {
+				any_faction_backer = {
+					faction = faction_independence
+					set_defacto_liege = THIS
+					hidden_tooltip = { any_demesne_title = { add_claim = ROOT } }
+				}
+				set_defacto_liege = THIS
+				hidden_tooltip = { any_demesne_title = { add_claim = ROOT } }
+			}
+		}
+	}
+	
+	option = {
+		# Approval
+		trigger = {
+			age = 16
+			OR = {
+				opinion = { who = FROM value = 50 }
+				trait = content
+				trait = humble
+			}
+		}
+		name = "EVTOPTCLAWS10052"
+		FROM = {
+			reverse_opinion = { who = ROOT modifier = opinion_loyal_regent }
+			FROM = {
+				any_faction_backer = {
+					faction = faction_independence
+					set_defacto_liege = THIS
+					hidden_tooltip = { any_demesne_title = { add_claim = ROOT } }
+				}
+				set_defacto_liege = THIS
+				hidden_tooltip = { any_demesne_title = { add_claim = ROOT } }
+			}
+		}
+	}
+}
+
+# A faction has demanded independence
+character_event = {
+	id = laws.10460
+	desc = "EVTDESCLAWS10060"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTACCEPT"
+		hidden_tooltip = { any_realm_character = { character_event = { id = laws.10461 } } }
+		FROM = {
+			any_faction_backer = {
+				faction = faction_independence
+				set_defacto_liege = THIS
+				hidden_tooltip = { any_demesne_title = { add_weak_claim = ROOT } }
+			}
+			set_defacto_liege = THIS
+			hidden_tooltip = { any_demesne_title = { add_weak_claim = ROOT } }
+		}
+		# Lieges who are annoyed by this demand
+		hidden_tooltip = {
+			if = {
+				limit = {
+					OR = {
+						trait = ambitious
+						trait = proud
+						trait = cold
+						religion = terran_republican
+						religion = terran_imperial
+						religion = astrist
+						religion = neo_socialist
+						religion = orthodox
+						religion = solarian
+						religion = terran_federalist
+						religion = neo_feudal
+						war = yes
+					}
+					NOT = { trait = content }
+					NOT = { trait = friendly }
+					NOT = { trait = humble }
+					NOT = {
+						AND = {
+							OR = {
+								religion = colonial_separatist
+								religion = adoptionist_cultist
+								religion = adoptionist
+								religion = xenoterran
+							}
+							NOT = { trait = pragmatic }
+						}
+					}
+				}
+				FROM = {
+					reverse_opinion = { who = ROOT modifier = opinion_passed_bad_bill months = 120 }
+					any_faction_backer = {
+						faction = faction_anti_centralization
+						reverse_opinion = { who = ROOT modifier = opinion_passed_bad_bill months = 120 }
+					}
+					any_faction_backer = {
+						faction = faction_pro_centralization
+						reverse_opinion = { who = ROOT modifier = opinion_passed_bad_bill months = 120 }
+					}
+				}
+			}
+		}
+		ai_chance = {
+			factor = 25
+			
+			# Personality
+			modifier = {
+				factor = 1.5
+				trait = content
+			}
+			modifier = {
+				factor = 0.25
+				trait = ambitious
+			}
+			modifier = {
+				factor = 1.5
+				trait = carefree
+			}
+			modifier = {
+				factor = 0.25
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.25
+				trait = cold
+			}
+			modifier = {
+				factor = 0.1
+				NOT = { trait = content }
+				NOT = { trait = carefree }
+				NOT = { religion = colonial_separatist }
+			}
+			# Faction Strength Evaluation
+			modifier = {
+				factor = 2
+				NOT = { trait = imbecile }
+				NOT = { trait = slow }
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				FROM = { 
+					faction_power = {
+						faction = faction_independence
+						power = 0.5
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				NOT = { trait = imbecile }
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				FROM = { 
+					faction_power = {
+						faction = faction_independence
+						power = 1
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				FROM = { 
+					faction_power = {
+						faction = faction_independence
+						power = 1.5
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				FROM = { 
+					faction_power = {
+						faction = faction_independence
+						power = 2
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				FROM = { 
+					faction_power = {
+						faction = faction_independence
+						power = 2.5
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				FROM = { 
+					faction_power = {
+						faction = faction_independence
+						power = 3
+					}
+				}
+			}
+			modifier = {
+				factor = 0.75
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				any_vassal = { 
+					faction_power = {
+						faction = faction_anti_centralization
+						power = 0.75
+					}
+				}
+			}
+			modifier = {
+				factor = 0.75
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				any_vassal = { 
+					faction_power = {
+						faction = faction_anti_centralization
+						power = 1
+					}
+				}
+			}
+			modifier = {
+				factor = 0.75
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				any_vassal = { 
+					faction_power = {
+						faction = faction_anti_centralization
+						power = 1.5
+					}
+				}
+			}
+			modifier = {
+				factor = 0.75
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				any_vassal = { 
+					faction_power = {
+						faction = faction_anti_centralization
+						power = 2
+					}
+				}
+			}
+			modifier = {
+				factor = 0.75
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				any_vassal = { 
+					faction_power = {
+						faction = faction_anti_centralization
+						power = 2.5
+					}
+				}
+			}
+			modifier = {
+				factor = 0.75
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				any_vassal = { 
+					faction_power = {
+						faction = faction_anti_centralization
+						power = 3
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				any_vassal = { 
+					faction_power = {
+						faction = faction_pro_centralization
+						power = 0.5
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				any_vassal = { 
+					faction_power = {
+						faction = faction_pro_centralization
+						power = 1
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				any_vassal = { 
+					faction_power = {
+						faction = faction_pro_centralization
+						power = 1.5
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				any_vassal = { 
+					faction_power = {
+						faction = faction_pro_centralization
+						power = 2
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				any_vassal = { 
+					faction_power = {
+						faction = faction_pro_centralization
+						power = 2.5
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					AND = {
+						NOT = { trait = proud }
+						NOT = { trait = lunatic }
+					}
+					trait = craven
+				}
+				any_vassal = { 
+					faction_power = {
+						faction = faction_pro_centralization
+						power = 3
+					}
+				}
+			}
+			
+			# Since there is no legal force behind this demand, the liege
+			# will make decisions based on their opinion of the relevant
+			# faction leaders
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -99 } }
+			}
+			modifier = {
+				factor = 1.15
+				any_vassal = {
+					leads_faction = faction_anti_centralization
+					NOT = { reverse_opinion = { who = ROOT value = -99 } }
+				}
+			}
+			modifier = {
+				factor = 1.15
+				any_vassal = {
+					leads_faction = faction_anti_centralization
+					NOT = { reverse_opinion = { who = ROOT value = -89 } }
+				}
+			}
+			modifier = {
+				factor = 1.15
+				any_vassal = {
+					leads_faction = faction_anti_centralization
+					NOT = { reverse_opinion = { who = ROOT value = -79 } }
+				}
+			}
+			modifier = {
+				factor = 1.15
+				any_vassal = {
+					leads_faction = faction_anti_centralization
+					NOT = { reverse_opinion = { who = ROOT value = -69 } }
+				}
+			}
+			modifier = {
+				factor = 1.15
+				any_vassal = {
+					leads_faction = faction_anti_centralization
+					NOT = { reverse_opinion = { who = ROOT value = -59 } }
+				}
+			}
+			modifier = {
+				factor = 1.15
+				any_vassal = {
+					leads_faction = faction_anti_centralization
+					NOT = { reverse_opinion = { who = ROOT value = -49 } }
+				}
+			}
+			modifier = {
+				factor = 1.15
+				any_vassal = {
+					leads_faction = faction_anti_centralization
+					NOT = { reverse_opinion = { who = ROOT value = -39 } }
+				}
+			}
+			modifier = {
+				factor = 1.15
+				any_vassal = {
+					leads_faction = faction_anti_centralization
+					NOT = { reverse_opinion = { who = ROOT value = -29 } }
+				}
+			}
+			modifier = {
+				factor = 1.15
+				any_vassal = {
+					leads_faction = faction_anti_centralization
+					NOT = { reverse_opinion = { who = ROOT value = -19 } }
+				}
+			}
+			modifier = {
+				factor = 1.15
+				any_vassal = {
+					leads_faction = faction_anti_centralization
+					NOT = { reverse_opinion = { who = ROOT value = -9 } }
+				}
+			}
+			modifier = {
+				factor = 0.9
+				any_vassal = {
+					leads_faction = faction_anti_centralization
+					reverse_opinion = { who = ROOT value = 10 }
+				}
+			}
+			modifier = {
+				factor = 0.9
+				any_vassal = {
+					leads_faction = faction_anti_centralization
+					reverse_opinion = { who = ROOT value = 20 }
+				}
+			}
+			modifier = {
+				factor = 0.9
+				any_vassal = {
+					leads_faction = faction_anti_centralization
+					reverse_opinion = { who = ROOT value = 30 }
+				}
+			}
+			modifier = {
+				factor = 0.9
+				any_vassal = {
+					leads_faction = faction_anti_centralization
+					reverse_opinion = { who = ROOT value = 40 }
+				}
+			}
+			modifier = {
+				factor = 0.9
+				any_vassal = {
+					leads_faction = faction_anti_centralization
+					reverse_opinion = { who = ROOT value = 50 }
+				}
+			}
+			modifier = {
+				factor = 0.9
+				any_vassal = {
+					leads_faction = faction_anti_centralization
+					reverse_opinion = { who = ROOT value = 60 }
+				}
+			}
+			modifier = {
+				factor = 0.9
+				any_vassal = {
+					leads_faction = faction_anti_centralization
+					reverse_opinion = { who = ROOT value = 70 }
+				}
+			}
+			modifier = {
+				factor = 0.9
+				any_vassal = {
+					leads_faction = faction_anti_centralization
+					reverse_opinion = { who = ROOT value = 80 }
+				}
+			}
+			modifier = {
+				factor = 0.9
+				any_vassal = {
+					leads_faction = faction_anti_centralization
+					reverse_opinion = { who = ROOT value = 90 }
+				}
+			}
+			modifier = {
+				factor = 0.9
+				any_vassal = {
+					leads_faction = faction_anti_centralization
+					reverse_opinion = { who = ROOT value = 100 }
+				}
+			}
+			modifier = {
+				factor = 1.25
+				any_vassal = {
+					leads_faction = faction_pro_centralization
+					NOT = { reverse_opinion = { who = ROOT value = -99 } }
+				}
+			}
+			modifier = {
+				factor = 1.25
+				any_vassal = {
+					leads_faction = faction_pro_centralization
+					NOT = { reverse_opinion = { who = ROOT value = -89 } }
+				}
+			}
+			modifier = {
+				factor = 1.25
+				any_vassal = {
+					leads_faction = faction_pro_centralization
+					NOT = { reverse_opinion = { who = ROOT value = -79 } }
+				}
+			}
+			modifier = {
+				factor = 1.25
+				any_vassal = {
+					leads_faction = faction_pro_centralization
+					NOT = { reverse_opinion = { who = ROOT value = -69 } }
+				}
+			}
+			modifier = {
+				factor = 1.25
+				any_vassal = {
+					leads_faction = faction_pro_centralization
+					NOT = { reverse_opinion = { who = ROOT value = -59 } }
+				}
+			}
+			modifier = {
+				factor = 1.25
+				any_vassal = {
+					leads_faction = faction_pro_centralization
+					NOT = { reverse_opinion = { who = ROOT value = -49 } }
+				}
+			}
+			modifier = {
+				factor = 1.25
+				any_vassal = {
+					leads_faction = faction_pro_centralization
+					NOT = { reverse_opinion = { who = ROOT value = -39 } }
+				}
+			}
+			modifier = {
+				factor = 1.25
+				any_vassal = {
+					leads_faction = faction_pro_centralization
+					NOT = { reverse_opinion = { who = ROOT value = -29 } }
+				}
+			}
+			modifier = {
+				factor = 1.25
+				any_vassal = {
+					leads_faction = faction_pro_centralization
+					NOT = { reverse_opinion = { who = ROOT value = -19 } }
+				}
+			}
+			modifier = {
+				factor = 1.25
+				any_vassal = {
+					leads_faction = faction_pro_centralization
+					NOT = { reverse_opinion = { who = ROOT value = -9 } }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				any_vassal = {
+					leads_faction = faction_pro_centralization
+					reverse_opinion = { who = ROOT value = 10 }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				any_vassal = {
+					leads_faction = faction_pro_centralization
+					reverse_opinion = { who = ROOT value = 20 }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				any_vassal = {
+					leads_faction = faction_pro_centralization
+					reverse_opinion = { who = ROOT value = 30 }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				any_vassal = {
+					leads_faction = faction_pro_centralization
+					reverse_opinion = { who = ROOT value = 40 }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				any_vassal = {
+					leads_faction = faction_pro_centralization
+					reverse_opinion = { who = ROOT value = 50 }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				any_vassal = {
+					leads_faction = faction_pro_centralization
+					reverse_opinion = { who = ROOT value = 60 }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				any_vassal = {
+					leads_faction = faction_pro_centralization
+					reverse_opinion = { who = ROOT value = 70 }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				any_vassal = {
+					leads_faction = faction_pro_centralization
+					reverse_opinion = { who = ROOT value = 80 }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				any_vassal = {
+					leads_faction = faction_pro_centralization
+					reverse_opinion = { who = ROOT value = 90 }
+				}
+			}
+			modifier = {
+				factor = 0.8
+				any_vassal = {
+					leads_faction = faction_pro_centralization
+					reverse_opinion = { who = ROOT value = 100 }
+				}
+			}
+			
+			# Ideological Preferences
+			modifier = {
+				factor = 2
+				OR = {
+					religion = colonial_separatist
+					religion = adoptionist_cultist
+					religion = adoptionist
+					religion = xenoterran
+				}
+				religion_authority = 0.5
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = colonial_separatist
+					religion = adoptionist_cultist
+					religion = adoptionist
+					religion = xenoterran
+				}
+				religion_authority = 0.25
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = colonial_separatist
+					religion = adoptionist_cultist
+					religion = adoptionist
+					religion = xenoterran
+				}
+				trait = radical
+			}
+			modifier = {
+				factor = 0.3
+				OR = {
+					religion = terran_federalist
+					religion = neo_feudal
+					religion = terran_republican
+					religion = terran_imperial
+					religion = astrist
+					religion = neo_socialist
+					religion = orthodox
+					religion = solarian
+				}
+				religion_authority = 0.5
+			}
+			modifier = {
+				factor = 0.3
+				OR = {
+					religion = terran_federalist
+					religion = neo_feudal
+					religion = terran_republican
+					religion = terran_imperial
+					religion = astrist
+					religion = neo_socialist
+					religion = orthodox
+					religion = solarian
+				}
+				religion_authority = 0.25
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 0.3
+				OR = {
+					religion = terran_federalist
+					religion = neo_feudal
+					religion = terran_republican
+					religion = terran_imperial
+					religion = astrist
+					religion = neo_socialist
+					religion = orthodox
+					religion = solarian
+				}
+				trait = radical
+			}
+			modifier = {
+				factor = 0.2
+				OR = {
+					religion = terran_republican
+					religion = terran_imperial
+					religion = astrist
+					religion = neo_socialist
+					religion = orthodox
+					religion = solarian
+				}
+				religion_authority = 0.5
+			}
+			modifier = {
+				factor = 0.2
+				OR = {
+					religion = terran_federalist
+					religion = neo_feudal
+					religion = terran_republican
+					religion = terran_imperial
+					religion = astrist
+					religion = neo_socialist
+					religion = orthodox
+					religion = solarian
+				}
+				religion_authority = 0.25
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 0.2
+				OR = {
+					religion = terran_federalist
+					religion = neo_feudal
+					religion = terran_republican
+					religion = terran_imperial
+					religion = astrist
+					religion = neo_socialist
+					religion = orthodox
+					religion = solarian
+				}
+				trait = radical
+			}
+			# This weakens the realm either way, so situational bonuses do not apply
+		}
+	}
+	
+	option = {
+		name = "EVTOPTREFUSE"
+		FROM = {
+			opinion = { who = ROOT modifier = opinion_vetoed_my_proposal }
+			opinion = { who = ROOT modifier = opinion_tyrant }
+			hidden_tooltip = { character_event = { id = laws.10463 } }
+			any_faction_backer = {
+				faction = faction_independence
+				opinion = { who = ROOT modifier = opinion_vetoed_my_proposal }
+				opinion = { who = ROOT modifier = opinion_tyrant }
+				hidden_tooltip = { character_event = { id = laws.10462 } }
+			}
+		}
+	}
+}
+
+# The liege has granted a demand granting independence!
+character_event = {
+	id = laws.10461
+	desc = "EVTDESCLAWS10461"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			limit = { leads_faction = faction_independence }
+			clr_character_flag = flag_making_faction_ultimatum
+		}
+	}
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+	}
+}
+# The liege has refused our demand to grant independence
+character_event = {
+	id = laws.10462
+	desc = "EVTDESCLAWS10462"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+character_event = {
+	id = laws.10463
+	desc = "EVTDESCLAWS10462"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	immediate = { clr_character_flag = flag_making_faction_ultimatum }
+	
+	option = {
+		name = "EVTOPTALAWS10462" # Bide our time
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 4
+				trait = friendly
+			}
+			modifier = {
+				factor = 0.25
+				trait = cold
+			}
+			modifier = {
+				factor = 10
+				trait = craven
+			}
+			modifier = {
+				factor = 0.5
+				trait = brave
+			}
+			modifier = {
+				factor = 4
+				trait = content
+			}
+			modifier = {
+				factor = 0.25
+				trait = ambitious
+			}
+			modifier = {
+				factor = 10
+				trait = pragmatic
+			}
+			modifier = {
+				factor = 0
+				trait = radical
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -99 } }
+			}
+		}
+	}
+	
+	option = {
+		# This means war
+		name = "EVTOPTBLAWS10462"
+		war = {
+			target = FROM
+			casus_belli = cb_faction_independence
+			faction = faction_independence
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+
+# Pass vote of no confidence
+character_event = {
+	id = laws.10500
+	desc = "EVTDESCLAWS10500"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	# Liege has no regent
+	option = {
+		name = "EVTOPTCONFIRM"
+		liege = { character_event = { id = laws.10510 tooltip = "EVTTOOLTIPLAWS10510" } }
+	}
+	# Nevermind
+	option = {
+		name = "EVTOPTNEVERMIND"
+		clr_character_flag = flag_making_faction_ultimatum
+		ai_chance = { factor = 0 }
+	}
+}
+
+# The Senate has passed a vote of no confidence in your leadership
+character_event = {
+	id = laws.10510
+	desc = "EVTDESCLAWS10510"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTACCEPT"
+		prestige = -100
+		FROM = {
+			faction_no_confidence = {
+				custom_tooltip = {
+					text = "HOLDELECTIONSHERE"
+					hidden_tooltip = {
+						set_title_flag = flag_holding_election
+						ROOT = { character_event = { id = laws.5000 } }
+					}
+				}
+			}
+			hidden_tooltip = { character_event = { id = laws.10520 } }
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 4
+				trait = content
+			}
+			modifier = {
+				factor = 0.25
+				trait = ambitious
+			}
+			modifier = {
+				factor = 2
+				trait = humble
+			}
+			modifier = {
+				factor = 0.5
+				trait = proud
+			}
+			modifier = {
+				factor = 2
+				trait = carefree
+			}
+			modifier = {
+				factor = 0.5
+				trait = disciplined
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_federalist
+					religion = terran_republican
+					religion = colonial_separatist
+					religion = neo_socialist
+				}
+				religion_authority = 0.2
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_federalist
+					religion = terran_republican
+					religion = colonial_separatist
+					religion = neo_socialist
+				}
+				religion_authority = 0.4
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_federalist
+					religion = terran_republican
+					religion = colonial_separatist
+					religion = neo_socialist
+				}
+				religion_authority = 0.6
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_federalist
+					religion = terran_republican
+					religion = colonial_separatist
+					religion = neo_socialist
+				}
+				religion_authority = 0.8
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_federalist
+					religion = terran_republican
+					religion = colonial_separatist
+					religion = neo_socialist
+				}
+				religion_authority = 1
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_federalist
+					religion = terran_republican
+					religion = colonial_separatist
+					religion = neo_socialist
+				}
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_federalist
+					religion = terran_republican
+					religion = colonial_separatist
+					religion = neo_socialist
+				}
+				trait = radical
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = astrist
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = astrist
+				}
+				religion_authority = 0.2
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = astrist
+				}
+				religion_authority = 0.4
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = astrist
+				}
+				religion_authority = 0.6
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = astrist
+				}
+				religion_authority = 0.8
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = astrist
+				}
+				religion_authority = 1
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = astrist
+				}
+				trait = radical
+			}
+			modifier = {
+				factor = 0.5
+				is_military_trigger = yes
+			}
+			modifier = {
+				factor = 0.5
+				FROM = { faction_power = { faction = faction_no_confidence power = 1.0 } }
+				NOT = { trait = brave }
+			}
+			modifier = {
+				factor = 0.5
+				FROM = { faction_power = { faction = faction_no_confidence power = 1.0 } }
+				trait = craven
+			}
+		}
+	}
+	option = {
+		# Dissolve the Senate
+		name = "EVTOPTBLAWS10510"
+		hidden_tooltip = { FROM = { character_event = { id = laws.530 } } }
+		# Begin a constitutional crisis
+		add_character_modifier = { name = constitutional_crisis days = -1 }
+		add_character_modifier = { name = crisis_dissolved_legislature days = -1 }
+		add_character_modifier = { name = law_against_ruler days = -1 }
+		clr_character_flag = flag_crisis_timer
+		set_character_flag = flag_crisis_timer
+		if = {
+			limit = { tier = emperor }
+			set_character_flag = flag_crisis_emperor
+		}
+		if = {
+			limit = { tier = king }
+			set_character_flag = flag_crisis_king
+		}
+		# Democratic ideologies take a piety and moral authority hit
+		if = {
+			limit = {
+				OR = {
+					religion = terran_federalist
+					religion = terran_republican
+					religion = colonial_separatist
+					religion = neo_socialist
+				}
+			}
+			piety = -500
+			religion_authority = { modifier = major_hypocritical_reform years = 50 }
+		}
+		# Autocratic ideologies get a piety and moral authority bonus
+		if = {
+			limit = {
+				OR = {
+					religion = terran_imperial
+					religion = astrist
+					religion = neo_feudal
+				}
+			}
+			piety = 500
+			religion_authority = { modifier = major_compatible_reform years = 50 }
+		}
+		hidden_tooltip = {
+			# Vassals react
+			any_vassal = {
+				limit = {
+					OR = {
+						AND = {
+							NOT = { religion = terran_imperial }
+							NOT = { religion = astrist }
+							NOT = { religion = neo_feudal }
+						}
+						trait = pragmatic
+					}
+				}
+				opinion = { who = ROOT modifier = opinion_tyrant }
+			}
+			any_vassal = {
+				limit = {
+					OR = {
+						religion = terran_federalist
+						religion = terran_republican
+						religion = colonial_separatist
+						religion = neo_socialist
+					}
+				}
+				opinion = { who = ROOT modifier = opinion_tyrant }
+			}
+			any_vassal = {
+				limit = {
+					OR = {
+						religion = terran_federalist
+						religion = terran_republican
+						religion = colonial_separatist
+						religion = neo_socialist
+					}
+					trait = radical
+				}
+				opinion = { who = ROOT modifier = opinion_tyrant }
+			}
+			any_vassal = {
+				limit = { trait = ambitious }
+				opinion = { who = ROOT modifier = opinion_tyrant }
+			}
+			any_vassal = {
+				limit = { trait = proud }
+				opinion = { who = ROOT modifier = opinion_tyrant }
+			}
+			any_realm_character = { character_event = { id = laws.20000 } } # Inform vassals
+		}
+	}
+}
+
+# The liege accepted your bill
+character_event = {
+	id = laws.10520
+	desc = "EVTDESCLAWS10520"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		clr_character_flag = flag_making_faction_ultimatum
+		hidden_tooltip = { any_realm_character = { character_event = { id = laws.10521 } } }
+	}
+}
+character_event = {
+	id = laws.10521
+	desc = "EVTDESCLAWS10521"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	trigger = {
+		OR = {
+			is_liege_or_above = FROMFROM
+			is_vassal_or_below = FROMFROM
+		}
+	}
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+	}
+}
+
+# The liege dissolved the senate!
+character_event = {
+	id = laws.10530
+	desc = "EVTDESCLAWS10530"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		clr_character_flag = flag_making_faction_ultimatum
+		hidden_tooltip = { any_realm_character = { character_event = { id = laws.10531 } } }
+	}
+}
+character_event = {
+	id = laws.10531
+	desc = "EVTDESCLAWS10531"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+	}
+}
+
+
+# SENATE DISSOLVES ITSELF
+character_event = {
+	id = laws.10600
+	desc = "EVTDESCLAWS10600"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	# It's not like the liege can FORCE the Senate to not dissolve.
+			option = {
+				name = "EVTOPTCONFIRM"
+				liege = { character_event = { id = laws.10601 tooltip = "EVTTOOLTIPLAWS10601" } }
+			}
+			
+			# Nevermind
+			option = {
+				name = "EVTOPTNEVERMIND"
+				clr_character_flag = flag_making_faction_ultimatum
+				ai_chance = { factor = 0 }
+			}
+		}
+		character_event = {
+			id = laws.10601
+			desc = "EVTDESCLAWS10601"
+			picture = GFX_evt_speech
+			border = GFX_evt_normal_frame_diplomacy
+			is_triggered_only = yes
+			
+			option = {
+				name = "EVTOPTCONFIRM"
+				FROM = {
+					faction_abolish_legislature = { add_law = legislative_authority_0 }
+					clr_character_flag = flag_making_faction_ultimatum
+				}
+				hidden_tooltip = {
+					any_realm_character = {
+						limit = { is_liege_or_above = ROOT }
+						character_event = { id = laws.10602 }
+					}
+				}
+			}
+		}
+		character_event = {
+			id = laws.10602
+			desc = "EVTDESCLAWS10602"
+			picture = GFX_evt_speech
+			border = GFX_evt_normal_frame_diplomacy
+			is_triggered_only = yes
+			
+			option = { name = "EVTOPTCONFIRM" }
+		}

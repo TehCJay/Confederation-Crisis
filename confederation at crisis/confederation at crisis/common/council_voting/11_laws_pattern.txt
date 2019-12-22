@@ -1,0 +1,681 @@
+#Positions on laws shared by pragmatists, glory hounds and zealots
+
+laws_pattern_for = {
+	icon = 19
+	pattern_type = for
+	
+	centralization_0 = {
+		always = yes
+	}
+	centralization_1 = {
+		OR = {
+			liege = {
+				primary_title = {
+					has_law = centralization_2
+				}
+			}
+			opinion = {
+				who = liege
+				value = 20
+			}
+		}
+	}
+	centralization_2 = {
+		OR = {
+			liege = {
+				primary_title = {
+					has_law = centralization_3
+				}
+			}
+			opinion = {
+				who = liege
+				value = 20
+			}
+		}
+	}
+	centralization_3 = {
+		OR = {
+			liege = {
+				primary_title = {
+					has_law = centralization_4
+				}
+			}
+			opinion = {
+				who = liege
+				value = 20
+			}
+		}
+	}
+	centralization_4 = {
+		opinion = {
+			who = liege 
+			value = 20
+		}
+	}
+	
+	#law_voting_power_0 = { always = no }
+	law_voting_power_1 = { always = yes }
+	#diplomacy_voting_power_0 = { always = no }
+	diplomacy_voting_power_1 = { always = yes }
+	#titles_voting_power_0 = { always = no }
+	titles_voting_power_1 = { always = yes }
+	#justice_voting_power_0 = { always = no }
+	justice_voting_power_1 = { always = yes }
+	
+	# vice_royalty_0 = {
+		# is_feudal = yes
+		# liege = {
+			# primary_title = {
+				# OR = {
+					# has_law = vice_royalty_1
+					# has_law = vice_royalty_2
+				# }
+			# }
+		# }
+	# }
+	# vice_royalty_1 = {
+		# is_feudal = yes
+		# liege = {
+			# primary_title = {
+				# has_law = vice_royalty_2
+			# }
+		# }
+	# }
+	# vice_royalty_2 = { always = no }
+	# feudal_administration = { always = yes }
+	# imperial_administration = { always = no }
+	
+	out_of_realm_inheritance_law_0 = { always = yes }
+	#out_of_realm_inheritance_law_1 = { always = no }
+
+	tax_levy_law_feudal_0 = { 
+		is_feudal = yes 
+		is_ruler = yes
+	}
+	tax_levy_law_feudal_1 = { 
+		FROMFROM = { has_law = tax_levy_law_feudal_2 } 
+		is_feudal = yes 
+		is_ruler = yes
+	}
+	tax_levy_law_feudal_2 = { 
+		FROMFROM = { has_law = tax_levy_law_feudal_3 } 
+		is_feudal = yes 
+		is_ruler = yes
+	}
+	tax_levy_law_feudal_3 = { 
+		FROMFROM = { has_law = tax_levy_law_feudal_4 } 
+		is_feudal = yes 
+	}
+	tax_levy_law_feudal_4 = { 
+		FROMFROM = { has_law = tax_levy_law_feudal_5 } 
+		is_feudal = yes 
+		is_ruler = yes
+	}
+	tax_levy_law_feudal_5 = { 
+		FROMFROM = { has_law = tax_levy_law_feudal_6 } 
+		is_feudal = yes 
+		is_ruler = yes
+	}
+	tax_levy_law_feudal_6 = { 
+		FROMFROM = { has_law = tax_levy_law_feudal_7 } 
+		is_feudal = yes 
+		is_ruler = yes
+	}
+	tax_levy_law_feudal_7 = { 
+		FROMFROM = { has_law = tax_levy_law_feudal_8 } 
+		is_feudal = yes 
+		is_ruler = yes
+	}
+	#tax_levy_law_feudal_8 = { always = no }
+	#tax_levy_law_republic_0 = { always = no }
+	tax_levy_law_republic_1 = {
+		FROMFROM = { has_law = tax_levy_law_republic_0 }
+		is_republic = yes
+		is_ruler = yes
+	}
+	tax_levy_law_republic_2 = {
+		FROMFROM = { has_law = tax_levy_law_republic_1 }
+		is_republic = yes
+		is_ruler = yes
+	}
+	tax_levy_law_republic_3 = {
+		FROMFROM = { has_law = tax_levy_law_republic_2 }
+		is_republic = yes
+		is_ruler = yes
+	}
+	tax_levy_law_republic_4 = {
+		FROMFROM = { has_law = tax_levy_law_republic_3 }
+		is_republic = yes
+		is_ruler = yes
+	}
+	tax_levy_law_republic_5 = {
+		FROMFROM = { has_law = tax_levy_law_republic_4 }
+		is_republic = yes
+		is_ruler = yes
+	}
+	tax_levy_law_republic_6 = {
+		FROMFROM = { has_law = tax_levy_law_republic_5 }
+		is_republic = yes
+		is_ruler = yes
+	}
+	tax_levy_law_republic_7 = {
+		FROMFROM = { has_law = tax_levy_law_republic_6 }
+		is_republic = yes
+		is_ruler = yes
+	}
+	tax_levy_law_republic_8 = {
+		is_republic = yes
+		is_ruler = yes
+	}
+	#tax_levy_law_theocracy_0 = { always = no }
+	tax_levy_law_theocracy_1 = {
+		FROMFROM = { has_law = tax_levy_law_theocracy_0 }
+		is_theocracy = yes
+		is_ruler = yes
+	}
+	tax_levy_law_theocracy_2 = {
+		FROMFROM = { has_law = tax_levy_law_theocracy_1 }
+		is_theocracy = yes
+		is_ruler = yes
+	}
+	tax_levy_law_theocracy_3 = {
+		FROMFROM = { has_law = tax_levy_law_theocracy_2 }
+		is_theocracy = yes
+		is_ruler = yes
+	}
+	tax_levy_law_theocracy_4 = {
+		is_theocracy = yes 
+		is_ruler = yes
+	}
+	tax_levy_law_theocracy_5 = {
+		FROMFROM = { has_law = tax_levy_law_theocracy_6 }
+		is_theocracy = yes
+		is_ruler = yes
+	}
+	tax_levy_law_theocracy_6 = {
+		FROMFROM = { has_law = tax_levy_law_theocracy_7 }
+		is_theocracy = yes
+		is_ruler = yes
+	}
+	tax_levy_law_theocracy_7 = {
+		FROMFROM = { has_law = tax_levy_law_theocracy_8 }
+		is_theocracy = yes
+		is_ruler = yes
+	}
+	#tax_levy_law_theocracy_8 = { always = no }
+	# tax_levy_law_tribal_0 = { always = no }
+	# tax_levy_law_tribal_1 = {
+		# FROMFROM = { has_law = tax_levy_law_tribal_0 }
+		# is_tribal = yes
+	# }
+	# tax_levy_law_tribal_2 = {
+		# FROMFROM = { has_law = tax_levy_law_tribal_1 }
+		# is_tribal = yes
+	# }
+	# tax_levy_law_tribal_3 = {
+		# FROMFROM = { has_law = tax_levy_law_tribal_2 }
+		# is_tribal = yes
+	# }
+	# tax_levy_law_tribal_4 = { is_tribal = yes }
+	# tax_levy_law_tribal_5 = {
+		# FROMFROM = { has_law = tax_levy_law_tribal_6 }
+		# is_tribal = yes
+	# }
+	# tax_levy_law_tribal_6 = {
+		# FROMFROM = { has_law = tax_levy_law_tribal_7 }
+		# is_tribal = yes
+	# }
+	# tax_levy_law_tribal_7 = {
+		# FROMFROM = { has_law = tax_levy_law_tribal_8 }
+		# is_tribal = yes
+	# }
+	# tax_levy_law_tribal_8 = { always = no }
+	
+	# tribal_organization_0 = {
+		# OR = {
+			# is_reformed_religion = no
+			# is_tribal = yes
+		# }
+	# }
+	# tribal_organization_1 = { 
+		# OR = { 
+			# FROMFROM = { has_law = tribal_organization_2 } 
+			# is_reformed_religion = yes
+			# is_tribal = no
+		# }
+	# }
+	# tribal_organization_2 = { 
+		# OR = { 
+			# FROMFROM = { has_law = tribal_organization_3 } 
+			# is_reformed_religion = yes
+			# is_tribal = no
+		# }
+	# }
+	# tribal_organization_3 = { 
+		# OR = { 
+			# FROMFROM = { has_law = tribal_organization_4 } 
+			# is_reformed_religion = yes
+			# is_tribal = no
+		# }
+	# }
+	# tribal_organization_4 = {
+		# OR = {
+			# is_reformed_religion = yes
+			# is_tribal = no
+		# }
+	# }
+	
+	# status_of_women_0 = { 
+		# is_female = yes
+		# NOT = { has_law = status_of_women_1 }
+	# }
+	# status_of_women_1 = { 
+		# is_female = yes
+		# NOT = { has_law = status_of_women_2 }
+	# }
+	# status_of_women_2 = { 
+		# is_female = yes
+		# NOT = { has_law = status_of_women_3 }
+	# }
+	# status_of_women_3 = { 
+		# is_female = yes
+		# NOT = { has_law = status_of_women_4 }
+	# }
+	# status_of_women_4 = { 
+		# is_female = yes
+	# }
+	
+	#revoke_title_law_0 = {
+		#always = no
+	#}
+	#revoke_title_law_1 = {
+		# opinion = {
+			# who = liege
+			# value = 20
+		# }
+	#}
+	# revoke_title_law_2 = {
+		# always = no
+	# }
+	
+	republic_law_0 = { always = yes }
+	
+	first_night_0 = { 
+		NOT = { trait = proud }
+		NOT = { trait = just }
+		NOT = { trait = lustful }
+		OR = {
+			trait = kind
+			trait = honorable
+			trait = chaste
+		} 
+	}
+	first_night_1 = {
+		NOT = { trait = kind }
+		NOT = { trait = honorable }
+		NOT = { trait = chaste }
+		OR = {
+			trait = proud
+			trait = just
+			trait = lustful
+		}
+	}
+	
+	slavery_0 = { 
+		OR = {
+			has_antislavery_culture_trigger = yes
+			has_antislavery_religion_trigger = yes
+			custom_tooltip = {
+				text = TOOLTIPslavery_0DYNASTY
+				hidden_tooltip = { has_dynasty_flag = liberator_dynasty }
+			}							
+			trait = liberator		
+		}
+	}
+	slavery_2 = { 
+		OR = {	
+			has_slavery_religion_trigger = yes
+			has_slavery_culture_trigger = yes
+		}
+	}
+	slavery_3 = { 
+		culture = ironborn
+	}
+}
+
+
+laws_pattern_against = {
+	icon = 19
+	pattern_type = against
+	
+	law_voting_power_0 = { always = yes }
+	#law_voting_power_1 = { always = no }
+	diplomacy_voting_power_0 = { always = yes }
+	#diplomacy_voting_power_1 = { always = no }
+	titles_voting_power_0 = { always = yes }
+	#titles_voting_power_1 = { always = no }
+	justice_voting_power_0 = { always = yes }
+	#justice_voting_power_1 = { always = no }
+	
+	#centralization_0 = { always = no }
+	#centralization_1 = { always = no }
+	#centralization_2 = { always = no }
+	#centralization_3 = { always = no }
+	#centralization_4 = { always = no }
+	
+	# vice_royalty_0 = { always = no }
+	# vice_royalty_1 = {
+		# is_feudal = yes
+		# liege = {
+			# primary_title = {
+				# has_law = vice_royalty_0
+			# }
+		# }
+	# }
+	# vice_royalty_2 = {
+		# is_feudal = yes
+		# liege = {
+			# primary_title = {
+				# has_law = vice_royalty_1
+			# }
+		# }
+	# }
+	# feudal_administration = { always = no }
+	# imperial_administration = { always = yes }
+	
+	#out_of_realm_inheritance_law_0 = { always = no }
+	out_of_realm_inheritance_law_1 = { always = yes }
+	
+	#tax_levy_law_feudal_0 = { always = no }
+	tax_levy_law_feudal_1 = { 
+		FROMFROM = { has_law = tax_levy_law_feudal_0 } 
+		is_feudal = yes 
+		is_ruler = yes
+	}
+	tax_levy_law_feudal_2 = { 
+		FROMFROM = { has_law = tax_levy_law_feudal_1 } 
+		is_feudal = yes 
+		is_ruler = yes
+	}
+	tax_levy_law_feudal_3 = { 
+		FROMFROM = { has_law = tax_levy_law_feudal_2 } 
+		is_feudal = yes 
+		is_ruler = yes
+	}
+	tax_levy_law_feudal_4 = { 
+		FROMFROM = { has_law = tax_levy_law_feudal_3 } 
+		is_feudal = yes 
+		is_ruler = yes
+	}
+	tax_levy_law_feudal_5 = { 
+		FROMFROM = { has_law = tax_levy_law_feudal_4 } 
+		is_feudal = yes 
+		is_ruler = yes
+	}
+	tax_levy_law_feudal_6 = { 
+		FROMFROM = { has_law = tax_levy_law_feudal_5 } 
+		is_feudal = yes 
+		is_ruler = yes
+	}
+	tax_levy_law_feudal_7 = { 
+		FROMFROM = { has_law = tax_levy_law_feudal_6 } 
+		is_feudal = yes 
+		is_ruler = yes
+	}
+	tax_levy_law_feudal_8 = { 
+		is_feudal = yes 
+		is_ruler = yes
+	}
+	tax_levy_law_republic_0 = {
+		is_republic = yes 
+		is_ruler = yes
+	}
+	tax_levy_law_republic_1 = {
+		FROMFROM = { has_law = tax_levy_law_republic_2 }
+		is_republic = yes
+		is_ruler = yes
+	}
+	tax_levy_law_republic_2 = {
+		FROMFROM = { has_law = tax_levy_law_republic_3 }
+		is_republic = yes
+		is_ruler = yes
+	}
+	tax_levy_law_republic_3 = {
+		FROMFROM = { has_law = tax_levy_law_republic_4 }
+		is_republic = yes
+		is_ruler = yes
+	}
+	tax_levy_law_republic_4 = {
+		FROMFROM = { has_law = tax_levy_law_republic_5 }
+		is_republic = yes
+		is_ruler = yes
+	}
+	tax_levy_law_republic_5 = {
+		FROMFROM = { has_law = tax_levy_law_republic_6 }
+		is_republic = yes
+		is_ruler = yes
+	}
+	tax_levy_law_republic_6 = {
+		FROMFROM = { has_law = tax_levy_law_republic_7 }
+		is_republic = yes
+		is_ruler = yes
+	}
+	tax_levy_law_republic_7 = {
+		FROMFROM = { has_law = tax_levy_law_republic_8 }
+		is_republic = yes
+		is_ruler = yes
+	}
+	# tax_levy_law_republic_8 = {
+		# always = no
+	# }
+	tax_levy_law_theocracy_0 = { 
+		is_theocracy = yes 
+		is_ruler = yes
+	}
+	tax_levy_law_theocracy_1 = {
+		FROMFROM = { has_law = tax_levy_law_theocracy_2 }
+		is_theocracy = yes
+		is_ruler = yes
+	}
+	tax_levy_law_theocracy_2 = {
+		FROMFROM = { has_law = tax_levy_law_theocracy_3 }
+		is_theocracy = yes
+		is_ruler = yes
+	}
+	tax_levy_law_theocracy_3 = {
+		FROMFROM = { has_law = tax_levy_law_theocracy_4 }
+		is_theocracy = yes
+		is_ruler = yes
+	}
+	#tax_levy_law_theocracy_4 = { always = no }
+	tax_levy_law_theocracy_5 = {
+		FROMFROM = { has_law = tax_levy_law_theocracy_4 }
+		is_theocracy = yes
+		is_ruler = yes
+	}
+	tax_levy_law_theocracy_6 = {
+		FROMFROM = { has_law = tax_levy_law_theocracy_5 }
+		is_theocracy = yes
+		is_ruler = yes
+	}
+	tax_levy_law_theocracy_7 = {
+		FROMFROM = { has_law = tax_levy_law_theocracy_6 }
+		is_theocracy = yes
+		is_ruler = yes
+	}
+	tax_levy_law_theocracy_8 = { 
+		is_theocracy = yes 
+		is_ruler = yes
+	}
+	#tax_levy_law_tribal_0 = { is_tribal = yes }
+	# tax_levy_law_tribal_1 = {
+		# FROMFROM = { has_law = tax_levy_law_tribal_2 }
+		# is_tribal = yes
+	# }
+	# tax_levy_law_tribal_2 = {
+		# FROMFROM = { has_law = tax_levy_law_tribal_3 }
+		# is_tribal = yes
+	# }
+	# tax_levy_law_tribal_3 = {
+		# FROMFROM = { has_law = tax_levy_law_tribal_4 }
+		# is_tribal = yes
+	# }
+	# tax_levy_law_tribal_4 = { always = no }
+	# tax_levy_law_tribal_5 = {
+		# FROMFROM = { has_law = tax_levy_law_tribal_4 }
+		# is_tribal = yes
+	# }
+	# tax_levy_law_tribal_6 = {
+		# FROMFROM = { has_law = tax_levy_law_tribal_5 }
+		# is_tribal = yes
+	# }
+	# tax_levy_law_tribal_7 = {
+		# FROMFROM = { has_law = tax_levy_law_tribal_6 }
+		# is_tribal = yes
+	# }
+	# tax_levy_law_tribal_8 = { is_tribal = yes }
+	
+	# tribal_organization_0 = {
+		# NOR = {
+			# is_reformed_religion = no
+			# is_tribal = yes
+		# }
+	# }
+	# tribal_organization_1 = { 
+		# NOR = { 
+			# FROMFROM = { has_law = tribal_organization_2 } 
+			# is_reformed_religion = yes
+			# is_tribal = no
+		# }
+	# }
+	# tribal_organization_2 = { 
+		# NOR = { 
+			# FROMFROM = { has_law = tribal_organization_3 } 
+			# is_reformed_religion = yes
+			# is_tribal = no
+		# }
+	# }
+	# tribal_organization_3 = { 
+		# NOR = { 
+			# FROMFROM = { has_law = tribal_organization_4 } 
+			# is_reformed_religion = yes
+			# is_tribal = no
+		# }
+	# }
+	# tribal_organization_4 = { 
+		# NOR = {
+			# is_reformed_religion = yes
+			# is_tribal = no
+		# }
+	# }
+	
+	#revoke_title_law_0 = {
+		# NOT = {
+			# opinion = {
+				# who = liege
+				# value = 59
+			# }
+		# }
+	# }
+	#revoke_title_law_1 = {
+		# NOT = {
+			# opinion = {
+				# who = liege
+				# value = -19
+			# }
+		# }
+	# }
+	# revoke_title_law_2 = {
+		# NOT = {
+			# opinion = {
+				# who = liege
+				# value = 59
+			# }
+		# }
+	# }
+	
+	# ze_administration_laws_0 = { 
+		# NOT = { has_law = ze_administration_laws_1 }
+	# }
+	# ze_administration_laws_1 = {
+		# NOT = { has_law = ze_administration_laws_2 }
+	# }
+	# ze_administration_laws_2 = { always = yes }
+	
+	# status_of_women_0 = { 
+		# always = no
+	# }
+	# status_of_women_1 = { 
+		# NOT = { has_law = status_of_women_2 }
+	# }
+	# status_of_women_2 = { 
+		# NOT = { has_law = status_of_women_3 }
+	# }
+	# status_of_women_3 = { 
+		# NOT = { has_law = status_of_women_4 }
+	# }
+	# status_of_women_4 = { 
+		# always = yes
+	# }
+	first_night_0 = {
+		NOT = { trait = kind }
+		NOT = { trait = honorable }
+		NOT = { trait = chaste }
+		OR = {
+			trait = proud
+			trait = just
+			trait = lustful
+		}
+	}
+	first_night_1 = { 
+		NOT = { trait = proud }
+		NOT = { trait = just }
+		NOT = { trait = lustful }
+		OR = {
+			trait = kind
+			trait = honorable
+			trait = chaste
+		} 
+	}
+	slavery_0 = { 
+		OR = {	
+			has_slavery_religion_trigger = yes
+			has_slavery_culture_trigger = yes
+			culture = ironborn
+			AND = {
+				trait = slave_owner
+				NOR = {
+					has_antislavery_culture_trigger = yes
+					has_antislavery_religion_trigger = yes
+					custom_tooltip = {
+						text = TOOLTIPslavery_0DYNASTY
+						hidden_tooltip = { has_dynasty_flag = liberator_dynasty }
+					}							
+					trait = liberator		
+				}
+			}
+		}
+	}
+	slavery_2 = { 		
+		OR = {
+			has_antislavery_culture_trigger = yes
+			has_antislavery_religion_trigger = yes
+			custom_tooltip = {
+				text = TOOLTIPslavery_0DYNASTY
+				hidden_tooltip = { has_dynasty_flag = liberator_dynasty }
+			}							
+			trait = liberator		
+		}
+	}
+	slavery_3 = { 		
+		OR = {
+			has_antislavery_culture_trigger = yes
+			has_antislavery_religion_trigger = yes
+			custom_tooltip = {
+				text = TOOLTIPslavery_0DYNASTY
+				hidden_tooltip = { has_dynasty_flag = liberator_dynasty }
+			}							
+			trait = liberator		
+		}
+	}
+}

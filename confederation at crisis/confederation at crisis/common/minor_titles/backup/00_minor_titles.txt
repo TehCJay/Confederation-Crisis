@@ -1,0 +1,944 @@
+########################################################
+# MINOR TITLES
+# Characters can have any number of these
+########################################################
+#	grant_limit: Max number of holders.
+#	realm_in_name: Append the name of the country after the title (Queen [of Sweden])
+#	allowed_to_hold: conditions for the character to hold the title
+#	allowed_to_grant: conditions for a ruler to grant the title
+#	regent: This is the title for regents (not really "minor")
+#	gain_effect: fires when the title is granted
+#	lose_effect: fires when a title is lost if dismissal_trigger evaluates to false
+#	message: should fire a message to the its owner when set
+#	The other fields are all character modifiers.
+
+#######################################
+# HARD: AUTO-GRANTED - DO NOT REMOVE!
+#######################################
+## Court Physician
+title_court_physician = {
+	is_high_prio = yes
+	attribute = learning
+	dignity = 5
+	realm_in_name = yes
+	grant_limit = 1
+	opinion_effect = 10
+	monthly_salary = 0.2
+	monthly_prestige = 0.5
+
+	allowed_to_grant = {
+		OR = {
+			higher_tier_than = BARON
+			is_patrician = yes
+		}
+		has_dlc = "Reapers"
+	}
+
+	allowed_to_hold = {
+		custom_tooltip = {
+			text = court_physician_tooltip_1
+			hidden_tooltip = { emf_minor_title_basic_allowed_to_hold = yes }
+		}
+		custom_tooltip = {
+			text = court_physician_tooltip_2
+			hidden_tooltip = {
+				OR = {
+					male_can_hold_minor_title_trigger = yes
+					female_can_hold_minor_title_trigger = yes
+				}
+			}
+		}
+		OR = {
+			learning = 15
+			AND = {
+				learning = 10
+				OR = {
+					trait = physician
+					trait = scholar
+					trait = mystic
+					trait = mutazilite
+				}
+			}
+			custom_tooltip = {
+				text = educated_court_physician
+				hidden_tooltip = {
+					has_character_flag = is_court_physician
+				}
+			}
+		}
+		OR = {
+			NOT = { religion = hindu }
+			trait = brahmin
+		}
+		is_adult = yes
+
+		prisoner = no
+		NOT = { trait = in_hiding }
+		is_incapable = no
+	}
+
+	revoke_trigger = {
+		custom_tooltip = {
+			text = revoke_court_physician_being_treated_tt
+			NOT = { FROM = { has_character_flag = being_treated } }
+		}
+	}
+
+	gain_effect = {
+	}
+	lose_effect = {
+	}
+	retire_effect = {
+	}
+
+	message = yes
+}
+
+
+title_regent = {
+	realm_in_name = yes
+	dignity = 0.9
+	revoke_allowed = no
+	
+	monthly_salary = 0.1
+	monthly_prestige = 0.02
+	
+	gain_effect = {
+	}
+	lose_effect = {
+	}
+
+	message = yes
+}
+
+
+title_male_consort = {
+	dignity = 0.05
+	#realm_in_name = yes
+	revoke_allowed = no
+	
+	monthly_salary = 0.02
+	monthly_prestige = 0.10
+	
+	gain_effect = {
+	}
+	lose_effect = {
+	}
+
+	message = no
+}
+
+title_appointed_regent = {
+	dignity = 0.9
+	grant_limit = 1
+	opinion_effect = 20
+	revoke_allowed = yes
+
+	monthly_salary = 0.05
+	monthly_prestige = 0.02
+	
+	allowed_to_grant = { has_regent = no }
+
+	allowed_to_hold = {
+		is_adult = yes
+		prisoner = no
+		has_regent = no
+	}
+
+	gain_effect = {
+	}
+
+	lose_effect = {
+	}
+}
+
+title_ruler_consort = {
+	dignity = 0.88
+	show_as_title = no
+	realm_in_name = no
+	spouse_context = no # Title name as if the other gender version of the spouse's ruler title
+	revoke_allowed = no
+	
+	monthly_salary = 0.1
+	monthly_prestige = 0.02
+	
+	gain_effect = {
+	}
+	
+	lose_effect = {
+	}
+
+	message = no
+}
+
+title_tanist = {
+	dignity = 0.86
+	show_as_title = yes
+	realm_in_name = yes
+	revoke_allowed = no
+	
+	monthly_salary = 0.07
+	monthly_prestige = 0.02
+	
+	gain_effect = {
+	}
+	lose_effect = {
+	}
+
+	message = no
+}
+
+title_queen_mother = {
+	dignity = 0.1
+	show_as_title = no
+	realm_in_name = no
+	revoke_allowed = no
+	
+	monthly_salary = 0.0
+	monthly_prestige = 0.0
+	
+	gain_effect = {
+	}
+	lose_effect = {
+	}
+
+	message = no
+}
+
+title_prince = {
+	dignity = 0.1
+	show_as_title = no
+	realm_in_name = no
+	revoke_allowed = no
+	
+	monthly_salary = 0.0
+	monthly_prestige = 0.0
+	
+	gain_effect = {
+	}
+	lose_effect = {
+	}
+
+	message = no
+}
+
+title_caesar = {
+	dignity = 0.15
+	realm_in_name = yes
+	grant_limit = 1
+	opinion_effect = 10
+
+	monthly_salary = 0.1
+	monthly_prestige = 0.25
+	
+	show_as_title = yes
+
+	is_unique = yes
+
+	allowed_to_hold = {
+		OR = {
+		trait = skilled_tactician
+			trait = brilliant_strategist
+			trait = experienced_captain
+			trait = seasoned_commander
+			trait = great_general
+		martial = 10
+		}
+	}
+
+	allowed_to_grant = {
+		always = yes
+	}
+
+	gain_effect = {
+	}
+	lose_effect = {
+	}
+
+	message = yes
+}
+
+# Pagan consort
+title_courtesan = {
+	dignity = 0.05
+	realm_in_name = yes
+	revoke_allowed = no
+	
+	monthly_salary = 0.02
+	monthly_prestige = 0.01
+	
+	gain_effect = {
+	}
+	lose_effect = {
+	}
+
+	message = no
+}
+
+# Commander, granted via its own interaction, so very special
+title_commander = {
+	is_high_prio = yes
+	
+	attribute = martial
+	dignity = 0.05
+	opinion_effect = 10
+	realm_in_name = yes
+	show_as_title = yes
+	
+	monthly_salary = 0.05
+	monthly_prestige = 0.005
+	
+	allowed_to_hold = {
+		is_adult = yes
+		prisoner = no
+		NOT = { trait = incapable }
+		NOT = { trait = in_hiding }
+		OR = {
+			#FROM = { is_military_trigger = yes }
+			is_military_trigger = yes
+			# trait = skilled_tactician
+			# trait = brilliant_strategist
+			# trait = experienced_captain
+			# trait = seasoned_commander
+			# trait = great_general
+			#martial = 17
+			has_minor_title = title_caesar
+			AND = {
+				government = pirate_kingdom
+				FROM = { government = pirate_kingdom }
+			}
+		}
+	}
+	
+	gain_effect = {
+	}
+	lose_effect = {
+	}
+	
+	message = yes
+}
+
+#######################################
+# SOFT: GRANTABLE - FULLY MODDABLE
+#######################################
+
+# Political Titles - these all theoretically affect the politics of their realm
+title_prime = {
+	dignity = 0.99
+	realm_in_name = yes
+	show_as_title = yes
+	grant_limit = 1
+	opinion_effect = 100
+	
+	monthly_salary = 1
+	monthly_prestige = 1
+	
+	# Currently in place to keep legacy code from bugging out
+	allowed_to_grant = { always = no }
+	allowed_to_hold = { always = no }
+	
+	gain_effect = { clr_character_flag = flag_prime }
+	lose_effect = { }
+}
+title_expected_successor = {
+	dignity = 0.9
+	realm_in_name = yes
+	show_as_title = yes
+	grant_limit = 1
+	opinion_effect = 20
+	is_high_prio = yes
+	
+	monthly_salary = 0
+	monthly_prestige = 0.1
+	
+	# Granted only by event
+	allowed_to_grant = {
+		independent = no
+		any_demesne_title = { OR = { has_law = succ_appointment has_law = succ_catholic_bishopric } }
+	}
+	allowed_to_hold = {
+		OR = {
+			has_character_flag = flag_expected_successor
+			has_minor_title = title_expected_successor
+		}
+		#age = 16
+		NOT = { trait = incapable }
+	}
+	
+	gain_effect = { clr_character_flag = flag_expected_successor }
+	lose_effect = { }
+}
+
+
+# Special - This title determines the heir of a Patrician
+title_patrician_heir = {
+	is_high_prio = yes
+	
+	dignity = 0.05
+	realm_in_name = yes
+	grant_limit = 1
+	opinion_effect = 50
+	
+	patrician_heir = yes
+	
+	monthly_salary = 0.01
+	monthly_prestige = 0.002
+	
+	allowed_to_hold = {
+		dynasty = FROM
+		NOT = { trait = bastard }
+	}
+
+	allowed_to_grant = {
+		is_patrician = yes
+	}
+	
+	gain_effect = {
+	}
+	lose_effect = {
+	}
+
+	message = yes
+}
+
+# Purely honorary titles
+title_speaker = {
+	dignity = 0.2
+	realm_in_name = yes
+	grant_limit = 1
+	opinion_effect = 10
+	
+	monthly_salary = 0.1
+	monthly_prestige = 0.1
+	
+	is_unique = yes
+	
+	allowed_to_grant = { any_demesne_title = { has_law = legislative_authority_1 } }
+	
+	allowed_to_hold = {
+		is_adult = yes
+		prisoner = no
+		has_regent = no
+		NOT = { has_minor_title = title_prime }
+		NOT = { has_minor_title = title_minister_without_portfolio }
+		has_minor_title = title_senatorrome
+		society_member_of = political_senate_representatives
+	}
+	
+	gain_effect = { }
+	lose_effect = { }
+	
+	message = yes
+}
+title_minister_without_portfolio = {
+	dignity = 0.2
+	realm_in_name = yes
+	grant_limit = 3
+	opinion_effect = 10
+	
+	monthly_salary = 0.1
+	monthly_prestige = 0.1
+	
+	allowed_to_grant = {
+		NOT = { religion_group = outlaw_group }
+		OR = {
+			is_merchant_republic = yes
+			is_patrician = no
+		}
+	}
+	
+	allow = {
+		is_adult = yes
+		prisoner = no
+		has_regent = no
+		is_councillor = no
+		NOT = { has_minor_title = title_prime }
+		NOT = { has_minor_title = title_speaker }
+	}
+	
+	gain_effect = { }
+	lose_effect = { }
+	
+	message = yes
+}
+title_poet_laureate = {
+	dignity = 0.1
+	realm_in_name = yes
+	grant_limit = 1
+	opinion_effect = 10
+	
+	monthly_salary = 0.05
+	monthly_prestige = 0.05
+	
+	is_unique = yes
+	
+	allowed_to_hold = {
+		is_adult = yes
+		prisoner = no
+		has_regent = no
+		is_councillor = no
+		trait = artist
+	}
+	
+	gain_effect = { }
+	lose_effect = { }
+	
+	message = yes
+}
+# Patrician-specific
+title_vp_robotics = {
+	dignity = 0.1
+	grant_limit = 1
+	opinion_effect = 10
+	
+	monthly_salary = 0.2
+	monthly_prestige = 0.05
+	
+	is_unique = yes
+	
+	allowed_to_grant = {
+		is_patrician = yes
+		NOT = { religion_group = outlaw_group }
+		family_palace = { has_building = fp_robotics_1 }
+	}
+	allowed_to_hold = {
+		is_adult = yes
+		prisoner = no
+		has_regent = no
+		is_patrician = no
+		OR = {
+			is_landed = no
+			dynasty = FROM
+		}
+		NOT = { higher_tier_than = count }
+		NOT = { has_minor_title = title_vp_industrial_engineering }
+		NOT = { has_minor_title = title_vp_consumer_goods }
+		NOT = { has_minor_title = title_vp_transportation }
+		NOT = { has_minor_title = title_vp_defense_industries }
+		NOT = { has_minor_title = title_vp_biotech }
+		NOT = { has_minor_title = title_vp_financial }
+		NOT = { has_minor_title = title_vp_luxury_goods }
+	}
+	
+	gain_effect = { }
+	lose_effect = { }
+}
+title_vp_industrial_engineering = {
+	dignity = 0.1
+	grant_limit = 1
+	opinion_effect = 10
+	
+	monthly_salary = 0.2
+	monthly_prestige = 0.05
+	
+	is_unique = yes
+	
+	allowed_to_grant = {
+		is_patrician = yes
+		NOT = { religion_group = outlaw_group }
+		family_palace = { has_building = fp_industrial_1 }
+	}
+	allowed_to_hold = {
+		is_adult = yes
+		prisoner = no
+		has_regent = no
+		is_patrician = no
+		OR = {
+			is_landed = no
+			dynasty = FROM
+		}
+		NOT = { higher_tier_than = count }
+		NOT = { has_minor_title = title_vp_robotics }
+		NOT = { has_minor_title = title_vp_consumer_goods }
+		NOT = { has_minor_title = title_vp_transportation }
+		NOT = { has_minor_title = title_vp_defense_industries }
+		NOT = { has_minor_title = title_vp_biotech }
+		NOT = { has_minor_title = title_vp_financial }
+		NOT = { has_minor_title = title_vp_luxury_goods }
+	}
+	
+	gain_effect = { }
+	lose_effect = { }
+}
+title_vp_consumer_goods = {
+	dignity = 0.1
+	grant_limit = 1
+	opinion_effect = 10
+	
+	monthly_salary = 0.2
+	monthly_prestige = 0.05
+	
+	is_unique = yes
+	
+	allowed_to_grant = {
+		is_patrician = yes
+		NOT = { religion_group = outlaw_group }
+		family_palace = { has_building = fp_consumer_1 }
+	}
+	allowed_to_hold = {
+		is_adult = yes
+		prisoner = no
+		has_regent = no
+		is_patrician = no
+		OR = {
+			is_landed = no
+			dynasty = FROM
+		}
+		NOT = { higher_tier_than = count }
+		NOT = { has_minor_title = title_vp_industrial_engineering }
+		NOT = { has_minor_title = title_vp_robotics }
+		NOT = { has_minor_title = title_vp_transportation }
+		NOT = { has_minor_title = title_vp_defense_industries }
+		NOT = { has_minor_title = title_vp_biotech }
+		NOT = { has_minor_title = title_vp_financial }
+		NOT = { has_minor_title = title_vp_luxury_goods }
+	}
+	
+	allow = {
+		is_adult = yes
+		prisoner = no
+		has_regent = no
+		FROM = {
+			is_patrician = yes
+			family_palace = { has_building = fp_consumer_1 }
+		}
+		is_patrician = no
+		OR = {
+			same_dynasty = FROM
+			is_landed = no
+		}
+		NOT = { higher_tier_than = count }
+		NOT = { has_minor_title = title_vp_industrial_engineering }
+		NOT = { has_minor_title = title_vp_robotics }
+		NOT = { has_minor_title = title_vp_transportation }
+		NOT = { has_minor_title = title_vp_defense_industries }
+		NOT = { has_minor_title = title_vp_biotech }
+		NOT = { has_minor_title = title_vp_financial }
+		NOT = { has_minor_title = title_vp_luxury_goods }
+	}
+	
+	gain_effect = { }
+	lose_effect = { }
+}
+title_vp_transportation = {
+	dignity = 0.1
+	grant_limit = 1
+	opinion_effect = 10
+	
+	monthly_salary = 0.2
+	monthly_prestige = 0.05
+	
+	is_unique = yes
+	
+	allowed_to_grant = {
+		is_patrician = yes
+		NOT = { religion_group = outlaw_group }
+		family_palace = { has_building = fp_transports_1 }
+	}
+	allowed_to_hold = {
+		is_adult = yes
+		prisoner = no
+		has_regent = no
+		is_patrician = no
+		OR = {
+			is_landed = no
+			dynasty = FROM
+		}
+		NOT = { higher_tier_than = count }
+		NOT = { has_minor_title = title_vp_industrial_engineering }
+		NOT = { has_minor_title = title_vp_consumer_goods }
+		NOT = { has_minor_title = title_vp_robotics }
+		NOT = { has_minor_title = title_vp_defense_industries }
+		NOT = { has_minor_title = title_vp_biotech }
+		NOT = { has_minor_title = title_vp_financial }
+		NOT = { has_minor_title = title_vp_luxury_goods }
+	}
+	
+	gain_effect = { }
+	lose_effect = { }
+}
+title_vp_defense_industries = {
+	dignity = 0.1
+	grant_limit = 1
+	opinion_effect = 10
+	
+	monthly_salary = 0.2
+	monthly_prestige = 0.05
+	
+	is_unique = yes
+	
+	allowed_to_grant = {
+		is_patrician = yes
+		NOT = { religion_group = outlaw_group }
+		family_palace = { has_building = fp_weapons_1 }
+	}
+	allowed_to_hold = {
+		is_adult = yes
+		prisoner = no
+		has_regent = no
+		is_patrician = no
+		OR = {
+			is_landed = no
+			dynasty = FROM
+		}
+		NOT = { higher_tier_than = count }
+		NOT = { has_minor_title = title_vp_industrial_engineering }
+		NOT = { has_minor_title = title_vp_consumer_goods }
+		NOT = { has_minor_title = title_vp_transportation }
+		NOT = { has_minor_title = title_vp_robotics }
+		NOT = { has_minor_title = title_vp_biotech }
+		NOT = { has_minor_title = title_vp_financial }
+		NOT = { has_minor_title = title_vp_luxury_goods }
+	}
+}
+title_vp_biotech = {
+	dignity = 0.1
+	grant_limit = 1
+	opinion_effect = 10
+	
+	monthly_salary = 0.2
+	monthly_prestige = 0.05
+	
+	is_unique = yes
+	
+	allowed_to_grant = {
+		is_patrician = yes
+		NOT = { religion_group = outlaw_group }
+		family_palace = { has_building = fp_biotech_1 }
+	}
+	allowed_to_hold = {
+		is_adult = yes
+		prisoner = no
+		has_regent = no
+		is_patrician = no
+		OR = {
+			is_landed = no
+			dynasty = FROM
+		}
+		NOT = { higher_tier_than = count }
+		NOT = { has_minor_title = title_vp_industrial_engineering }
+		NOT = { has_minor_title = title_vp_consumer_goods }
+		NOT = { has_minor_title = title_vp_transportation }
+		NOT = { has_minor_title = title_vp_defense_industries }
+		NOT = { has_minor_title = title_vp_robotics }
+		NOT = { has_minor_title = title_vp_financial }
+		NOT = { has_minor_title = title_vp_luxury_goods }
+	}
+	
+	gain_effect = { }
+	lose_effect = { }
+}
+title_vp_financial = {
+	dignity = 0.1
+	grant_limit = 1
+	opinion_effect = 10
+	
+	monthly_salary = 0.2
+	monthly_prestige = 0.05
+	
+	is_unique = yes
+	
+	allowed_to_grant = {
+		is_patrician = yes
+		NOT = { religion_group = outlaw_group }
+		family_palace = { has_building = fp_finance_1 }
+	}
+	allowed_to_hold = {
+		is_adult = yes
+		prisoner = no
+		has_regent = no
+		is_patrician = no
+		OR = {
+			is_landed = no
+			dynasty = FROM
+		}
+		NOT = { higher_tier_than = count }
+		NOT = { has_minor_title = title_vp_industrial_engineering }
+		NOT = { has_minor_title = title_vp_consumer_goods }
+		NOT = { has_minor_title = title_vp_transportation }
+		NOT = { has_minor_title = title_vp_defense_industries }
+		NOT = { has_minor_title = title_vp_biotech }
+		NOT = { has_minor_title = title_vp_robotics }
+		NOT = { has_minor_title = title_vp_luxury_goods }
+	}
+	
+	gain_effect = { }
+	lose_effect = { }
+}
+title_vp_luxury_goods = {
+	dignity = 0.1
+	grant_limit = 1
+	opinion_effect = 10
+	
+	monthly_salary = 0.2
+	monthly_prestige = 0.05
+	
+	is_unique = yes
+	
+	allowed_to_grant = {
+		is_patrician = yes
+		NOT = { religion_group = outlaw_group }
+		family_palace = { has_building = fp_luxury_1 }
+	}
+	allowed_to_hold = {
+		is_adult = yes
+		prisoner = no
+		has_regent = no
+		is_patrician = no
+		OR = {
+			is_landed = no
+			dynasty = FROM
+		}
+		NOT = { higher_tier_than = count }
+		NOT = { has_minor_title = title_vp_industrial_engineering }
+		NOT = { has_minor_title = title_vp_consumer_goods }
+		NOT = { has_minor_title = title_vp_transportation }
+		NOT = { has_minor_title = title_vp_defense_industries }
+		NOT = { has_minor_title = title_vp_biotech }
+		NOT = { has_minor_title = title_vp_financial }
+		NOT = { has_minor_title = title_vp_robotics }
+	}
+	
+	gain_effect = { }
+	lose_effect = { }
+}
+
+# Medals
+title_medal = {
+	dignity = 0.05
+	grant_limit = 5
+	opinion_effect = 10
+	
+	monthly_salary = 0
+	monthly_prestige = 0.1
+	
+	allowed_to_grant = {
+		NOT = { religion_group = political_group }
+		NOT = { religion = pilgrim }
+		NOT = { religion = orthodox }
+		NOT = { religion = solarian }
+		NOT = { religion = solar_cultist }
+		NOT = { religion_group = outlaw_group }
+	}
+	
+	gain_effect = { }
+	lose_effect = { }
+}
+title_confederate_sunburst = {
+	dignity = 0.05
+	grant_limit = 5
+	opinion_effect = 10
+	
+	monthly_salary = 0
+	monthly_prestige = 0.1
+	
+	allowed_to_grant = {
+		OR = {
+			religion = terran_federalist
+			religion = terran_republican
+		}
+	}
+	
+	gain_effect = { }
+	lose_effect = { }
+}
+title_imperial_sunburst = {
+	dignity = 0.05
+	grant_limit = 5
+	opinion_effect = 10
+	
+	monthly_salary = 0
+	monthly_prestige = 0.1
+	
+	allowed_to_grant = { religion = terran_imperial }
+	
+	gain_effect = { }
+	lose_effect = { }
+}
+title_colonial_star = {
+	dignity = 0.05
+	grant_limit = 5
+	opinion_effect = 10
+	
+	monthly_salary = 0
+	monthly_prestige = 0.1
+	
+	allowed_to_grant = { religion = colonial_separatist }
+	
+	gain_effect = { }
+	lose_effect = { }
+}
+title_star_of_valor = {
+	dignity = 0.05
+	grant_limit = 5
+	opinion_effect = 10
+	
+	monthly_salary = 0
+	monthly_prestige = 0.1
+	
+	allowed_to_grant = {
+		OR = {
+			religion = astrist
+			religion = neo_feudal
+		}
+	}
+	
+	gain_effect = { }
+	lose_effect = { }
+}
+title_red_star = {
+	dignity = 0.05
+	grant_limit = 5
+	opinion_effect = 10
+	
+	monthly_salary = 0
+	monthly_prestige = 0.1
+	
+	allowed_to_grant = { religion = neo_socialist }
+	
+	gain_effect = { }
+	lose_effect = { }
+}
+title_holy_sunburst = {
+	dignity = 0.05
+	grant_limit = 5
+	opinion_effect = 10
+	
+	monthly_salary = 0
+	monthly_prestige = 0.1
+	
+	allowed_to_grant = {
+		OR = {
+			religion = pilgrim
+			religion = orthodox
+			religion = solarian
+			religion = solar_cultist
+		}
+	}	
+	gain_effect = { }
+	lose_effect = { }
+}
+title_prince_royal = {
+	dignity = 0.8
+	show_as_title = yes
+	realm_in_name = yes
+	revoke_allowed = no
+	
+	monthly_salary = 0.05
+	monthly_prestige = 0.1
+	
+	allowed_to_hold = {
+		has_minor_title = title_prince
+		OR = {
+			religion = neo_feudal
+			religion = terran_imperial
+			religion = imperial_cultist
+			government = military_monarchy
+			government = corporate_monarchy
+			government = administrative_monarchy
+		}
+	}
+	
+	gain_effect = { }
+	lose_effect = { }
+}

@@ -1,0 +1,1835 @@
+namespace = battle
+
+# Fighter pilot versus fighter pilot: Wounded
+character_event = {
+	id = battle.0
+	desc = "EVTDESCBATTLE0"
+	picture = GFX_evt_fighters
+	border = GFX_evt_normal_frame_war
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = { trait = wounded }
+		NOT = { trait = full_cybernetic_conversion }
+		trait = fighter_pilot
+		FROM = {
+			any_realm_character = {
+				trait = fighter_pilot
+				at_location = ROOT
+				in_battle = yes
+				war_with = ROOT
+				martial = ROOT
+			}
+		}
+	}
+	
+	weight_multiplier = {
+		factor = 1
+		modifier = {
+			factor = 0.25
+			has_focus = focus_tactics
+		}
+		modifier = {
+			factor = 2
+			trait = maimed
+		}
+		modifier = {
+			factor = 4
+			trait = imbecile
+		}
+		modifier = {
+			factor = 2
+			trait = slow
+		}
+		modifier = {
+			factor = 0.5
+			trait = quick
+		}
+		modifier = {
+			factor = 0.25
+			trait = genius
+		}
+		modifier = {
+			factor = 4
+			trait = clumsy
+		}
+		modifier = {
+			factor = 0.25
+			trait = agile
+		}
+		modifier = {
+			factor = 0.8
+			OR = {
+				trait = odin_mk_i
+				trait = odin_mk_ii
+				trait = odin_mk_iii
+				trait = odin_mk_iv
+				trait = odin_mk_v
+			}
+		}
+		modifier = {
+			factor = 0.8
+			OR = {
+				trait = odin_mk_ii
+				trait = odin_mk_iii
+				trait = odin_mk_iv
+				trait = odin_mk_v
+			}
+		}
+		modifier = {
+			factor = 0.8
+			OR = {
+				trait = odin_mk_iii
+				trait = odin_mk_iv
+				trait = odin_mk_v
+			}
+		}
+		modifier = {
+			factor = 0.8
+			OR = {
+				trait = odin_mk_iv
+				trait = odin_mk_v
+			}
+		}
+		modifier = {
+			factor = 0.8
+			trait = odin_mk_v
+		}
+		modifier = {
+			factor = 1.25
+			trait = brave
+		}
+		modifier = {
+			factor = 0.8
+			trait = craven
+		}
+	}
+	option = {
+		name = "EVTOPTCONFIRM"
+		add_trait = wounded
+		FROM = {
+			random_realm_character = {
+				limit = {
+					trait = fighter_pilot
+					at_location = ROOT
+					in_battle = yes
+					war_with = ROOT
+					martial = ROOT
+				}
+				character_event = { id = battle.1 tooltip = "EVTTOOLTIPBATTLE1" }
+			}
+		}
+	}
+}
+character_event = {
+	id = battle.1
+	desc = "EVTDESCBATTLE1"
+	picture = GFX_evt_fighters
+	border = GFX_evt_normal_frame_war
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		prestige = 10
+		FROM = {
+			add_trait = wounded
+			opinion = { who = ROOT modifier = opinion_shot_me_down }
+		}
+		hidden_tooltip = {
+			if = {
+				limit = { is_rival = FROM }
+				character_event = { id = battle.60 }
+			}
+			if = {
+				limit = {
+					NOT = { is_rival = FROM }
+					NOT = { is_friend = FROM }
+				}
+				FROM = { character_event = { id = battle.50 days = 10 random = 5 } }
+			}
+		}
+	}
+}
+# Fighter pilot versus fighter pilot: Maimed
+character_event = {
+	id = battle.2
+	desc = "EVTDESCBATTLE2"
+	picture = GFX_evt_fighters
+	border = GFX_evt_normal_frame_war
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = { trait = maimed }
+		NOT = { trait = full_cybernetic_conversion }
+		trait = fighter_pilot
+		FROM = {
+			any_realm_character = {
+				trait = fighter_pilot
+				at_location = ROOT
+				in_battle = yes
+				war_with = ROOT
+				martial = ROOT
+			}
+		}
+	}
+	
+	weight_multiplier = {
+		factor = 1
+		modifier = {
+			factor = 0.25
+			has_focus = focus_tactics
+		}
+		modifier = {
+			factor = 2
+			trait = wounded
+		}
+		modifier = {
+			factor = 4
+			trait = imbecile
+		}
+		modifier = {
+			factor = 2
+			trait = slow
+		}
+		modifier = {
+			factor = 0.5
+			trait = quick
+		}
+		modifier = {
+			factor = 0.25
+			trait = genius
+		}
+		modifier = {
+			factor = 4
+			trait = clumsy
+		}
+		modifier = {
+			factor = 0.25
+			trait = agile
+		}
+		modifier = {
+			factor = 0.8
+			OR = {
+				trait = odin_mk_i
+				trait = odin_mk_ii
+				trait = odin_mk_iii
+				trait = odin_mk_iv
+				trait = odin_mk_v
+			}
+		}
+		modifier = {
+			factor = 0.8
+			OR = {
+				trait = odin_mk_ii
+				trait = odin_mk_iii
+				trait = odin_mk_iv
+				trait = odin_mk_v
+			}
+		}
+		modifier = {
+			factor = 0.8
+			OR = {
+				trait = odin_mk_iii
+				trait = odin_mk_iv
+				trait = odin_mk_v
+			}
+		}
+		modifier = {
+			factor = 0.8
+			OR = {
+				trait = odin_mk_iv
+				trait = odin_mk_v
+			}
+		}
+		modifier = {
+			factor = 0.8
+			trait = odin_mk_v
+		}
+		modifier = {
+			factor = 1.25
+			trait = brave
+		}
+		modifier = {
+			factor = 0.8
+			trait = craven
+		}
+	}
+	option = {
+		name = "EVTOPTCONFIRM"
+		add_trait = maimed
+		FROM = {
+			random_realm_character = {
+				limit = {
+					trait = fighter_pilot
+					at_location = ROOT
+					in_battle = yes
+					war_with = ROOT
+					martial = ROOT
+				}
+				character_event = { id = battle.3 tooltip = "EVTTOOLTIPBATTLE1" }
+			}
+		}
+	}
+}
+character_event = {
+	id = battle.3
+	desc = "EVTDESCBATTLE3"
+	picture = GFX_evt_fighters
+	border = GFX_evt_normal_frame_war
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		prestige = 25
+		FROM = {
+			add_trait = maimed
+			opinion = { who = ROOT modifier = opinion_shot_me_down }
+		}
+		hidden_tooltip = {
+			if = {
+				limit = { is_rival = FROM }
+				character_event = { id = battle.60 }
+			}
+			if = {
+				limit = {
+					NOT = { is_rival = FROM }
+					NOT = { is_friend = FROM }
+				}
+				FROM = { character_event = { id = battle.50 days = 10 random = 5 } }
+			}
+		}
+	}
+}
+# Fighter versus Fighter: KIA!
+character_event = {
+	id = battle.4
+	desc = "EVTDESCBATTLE4"
+	picture = GFX_evt_fighters
+	border = GFX_evt_normal_frame_war
+	is_triggered_only = yes
+	
+	trigger = {
+		trait = fighter_pilot
+		FROM = {
+			any_realm_character = {
+				trait = fighter_pilot
+				at_location = ROOT
+				in_battle = yes
+				war_with = ROOT
+				martial = ROOT
+			}
+		}
+	}
+	
+	weight_multiplier = {
+		factor = 1
+		modifier = {
+			factor = 0.25
+			has_focus = focus_tactics
+		}
+		modifier = {
+			factor = 2
+			trait = wounded
+		}
+		modifier = {
+			factor = 2
+			trait = maimed
+		}
+		modifier = {
+			factor = 4
+			trait = imbecile
+		}
+		modifier = {
+			factor = 2
+			trait = slow
+		}
+		modifier = {
+			factor = 0.5
+			trait = quick
+		}
+		modifier = {
+			factor = 0.25
+			trait = genius
+		}
+		modifier = {
+			factor = 4
+			trait = clumsy
+		}
+		modifier = {
+			factor = 0.25
+			trait = agile
+		}
+		modifier = {
+			factor = 0.8
+			OR = {
+				trait = odin_mk_i
+				trait = odin_mk_ii
+				trait = odin_mk_iii
+				trait = odin_mk_iv
+				trait = odin_mk_v
+			}
+		}
+		modifier = {
+			factor = 0.8
+			OR = {
+				trait = odin_mk_ii
+				trait = odin_mk_iii
+				trait = odin_mk_iv
+				trait = odin_mk_v
+			}
+		}
+		modifier = {
+			factor = 0.8
+			OR = {
+				trait = odin_mk_iii
+				trait = odin_mk_iv
+				trait = odin_mk_v
+			}
+		}
+		modifier = {
+			factor = 0.8
+			OR = {
+				trait = odin_mk_iv
+				trait = odin_mk_v
+			}
+		}
+		modifier = {
+			factor = 0.8
+			trait = odin_mk_v
+		}
+		modifier = {
+			factor = 1.25
+			trait = brave
+		}
+		modifier = {
+			factor = 0.8
+			trait = craven
+		}
+	}
+	option = {
+		name = "EVTOPTCONFIRM"
+		FROM = {
+			random_realm_character = {
+				limit = {
+					trait = fighter_pilot
+					at_location = ROOT
+					in_battle = yes
+					war_with = ROOT
+					martial = ROOT
+				}
+				character_event = { id = battle.5 tooltip = "EVTTOOLTIPBATTLE5" }
+			}
+		}
+	}
+}
+character_event = {
+	id = battle.5
+	desc = "EVTDESCBATTLE5"
+	picture = GFX_evt_fighters
+	border = GFX_evt_normal_frame_war
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		prestige = 50
+		FROM = { death = { death_reason = death_battle killer = ROOT } }
+		hidden_tooltip = {
+			if = {
+				limit = { is_rival = FROM }
+				character_event = { id = battle.60 }
+			}
+		}
+	}
+}
+
+# Warship shoots down fighter: Wounded
+character_event = {
+	id = battle.10
+	desc = "EVTDESCBATTLE10"
+	picture = GFX_evt_battle
+	border = GFX_evt_normal_frame_war
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = { trait = wounded }
+		NOT = { trait = full_cybernetic_conversion }
+		trait = fighter_pilot
+		FROM = {
+			NOT = {
+				any_realm_character = {
+					trait = fighter_pilot
+					at_location = ROOT
+					in_battle = yes
+					war_with = ROOT
+					martial = ROOT
+				}
+			}
+			any_realm_character = {
+				not = { trait = fighter_pilot }
+				at_location = ROOT
+				in_battle = yes
+				war_with = ROOT
+				martial = ROOT
+			}
+		}
+	}
+	
+	weight_multiplier = {
+		factor = 1
+		modifier = {
+			factor = 0.25
+			has_focus = focus_tactics
+		}
+		modifier = {
+			factor = 2
+			trait = maimed
+		}
+		modifier = {
+			factor = 4
+			trait = imbecile
+		}
+		modifier = {
+			factor = 2
+			trait = slow
+		}
+		modifier = {
+			factor = 0.5
+			trait = quick
+		}
+		modifier = {
+			factor = 0.25
+			trait = genius
+		}
+		modifier = {
+			factor = 4
+			trait = clumsy
+		}
+		modifier = {
+			factor = 0.25
+			trait = agile
+		}
+		modifier = {
+			factor = 0.8
+			OR = {
+				trait = odin_mk_i
+				trait = odin_mk_ii
+				trait = odin_mk_iii
+				trait = odin_mk_iv
+				trait = odin_mk_v
+			}
+		}
+		modifier = {
+			factor = 0.8
+			OR = {
+				trait = odin_mk_ii
+				trait = odin_mk_iii
+				trait = odin_mk_iv
+				trait = odin_mk_v
+			}
+		}
+		modifier = {
+			factor = 0.8
+			OR = {
+				trait = odin_mk_iii
+				trait = odin_mk_iv
+				trait = odin_mk_v
+			}
+		}
+		modifier = {
+			factor = 0.8
+			OR = {
+				trait = odin_mk_iv
+				trait = odin_mk_v
+			}
+		}
+		modifier = {
+			factor = 0.8
+			trait = odin_mk_v
+		}
+		modifier = {
+			factor = 1.25
+			trait = brave
+		}
+		modifier = {
+			factor = 0.8
+			trait = craven
+		}
+	}
+	option = {
+		name = "EVTOPTCONFIRM"
+		add_trait = wounded
+		FROM = {
+			random_realm_character = {
+				limit = {
+					NOT = { trait = fighter_pilot }
+					at_location = ROOT
+					in_battle = yes
+					war_with = ROOT
+					martial = ROOT
+				}
+				character_event = { id = battle.11 tooltip = "EVTTOOLTIPBATTLE11" }
+			}
+		}
+	}
+}
+character_event = {
+	id = battle.11
+	desc = "EVTDESCBATTLE11"
+	picture = GFX_evt_fighters
+	border = GFX_evt_normal_frame_war
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		prestige = 5
+		FROM = {
+			add_trait = wounded
+			opinion = { who = ROOT modifier = opinion_shot_me_down }
+		}
+	}
+}
+# Warship shoots down fighter: Maimed
+character_event = {
+	id = battle.12
+	desc = "EVTDESCBATTLE12"
+	picture = GFX_evt_battle
+	border = GFX_evt_normal_frame_war
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = { trait = maimed }
+		NOT = { trait = full_cybernetic_conversion }
+		trait = fighter_pilot
+		FROM = {
+			NOT = {
+				any_realm_character = {
+					trait = fighter_pilot
+					at_location = ROOT
+					in_battle = yes
+					war_with = ROOT
+					martial = ROOT
+				}
+			}
+			any_realm_character = {
+				not = { trait = fighter_pilot }
+				at_location = ROOT
+				in_battle = yes
+				war_with = ROOT
+				martial = ROOT
+			}
+		}
+	}
+	
+	weight_multiplier = {
+		factor = 1
+		modifier = {
+			factor = 0.25
+			has_focus = focus_tactics
+		}
+		modifier = {
+			factor = 2
+			trait = wounded
+		}
+		modifier = {
+			factor = 4
+			trait = imbecile
+		}
+		modifier = {
+			factor = 2
+			trait = slow
+		}
+		modifier = {
+			factor = 0.5
+			trait = quick
+		}
+		modifier = {
+			factor = 0.25
+			trait = genius
+		}
+		modifier = {
+			factor = 4
+			trait = clumsy
+		}
+		modifier = {
+			factor = 0.25
+			trait = agile
+		}
+		modifier = {
+			factor = 0.8
+			OR = {
+				trait = odin_mk_i
+				trait = odin_mk_ii
+				trait = odin_mk_iii
+				trait = odin_mk_iv
+				trait = odin_mk_v
+			}
+		}
+		modifier = {
+			factor = 0.8
+			OR = {
+				trait = odin_mk_ii
+				trait = odin_mk_iii
+				trait = odin_mk_iv
+				trait = odin_mk_v
+			}
+		}
+		modifier = {
+			factor = 0.8
+			OR = {
+				trait = odin_mk_iii
+				trait = odin_mk_iv
+				trait = odin_mk_v
+			}
+		}
+		modifier = {
+			factor = 0.8
+			OR = {
+				trait = odin_mk_iv
+				trait = odin_mk_v
+			}
+		}
+		modifier = {
+			factor = 0.8
+			trait = odin_mk_v
+		}
+		modifier = {
+			factor = 1.25
+			trait = brave
+		}
+		modifier = {
+			factor = 0.8
+			trait = craven
+		}
+	}
+	option = {
+		name = "EVTOPTCONFIRM"
+		add_trait = maimed
+		FROM = {
+			random_realm_character = {
+				limit = {
+					NOT = { trait = fighter_pilot }
+					at_location = ROOT
+					in_battle = yes
+					war_with = ROOT
+					martial = ROOT
+				}
+				character_event = { id = battle.13 tooltip = "EVTTOOLTIPBATTLE11" }
+			}
+		}
+	}
+}
+character_event = {
+	id = battle.13
+	desc = "EVTDESCBATTLE13"
+	picture = GFX_evt_fighters
+	border = GFX_evt_normal_frame_war
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		prestige = 10
+		FROM = {
+			add_trait = maimed
+			opinion = { who = ROOT modifier = opinion_shot_me_down }
+		}
+	}
+}
+# Warship shoots down fighter: KIA!
+character_event = {
+	id = battle.14
+	desc = "EVTDESCBATTLE14"
+	picture = GFX_evt_battle
+	border = GFX_evt_normal_frame_war
+	is_triggered_only = yes
+	
+	trigger = {
+		trait = fighter_pilot
+		FROM = {
+			NOT = {
+				any_realm_character = {
+					trait = fighter_pilot
+					at_location = ROOT
+					in_battle = yes
+					war_with = ROOT
+					martial = ROOT
+				}
+			}
+			any_realm_character = {
+				not = { trait = fighter_pilot }
+				at_location = ROOT
+				in_battle = yes
+				war_with = ROOT
+				martial = ROOT
+			}
+		}
+	}
+	
+	weight_multiplier = {
+		factor = 1
+		modifier = {
+			factor = 0.25
+			has_focus = focus_tactics
+		}
+		modifier = {
+			factor = 2
+			trait = wounded
+		}
+		modifier = {
+			factor = 2
+			trait = maimed
+		}
+		modifier = {
+			factor = 4
+			trait = imbecile
+		}
+		modifier = {
+			factor = 2
+			trait = slow
+		}
+		modifier = {
+			factor = 0.5
+			trait = quick
+		}
+		modifier = {
+			factor = 0.25
+			trait = genius
+		}
+		modifier = {
+			factor = 4
+			trait = clumsy
+		}
+		modifier = {
+			factor = 0.25
+			trait = agile
+		}
+		modifier = {
+			factor = 0.8
+			OR = {
+				trait = odin_mk_i
+				trait = odin_mk_ii
+				trait = odin_mk_iii
+				trait = odin_mk_iv
+				trait = odin_mk_v
+			}
+		}
+		modifier = {
+			factor = 0.8
+			OR = {
+				trait = odin_mk_ii
+				trait = odin_mk_iii
+				trait = odin_mk_iv
+				trait = odin_mk_v
+			}
+		}
+		modifier = {
+			factor = 0.8
+			OR = {
+				trait = odin_mk_iii
+				trait = odin_mk_iv
+				trait = odin_mk_v
+			}
+		}
+		modifier = {
+			factor = 0.8
+			OR = {
+				trait = odin_mk_iv
+				trait = odin_mk_v
+			}
+		}
+		modifier = {
+			factor = 0.8
+			trait = odin_mk_v
+		}
+		modifier = {
+			factor = 1.25
+			trait = brave
+		}
+		modifier = {
+			factor = 0.8
+			trait = craven
+		}
+	}
+	option = {
+		name = "EVTOPTCONFIRM"
+		FROM = {
+			random_realm_character = {
+				limit = {
+					NOT = { trait = fighter_pilot }
+					at_location = ROOT
+					in_battle = yes
+					war_with = ROOT
+					martial = ROOT
+				}
+				character_event = { id = battle.15 tooltip = "EVTTOOLTIPBATTLE15" }
+			}
+		}
+	}
+}
+character_event = {
+	id = battle.15
+	desc = "EVTDESCBATTLE15"
+	picture = GFX_evt_fighters
+	border = GFX_evt_normal_frame_war
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		prestige = 15
+		FROM = { death = { death_reason = death_battle killer = ROOT } }
+	}
+}
+
+# Warship versus Warship: Wounded
+character_event = {
+	id = battle.20
+	desc = "EVTDESCBATTLE20"
+	picture = GFX_evt_battle
+	border = GFX_evt_normal_frame_war
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = { trait = wounded }
+		NOT = { trait = full_cybernetic_conversion }
+		NOT = { trait = fighter_pilot }
+		FROM = {
+			any_realm_character = {
+				not = { trait = fighter_pilot }
+				at_location = ROOT
+				in_battle = yes
+				war_with = ROOT
+				martial = ROOT
+			}
+		}
+	}
+	
+	weight_multiplier = {
+		factor = 1
+		modifier = {
+			factor = 0.25
+			has_focus = focus_tactics
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 2 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 4 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 6 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 8 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 10 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 12 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 14 }
+		}
+		modifier = {
+			factor = 0.8
+			martial = 16
+		}
+		modifier = {
+			factor = 0.8
+			martial = 18
+		}
+		modifier = {
+			factor = 0.8
+			martial = 20
+		}
+		modifier = {
+			factor = 0.8
+			martial = 22
+		}
+		modifier = {
+			factor = 0.8
+			martial = 24
+		}
+		modifier = {
+			factor = 0.8
+			martial = 26
+		}
+		modifier = {
+			factor = 0.8
+			martial = 28
+		}
+		modifier = {
+			factor = 0.8
+			martial = 30
+		}
+		modifier = {
+			factor = 1.25
+			trait = brave
+		}
+		modifier = {
+			factor = 0.8
+			trait = craven
+		}
+	}
+	option = {
+		name = "EVTOPTABATTLE20"
+		add_trait = wounded
+		FROM = {
+			random_realm_character = {
+				limit = {
+					NOT = { trait = fighter_pilot }
+					at_location = ROOT
+					in_battle = yes
+					war_with = ROOT
+					martial = ROOT
+				}
+				character_event = { id = battle.21 tooltip = "EVTTOOLTIPBATTLE21" }
+			}
+		}
+	}
+}
+character_event = {
+	id = battle.21
+	desc = "EVTDESCBATTLE21"
+	picture = GFX_evt_battle
+	border = GFX_evt_normal_frame_war
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTABATTLE21"
+		prestige = 25
+		FROM = { add_trait = wounded }
+	}
+}
+# Warship versus Warship: Maimed
+character_event = {
+	id = battle.22
+	desc = "EVTDESCBATTLE22"
+	picture = GFX_evt_battle
+	border = GFX_evt_normal_frame_war
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = { trait = maimed }
+		NOT = { trait = full_cybernetic_conversion }
+		NOT = { trait = fighter_pilot }
+		FROM = {
+			any_realm_character = {
+				not = { trait = fighter_pilot }
+				at_location = ROOT
+				in_battle = yes
+				war_with = ROOT
+				martial = ROOT
+			}
+		}
+	}
+	
+	weight_multiplier = {
+		factor = 1
+		modifier = {
+			factor = 0.25
+			has_focus = focus_tactics
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 2 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 4 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 6 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 8 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 10 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 12 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 14 }
+		}
+		modifier = {
+			factor = 0.8
+			martial = 16
+		}
+		modifier = {
+			factor = 0.8
+			martial = 18
+		}
+		modifier = {
+			factor = 0.8
+			martial = 20
+		}
+		modifier = {
+			factor = 0.8
+			martial = 22
+		}
+		modifier = {
+			factor = 0.8
+			martial = 24
+		}
+		modifier = {
+			factor = 0.8
+			martial = 26
+		}
+		modifier = {
+			factor = 0.8
+			martial = 28
+		}
+		modifier = {
+			factor = 0.8
+			martial = 30
+		}
+		modifier = {
+			factor = 1.25
+			trait = brave
+		}
+		modifier = {
+			factor = 0.8
+			trait = craven
+		}
+	}
+	option = {
+		name = "EVTOPTABATTLE22"
+		add_trait = maimed
+		FROM = {
+			random_realm_character = {
+				limit = {
+					NOT = { trait = fighter_pilot }
+					at_location = ROOT
+					in_battle = yes
+					war_with = ROOT
+					martial = ROOT
+				}
+				character_event = { id = battle.23 tooltip = "EVTTOOLTIPBATTLE21" }
+			}
+		}
+	}
+}
+character_event = {
+	id = battle.23
+	desc = "EVTDESCBATTLE23"
+	picture = GFX_evt_battle
+	border = GFX_evt_normal_frame_war
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTABATTLE23"
+		prestige = 25
+		FROM = {
+			add_trait = maimed
+		}
+	}
+}
+# Warship versus Warship: KIA!
+character_event = {
+	id = battle.24
+	desc = "EVTDESCBATTLE24"
+	picture = GFX_evt_battle
+	border = GFX_evt_normal_frame_war
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = { trait = fighter_pilot }
+		FROM = {
+			any_realm_character = {
+				not = { trait = fighter_pilot }
+				at_location = ROOT
+				in_battle = yes
+				war_with = ROOT
+				martial = ROOT
+			}
+		}
+	}
+	
+	weight_multiplier = {
+		factor = 1
+		modifier = {
+			factor = 0.25
+			has_focus = focus_tactics
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 2 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 4 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 6 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 8 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 10 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 12 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 14 }
+		}
+		modifier = {
+			factor = 0.8
+			martial = 16
+		}
+		modifier = {
+			factor = 0.8
+			martial = 18
+		}
+		modifier = {
+			factor = 0.8
+			martial = 20
+		}
+		modifier = {
+			factor = 0.8
+			martial = 22
+		}
+		modifier = {
+			factor = 0.8
+			martial = 24
+		}
+		modifier = {
+			factor = 0.8
+			martial = 26
+		}
+		modifier = {
+			factor = 0.8
+			martial = 28
+		}
+		modifier = {
+			factor = 0.8
+			martial = 30
+		}
+		modifier = {
+			factor = 1.25
+			trait = brave
+		}
+		modifier = {
+			factor = 0.8
+			trait = craven
+		}
+	}
+	option = {
+		name = "EVTOPTABATTLE24"
+		FROM = {
+			random_realm_character = {
+				limit = {
+					NOT = { trait = fighter_pilot }
+					at_location = ROOT
+					in_battle = yes
+					war_with = ROOT
+					martial = ROOT
+				}
+				character_event = { id = battle.25 tooltip = "EVTTOOLTIPBATTLE25" }
+			}
+		}
+	}
+}
+character_event = {
+	id = battle.25
+	desc = "EVTDESCBATTLE25"
+	picture = GFX_evt_battle
+	border = GFX_evt_normal_frame_war
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTABATTLE25"
+		prestige = 50
+		FROM = { death = { death_reason = death_battle killer = ROOT } }
+	}
+}
+
+# Fighter shoots down warship somehow: Wounded
+character_event = {
+	id = battle.30
+	desc = "EVTDESCBATTLE30"
+	picture = GFX_evt_fighters
+	border = GFX_evt_normal_frame_war
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = { trait = wounded }
+		NOT = { trait = full_cybernetic_conversion }
+		NOT = { trait = fighter_pilot }
+		FROM = {
+			NOT = {
+				any_realm_character = {
+					not = { trait = fighter_pilot }
+					at_location = ROOT
+					in_battle = yes
+					war_with = ROOT
+					martial = ROOT
+				}
+			}
+			any_realm_character = {
+				trait = fighter_pilot
+				at_location = ROOT
+				in_battle = yes
+				war_with = ROOT
+				martial = ROOT
+			}
+		}
+	}
+	
+	weight_multiplier = {
+		factor = 1
+		modifier = {
+			factor = 0.25
+			has_focus = focus_tactics
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 2 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 4 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 6 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 8 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 10 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 12 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 14 }
+		}
+		modifier = {
+			factor = 0.8
+			martial = 16
+		}
+		modifier = {
+			factor = 0.8
+			martial = 18
+		}
+		modifier = {
+			factor = 0.8
+			martial = 20
+		}
+		modifier = {
+			factor = 0.8
+			martial = 22
+		}
+		modifier = {
+			factor = 0.8
+			martial = 24
+		}
+		modifier = {
+			factor = 0.8
+			martial = 26
+		}
+		modifier = {
+			factor = 0.8
+			martial = 28
+		}
+		modifier = {
+			factor = 0.8
+			martial = 30
+		}
+		modifier = {
+			factor = 1.25
+			trait = brave
+		}
+		modifier = {
+			factor = 0.8
+			trait = craven
+		}
+	}
+	option = {
+		name = "EVTOPTABATTLE30"
+		add_trait = wounded
+		FROM = {
+			random_realm_character = {
+				limit = {
+					trait = fighter_pilot
+					at_location = ROOT
+					in_battle = yes
+					war_with = ROOT
+					martial = ROOT
+				}
+				character_event = { id = battle.31 tooltip = "EVTTOOLTIPBATTLE31" }
+			}
+		}
+	}
+}
+character_event = {
+	id = battle.31
+	desc = "EVTDESCBATTLE31"
+	picture = GFX_evt_battle
+	border = GFX_evt_normal_frame_war
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTABATTLE31"
+		prestige = 50
+		FROM = { add_trait = wounded }
+	}
+}
+# Fighter shoots down warship somehow: Maimed
+character_event = {
+	id = battle.32
+	desc = "EVTDESCBATTLE32"
+	picture = GFX_evt_fighters
+	border = GFX_evt_normal_frame_war
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = { trait = maimed }
+		NOT = { trait = full_cybernetic_conversion }
+		NOT = { trait = fighter_pilot }
+		FROM = {
+			NOT = {
+				any_realm_character = {
+					not = { trait = fighter_pilot }
+					at_location = ROOT
+					in_battle = yes
+					war_with = ROOT
+					martial = ROOT
+				}
+			}
+			any_realm_character = {
+				trait = fighter_pilot
+				at_location = ROOT
+				in_battle = yes
+				war_with = ROOT
+				martial = ROOT
+			}
+		}
+	}
+	
+	weight_multiplier = {
+		factor = 1
+		modifier = {
+			factor = 0.25
+			has_focus = focus_tactics
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 2 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 4 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 6 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 8 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 10 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 12 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 14 }
+		}
+		modifier = {
+			factor = 0.8
+			martial = 16
+		}
+		modifier = {
+			factor = 0.8
+			martial = 18
+		}
+		modifier = {
+			factor = 0.8
+			martial = 20
+		}
+		modifier = {
+			factor = 0.8
+			martial = 22
+		}
+		modifier = {
+			factor = 0.8
+			martial = 24
+		}
+		modifier = {
+			factor = 0.8
+			martial = 26
+		}
+		modifier = {
+			factor = 0.8
+			martial = 28
+		}
+		modifier = {
+			factor = 0.8
+			martial = 30
+		}
+		modifier = {
+			factor = 1.25
+			trait = brave
+		}
+		modifier = {
+			factor = 0.8
+			trait = craven
+		}
+	}
+	option = {
+		name = "EVTOPTABATTLE32"
+		add_trait = maimed
+		FROM = {
+			random_realm_character = {
+				limit = {
+					trait = fighter_pilot
+					at_location = ROOT
+					in_battle = yes
+					war_with = ROOT
+					martial = ROOT
+				}
+				character_event = { id = battle.33 tooltip = "EVTTOOLTIPBATTLE31" }
+			}
+		}
+	}
+}
+character_event = {
+	id = battle.33
+	desc = "EVTDESCBATTLE33"
+	picture = GFX_evt_battle
+	border = GFX_evt_normal_frame_war
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTABATTLE33"
+		prestige = 50
+		FROM = {
+			add_trait = maimed
+		}
+	}
+}
+# Fighter shoots down warship somehow: KIA!
+character_event = {
+	id = battle.34
+	desc = "EVTDESCBATTLE34"
+	picture = GFX_evt_fighters
+	border = GFX_evt_normal_frame_war
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = { trait = fighter_pilot }
+		FROM = {
+			NOT = {
+				any_realm_character = {
+					not = { trait = fighter_pilot }
+					at_location = ROOT
+					in_battle = yes
+					war_with = ROOT
+					martial = ROOT
+				}
+			}
+			any_realm_character = {
+				trait = fighter_pilot
+				at_location = ROOT
+				in_battle = yes
+				war_with = ROOT
+				martial = ROOT
+				martial = 20 # Declaring an arbitrary minimum for this one
+			}
+		}
+	}
+	
+	weight_multiplier = {
+		factor = 1
+		modifier = {
+			factor = 0.25
+			has_focus = focus_tactics
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 2 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 4 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 6 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 8 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 10 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 12 }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { martial = 14 }
+		}
+		modifier = {
+			factor = 0.8
+			martial = 16
+		}
+		modifier = {
+			factor = 0.8
+			martial = 18
+		}
+		modifier = {
+			factor = 0.8
+			martial = 20
+		}
+		modifier = {
+			factor = 0.8
+			martial = 22
+		}
+		modifier = {
+			factor = 0.8
+			martial = 24
+		}
+		modifier = {
+			factor = 0.8
+			martial = 26
+		}
+		modifier = {
+			factor = 0.8
+			martial = 28
+		}
+		modifier = {
+			factor = 0.8
+			martial = 30
+		}
+		modifier = {
+			factor = 1.25
+			trait = brave
+		}
+		modifier = {
+			factor = 0.8
+			trait = craven
+		}
+	}
+	option = {
+		name = "EVTOPTABATTLE34" # Intensify forward firepower! INTENSIFY FORWARD FIREPOWER!
+		FROM = {
+			random_realm_character = {
+				limit = {
+					trait = fighter_pilot
+					at_location = ROOT
+					in_battle = yes
+					war_with = ROOT
+					martial = ROOT
+					martial = 20
+				}
+				character_event = { id = battle.35 tooltip = "EVTTOOLTIPBATTLE31" }
+			}
+		}
+	}
+}
+character_event = {
+	id = battle.35
+	desc = "EVTDESCBATTLE35"
+	picture = GFX_evt_battle
+	border = GFX_evt_normal_frame_war
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTABATTLE35"
+		prestige = 100
+		FROM = { death = { death_reason = death_battle killer = ROOT } }
+	}
+}
+
+# Rivalry with the pilot who shot you down?
+character_event = {
+	id = battle.50
+	desc = "EVTDESCBATTLE50"
+	picture = GFX_evt_battle
+	border = GFX_evt_normal_frame_war
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = { is_rival = FROM }
+		NOT = { is_friend = FROM }
+		NOT = { any_lover = { character = FROM } }
+	}
+	
+	option = {
+		name = "EVTOPTABATTLE50"
+		add_rival = FROM
+		hidden_tooltip = { FROM = { character_event = { id = relations.0 } } }
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 5
+				trait = proud
+			}
+			modifier = {
+				factor = 0.2
+				trait = humble
+			}
+			modifier = {
+				factor = 4
+				trait = neurotic
+			}
+			modifier = {
+				factor = 0.25
+				trait = confident
+			}
+			modifier = {
+				factor = 2
+				trait = cold
+			}
+			modifier = {
+				factor = 0.5
+				trait = friendly
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTBBATTLE50"
+		prestige = -25
+		ai_chance = { factor = 50 }
+	}
+}
+
+# Managed to shoot down your hated rival!
+character_event = {
+	id = battle.60
+	desc = "EVTDESCBATTLE60"
+	picture = GFX_evt_battle
+	border = GFX_evt_normal_frame_war
+	show_from_from = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		prestige = 25
+		if = {
+			limit = { trait = stressed }
+			remove_trait = stressed
+		}
+	}
+}
+
+# Shell-shock
+character_event = {
+	id = battle.100
+	desc = "EVTDESCBATTLE100"
+	picture = GFX_evt_battle
+	is_triggered_only = yes
+	border = GFX_evt_normal_frame_war
+	
+	trigger = {
+		OR = {
+			NOT = { trait = stressed }
+			NOT = { trait = has_ptsd }
+		}
+	}
+	
+	weight_multiplier = {
+		factor = 1
+		modifier = {
+			factor = 0.25
+			has_focus = focus_tactics
+		}
+		modifier = {
+			factor = 2
+			trait = neurotic
+		}
+		modifier = {
+			factor = 0.25
+			trait = confident
+		}
+		modifier = {
+			factor = 2
+			trait = stressed
+		}
+		modifier = {
+			factor = 10
+			trait = has_ptsd
+		}
+		modifier = {
+			factor = 0
+			trait = stressed
+			trait = has_ptsd
+		}
+		# Military training desensitizes this
+		modifier = {
+			factor = 0.5
+			OR = {
+				trait = misguided_warrior
+				trait = tough_soldier
+				trait = skilled_tactician
+				trait = brilliant_strategist
+			}
+		}
+	}
+	
+	option = {
+		trigger = {
+			NOT = { trait = stressed }
+			NOT = { trait = has_ptsd }
+		}
+		name = "EVTOPTABATTLE100"
+		add_trait = stressed
+		random = {
+			chance = 25
+			add_trait = has_ptsd
+		}
+	}
+	
+	option = {
+		trigger = {
+			NOT = { trait = stressed }
+			trait = has_ptsd
+		}
+		name = "EVTOPTBBATTLE100"
+		add_trait = stressed
+	}
+	
+	option = {
+		trigger = {
+			trait = stressed
+			NOT = { trait = has_ptsd }
+		}
+		name = "EVTOPTCBATTLE100"
+		add_trait = has_ptsd
+	}
+}

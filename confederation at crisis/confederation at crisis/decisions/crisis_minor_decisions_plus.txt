@@ -1,0 +1,1601 @@
+targetted_decisions = { 
+	make_colonial = {
+		filter = vassals #Filter characters targetted by the player
+		ai_target_filter = vassals #Filter for characters targetted by the AI
+		
+		from_potential = {	
+			higher_tier_than = duke
+		}
+		
+		ai_check_interval = 40 
+ potential = {
+			same_realm = from
+			is_landed = yes
+			tier = count
+			ai = no
+		}
+		
+		allow = {
+			from = {
+				independent = yes
+				higher_tier_than = duke
+				prestige = 5000			
+			}
+			root = {
+				same_realm = from
+				is_landed = yes
+				tier = count
+			}
+		}
+		
+		effect = {
+			root = {
+				set_government_type = colonial_government
+				any_demesne_title = { add_law = succ_appointment }
+			}
+		}
+		
+		revoke_allowed = {
+			always = no #Not used in vanilla
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	enforce_monarchy = {
+		filter = vassals #Filter characters targetted by the player
+		ai_target_filter = vassals #Filter for characters targetted by the AI
+		
+		from_potential = {	
+			primary_title = {
+				has_law = dote_autonomy_1			
+			}
+			ai = no
+		}
+		
+		ai_check_interval = 40 
+ potential = {
+			same_realm = from
+			is_landed = yes
+		}
+		
+		allow = {
+			from = {
+				primary_title = {
+					has_law = dote_autonomy_1			
+				}			
+			}
+			root = {
+				same_realm = from
+				is_landed = yes
+				is_hereditary_trigger = no
+			}
+		}
+		
+		effect = {
+			root = {
+				character_event = { id = changegov.100 }
+				character_event = { id = changegov.400 }
+				character_event = { id = changegov.700 }
+			}
+			
+			from = {
+				prestige = 100
+			}
+			
+			root = {
+				prestige = -100
+			}
+		}
+		
+		revoke_allowed = {
+			always = no #Not used in vanilla
+		}
+		
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	enforce_republic = {
+		filter = vassals #Filter characters targetted by the player
+		ai_target_filter = vassals #Filter for characters targetted by the AI
+		
+		from_potential = {	
+			primary_title = {
+				has_law = dote_autonomy_1			
+			}
+			ai = no
+		}
+		
+		ai_check_interval = 40 
+ potential = {
+			same_realm = from
+			is_landed = yes
+		}
+		
+		allow = {
+			from = {
+				primary_title = {
+					has_law = dote_autonomy_1			
+				}			
+			}
+			root = {
+				same_realm = from
+				is_landed = yes
+				is_elective_trigger = no
+			}
+		}
+		
+		effect = {
+			root = {
+				character_event = { id = changegov.200 }
+				character_event = { id = changegov.500 }
+				character_event = { id = changegov.550 }
+				character_event = { id = changegov.800 }
+			}
+			
+			from = {
+				prestige = 100
+			}
+			
+			root = {
+				prestige = -100
+			}
+		}
+		
+		revoke_allowed = {
+			always = no #Not used in vanilla
+		}
+		
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	enforce_directorate = {
+		filter = vassals #Filter characters targetted by the player
+		ai_target_filter = vassals #Filter for characters targetted by the AI
+		
+		from_potential = {	
+			primary_title = {
+				has_law = dote_autonomy_1			
+			}	
+			ai = no
+		}
+		
+		ai_check_interval = 40 
+ potential = {
+			same_realm = from
+			is_landed = yes
+		}
+		
+		allow = {
+			from = {
+				primary_title = {
+					has_law = dote_autonomy_1			
+				}			
+			}
+			root = {
+				same_realm = from
+				is_landed = yes
+				is_appointed_trigger = no
+			}
+		}
+		
+		effect = {
+			root = {
+				character_event = { id = changegov.300 }
+				character_event = { id = changegov.600 }
+				character_event = { id = changegov.900 }
+			}
+			
+			from = {
+				prestige = 100
+			}
+			
+			root = {
+				prestige = -100
+			}
+		}
+		
+		revoke_allowed = {
+			always = no #Not used in vanilla
+		}
+		
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	enforce_military = {
+		filter = vassals #Filter characters targetted by the player
+		ai_target_filter = vassals #Filter for characters targetted by the AI
+		
+		from_potential = {	
+			primary_title = {
+				has_law = dote_autonomy_1			
+			}
+			ai = no	
+		}
+		
+		ai_check_interval = 40 
+ potential = {
+			same_realm = from
+			is_landed = yes
+		}
+		
+		allow = {
+			from = {
+				primary_title = {
+					has_law = dote_autonomy_1			
+				}			
+			}
+			root = {
+				same_realm = from
+				is_landed = yes
+				is_military_trigger = no
+			}
+		}
+		
+		effect = {
+			root = {
+				if = {
+					limit = {
+						OR = {
+							government = corporate_monarchy
+							government = administrative_monarchy
+						}
+					}
+					set_government_type = military_monarchy
+				}
+				if = {
+					limit = {
+						OR = {
+							government = corporate_republic
+							government = administrative_republic
+						}
+					}
+					set_government_type = military_republic
+				}
+				if = {
+					limit = {
+						OR = {
+							government = merchant_republic_government
+							government = administrative_directorate
+						}
+					}
+					set_government_type = military_directorate
+				}
+			}
+			
+			from = {
+				prestige = 100
+			}
+			
+			root = {
+				prestige = -100
+			}
+		}
+		
+		revoke_allowed = {
+			always = no #Not used in vanilla
+		}
+		
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	enforce_corporate = {
+		filter = vassals #Filter characters targetted by the player
+		ai_target_filter = vassals #Filter for characters targetted by the AI
+		
+		from_potential = {	
+			primary_title = {
+				has_law = dote_autonomy_1			
+			}
+			ai = no	
+		}
+		
+		ai_check_interval = 40 
+ potential = {
+			same_realm = from
+			is_landed = yes
+		}
+		
+		allow = {
+			from = {
+				primary_title = {
+					has_law = dote_autonomy_1			
+				}			
+			}
+			root = {
+				same_realm = from
+				is_landed = yes
+				is_corporate_trigger = no
+			}
+		}
+		
+		effect = {
+			root = {
+				if = {
+					limit = {
+						OR = {
+							government = military_monarchy
+							government = administrative_monarchy
+						}
+					}
+					set_government_type = corporate_monarchy
+				}
+				if = {
+					limit = {
+						OR = {
+							government = military_republic
+							government = administrative_republic
+						}
+					}
+					set_government_type = corporate_republic
+				}
+				if = {
+					limit = {
+						OR = {
+							government = military_directorate
+							government = administrative_directorate
+						}
+					}
+					set_government_type = merchant_republic_government
+				}
+			}
+			
+			from = {
+				prestige = 100
+			}
+			
+			root = {
+				prestige = -100
+			}
+		}
+		
+		revoke_allowed = {
+			always = no #Not used in vanilla
+		}
+		
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	enforce_administrative = {
+		filter = vassals #Filter characters targetted by the player
+		ai_target_filter = vassals #Filter for characters targetted by the AI
+		
+		from_potential = {	
+			primary_title = {
+				has_law = dote_autonomy_1			
+			}
+			ai = no	
+		}
+		
+		ai_check_interval = 40 
+ potential = {
+			same_realm = from
+			is_landed = yes
+		}
+		
+		allow = {
+			from = {
+				primary_title = {
+					has_law = dote_autonomy_1			
+				}			
+			}
+			root = {
+				same_realm = from
+				is_landed = yes
+				is_administrative_trigger = no
+			}
+		}
+		
+		effect = {
+			root = {
+				if = {
+					limit = {
+						OR = {
+							government = military_monarchy
+							government = corporate_monarchy
+						}
+					}
+					set_government_type = administrative_monarchy
+				}
+				if = {
+					limit = {
+						OR = {
+							government = military_republic
+							government = corporate_republic
+						}
+					}
+					set_government_type = administrative_republic
+				}
+				if = {
+					limit = {
+						OR = {
+							government = military_directorate
+							government = merchant_republic_government
+						}
+					}
+					set_government_type = administrative_directorate
+				}
+			}
+			
+			from = {
+				prestige = 100
+			}
+			
+			root = {
+				prestige = -100
+			}
+		}
+		
+		revoke_allowed = {
+			always = no #Not used in vanilla
+		}
+		
+		ai_will_do = {
+			factor = 0
+		}
+	}
+}
+title_decisions = {
+
+#Roads	
+	build_imperial_road = {
+		filter = owned
+		ai_target_filter = owned
+		
+		from_potential = {
+			and = {
+				tier = emperor
+				government = valyrian_imperial_government
+			}
+		}
+		
+		ai_check_interval = 40 
+ potential = {
+			tier = count
+			owner = {
+				top_liege = {
+					character = from
+				}
+			}		
+		}		
+
+		allow = {
+			tier = count
+			owner = {
+				top_liege = {
+					character = from
+				}
+			}		
+			location = {
+				region = world_free_cities
+				not = { has_province_modifier = imperial_road_modifier }
+				not = { has_province_modifier = imperial_road_modifier_2 }
+				not = { has_province_modifier = imperial_road_modifier_3 }
+				not = { has_province_modifier = imperial_road_modifier_4 }
+			}
+			from = {
+				wealth = 250
+			}
+		}
+		
+		effect = {
+			from = {
+				wealth = -250
+				narrative_event = { id = dote_empire_events.6 }				
+				any_realm_lord = {
+					narrative_event = {
+						id = dote_empire_events.6
+					}
+				}
+			}
+			location = {
+				add_province_modifier = { 
+					modifier = imperial_road_modifier
+					duration = -1
+				}
+			}
+		}
+		
+		revoke_allowed = {
+			always = no #Not used in vanilla
+		}
+		
+		ai_will_do = {
+			factor = 1
+		}		
+		
+	}
+}
+decisions = {	
+	Sora_EK_abandon_claim_empire_des = {
+		ai_check_interval = 40 
+ potential = {
+			OR = {
+				NOT = { trait = ambitious}
+				prisoner = yes
+			}
+			age = 16
+			
+			any_claim = {
+				tier = EMPEROR
+			}
+		}
+		
+		allow = {}
+		
+		ai_will_do = {
+			factor = 0 
+		}
+		
+		effect = {
+			character_event = { id = Sora_EK_abandon_claim.3}
+		}
+	}
+
+	Sora_EK_abandon_claim_kingdom_des = {
+		ai_check_interval = 40 
+ potential = {
+			
+			any_claim = {
+				tier = KING
+			}
+		}
+		
+		allow = {
+			OR = {
+				NOT = { trait = ambitious}
+				prisoner = yes
+			}
+			age = 16
+		}
+		
+		ai_will_do = {
+			factor = 0 
+		}		
+		
+		effect = {
+			character_event = { id = Sora_EK_abandon_claim.2}
+		}
+	}
+	
+	Sora_EK_abandon_claim_duchy_des = {
+		ai_check_interval = 40 
+ potential = {
+			
+			any_claim = {
+				tier = DUKE
+			}		
+		}
+		
+		allow = {
+			OR = {
+				NOT = { trait = ambitious}
+				prisoner = yes
+			}
+			age = 16
+		}
+		
+		ai_will_do = {
+			factor = 0 
+		}		
+		
+		effect = {
+			character_event = { id = Sora_EK_abandon_claim.1}
+		}
+	}
+
+	Sora_EK_abandon_claim_county_des = {
+		ai_check_interval = 40 
+ potential = {
+			any_claim = {
+				tier = COUNT
+			}	
+		}
+		
+		allow = {
+			OR = {
+				NOT = { trait = ambitious}
+				prisoner = yes
+			}
+			age = 16
+		}
+		
+		ai_will_do = {
+			factor = 0 
+		}		
+		
+		effect = {
+			character_event = { id = Sora_EK_abandon_claim.0}
+		}
+	}
+
+	Sora_EK_abandon_claim_barony_des = {
+		ai_check_interval = 40 
+ potential = {
+			
+			any_claim = {
+				tier = BARON
+			}
+		}
+		
+		allow = {
+			OR = {
+				NOT = { trait = ambitious}
+				prisoner = yes
+			}
+			age = 16
+		}
+		
+		ai_will_do = {
+			factor = 0 
+		}		
+		
+		effect = {
+			character_event = { id = Sora_EK_abandon_claim.4}
+		}
+	}
+}
+
+targetted_decisions = {
+
+	show_civil_war_status = {
+
+		from_potential = {
+			ai = no
+		}
+
+		ai_check_interval = 40 
+ potential = {
+			OR = {
+				AND = {
+					in_revolt = yes
+					liege = { character = PREV }  # independent-ish
+				}
+
+				# In case of bugs...
+				has_character_modifier = in_civil_war_modifier
+			}
+		}
+
+		allow = {
+			ff_is_fracturing_attacker_trigger = yes
+		}
+
+		effect = {
+			# No effect needed!
+			# Localization of the decision description already showed what we wanted to show!
+			# TODO: event window showing the mod's rules in detail?
+		}
+	}
+
+}
+
+title_decisions = {
+
+	fitna_fracture_merge_title = {
+		ai_target_filter = owned
+
+		is_high_prio = yes
+
+		ai_check_interval = 40 
+ potential = {
+			# Title was created as a result of civil-war split.
+			has_title_flag = fitna_fracture_can_be_merged
+		}
+
+		allow = {
+			# Ours
+			holder_scope = {
+				character = FROM
+			}
+
+			# Title is still titular (no land has de jure drifted into it)
+			is_titular = yes
+
+			# Title is not sole top real title
+			custom_tooltip = {
+				text = ff_not_sole_top_title_tooltip
+				holder_scope = {
+					any_demesne_title = {
+						temporary = no
+						NOT = { title = PREVPREV }
+						OR = {
+							tier = PREVPREV
+							higher_tier_than = PREVPREV
+						}
+					}
+				}
+			}
+
+			# Title is not contested in a war
+			is_contested = no
+		}
+
+		effect = {
+			# TODO: do we need to use make_primary_title and/or copy_title_laws to make things work correctly?
+
+			# Destroy the title
+			destroy_landed_title = THIS
+
+			# Deactivate the title, so it cannot be re-created by holding its de jure capital
+			activate_title = { title = THIS  status = no }
+
+			FROM = {
+				prestige = 200
+				wealth = 200
+				hidden_tooltip = {
+					# Leave hints of what happened, in the form of a character modifier and a strong non-inheritable "trophy" claim
+					add_character_modifier = { name = fitna_fracture_merged_title_modifier  duration = -1 }
+					ROOT = { add_claim = PREV }
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+	}
+}
+
+# Targetted decisions are possible vs _all_ other characters and shown are in the Diplomacy View, not the Intrigue View. The taker is in the FROM scope.
+#
+# filter = [self/court/home_court/vassals/sub_realm/realm/dynasty/all] ('self' MUST be set for decisions targetting only the taker, the other filter types can be set to lessen CPU load)
+# ai_target_filter = [self/court/home_court/vassals/sub_realm/realm/dynasty/all] (which characters for which the AI evaluates the decision.)
+#	court: all characters in the AI's host court, including prisoners, and characters currently away (wards, prisoners, etc)
+#	home_court: all characters in the AI's home court, including prisoners, and characters currently away (wards, prisoners, etc)
+#	vassals: direct vassal rulers of the AI's employer
+#	sub_realm: all characters below the AI's employer
+#	realm: all characters in the same top realm as the AI
+#	dynasty: all members of the same dynasty
+#	all: all living characters (Avoid if possible. VERY CPU-HEAVY!)
+#	
+
+targetted_decisions = {
+	gift_artifact = { #only for the player for now
+		only_rulers = yes
+		filter = all
+		from_potential = {
+			ai = no
+			num_of_artifacts = 1
+			is_adult = yes
+			NOT = { has_character_flag = gift_artifact_taken }
+		}
+		ai_check_interval = 40 
+ potential = {
+			is_adult = yes
+			NOT = { character = FROM }
+		}
+		allow = {		
+			FROM = { block_general_event_trigger = no}
+			block_general_event_trigger = no
+		}
+		effect = {
+			save_event_target_as = artifact_recipient
+			FROM = {
+				set_character_flag = gift_artifact_taken
+				save_event_target_as = artifact_gifter
+				character_event = { id = gift_artifact.1 tooltip = EVTTOOLTIPgift_artifact }
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+}
+targetted_decisions = {
+
+	gift_kingdom = {
+		filter = sub_realm
+		ai_target_filter = self
+
+		from_potential = {
+			ai = no
+			war = no
+			real_tier = EMPEROR
+		}
+		ai_check_interval = 40 
+ potential = {
+			NOT = { character = FROM }
+			lower_real_tier_than = KING
+			any_liege = { character = FROM }
+		}
+		allow = {
+			ROOT = { war = no }
+			FROM = {
+				war = no
+				any_demesne_title = {
+					real_tier = KING
+					FROM = {
+						capital_scope = {
+							NOT = {
+								de_jure_vassal_or_below = PREV
+							}
+						}
+					}
+					capital_scope = {
+						holder_scope = { character = FROM }
+						duchy = {
+							holder_scope = { character = FROM }
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			FROM = {
+				character_event = { id = gift_kingdom.0 }
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+}
+targetted_decisions = {
+
+	player_gift_troops = {
+		filter = all
+		ai_target_filter = self
+
+		from_potential = {
+			ai = no
+			NOT = { has_character_flag = buying_troops }
+		}
+		ai_check_interval = 40 
+ potential = {
+			NOT = { character = FROM }
+			is_ruler = yes
+			OR = {
+				any_friend = { character = FROM }
+				any_liege = { character = FROM }
+				any_dynasty_member = { character = FROM }
+			}
+		}
+		allow = {
+			ROOT = { war = yes }
+			FROM = { wealth = 50 }
+		}
+		effect = {
+			save_event_target_as = sin_troop_target
+			FROM = {
+				set_character_flag = buying_troops
+				set_character_flag = troops1
+				character_event = { id = gift_troops_ai.0 }
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+}
+targetted_decisions = {
+
+	grant_kingdom = {
+		filter = sub_realm
+		ai_target_filter = self
+
+		from_potential = {
+			ai = no
+			war = no
+			real_tier = EMPEROR
+		}
+		ai_check_interval = 40 
+ potential = {
+			NOT = { character = FROM }
+			lower_real_tier_than = KING
+			num_of_duke_titles = 2
+			liege = { character = FROM }
+		}
+		allow = {
+			ROOT = { war = no }
+			FROM = {
+				war = no
+				wealth = 250
+			}
+		}
+		effect = {
+			FROM = {
+				character_event = { id = grant_kingdom.0 }
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+}
+
+title_decisions = {
+	tm_create_duchy = {
+		from_potential = {
+			ai = no
+			independent = yes
+		}
+		
+		ai_check_interval = 40 
+ potential = {
+			real_tier = COUNT
+			holder_scope = {
+				same_realm = FROM
+			}
+		}
+		
+		allow = {
+			OR = {
+				has_law = centralization_2
+				has_law = centralization_3
+				has_law = centralization_4
+			}
+			FROM = {
+				primary_title = {
+					OR = {
+						real_tier = DUKE
+						real_tier = KING
+						real_tier = EMPEROR
+					}
+				}
+				wealth = 200
+			}
+		}
+		
+		effect = {
+			create_title = {
+				tier = DUKE
+				landless = no
+				temporary = no
+				custom_created = yes
+				holder = FROM
+				base_title = ROOT
+				copy_title_laws = yes
+			}
+			FROM = {
+				wealth = -200
+				prestige = 200
+			}
+		}
+	}
+
+	tm_create_kingdom = {
+		from_potential = {
+			ai = no
+			independent = yes
+			#has_law = centralization_2
+		}
+		
+		ai_check_interval = 40 
+ potential = {
+			real_tier = DUKE
+			holder_scope = {
+				same_realm = FROM
+			}
+		}
+		
+		allow = {
+			OR = {
+				has_law = centralization_2
+				has_law = centralization_3
+				has_law = centralization_4
+			}
+			FROM = {
+				primary_title = {
+					OR = {
+						real_tier = KING
+						real_tier = EMPEROR
+					}
+				}
+				wealth = 400
+				piety = 200
+			}
+		}
+		
+		effect = {
+			create_title = {
+				tier = KING
+				landless = no
+				temporary = no
+				custom_created = yes
+				holder = FROM
+				base_title = ROOT
+				copy_title_laws = yes
+			}
+			FROM = {
+				wealth = -400
+				piety = -200
+				prestige = 400
+			}
+		}
+	}
+	
+	tm_create_empire = {
+		from_potential = {
+			ai = no
+			independent = yes
+			#has_law = centralization_2
+		}
+		
+		ai_check_interval = 40 
+ potential = {
+			real_tier = KING
+			holder_scope = {
+				same_realm = FROM
+			}
+		}
+		
+		allow = { 
+			OR = {
+				has_law = centralization_2
+				has_law = centralization_3
+				has_law = centralization_4
+			}
+			FROM = {
+				primary_title = {
+					OR = {
+						real_tier = EMPEROR
+					}
+				}
+				wealth = 800
+				piety = 400
+			}
+		}
+		
+		effect = {
+			create_title = {
+				tier = EMPEROR
+				landless = no
+				temporary = no
+				custom_created = yes
+				holder = FROM
+				base_title = ROOT
+				copy_title_laws = yes
+			}
+			FROM = {
+				wealth = -800
+				piety = -400
+				prestige = 800
+			}
+		}
+	}
+	
+	tm_designate_recipient_duchy = {
+		from_potential = {
+			ai = no
+			independent = yes
+			#has_law = centralization_2
+		}
+		
+		ai_check_interval = 40 
+ potential = {
+			real_tier = DUKE
+			holder_scope = {
+				same_realm = FROM
+			}
+		}
+		
+		allow = { 
+			OR = {
+				has_law = centralization_2
+				has_law = centralization_3
+				has_law = centralization_4
+			}
+			OR = {
+				custom_tooltip = {
+					text = tm_tooltip_not_designated_duchy
+					hidden_tooltip = {
+						NOT = {
+							has_title_flag = adjudication_duchy_recipient
+						}
+					}
+				}
+				custom_tooltip = {
+					text = tm_tooltip_two_designated_duchy
+					FROM = {
+						any_realm_title = {
+							count = 2
+							has_title_flag = adjudication_duchy_recipient			
+						}
+					}
+				}
+			}
+		}
+		
+		effect = {
+			custom_tooltip = {
+				text = tm_tooltip_is_designated_duchy
+				hidden_tooltip = {
+					FROM = {
+						any_title_under = {
+							limit = {
+								real_tier = DUKE
+								has_title_flag = adjudication_duchy_recipient
+							}
+							clr_title_flag = adjudication_duchy_recipient
+						}
+					}
+					ROOT = { set_title_flag = adjudication_duchy_recipient }
+				}
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+	}
+	
+	tm_designate_recipient_kingdom = {
+		from_potential = {
+			ai = no
+			independent = yes
+			#has_law = centralization_2
+		}
+		
+		ai_check_interval = 40 
+ potential = {
+			real_tier = KING
+			holder_scope = {
+				same_realm = FROM
+			}
+		}
+		
+		allow = { 
+			OR = {
+				has_law = centralization_2
+				has_law = centralization_3
+				has_law = centralization_4
+			}
+			OR = {
+				custom_tooltip = {
+					text = tm_tooltip_not_designated_kingdom
+					hidden_tooltip = {
+						NOT = {
+							has_title_flag = adjudication_kingdom_recipient
+						}
+					}
+				}
+				custom_tooltip = {
+					text = tm_tooltip_two_designated_kingdom
+					FROM = {
+						any_realm_title = {
+							count = 2
+							has_title_flag = adjudication_kingdom_recipient			
+						}
+					}
+				}
+			}
+		}
+		
+		effect = {
+			custom_tooltip = {
+				text = tm_tooltip_is_designated_kingdom
+				hidden_tooltip = {
+					FROM = {
+						any_title_under = {
+							limit = {
+								real_tier = KING
+								has_title_flag = adjudication_kingdom_recipient
+							}
+							clr_title_flag = adjudication_kingdom_recipient
+						}
+					}
+					ROOT = { set_title_flag = adjudication_kingdom_recipient }
+				}
+				
+			}
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+	}
+	
+	tm_designate_recipient_empire = {
+		from_potential = {
+			ai = no
+			independent = yes
+			#has_law = centralization_2
+		}
+		
+		ai_check_interval = 40 
+ potential = {
+			real_tier = EMPEROR
+			holder_scope = {
+				same_realm = FROM
+			}
+		}
+		
+		allow = { 
+			OR = {
+				has_law = centralization_2
+				has_law = centralization_3
+				has_law = centralization_4
+			}
+			OR = {
+				custom_tooltip = {
+					text = tm_tooltip_not_designated_empire
+					hidden_tooltip = {
+						NOT = {
+							has_title_flag = adjudication_empire_recipient
+						}
+					}
+				}
+				custom_tooltip = {
+					text = tm_tooltip_two_designated_empire
+					FROM = {
+						any_realm_title = {
+							count = 2
+							has_title_flag = adjudication_empire_recipient			
+						}
+					}
+				}
+			}
+		}
+		
+		effect = {
+			custom_tooltip = {
+				text = tm_tooltip_is_designated_empire
+				hidden_tooltip = {
+					FROM = {
+						any_title_under = {
+							limit = {
+								real_tier = EMPEROR
+								has_title_flag = adjudication_empire_recipient
+							}
+							clr_title_flag = adjudication_empire_recipient
+						}
+					}
+					ROOT = { set_title_flag = adjudication_empire_recipient }
+				}
+			}
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+	}
+	
+	tm_transfer_county_to_recipient_duchy = {
+		from_potential = {
+			ai = no
+			independent = yes
+			#has_law = centralization_2
+		}
+		
+		ai_check_interval = 40 
+ potential = {
+			real_tier = COUNT
+			holder_scope = {
+				same_realm = FROM
+			}
+		}
+		
+		allow = { 
+			OR = {
+				has_law = centralization_2
+				has_law = centralization_3
+				has_law = centralization_4
+			}
+			FROM = {
+				custom_tooltip = {
+					text = tm_tooltip_any_duchy_is_designated
+					hidden_tooltip = {
+						any_realm_title = {
+							has_title_flag = adjudication_duchy_recipient 
+						}
+					}
+					NOT = {
+						any_realm_title = {
+							count = 2
+							has_title_flag = adjudication_duchy_recipient
+						}
+					}
+				}
+				wealth = 100
+			}
+		}
+
+		effect = {
+			FROM = {
+				any_title_under = {
+					limit = {
+						real_tier = DUKE
+						has_title_flag = adjudication_duchy_recipient
+					}
+					custom_tooltip = {
+						text = tm_tooltip_transfer
+						hidden_tooltip = {
+							ROOT = {
+								de_jure_liege = PREV
+							}
+						}
+					}
+				}	
+				wealth = -100
+			}
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+	}
+
+	tm_transfer_duchy_to_recipient_kingdom = {
+		from_potential = {
+			ai = no
+			independent = yes
+			#has_law = centralization_2
+		}
+		
+		ai_check_interval = 40 
+ potential = {
+			real_tier = DUKE
+			holder_scope = {
+				same_realm = FROM
+			}
+		}
+		
+		allow = { 
+			OR = {
+				has_law = centralization_2
+				has_law = centralization_3
+				has_law = centralization_4
+			}
+			FROM = {
+				custom_tooltip = {
+					text = tm_tooltip_any_kingdom_is_designated
+					hidden_tooltip = {
+						any_realm_title = {
+							has_title_flag = adjudication_kingdom_recipient 
+						}
+					}
+					NOT = {
+						any_realm_title = {
+							count = 2
+							has_title_flag = adjudication_kingdom_recipient
+						}
+					}
+				}
+				wealth = 200
+				piety = 100
+			}
+		}
+		
+		effect = {	
+			FROM = {
+				any_title_under = {
+					limit = {
+						real_tier = KING
+						has_title_flag = adjudication_kingdom_recipient
+					}
+					custom_tooltip = {
+						text = tm_tooltip_transfer
+						hidden_tooltip = {
+							ROOT = {
+								de_jure_liege = PREV
+							}
+						}
+					}
+				}
+				wealth = -200
+				piety = -100
+			}
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+	}
+
+	tm_transfer_kingdom_to_recipient_empire = {
+		from_potential = {
+			ai = no
+			independent = yes
+			#has_law = centralization_2
+		}
+		
+		ai_check_interval = 40 
+ potential = {
+			real_tier = KING
+			holder_scope = {
+				same_realm = FROM
+			}
+		}
+		
+		allow = { 
+			OR = {
+				has_law = centralization_2
+				has_law = centralization_3
+				has_law = centralization_4
+			}
+			FROM = {
+				custom_tooltip = {
+					text = tm_tooltip_any_empire_is_designated
+					hidden_tooltip = {
+						any_realm_title = {
+							has_title_flag = adjudication_empire_recipient 
+						}
+					}
+					NOT = {
+						any_realm_title = {
+							count = 2
+							has_title_flag = adjudication_empire_recipient
+						}
+					}
+				}
+				wealth = 400
+				piety = 200
+			}
+		}
+		
+		effect = {
+			FROM = {
+				any_title_under = {
+					limit = {
+						real_tier = EMPEROR
+						has_title_flag = adjudication_empire_recipient
+					}
+					custom_tooltip = {
+						text = tm_tooltip_transfer
+						hidden_tooltip = {
+							ROOT = {
+								de_jure_liege = PREV
+							}
+						}
+					}
+				}	
+				wealth = -400
+				piety = 200
+			}
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+	}
+	tm_remove_duchy_de_jure = {
+		from_potential = {
+			ai = no
+			independent = yes
+			#has_law = centralization_2
+		}
+		
+		ai_check_interval = 40 
+ potential = {
+			real_tier = DUKE
+			holder_scope = {
+				same_realm = FROM
+			}
+		}
+		
+		allow = {
+			OR = {
+				has_law = centralization_2
+				has_law = centralization_3
+				has_law = centralization_4
+			}
+			FROM = {
+				custom_tooltip = {
+					text = tm_tooltip_any_kingdom_is_designated
+					hidden_tooltip = {
+						any_realm_title = {
+							has_title_flag = adjudication_kingdom_recipient 
+						}
+					}
+					NOT = {
+						any_realm_title = {
+							count = 2
+							has_title_flag = adjudication_kingdom_recipient
+						}
+					}
+				}
+				wealth = 200
+				piety = 100
+			}
+		}
+		
+		effect = {	
+			FROM = {
+				any_title_under = {
+					limit = {
+						real_tier = KING
+						has_title_flag = adjudication_kingdom_recipient
+					}
+					custom_tooltip = {
+						text = tm_tooltip_remove_dejure
+						hidden_tooltip = {
+							ROOT = {
+								de_jure_liege = NONE
+							}
+						}
+					}
+				}
+				wealth = -200
+				piety = -100
+			}
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+	}
+	tm_remove_kingdom_de_jure = {
+		from_potential = {
+			ai = no
+			independent = yes
+			#has_law = centralization_2
+		}
+		
+		ai_check_interval = 40 
+ potential = {
+			real_tier = KING
+			holder_scope = {
+				same_realm = FROM
+			}
+		}
+		
+		allow = { 
+			OR = {
+				has_law = centralization_2
+				has_law = centralization_3
+				has_law = centralization_4
+			}
+			FROM = {
+				custom_tooltip = {
+					text = tm_tooltip_any_empire_is_designated
+					hidden_tooltip = {
+						any_realm_title = {
+							has_title_flag = adjudication_empire_recipient 
+						}
+					}
+					NOT = {
+						any_realm_title = {
+							count = 2
+							has_title_flag = adjudication_empire_recipient
+						}
+					}
+				}
+				wealth = 400
+				piety = 200
+			}
+		}
+		
+		effect = {
+			FROM = {
+				any_title_under = {
+					limit = {
+						real_tier = EMPEROR
+						has_title_flag = adjudication_empire_recipient
+					}
+					custom_tooltip = {
+						text = tm_tooltip_remove_dejure
+						hidden_tooltip = {
+							ROOT = {
+								de_jure_liege = NONE
+							}
+						}
+					}
+				}	
+				wealth = -400
+				piety = 200
+			}
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+	}
+}

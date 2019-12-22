@@ -1,0 +1,594 @@
+flu = {
+	rip = yes
+	contagiousness = 0.2
+	outbreak_chance = 0.16
+	effect = {
+		city_tax_modifier = -0.2
+	}
+	icon = 5
+	tooltip = FLU_INFO
+	months = 4
+	trait = has_flu
+	always_get_message = yes
+	character_infection_chances = {
+		months = 1
+	}
+	on_character_infection = {
+		if = {
+			limit = {
+				NOR = {
+					has_character_flag = immune_measles
+					has_character_flag = got_measles
+					trait = has_measles
+					trait = horse
+					trait = cat
+
+					has_character_flag = got_bubonic_plague
+					has_character_flag = got_aztec_disease
+					has_character_flag = got_smallpox
+					has_character_flag = got_typhus
+					has_character_flag = got_typhoid_fever
+					has_character_flag = got_tuberculosis
+					has_character_flag = got_syphilis
+					has_character_flag = got_pneumonia
+					has_character_flag = got_cancer
+					has_character_flag = got_rabies
+					has_character_flag = got_gout
+					has_character_flag = got_flu
+					has_character_flag = got_dysentery
+					has_character_flag = got_food_poisoning
+					trait = has_flu
+					trait = has_edemite_fever
+					trait = has_brain_slug
+					trait = has_clarkes_disease
+					trait = has_cybernetic_virus
+				}
+			}
+			random_list = {
+				10 = { # Get the disease
+					modifier = {
+						factor = 0
+						has_character_modifier = in_seclusion
+					}
+					modifier = {
+						factor = 0.1
+						AND = {
+							is_nomadic = yes
+							NOT = { is_unimportant_trigger = yes }
+						}
+					}
+					modifier = {
+						factor = 0.5
+						AND = {
+							is_tribal = yes
+							NOT = { is_unimportant_trigger = yes }
+						}
+					}
+					modifier = {
+						factor = 50
+						is_unimportant_trigger = yes
+					}
+					add_trait = has_flu
+				}
+				90 = { # Nothing happens
+				}
+			}
+		}
+	}
+	
+	
+	timeperiod = {
+		start_date = 2998.1.1
+		end_date = 9999.1.1
+
+		one_only = no
+	}
+}
+clarkes_disease = {
+	rip = yes
+	contagiousness = 0.2
+	outbreak_chance = 0.16
+	effect = {
+		city_tax_modifier = -0.2
+	}
+	icon = 5
+	tooltip = CLARKES_DISEASE_INFO
+	months = 4
+	trait = has_clarkes_disease
+	always_get_message = yes
+	character_infection_chances = {
+		months = 3
+	}
+	on_character_infection = {
+		if = {
+			limit = {
+				NOR = {
+					has_character_flag = immune_measles
+					has_character_flag = got_measles
+					trait = has_measles
+					trait = horse
+					trait = cat
+
+					has_character_flag = got_bubonic_plague
+					has_character_flag = got_aztec_disease
+					has_character_flag = got_smallpox
+					has_character_flag = got_typhus
+					has_character_flag = got_typhoid_fever
+					has_character_flag = got_tuberculosis
+					has_character_flag = got_syphilis
+					has_character_flag = got_pneumonia
+					has_character_flag = got_cancer
+					has_character_flag = got_rabies
+					has_character_flag = got_gout
+					has_character_flag = got_flu
+					has_character_flag = got_dysentery
+					has_character_flag = got_food_poisoning
+					trait = has_flu
+					trait = has_edemite_fever
+					trait = has_brain_slug
+					trait = has_clarkes_disease
+					trait = has_cybernetic_virus
+				}
+			}
+			random_list = {
+				10 = { # Get the disease
+					modifier = {
+						factor = 0
+						has_character_modifier = in_seclusion
+					}
+					modifier = {
+						factor = 0.1
+						AND = {
+							is_nomadic = yes
+							NOT = { is_unimportant_trigger = yes }
+						}
+					}
+					modifier = {
+						factor = 0.5
+						AND = {
+							is_tribal = yes
+							NOT = { is_unimportant_trigger = yes }
+						}
+					}
+					modifier = {
+						factor = 50
+						is_unimportant_trigger = yes
+					}
+					add_trait = has_clarkes_disease
+				}
+				90 = { # Nothing happens
+				}
+			}
+		}
+	}
+	
+	timeperiod = {
+		start_date = 2998.1.1
+		end_date = 9999.1.1
+
+		one_only = no
+	}
+}
+
+cybernetic_virus = {
+	rip = yes
+	contagiousness = 0.1
+	outbreak_chance = 0.08
+	effect = {
+		city_tax_modifier = -0.1
+		tech_growth_modifier = -0.5
+	}
+	icon = 6
+	tooltip = CYBERNETIC_VIRUS_INFO
+	months = 6
+	trait = has_cybernetic_virus
+	always_get_message = yes
+	character_infection_chances = {
+		months = 3
+	}
+	on_character_infection = {
+		if = {
+			limit = {
+				NOR = {
+					has_character_flag = immune_measles
+					has_character_flag = got_measles
+					trait = has_measles
+					trait = horse
+					trait = cat
+
+					has_character_flag = got_bubonic_plague
+					has_character_flag = got_aztec_disease
+					has_character_flag = got_smallpox
+					has_character_flag = got_typhus
+					has_character_flag = got_typhoid_fever
+					has_character_flag = got_tuberculosis
+					has_character_flag = got_syphilis
+					has_character_flag = got_pneumonia
+					has_character_flag = got_cancer
+					has_character_flag = got_rabies
+					has_character_flag = got_gout
+					has_character_flag = got_flu
+					has_character_flag = got_dysentery
+					has_character_flag = got_food_poisoning
+					trait = has_flu
+					trait = has_edemite_fever
+					trait = has_brain_slug
+					trait = has_clarkes_disease
+					trait = has_cybernetic_virus
+				}
+			}
+			random_list = {
+				10 = { # Get the disease
+					modifier = {
+						factor = 0
+						has_character_modifier = in_seclusion
+					}
+					modifier = {
+						factor = 0.1
+						AND = {
+							is_nomadic = yes
+							NOT = { is_unimportant_trigger = yes }
+						}
+					}
+					modifier = {
+						factor = 0.5
+						AND = {
+							is_tribal = yes
+							NOT = { is_unimportant_trigger = yes }
+						}
+					}
+					modifier = {
+						factor = 50
+						is_unimportant_trigger = yes
+					}
+					add_trait = has_cybernetic_virus
+				}
+				90 = { # Nothing happens
+				}
+			}
+		}
+	}
+	
+	timeperiod = {
+		start_date = 2998.1.1
+		end_date = 9999.1.1
+
+		one_only = no
+	}
+}
+
+brain_slugs = {
+	rip = yes
+	contagiousness = 0.2
+	outbreak_chance = 0.08
+	effect = {
+		city_tax_modifier = -0.2
+		local_revolt_risk = 0.1
+	}
+	icon = 6
+	tooltip = BRAIN_SLUGS_INFO
+	months = 6
+	trait = has_brain_slug
+	always_get_message = yes
+	character_infection_chances = {
+		months = 3
+	}
+	on_character_infection = {
+		if = {
+			limit = {
+				NOR = {
+					has_character_flag = immune_measles
+					has_character_flag = got_measles
+					trait = has_measles
+					trait = horse
+					trait = cat
+
+					has_character_flag = got_bubonic_plague
+					has_character_flag = got_aztec_disease
+					has_character_flag = got_smallpox
+					has_character_flag = got_typhus
+					has_character_flag = got_typhoid_fever
+					has_character_flag = got_tuberculosis
+					has_character_flag = got_syphilis
+					has_character_flag = got_pneumonia
+					has_character_flag = got_cancer
+					has_character_flag = got_rabies
+					has_character_flag = got_gout
+					has_character_flag = got_flu
+					has_character_flag = got_dysentery
+					has_character_flag = got_food_poisoning
+					trait = has_flu
+					trait = has_edemite_fever
+					trait = has_brain_slug
+					trait = has_clarkes_disease
+					trait = has_cybernetic_virus
+				}
+			}
+			random_list = {
+				10 = { # Get the disease
+					modifier = {
+						factor = 0
+						has_character_modifier = in_seclusion
+					}
+					modifier = {
+						factor = 0.1
+						AND = {
+							is_nomadic = yes
+							NOT = { is_unimportant_trigger = yes }
+						}
+					}
+					modifier = {
+						factor = 0.5
+						AND = {
+							is_tribal = yes
+							NOT = { is_unimportant_trigger = yes }
+						}
+					}
+					modifier = {
+						factor = 50
+						is_unimportant_trigger = yes
+					}
+					add_trait = has_brain_slug
+				}
+				90 = { # Nothing happens
+				}
+			}
+		}
+	}
+	
+	timeperiod = {
+		start_date = 2998.1.1
+		end_date = 9999.1.1
+		
+		one_only = no
+	}
+}
+
+edemite_fever = {
+	rip = yes
+	contagiousness = 0.9
+	outbreak_chance = 0.01
+	effect = {
+		city_tax_modifier = -0.8
+	}
+	icon = 4
+	tooltip = EDEMITE_FEVER_INFO
+	months = 1
+	trait = has_edemite_fever
+	always_get_message = yes
+	character_infection_chances = {
+		months = 3
+	}
+	on_character_infection = {
+		if = {
+			limit = {
+				NOR = {
+					has_character_flag = immune_measles
+					has_character_flag = got_measles
+					trait = has_measles
+					trait = horse
+					trait = cat
+
+					has_character_flag = got_bubonic_plague
+					has_character_flag = got_aztec_disease
+					has_character_flag = got_smallpox
+					has_character_flag = got_typhus
+					has_character_flag = got_typhoid_fever
+					has_character_flag = got_tuberculosis
+					has_character_flag = got_syphilis
+					has_character_flag = got_pneumonia
+					has_character_flag = got_cancer
+					has_character_flag = got_rabies
+					has_character_flag = got_gout
+					has_character_flag = got_flu
+					has_character_flag = got_dysentery
+					has_character_flag = got_food_poisoning
+					trait = has_flu
+					trait = has_edemite_fever
+					trait = has_brain_slug
+					trait = has_clarkes_disease
+					trait = has_cybernetic_virus
+				}
+			}
+			random_list = {
+				10 = { # Get the disease
+					modifier = {
+						factor = 0
+						has_character_modifier = in_seclusion
+					}
+					modifier = {
+						factor = 0.1
+						AND = {
+							is_nomadic = yes
+							NOT = { is_unimportant_trigger = yes }
+						}
+					}
+					modifier = {
+						factor = 0.5
+						AND = {
+							is_tribal = yes
+							NOT = { is_unimportant_trigger = yes }
+						}
+					}
+					modifier = {
+						factor = 50
+						is_unimportant_trigger = yes
+					}
+					add_trait = has_edemite_fever
+				}
+				90 = { # Nothing happens
+				}
+			}
+		}
+	}
+	
+	timeperiod = {
+		start_date = 2998.1.1
+		end_date = 9999.1.1
+
+		one_only = no
+	}
+}
+
+tuberculosis = {
+	rip = yes
+	contagiousness = 0.2
+	outbreak_chance = 0.02
+	effect = {
+		city_tax_modifier = -0.5
+		supply_limit = -4
+		max_attrition = 0.05
+	}
+	icon = 1
+	tooltip = TUBERCULOSIS_INFO
+	months = 24
+	trait = has_tuberculosis
+	always_get_message = no
+
+	timeperiod = {
+		start_date = 769.1.1
+		end_date = 1452.1.1		
+
+		one_only = no
+	}
+}
+
+typhoid_fever = {
+	rip = yes
+	contagiousness = 0.2
+	outbreak_chance = 0.02
+	effect = {
+		city_tax_modifier = -0.5
+		supply_limit = -4
+		max_attrition = 0.05
+	}
+	icon = 2
+	tooltip = TYPHOID_FEVER_INFO
+	months = 24
+	trait = has_typhoid_fever
+	always_get_message = no
+	
+	timeperiod = {
+		start_date = 769.1.1
+		end_date = 1452.1.1
+
+		one_only = no
+	}
+}
+
+typhus = {
+	rip = yes
+	contagiousness = 0.4
+	outbreak_chance = 0.08
+	effect = {
+		city_tax_modifier = -0.5
+		supply_limit = -4
+		max_attrition = 0.05
+	}
+	icon = 3
+	tooltip = TYPHUS_INFO
+	months = 5
+	trait = has_typhus
+	always_get_message = no
+	
+	timeperiod = {
+		start_date = 769.1.1
+		end_date = 1452.1.1
+
+		one_only = no
+	}
+}
+
+bubonic_plague = {
+	rip = yes
+	contagiousness = 0.8
+	outbreak_chance = 0.01
+	effect = {
+		city_tax_modifier = -0.8
+		supply_limit = -4
+		max_attrition = 0.05
+	}
+	icon = 4
+	tooltip = BUBONIC_PLAGUE_INFO
+	months = 7
+	trait = has_bubonic_plague
+	always_get_message = yes
+
+	timeperiod = {
+		start_date = 1300.1.1
+		end_date = 1400.1.1
+
+		one_only = yes
+	}
+}
+
+measles = {
+	rip = yes
+	contagiousness = 0.4
+	outbreak_chance = 0.08
+	effect = {
+		city_tax_modifier = -0.5
+		supply_limit = -4
+		max_attrition = 0.05
+	}
+	icon = 5
+	tooltip = MEASLES_INFO
+	months = 5
+	trait = has_measles
+	always_get_message = no
+	
+	timeperiod = {
+		start_date = 769.1.1
+		end_date = 1452.1.1
+
+		one_only = no
+	}
+}
+
+small_pox = {
+	rip = yes
+	contagiousness = 0.4
+	outbreak_chance = 0.16
+	effect = {
+		city_tax_modifier = -0.2
+		supply_limit = -4
+		max_attrition = 0.05
+	}
+	icon = 6
+	tooltip = SMALL_POX_INFO
+	months = 4
+	trait = has_small_pox
+	always_get_message = no
+	
+	timeperiod = {
+		start_date = 769.1.1
+		end_date = 1452.1.1
+
+		one_only = no
+	}
+}
+
+syphilis = {
+	rip = yes
+	contagiousness = 0.4
+	outbreak_chance = 0.16
+	effect = {
+		city_tax_modifier = -0.5
+		supply_limit = -4
+		max_attrition = 0.05
+	}
+	icon = 6
+	tooltip = AZTEC_DISEASE_INFO
+	months = 5
+	trait = has_aztec_disease
+	always_get_message = no
+	
+	active = no
+	
+	timeperiod = {
+		start_date = 769.1.1
+		end_date = 1452.1.1
+
+		one_only = no
+	}
+}

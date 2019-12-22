@@ -1,0 +1,5936 @@
+targetted_decisions = {
+	order_military_campaign = {
+		filter = vassals
+		ai_target_filter = vassals
+		is_high_prio = yes
+		ai_check_interval = 10 
+ potential = {
+			is_landed = yes
+			is_military_trigger = yes
+			OR = {
+				higher_tier_than = baron
+				FROM = {
+					NOT = {
+						any_vassal = {
+							higher_tier_than = baron
+							is_military_trigger = yes
+						}
+					}
+				}
+			}
+			OR = {
+				higher_tier_than = count
+				FROM = {
+					NOT = {
+						any_vassal = {
+							higher_tier_than = count
+							is_military_trigger = yes
+						}
+					}
+				}
+			}
+		}
+		allow = {
+			hidden_tooltip = { FROM = { NOT = { has_character_flag = flag_ordering_military_campaign } } }
+			FROM = {
+				any_current_enemy = {
+					NOT = { any_current_enemy = { character = ROOT } }
+					NOT = { is_liege_or_above = ROOT }
+					NOT = { ROOT = { is_liege_or_above = PREV } }
+				}
+			}
+			OR = {
+				crownlaw_title = {
+					OR = {
+						has_law = centralization_3
+						has_law = centralization_4
+					}
+				}
+				primary_title = {
+					OR = {
+						OR = { has_law = succ_appointment has_law = succ_catholic_bishopric }
+						is_tribal_type_title = yes
+					}
+				}
+			}
+			# Must have a free castle
+			any_demesne_title = {
+				tier = baron
+				holding_type = castle
+				controlled_by = PREV
+			}
+		}
+		effect = {
+			FROM = { set_character_flag = flag_ordering_military_campaign }
+			ROOT = {save_event_target_as = attacker_military}
+			character_event = { id = military.1000 tooltip = "EVTTOOLTIPMILITARY1000" }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				any_war = { using_cb = cb_military_campaign }
+				random = 10 # Should consider a new campaign every ten months on average
+			}
+			# Campaigns are usually coordinated at fleet level
+			modifier = {
+				factor = 0
+				FROM = {
+					NOT = { higher_tier_than = duke }
+					any_war = { using_cb = cb_military_campaign }
+				}
+			}
+			# Don't commit sector defense fleets unless no mobile fleets are
+			# available or the war is going really badly
+			modifier = {
+				factor = 0
+				NOT = { government = military_command }
+				FROM = {
+					any_vassal = { government = military_command }
+					NOT = {
+						any_war = {
+							attacker = { character = FROM }
+							NOT = { war_score = -50 }
+						}
+						any_war = {
+							defender = { character = FROM }
+							war_score = 50
+						}
+					}
+				}
+			}
+			# I have already committed sufficient forces
+			modifier = {
+				factor = 0
+				FROM = {
+					NOT = {
+						any_current_enemy = {
+							NOT = {
+								any_war = {
+									using_cb = cb_military_campaign
+									defender = { character = PREV }
+									attacker = { liege = { character = FROM } }
+									war_score = -25
+								}
+							}
+						}
+					}
+				}
+			}
+			# "Free riders" - I'll just let my allies win this one for me.
+			modifier = {
+				factor = 0
+				FROM = {
+					is_primary_war_defender = no
+					OR = {
+						any_war = {
+							any_attacker = { character = FROM }
+							any_attacker = { relative_power = { who = FROM power = 3 } }
+						}
+						any_war = {
+							any_defender = { character = FROM }
+							any_defender = { relative_power = { who = FROM power = 3 } }
+						}
+					}
+					OR = {
+						trait = carefree
+						trait = pragmatic
+					}
+				}
+			}
+		}
+	}
+	# Solar Guard
+	assign_command_terran_commonwealth_fleet = {
+		filter = vassals
+		ai_target_filter = vassals
+		from_potential = {
+			OR = {
+				AND = {
+					higher_tier_than = duke
+					has_landed_title = d_terran_commonwealth_fleet
+				}
+				AND = {
+					d_terran_commonwealth_fleet = { has_holder = no }
+					has_landed_title = k_terran_commonwealth
+				}
+				AND = {
+					d_terran_commonwealth_fleet = { has_holder = no }
+					liege = { has_landed_title = k_terran_commonwealth }
+					has_minor_title = title_regent
+				}
+			}
+		}
+		ai_check_interval = 10 
+ potential = {
+			is_ruler = yes
+			is_military_trigger = yes
+			OR = {
+				liege = { character = FROM }
+				AND = {
+					d_terran_commonwealth_fleet = { has_holder = no }
+					same_liege = FROM
+					FROM = { has_minor_title = title_regent }
+				}
+			}
+			NOT = { any_demesne_title = { higher_tier_than = count } }
+		}
+		allow = {
+			FROM = { has_regent = no }
+			has_regent = no
+			# People who can become military officers
+			OR = {
+				government = military_directorate
+				government = military_command
+			}
+			capital_scope = { kingdom = { title = k_terran_commonwealth } }
+		}
+		effect = {
+			if = {
+				limit = { d_terran_commonwealth_fleet = { has_holder = no } }
+				activate_title = { title = d_terran_commonwealth_fleet status = yes }
+			}
+			d_terran_commonwealth_fleet = { grant_title = ROOT }
+			opinion = { who = FROM modifier = opinion_granted_duchy }
+			set_government_type = military_command
+			liege = {
+				any_vassal = {
+					limit = {
+						government = military_directorate
+						tier = count
+						NOT = { character = FROM }
+						NOT = { character = ROOT }
+						capital_scope = { kingdom = { title = k_terran_commonwealth } }
+					}
+					set_defacto_liege = ROOT
+				}
+			}
+			k_terran_commonwealth = { holder_scope = { ROOT = { set_defacto_liege = PREV } } }
+			hidden_tooltip = { character_event = { id = military.100 } }
+			hidden_tooltip = { character_event = { id = military.101 } }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 5
+				dynasty = FROM
+			}
+			modifier = {
+				factor = 5
+				is_close_relative = FROM
+			}
+			modifier = {
+				factor = 1.25
+				martial = 2
+			}
+			modifier = {
+				factor = 1.25
+				martial = 4
+			}
+			modifier = {
+				factor = 1.25
+				martial = 6
+			}
+			modifier = {
+				factor = 1.25
+				martial = 8
+			}
+			modifier = {
+				factor = 1.25
+				martial = 10
+			}
+			modifier = {
+				factor = 1.25
+				martial = 12
+			}
+			modifier = {
+				factor = 1.25
+				martial = 14
+			}
+			modifier = {
+				factor = 1.25
+				martial = 16
+			}
+			modifier = {
+				factor = 1.25
+				martial = 18
+			}
+			modifier = {
+				factor = 1.25
+				martial = 20
+			}
+			modifier = {
+				factor = 1.25
+				martial = 22
+			}
+			modifier = {
+				factor = 1.25
+				martial = 24
+			}
+			modifier = {
+				factor = 1.25
+				martial = 26
+			}
+			modifier = {
+				factor = 1.25
+				martial = 28
+			}
+			modifier = {
+				factor = 1.25
+				martial = 30
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -99 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 100 }
+			}
+		}
+	}
+	# Xingjie Space Force
+	assign_command_xingjie_fleet = {
+		filter = vassals
+		ai_target_filter = vassals
+		from_potential = {
+			OR = {
+				AND = {
+					higher_tier_than = duke
+					has_landed_title = d_xingjie_fleet
+				}
+				AND = {
+					d_xingjie_fleet = { has_holder = no }
+					has_landed_title = k_xingjie
+				}
+				AND = {
+					d_xingjie_fleet = { has_holder = no }
+					liege = { has_landed_title = k_xingjie }
+					has_minor_title = title_regent
+				}
+			}
+		}
+		ai_check_interval = 10 
+ potential = {
+			is_ruler = yes
+			is_military_trigger = yes
+			OR = {
+				liege = { character = FROM }
+				AND = {
+					d_xingjie_fleet = { has_holder = no }
+					same_liege = FROM
+					FROM = { has_minor_title = title_regent }
+				}
+			}
+			NOT = { any_demesne_title = { higher_tier_than = count } }
+		}
+		allow = {
+			FROM = { has_regent = no }
+			has_regent = no
+			# People who can become military officers
+			OR = {
+				government = military_directorate
+				government = military_command
+			}
+			capital_scope = { kingdom = { title = k_xingjie } }
+		}
+		effect = {
+			if = {
+				limit = { d_xingjie_fleet = { has_holder = no } }
+				activate_title = { title = d_xingjie_fleet status = yes }
+			}
+			d_xingjie_fleet = { grant_title = ROOT }
+			opinion = { who = FROM modifier = opinion_granted_duchy }
+			set_government_type = military_command
+			liege = {
+				any_vassal = {
+					limit = {
+						government = military_directorate
+						tier = count
+						NOT = { character = FROM }
+						NOT = { character = ROOT }
+						capital_scope = { kingdom = { title = k_xingjie } }
+					}
+					set_defacto_liege = ROOT
+				}
+			}
+			k_xingjie = { holder_scope = { ROOT = { set_defacto_liege = PREV } } }
+			hidden_tooltip = { character_event = { id = military.100 } }
+			hidden_tooltip = { character_event = { id = military.101 } }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 5
+				dynasty = FROM
+			}
+			modifier = {
+				factor = 5
+				is_close_relative = FROM
+			}
+			modifier = {
+				factor = 1.25
+				martial = 2
+			}
+			modifier = {
+				factor = 1.25
+				martial = 4
+			}
+			modifier = {
+				factor = 1.25
+				martial = 6
+			}
+			modifier = {
+				factor = 1.25
+				martial = 8
+			}
+			modifier = {
+				factor = 1.25
+				martial = 10
+			}
+			modifier = {
+				factor = 1.25
+				martial = 12
+			}
+			modifier = {
+				factor = 1.25
+				martial = 14
+			}
+			modifier = {
+				factor = 1.25
+				martial = 16
+			}
+			modifier = {
+				factor = 1.25
+				martial = 18
+			}
+			modifier = {
+				factor = 1.25
+				martial = 20
+			}
+			modifier = {
+				factor = 1.25
+				martial = 22
+			}
+			modifier = {
+				factor = 1.25
+				martial = 24
+			}
+			modifier = {
+				factor = 1.25
+				martial = 26
+			}
+			modifier = {
+				factor = 1.25
+				martial = 28
+			}
+			modifier = {
+				factor = 1.25
+				martial = 30
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -99 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 100 }
+			}
+		}
+	}
+	# Celestean Armada
+	assign_command_tierra_celeste_fleet = {
+		filter = vassals
+		ai_target_filter = vassals
+		from_potential = {
+			OR = {
+				AND = {
+					higher_tier_than = duke
+					has_landed_title = d_tierra_celeste_fleet
+				}
+				AND = {
+					d_tierra_celeste_fleet = { has_holder = no }
+					has_landed_title = k_tierra_celeste
+				}
+				AND = {
+					d_tierra_celeste_fleet = { has_holder = no }
+					liege = { has_landed_title = k_tierra_celeste }
+					has_minor_title = title_regent
+				}
+			}
+		}
+		ai_check_interval = 10 
+ potential = {
+			is_ruler = yes
+			is_military_trigger = yes
+			OR = {
+				liege = { character = FROM }
+				AND = {
+					d_tierra_celeste_fleet = { has_holder = no }
+					same_liege = FROM
+					FROM = { has_minor_title = title_regent }
+				}
+			}
+			NOT = { any_demesne_title = { higher_tier_than = count } }
+		}
+		allow = {
+			FROM = { has_regent = no }
+			has_regent = no
+			# People who can become military officers
+			OR = {
+				government = military_directorate
+				government = military_command
+			}
+			capital_scope = { kingdom = { title = k_tierra_celeste } }
+		}
+		effect = {
+			if = {
+				limit = { d_tierra_celeste_fleet = { has_holder = no } }
+				activate_title = { title = d_tierra_celeste_fleet status = yes }
+			}
+			d_tierra_celeste_fleet = { grant_title = ROOT }
+			opinion = { who = FROM modifier = opinion_granted_duchy }
+			set_government_type = military_command
+			liege = {
+				any_vassal = {
+					limit = {
+						government = military_directorate
+						tier = count
+						NOT = { character = FROM }
+						NOT = { character = ROOT }
+						capital_scope = { kingdom = { title = k_tierra_celeste } }
+					}
+					set_defacto_liege = ROOT
+				}
+			}
+			k_tierra_celeste = { holder_scope = { ROOT = { set_defacto_liege = PREV } } }
+			hidden_tooltip = { character_event = { id = military.100 } }
+			hidden_tooltip = { character_event = { id = military.101 } }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 5
+				dynasty = FROM
+			}
+			modifier = {
+				factor = 5
+				is_close_relative = FROM
+			}
+			modifier = {
+				factor = 1.25
+				martial = 2
+			}
+			modifier = {
+				factor = 1.25
+				martial = 4
+			}
+			modifier = {
+				factor = 1.25
+				martial = 6
+			}
+			modifier = {
+				factor = 1.25
+				martial = 8
+			}
+			modifier = {
+				factor = 1.25
+				martial = 10
+			}
+			modifier = {
+				factor = 1.25
+				martial = 12
+			}
+			modifier = {
+				factor = 1.25
+				martial = 14
+			}
+			modifier = {
+				factor = 1.25
+				martial = 16
+			}
+			modifier = {
+				factor = 1.25
+				martial = 18
+			}
+			modifier = {
+				factor = 1.25
+				martial = 20
+			}
+			modifier = {
+				factor = 1.25
+				martial = 22
+			}
+			modifier = {
+				factor = 1.25
+				martial = 24
+			}
+			modifier = {
+				factor = 1.25
+				martial = 26
+			}
+			modifier = {
+				factor = 1.25
+				martial = 28
+			}
+			modifier = {
+				factor = 1.25
+				martial = 30
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -99 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 100 }
+			}
+		}
+	}
+	# Samawati Guard
+	assign_command_al_samawat_fleet = {
+		filter = vassals
+		ai_target_filter = vassals
+		from_potential = {
+			OR = {
+				AND = {
+					higher_tier_than = duke
+					has_landed_title = d_al_samawat_fleet
+				}
+				AND = {
+					d_al_samawat_fleet = { has_holder = no }
+					has_landed_title = k_al_samawat
+				}
+				AND = {
+					d_al_samawat_fleet = { has_holder = no }
+					liege = { has_landed_title = k_al_samawat }
+					has_minor_title = title_regent
+				}
+			}
+		}
+		ai_check_interval = 10 
+ potential = {
+			is_ruler = yes
+			is_military_trigger = yes
+			OR = {
+				liege = { character = FROM }
+				AND = {
+					d_al_samawat_fleet = { has_holder = no }
+					same_liege = FROM
+					FROM = { has_minor_title = title_regent }
+				}
+			}
+			NOT = { any_demesne_title = { higher_tier_than = count } }
+		}
+		allow = {
+			FROM = { has_regent = no }
+			has_regent = no
+			# People who can become military officers
+			OR = {
+				government = military_directorate
+				government = military_command
+			}
+			capital_scope = { kingdom = { title = k_al_samawat } }
+		}
+		effect = {
+			if = {
+				limit = { d_al_samawat_fleet = { has_holder = no } }
+				activate_title = { title = d_al_samawat_fleet status = yes }
+			}
+			d_al_samawat_fleet = { grant_title = ROOT }
+			opinion = { who = FROM modifier = opinion_granted_duchy }
+			set_government_type = military_command
+			liege = {
+				any_vassal = {
+					limit = {
+						government = military_directorate
+						tier = count
+						NOT = { character = FROM }
+						NOT = { character = ROOT }
+						capital_scope = { kingdom = { title = k_al_samawat } }
+					}
+					set_defacto_liege = ROOT
+				}
+			}
+			k_al_samawat = { holder_scope = { ROOT = { set_defacto_liege = PREV } } }
+			hidden_tooltip = { character_event = { id = military.100 } }
+			hidden_tooltip = { character_event = { id = military.101 } }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 5
+				dynasty = FROM
+			}
+			modifier = {
+				factor = 5
+				is_close_relative = FROM
+			}
+			modifier = {
+				factor = 1.25
+				martial = 2
+			}
+			modifier = {
+				factor = 1.25
+				martial = 4
+			}
+			modifier = {
+				factor = 1.25
+				martial = 6
+			}
+			modifier = {
+				factor = 1.25
+				martial = 8
+			}
+			modifier = {
+				factor = 1.25
+				martial = 10
+			}
+			modifier = {
+				factor = 1.25
+				martial = 12
+			}
+			modifier = {
+				factor = 1.25
+				martial = 14
+			}
+			modifier = {
+				factor = 1.25
+				martial = 16
+			}
+			modifier = {
+				factor = 1.25
+				martial = 18
+			}
+			modifier = {
+				factor = 1.25
+				martial = 20
+			}
+			modifier = {
+				factor = 1.25
+				martial = 22
+			}
+			modifier = {
+				factor = 1.25
+				martial = 24
+			}
+			modifier = {
+				factor = 1.25
+				martial = 26
+			}
+			modifier = {
+				factor = 1.25
+				martial = 28
+			}
+			modifier = {
+				factor = 1.25
+				martial = 30
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -99 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 100 }
+			}
+		}
+	}
+	# Angani Armed Forces
+	assign_command_zenye_nyota_angani_fleet = {
+		filter = vassals
+		ai_target_filter = vassals
+		from_potential = {
+			OR = {
+				AND = {
+					higher_tier_than = duke
+					has_landed_title = d_zenye_nyota_angani_fleet
+				}
+				AND = {
+					d_zenye_nyota_angani_fleet = { has_holder = no }
+					has_landed_title = k_zenye_nyota_angani
+				}
+				AND = {
+					d_zenye_nyota_angani_fleet = { has_holder = no }
+					liege = { has_landed_title = k_zenye_nyota_angani }
+					has_minor_title = title_regent
+				}
+			}
+		}
+		ai_check_interval = 10 
+ potential = {
+			is_ruler = yes
+			is_military_trigger = yes
+			OR = {
+				liege = { character = FROM }
+				AND = {
+					d_zenye_nyota_angani_fleet = { has_holder = no }
+					same_liege = FROM
+					FROM = { has_minor_title = title_regent }
+				}
+			}
+			NOT = { any_demesne_title = { higher_tier_than = count } }
+		}
+		allow = {
+			FROM = { has_regent = no }
+			has_regent = no
+			# People who can become military officers
+			OR = {
+				government = military_directorate
+				government = military_command
+			}
+			capital_scope = { kingdom = { title = k_zenye_nyota_angani } }
+		}
+		effect = {
+			if = {
+				limit = { d_zenye_nyota_angani_fleet = { has_holder = no } }
+				activate_title = { title = d_zenye_nyota_angani_fleet status = yes }
+			}
+			d_zenye_nyota_angani_fleet = { grant_title = ROOT }
+			opinion = { who = FROM modifier = opinion_granted_duchy }
+			set_government_type = military_command
+			liege = {
+				any_vassal = {
+					limit = {
+						government = military_directorate
+						tier = count
+						NOT = { character = FROM }
+						NOT = { character = ROOT }
+						capital_scope = { kingdom = { title = k_zenye_nyota_angani } }
+					}
+					set_defacto_liege = ROOT
+				}
+			}
+			k_zenye_nyota_angani = { holder_scope = { ROOT = { set_defacto_liege = PREV } } }
+			hidden_tooltip = { character_event = { id = military.100 } }
+			hidden_tooltip = { character_event = { id = military.101 } }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 5
+				dynasty = FROM
+			}
+			modifier = {
+				factor = 5
+				is_close_relative = FROM
+			}
+			modifier = {
+				factor = 1.25
+				martial = 2
+			}
+			modifier = {
+				factor = 1.25
+				martial = 4
+			}
+			modifier = {
+				factor = 1.25
+				martial = 6
+			}
+			modifier = {
+				factor = 1.25
+				martial = 8
+			}
+			modifier = {
+				factor = 1.25
+				martial = 10
+			}
+			modifier = {
+				factor = 1.25
+				martial = 12
+			}
+			modifier = {
+				factor = 1.25
+				martial = 14
+			}
+			modifier = {
+				factor = 1.25
+				martial = 16
+			}
+			modifier = {
+				factor = 1.25
+				martial = 18
+			}
+			modifier = {
+				factor = 1.25
+				martial = 20
+			}
+			modifier = {
+				factor = 1.25
+				martial = 22
+			}
+			modifier = {
+				factor = 1.25
+				martial = 24
+			}
+			modifier = {
+				factor = 1.25
+				martial = 26
+			}
+			modifier = {
+				factor = 1.25
+				martial = 28
+			}
+			modifier = {
+				factor = 1.25
+				martial = 30
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -99 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 100 }
+			}
+		}
+	}
+	# Frontier Rangers
+	assign_command_frontier_fleet = {
+		filter = vassals
+		ai_target_filter = vassals
+		from_potential = {
+			OR = {
+				AND = {
+					higher_tier_than = duke
+					has_landed_title = d_frontier_fleet
+				}
+				AND = {
+					d_frontier_fleet = { has_holder = no }
+					has_landed_title = k_frontier
+				}
+				AND = {
+					d_frontier_fleet = { has_holder = no }
+					liege = { has_landed_title = k_frontier }
+					has_minor_title = title_regent
+				}
+			}
+		}
+		ai_check_interval = 10 
+ potential = {
+			is_ruler = yes
+			is_military_trigger = yes
+			OR = {
+				liege = { character = FROM }
+				AND = {
+					d_frontier_fleet = { has_holder = no }
+					same_liege = FROM
+					FROM = { has_minor_title = title_regent }
+				}
+			}
+			NOT = { any_demesne_title = { higher_tier_than = count } }
+		}
+		allow = {
+			FROM = { has_regent = no }
+			has_regent = no
+			# People who can become military officers
+			OR = {
+				government = military_directorate
+				government = military_command
+			}
+			capital_scope = { kingdom = { title = k_frontier } }
+		}
+		effect = {
+			if = {
+				limit = { d_frontier_fleet = { has_holder = no } }
+				activate_title = { title = d_frontier_fleet status = yes }
+			}
+			d_frontier_fleet = { grant_title = ROOT }
+			opinion = { who = FROM modifier = opinion_granted_duchy }
+			set_government_type = military_command
+			liege = {
+				any_vassal = {
+					limit = {
+						government = military_directorate
+						tier = count
+						NOT = { character = FROM }
+						NOT = { character = ROOT }
+						capital_scope = { kingdom = { title = k_frontier } }
+					}
+					set_defacto_liege = ROOT
+				}
+			}
+			k_frontier = { holder_scope = { ROOT = { set_defacto_liege = PREV } } }
+			hidden_tooltip = { character_event = { id = military.100 } }
+			hidden_tooltip = { character_event = { id = military.101 } }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 5
+				dynasty = FROM
+			}
+			modifier = {
+				factor = 5
+				is_close_relative = FROM
+			}
+			modifier = {
+				factor = 1.25
+				martial = 2
+			}
+			modifier = {
+				factor = 1.25
+				martial = 4
+			}
+			modifier = {
+				factor = 1.25
+				martial = 6
+			}
+			modifier = {
+				factor = 1.25
+				martial = 8
+			}
+			modifier = {
+				factor = 1.25
+				martial = 10
+			}
+			modifier = {
+				factor = 1.25
+				martial = 12
+			}
+			modifier = {
+				factor = 1.25
+				martial = 14
+			}
+			modifier = {
+				factor = 1.25
+				martial = 16
+			}
+			modifier = {
+				factor = 1.25
+				martial = 18
+			}
+			modifier = {
+				factor = 1.25
+				martial = 20
+			}
+			modifier = {
+				factor = 1.25
+				martial = 22
+			}
+			modifier = {
+				factor = 1.25
+				martial = 24
+			}
+			modifier = {
+				factor = 1.25
+				martial = 26
+			}
+			modifier = {
+				factor = 1.25
+				martial = 28
+			}
+			modifier = {
+				factor = 1.25
+				martial = 30
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -99 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 100 }
+			}
+		}
+	}
+	# Centauri Rangers
+	assign_command_centauri_reach_fleet = {
+		filter = vassals
+		ai_target_filter = vassals
+		from_potential = {
+			OR = {
+				AND = {
+					higher_tier_than = duke
+					has_landed_title = d_centauri_reach_fleet
+				}
+				AND = {
+					d_centauri_reach_fleet = { has_holder = no }
+					has_landed_title = k_centauri_reach
+				}
+				AND = {
+					d_centauri_reach_fleet = { has_holder = no }
+					liege = { has_landed_title = k_centauri_reach }
+					has_minor_title = title_regent
+				}
+			}
+		}
+		ai_check_interval = 10 
+ potential = {
+			is_ruler = yes
+			is_military_trigger = yes
+			OR = {
+				liege = { character = FROM }
+				AND = {
+					d_centauri_reach_fleet = { has_holder = no }
+					same_liege = FROM
+					FROM = { has_minor_title = title_regent }
+				}
+			}
+			NOT = { any_demesne_title = { higher_tier_than = count } }
+		}
+		allow = {
+			FROM = { has_regent = no }
+			has_regent = no
+			# People who can become military officers
+			OR = {
+				government = military_directorate
+				government = military_command
+			}
+			capital_scope = { kingdom = { title = k_centauri_reach } }
+		}
+		effect = {
+			if = {
+				limit = { d_centauri_reach_fleet = { has_holder = no } }
+				activate_title = { title = d_centauri_reach_fleet status = yes }
+			}
+			d_centauri_reach_fleet = { grant_title = ROOT }
+			opinion = { who = FROM modifier = opinion_granted_duchy }
+			set_government_type = military_command
+			liege = {
+				any_vassal = {
+					limit = {
+						government = military_directorate
+						tier = count
+						NOT = { character = FROM }
+						NOT = { character = ROOT }
+						capital_scope = { kingdom = { title = k_centauri_reach } }
+					}
+					set_defacto_liege = ROOT
+				}
+			}
+			k_centauri_reach = { holder_scope = { ROOT = { set_defacto_liege = PREV } } }
+			hidden_tooltip = { character_event = { id = military.100 } }
+			hidden_tooltip = { character_event = { id = military.101 } }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 5
+				dynasty = FROM
+			}
+			modifier = {
+				factor = 5
+				is_close_relative = FROM
+			}
+			modifier = {
+				factor = 1.25
+				martial = 2
+			}
+			modifier = {
+				factor = 1.25
+				martial = 4
+			}
+			modifier = {
+				factor = 1.25
+				martial = 6
+			}
+			modifier = {
+				factor = 1.25
+				martial = 8
+			}
+			modifier = {
+				factor = 1.25
+				martial = 10
+			}
+			modifier = {
+				factor = 1.25
+				martial = 12
+			}
+			modifier = {
+				factor = 1.25
+				martial = 14
+			}
+			modifier = {
+				factor = 1.25
+				martial = 16
+			}
+			modifier = {
+				factor = 1.25
+				martial = 18
+			}
+			modifier = {
+				factor = 1.25
+				martial = 20
+			}
+			modifier = {
+				factor = 1.25
+				martial = 22
+			}
+			modifier = {
+				factor = 1.25
+				martial = 24
+			}
+			modifier = {
+				factor = 1.25
+				martial = 26
+			}
+			modifier = {
+				factor = 1.25
+				martial = 28
+			}
+			modifier = {
+				factor = 1.25
+				martial = 30
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -99 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 100 }
+			}
+		}
+	}
+	# Xin Zizhiqu Peacekeepers
+	assign_command_xin_zizhiqu_fleet = {
+		filter = vassals
+		ai_target_filter = vassals
+		from_potential = {
+			OR = {
+				AND = {
+					higher_tier_than = duke
+					has_landed_title = d_xin_zizhiqu_fleet
+				}
+				AND = {
+					d_xin_zizhiqu_fleet = { has_holder = no }
+					has_landed_title = k_xin_zizhiqu
+				}
+				AND = {
+					d_xin_zizhiqu_fleet = { has_holder = no }
+					liege = { has_landed_title = k_xin_zizhiqu }
+					has_minor_title = title_regent
+				}
+			}
+		}
+		ai_check_interval = 10 
+ potential = {
+			is_ruler = yes
+			is_military_trigger = yes
+			OR = {
+				liege = { character = FROM }
+				AND = {
+					d_xin_zizhiqu_fleet = { has_holder = no }
+					same_liege = FROM
+					FROM = { has_minor_title = title_regent }
+				}
+			}
+			NOT = { any_demesne_title = { higher_tier_than = count } }
+		}
+		allow = {
+			FROM = { has_regent = no }
+			has_regent = no
+			# People who can become military officers
+			OR = {
+				government = military_directorate
+				government = military_command
+			}
+			capital_scope = { kingdom = { title = k_xin_zizhiqu } }
+		}
+		effect = {
+			if = {
+				limit = { d_xin_zizhiqu_fleet = { has_holder = no } }
+				activate_title = { title = d_xin_zizhiqu_fleet status = yes }
+			}
+			d_xin_zizhiqu_fleet = { grant_title = ROOT }
+			opinion = { who = FROM modifier = opinion_granted_duchy }
+			set_government_type = military_command
+			liege = {
+				any_vassal = {
+					limit = {
+						government = military_directorate
+						tier = count
+						NOT = { character = FROM }
+						NOT = { character = ROOT }
+						capital_scope = { kingdom = { title = k_xin_zizhiqu } }
+					}
+					set_defacto_liege = ROOT
+				}
+			}
+			k_xin_zizhiqu = { holder_scope = { ROOT = { set_defacto_liege = PREV } } }
+			hidden_tooltip = { character_event = { id = military.100 } }
+			hidden_tooltip = { character_event = { id = military.101 } }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 5
+				dynasty = FROM
+			}
+			modifier = {
+				factor = 5
+				is_close_relative = FROM
+			}
+			modifier = {
+				factor = 1.25
+				martial = 2
+			}
+			modifier = {
+				factor = 1.25
+				martial = 4
+			}
+			modifier = {
+				factor = 1.25
+				martial = 6
+			}
+			modifier = {
+				factor = 1.25
+				martial = 8
+			}
+			modifier = {
+				factor = 1.25
+				martial = 10
+			}
+			modifier = {
+				factor = 1.25
+				martial = 12
+			}
+			modifier = {
+				factor = 1.25
+				martial = 14
+			}
+			modifier = {
+				factor = 1.25
+				martial = 16
+			}
+			modifier = {
+				factor = 1.25
+				martial = 18
+			}
+			modifier = {
+				factor = 1.25
+				martial = 20
+			}
+			modifier = {
+				factor = 1.25
+				martial = 22
+			}
+			modifier = {
+				factor = 1.25
+				martial = 24
+			}
+			modifier = {
+				factor = 1.25
+				martial = 26
+			}
+			modifier = {
+				factor = 1.25
+				martial = 28
+			}
+			modifier = {
+				factor = 1.25
+				martial = 30
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -99 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 100 }
+			}
+		}
+	}
+	# Bianjiang People's Militia
+	assign_command_bianjiang_fleet = {
+		filter = vassals
+		ai_target_filter = vassals
+		from_potential = {
+			OR = {
+				AND = {
+					higher_tier_than = duke
+					has_landed_title = d_bianjiang_fleet
+				}
+				AND = {
+					d_bianjiang_fleet = { has_holder = no }
+					has_landed_title = k_bianjiang
+				}
+				AND = {
+					d_bianjiang_fleet = { has_holder = no }
+					liege = { has_landed_title = k_bianjiang }
+					has_minor_title = title_regent
+				}
+			}
+		}
+		ai_check_interval = 10 
+ potential = {
+			is_ruler = yes
+			is_military_trigger = yes
+			OR = {
+				liege = { character = FROM }
+				AND = {
+					d_bianjiang_fleet = { has_holder = no }
+					same_liege = FROM
+					FROM = { has_minor_title = title_regent }
+				}
+			}
+			NOT = { any_demesne_title = { higher_tier_than = count } }
+		}
+		allow = {
+			FROM = { has_regent = no }
+			has_regent = no
+			# People who can become military officers
+			OR = {
+				government = military_directorate
+				government = military_command
+			}
+			capital_scope = { kingdom = { title = k_bianjiang } }
+		}
+		effect = {
+			if = {
+				limit = { d_bianjiang_fleet = { has_holder = no } }
+				activate_title = { title = d_bianjiang_fleet status = yes }
+			}
+			d_bianjiang_fleet = { grant_title = ROOT }
+			opinion = { who = FROM modifier = opinion_granted_duchy }
+			set_government_type = military_command
+			liege = {
+				any_vassal = {
+					limit = {
+						government = military_directorate
+						tier = count
+						NOT = { character = FROM }
+						NOT = { character = ROOT }
+						capital_scope = { kingdom = { title = k_bianjiang } }
+					}
+					set_defacto_liege = ROOT
+				}
+			}
+			k_bianjiang = { holder_scope = { ROOT = { set_defacto_liege = PREV } } }
+			hidden_tooltip = { character_event = { id = military.100 } }
+			hidden_tooltip = { character_event = { id = military.101 } }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 5
+				dynasty = FROM
+			}
+			modifier = {
+				factor = 5
+				is_close_relative = FROM
+			}
+			modifier = {
+				factor = 1.25
+				martial = 2
+			}
+			modifier = {
+				factor = 1.25
+				martial = 4
+			}
+			modifier = {
+				factor = 1.25
+				martial = 6
+			}
+			modifier = {
+				factor = 1.25
+				martial = 8
+			}
+			modifier = {
+				factor = 1.25
+				martial = 10
+			}
+			modifier = {
+				factor = 1.25
+				martial = 12
+			}
+			modifier = {
+				factor = 1.25
+				martial = 14
+			}
+			modifier = {
+				factor = 1.25
+				martial = 16
+			}
+			modifier = {
+				factor = 1.25
+				martial = 18
+			}
+			modifier = {
+				factor = 1.25
+				martial = 20
+			}
+			modifier = {
+				factor = 1.25
+				martial = 22
+			}
+			modifier = {
+				factor = 1.25
+				martial = 24
+			}
+			modifier = {
+				factor = 1.25
+				martial = 26
+			}
+			modifier = {
+				factor = 1.25
+				martial = 28
+			}
+			modifier = {
+				factor = 1.25
+				martial = 30
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -99 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 100 }
+			}
+		}
+	}
+	# Orion Armada
+	assign_command_orion_reach_fleet = {
+		filter = vassals
+		ai_target_filter = vassals
+		from_potential = {
+			OR = {
+				AND = {
+					higher_tier_than = duke
+					has_landed_title = d_orion_reach_fleet
+				}
+				AND = {
+					d_orion_reach_fleet = { has_holder = no }
+					has_landed_title = k_orion_reach
+				}
+				AND = {
+					d_orion_reach_fleet = { has_holder = no }
+					liege = { has_landed_title = k_orion_reach }
+					has_minor_title = title_regent
+				}
+			}
+		}
+		ai_check_interval = 10 
+ potential = {
+			is_ruler = yes
+			is_military_trigger = yes
+			OR = {
+				liege = { character = FROM }
+				AND = {
+					d_orion_reach_fleet = { has_holder = no }
+					same_liege = FROM
+					FROM = { has_minor_title = title_regent }
+				}
+			}
+			NOT = { any_demesne_title = { higher_tier_than = count } }
+		}
+		allow = {
+			FROM = { has_regent = no }
+			has_regent = no
+			# People who can become military officers
+			OR = {
+				government = military_directorate
+				government = military_command
+			}
+			capital_scope = { kingdom = { title = k_orion_reach } }
+		}
+		effect = {
+			if = {
+				limit = { d_orion_reach_fleet = { has_holder = no } }
+				activate_title = { title = d_orion_reach_fleet status = yes }
+			}
+			d_orion_reach_fleet = { grant_title = ROOT }
+			opinion = { who = FROM modifier = opinion_granted_duchy }
+			set_government_type = military_command
+			liege = {
+				any_vassal = {
+					limit = {
+						government = military_directorate
+						tier = count
+						NOT = { character = FROM }
+						NOT = { character = ROOT }
+						capital_scope = { kingdom = { title = k_orion_reach } }
+					}
+					set_defacto_liege = ROOT
+				}
+			}
+			k_orion_reach = { holder_scope = { ROOT = { set_defacto_liege = PREV } } }
+			hidden_tooltip = { character_event = { id = military.100 } }
+			hidden_tooltip = { character_event = { id = military.101 } }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 5
+				dynasty = FROM
+			}
+			modifier = {
+				factor = 5
+				is_close_relative = FROM
+			}
+			modifier = {
+				factor = 1.25
+				martial = 2
+			}
+			modifier = {
+				factor = 1.25
+				martial = 4
+			}
+			modifier = {
+				factor = 1.25
+				martial = 6
+			}
+			modifier = {
+				factor = 1.25
+				martial = 8
+			}
+			modifier = {
+				factor = 1.25
+				martial = 10
+			}
+			modifier = {
+				factor = 1.25
+				martial = 12
+			}
+			modifier = {
+				factor = 1.25
+				martial = 14
+			}
+			modifier = {
+				factor = 1.25
+				martial = 16
+			}
+			modifier = {
+				factor = 1.25
+				martial = 18
+			}
+			modifier = {
+				factor = 1.25
+				martial = 20
+			}
+			modifier = {
+				factor = 1.25
+				martial = 22
+			}
+			modifier = {
+				factor = 1.25
+				martial = 24
+			}
+			modifier = {
+				factor = 1.25
+				martial = 26
+			}
+			modifier = {
+				factor = 1.25
+				martial = 28
+			}
+			modifier = {
+				factor = 1.25
+				martial = 30
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -99 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 100 }
+			}
+		}
+	}
+	# Paraisan Armed Forces
+	assign_command_paraiso_fleet = {
+		filter = vassals
+		ai_target_filter = vassals
+		from_potential = {
+			OR = {
+				AND = {
+					higher_tier_than = duke
+					has_landed_title = d_paraiso_fleet
+				}
+				AND = {
+					d_paraiso_fleet = { has_holder = no }
+					has_landed_title = k_paraiso
+				}
+				AND = {
+					d_paraiso_fleet = { has_holder = no }
+					liege = { has_landed_title = k_paraiso }
+					has_minor_title = title_regent
+				}
+			}
+		}
+		ai_check_interval = 10 
+ potential = {
+			is_ruler = yes
+			is_military_trigger = yes
+			OR = {
+				liege = { character = FROM }
+				AND = {
+					d_paraiso_fleet = { has_holder = no }
+					same_liege = FROM
+					FROM = { has_minor_title = title_regent }
+				}
+			}
+			NOT = { any_demesne_title = { higher_tier_than = count } }
+		}
+		allow = {
+			FROM = { has_regent = no }
+			has_regent = no
+			# People who can become military officers
+			OR = {
+				government = military_directorate
+				government = military_command
+			}
+			capital_scope = { kingdom = { title = k_paraiso } }
+		}
+		effect = {
+			if = {
+				limit = { d_paraiso_fleet = { has_holder = no } }
+				activate_title = { title = d_paraiso_fleet status = yes }
+			}
+			d_paraiso_fleet = { grant_title = ROOT }
+			opinion = { who = FROM modifier = opinion_granted_duchy }
+			set_government_type = military_command
+			liege = {
+				any_vassal = {
+					limit = {
+						government = military_directorate
+						tier = count
+						NOT = { character = FROM }
+						NOT = { character = ROOT }
+						capital_scope = { kingdom = { title = k_paraiso } }
+					}
+					set_defacto_liege = ROOT
+				}
+			}
+			k_paraiso = { holder_scope = { ROOT = { set_defacto_liege = PREV } } }
+			hidden_tooltip = { character_event = { id = military.100 } }
+			hidden_tooltip = { character_event = { id = military.101 } }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 5
+				dynasty = FROM
+			}
+			modifier = {
+				factor = 5
+				is_close_relative = FROM
+			}
+			modifier = {
+				factor = 1.25
+				martial = 2
+			}
+			modifier = {
+				factor = 1.25
+				martial = 4
+			}
+			modifier = {
+				factor = 1.25
+				martial = 6
+			}
+			modifier = {
+				factor = 1.25
+				martial = 8
+			}
+			modifier = {
+				factor = 1.25
+				martial = 10
+			}
+			modifier = {
+				factor = 1.25
+				martial = 12
+			}
+			modifier = {
+				factor = 1.25
+				martial = 14
+			}
+			modifier = {
+				factor = 1.25
+				martial = 16
+			}
+			modifier = {
+				factor = 1.25
+				martial = 18
+			}
+			modifier = {
+				factor = 1.25
+				martial = 20
+			}
+			modifier = {
+				factor = 1.25
+				martial = 22
+			}
+			modifier = {
+				factor = 1.25
+				martial = 24
+			}
+			modifier = {
+				factor = 1.25
+				martial = 26
+			}
+			modifier = {
+				factor = 1.25
+				martial = 28
+			}
+			modifier = {
+				factor = 1.25
+				martial = 30
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -99 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 100 }
+			}
+		}
+	}
+	# Mukta Duniyeh Peacekeepers
+	assign_command_mukta_duniya_fleet = {
+		filter = vassals
+		ai_target_filter = vassals
+		from_potential = {
+			OR = {
+				AND = {
+					higher_tier_than = duke
+					has_landed_title = d_mukta_duniya_fleet
+				}
+				AND = {
+					d_mukta_duniya_fleet = { has_holder = no }
+					has_landed_title = k_mukta_duniya
+				}
+				AND = {
+					d_mukta_duniya_fleet = { has_holder = no }
+					liege = { has_landed_title = k_mukta_duniya }
+					has_minor_title = title_regent
+				}
+			}
+		}
+		ai_check_interval = 10 
+ potential = {
+			is_ruler = yes
+			is_military_trigger = yes
+			OR = {
+				liege = { character = FROM }
+				AND = {
+					d_mukta_duniya_fleet = { has_holder = no }
+					same_liege = FROM
+					FROM = { has_minor_title = title_regent }
+				}
+			}
+			NOT = { any_demesne_title = { higher_tier_than = count } }
+		}
+		allow = {
+			FROM = { has_regent = no }
+			has_regent = no
+			# People who can become military officers
+			OR = {
+				government = military_directorate
+				government = military_command
+			}
+			capital_scope = { kingdom = { title = k_mukta_duniya } }
+		}
+		effect = {
+			if = {
+				limit = { d_mukta_duniya_fleet = { has_holder = no } }
+				activate_title = { title = d_mukta_duniya_fleet status = yes }
+			}
+			d_mukta_duniya_fleet = { grant_title = ROOT }
+			opinion = { who = FROM modifier = opinion_granted_duchy }
+			set_government_type = military_command
+			liege = {
+				any_vassal = {
+					limit = {
+						government = military_directorate
+						tier = count
+						NOT = { character = FROM }
+						NOT = { character = ROOT }
+						capital_scope = { kingdom = { title = k_mukta_duniya } }
+					}
+					set_defacto_liege = ROOT
+				}
+			}
+			k_mukta_duniya = { holder_scope = { ROOT = { set_defacto_liege = PREV } } }
+			hidden_tooltip = { character_event = { id = military.100 } }
+			hidden_tooltip = { character_event = { id = military.101 } }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 5
+				dynasty = FROM
+			}
+			modifier = {
+				factor = 5
+				is_close_relative = FROM
+			}
+			modifier = {
+				factor = 1.25
+				martial = 2
+			}
+			modifier = {
+				factor = 1.25
+				martial = 4
+			}
+			modifier = {
+				factor = 1.25
+				martial = 6
+			}
+			modifier = {
+				factor = 1.25
+				martial = 8
+			}
+			modifier = {
+				factor = 1.25
+				martial = 10
+			}
+			modifier = {
+				factor = 1.25
+				martial = 12
+			}
+			modifier = {
+				factor = 1.25
+				martial = 14
+			}
+			modifier = {
+				factor = 1.25
+				martial = 16
+			}
+			modifier = {
+				factor = 1.25
+				martial = 18
+			}
+			modifier = {
+				factor = 1.25
+				martial = 20
+			}
+			modifier = {
+				factor = 1.25
+				martial = 22
+			}
+			modifier = {
+				factor = 1.25
+				martial = 24
+			}
+			modifier = {
+				factor = 1.25
+				martial = 26
+			}
+			modifier = {
+				factor = 1.25
+				martial = 28
+			}
+			modifier = {
+				factor = 1.25
+				martial = 30
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -99 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 100 }
+			}
+		}
+	}
+	# Tarkan Armed Forces
+	assign_command_tarka_fleet = {
+		filter = vassals
+		ai_target_filter = vassals
+		from_potential = {
+			OR = {
+				AND = {
+					higher_tier_than = duke
+					has_landed_title = d_tarka_fleet
+				}
+				AND = {
+					d_tarka_fleet = { has_holder = no }
+					has_landed_title = k_tarka
+				}
+				AND = {
+					d_tarka_fleet = { has_holder = no }
+					liege = { has_landed_title = k_tarka }
+					has_minor_title = title_regent
+				}
+			}
+		}
+		ai_check_interval = 10 
+ potential = {
+			is_ruler = yes
+			is_military_trigger = yes
+			OR = {
+				liege = { character = FROM }
+				AND = {
+					d_tarka_fleet = { has_holder = no }
+					same_liege = FROM
+					FROM = { has_minor_title = title_regent }
+				}
+			}
+			NOT = { any_demesne_title = { higher_tier_than = count } }
+		}
+		allow = {
+			FROM = { has_regent = no }
+			has_regent = no
+			# People who can become military officers
+			OR = {
+				government = military_directorate
+				government = military_command
+			}
+			capital_scope = { kingdom = { title = k_tarka } }
+		}
+		effect = {
+			if = {
+				limit = { d_tarka_fleet = { has_holder = no } }
+				activate_title = { title = d_tarka_fleet status = yes }
+			}
+			d_tarka_fleet = { grant_title = ROOT }
+			opinion = { who = FROM modifier = opinion_granted_duchy }
+			set_government_type = military_command
+			liege = {
+				any_vassal = {
+					limit = {
+						government = military_directorate
+						tier = count
+						NOT = { character = FROM }
+						NOT = { character = ROOT }
+						capital_scope = { kingdom = { title = k_tarka } }
+					}
+					set_defacto_liege = ROOT
+				}
+			}
+			k_tarka = { holder_scope = { ROOT = { set_defacto_liege = PREV } } }
+			hidden_tooltip = { character_event = { id = military.100 } }
+			hidden_tooltip = { character_event = { id = military.101 } }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 5
+				dynasty = FROM
+			}
+			modifier = {
+				factor = 5
+				is_close_relative = FROM
+			}
+			modifier = {
+				factor = 1.25
+				martial = 2
+			}
+			modifier = {
+				factor = 1.25
+				martial = 4
+			}
+			modifier = {
+				factor = 1.25
+				martial = 6
+			}
+			modifier = {
+				factor = 1.25
+				martial = 8
+			}
+			modifier = {
+				factor = 1.25
+				martial = 10
+			}
+			modifier = {
+				factor = 1.25
+				martial = 12
+			}
+			modifier = {
+				factor = 1.25
+				martial = 14
+			}
+			modifier = {
+				factor = 1.25
+				martial = 16
+			}
+			modifier = {
+				factor = 1.25
+				martial = 18
+			}
+			modifier = {
+				factor = 1.25
+				martial = 20
+			}
+			modifier = {
+				factor = 1.25
+				martial = 22
+			}
+			modifier = {
+				factor = 1.25
+				martial = 24
+			}
+			modifier = {
+				factor = 1.25
+				martial = 26
+			}
+			modifier = {
+				factor = 1.25
+				martial = 28
+			}
+			modifier = {
+				factor = 1.25
+				martial = 30
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -99 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 100 }
+			}
+		}
+	}
+	# Military Order of Avalon
+	assign_command_avalon_fleet = {
+		filter = vassals
+		ai_target_filter = vassals
+		from_potential = {
+			OR = {
+				AND = {
+					higher_tier_than = duke
+					has_landed_title = d_avalon_fleet
+				}
+				AND = {
+					d_avalon_fleet = { has_holder = no }
+					has_landed_title = k_avalon
+				}
+				AND = {
+					d_avalon_fleet = { has_holder = no }
+					liege = { has_landed_title = k_avalon }
+					has_minor_title = title_regent
+				}
+			}
+		}
+		ai_check_interval = 10 
+ potential = {
+			is_ruler = yes
+			is_military_trigger = yes
+			OR = {
+				liege = { character = FROM }
+				AND = {
+					d_avalon_fleet = { has_holder = no }
+					same_liege = FROM
+					FROM = { has_minor_title = title_regent }
+				}
+			}
+			NOT = { any_demesne_title = { higher_tier_than = count } }
+		}
+		allow = {
+			FROM = { has_regent = no }
+			has_regent = no
+			# People who can become military officers
+			OR = {
+				government = military_directorate
+				government = military_command
+			}
+			capital_scope = { kingdom = { title = k_avalon } }
+		}
+		effect = {
+			if = {
+				limit = { d_avalon_fleet = { has_holder = no } }
+				activate_title = { title = d_avalon_fleet status = yes }
+			}
+			d_avalon_fleet = { grant_title = ROOT }
+			opinion = { who = FROM modifier = opinion_granted_duchy }
+			set_government_type = military_command
+			liege = {
+				any_vassal = {
+					limit = {
+						government = military_directorate
+						tier = count
+						NOT = { character = FROM }
+						NOT = { character = ROOT }
+						capital_scope = { kingdom = { title = k_avalon } }
+					}
+					set_defacto_liege = ROOT
+				}
+			}
+			k_avalon = { holder_scope = { ROOT = { set_defacto_liege = PREV } } }
+			hidden_tooltip = { character_event = { id = military.100 } }
+			hidden_tooltip = { character_event = { id = military.101 } }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 5
+				dynasty = FROM
+			}
+			modifier = {
+				factor = 5
+				is_close_relative = FROM
+			}
+			modifier = {
+				factor = 1.25
+				martial = 2
+			}
+			modifier = {
+				factor = 1.25
+				martial = 4
+			}
+			modifier = {
+				factor = 1.25
+				martial = 6
+			}
+			modifier = {
+				factor = 1.25
+				martial = 8
+			}
+			modifier = {
+				factor = 1.25
+				martial = 10
+			}
+			modifier = {
+				factor = 1.25
+				martial = 12
+			}
+			modifier = {
+				factor = 1.25
+				martial = 14
+			}
+			modifier = {
+				factor = 1.25
+				martial = 16
+			}
+			modifier = {
+				factor = 1.25
+				martial = 18
+			}
+			modifier = {
+				factor = 1.25
+				martial = 20
+			}
+			modifier = {
+				factor = 1.25
+				martial = 22
+			}
+			modifier = {
+				factor = 1.25
+				martial = 24
+			}
+			modifier = {
+				factor = 1.25
+				martial = 26
+			}
+			modifier = {
+				factor = 1.25
+				martial = 28
+			}
+			modifier = {
+				factor = 1.25
+				martial = 30
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -99 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 100 }
+			}
+		}
+	}
+	# New Frontier Rangers
+	assign_command_new_frontier_fleet = {
+		filter = vassals
+		ai_target_filter = vassals
+		from_potential = {
+			OR = {
+				AND = {
+					higher_tier_than = duke
+					has_landed_title = d_new_frontier_fleet
+				}
+				AND = {
+					d_new_frontier_fleet = { has_holder = no }
+					has_landed_title = k_new_frontier
+				}
+				AND = {
+					d_new_frontier_fleet = { has_holder = no }
+					liege = { has_landed_title = k_new_frontier }
+					has_minor_title = title_regent
+				}
+			}
+		}
+		ai_check_interval = 10 
+ potential = {
+			is_ruler = yes
+			is_military_trigger = yes
+			OR = {
+				liege = { character = FROM }
+				AND = {
+					d_new_frontier_fleet = { has_holder = no }
+					same_liege = FROM
+					FROM = { has_minor_title = title_regent }
+				}
+			}
+			NOT = { any_demesne_title = { higher_tier_than = count } }
+		}
+		allow = {
+			FROM = { has_regent = no }
+			has_regent = no
+			# People who can become military officers
+			OR = {
+				government = military_directorate
+				government = military_command
+			}
+			capital_scope = { kingdom = { title = k_new_frontier } }
+		}
+		effect = {
+			if = {
+				limit = { d_new_frontier_fleet = { has_holder = no } }
+				activate_title = { title = d_new_frontier_fleet status = yes }
+			}
+			d_new_frontier_fleet = { grant_title = ROOT }
+			opinion = { who = FROM modifier = opinion_granted_duchy }
+			set_government_type = military_command
+			liege = {
+				any_vassal = {
+					limit = {
+						government = military_directorate
+						tier = count
+						NOT = { character = FROM }
+						NOT = { character = ROOT }
+						capital_scope = { kingdom = { title = k_new_frontier } }
+					}
+					set_defacto_liege = ROOT
+				}
+			}
+			k_new_frontier = { holder_scope = { ROOT = { set_defacto_liege = PREV } } }
+			hidden_tooltip = { character_event = { id = military.100 } }
+			hidden_tooltip = { character_event = { id = military.101 } }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 5
+				dynasty = FROM
+			}
+			modifier = {
+				factor = 5
+				is_close_relative = FROM
+			}
+			modifier = {
+				factor = 1.25
+				martial = 2
+			}
+			modifier = {
+				factor = 1.25
+				martial = 4
+			}
+			modifier = {
+				factor = 1.25
+				martial = 6
+			}
+			modifier = {
+				factor = 1.25
+				martial = 8
+			}
+			modifier = {
+				factor = 1.25
+				martial = 10
+			}
+			modifier = {
+				factor = 1.25
+				martial = 12
+			}
+			modifier = {
+				factor = 1.25
+				martial = 14
+			}
+			modifier = {
+				factor = 1.25
+				martial = 16
+			}
+			modifier = {
+				factor = 1.25
+				martial = 18
+			}
+			modifier = {
+				factor = 1.25
+				martial = 20
+			}
+			modifier = {
+				factor = 1.25
+				martial = 22
+			}
+			modifier = {
+				factor = 1.25
+				martial = 24
+			}
+			modifier = {
+				factor = 1.25
+				martial = 26
+			}
+			modifier = {
+				factor = 1.25
+				martial = 28
+			}
+			modifier = {
+				factor = 1.25
+				martial = 30
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -99 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 100 }
+			}
+		}
+	}
+	# Jion Space Attack Force
+	assign_command_jion_fleet = {
+		filter = vassals
+		ai_target_filter = vassals
+		from_potential = {
+			OR = {
+				AND = {
+					higher_tier_than = duke
+					has_landed_title = d_jion_fleet
+				}
+				AND = {
+					d_jion_fleet = { has_holder = no }
+					has_landed_title = k_jion
+				}
+				AND = {
+					d_jion_fleet = { has_holder = no }
+					liege = { has_landed_title = k_jion }
+					has_minor_title = title_regent
+				}
+			}
+		}
+		ai_check_interval = 10 
+ potential = {
+			is_ruler = yes
+			is_military_trigger = yes
+			OR = {
+				liege = { character = FROM }
+				AND = {
+					d_jion_fleet = { has_holder = no }
+					same_liege = FROM
+					FROM = { has_minor_title = title_regent }
+				}
+			}
+			NOT = { any_demesne_title = { higher_tier_than = count } }
+		}
+		allow = {
+			FROM = { has_regent = no }
+			has_regent = no
+			# People who can become military officers
+			OR = {
+				government = military_directorate
+				government = military_command
+			}
+			capital_scope = { kingdom = { title = k_jion } }
+		}
+		effect = {
+			if = {
+				limit = { d_jion_fleet = { has_holder = no } }
+				activate_title = { title = d_jion_fleet status = yes }
+			}
+			d_jion_fleet = { grant_title = ROOT }
+			opinion = { who = FROM modifier = opinion_granted_duchy }
+			set_government_type = military_command
+			liege = {
+				any_vassal = {
+					limit = {
+						government = military_directorate
+						tier = count
+						NOT = { character = FROM }
+						NOT = { character = ROOT }
+						capital_scope = { kingdom = { title = k_jion } }
+					}
+					set_defacto_liege = ROOT
+				}
+			}
+			k_jion = { holder_scope = { ROOT = { set_defacto_liege = PREV } } }
+			hidden_tooltip = { character_event = { id = military.100 } }
+			hidden_tooltip = { character_event = { id = military.101 } }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 5
+				dynasty = FROM
+			}
+			modifier = {
+				factor = 5
+				is_close_relative = FROM
+			}
+			modifier = {
+				factor = 1.25
+				martial = 2
+			}
+			modifier = {
+				factor = 1.25
+				martial = 4
+			}
+			modifier = {
+				factor = 1.25
+				martial = 6
+			}
+			modifier = {
+				factor = 1.25
+				martial = 8
+			}
+			modifier = {
+				factor = 1.25
+				martial = 10
+			}
+			modifier = {
+				factor = 1.25
+				martial = 12
+			}
+			modifier = {
+				factor = 1.25
+				martial = 14
+			}
+			modifier = {
+				factor = 1.25
+				martial = 16
+			}
+			modifier = {
+				factor = 1.25
+				martial = 18
+			}
+			modifier = {
+				factor = 1.25
+				martial = 20
+			}
+			modifier = {
+				factor = 1.25
+				martial = 22
+			}
+			modifier = {
+				factor = 1.25
+				martial = 24
+			}
+			modifier = {
+				factor = 1.25
+				martial = 26
+			}
+			modifier = {
+				factor = 1.25
+				martial = 28
+			}
+			modifier = {
+				factor = 1.25
+				martial = 30
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -99 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 100 }
+			}
+		}
+	}
+	# Strugatsky Armed Forces
+	assign_command_strugatsky_fleet = {
+		filter = vassals
+		ai_target_filter = vassals
+		from_potential = {
+			OR = {
+				AND = {
+					higher_tier_than = duke
+					has_landed_title = d_strugatsky_fleet
+				}
+				AND = {
+					d_strugatsky_fleet = { has_holder = no }
+					has_landed_title = k_strugatsky
+				}
+				AND = {
+					d_strugatsky_fleet = { has_holder = no }
+					liege = { has_landed_title = k_strugatsky }
+					has_minor_title = title_regent
+				}
+			}
+		}
+		ai_check_interval = 10 
+ potential = {
+			is_ruler = yes
+			is_military_trigger = yes
+			OR = {
+				liege = { character = FROM }
+				AND = {
+					d_strugatsky_fleet = { has_holder = no }
+					same_liege = FROM
+					FROM = { has_minor_title = title_regent }
+				}
+			}
+			NOT = { any_demesne_title = { higher_tier_than = count } }
+		}
+		allow = {
+			FROM = { has_regent = no }
+			has_regent = no
+			# People who can become military officers
+			OR = {
+				government = military_directorate
+				government = military_command
+			}
+			capital_scope = { kingdom = { title = k_strugatsky } }
+		}
+		effect = {
+			if = {
+				limit = { d_strugatsky_fleet = { has_holder = no } }
+				activate_title = { title = d_strugatsky_fleet status = yes }
+			}
+			d_strugatsky_fleet = { grant_title = ROOT }
+			opinion = { who = FROM modifier = opinion_granted_duchy }
+			set_government_type = military_command
+			liege = {
+				any_vassal = {
+					limit = {
+						government = military_directorate
+						tier = count
+						NOT = { character = FROM }
+						NOT = { character = ROOT }
+						capital_scope = { kingdom = { title = k_strugatsky } }
+					}
+					set_defacto_liege = ROOT
+				}
+			}
+			k_strugatsky = { holder_scope = { ROOT = { set_defacto_liege = PREV } } }
+			hidden_tooltip = { character_event = { id = military.100 } }
+			hidden_tooltip = { character_event = { id = military.101 } }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 5
+				dynasty = FROM
+			}
+			modifier = {
+				factor = 5
+				is_close_relative = FROM
+			}
+			modifier = {
+				factor = 1.25
+				martial = 2
+			}
+			modifier = {
+				factor = 1.25
+				martial = 4
+			}
+			modifier = {
+				factor = 1.25
+				martial = 6
+			}
+			modifier = {
+				factor = 1.25
+				martial = 8
+			}
+			modifier = {
+				factor = 1.25
+				martial = 10
+			}
+			modifier = {
+				factor = 1.25
+				martial = 12
+			}
+			modifier = {
+				factor = 1.25
+				martial = 14
+			}
+			modifier = {
+				factor = 1.25
+				martial = 16
+			}
+			modifier = {
+				factor = 1.25
+				martial = 18
+			}
+			modifier = {
+				factor = 1.25
+				martial = 20
+			}
+			modifier = {
+				factor = 1.25
+				martial = 22
+			}
+			modifier = {
+				factor = 1.25
+				martial = 24
+			}
+			modifier = {
+				factor = 1.25
+				martial = 26
+			}
+			modifier = {
+				factor = 1.25
+				martial = 28
+			}
+			modifier = {
+				factor = 1.25
+				martial = 30
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -99 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 100 }
+			}
+		}
+	}
+	# Edemite National Guard
+	assign_command_novyy_edem_fleet = {
+		filter = vassals
+		ai_target_filter = vassals
+		from_potential = {
+			OR = {
+				AND = {
+					higher_tier_than = duke
+					has_landed_title = d_novyy_edem_fleet
+				}
+				AND = {
+					d_novyy_edem_fleet = { has_holder = no }
+					has_landed_title = k_novyy_edem
+				}
+				AND = {
+					d_novyy_edem_fleet = { has_holder = no }
+					liege = { has_landed_title = k_novyy_edem }
+					has_minor_title = title_regent
+				}
+			}
+		}
+		ai_check_interval = 10 
+ potential = {
+			is_ruler = yes
+			is_military_trigger = yes
+			OR = {
+				liege = { character = FROM }
+				AND = {
+					d_novyy_edem_fleet = { has_holder = no }
+					same_liege = FROM
+					FROM = { has_minor_title = title_regent }
+				}
+			}
+			NOT = { any_demesne_title = { higher_tier_than = count } }
+		}
+		allow = {
+			FROM = { has_regent = no }
+			has_regent = no
+			# People who can become military officers
+			OR = {
+				government = military_directorate
+				government = military_command
+			}
+			capital_scope = { kingdom = { title = k_novyy_edem } }
+		}
+		effect = {
+			if = {
+				limit = { d_novyy_edem_fleet = { has_holder = no } }
+				activate_title = { title = d_novyy_edem_fleet status = yes }
+			}
+			d_novyy_edem_fleet = { grant_title = ROOT }
+			opinion = { who = FROM modifier = opinion_granted_duchy }
+			set_government_type = military_command
+			liege = {
+				any_vassal = {
+					limit = {
+						government = military_directorate
+						tier = count
+						NOT = { character = FROM }
+						NOT = { character = ROOT }
+						capital_scope = { kingdom = { title = k_novyy_edem } }
+					}
+					set_defacto_liege = ROOT
+				}
+			}
+			k_novyy_edem = { holder_scope = { ROOT = { set_defacto_liege = PREV } } }
+			hidden_tooltip = { character_event = { id = military.100 } }
+			hidden_tooltip = { character_event = { id = military.101 } }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 5
+				dynasty = FROM
+			}
+			modifier = {
+				factor = 5
+				is_close_relative = FROM
+			}
+			modifier = {
+				factor = 1.25
+				martial = 2
+			}
+			modifier = {
+				factor = 1.25
+				martial = 4
+			}
+			modifier = {
+				factor = 1.25
+				martial = 6
+			}
+			modifier = {
+				factor = 1.25
+				martial = 8
+			}
+			modifier = {
+				factor = 1.25
+				martial = 10
+			}
+			modifier = {
+				factor = 1.25
+				martial = 12
+			}
+			modifier = {
+				factor = 1.25
+				martial = 14
+			}
+			modifier = {
+				factor = 1.25
+				martial = 16
+			}
+			modifier = {
+				factor = 1.25
+				martial = 18
+			}
+			modifier = {
+				factor = 1.25
+				martial = 20
+			}
+			modifier = {
+				factor = 1.25
+				martial = 22
+			}
+			modifier = {
+				factor = 1.25
+				martial = 24
+			}
+			modifier = {
+				factor = 1.25
+				martial = 26
+			}
+			modifier = {
+				factor = 1.25
+				martial = 28
+			}
+			modifier = {
+				factor = 1.25
+				martial = 30
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -99 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 100 }
+			}
+		}
+	}
+	# Helix Rangers
+	assign_command_helix_fleet = {
+		filter = vassals
+		ai_target_filter = vassals
+		from_potential = {
+			OR = {
+				AND = {
+					higher_tier_than = duke
+					has_landed_title = d_helix_fleet
+				}
+				AND = {
+					d_helix_fleet = { has_holder = no }
+					has_landed_title = k_helix
+				}
+				AND = {
+					d_helix_fleet = { has_holder = no }
+					liege = { has_landed_title = k_helix }
+					has_minor_title = title_regent
+				}
+			}
+		}
+		ai_check_interval = 10 
+ potential = {
+			is_ruler = yes
+			is_military_trigger = yes
+			OR = {
+				liege = { character = FROM }
+				AND = {
+					d_helix_fleet = { has_holder = no }
+					same_liege = FROM
+					FROM = { has_minor_title = title_regent }
+				}
+			}
+			NOT = { any_demesne_title = { higher_tier_than = count } }
+		}
+		allow = {
+			FROM = { has_regent = no }
+			has_regent = no
+			# People who can become military officers
+			OR = {
+				government = military_directorate
+				government = military_command
+			}
+			capital_scope = { kingdom = { title = k_helix } }
+		}
+		effect = {
+			if = {
+				limit = { d_helix_fleet = { has_holder = no } }
+				activate_title = { title = d_helix_fleet status = yes }
+			}
+			d_helix_fleet = { grant_title = ROOT }
+			opinion = { who = FROM modifier = opinion_granted_duchy }
+			set_government_type = military_command
+			liege = {
+				any_vassal = {
+					limit = {
+						government = military_directorate
+						tier = count
+						NOT = { character = FROM }
+						NOT = { character = ROOT }
+						capital_scope = { kingdom = { title = k_helix } }
+					}
+					set_defacto_liege = ROOT
+				}
+			}
+			k_helix = { holder_scope = { ROOT = { set_defacto_liege = PREV } } }
+			hidden_tooltip = { character_event = { id = military.100 } }
+			hidden_tooltip = { character_event = { id = military.101 } }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 5
+				dynasty = FROM
+			}
+			modifier = {
+				factor = 5
+				is_close_relative = FROM
+			}
+			modifier = {
+				factor = 1.25
+				martial = 2
+			}
+			modifier = {
+				factor = 1.25
+				martial = 4
+			}
+			modifier = {
+				factor = 1.25
+				martial = 6
+			}
+			modifier = {
+				factor = 1.25
+				martial = 8
+			}
+			modifier = {
+				factor = 1.25
+				martial = 10
+			}
+			modifier = {
+				factor = 1.25
+				martial = 12
+			}
+			modifier = {
+				factor = 1.25
+				martial = 14
+			}
+			modifier = {
+				factor = 1.25
+				martial = 16
+			}
+			modifier = {
+				factor = 1.25
+				martial = 18
+			}
+			modifier = {
+				factor = 1.25
+				martial = 20
+			}
+			modifier = {
+				factor = 1.25
+				martial = 22
+			}
+			modifier = {
+				factor = 1.25
+				martial = 24
+			}
+			modifier = {
+				factor = 1.25
+				martial = 26
+			}
+			modifier = {
+				factor = 1.25
+				martial = 28
+			}
+			modifier = {
+				factor = 1.25
+				martial = 30
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -99 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 100 }
+			}
+		}
+	}
+	# Flame Rangers
+	assign_command_flame_nebula_fleet = {
+		filter = vassals
+		ai_target_filter = vassals
+		from_potential = {
+			OR = {
+				AND = {
+					higher_tier_than = duke
+					has_landed_title = d_flame_nebula_fleet
+				}
+				AND = {
+					d_flame_nebula_fleet = { has_holder = no }
+					has_landed_title = k_flame_nebula
+				}
+				AND = {
+					d_flame_nebula_fleet = { has_holder = no }
+					liege = { has_landed_title = k_flame_nebula }
+					has_minor_title = title_regent
+				}
+			}
+		}
+		ai_check_interval = 10 
+ potential = {
+			is_ruler = yes
+			is_military_trigger = yes
+			OR = {
+				liege = { character = FROM }
+				AND = {
+					d_flame_nebula_fleet = { has_holder = no }
+					same_liege = FROM
+					FROM = { has_minor_title = title_regent }
+				}
+			}
+			NOT = { any_demesne_title = { higher_tier_than = count } }
+		}
+		allow = {
+			FROM = { has_regent = no }
+			has_regent = no
+			# People who can become military officers
+			OR = {
+				government = military_directorate
+				government = military_command
+			}
+			capital_scope = { kingdom = { title = k_flame_nebula } }
+		}
+		effect = {
+			if = {
+				limit = { d_flame_nebula_fleet = { has_holder = no } }
+				activate_title = { title = d_flame_nebula_fleet status = yes }
+			}
+			d_flame_nebula_fleet = { grant_title = ROOT }
+			opinion = { who = FROM modifier = opinion_granted_duchy }
+			set_government_type = military_command
+			liege = {
+				any_vassal = {
+					limit = {
+						government = military_directorate
+						tier = count
+						NOT = { character = FROM }
+						NOT = { character = ROOT }
+						capital_scope = { kingdom = { title = k_flame_nebula } }
+					}
+					set_defacto_liege = ROOT
+				}
+			}
+			k_flame_nebula = { holder_scope = { ROOT = { set_defacto_liege = PREV } } }
+			hidden_tooltip = { character_event = { id = military.100 } }
+			hidden_tooltip = { character_event = { id = military.101 } }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 5
+				dynasty = FROM
+			}
+			modifier = {
+				factor = 5
+				is_close_relative = FROM
+			}
+			modifier = {
+				factor = 1.25
+				martial = 2
+			}
+			modifier = {
+				factor = 1.25
+				martial = 4
+			}
+			modifier = {
+				factor = 1.25
+				martial = 6
+			}
+			modifier = {
+				factor = 1.25
+				martial = 8
+			}
+			modifier = {
+				factor = 1.25
+				martial = 10
+			}
+			modifier = {
+				factor = 1.25
+				martial = 12
+			}
+			modifier = {
+				factor = 1.25
+				martial = 14
+			}
+			modifier = {
+				factor = 1.25
+				martial = 16
+			}
+			modifier = {
+				factor = 1.25
+				martial = 18
+			}
+			modifier = {
+				factor = 1.25
+				martial = 20
+			}
+			modifier = {
+				factor = 1.25
+				martial = 22
+			}
+			modifier = {
+				factor = 1.25
+				martial = 24
+			}
+			modifier = {
+				factor = 1.25
+				martial = 26
+			}
+			modifier = {
+				factor = 1.25
+				martial = 28
+			}
+			modifier = {
+				factor = 1.25
+				martial = 30
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -99 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 100 }
+			}
+		}
+	}
+	# Orion Rangers
+	assign_command_orion_nebula_fleet = {
+		filter = vassals
+		ai_target_filter = vassals
+		from_potential = {
+			OR = {
+				AND = {
+					higher_tier_than = duke
+					has_landed_title = d_orion_nebula_fleet
+				}
+				AND = {
+					d_orion_nebula_fleet = { has_holder = no }
+					has_landed_title = k_orion_nebula
+				}
+				AND = {
+					d_orion_nebula_fleet = { has_holder = no }
+					liege = { has_landed_title = k_orion_nebula }
+					has_minor_title = title_regent
+				}
+			}
+		}
+		ai_check_interval = 10 
+ potential = {
+			is_ruler = yes
+			is_military_trigger = yes
+			OR = {
+				liege = { character = FROM }
+				AND = {
+					d_orion_nebula_fleet = { has_holder = no }
+					same_liege = FROM
+					FROM = { has_minor_title = title_regent }
+				}
+			}
+			NOT = { any_demesne_title = { higher_tier_than = count } }
+		}
+		allow = {
+			FROM = { has_regent = no }
+			has_regent = no
+			# People who can become military officers
+			OR = {
+				government = military_directorate
+				government = military_command
+			}
+			capital_scope = { kingdom = { title = k_orion_nebula } }
+		}
+		effect = {
+			if = {
+				limit = { d_orion_nebula_fleet = { has_holder = no } }
+				activate_title = { title = d_orion_nebula_fleet status = yes }
+			}
+			d_orion_nebula_fleet = { grant_title = ROOT }
+			opinion = { who = FROM modifier = opinion_granted_duchy }
+			set_government_type = military_command
+			liege = {
+				any_vassal = {
+					limit = {
+						government = military_directorate
+						tier = count
+						NOT = { character = FROM }
+						NOT = { character = ROOT }
+						capital_scope = { kingdom = { title = k_orion_nebula } }
+					}
+					set_defacto_liege = ROOT
+				}
+			}
+			k_orion_nebula = { holder_scope = { ROOT = { set_defacto_liege = PREV } } }
+			hidden_tooltip = { character_event = { id = military.100 } }
+			hidden_tooltip = { character_event = { id = military.101 } }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 5
+				dynasty = FROM
+			}
+			modifier = {
+				factor = 5
+				is_close_relative = FROM
+			}
+			modifier = {
+				factor = 1.25
+				martial = 2
+			}
+			modifier = {
+				factor = 1.25
+				martial = 4
+			}
+			modifier = {
+				factor = 1.25
+				martial = 6
+			}
+			modifier = {
+				factor = 1.25
+				martial = 8
+			}
+			modifier = {
+				factor = 1.25
+				martial = 10
+			}
+			modifier = {
+				factor = 1.25
+				martial = 12
+			}
+			modifier = {
+				factor = 1.25
+				martial = 14
+			}
+			modifier = {
+				factor = 1.25
+				martial = 16
+			}
+			modifier = {
+				factor = 1.25
+				martial = 18
+			}
+			modifier = {
+				factor = 1.25
+				martial = 20
+			}
+			modifier = {
+				factor = 1.25
+				martial = 22
+			}
+			modifier = {
+				factor = 1.25
+				martial = 24
+			}
+			modifier = {
+				factor = 1.25
+				martial = 26
+			}
+			modifier = {
+				factor = 1.25
+				martial = 28
+			}
+			modifier = {
+				factor = 1.25
+				martial = 30
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -99 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 100 }
+			}
+		}
+	}
+	# Horsehead Rangers
+	assign_command_horsehead_nebula_fleet = {
+		filter = vassals
+		ai_target_filter = vassals
+		from_potential = {
+			OR = {
+				AND = {
+					higher_tier_than = duke
+					has_landed_title = d_horsehead_nebula_fleet
+				}
+				AND = {
+					d_horsehead_nebula_fleet = { has_holder = no }
+					has_landed_title = k_horsehead_nebula
+				}
+				AND = {
+					d_horsehead_nebula_fleet = { has_holder = no }
+					liege = { has_landed_title = k_horsehead_nebula }
+					has_minor_title = title_regent
+				}
+			}
+		}
+		ai_check_interval = 10 
+ potential = {
+			is_ruler = yes
+			is_military_trigger = yes
+			OR = {
+				liege = { character = FROM }
+				AND = {
+					d_horsehead_nebula_fleet = { has_holder = no }
+					same_liege = FROM
+					FROM = { has_minor_title = title_regent }
+				}
+			}
+			NOT = { any_demesne_title = { higher_tier_than = count } }
+		}
+		allow = {
+			FROM = { has_regent = no }
+			has_regent = no
+			# People who can become military officers
+			OR = {
+				government = military_directorate
+				government = military_command
+			}
+			capital_scope = { kingdom = { title = k_horsehead_nebula } }
+		}
+		effect = {
+			if = {
+				limit = { d_horsehead_nebula_fleet = { has_holder = no } }
+				activate_title = { title = d_horsehead_nebula_fleet status = yes }
+			}
+			d_horsehead_nebula_fleet = { grant_title = ROOT }
+			opinion = { who = FROM modifier = opinion_granted_duchy }
+			set_government_type = military_command
+			liege = {
+				any_vassal = {
+					limit = {
+						government = military_directorate
+						tier = count
+						NOT = { character = FROM }
+						NOT = { character = ROOT }
+						capital_scope = { kingdom = { title = k_horsehead_nebula } }
+					}
+					set_defacto_liege = ROOT
+				}
+			}
+			k_horsehead_nebula = { holder_scope = { ROOT = { set_defacto_liege = PREV } } }
+			hidden_tooltip = { character_event = { id = military.100 } }
+			hidden_tooltip = { character_event = { id = military.101 } }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 5
+				dynasty = FROM
+			}
+			modifier = {
+				factor = 5
+				is_close_relative = FROM
+			}
+			modifier = {
+				factor = 1.25
+				martial = 2
+			}
+			modifier = {
+				factor = 1.25
+				martial = 4
+			}
+			modifier = {
+				factor = 1.25
+				martial = 6
+			}
+			modifier = {
+				factor = 1.25
+				martial = 8
+			}
+			modifier = {
+				factor = 1.25
+				martial = 10
+			}
+			modifier = {
+				factor = 1.25
+				martial = 12
+			}
+			modifier = {
+				factor = 1.25
+				martial = 14
+			}
+			modifier = {
+				factor = 1.25
+				martial = 16
+			}
+			modifier = {
+				factor = 1.25
+				martial = 18
+			}
+			modifier = {
+				factor = 1.25
+				martial = 20
+			}
+			modifier = {
+				factor = 1.25
+				martial = 22
+			}
+			modifier = {
+				factor = 1.25
+				martial = 24
+			}
+			modifier = {
+				factor = 1.25
+				martial = 26
+			}
+			modifier = {
+				factor = 1.25
+				martial = 28
+			}
+			modifier = {
+				factor = 1.25
+				martial = 30
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -99 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 100 }
+			}
+		}
+	}
+	# Veil Rangers
+	assign_command_veil_nebula_fleet = {
+		filter = vassals
+		ai_target_filter = vassals
+		from_potential = {
+			OR = {
+				AND = {
+					higher_tier_than = duke
+					has_landed_title = d_veil_nebula_fleet
+				}
+				AND = {
+					d_veil_nebula_fleet = { has_holder = no }
+					has_landed_title = k_veil_nebula
+				}
+				AND = {
+					d_veil_nebula_fleet = { has_holder = no }
+					liege = { has_landed_title = k_veil_nebula }
+					has_minor_title = title_regent
+				}
+			}
+		}
+		ai_check_interval = 10 
+ potential = {
+			is_ruler = yes
+			is_military_trigger = yes
+			OR = {
+				liege = { character = FROM }
+				AND = {
+					d_veil_nebula_fleet = { has_holder = no }
+					same_liege = FROM
+					FROM = { has_minor_title = title_regent }
+				}
+			}
+			NOT = { any_demesne_title = { higher_tier_than = count } }
+		}
+		allow = {
+			FROM = { has_regent = no }
+			has_regent = no
+			# People who can become military officers
+			OR = {
+				government = military_directorate
+				government = military_command
+			}
+			capital_scope = { kingdom = { title = k_veil_nebula } }
+		}
+		effect = {
+			if = {
+				limit = { d_veil_nebula_fleet = { has_holder = no } }
+				activate_title = { title = d_veil_nebula_fleet status = yes }
+			}
+			d_veil_nebula_fleet = { grant_title = ROOT }
+			opinion = { who = FROM modifier = opinion_granted_duchy }
+			set_government_type = military_command
+			liege = {
+				any_vassal = {
+					limit = {
+						government = military_directorate
+						tier = count
+						NOT = { character = FROM }
+						NOT = { character = ROOT }
+						capital_scope = { kingdom = { title = k_veil_nebula } }
+					}
+					set_defacto_liege = ROOT
+				}
+			}
+			k_veil_nebula = { holder_scope = { ROOT = { set_defacto_liege = PREV } } }
+			hidden_tooltip = { character_event = { id = military.100 } }
+			hidden_tooltip = { character_event = { id = military.101 } }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 5
+				dynasty = FROM
+			}
+			modifier = {
+				factor = 5
+				is_close_relative = FROM
+			}
+			modifier = {
+				factor = 1.25
+				martial = 2
+			}
+			modifier = {
+				factor = 1.25
+				martial = 4
+			}
+			modifier = {
+				factor = 1.25
+				martial = 6
+			}
+			modifier = {
+				factor = 1.25
+				martial = 8
+			}
+			modifier = {
+				factor = 1.25
+				martial = 10
+			}
+			modifier = {
+				factor = 1.25
+				martial = 12
+			}
+			modifier = {
+				factor = 1.25
+				martial = 14
+			}
+			modifier = {
+				factor = 1.25
+				martial = 16
+			}
+			modifier = {
+				factor = 1.25
+				martial = 18
+			}
+			modifier = {
+				factor = 1.25
+				martial = 20
+			}
+			modifier = {
+				factor = 1.25
+				martial = 22
+			}
+			modifier = {
+				factor = 1.25
+				martial = 24
+			}
+			modifier = {
+				factor = 1.25
+				martial = 26
+			}
+			modifier = {
+				factor = 1.25
+				martial = 28
+			}
+			modifier = {
+				factor = 1.25
+				martial = 30
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -99 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 100 }
+			}
+		}
+	}
+	# Witchhead Rangers
+	assign_command_witchhead_nebula_fleet = {
+		filter = vassals
+		ai_target_filter = vassals
+		from_potential = {
+			OR = {
+				AND = {
+					higher_tier_than = duke
+					has_landed_title = d_witchhead_nebula_fleet
+				}
+				AND = {
+					d_witchhead_nebula_fleet = { has_holder = no }
+					has_landed_title = k_witchhead_nebula
+				}
+				AND = {
+					d_witchhead_nebula_fleet = { has_holder = no }
+					liege = { has_landed_title = k_witchhead_nebula }
+					has_minor_title = title_regent
+				}
+			}
+		}
+		ai_check_interval = 10 
+ potential = {
+			is_ruler = yes
+			is_military_trigger = yes
+			OR = {
+				liege = { character = FROM }
+				AND = {
+					d_witchhead_nebula_fleet = { has_holder = no }
+					same_liege = FROM
+					FROM = { has_minor_title = title_regent }
+				}
+			}
+			NOT = { any_demesne_title = { higher_tier_than = count } }
+		}
+		allow = {
+			FROM = { has_regent = no }
+			has_regent = no
+			# People who can become military officers
+			OR = {
+				government = military_directorate
+				government = military_command
+			}
+			capital_scope = { kingdom = { title = k_witchhead_nebula } }
+		}
+		effect = {
+			if = {
+				limit = { d_witchhead_nebula_fleet = { has_holder = no } }
+				activate_title = { title = d_witchhead_nebula_fleet status = yes }
+			}
+			d_witchhead_nebula_fleet = { grant_title = ROOT }
+			opinion = { who = FROM modifier = opinion_granted_duchy }
+			set_government_type = military_command
+			liege = {
+				any_vassal = {
+					limit = {
+						government = military_directorate
+						tier = count
+						NOT = { character = FROM }
+						NOT = { character = ROOT }
+						capital_scope = { kingdom = { title = k_witchhead_nebula } }
+					}
+					set_defacto_liege = ROOT
+				}
+			}
+			k_witchhead_nebula = { holder_scope = { ROOT = { set_defacto_liege = PREV } } }
+			hidden_tooltip = { character_event = { id = military.100 } }
+			hidden_tooltip = { character_event = { id = military.101 } }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 5
+				dynasty = FROM
+			}
+			modifier = {
+				factor = 5
+				is_close_relative = FROM
+			}
+			modifier = {
+				factor = 1.25
+				martial = 2
+			}
+			modifier = {
+				factor = 1.25
+				martial = 4
+			}
+			modifier = {
+				factor = 1.25
+				martial = 6
+			}
+			modifier = {
+				factor = 1.25
+				martial = 8
+			}
+			modifier = {
+				factor = 1.25
+				martial = 10
+			}
+			modifier = {
+				factor = 1.25
+				martial = 12
+			}
+			modifier = {
+				factor = 1.25
+				martial = 14
+			}
+			modifier = {
+				factor = 1.25
+				martial = 16
+			}
+			modifier = {
+				factor = 1.25
+				martial = 18
+			}
+			modifier = {
+				factor = 1.25
+				martial = 20
+			}
+			modifier = {
+				factor = 1.25
+				martial = 22
+			}
+			modifier = {
+				factor = 1.25
+				martial = 24
+			}
+			modifier = {
+				factor = 1.25
+				martial = 26
+			}
+			modifier = {
+				factor = 1.25
+				martial = 28
+			}
+			modifier = {
+				factor = 1.25
+				martial = 30
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -99 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 100 }
+			}
+		}
+	}
+	# Terran Navy
+	assign_command_terran_navy = {
+		filter = vassals
+		ai_target_filter = vassals
+		from_potential = {
+			OR = {
+				AND = {
+					higher_tier_than = king
+					has_landed_title = k_terran_navy
+				}
+				AND = {
+					k_terran_navy = { has_holder = no }
+					has_landed_title = e_terran_confederation
+				}
+				AND = {
+					k_terran_navy = { has_holder = no }
+					liege = { has_landed_title = e_terran_confederation }
+					has_minor_title = title_regent
+				}
+			}
+		}
+		ai_check_interval = 10 
+ potential = {
+			is_ruler = yes
+			is_military_trigger = yes
+			OR = {
+				liege = { character = FROM }
+				AND = {
+					k_terran_navy = { has_holder = no }
+					same_liege = FROM
+					FROM = { has_minor_title = title_regent }
+				}
+			}
+			NOT = { any_demesne_title = { higher_tier_than = duke } }
+		}
+		allow = {
+			FROM = { has_regent = no }
+			has_regent = no
+			# People who can become military officers
+			OR = {
+				government = military_directorate
+				government = military_command
+			}
+			capital_scope = { empire = { title = e_terran_confederation } }
+		}
+		effect = {
+			if = {
+				limit = { k_terran_navy = { has_holder = no } }
+				activate_title = { title = k_terran_navy status = yes }
+			}
+			k_terran_navy = { grant_title = ROOT }
+			opinion = { who = FROM modifier = opinion_granted_duchy }
+			set_government_type = military_command
+			liege = {
+				any_vassal = {
+					limit = {
+						OR = {
+							has_landed_title = d_terran_first_fleet
+							has_landed_title = d_terran_second_fleet
+							has_landed_title = d_terran_third_fleet
+							has_landed_title = d_terran_fourth_fleet
+							has_landed_title = d_terran_fifth_fleet
+						}
+						NOT = { character = ROOT }
+					}
+					set_defacto_liege = ROOT
+				}
+				any_vassal = {
+					limit = {
+						government = military_directorate
+						OR = {
+							tier = count
+							tier = duke
+						}
+						NOT = { character = FROM }
+						NOT = { character = ROOT }
+						capital_scope = { empire = { title = e_terran_confederation } }
+					}
+					set_defacto_liege = ROOT
+				}
+			}
+			e_terran_confederation = { holder_scope = { ROOT = { set_defacto_liege = PREV } } }
+			hidden_tooltip = { character_event = { id = military.100 } }
+			hidden_tooltip = { character_event = { id = military.101 } }
+		}
+		ai_will_do = {
+			factor = 1
+			# Reasons to prefer this commander
+			modifier = {
+				factor = 5
+				dynasty = FROM
+			}
+			modifier = {
+				factor = 5
+				is_close_relative = FROM
+			}
+			modifier = {
+				factor = 5
+				OR = {
+					has_landed_title = d_terran_first_fleet
+					has_landed_title = d_terran_second_fleet
+					has_landed_title = d_terran_third_fleet
+					has_landed_title = d_terran_fourth_fleet
+					has_landed_title = d_terran_fifth_fleet
+				}
+			}
+			modifier = {
+				factor = 1.25
+				martial = 2
+			}
+			modifier = {
+				factor = 1.25
+				martial = 4
+			}
+			modifier = {
+				factor = 1.25
+				martial = 6
+			}
+			modifier = {
+				factor = 1.25
+				martial = 8
+			}
+			modifier = {
+				factor = 1.25
+				martial = 10
+			}
+			modifier = {
+				factor = 1.25
+				martial = 12
+			}
+			modifier = {
+				factor = 1.25
+				martial = 14
+			}
+			modifier = {
+				factor = 1.25
+				martial = 16
+			}
+			modifier = {
+				factor = 1.25
+				martial = 18
+			}
+			modifier = {
+				factor = 1.25
+				martial = 20
+			}
+			modifier = {
+				factor = 1.25
+				martial = 22
+			}
+			modifier = {
+				factor = 1.25
+				martial = 24
+			}
+			modifier = {
+				factor = 1.25
+				martial = 26
+			}
+			modifier = {
+				factor = 1.25
+				martial = 28
+			}
+			modifier = {
+				factor = 1.25
+				martial = 30
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -99 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 100 }
+			}
+		}
+	}
+	assign_terran_fleet_command = {
+		filter = vassals
+		ai_target_filter = vassals
+		
+		from_potential = {
+			OR = {
+				has_landed_title = k_terran_navy
+				AND = {
+					liege = { has_landed_title = k_terran_navy }
+					has_minor_title = title_regent
+				}
+			}
+		}
+		ai_check_interval = 10 
+ potential = {
+			is_ruler = yes
+			is_military_trigger = yes
+			OR = {
+				liege = { character = FROM }
+				AND = {
+					same_liege = FROM
+					FROM = { has_minor_title = title_regent }
+				}
+			}
+			NOT = { any_demesne_title = { higher_tier_than = duke } }
+		}
+		allow = {
+			FROM = { has_regent = no }
+			has_regent = no
+			government = military_directorate
+			OR = {
+				d_terran_first_fleet = { has_holder = no }
+				d_terran_second_fleet = { has_holder = no }
+				d_terran_third_fleet = { has_holder = no }
+				d_terran_fourth_fleet = { has_holder = no }
+				d_terran_fifth_fleet = { has_holder = no }
+			}
+			NOT = { has_landed_title = d_terran_first_fleet }
+			NOT = { has_landed_title = d_terran_second_fleet }
+			NOT = { has_landed_title = d_terran_third_fleet }
+			NOT = { has_landed_title = d_terran_fourth_fleet }
+			NOT = { has_landed_title = d_terran_fifth_fleet }
+		}
+		effect = {
+			if = {
+				limit = {
+					d_terran_first_fleet = { has_holder = yes }
+					d_terran_second_fleet = { has_holder = yes }
+					d_terran_third_fleet = { has_holder = yes }
+					d_terran_fourth_fleet = { has_holder = yes }
+					d_terran_fifth_fleet = { has_holder = no }
+				}
+				activate_title = { title = d_terran_fifth_fleet status = yes }
+				d_terran_fifth_fleet = { grant_title = ROOT }
+				set_government_type = military_command
+			}
+			if = {
+				limit = {
+					d_terran_first_fleet = { has_holder = yes }
+					d_terran_second_fleet = { has_holder = yes }
+					d_terran_third_fleet = { has_holder = yes }
+					d_terran_fourth_fleet = { has_holder = no }
+				}
+				activate_title = { title = d_terran_fourth_fleet status = yes }
+				d_terran_fourth_fleet = { grant_title = ROOT }
+				set_government_type = military_command
+			}
+			if = {
+				limit = {
+					d_terran_first_fleet = { has_holder = yes }
+					d_terran_second_fleet = { has_holder = yes }
+					d_terran_third_fleet = { has_holder = no }
+				}
+				activate_title = { title = d_terran_third_fleet status = yes }
+				d_terran_third_fleet = { grant_title = ROOT }
+				set_government_type = military_command
+			}
+			if = {
+				limit = {
+					d_terran_first_fleet = { has_holder = yes }
+					d_terran_second_fleet = { has_holder = no }
+				}
+				activate_title = { title = d_terran_second_fleet status = yes }
+				d_terran_second_fleet = { grant_title = ROOT }
+				set_government_type = military_command
+			}
+			if = {
+				limit = { d_terran_first_fleet = { has_holder = no } }
+				activate_title = { title = d_terran_first_fleet status = yes }
+				d_terran_first_fleet = { grant_title = ROOT }
+				set_government_type = military_command
+			}
+			k_terran_navy = { holder_scope = { ROOT = { set_defacto_liege = PREV } } }
+			hidden_tooltip = { letter_event = { id = military.100 } }
+			hidden_tooltip = { letter_event = { id = military.101 } }
+		}
+		ai_will_do = {
+			factor = 1
+			# Commander's skill
+			modifier = {
+				factor = 1.25
+				martial = 2
+			}
+			modifier = {
+				factor = 1.25
+				martial = 4
+			}
+			modifier = {
+				factor = 1.25
+				martial = 6
+			}
+			modifier = {
+				factor = 1.25
+				martial = 8
+			}
+			modifier = {
+				factor = 1.25
+				martial = 10
+			}
+			modifier = {
+				factor = 1.25
+				martial = 12
+			}
+			modifier = {
+				factor = 1.25
+				martial = 14
+			}
+			modifier = {
+				factor = 1.25
+				martial = 16
+			}
+			modifier = {
+				factor = 1.25
+				martial = 18
+			}
+			modifier = {
+				factor = 1.25
+				martial = 20
+			}
+			modifier = {
+				factor = 1.25
+				martial = 22
+			}
+			modifier = {
+				factor = 1.25
+				martial = 24
+			}
+			modifier = {
+				factor = 1.25
+				martial = 26
+			}
+			modifier = {
+				factor = 1.25
+				martial = 28
+			}
+			modifier = {
+				factor = 1.25
+				martial = 30
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -99 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 100 }
+			}
+		}
+	}
+}

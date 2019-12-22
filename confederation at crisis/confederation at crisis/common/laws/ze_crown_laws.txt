@@ -1,0 +1,126 @@
+law_groups = {
+
+	dote_autonomy_laws = {
+		law_type = realm
+		allowed_for_councillors = no
+	}
+	
+}
+
+
+de_jure_laws = {
+
+	# AUTONOMY
+
+
+	dote_autonomy_0 = {
+		group = dote_autonomy_laws
+		default = yes
+		
+		vassal_opinion = -20 #Obviously vassals don't like
+		
+		allow = {
+			has_law = dote_autonomy_1
+		}
+		
+		potential = {
+			OR = {
+				has_law = centralization_1
+				has_law = centralization_2
+				has_law = centralization_3
+				has_law = centralization_4
+			}
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		ai_will_revoke = {
+			factor = 0
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = dote_autonomy_1
+				revoke_law = dote_autonomy_2
+			}
+		}
+	}
+
+	dote_autonomy_1 = {
+		group = dote_autonomy_laws
+		
+		#Obviously vassals don't like
+		
+		allow = {
+			or = {
+				has_law = dote_autonomy_0
+				has_law = dote_autonomy_2
+			}
+		}
+		
+		potential = {
+			OR = {
+				has_law = centralization_1
+				has_law = centralization_2
+				has_law = centralization_3
+				has_law = centralization_4
+			}
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				factor = 1
+				has_law = dote_autonomy_2
+			}
+		}
+		ai_will_revoke = {
+			factor = 0
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = dote_autonomy_0
+				revoke_law = dote_autonomy_2
+			}
+		}
+	}
+
+	dote_autonomy_2 = {
+		group = dote_autonomy_laws
+		vassal_opinion = 20
+		allow = {
+			has_law = dote_autonomy_1
+		}
+		
+		potential = {
+			OR = {
+				has_law = centralization_1
+				has_law = centralization_2
+				has_law = centralization_3
+				has_law = centralization_4
+			}
+		}
+		
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 0
+		}
+		ai_will_revoke = {
+			factor = 0
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = dote_autonomy_0
+				revoke_law = dote_autonomy_1
+			}
+		}
+	}
+}
