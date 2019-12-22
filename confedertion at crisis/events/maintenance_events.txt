@@ -1,0 +1,457 @@
+namespace = maintenance
+
+# Clean up default agnatics
+namespace = maintenance
+
+# Terran multiculturalism
+province_event = {
+	id = maintenance.1
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = { culture_group = terran_group }
+	mean_time_to_happen = { months = 60 }
+	immediate = {
+		random_list = {
+			30 = { culture = sino_terran }
+			30 = { culture = indo_terran }
+			20 = { culture = anglo_terran }
+			20 = { culture = hispanic_terran }
+			20 = { culture = arab_terran }
+			10 = { culture = russo_terran }
+			10 = { culture = iranian_terran }
+			10 = { culture = mesoamerican_terran }
+			10 = { culture = japanese_terran }
+			10 = { culture = ethiopian_terran }
+			10 = { culture = west_afro_terran }
+			10 = { culture = east_afro_terran }
+		}
+	}
+}
+
+# Create heirs for democratic elective titles
+character_event = {
+	id = maintenance.2
+	hide_window = yes
+	is_triggered_only = yes
+	only_rulers = yes
+	
+	trigger = {
+		any_demesne_title = { has_law = succ_open_elective_crisis }
+		NOT = {
+			any_courtier = {
+				is_landed = no
+				age = 18
+				prisoner = no
+				NOT = { trait = bastard }
+				NOT = { trait = incapable }
+				NOT = { character = ROOT }
+			}
+		}
+	}
+	immediate = {
+		random_list = {
+			50 = {
+				create_character = {
+					age = 30
+					female = yes
+					religion = ROOT
+					culture = ROOT
+					dynasty = culture
+					random_traits = yes
+				}
+				new_character = { set_dynasty_flag = flag_approved_dynasty }
+			}
+			50 = {
+				create_character = {
+					age = 30
+					female = no
+					religion = ROOT
+					culture = ROOT
+					dynasty = culture
+					random_traits = yes
+				}
+				new_character = { set_dynasty_flag = flag_approved_dynasty }
+			}
+		}
+	}
+}
+
+# Reset crown law timer
+character_event = {
+	id = maintenance.3
+	hide_window = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		create_character = {
+			name = "Cabinet Meeting"
+			dynasty = ROOT
+			culture = ROOT
+			religion = ROOT
+			age = 20
+		}
+		new_character = {
+			ROOT = { abdicate_to = PREV }
+			abdicate_to = ROOT
+			death = { death_reason = death_sacrifice }
+		}
+	}
+}
+
+# Minor cultural bit - Yoruba twin names. Call on birth.
+character_event = {
+	id = maintenance.4
+	hide_window = yes
+	is_triggered_only = yes
+	
+	trigger = {
+		trait = twin
+		NOT = { has_character_flag = flag_yoruba_twin_name }
+		OR = {
+			culture = west_afro_angani
+			culture = west_afro_terran
+		}
+	}
+	
+	immediate = {
+		set_name = "Taiyewo"
+		set_character_flag = flag_yoruba_twin_name
+		any_sibling = {
+			limit = {
+				age = 0
+				trait = twin
+			}
+			set_name = "Kehinde"
+			set_character_flag = flag_yoruba_twin_name
+		}
+	}
+}
+character_event = {
+	id = maintenance.10
+	hide_window = yes
+	is_triggered_only = yes
+	min_age = 18
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		num_of_children = 1
+		NOT = { has_character_modifier = not_having_babies_1 }
+	}
+	
+	immediate = { add_character_modifier = { name = not_having_babies_1 duration = -1 } }
+}
+character_event = {
+	id = maintenance.11
+	hide_window = yes
+	
+	min_age = 18
+	capable_only = yes
+	prisoner = no
+	is_triggered_only = yes
+	trigger = {
+		NOT = { num_of_children = 1 }
+		has_character_modifier = not_having_babies_1
+	}
+	
+	immediate = { remove_character_modifier = not_having_babies_1 }
+}
+character_event = {
+	id = maintenance.12
+	hide_window = yes
+	
+	min_age = 18
+	capable_only = yes
+	prisoner = no
+	is_triggered_only = yes
+	trigger = {
+		num_of_children = 2
+		NOT = { has_character_modifier = not_having_babies_2 }
+	}
+	
+	immediate = { add_character_modifier = { name = not_having_babies_2 duration = -1 } }
+}
+character_event = {
+	id = maintenance.13
+	hide_window = yes
+	is_triggered_only = yes
+	min_age = 18
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		NOT = { num_of_children = 2 }
+		has_character_modifier = not_having_babies_2
+	}
+	
+	immediate = { remove_character_modifier = not_having_babies_2 }
+}
+character_event = {
+	id = maintenance.14
+	hide_window = yes
+	is_triggered_only = yes
+	min_age = 18
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		num_of_children = 3
+		NOT = { has_character_modifier = not_having_babies_3 }
+	}
+	
+	immediate = { add_character_modifier = { name = not_having_babies_3 duration = -1 } }
+}
+character_event = {
+	id = maintenance.15
+	hide_window = yes
+	is_triggered_only = yes
+	min_age = 18
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		NOT = { num_of_children = 3 }
+		has_character_modifier = not_having_babies_3
+	}
+	
+	immediate = { remove_character_modifier = not_having_babies_3 }
+}
+
+# Princes and princesses
+character_event = {
+	id = maintenance.16
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		has_minor_title = title_prince
+		NOT = { has_minor_title = title_prince_royal }
+		OR = {
+			religion = terran_imperial
+			religion = neo_feudal
+			religion = imperial_cult
+			government = military_monarchy
+			government = corporate_monarchy
+			government = administrative_monarchy
+		}
+	}
+	immediate = { give_minor_title = title_prince_royal }
+}
+
+# Capital ship construction requirements
+character_event = {
+	id = maintenance.100
+	hide_window = yes
+	is_triggered_only = yes
+	only_rulers = yes
+	
+	trigger = {
+		NOT = { has_character_flag = flag_battlecruiser_construction }
+		any_demesne_title = {
+			OR = {
+				has_building = ca_olympus_shipyards
+				has_building = ca_capital_factory_q_1
+			}
+		}
+	}
+	
+	immediate = { set_character_flag = flag_battlecruiser_construction }
+}
+character_event = {
+	id = maintenance.101
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		has_character_flag = flag_battlecruiser_construction
+		NOT = {
+			AND = {
+				is_landed = yes
+				any_demesne_title = {
+					OR = {
+						has_building = ca_olympus_shipyards
+						has_building = ca_capital_factory_q_1
+					}
+				}
+			}
+		}
+	}
+	
+	immediate = { clr_character_flag = flag_battlecruiser_construction }
+}
+character_event = {
+	id = maintenance.102
+	hide_window = yes
+	is_triggered_only = yes
+	only_rulers = yes
+	
+	trigger = {
+		NOT = { has_character_flag = flag_dreadnought_construction }
+		any_demesne_title = {
+			OR = {
+				has_building = ca_olympus_shipyards
+				has_building = ca_capital_factory_q_2
+			}
+		}
+	}
+	
+	immediate = { set_character_flag = flag_dreadnought_construction }
+}
+character_event = {
+	id = maintenance.103
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		has_character_flag = flag_dreadnought_construction
+		NOT = {
+			AND = {
+				is_landed = yes
+				any_demesne_title = {
+					OR = {
+						has_building = ca_olympus_shipyards
+						has_building = ca_capital_factory_q_2
+					}
+				}
+			}
+		}
+	}
+	
+	immediate = { clr_character_flag = flag_dreadnought_construction }
+}
+
+character_event = {
+	id = maintenance.200
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_character_modifier = hospital_health_bonus }
+		location = {
+			any_province_lord = {
+				any_demesne_title = {
+					location = { province_id = PREVPREVPREV }
+					has_building = tp_hospital_q_2
+				}
+			}
+		}
+	}
+	
+	immediate = { add_character_modifier = { name = hospital_health_bonus duration = -1 } }
+	
+}
+
+character_event = {
+	id = maintenance.201
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		has_character_modifier = hospital_health_bonus
+		NOT = { 
+			location = {
+				any_province_lord = {
+					any_demesne_title = {
+						location = { province_id = PREVPREVPREV }
+						has_building = tp_hospital_q_2
+					}
+				}
+			}
+		}
+	}
+	
+	immediate = { remove_character_modifier = hospital_health_bonus }
+	
+}
+
+# Rebel leader deaths should not pull them out of the initial crisis!
+character_event = {
+	id = maintenance.300
+	hide_window = yes
+	
+	only_rulers = yes
+	
+	trigger = {
+		OR = {
+			has_landed_title = k_xin_zizhiqu
+			has_landed_title = k_bianjiang
+			has_landed_title = k_mukta_duniya
+			has_landed_title = k_tarka
+			has_landed_title = k_avalon
+			has_landed_title = k_new_frontier
+			has_landed_title = k_strugatsky
+			has_landed_title = k_novyy_edem
+			has_landed_title = k_jion
+		}
+		k_orion_reach = { holder_scope = { any_war = { using_cb = cb_historical_independence_revolt } } }
+		e_terran_confederation = { holder_scope = { NOT = { any_current_enemy = { character = ROOT } } } }
+	}
+	
+	immediate = {
+		k_orion_reach = { holder_scope = { ROOT = { join_attacker_wars = PREVPREV } } }
+	}
+}
+
+# Clean-up government traits
+character_event = {
+	id = maintenance.400
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		OR = {
+			trait = is_directorate
+			trait = is_republic
+			trait = is_monarchy
+		}
+	}
+	immediate = {
+		remove_trait = is_directorate
+		remove_trait = is_republic
+		remove_trait = is_monarchy
+	}
+}
+
+# Clean up default agnatics
+character_event = {
+	id = maintenance.450
+	hide_window = yes
+	is_triggered_only = yes
+	only_rulers = yes
+	
+	trigger = {
+		any_demesne_title = { NOT = { has_law = true_cognatic_succession } }
+	}
+	immediate = {
+		any_demesne_title = {
+			limit = { NOT = { has_law = true_cognatic_succession } }
+			add_law = true_cognatic_succession
+		}
+	}
+}
+
+# Clean up default agnatics
+character_event = {
+	id = maintenance.451
+	hide_window = yes
+	is_triggered_only = yes
+	only_rulers = yes
+	
+	trigger = {
+		any_demesne_title = { NOT = { has_law = status_of_women_4 } }
+	}
+	immediate = {
+		any_demesne_title = {
+			limit = { NOT = { has_law = status_of_women_4 } }
+			add_law = status_of_women_4
+		}
+	}
+}
+
+# Clean up orphaned trade posts
+province_event = {
+	id = maintenance.500
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = { trade_post_owner = { is_patrician = no } }
+	
+	immediate = {
+		trade_post_owner = { destroy_tradepost = ROOT }
+	}
+}

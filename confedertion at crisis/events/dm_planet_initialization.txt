@@ -1,0 +1,278 @@
+#events that set what planet is which, currently random.
+
+namespace = planet_survey
+
+#initialize military settlements
+character_event = {
+	id = planet_survey.1
+	
+	only_rulers = yes
+	hide_window = yes # This is a background event
+	
+	trigger = {
+		any_demesne_title = {
+			tier = baron
+			holding_type = castle
+			NOT = { has_building = ca_environment_0 }
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		any_demesne_title = {
+			limit = {
+				tier = baron
+				holding_type = castle
+				NOT = { has_building = ca_environment_0 }
+			}
+			
+			# Initialize Environment
+			add_building = ca_environment_0
+			random_list = {
+				80 = { }
+				40 = {
+					add_building = ca_environment_1
+				}
+				20 = {
+					add_building = ca_environment_1
+					add_building = ca_environment_2
+				}
+				10 = {
+					add_building = ca_environment_1
+					add_building = ca_environment_2
+					add_building = ca_environment_3
+				}
+			}
+			
+			# Initialize Energy
+			add_building = ca_energy_0
+			add_building = ca_energy_1
+			random_list = {
+				40 = {
+				}
+				30 = {
+					add_building = ca_energy_2
+				}
+				20 = {
+					add_building = ca_energy_2
+					add_building = ca_energy_3
+				}
+				10 = {
+					add_building = ca_energy_2
+					add_building = ca_energy_3
+					add_building = ca_energy_4
+				}
+			}
+			
+			# Initialize Materials
+			add_building = ca_materials_0
+			add_building = ca_materials_1
+			random_list = {
+				10 = {
+				}
+				10 = {
+					add_building = ca_materials_2
+				}
+				10 = {
+					add_building = ca_materials_2
+					add_building = ca_materials_3
+				}
+				10 = {
+					add_building = ca_materials_2
+					add_building = ca_materials_3
+					add_building = ca_materials_4
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "OK"
+	}
+}
+
+#initialize economic settlements
+character_event = {
+	id = planet_survey.2
+	
+	hide_window = yes # This is a background event
+	
+	trigger = {
+		any_demesne_title = {
+			is_patrician = no
+			tier = baron
+			holding_type = city
+			NOT = { has_building = ct_environment_0 }
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		any_demesne_title = {
+			limit = {
+				tier = baron
+				holding_type = city
+				NOT = { has_building = ct_environment_0 }
+			}
+			
+			# Initialize Environment
+			add_building = ct_environment_0
+			random_list = {
+				50 = { }
+				40 = {
+					add_building = ct_environment_1
+				}
+				30 = {
+					add_building = ct_environment_1
+					add_building = ct_environment_2
+				}
+				20 = {
+					add_building = ct_environment_1
+					add_building = ct_environment_2
+					add_building = ct_environment_3
+				}
+			}
+			
+			# Initialize Energy
+			add_building = ct_energy_0
+			add_building = ct_energy_1
+			random_list = {
+				40 = {
+				}
+				30 = {
+					add_building = ct_energy_2
+				}
+				20 = {
+					add_building = ct_energy_2
+					add_building = ct_energy_3
+				}
+				10 = {
+					add_building = ct_energy_2
+					add_building = ct_energy_3
+					add_building = ct_energy_4
+				}
+			}
+			
+			# Initialize Materials
+			add_building = ct_materials_0
+			add_building = ct_materials_1
+			random_list = {
+				40 = {
+				}
+				30 = {
+					add_building = ct_materials_2
+				}
+				20 = {
+					add_building = ct_materials_2
+					add_building = ct_materials_3
+				}
+				10 = {
+					add_building = ct_materials_2
+					add_building = ct_materials_3
+					add_building = ct_materials_4
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "OK"
+	}
+}
+
+#initialize scientific settlements
+character_event = {
+	id = planet_survey.3
+	
+	hide_window = yes # This is a background event
+	
+	trigger = {
+		any_demesne_title = {
+			is_patrician = no
+			holding_type = temple
+			NOT = { has_building = tp_environment_0 }
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		any_demesne_title = {
+			limit = {
+				tier = baron
+				holding_type = temple
+				NOT = { has_building = tp_environment_0 }
+			}
+			
+			# Initialize Environment
+			add_building = tp_environment_0
+			random_list = {
+				80 = { }
+				40 = {
+					add_building = tp_environment_1
+				}
+				20 = {
+					add_building = tp_environment_1
+					add_building = tp_environment_2
+				}
+				10 = {
+					add_building = tp_environment_1
+					add_building = tp_environment_2
+					add_building = tp_environment_3
+				}
+			}
+			
+			# Initialize Energy
+			add_building = tp_energy_0
+			add_building = tp_energy_1
+			random_list = {
+				10 = {
+				}
+				10 = {
+					add_building = tp_energy_2
+				}
+				10 = {
+					add_building = tp_energy_2
+					add_building = tp_energy_3
+				}
+				10 = {
+					add_building = tp_energy_2
+					add_building = tp_energy_3
+					add_building = tp_energy_4
+				}
+			}
+			
+			# Initialize Materials
+			add_building = tp_materials_0
+			add_building = tp_materials_1
+			random_list = {
+				40 = {
+				}
+				30 = {
+					add_building = tp_materials_2
+				}
+				20 = {
+					add_building = tp_materials_2
+					add_building = tp_materials_3
+				}
+				10 = {
+					add_building = tp_materials_2
+					add_building = tp_materials_3
+					add_building = tp_materials_4
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "OK"
+	}
+}

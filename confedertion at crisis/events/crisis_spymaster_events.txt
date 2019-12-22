@@ -1,0 +1,436 @@
+namespace = spymaster
+
+# Plot Uncovered Event Chain
+character_event = {
+	id = spymaster.0
+	desc = "EVTDESCSPYMASTER0"
+	picture = GFX_evt_spymaster
+	is_triggered_only = yes
+	show_from_from = yes #FROMFROM should always be the plotter
+	
+	option = {
+		# Reveal the plot to my liege
+		name = "EVTOPTASPYMASTER0"
+		liege = { opinion = { who = ROOT modifier = opinion_competent_spymaster } }
+		FROM = {
+			FROM = {
+				plot_target_char = { opinion = { who = ROOT modifier = opinion_competent_spymaster } }
+				character_event = { id = spymaster.1 tooltip = "EVTTOOLTIPSPYMASTER1" }
+			}
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0
+				has_plot = plot_blackmail
+				plot_target_char = { character = FROMFROM }
+			}
+			modifier = {
+				factor = 100
+				FROM = { FROM = { plot_target_char = { character = ROOT } } }
+			}
+			modifier = {
+				factor = 2
+				liege = { religion_authority = 0.1 }
+			}
+			modifier = {
+				factor = 2
+				liege = { religion_authority = 0.2 }
+			}
+			modifier = {
+				factor = 2
+				liege = { religion_authority = 0.3 }
+			}
+			modifier = {
+				factor = 2
+				liege = { religion_authority = 0.4 }
+			}
+			modifier = {
+				factor = 2
+				liege = { religion_authority = 0.5 }
+			}
+			modifier = {
+				factor = 2
+				liege = { religion_authority = 0.6 }
+			}
+			modifier = {
+				factor = 2
+				liege = { religion_authority = 0.7 }
+			}
+			modifier = {
+				factor = 2
+				liege = { religion_authority = 0.8 }
+			}
+			modifier = {
+				factor = 2
+				liege = { religion_authority = 0.9 }
+			}
+			modifier = {
+				factor = 2
+				liege = { religion_authority = 1 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = liege value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = liege value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = liege value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = liege value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = liege value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = liege value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = liege value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = liege value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = liege value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = liege value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = liege value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = liege value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = liege value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = liege value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = liege value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = liege value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = liege value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = liege value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = liege value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = liege value = -99 } }
+			}
+		}
+	}
+	
+	# An opportunity for blackmail!
+	option = {
+		name = "EVTOPTBSPYMASTER0"
+		FROM = { FROM = { letter_event = { id = spymaster.3 tooltip = "EVTTOOLTIPSPYMASTER3" } } }
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 10
+				reverse_has_opinion_modifier = { who = FROMFROM modifier = opinion_owes_me_a_favor }
+			}
+		}
+	}
+	
+	# Drop it
+	option = {
+		name = "EVTOPCSPYMASTER0"
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 0
+				has_plot = plot_blackmail
+				plot_target_char = { character = FROMFROM }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -99 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -9 } }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 10 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 100 }
+			}
+		}
+	}
+}
+
+# Inform my liege
+character_event = {
+	id = spymaster.1
+	desc = "EVTDESCSPYMASTER1"
+	picture = GFX_evt_scandal
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASPYMASTER1"
+		reveal_plot = yes
+		FROM = { liege = { letter_event = { id = spymaster.2 tooltip = "EVTTOOLTIPSPYMASTER2" } } }
+		plot_target_char = {
+			if = {
+				limit = { NOT = { FROM = { liege = { character = PREVPREV } } } }
+				letter_event = { id = spymaster.2 tooltip = "EVTTOOLTIPSPYMASTER2" }
+			}
+			opinion = { who = ROOT modifier = scheming_bastard years = 10 }
+		}
+	}
+}
+letter_event = {
+	id = spymaster.2
+	desc = "EVTDESCSPYMASTER2"
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+
+# Blackmail!
+letter_event = {
+	id = spymaster.3
+	desc = "EVTDESCSPYMASTER3"
+	is_triggered_only = yes
+	
+	# Will owe them a favor
+	option = {
+		trigger = { NOT = { has_opinion_modifier = { who = ROOT modifier = opinion_owes_me_a_favor } } }
+		name = "EVTOPTASPYMASTER3"
+		FROM = {
+			custom_tooltip = {
+				text = "EVTTOOLTIPWILLBEOWEDAFAVOR"
+				hidden_tooltip = {
+					letter_event = { id = spymaster.4 }
+					opinion = { who = ROOT modifier = opinion_owes_me_a_favor }
+					opinion = { who = ROOT modifier = opinion_favor_ongoing_blackmail }
+				}
+			}
+		}
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 0.5
+				trait = proud
+			}
+			modifier = {
+				factor = 2
+				trait = humble
+			}
+			modifier = {
+				factor = 0.5
+				trait = brave
+			}
+			modifier = {
+				factor = 2
+				trait = craven
+			}
+			modifier = {
+				factor = 10
+				plot_target_char = { ROOT = { is_liege_or_above = PREV } }
+			}
+			modifier = {
+				factor = 2
+				plot_target_char = { relative_power = { who = ROOT power = 2 } }
+			}
+			modifier = {
+				factor = 2
+				plot_target_char = { relative_power = { who = ROOT power = 3 } }
+			}
+			modifier = {
+				factor = 2
+				plot_target_char = { relative_power = { who = ROOT power = 4 } }
+			}
+			modifier = {
+				factor = 2
+				plot_target_char = { relative_power = { who = ROOT power = 5 } }
+			}
+		}
+	}
+	
+	# Take in repayment for favor
+	option = {
+		trigger = { has_opinion_modifier = { who = FROM modifier = opinion_owes_me_a_favor } }
+		name = "EVTOPTBSPYMASTER3"
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.5
+				trait = brave
+			}
+			modifier = {
+				factor = 2
+				trait = craven
+			}
+			modifier = {
+				factor = 10
+				plot_target_char = { ROOT = { is_liege_or_above = PREV } }
+			}
+			modifier = {
+				factor = 2
+				plot_target_char = { relative_power = { who = ROOT power = 2 } }
+			}
+			modifier = {
+				factor = 2
+				plot_target_char = { relative_power = { who = ROOT power = 3 } }
+			}
+			modifier = {
+				factor = 2
+				plot_target_char = { relative_power = { who = ROOT power = 4 } }
+			}
+			modifier = {
+				factor = 2
+				plot_target_char = { relative_power = { who = ROOT power = 5 } }
+			}
+		}
+	}
+	
+	# Do what you will
+	option = {
+		name = "EVTOPTCSPYMASTER3"
+		reveal_plot = yes
+		FROM = { liege = { letter_event = { id = spymaster.2 tooltip = "EVTTOOLTIPSPYMASTER2" } } }
+		plot_target_char = {
+			if = {
+				limit = { NOT = { FROM = { liege = { character = PREVPREV } } } }
+				letter_event = { id = spymaster.2 tooltip = "EVTTOOLTIPSPYMASTER2" }
+			}
+			opinion = { who = ROOT modifier = scheming_bastard years = 10 }
+		}
+		hidden_tooltip = { FROM = { letter_event = { id = spymaster.6 } } }
+		ai_chance = { factor = 100 }
+	}
+}
+
+# Accepted blackmail in exchange for owing future favor
+letter_event = {
+	id = spymaster.4
+	desc = "EVTDESCSPYMASTER4"
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASPYMASTER4"
+	}
+}
+# Accepted blackmail as payment for owed favor
+letter_event = {
+	id = spymaster.5
+	desc = "EVTDESCSPYMASTER5"
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASPYMASTER4"
+	}
+}
+# Didn't accept blackmail at all
+letter_event = {
+	id = spymaster.6
+	desc = "EVTDESCSPYMASTER6"
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASPYMASTER6"
+		liege = { opinion = { who = ROOT modifier = opinion_competent_spymaster } }
+		FROM = { plot_target_char = { opinion = { who = ROOT modifier = opinion_competent_spymaster } } }
+	}
+}

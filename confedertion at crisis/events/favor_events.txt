@@ -1,0 +1,91 @@
+namespace = favor
+
+# favor.100
+# This event is called whenever a favor is 'fulfilled' in some capacity
+letter_event = {
+	id = favor.100
+	desc = "EVTDESCFAVOR100"
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		if = {
+			limit = { has_character_modifier = trustworthy }
+			hidden_tooltip = { remove_character_modifier = trustworthy }
+			add_character_modifier = { name = trustworthy duration = 1825 }
+		}
+		if = {
+			limit = {
+				NOT = { has_character_modifier = trustworthy }
+				NOT = { has_character_modifier = untrustworthy }
+			}
+			add_character_modifier = { name = trustworthy duration = 1825 }
+		}
+		if = {
+			limit = { has_character_modifier = untrustworthy }
+			remove_character_modifier = untrustworthy
+		}
+	}
+}
+
+# favor.200
+# This event is called whenever a favor is failed to be granted, or an ongoing
+# favor is cancelled.
+character_event = {
+	id = favor.200
+	desc = "EVTDESCFAVOR200"
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		FROM = {
+			custom_tooltip = {
+				text = "EVTTOOLTIPFAVOR201"
+				hidden_tooltip = {
+					reverse_remove_opinion = { who = ROOT modifier = opinion_owes_me_a_favor }
+					reverse_remove_opinion = { who = ROOT modifier = opinion_favor_ongoing_appointment }
+					reverse_remove_opinion = { who = ROOT modifier = opinion_favor_ongoing_crisis_support }
+					reverse_remove_opinion = { who = ROOT modifier = opinion_favor_ongoing_council }
+					reverse_remove_opinion = { who = ROOT modifier = opinion_favor_ongoing_plot }
+					reverse_remove_opinion = { who = ROOT modifier = opinion_favor_ongoing_pro_centralization }
+					reverse_remove_opinion = { who = ROOT modifier = opinion_favor_ongoing_anti_centralization }
+					reverse_remove_opinion = { who = ROOT modifier = opinion_favor_ongoing_no_confidence }
+					remove_opinion = { who = ROOT modifier = opinion_favor_ongoing_appointment }
+					remove_opinion = { who = ROOT modifier = opinion_favor_ongoing_crisis_support }
+					remove_opinion = { who = ROOT modifier = opinion_favor_ongoing_council }
+					remove_opinion = { who = ROOT modifier = opinion_favor_ongoing_ongoing_plot }
+					remove_opinion = { who = ROOT modifier = opinion_favor_ongoing_pro_centralization }
+					remove_opinion = { who = ROOT modifier = opinion_favor_ongoing_anti_centralization }
+					remove_opinion = { who = ROOT modifier = opinion_favor_ongoing_no_confidence }
+					character_event = { id = favor.201 }
+				}
+			}
+		}
+	}
+}
+character_event = {
+	id = favor.201
+	desc = "EVTDESCFAVOR201"
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		reverse_opinion = { who = FROM modifier = opinion_defaulted_favor }
+		if = {
+			limit = { has_character_modifier = untrustworthy }
+			hidden_tooltip = { remove_character_modifier = untrustworthy }
+			add_character_modifier = { name = untrustworthy duration = 1825 }
+		}
+		if = {
+			limit = {
+				NOT = { has_character_modifier = untrustworthy }
+				NOT = { has_character_modifier = trustworthy }
+			}
+			add_character_modifier = { name = untrustworthy duration = 1825 }
+		}
+		if = {
+			limit = { has_character_modifier = trustworthy }
+			remove_character_modifier = trustworthy
+		}
+	}
+}

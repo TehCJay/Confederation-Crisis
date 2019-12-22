@@ -1,0 +1,228 @@
+namespace = prisoner
+
+# Neural pacification
+character_event = {
+	id = prisoner.100
+	desc = "EVTDESCPRISONER100"
+	picture = GFX_evt_thrown_into_dungeon
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTPRISONER100"
+		if = {
+			limit = { trait = maimed }
+			random = {
+				chance = 25
+				tooltip = { host = { ROOT = { death = { death_reason = death_dungeon killer = PREV } } } }
+				set_character_flag = flag_pacify_killed
+			}
+		}
+		if = {
+			limit = {
+				NOT = { trait = maimed }
+				trait = wounded
+			}
+			random_list = {
+				90 = {
+					remove_trait = wounded
+					add_trait = maimed
+					set_character_flag = flag_pacify_maimed
+				}
+				10 = {
+					tooltip = { host = { ROOT = { death = { death_reason = death_dungeon killer = PREV } } } }
+					set_character_flag = flag_pacify_killed
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = { trait = maimed }
+				NOT = { trait = wounded }
+			}
+			random = {
+				chance = 50
+				add_trait = wounded
+				set_character_flag = flag_pacify_wounded
+			}
+		}
+		if = {
+			limit = {
+				NOT = { trait = content }
+				NOT = { trait = ambitious }
+			}
+			random = {
+				chance = 50
+				add_trait = content
+				set_character_flag = flag_pacify_content
+			}
+		}
+		if = {
+			limit = {
+				NOT = { trait = neurotic }
+				NOT = { trait = confident }
+			}
+			random = {
+				chance = 50
+				add_trait = neurotic
+				set_character_flag = flag_pacify_neurotic
+			}
+		}
+		if = {
+			limit = {
+				NOT = { trait = cold }
+				NOT = { trait = friendly }
+			}
+			random = {
+				chance = 50
+				add_trait = friendly
+				set_character_flag = flag_pacify_friendly
+			}
+		}
+		if = {
+			limit = {
+				NOT = { trait = proud }
+				NOT = { trait = humble }
+			}
+			random = {
+				chance = 50
+				add_trait = humble
+				set_character_flag = flag_pacify_humble
+			}
+		}
+		if = {
+			limit = { trait = ambitious }
+			random = {
+				chance = 50
+				remove_trait = ambitious
+				set_character_flag = flag_pacify_ambitious
+			}
+		}
+		if = {
+			limit = { trait = confident }
+			random = {
+				chance = 50
+				remove_trait = confident
+				set_character_flag = flag_pacify_confident
+			}
+		}
+		if = {
+			limit = { trait = cold }
+			random = {
+				chance = 50
+				remove_trait = cold
+				set_character_flag = flag_pacify_cold
+			}
+		}
+		if = {
+			limit = { trait = proud }
+			random = {
+				chance = 50
+				remove_trait = proud
+				set_character_flag = flag_pacify_proud
+			}
+		}
+		hidden_tooltip = { host = { character_event = { id = prisoner.101 } } }
+	}
+}
+character_event = {
+	id = prisoner.101
+	desc = "EVTDESCPRISONER101"
+	picture = GFX_evt_thrown_into_the_dungeon
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		clr_character_flag = flag_prisoner_interaction
+		hidden_tooltip = { any_vassal = { character_event = { id = prisoner.102 } } }
+		FROM = {
+			if = {
+				limit = { has_character_flag = flag_pacify_killed }
+				death = { death_reason = death_dungeon killer = ROOT }
+				father = {
+					opinion = { who = ROOT modifier = opinion_killed_close_kin }
+					hidden_tooltip = { character_event = { id = prisoner.103 } }
+				}
+				mother = {
+					opinion = { who = ROOT modifier = opinion_killed_close_kin }
+					hidden_tooltip = { character_event = { id = prisoner.103 } }
+				}
+				any_sibling = {
+					opinion = { who = ROOT modifier = opinion_killed_close_kin }
+					hidden_tooltip = { character_event = { id = prisoner.103 } }
+				}
+				any_child = {
+					opinion = { who = ROOT modifier = opinion_killed_close_kin }
+					hidden_tooltip = { character_event = { id = prisoner.103 } }
+				}
+				clr_character_flag = flag_pacify_killed
+			}
+			if = {
+				limit = { has_character_flag = flag_pacify_maimed }
+				add_trait = maimed
+				clr_character_flag = flag_pacify_maimed
+			}
+			if = {
+				limit = { has_character_flag = flag_pacify_wounded }
+				add_trait = wounded
+				clr_character_flag = flag_pacify_wounded
+			}
+			if = {
+				limit = { has_character_flag = flag_pacify_content }
+				add_trait = content
+				clr_character_flag = flag_pacify_content
+			}
+			if = {
+				limit = { has_character_flag = flag_pacify_neurotic }
+				add_trait = neurotic
+				clr_character_flag = flag_pacify_neurotic
+			}
+			if = {
+				limit = { has_character_flag = flag_pacify_friendly }
+				add_trait = friendly
+				clr_character_flag = flag_pacify_friendly
+			}
+			if = {
+				limit = { has_character_flag = flag_pacify_humble }
+				add_trait = humble
+				clr_character_flag = flag_pacify_humble
+			}
+			if = {
+				limit = { has_character_flag = flag_pacify_ambitious }
+				remove_trait = ambitious
+				clr_character_flag = flag_pacify_ambitious
+			}
+			if = {
+				limit = { has_character_flag = flag_pacify_confident }
+				remove_trait = confident
+				clr_character_flag = flag_pacify_confident
+			}
+			if = {
+				limit = { has_character_flag = flag_pacify_cold }
+				remove_trait = cold
+				clr_character_flag = flag_pacify_cold
+			}
+			if = {
+				limit = { has_character_flag = flag_pacify_proud }
+				remove_trait = proud
+				clr_character_flag = flag_pacify_proud
+			}
+		}
+	}
+}
+character_event = {
+	id = prisoner.102
+	desc = "EVTDESCPRISONER102"
+	notification = yes
+	show_from_from = yes
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+character_event = {
+	id = prisoner.103
+	desc = "EVTDESCPRISONER103"
+	picture = GFX_evt_death
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}

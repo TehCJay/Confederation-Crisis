@@ -1,0 +1,4175 @@
+namespace = diplomacy
+
+# Close Borders
+letter_event = {
+	id = diplomacy.10
+	desc = "EVTDESCDIPLOMACY10"
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		custom_tooltip = { text = "EVTTOOLTIPDIPLOMAY11" }
+	}
+}
+
+# Swear Fealty
+character_event = {
+	id = diplomacy.100
+	hide_window = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		random_independent_ruler = {
+			limit = { reverse_has_opinion_modifier = { who = ROOT modifier = opinion_swear_fealty_target } }
+			letter_event = { id = diplomacy.101 }
+		}
+	}
+}
+letter_event = {
+	id = diplomacy.101
+	desc = "EVTDESCDIPLOMACY101"
+	border = GFX_evt_letter_frame_diplomacy
+	is_triggered_only = yes
+	
+	immediate = { reverse_remove_opinion = { who = FROM modifier = opinion_swear_fealty_target } }
+	
+	option = {
+		name = "EVTOPTACCEPT"
+		FROM = {
+			set_defacto_liege = ROOT
+			opinion = { who = ROOT modifier = opinion_accepted_swear_fealty }
+			any_current_enemy = {
+				opinion = { who = ROOT modifier = opinion_sheltered_my_enemy }
+				FROM = { opinion = { who = ROOT modifier = opinion_sheltered_me_from_enemies } }
+				hidden_tooltip = { character_event = { id = diplomacy.103 } }
+			}
+			hidden_tooltip = { letter_event = { id = diplomacy.102 } }
+		}
+		ai_chance = {
+			factor = 50
+			# Territory gained
+			modifier = {
+				factor = 2
+				FROM = { realm_size = 5 }
+				NOT = { trait = lunatic }
+			}
+			modifier = {
+				factor = 2
+				FROM = { realm_size = 10 }
+				NOT = { trait = lunatic }
+			}
+			modifier = {
+				factor = 2
+				FROM = { realm_size = 15 }
+				NOT = { trait = lunatic }
+			}
+			modifier = {
+				factor = 2
+				FROM = { realm_size = 20 }
+				NOT = { trait = lunatic }
+			}
+			modifier = {
+				factor = 2
+				FROM = { realm_size = 25 }
+				NOT = { trait = lunatic }
+			}
+			modifier = {
+				factor = 2
+				FROM = { realm_size = 30 }
+				NOT = { trait = lunatic }
+			}
+			modifier = {
+				factor = 2
+				FROM = { realm_size = 35 }
+				NOT = { trait = lunatic }
+			}
+			modifier = {
+				factor = 2
+				FROM = { realm_size = 40 }
+				NOT = { trait = lunatic }
+			}
+			modifier = {
+				factor = 2
+				FROM = { realm_size = 45 }
+				NOT = { trait = lunatic }
+			}
+			modifier = {
+				factor = 2
+				FROM = { realm_size = 50 }
+				NOT = { trait = lunatic }
+			}
+			# Opinion of FROM
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -99 } }
+			}
+			
+			# Personality
+			modifier = {
+				factor = 5
+				trait = ambitious
+			}
+			modifier = {
+				factor = 0.2
+				trait = content
+			}
+			
+			# Opinion of enemies
+			modifier = {
+				factor = 1.25
+				FROM = { any_current_enemy = { NOT = { reverse_opinion = { who = ROOT value = -99 } } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { any_current_enemy = { NOT = { reverse_opinion = { who = ROOT value = -89 } } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { any_current_enemy = { NOT = { reverse_opinion = { who = ROOT value = -79 } } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { any_current_enemy = { NOT = { reverse_opinion = { who = ROOT value = -69 } } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { any_current_enemy = { NOT = { reverse_opinion = { who = ROOT value = -59 } } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { any_current_enemy = { NOT = { reverse_opinion = { who = ROOT value = -49 } } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { any_current_enemy = { NOT = { reverse_opinion = { who = ROOT value = -39 } } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { any_current_enemy = { NOT = { reverse_opinion = { who = ROOT value = -29 } } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { any_current_enemy = { NOT = { reverse_opinion = { who = ROOT value = -19 } } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { any_current_enemy = { NOT = { reverse_opinion = { who = ROOT value = -9 } } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { any_current_enemy = { reverse_opinion = { who = ROOT value = 10 } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { any_current_enemy = { reverse_opinion = { who = ROOT value = 20 } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { any_current_enemy = { reverse_opinion = { who = ROOT value = 30 } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { any_current_enemy = { reverse_opinion = { who = ROOT value = 40 } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { any_current_enemy = { reverse_opinion = { who = ROOT value = 50 } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { any_current_enemy = { reverse_opinion = { who = ROOT value = 60 } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { any_current_enemy = { reverse_opinion = { who = ROOT value = 70 } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { any_current_enemy = { reverse_opinion = { who = ROOT value = 80 } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { any_current_enemy = { reverse_opinion = { who = ROOT value = 90 } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { any_current_enemy = { reverse_opinion = { who = ROOT value = 100 } } }
+			}
+			
+			# Miscellaneous
+			modifier = {
+				factor = 0.1
+				FROM = {
+					NOT = { religion = ROOT }
+					any_current_enemy = { religion = ROOT }
+				}
+			}
+			modifier = {
+				factor = 0.1
+				FROM = { religion = space_pirate }
+				NOT = { religion = space_pirate }
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTREFUSE"
+		FROM = {
+			opinion = { who = ROOT modifier = opinion_rejected_swear_fealty }
+			hidden_tooltip = { letter_event = { id = diplomacy.104 } }
+		}
+		ai_chance = {
+			factor = 50
+		}
+	}
+}
+letter_event = {
+	id = diplomacy.102
+	desc = "EVTDESCDIPLOMACY102"
+	border = GFX_evt_letter_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		set_defacto_liege = FROM
+		clr_character_flag = flag_diplomatic_interaction
+	}
+}
+letter_event = {
+	id = diplomacy.103
+	desc = "EVTDESCDIPLOMACY103"
+	border = GFX_evt_letter_frame_war
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+letter_event = {
+	id = diplomacy.104
+	desc = "EVTDESCDIPLOMACY104"
+	border = GFX_evt_letter_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		clr_character_flag = flag_diplomatic_interaction
+	}
+}
+
+# Breaking up an empire
+character_event = {
+	id = diplomacy.200
+	desc = "EVTDESCDIPLOMACY200"
+	picture = GFX_evt_speech
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		prestige = -500
+		clr_character_flag = flag_breaking_up_empire
+		if = {
+			limit = {
+				OR = {
+					religion = colonial_separatist
+					religion = neo_feudal
+					religion = adoptionist
+					religion = adoptionist_cultist
+					religion = xenoterran
+				}
+			}
+			piety = 500
+			religion_authority = { modifier = major_compatible_reform years = 100 }
+		}
+		if = {
+			limit = {
+				OR = {
+					religion = terran_federalist
+					religion = terran_republican
+					religion = terran_imperial
+					religion = astrist
+					religion = orthodox
+					religion = pilgrim
+				}
+			}
+			piety = -500
+			religion_authority = { modifier = major_hypocritical_reform years = 100 }
+		}
+		any_vassal = {
+			limit = {
+				NOT = { tier = king }
+				primary_title = { kingdom = { holder_scope = { same_liege = PREVPREVPREV } } }
+			}
+			primary_title = {
+				kingdom = {
+					holder_scope = {
+						set_defacto_vassal = PREVPREVPREV
+						opinion = { who = ROOT modifier = opinion_vassal_transfer }
+					}
+				}
+			}
+		}
+		any_vassal = {
+			limit = {
+				NOT = { tier = king }
+				primary_title = {
+					kingdom = {
+						holder_scope = {
+							NOT = { same_liege = PREVPREVPREV }
+							NOT = { character = ROOT }
+						}
+					}
+				}
+			}
+			set_defacto_liege = THIS
+			opinion = { who = ROOT modifier = opinion_granted_independence }
+		}
+		tooltip = {
+			any_demesne_title = {
+				limit = { tier = emperor }
+				destroy_landed_title = THIS
+			}
+		}
+		hidden_tooltip = { narrative_event = { id = diplomacy.201 } }
+	}
+	option = {
+		name = "EVTOPTNEVERMIND"
+		clr_character_flag = flag_breaking_up_empire
+	}
+}
+
+narrative_event = {
+	id = diplomacy.201
+	title = "EVTNAMEDIPLOMACY201"
+	desc = "EVTDESCDIPLOMACY201"
+	picture = GFX_evt_speech
+	major = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		FROM = {
+			any_demesne_title = {
+				limit = { tier = emperor }
+				destroy_landed_title = THIS
+			}
+		}
+	}
+}
+
+# Confederation Congress
+character_event = {
+	id = diplomacy.1000
+	desc = "EVTDESCDIPLOMACY1000"
+	picture = GFX_evt_council
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		capital_scope = {
+			empire = {
+				any_independent_ruler = {
+					limit = { de_jure_liege_or_above = PREV }
+					letter_event = { id = diplomacy.1001 tooltip = "EVTTOOLTIPDIPLOMACY1001" days = 15 random = 7 }
+				}
+			}
+		}
+		hidden_tooltip = {
+			character_event = { id = diplomacy.1100 days = 60 } # Begin the congress
+			character_event = { id = diplomacy.1150 days = 60 } # Nobody comes
+		}
+		prestige = -500 # Prestige cost
+	}
+	
+	option = {
+		name = "EVTOPTNEVERMIND"
+		clr_character_flag = flag_confederation_congress_host
+	}
+}
+
+# Invited to the Confederation Congress
+letter_event = {
+	id = diplomacy.1001
+	desc = "EVTDESCDIPLOMACY1001"
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTACCEPT"
+		hidden_tooltip = {
+			FROM = { letter_event = { id = diplomacy.1004 days = 15 random = 7 } }
+			opinion = { who = FROM modifier = opinion_attending_congress }
+		}
+		ai_chance = {
+			factor = 50
+			# Importance of FROM
+			modifier = {
+				factor = 4
+				FROM = { higher_tier_than = count }
+			}
+			modifier = {
+				factor = 4
+				FROM = { higher_tier_than = duke }
+			}
+			
+			# Importance of ROOT
+			modifier = {
+				factor = 0.5
+				higher_tier_than = count
+			}
+			modifier = {
+				factor = 0.5
+				higher_tier_than = duke
+			}
+			
+			# Ideological Considerations
+			modifier = {
+				factor = 0
+				OR = {
+					FROM = { religion = hiver }
+					religion = hiver
+				}
+				NOT = {
+					AND = {
+						FROM = { religion = hiver }
+						religion = hiver
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_federalist
+					religion = terran_republican
+					religion = terran_imperial
+					religion = astrist
+					religion = pilgrim
+					religion = orthodox
+				}
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_federalist
+					religion = terran_republican
+					religion = terran_imperial
+					religion = astrist
+					religion = pilgrim
+					religion = orthodox
+				}
+				trait = radical
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_federalist
+					religion = terran_republican
+					religion = terran_imperial
+					religion = astrist
+					religion = pilgrim
+					religion = orthodox
+				}
+				religion_authority = 0.25
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_federalist
+					religion = terran_republican
+					religion = terran_imperial
+					religion = astrist
+					religion = pilgrim
+					religion = orthodox
+				}
+				religion_authority = 0.5
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_federalist
+					religion = terran_republican
+					religion = terran_imperial
+					religion = astrist
+					religion = pilgrim
+					religion = orthodox
+				}
+				religion_authority = 0.75
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = colonial_separatist
+					religion = neo_feudal
+					religion = xenoterran
+					religion = adoptionist
+					religion = adoptionist_cultist
+				}
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = colonial_separatist
+					religion = neo_feudal
+					religion = xenoterran
+					religion = adoptionist
+					religion = adoptionist_cultist
+				}
+				trait = radical
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = colonial_separatist
+					religion = neo_feudal
+					religion = xenoterran
+					religion = adoptionist
+					religion = adoptionist_cultist
+				}
+				religion_authority = 0.25
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = colonial_separatist
+					religion = neo_feudal
+					religion = xenoterran
+					religion = adoptionist
+					religion = adoptionist_cultist
+				}
+				religion_authority = 0.5
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = colonial_separatist
+					religion = neo_feudal
+					religion = xenoterran
+					religion = adoptionist
+					religion = adoptionist_cultist
+				}
+				religion_authority = 0.75
+			}
+			
+			# Opinion of FROM
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -99 } }
+			}
+			
+			# Pragmatic Considerations
+			modifier = {
+				factor = 5
+				has_ambition = obj_become_emperor
+			}
+			modifier = {
+				factor = 5
+				any_war = {
+					defender = { character = ROOT }
+					war_score = 50
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTREFUSE"
+		hidden_tooltip = { FROM = { letter_event = { id = diplomacy.1003 days = 15 random = 7 } } }
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0
+				religion = hiver
+				FROM = { religion = hiver }
+			}
+		}
+	}
+}
+
+letter_event = {
+	id = diplomacy.1003
+	desc = "EVTDESCDIPLOMACY1003"
+	is_triggered_only = yes
+	option = { name = "EVTOPTCONFIRM" }
+}
+
+letter_event = {
+	id = diplomacy.1004
+	desc = "EVTDESCDIPLOMACY1004"
+	is_triggered_only = yes
+	option = { name = "EVTOPTCONFIRM" }
+}
+
+# The congress convenes
+character_event = {
+	id = diplomacy.1100
+	desc = "EVTDESCDIPLOMACY1100"
+	picture = GFX_evt_council
+	is_triggered_only = yes
+	
+	trigger = { any_independent_ruler = { has_opinion_modifier = { who = ROOT modifier = opinion_attending_congress } } }
+	
+	option = {
+		name = "EVTOPTADIPLOMACY1100"
+		any_independent_ruler = {
+			limit = { has_opinion_modifier = { who = ROOT modifier = opinion_attending_congress } }
+			character_event = { id = diplomacy.1101 tooltip = "EVTTOOLTIPDIPLOMACY1101" }
+		}
+		hidden_tooltip = { character_event = { id = diplomacy.1200 days = 90 } } # End the congress in 90 days
+		hidden_tooltip = { character_event = { id = diplomacy.1250 days = 90 } } # Congress fails
+	}
+}
+# The Congress begins
+character_event = {
+	id = diplomacy.1101
+	desc = "EVTDESCDIPLOMACY1101"
+	picture = GFX_evt_council
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTADIPLOMACY1101"
+	}
+}
+
+# Nobody came to your Congress
+character_event = {
+	id = diplomacy.1150
+	desc = "EVTDESCDIPLOMACY1150"
+	picture = GFX_evt_council
+	is_triggered_only = yes
+	
+	trigger = {  NOT = { any_independent_ruler = { has_opinion_modifier = { who = ROOT modifier = opinion_attending_congress } } } }
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		clr_character_flag = flag_confederation_congress_host
+		clr_character_flag = flag_confederation_congress_failed
+		set_character_flag = flag_confederation_congress_failed
+	}
+}
+
+# Initial demand phase over, move to constitutional phase
+character_event = {
+	id = diplomacy.1200
+	desc = "EVTDESCDIPLOMACY1200"
+	picture = GFX_evt_council
+	is_triggered_only = yes
+	
+	trigger = { any_independent_ruler = { has_opinion_modifier = { who = ROOT modifier = opinion_attending_congress } } }
+	
+	# Choose a succession law
+	option = {
+		name = "EVTOPTADIPLOMACY1200" # Federal elective
+		clr_character_flag = flag_confederation_own_succession
+		set_character_flag = flag_confederation_federal_elective
+		any_independent_ruler = {
+			limit = { has_opinion_modifier = { who = ROOT modifier = opinion_attending_congress } }
+			character_event = { id = diplomacy.1201 tooltip = "EVTTOOLTIPDIPLOMACY1201" }
+		}
+		hidden_tooltip = {
+			character_event = { id = diplomacy.1300 days = 5 }
+			character_event = { id = diplomacy.1250 days = 5 }
+		}
+		ai_chance = {
+			factor = 50
+			# Ideology
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_federalist
+					religion = colonial_separatist
+					religion = adoptionist
+					religion = adoptionist_cultist
+					religion = neo_feudal
+				}
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_federalist
+					religion = colonial_separatist
+					religion = adoptionist
+					religion = adoptionist_cultist
+					religion = neo_feudal
+				}
+				trait = radical
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_federalist
+					religion = colonial_separatist
+					religion = adoptionist
+					religion = adoptionist_cultist
+					religion = neo_feudal
+				}
+				religion_authority = 0.25
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_federalist
+					religion = colonial_separatist
+					religion = adoptionist
+					religion = adoptionist_cultist
+					religion = neo_feudal
+				}
+				religion_authority = 0.5
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_federalist
+					religion = colonial_separatist
+					religion = adoptionist
+					religion = adoptionist_cultist
+					religion = neo_feudal
+				}
+				religion_authority = 0.75
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_republican
+					religion = terran_imperial
+					religion = pilgrim
+					religion = orthodox
+				}
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_republican
+					religion = terran_imperial
+					religion = pilgrim
+					religion = orthodox
+				}
+				trait = radical
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_republican
+					religion = terran_imperial
+					religion = pilgrim
+					religion = orthodox
+				}
+				religion_authority = 0.25
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_republican
+					religion = terran_imperial
+					religion = pilgrim
+					religion = orthodox
+				}
+				religion_authority = 0.5
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_republican
+					religion = terran_imperial
+					religion = pilgrim
+					religion = orthodox
+				}
+				religion_authority = 0.75
+			}
+			
+			# Personality
+			modifier = {
+				factor = 4
+				trait = humble
+			}
+			modifier = {
+				factor = 0.25
+				trait = proud
+			}
+			modifier = {
+				factor = 4
+				trait = friendly
+			}
+			modifier = {
+				factor = 0.25
+				trait = cold
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTBDIPLOMACY1200" # Your own succession law
+		trigger = { primary_title = { NOT = { has_law = succ_feudal_elective } } }
+		set_character_flag = flag_confederation_own_succession
+		clr_character_flag = flag_confederation_federal_elective
+		any_independent_ruler = {
+			limit = { has_opinion_modifier = { who = ROOT modifier = opinion_attending_congress } }
+			character_event = { id = diplomacy.1205 tooltip = "EVTTOOLTIPDIPLOMACY1205" }
+		}
+		hidden_tooltip = {
+			character_event = { id = diplomacy.1300 days = 5 }
+			character_event = { id = diplomacy.1250 days = 5 }
+		}
+	}
+}
+character_event = {
+	id = diplomacy.1201
+	desc = "EVTDESCDIPLOMACY1201"
+	picture = GFX_evt_council
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+character_event = {
+	id = diplomacy.1205
+	desc = "EVTDESCDIPLOMACY1205"
+	picture = GFX_evt_council
+	is_triggered_only = yes
+	
+	# Go along with it
+	option = {
+		name = "EVTOPTADIPLOMACY1205"
+		ai_chance = {
+			factor = 50
+			# Lack of authority
+			modifier = {
+				factor = 3
+				NOT = { higher_tier_than = duke }
+			}
+			modifier = {
+				factor = 3
+				NOT = { higher_tier_than = count }
+			}
+			modifier = {
+				factor = 2
+				FROM = { relative_power = { who = ROOT power = 1.0 } }
+			}
+			modifier = {
+				factor = 2
+				FROM = { relative_power = { who = ROOT power = 2.0 } }
+			}
+			# Personality
+			modifier = {
+				factor = 4
+				trait = friendly
+			}
+			modifier = {
+				factor = 0.25
+				trait = cold
+			}
+			modifier = {
+				factor = 4
+				trait = content
+			}
+			modifier = {
+				factor = 0.25
+				trait = ambitious
+			}
+			# Opinion of FROM
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -99 } }
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_federalist
+					religion = colonial_separatist
+					religion = adoptionist
+					religion = adoptionist_cultist
+					religion = neo_feudal
+				}
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_federalist
+					religion = colonial_separatist
+					religion = adoptionist
+					religion = adoptionist_cultist
+					religion = neo_feudal
+				}
+				trait = radical
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_federalist
+					religion = colonial_separatist
+					religion = adoptionist
+					religion = adoptionist_cultist
+					religion = neo_feudal
+				}
+				religion_authority = 0.25
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_federalist
+					religion = colonial_separatist
+					religion = adoptionist
+					religion = adoptionist_cultist
+					religion = neo_feudal
+				}
+				religion_authority = 0.5
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_federalist
+					religion = colonial_separatist
+					religion = adoptionist
+					religion = adoptionist_cultist
+					religion = neo_feudal
+				}
+				religion_authority = 0.75
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_republican
+					religion = terran_imperial
+					religion = pilgrim
+					religion = orthodox
+				}
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_republican
+					religion = terran_imperial
+					religion = pilgrim
+					religion = orthodox
+				}
+				trait = radical
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_republican
+					religion = terran_imperial
+					religion = pilgrim
+					religion = orthodox
+				}
+				religion_authority = 0.25
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_republican
+					religion = terran_imperial
+					religion = pilgrim
+					religion = orthodox
+				}
+				religion_authority = 0.5
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_republican
+					religion = terran_imperial
+					religion = pilgrim
+					religion = orthodox
+				}
+				religion_authority = 0.75
+			}
+		}
+	}
+	# Demand federal elective
+	option = {
+		name = "EVTOPTBDIPLOMACY1205"
+		FROM = {
+			character_event = { id = diplomacy.1210 tooltip = "EVTTOOLTIPDIPLOMACY1210" }
+			opinion = { who = ROOT modifier = opinion_recent_request }
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+# Someone demands federal elective
+character_event = {
+	id = diplomacy.1210
+	desc = "EVTDESCDIPLOMACY1210"
+	picture = GFX_evt_council
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTACCEPT"
+		clr_character_flag = flag_confederation_own_succession
+		set_character_flag = flag_confederation_federal_elective
+		any_independent_ruler = {
+			limit = { has_opinion_modifier = { who = ROOT modifier = opinion_attending_congress } }
+			character_event = { id = diplomacy.1211 tooltip = "EVTTOOLTIPDIPLOMACY1211" }
+		}
+		ai_chance = {
+			factor = 10
+			# Personality
+			modifier = {
+				factor = 4
+				trait = friendly
+			}
+			modifier = {
+				factor = 0.25
+				trait = cold
+			}
+			modifier = {
+				factor = 4
+				trait = humble
+			}
+			modifier = {
+				factor = 0.25
+				trait = proud
+			}
+			# Importance of demander
+			modifier = {
+				factor = 3
+				FROM = { higher_tier_than = count }
+			}
+			modifier = {
+				factor = 3
+				FROM = { higher_tier_than = duke }
+			}
+			modifier = {
+				factor = 2
+				FROM = { relative_power = { who = ROOT power = 0.5 } }
+			}
+			modifier = {
+				factor = 2
+				FROM = { relative_power = { who = ROOT power = 1 } }
+			}
+			modifier = {
+				factor = 2
+				FROM = { relative_power = { who = ROOT power = 1.5 } }
+			}
+			modifier = {
+				factor = 2
+				FROM = { relative_power = { who = ROOT power = 2 } }
+			}
+			# Opinion of demander
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -99 } }
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTREFUSE"
+		FROM = {
+			remove_opinion = { who = ROOT modifier = opinion_attending_congress }
+			character_event = { id = diplomacy.1212 tooltip = "EVTTOOLTIPLEAVESCONGRESS" }
+		}
+		hidden_tooltip = {
+			any_independent_ruler = {
+				limit = { has_opinion_modifier = { who = ROOT modifier = opinion_attending_congress } }
+				character_event = { id = diplomacy.1213 }
+			}
+		}
+		ai_chance = { factor = 90 }
+	}
+}
+# The host has agreed to federal elective
+character_event = {
+	id = diplomacy.1211
+	desc = "EVTDESCDIPLOMACY1211"
+	picture = GFX_evt_council
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+# The host has refused your demand for federal elective
+character_event = {
+	id = diplomacy.1212
+	desc = "EVTDESCDIPLOMACY1212"
+	picture = GFX_evt_council
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+# Another power has left the congress due to the succession law
+character_event = {
+	id = diplomacy.1213
+	desc = "EVTDESCDIPLOMACY1213"
+	picture = GFX_evt_council
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+# Your congress has failed
+character_event = {
+	id = diplomacy.1250
+	desc = "EVTDESCDIPLOMACY1250"
+	picture = GFX_evt_scandal
+	is_triggered_only = yes
+	
+	trigger = { NOT = { any_independent_ruler = { has_opinion_modifier = { who = ROOT modifier = opinion_attending_congress } } } }
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		clr_character_flag = flag_confederation_congress_host
+		clr_character_flag = flag_confederation_own_succession
+		clr_character_flag = flag_confederation_federal_elective
+		clr_character_flag = flag_confederation_no_senate
+		clr_character_flag = flag_confederation_senate
+		clr_character_flag = flag_confederation_congress_failed
+		set_character_flag = flag_confederation_congress_failed
+	}
+}
+# Senate or rule by decree?
+character_event = {
+	id = diplomacy.1300
+	desc = "EVTDESCDIPLOMACY1300"
+	picture = GFX_evt_council
+	is_triggered_only = yes
+	
+	trigger = { any_independent_ruler = { has_opinion_modifier = { who = ROOT modifier = opinion_attending_congress } } }
+	
+	option = {
+		name = "EVTOPTADIPLOMACY1300" # Establish a senate
+		clr_character_flag = flag_confederation_no_senate
+		set_character_flag = flag_confederation_senate
+		any_independent_ruler = {
+			limit = { has_opinion_modifier = { who = ROOT modifier = opinion_attending_congress } }
+			character_event = { id = diplomacy.1301 tooltip = "EVTTOOLTIP1301" }
+		}
+		hidden_tooltip = {
+			character_event = { id = diplomacy.1400 days = 5 }
+			character_event = { id = diplomacy.1250 days = 5 }
+		}
+		ai_chance = {
+			factor = 50
+			# Personality
+			modifier = {
+				factor = 0.5
+				trait = ambitious
+			}
+			modifier = {
+				factor = 2
+				trait = content
+			}
+			modifier = {
+				factor = 0.5
+				trait = cold
+			}
+			modifier = {
+				factor = 2
+				trait = friendly
+			}
+			# Ideology
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_federalist
+					religion = terran_republican
+					religion = colonial_separatist
+					religion = neo_socialist
+				}
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_federalist
+					religion = terran_republican
+					religion = colonial_separatist
+					religion = neo_socialist
+				}
+				trait = radical
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_federalist
+					religion = terran_republican
+					religion = colonial_separatist
+					religion = neo_socialist
+				}
+				religion_authority = 0.25
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_federalist
+					religion = terran_republican
+					religion = colonial_separatist
+					religion = neo_socialist
+				}
+				religion_authority = 0.5
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_federalist
+					religion = terran_republican
+					religion = colonial_separatist
+					religion = neo_socialist
+				}
+				religion_authority = 0.75
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = astrist
+				}
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = astrist
+				}
+				trait = radical
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = astrist
+				}
+				religion_authority = 0.25
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = astrist
+				}
+				religion_authority = 0.5
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = astrist
+				}
+				religion_authority = 0.75
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTBDIPLOMACY1300" # Don't establish a senate
+		set_character_flag = flag_confederation_no_senate
+		clr_character_flag = flag_confederation_senate
+		any_independent_ruler = {
+			limit = { has_opinion_modifier = { who = ROOT modifier = opinion_attending_congress } }
+			character_event = { id = diplomacy.1305 tooltip = "EVTTOOLTIP1305" }
+		}
+		hidden_tooltip = {
+			character_event = { id = diplomacy.1400 days = 5 }
+			character_event = { id = diplomacy.1250 days = 5 }
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+character_event = {
+	id = diplomacy.1301
+	desc = "EVTDESCDIPLOMACY1301"
+	picture = GFX_evt_council
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+character_event = {
+	id = diplomacy.1305
+	desc = "EVTDESCDIPLOMACY1305"
+	picture = GFX_evt_council
+	is_triggered_only = yes
+	
+	# Go along with it
+	option = {
+		name = "EVTOPTADIPLOMACY1305"
+		ai_chance = {
+			factor = 50
+			# Lack of authority
+			modifier = {
+				factor = 3
+				NOT = { higher_tier_than = duke }
+			}
+			modifier = {
+				factor = 3
+				NOT = { higher_tier_than = count }
+			}
+			modifier = {
+				factor = 2
+				FROM = { relative_power = { who = ROOT power = 1.0 } }
+			}
+			modifier = {
+				factor = 2
+				FROM = { relative_power = { who = ROOT power = 2.0 } }
+			}
+			# Personality
+			modifier = {
+				factor = 4
+				trait = content
+			}
+			modifier = {
+				factor = 0.25
+				trait = ambitious
+			}
+			# Opinion of FROM
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -99 } }
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_federalist
+					religion = terran_republican
+					religion = colonial_separatist
+					religion = neo_socialist
+				}
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_federalist
+					religion = terran_republican
+					religion = colonial_separatist
+					religion = neo_socialist
+				}
+				trait = radical
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_federalist
+					religion = terran_republican
+					religion = colonial_separatist
+					religion = neo_socialist
+				}
+				religion_authority = 0.25
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_federalist
+					religion = terran_republican
+					religion = colonial_separatist
+					religion = neo_socialist
+				}
+				religion_authority = 0.5
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_federalist
+					religion = terran_republican
+					religion = colonial_separatist
+					religion = neo_socialist
+				}
+				religion_authority = 0.75
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = astrist
+				}
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = astrist
+				}
+				trait = radical
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = astrist
+				}
+				religion_authority = 0.25
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = astrist
+				}
+				religion_authority = 0.5
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = astrist
+				}
+				religion_authority = 0.75
+			}
+		}
+	}
+	# Demand a senate
+	option = {
+		name = "EVTOPTBDIPLOMACY1305"
+		FROM = {
+			character_event = { id = diplomacy.1310 tooltip = "EVTTOOLTIPDIPLOMACY1310" }
+			opinion = { who = ROOT modifier = opinion_recent_request }
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+# Someone demands a senate
+character_event = {
+	id = diplomacy.1310
+	desc = "EVTDESCDIPLOMACY1310"
+	picture = GFX_evt_council
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTACCEPT"
+		clr_character_flag = flag_confederation_no_senate
+		set_character_flag = flag_confederation_senate
+		any_independent_ruler = {
+			limit = { has_opinion_modifier = { who = ROOT modifier = opinion_attending_congress } }
+			character_event = { id = diplomacy.13211 tooltip = "EVTTOOLTIPDIPLOMACY1311" }
+		}
+		ai_chance = {
+			factor = 10
+			# Personality
+			modifier = {
+				factor = 4
+				trait = friendly
+			}
+			modifier = {
+				factor = 0.25
+				trait = cold
+			}
+			modifier = {
+				factor = 4
+				trait = humble
+			}
+			modifier = {
+				factor = 0.25
+				trait = proud
+			}
+			# Importance of demander
+			modifier = {
+				factor = 3
+				FROM = { higher_tier_than = count }
+			}
+			modifier = {
+				factor = 3
+				FROM = { higher_tier_than = duke }
+			}
+			modifier = {
+				factor = 2
+				FROM = { relative_power = { who = ROOT power = 0.5 } }
+			}
+			modifier = {
+				factor = 2
+				FROM = { relative_power = { who = ROOT power = 1 } }
+			}
+			modifier = {
+				factor = 2
+				FROM = { relative_power = { who = ROOT power = 1.5 } }
+			}
+			modifier = {
+				factor = 2
+				FROM = { relative_power = { who = ROOT power = 2 } }
+			}
+			# Opinion of demander
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -99 } }
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTREFUSE"
+		FROM = {
+			remove_opinion = { who = ROOT modifier = opinion_attending_congress }
+			character_event = { id = diplomacy.1312 tooltip = "EVTTOOLTIPLEAVESCONGRESS" }
+		}
+		hidden_tooltip = {
+			any_independent_ruler = {
+				limit = { has_opinion_modifier = { who = ROOT modifier = opinion_attending_congress } }
+				character_event = { id = diplomacy.1313 }
+			}
+		}
+		ai_chance = { factor = 90 }
+	}
+}
+# The host has agreed to a senate
+character_event = {
+	id = diplomacy.13211
+	desc = "EVTDESCDIPLOMACY1311"
+	picture = GFX_evt_council
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+# The host has refused your demand for a senate
+character_event = {
+	id = diplomacy.1312
+	desc = "EVTDESCDIPLOMACY13212"
+	picture = GFX_evt_council
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+# Another power has left the congress due to the lack of a senate
+character_event = {
+	id = diplomacy.1313
+	desc = "EVTDESCDIPLOMACY1313"
+	picture = GFX_evt_council
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+# All obstacles have been cleared. Your congress is a success.
+character_event = {
+	id = diplomacy.1400
+	desc = "EVTDESCDIPLOMACY1400"
+	picture = GFX_evt_council
+	is_triggered_only = yes
+	
+	trigger = { any_independent_ruler = { has_opinion_modifier = { who = ROOT modifier = opinion_attending_congress } } }
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		primary_title = {
+			ROOT = {
+				capital_scope = {
+					empire = {
+						grant_title = ROOT
+						copy_title_laws = PREVPREVPREV
+						if = {
+							limit = { ROOT = { has_character_flag = flag_confederation_federal_elective } }
+							add_law = succ_feudal_elective
+						}
+						if = {
+							limit = { ROOT = { has_character_flag = flag_confederation_senate } }
+							add_law = legislative_authority_1
+						}
+						if = {
+							limit = { ROOT = { has_character_flag = flag_confederation_no_senate } }
+							add_law = legislative_authority_0
+						}
+						add_law = centralization_0
+						add_law = public_order_1
+					}
+				}
+			}
+		}
+		any_independent_ruler = {
+			limit = { has_opinion_modifier = { who = ROOT modifier = opinion_attending_congress } }
+			remove_opinion = { who = ROOT modifier = opinion_attending_congress }
+			opinion = { who = ROOT modifier = opinion_confederation_founder }
+			reverse_opinion = { who = ROOT modifier = opinion_confederation_founder }
+			set_defacto_liege = ROOT
+		}
+		prestige = 1000
+		clr_character_flag = flag_confederation_congress_host
+		clr_character_flag = flag_confederation_own_succession
+		clr_character_flag = flag_confederation_federal_elective
+		clr_character_flag = flag_confederation_no_senate
+		clr_character_flag = flag_confederation_senate
+		clr_character_flag = flag_confederation_congress_failed
+		hidden_tooltip = { narrative_event = { id = diplomacy.1401 } }
+	}
+}
+# A new confederation has been founded
+narrative_event = {
+	id = diplomacy.1401
+	title = "EVTDIPLOMACY1401"
+	desc = "EVTDIPLOMACY1401"
+	major = yes
+	is_triggered_only = yes
+	
+	picture = GFX_evt_speech
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+
+# Asking someone for a gift
+character_event = {
+	id = diplomacy.2000
+	hide_window = yes
+	is_triggered_only = yes
+	
+	# Bounce to get target
+	immediate = {
+		target = {
+			limit = { has_opinion_modifier = { who = ROOT modifier = opinion_gift_request_target } }
+			character_event = { id = diplomacy.2001 }
+		}
+	}
+}
+character_event = {
+	id = diplomacy.2001
+	hide_window = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		remove_trait = target
+		remove_opinion = { who = FROM modifier = opinion_gift_request_target }
+		FROM = { character_event = { id = diplomacy.2002 } }
+	}
+}
+character_event = {
+	id = diplomacy.2002
+	desc = "EVTDESCDIPLOMACY2002"
+	picture = GFX_evt_council
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		trigger = { has_opinion_modifier = { who = FROM modifier = opinion_owes_me_a_favor } }
+		name = "EVTOPTADIPLOMACY2002"
+		FROM = { letter_event = { id = diplomacy.2010 tooltip = "EVTTOOLTIPDIPLOMACY2010" } }
+	}
+	option = {
+		trigger = { NOT = { has_opinion_modifier = { who = FROM modifier = opinion_owes_me_a_favor } } }
+		name = "EVTOPTBDIPLOMACY2002"
+		FROM = { letter_event = { id = diplomacy.2020 tooltip = "EVTTOOLTIPDIPLOMACY2020" } }
+	}
+	option = {
+		name = "EVTOPTNEVERMIND"
+		clr_character_flag = flag_asking_for_favor
+		ai_chance = { factor = 0 }
+	}
+}
+letter_event = {
+	id = diplomacy.2010
+	desc = "EVTDESCDIPLOMACY2010"
+	border = GFX_evt_letter_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTACCEPT"
+		tooltip = { transfer_scaled_wealth = { to = FROM value = 1 } }
+		FROM = {
+			custom_tooltip = {
+				text = "FAVORFULFILLED"
+				remove_opinion = { who = ROOT modifier = opinion_owes_me_a_favor }
+				letter_event = { id = favor.100 }
+			}
+			hidden_tooltip = { letter_event = { id = diplomacy.2011 } }
+		}
+		ai_chance = {
+			factor = 60
+			
+			# Personality
+			modifier = {
+				factor = 5
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.5
+				trait = carefree
+			}
+			modifier = {
+				factor = 2
+				trait = friendly
+			}
+			modifier = {
+				factor = 0.5
+				trait = cold
+			}
+			
+			# Ideology
+			modifier = {
+				factor = 3
+				OR = {
+					religion = astrist
+					religion = space_pirate
+				}
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 3
+				OR = {
+					religion = astrist
+					religion = space_pirate
+				}
+				trait = radical
+			}
+			
+			# Opinion of FROM
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -99 } }
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTREFUSE"
+		FROM = {
+			character_event = { id = favor.200 tooltip = "EVTTOOLTIPFAVOR200" }
+			hidden_tooltip = { letter_event = { id = diplomacy.2012 } }
+		}
+		ai_chance = { factor = 33 }
+	}
+}
+letter_event = {
+	id = diplomacy.2011
+	desc = "EVTDESCDIPLOMACY2011"
+	border = GFX_evt_letter_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		FROM = {
+			transfer_scaled_wealth = { to = ROOT value = 1 } 
+			opinion = { who = ROOT modifier = opinion_recent_request }
+		}
+		clr_character_flag = flag_asking_for_favor
+	}
+}
+letter_event = {
+	id = diplomacy.2012
+	desc = "EVTDESCDIPLOMACY2012"
+	border = GFX_evt_letter_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		FROM = { opinion = { who = ROOT modifier = opinion_recent_request } }
+		clr_character_flag = flag_asking_for_favor
+	}
+}
+
+letter_event = {
+	id = diplomacy.2020
+	desc = "EVTDESCDIPLOMACY2020"
+	border = GFX_evt_letter_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTACCEPT"
+		tooltip = { transfer_scaled_wealth = { to = FROM value = 1 } }
+		if = {
+			limit = { FROM = { has_character_modifier = trustworthy } }
+			custom_tooltip = { text = "TOOLTIPTRUSTWORTHY" }
+		}
+		if = {
+			limit = { FROM = { has_character_modifier = untrustworthy } }
+			custom_tooltip = { text = "TOOLTIPUNTRUSTWORTHY" }
+		}
+		FROM = {
+			custom_tooltip = {
+				text = "WILLOWEAFAVOR"
+				hidden_tooltip = { reverse_opinion = { who = ROOT modifier = opinion_owes_me_a_favor } }
+				reverse_add_favor = ROOT
+			}
+			hidden_tooltip = { letter_event = { id = diplomacy.2021 } }
+		}
+		ai_chance = {
+			factor = 25
+			# Personality
+			modifier = {
+				factor = 2
+				trait = friendly
+			}
+			modifier = {
+				factor = 0.5
+				trait = cold
+			}
+			
+			# Trustworthiness of FROM
+			modifier = {
+				factor = 5
+				FROM = { has_character_modifier = trustworthy }
+			}
+			modifier = {
+				factor = 0.2
+				FROM = { has_character_modifier = untrustworthy }
+			}
+			
+			# Opinion of FROM
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -99 } }
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTREFUSE"
+		FROM = { hidden_tooltip = { letter_event = { id = diplomacy.2022 } } }
+		ai_chance = { factor = 75 }
+	}
+}
+letter_event = {
+	id = diplomacy.2021
+	desc = "EVTDESCDIPLOMACY2021"
+	border = GFX_evt_letter_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		FROM = {
+			transfer_scaled_wealth = { to = ROOT value = 1 } 
+			opinion = { who = ROOT modifier = opinion_recent_request }
+		}
+		clr_character_flag = flag_asking_for_favor
+	}
+}
+letter_event = {
+	id = diplomacy.2022
+	desc = "EVTDESCDIPLOMACY2022"
+	border = GFX_evt_letter_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		FROM = { opinion = { who = ROOT modifier = opinion_recent_request } }
+		clr_character_flag = flag_asking_for_favor
+	}
+}
+
+# Ask to join faction - Centralization
+character_event = {
+	id = diplomacy.3000
+	desc = "EVTDESCDIPLOMACY3000"
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		trigger = {
+			target = {
+				has_opinion_modifier = { who = ROOT modifier = opinion_faction_request_target }
+				NOT = { reverse_has_opinion_modifier = { who = ROOT modifier = opinion_owes_me_a_favor } }
+			}
+		}
+		name = "EVTOPTADIPLOMACY3000" # Offer a favor
+		target = {
+			limit = {
+				has_opinion_modifier = { who = ROOT modifier = opinion_faction_request_target }
+				NOT = { reverse_has_opinion_modifier = { who = ROOT modifier = opinion_owes_me_a_favor } }
+			}
+			letter_event = { id = diplomacy.3010 tooltip = "EVTTOOLTIPDIPLOMACY3010" }
+		}
+	}
+	
+	option = {
+		trigger = {
+			target = {
+				has_opinion_modifier = { who = ROOT modifier = opinion_faction_request_target }
+				reverse_has_opinion_modifier = { who = ROOT modifier = opinion_owes_me_a_favor }
+			}
+		}
+		name = "EVTOPTBDIPLOMACY3000" # Call in a favor
+		target = {
+			limit = {
+				has_opinion_modifier = { who = ROOT modifier = opinion_faction_request_target }
+				reverse_has_opinion_modifier = { who = ROOT modifier = opinion_owes_me_a_favor }
+			}
+			letter_event = { id = diplomacy.3020 tooltip = "EVTTOOLTIPDIPLOMACY3010" }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTNEVERMIND"
+		hidden_tooltip = {
+			target = {
+				limit = { has_opinion_modifier = { who = ROOT modifier = opinion_faction_request_target } }
+				remove_trait = target
+				remove_opinion = { who = ROOT modifier = opinion_faction_request_target }
+			}
+			clr_character_flag = flag_asking_for_favor
+		}
+		ai_chance = { factor = 0 }
+	}
+}
+
+# You promised to join the pro-centralization faction, but haven't!
+character_event = {
+	id = diplomacy.3002
+	desc = "EVTDESCDIPLOMACY3002"
+	border = GFX_evt_normal_frame_diplomacy
+	
+	min_age = 18
+	only_rulers = yes
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		any_realm_lord = {
+			same_liege = ROOT
+			has_opinion_modifier = { who = ROOT modifier = opinion_favor_ongoing_pro_centralization }
+			leads_faction = faction_pro_centralization
+		}
+		NOT = { in_faction = faction_pro_centralization }
+	}
+	
+	mean_time_to_happen = {
+		days = 30 # Grace period
+		modifier = {
+			factor = 0.01
+			in_faction = faction_anti_centralization # No grace period if you're being THIS blatant
+		}
+	}
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		any_realm_lord = {
+			limit = {
+				same_liege = ROOT
+				has_opinion_modifier = { who = ROOT modifier = opinion_favor_ongoing_pro_centralization }
+				leads_faction = faction_pro_centralization
+			}
+			character_event = { id = favor.200 tooltip = "EVTTOOLTIPFAVOR200" }
+			hidden_tooltip = { letter_event = { id = diplomacy.3003 } }
+		}
+	}
+}
+
+character_event = {
+	id = diplomacy.3003
+	desc = "EVTDESCDIPLOMACY3003"
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+
+# Someone offers you a favor for supporting the pro-centralization faction
+letter_event = {
+	id = diplomacy.3010
+	desc = "EVTDESCDIPLOMACY3010"
+	border = GFX_evt_letter_frame_diplomacy
+	is_triggered_only = yes
+	
+	immediate = {
+		remove_trait = target
+		remove_opinion = { who = FROM modifier = opinion_faction_request_target }
+	}
+	
+	option = {
+		name = "EVTOPTACCEPT"
+		if = {
+			limit = { FROM = { has_character_modifier = trustworthy } }
+			custom_tooltip = { text = "TOOLTIPTRUSTWORTHY" }
+		}
+		if = {
+			limit = { FROM = { has_character_modifier = untrustworthy } }
+			custom_tooltip = { text = "TOOLTIPUNTRUSTWORTHY" }
+		}
+		custom_tooltip = {
+			text = "MUSTJOINPROCENTRALIZATION"
+			hidden_tooltip = { reverse_opinion = { who = FROM modifier = opinion_favor_ongoing_pro_centralization } }
+		}
+		FROM = {
+			custom_tooltip = {
+				text = "WILLOWEAFAVOR"
+				hidden_tooltip = { reverse_opinion = { who = ROOT modifier = opinion_owes_me_a_favor } }
+			}
+			hidden_tooltip = { letter_event = { id = diplomacy.3011 } }
+		}
+		ai_chance = {
+			factor = 20
+			# Personality
+			modifier = {
+				factor = 2
+				trait = friendly
+			}
+			modifier = {
+				factor = 0.5
+				trait = cold
+			}
+			modifier = {
+				factor = 0.1
+				trait = radical # Resistant to bribes
+			}
+			# Faction-specific issues
+			modifier = {
+				factor = 0.25
+				liege = { NOT = { culture_group = ROOT } }
+			}
+			modifier = {
+				factor = 0.5
+				liege = { NOT = { religion_group = ROOT } }
+			}
+			modifier = {
+				factor = 0.5
+				liege = { NOT = { religion = ROOT } }
+			}
+			modifier = {
+				factor = 0.25
+				OR = {
+					religion = colonial_separatist
+					religion = neo_feudal
+					religion = xenoterran
+				}
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_republican
+					religion = pilgrim
+				}
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 4
+				OR = {
+					religion = terran_imperial
+					religion = orthodox
+					religion = imperial_cult
+				}
+				NOT = { trait = pragmatic }
+			}
+			# Trustworthiness of requester
+			modifier = {
+				factor = 5
+				FROM = { has_character_modifier = trustworthy }
+			}
+			modifier = {
+				factor = 0.2
+				FROM = { has_character_modifier = untrustworthy }
+			}
+			# Usefulness of requester
+			modifier = {
+				factor = 2
+				FROM = { higher_tier_than = baron }
+			}
+			modifier = {
+				factor = 2
+				FROM = { higher_tier_than = count }
+			}
+			modifier = {
+				factor = 2
+				FROM = { higher_tier_than = duke }
+			}
+			# Opinion of requester
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -99 } }
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTREFUSE"
+		FROM = { letter_event = { id = diplomacy.3012 tooltip = "EVTTOOLTIPDIPLOMACY3012" } }
+		ai_chance = { factor = 90 }
+	}
+}
+letter_event = {
+	id = diplomacy.3011
+	desc = "EVTDESCDIPLOMACY3011"
+	border = GFX_evt_letter_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		FROM = {
+			custom_tooltip = { text = "WILLJOINYOURFACTION" }
+			opinion = { who = ROOT modifier = opinion_recent_request }
+		}
+		clr_character_flag = flag_asking_for_favor
+	}
+}
+letter_event = {
+	id = diplomacy.3012
+	desc = "EVTDESCDIPLOMACY3012"
+	border = GFX_evt_letter_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		FROM = { opinion = { who = ROOT modifier = opinion_recent_request } }
+		clr_character_flag = flag_asking_for_favor
+	}
+}
+
+
+# Someone is calling in a favor and demanding you join their faction
+letter_event = {
+	id = diplomacy.3020
+	desc = "EVTDESCDIPLOMACY3020"
+	border = GFX_evt_letter_frame_diplomacy
+	is_triggered_only = yes
+	
+	immediate = {
+		remove_trait = target
+		remove_opinion = { who = FROM modifier = opinion_faction_request_target }
+	}
+	
+	option = {
+		name = "EVTOPTACCEPT"
+		custom_tooltip = {
+			text = "MUSTJOINPROCENTRALIZATION"
+			hidden_tooltip = { reverse_opinion = { who = FROM modifier = opinion_favor_ongoing_pro_centralization } }
+		}
+		FROM = {
+			custom_tooltip = {
+				text = "FAVORFULFILLED"
+				remove_opinion = { who = ROOT modifier = opinion_owes_me_a_favor }
+				letter_event = { id = favor.100 }
+			}
+			hidden_tooltip = { letter_event = { id = diplomacy.3021 } }
+		}
+		ai_chance = {
+			factor = 50
+			# Personality
+			modifier = {
+				factor = 2
+				trait = friendly
+			}
+			modifier = {
+				factor = 0.5
+				trait = cold
+			}
+			modifier = {
+				factor = 4
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.5
+				trait = carefree
+			}
+			modifier = {
+				factor = 0.1
+				trait = radical # Resistant to bribes
+			}
+			# Faction-specific issues
+			modifier = {
+				factor = 0.25
+				liege = { NOT = { culture_group = ROOT } }
+			}
+			modifier = {
+				factor = 0.5
+				liege = { NOT = { religion_group = ROOT } }
+			}
+			modifier = {
+				factor = 0.5
+				liege = { NOT = { religion = ROOT } }
+			}
+			modifier = {
+				factor = 0.25
+				OR = {
+					religion = colonial_separatist
+					religion = neo_feudal
+					religion = xenoterran
+				}
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					religion = terran_republican
+					religion = pilgrim
+				}
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 4
+				OR = {
+					religion = terran_imperial
+					religion = orthodox
+					religion = imperial_cult
+				}
+				NOT = { trait = pragmatic }
+			}
+			# Opinion of requester
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -99 } }
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTREFUSE"
+		FROM = {
+			character_event = { id = favor.200 tooltip = "EVTTOOLTIPFAVOR200" }
+			hidden_tooltip = { letter_event = { id = diplomacy.3022 } }
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+letter_event = {
+	id = diplomacy.3021
+	desc = "EVTDESCDIPLOMACY3021"
+	border = GFX_evt_letter_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		FROM = {
+			custom_tooltip = { text = "WILLJOINYOURFACTION" }
+			opinion = { who = ROOT modifier = opinion_recent_request }
+		}
+		clr_character_flag = flag_asking_for_favor
+	}
+}
+letter_event = {
+	id = diplomacy.3022
+	desc = "EVTDESCDIPLOMACY3022"
+	border = GFX_evt_letter_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		FROM = { opinion = { who = ROOT modifier = opinion_recent_request } }
+		clr_character_flag = flag_asking_for_favor
+	}
+}
+
+# Ask to join faction - Anti-Centralization
+character_event = {
+	id = diplomacy.3100
+	desc = "EVTDESCDIPLOMACY3100"
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		trigger = {
+			target = {
+				has_opinion_modifier = { who = ROOT modifier = opinion_faction_request_target }
+				NOT = { reverse_has_opinion_modifier = { who = ROOT modifier = opinion_owes_me_a_favor } }
+			}
+		}
+		name = "EVTOPTADIPLOMACY3100" # Offer a favor
+		target = {
+			limit = {
+				has_opinion_modifier = { who = ROOT modifier = opinion_faction_request_target }
+				NOT = { reverse_has_opinion_modifier = { who = ROOT modifier = opinion_owes_me_a_favor } }
+			}
+			letter_event = { id = diplomacy.3110 tooltip = "EVTTOOLTIPDIPLOMACY3110" }
+		}
+	}
+	
+	option = {
+		trigger = {
+			target = {
+				has_opinion_modifier = { who = ROOT modifier = opinion_faction_request_target }
+				reverse_has_opinion_modifier = { who = ROOT modifier = opinion_owes_me_a_favor }
+			}
+		}
+		name = "EVTOPTBDIPLOMACY3100" # Call in a favor
+		target = {
+			limit = {
+				has_opinion_modifier = { who = ROOT modifier = opinion_faction_request_target }
+				reverse_has_opinion_modifier = { who = ROOT modifier = opinion_owes_me_a_favor }
+			}
+			letter_event = { id = diplomacy.3120 tooltip = "EVTTOOLTIPDIPLOMACY3110" }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTNEVERMIND"
+		hidden_tooltip = {
+			target = {
+				limit = { has_opinion_modifier = { who = ROOT modifier = opinion_faction_request_target } }
+				remove_trait = target
+				remove_opinion = { who = ROOT modifier = opinion_faction_request_target }
+			}
+			clr_character_flag = flag_asking_for_favor
+		}
+		ai_chance = { factor = 0 }
+	}
+}
+
+# You promised to join the anti-centralization faction, but haven't!
+character_event = {
+	id = diplomacy.3102
+	desc = "EVTDESCDIPLOMACY3102"
+	border = GFX_evt_normal_frame_diplomacy
+	
+	min_age = 18
+	only_rulers = yes
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		any_realm_lord = {
+			same_liege = ROOT
+			has_opinion_modifier = { who = ROOT modifier = opinion_favor_ongoing_anti_centralization }
+			leads_faction = faction_anti_centralization
+		}
+		NOT = { in_faction = faction_anti_centralization }
+	}
+	
+	mean_time_to_happen = {
+		days = 30 # Grace period
+		modifier = {
+			factor = 0.01
+			in_faction = faction_pro_centralization # No grace period if you're being THIS blatant
+		}
+	}
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		any_realm_lord = {
+			limit = {
+				same_liege = ROOT
+				has_opinion_modifier = { who = ROOT modifier = opinion_favor_ongoing_anti_centralization }
+				leads_faction = faction_anti_centralization
+			}
+			character_event = { id = favor.200 tooltip = "EVTTOOLTIPFAVOR200" }
+			hidden_tooltip = { letter_event = { id = diplomacy.3103 } }
+		}
+	}
+}
+
+character_event = {
+	id = diplomacy.3103
+	desc = "EVTDESCDIPLOMACY3103"
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+
+# Someone offers you a favor for supporting the anti-centralization faction
+letter_event = {
+	id = diplomacy.3110
+	desc = "EVTDESCDIPLOMACY3110"
+	border = GFX_evt_letter_frame_diplomacy
+	is_triggered_only = yes
+	
+	immediate = {
+		remove_trait = target
+		remove_opinion = { who = FROM modifier = opinion_faction_request_target }
+	}
+	
+	option = {
+		name = "EVTOPTACCEPT"
+		if = {
+			limit = { FROM = { has_character_modifier = trustworthy } }
+			custom_tooltip = { text = "TOOLTIPTRUSTWORTHY" }
+		}
+		if = {
+			limit = { FROM = { has_character_modifier = untrustworthy } }
+			custom_tooltip = { text = "TOOLTIPUNTRUSTWORTHY" }
+		}
+		custom_tooltip = {
+			text = "MUSTJOINANTICENTRALIZATION"
+			hidden_tooltip = { reverse_opinion = { who = FROM modifier = opinion_favor_ongoing_anti_centralization } }
+		}
+		FROM = {
+			custom_tooltip = {
+				text = "WILLOWEAFAVOR"
+				hidden_tooltip = { reverse_opinion = { who = ROOT modifier = opinion_owes_me_a_favor } }
+			}
+			hidden_tooltip = { letter_event = { id = diplomacy.3111 } }
+		}
+		ai_chance = {
+			factor = 20
+			# Personality
+			modifier = {
+				factor = 2
+				trait = friendly
+			}
+			modifier = {
+				factor = 0.5
+				trait = cold
+			}
+			modifier = {
+				factor = 0.1
+				trait = radical # Resistant to bribes
+			}
+			# Faction-specific issues
+			modifier = {
+				factor = 4
+				liege = { NOT = { culture_group = ROOT } }
+			}
+			modifier = {
+				factor = 2
+				liege = { NOT = { religion_group = ROOT } }
+			}
+			modifier = {
+				factor = 2
+				liege = { NOT = { religion = ROOT } }
+			}
+			modifier = {
+				factor = 4
+				OR = {
+					religion = colonial_separatist
+					religion = neo_feudal
+					religion = xenoterran
+				}
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_republican
+					religion = pilgrim
+				}
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 0.25
+				OR = {
+					religion = terran_imperial
+					religion = orthodox
+					religion = imperial_cult
+				}
+				NOT = { trait = pragmatic }
+			}
+			# Trustworthiness of requester
+			modifier = {
+				factor = 5
+				FROM = { has_character_modifier = trustworthy }
+			}
+			modifier = {
+				factor = 0.2
+				FROM = { has_character_modifier = untrustworthy }
+			}
+			# Usefulness of requester
+			modifier = {
+				factor = 2
+				FROM = { higher_tier_than = baron }
+			}
+			modifier = {
+				factor = 2
+				FROM = { higher_tier_than = count }
+			}
+			modifier = {
+				factor = 2
+				FROM = { higher_tier_than = duke }
+			}
+			# Opinion of requester
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -99 } }
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTREFUSE"
+		FROM = { letter_event = { id = diplomacy.3112 tooltip = "EVTTOOLTIPDIPLOMACY3112" } }
+		ai_chance = { factor = 80 }
+	}
+}
+letter_event = {
+	id = diplomacy.3111
+	desc = "EVTDESCDIPLOMACY3111"
+	border = GFX_evt_letter_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		FROM = {
+			custom_tooltip = { text = "WILLJOINYOURFACTION" }
+			opinion = { who = ROOT modifier = opinion_recent_request }
+		}
+		clr_character_flag = flag_asking_for_favor
+	}
+}
+letter_event = {
+	id = diplomacy.3112
+	desc = "EVTDESCDIPLOMACY3112"
+	border = GFX_evt_letter_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		FROM = { opinion = { who = ROOT modifier = opinion_recent_request } }
+		clr_character_flag = flag_asking_for_favor
+	}
+}
+
+
+# Someone is calling in a favor and demanding you join their faction
+letter_event = {
+	id = diplomacy.3120
+	desc = "EVTDESCDIPLOMACY3120"
+	border = GFX_evt_letter_frame_diplomacy
+	is_triggered_only = yes
+	
+	immediate = {
+		remove_trait = target
+		remove_opinion = { who = FROM modifier = opinion_faction_request_target }
+	}
+	
+	option = {
+		name = "EVTOPTACCEPT"
+		custom_tooltip = {
+			text = "MUSTJOINANTICENTRALIZATION"
+			hidden_tooltip = { reverse_opinion = { who = FROM modifier = opinion_favor_ongoing_anti_centralization } }
+		}
+		FROM = {
+			custom_tooltip = {
+				text = "FAVORFULFILLED"
+				remove_opinion = { who = ROOT modifier = opinion_owes_me_a_favor }
+				letter_event = { id = favor.100 }
+			}
+			hidden_tooltip = { letter_event = { id = diplomacy.3121 } }
+		}
+		ai_chance = {
+			factor = 50
+			# Personality
+			modifier = {
+				factor = 2
+				trait = friendly
+			}
+			modifier = {
+				factor = 0.5
+				trait = cold
+			}
+			modifier = {
+				factor = 4
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.5
+				trait = carefree
+			}
+			modifier = {
+				factor = 0.1
+				trait = radical # Resistant to bribes
+			}
+			# Faction-specific issues
+			modifier = {
+				factor = 5
+				liege = { NOT = { culture_group = ROOT } }
+			}
+			modifier = {
+				factor = 2
+				liege = { NOT = { religion_group = ROOT } }
+			}
+			modifier = {
+				factor = 2
+				liege = { NOT = { religion = ROOT } }
+			}
+			modifier = {
+				factor = 4
+				OR = {
+					religion = colonial_separatist
+					religion = neo_feudal
+					religion = xenoterran
+				}
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					religion = terran_republican
+					religion = pilgrim
+				}
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 0.25
+				OR = {
+					religion = terran_imperial
+					religion = orthodox
+					religion = imperial_cult
+				}
+				NOT = { trait = pragmatic }
+			}
+			# Opinion of requester
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -99 } }
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTREFUSE"
+		FROM = {
+			character_event = { id = favor.200 tooltip = "EVTTOOLTIPFAVOR200" }
+			hidden_tooltip = { letter_event = { id = diplomacy.3122 } }
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+letter_event = {
+	id = diplomacy.3121
+	desc = "EVTDESCDIPLOMACY3121"
+	border = GFX_evt_letter_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		FROM = {
+			custom_tooltip = { text = "WILLJOINYOURFACTION" }
+			opinion = { who = ROOT modifier = opinion_recent_request }
+		}
+		clr_character_flag = flag_asking_for_favor
+	}
+}
+letter_event = {
+	id = diplomacy.3122
+	desc = "EVTDESCDIPLOMACY3122"
+	border = GFX_evt_letter_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		FROM = { opinion = { who = ROOT modifier = opinion_recent_request } }
+		clr_character_flag = flag_asking_for_favor
+	}
+}
+
+# Ask to join faction - Anti-Centralization
+character_event = {
+	id = diplomacy.3200
+	desc = "EVTDESCDIPLOMACY3200"
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		trigger = {
+			target = {
+				has_opinion_modifier = { who = ROOT modifier = opinion_faction_request_target }
+				NOT = { reverse_has_opinion_modifier = { who = ROOT modifier = opinion_owes_me_a_favor } }
+			}
+		}
+		name = "EVTOPTADIPLOMACY3200" # Offer a favor
+		target = {
+			limit = {
+				has_opinion_modifier = { who = ROOT modifier = opinion_faction_request_target }
+				NOT = { reverse_has_opinion_modifier = { who = ROOT modifier = opinion_owes_me_a_favor } }
+			}
+			letter_event = { id = diplomacy.3210 tooltip = "EVTTOOLTIPDIPLOMACY3210" }
+		}
+	}
+	
+	option = {
+		trigger = {
+			target = {
+				has_opinion_modifier = { who = ROOT modifier = opinion_faction_request_target }
+				reverse_has_opinion_modifier = { who = ROOT modifier = opinion_owes_me_a_favor }
+			}
+		}
+		name = "EVTOPTBDIPLOMACY3200" # Call in a favor
+		target = {
+			limit = {
+				has_opinion_modifier = { who = ROOT modifier = opinion_faction_request_target }
+				reverse_has_opinion_modifier = { who = ROOT modifier = opinion_owes_me_a_favor }
+			}
+			letter_event = { id = diplomacy.3220 tooltip = "EVTTOOLTIPDIPLOMACY3210" }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTNEVERMIND"
+		hidden_tooltip = {
+			target = {
+				limit = { has_opinion_modifier = { who = ROOT modifier = opinion_faction_request_target } }
+				remove_trait = target
+				remove_opinion = { who = ROOT modifier = opinion_faction_request_target }
+			}
+			clr_character_flag = flag_asking_for_favor
+		}
+		ai_chance = { factor = 0 }
+	}
+}
+
+# You promised to join the no confidence faction, but haven't!
+character_event = {
+	id = diplomacy.3202
+	desc = "EVTDESCDIPLOMACY3202"
+	border = GFX_evt_normal_frame_diplomacy
+	
+	min_age = 18
+	only_rulers = yes
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		any_realm_lord = {
+			same_liege = ROOT
+			has_opinion_modifier = { who = ROOT modifier = opinion_favor_ongoing_no_confidence }
+			leads_faction = faction_no_confidence
+		}
+		NOT = { in_faction = faction_no_confidence }
+	}
+	
+	mean_time_to_happen = {
+		days = 30 # Grace period
+	}
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		any_realm_lord = {
+			limit = {
+				same_liege = ROOT
+				has_opinion_modifier = { who = ROOT modifier = opinion_favor_ongoing_no_confidence }
+				leads_faction = faction_no_confidence
+			}
+			character_event = { id = favor.200 tooltip = "EVTTOOLTIPFAVOR200" }
+			hidden_tooltip = { letter_event = { id = diplomacy.3203 } }
+		}
+	}
+}
+
+character_event = {
+	id = diplomacy.3203
+	desc = "EVTDESCDIPLOMACY3203"
+	border = GFX_evt_normal_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+
+# Someone offers you a favor for supporting the no confidence faction
+letter_event = {
+	id = diplomacy.3210
+	desc = "EVTDESCDIPLOMACY3210"
+	border = GFX_evt_letter_frame_diplomacy
+	is_triggered_only = yes
+	
+	immediate = {
+		remove_trait = target
+		remove_opinion = { who = FROM modifier = opinion_faction_request_target }
+	}
+	
+	option = {
+		name = "EVTOPTACCEPT"
+		if = {
+			limit = { FROM = { has_character_modifier = trustworthy } }
+			custom_tooltip = { text = "TOOLTIPTRUSTWORTHY" }
+		}
+		if = {
+			limit = { FROM = { has_character_modifier = untrustworthy } }
+			custom_tooltip = { text = "TOOLTIPUNTRUSTWORTHY" }
+		}
+		custom_tooltip = {
+			text = "MUSTJOINNOCONFIDENCE"
+			hidden_tooltip = { reverse_opinion = { who = FROM modifier = opinion_favor_ongoing_no_confidence } }
+		}
+		FROM = {
+			custom_tooltip = {
+				text = "WILLOWEAFAVOR"
+				hidden_tooltip = { reverse_opinion = { who = ROOT modifier = opinion_owes_me_a_favor } }
+			}
+			hidden_tooltip = { letter_event = { id = diplomacy.3211 } }
+		}
+		ai_chance = {
+			factor = 20
+			# Personality
+			modifier = {
+				factor = 2
+				trait = friendly
+			}
+			modifier = {
+				factor = 0.5
+				trait = cold
+			}
+			modifier = {
+				factor = 0.1
+				trait = radical # Resistant to bribes
+			}
+			# Faction-specific issues
+			modifier = {
+				factor = 0.8
+				opinion = { who = liege value = 100 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = liege value = 90 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = liege value = 80 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = liege value = 70 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = liege value = 60 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = liege value = 50 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = liege value = 40 }
+				NOT = { trait = pragmatic }
+				NOT = { trait = cold }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = liege value = 30 }
+				NOT = { trait = pragmatic }
+				NOT = { trait = cold }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = liege value = 20 }
+				NOT = { trait = pragmatic }
+				NOT = { trait = cold }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = liege value = 10 }
+				NOT = { trait = pragmatic }
+				NOT = { trait = cold }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = liege value = -9 } }
+				NOT = { trait = pragmatic }
+				NOT = { trait = friendly }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = liege value = -19 } }
+				NOT = { trait = pragmatic }
+				NOT = { trait = friendly }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = liege value = -29 } }
+				NOT = { trait = pragmatic }
+				NOT = { trait = friendly }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = liege value = -39 } }
+				NOT = { trait = pragmatic }
+				NOT = { trait = friendly }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = liege value = -49 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = liege value = -59 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = liege value = -69 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = liege value = -79 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = liege value = -89 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = liege value = -99 } }
+			}
+			# Trustworthiness of requester
+			modifier = {
+				factor = 5
+				FROM = { has_character_modifier = trustworthy }
+			}
+			modifier = {
+				factor = 0.2
+				FROM = { has_character_modifier = untrustworthy }
+			}
+			# Usefulness of requester
+			modifier = {
+				factor = 2
+				FROM = { higher_tier_than = baron }
+			}
+			modifier = {
+				factor = 2
+				FROM = { higher_tier_than = count }
+			}
+			modifier = {
+				factor = 2
+				FROM = { higher_tier_than = duke }
+			}
+			# Opinion of requester
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -99 } }
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTREFUSE"
+		FROM = { letter_event = { id = diplomacy.3212 tooltip = "EVTTOOLTIPDIPLOMACY3212" } }
+		ai_chance = { factor = 80 }
+	}
+}
+letter_event = {
+	id = diplomacy.3211
+	desc = "EVTDESCDIPLOMACY3211"
+	border = GFX_evt_letter_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		FROM = {
+			custom_tooltip = { text = "WILLJOINYOURFACTION" }
+			opinion = { who = ROOT modifier = opinion_recent_request }
+		}
+		clr_character_flag = flag_asking_for_favor
+	}
+}
+letter_event = {
+	id = diplomacy.3212
+	desc = "EVTDESCDIPLOMACY3212"
+	border = GFX_evt_letter_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		FROM = { opinion = { who = ROOT modifier = opinion_recent_request } }
+		clr_character_flag = flag_asking_for_favor
+	}
+}
+
+# Someone is calling in a favor and demanding you join their faction
+letter_event = {
+	id = diplomacy.3220
+	desc = "EVTDESCDIPLOMACY3220"
+	border = GFX_evt_letter_frame_diplomacy
+	is_triggered_only = yes
+	
+	immediate = {
+		remove_trait = target
+		remove_opinion = { who = FROM modifier = opinion_faction_request_target }
+	}
+	
+	option = {
+		name = "EVTOPTACCEPT"
+		custom_tooltip = {
+			text = "MUSTJOINANTICENTRALIZATION"
+			hidden_tooltip = { reverse_opinion = { who = FROM modifier = opinion_favor_ongoing_no_confidence } }
+		}
+		FROM = {
+			custom_tooltip = {
+				text = "FAVORFULFILLED"
+				remove_opinion = { who = ROOT modifier = opinion_owes_me_a_favor }
+				letter_event = { id = favor.100 }
+			}
+			hidden_tooltip = { letter_event = { id = diplomacy.3221 } }
+		}
+		ai_chance = {
+			factor = 50
+			# Personality
+			modifier = {
+				factor = 2
+				trait = friendly
+			}
+			modifier = {
+				factor = 0.5
+				trait = cold
+			}
+			modifier = {
+				factor = 4
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.5
+				trait = carefree
+			}
+			modifier = {
+				factor = 0.1
+				trait = radical # Resistant to bribes
+			}
+			# Faction-specific issues
+			modifier = {
+				factor = 0.8
+				opinion = { who = liege value = 100 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = liege value = 90 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = liege value = 80 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = liege value = 70 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = liege value = 60 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = liege value = 50 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = liege value = 40 }
+				NOT = { trait = pragmatic }
+				NOT = { trait = cold }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = liege value = 30 }
+				NOT = { trait = pragmatic }
+				NOT = { trait = cold }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = liege value = 20 }
+				NOT = { trait = pragmatic }
+				NOT = { trait = cold }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = liege value = 10 }
+				NOT = { trait = pragmatic }
+				NOT = { trait = cold }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = liege value = -9 } }
+				NOT = { trait = pragmatic }
+				NOT = { trait = friendly }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = liege value = -19 } }
+				NOT = { trait = pragmatic }
+				NOT = { trait = friendly }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = liege value = -29 } }
+				NOT = { trait = pragmatic }
+				NOT = { trait = friendly }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = liege value = -39 } }
+				NOT = { trait = pragmatic }
+				NOT = { trait = friendly }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = liege value = -49 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = liege value = -59 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = liege value = -69 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = liege value = -79 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = liege value = -89 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = liege value = -99 } }
+			}
+			# Opinion of requester
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -99 } }
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTREFUSE"
+		FROM = {
+			character_event = { id = favor.200 tooltip = "EVTTOOLTIPFAVOR200" }
+			hidden_tooltip = { letter_event = { id = diplomacy.3222 } }
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+letter_event = {
+	id = diplomacy.3221
+	desc = "EVTDESCDIPLOMACY3221"
+	border = GFX_evt_letter_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		FROM = {
+			custom_tooltip = { text = "WILLJOINYOURFACTION" }
+			opinion = { who = ROOT modifier = opinion_recent_request }
+		}
+		clr_character_flag = flag_asking_for_favor
+	}
+}
+letter_event = {
+	id = diplomacy.3222
+	desc = "EVTDESCDIPLOMACY3222"
+	border = GFX_evt_letter_frame_diplomacy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		FROM = { opinion = { who = ROOT modifier = opinion_recent_request } }
+		clr_character_flag = flag_asking_for_favor
+	}
+}

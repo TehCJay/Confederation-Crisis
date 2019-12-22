@@ -1,0 +1,194 @@
+# Unique bonuses for holding certain planets.
+
+castle = {
+	ca_olympus_shipyards = { # The Confederate Space Command's primary shipyards
+		desc = ca_olympus_shipyards_desc
+		trigger = { always = yes }
+		potential = { FROMFROM = { title = b_mars } } # Unique to Mars
+		
+		# Reubuilding the Olympus Shipyards would take a long time
+		build_cost = 1000
+		build_time = 3000
+		
+		retinuesize = 100
+		
+		ai_creation_factor = 200
+	}
+	
+	ca_megafauna = { # The wildlife on these worlds is Cthulhu-levels of deadly
+		desc = ca_megafauna_desc
+		trigger = { always = yes }
+		potential = {
+			FROMFROM = {
+				title = b_yaila_i
+			}
+		}
+		
+		levy_size = -0.1
+		tax_income = -1
+		archers_offensive = 0.3
+		archers_defensive = 0.3
+		archers_morale = 0.5
+		fort_level = 1
+		
+		# Can't be destroyed for now so these don't really matter
+		build_cost = 100
+		build_time = 350
+		ai_creation_factor = 100
+	}
+}
+
+city = {
+	ct_homeworld = { # Earth-That-Was
+		desc = ct_earth_that_was_desc
+		trigger = { always = yes }
+		potential = { FROMFROM = { title = b_earth } } # unique to earth
+		
+		# This isn't really something that should be possible to destroy
+		build_cost = 1
+		build_time = 1
+		
+		# This penalty will actually be compensated for by the next building up
+		# If you can see THIS building, it means that something really bad has happened!
+		tax_income = -5
+		
+		liege_prestige = 0.1
+	}
+	ct_homeworld_1 = { # The Homeworld (can be lost in an orbital bombardment)
+		desc = ct_homeworld_desc
+		trigger = { always = yes }
+		potential = { FROMFROM = { title = b_earth } } # unique to earth
+		
+		upgrades_from = ct_homeworld
+		
+		# Rebuilding Earth would be very, very hard
+		build_cost = 1000
+		build_time = 2000
+		
+		ai_creation_factor = 200
+
+		garrison_size = 0.2
+		tax_income = 8
+		liege_prestige = 0.9
+	}
+}
+# Triggers are in Province scope. The From Scope contains the settlement holder (character)
+# start trigger is in title scope.
+# All credits to the AGOT team
+## RIKNAP, this might need LIBERT3 balance. In case we implement the "slave camps" anyway.
+
+
+# Triggers are in Province scope. The From Scope contains the settlement holder (character)
+# start trigger is in title scope.
+
+#<tag> = {
+#	desc = description used in the tooltip of the building
+#	trigger = used for tech requirement of the building, set to 0 if no requirement so it can be build automatically on new games
+#	gold_cost = cost to build the building
+#	build_time = time to build, in days
+#	
+#	ai_creation_factor = weight that the AI uses to determine what building to build
+#	extra_tech_building_start = when starting a new game this building will be pre-built if the province has higher tech than the requirement + this + random 0-1
+#}
+
+# Castle
+castle = {
+	dm_ca_retinue_capital_1 = {
+		potential = {
+			FROM = {
+				OR = {
+					has_law = dm_military_professionalism_1
+					has_law = dm_military_professionalism_2
+				}
+				capital_holding = {
+					title = FROMFROM
+				}
+			}
+		}
+		desc = dm_ca_retinue_capital_desc
+		trigger = { TECH_RECRUITMENT = 0 }
+		gold_cost = 200
+		build_time = 730
+		retinuesize_perc = 0.2
+		garrison_size = 0.5
+		ai_creation_factor = 100
+		
+		extra_tech_building_start = 10.0
+	}
+	dm_ca_retinue_capital_2 = {
+		potential = {
+			FROM = {
+				has_law = dm_military_professionalism_2
+				capital_holding = {
+					title = FROMFROM
+				}
+			}
+		}
+		desc = dm_ca_retinue_capital_desc
+		trigger = { TECH_RECRUITMENT = 0 }
+		upgrades_from = dm_ca_retinue_capital_1
+		gold_cost = 300
+		build_time = 1460
+		fort_level = 1
+		retinuesize_perc = 0.3
+		garrison_size = 0.5
+		ai_creation_factor = 99
+		
+		extra_tech_building_start = 10.0
+	}
+	dm_ca_retinue_1 = {
+		potential = {
+			FROM = {
+				OR = {
+					has_law = dm_military_professionalism_1
+					has_law = dm_military_professionalism_2
+				}
+			}
+		}
+		desc = dm_ca_retinue_desc
+		trigger = { TECH_RECRUITMENT = 0 }
+		gold_cost = 100
+		build_time = 365
+		retinuesize = 200
+		levy_size = -1
+		garrison_size = 0.5
+		ai_creation_factor = 99
+		
+		extra_tech_building_start = 10.0
+	}
+	dm_ca_retinue_2 = {
+		potential = {
+			FROM = {
+				has_law = dm_military_professionalism_2
+			}
+		}
+		desc = dm_ca_retinue_desc
+		trigger = { TECH_RECRUITMENT = 0 }
+		upgrades_from = dm_ca_retinue_1
+		gold_cost = 150
+		build_time = 365
+		retinuesize = 300
+		levy_size = -9
+		garrison_size = 0.5
+		ai_creation_factor = 98
+		
+		extra_tech_building_start = 10.0
+	}
+}
+city = {
+	ct_eromanhouse = {
+		desc = ct_eromanhouse_desc
+		potential = {
+		}
+		trigger = { TECH_CITY_CONSTRUCTION = 8 is_capital = yes has_law = legislative_authority_1}
+		build_cost = 8000
+		build_time = 2190 #6y
+		knights = 500
+		levy_size = 1.5
+		tax_income = 400
+		liege_prestige = 1000
+		add_number_to_name = no
+
+	}
+
+}

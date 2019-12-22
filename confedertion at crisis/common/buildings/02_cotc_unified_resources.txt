@@ -1,0 +1,587 @@
+# New unified resource chains
+
+castle = {
+	# Environment
+	# Naturally rare, but upgradable
+	ca_environment_0 = { # Airless
+		desc = ca_environment_0_desc
+		trigger = { TECH_LEGALISM = 0 }
+		potential = { always = yes }
+		build_cost = 0
+		build_time = 0
+		ai_creation_factor = 100000000
+		extra_tech_building_start = 10.0
+	}
+	ca_environment_1 = { # Harsh
+		desc = ca_environment_1_desc
+		trigger = { TECH_LEGALISM = 2 }
+		potential = { always = yes }
+		upgrades_from = ca_environment_0
+		build_cost = 150
+		build_time = 365
+		ai_creation_factor = 100
+		extra_tech_building_start = 10.0
+	}
+	ca_environment_2 = { # Inhospitable
+		desc = ca_environment_2_desc
+		trigger = { TECH_LEGALISM = 4 }
+		potential = { always = yes }
+		upgrades_from = ca_environment_1
+		build_cost = 300
+		build_time = 730
+		ai_creation_factor = 100
+		extra_tech_building_start = 10.0
+	}
+	ca_environment_3 = { # Near-Terrestrial
+		desc = ca_environment_3_desc
+		trigger = { TECH_LEGALISM = 6 }
+		potential = { always = yes }
+		upgrades_from = ca_environment_2
+		build_cost = 600
+		build_time = 1460
+		ai_creation_factor = 100
+		extra_tech_building_start = 10.0
+	}
+	ca_environment_4 = { # Terrestrial
+		desc = ca_environment_4_desc
+		trigger = { TECH_LEGALISM = 8 }
+		potential = { always = yes }
+		upgrades_from = ca_environment_3
+		build_cost = 1200
+		build_time = 2920
+		ai_creation_factor = 100
+		extra_tech_building_start = 10.0
+	}
+	
+	# Energy
+	# Cannot be upgraded
+	ca_energy_0 = {	# No natural energy sources
+		desc = ca_energy_0_desc
+		trigger = { TECH_LEGALISM = 0 }
+		potential = { always = yes }
+		build_cost = 0
+		build_time = 0
+		ai_creation_factor = 100000
+		extra_tech_building_start = 10.0
+	}
+	ca_energy_1 = {	# Solar Power
+		desc = ca_energy_1_desc
+		trigger = { always = no }
+		potential = { always = yes }
+		upgrades_from = ca_energy_0
+		build_cost = 0
+		build_time = 0
+		tax_income = 0.5
+		military_techpoints = 0.01
+		economy_techpoints = 0.01
+		culture_techpoints = 0.01
+		ai_creation_factor = 100000
+		extra_tech_building_start = 10.0
+	}
+	ca_energy_2 = {	# Geothermal Power
+		desc = ca_energy_2_desc
+		trigger = { always = no }
+		potential = { always = yes }
+		upgrades_from = ca_energy_1
+		build_cost = 0
+		build_time = 0
+		tax_income = 0.5
+		military_techpoints = 0.01
+		economy_techpoints = 0.01
+		culture_techpoints = 0.01
+		ai_creation_factor = 100000
+		extra_tech_building_start = 10.0
+	}
+	ca_energy_3 = {	# Fuel Deposits
+		desc = ca_energy_3_desc
+		trigger = { always = no }
+		potential = { always = yes }
+		upgrades_from = ca_energy_2
+		build_cost = 0
+		build_time = 0
+		tax_income = 1
+		tradevalue = 25
+		military_techpoints = 0.01
+		economy_techpoints = 0.01
+		culture_techpoints = 0.01
+		ai_creation_factor = 100000
+		extra_tech_building_start = 10.0
+	}
+	ca_energy_4 = {	# Strange Anomaly
+		desc = ca_energy_4_desc
+		trigger = { always = no }
+		potential = { always = yes }
+		upgrades_from = ca_energy_3
+		build_cost = 0
+		build_time = 0
+		tax_income = 1
+		tradevalue = 25
+		military_techpoints = 0.02
+		economy_techpoints = 0.02
+		culture_techpoints = 0.02
+		ai_creation_factor = 100000
+		extra_tech_building_start = 10.0
+	}
+	
+	# Materials
+	# Cannot be upgraded
+	ca_materials_0 = { # No raw materials
+		desc = ca_materials_0_desc
+		trigger = { TECH_LEGALISM = 0 }
+		potential = { always = yes }
+		build_cost = 0
+		build_time = 0
+		ai_creation_factor = 100000
+		extra_tech_building_start = 10.0
+	}
+	ca_materials_1 = { # Trace Minerals
+		desc = ca_materials_1_desc
+		trigger = { always = no }
+		potential = { always = yes }
+		upgrades_from = ca_materials_0
+		build_cost = 0
+		build_time = 0
+		tax_income = 1
+		tradevalue = 10
+		light_cavalry_defensive = 0.1
+		knights_defensive = 0.1
+		dreadnoughts_defensive = 0.1
+		ai_creation_factor = 100000
+		extra_tech_building_start = 10.0
+	}
+	ca_materials_2 = { # Mineral Veins
+		desc = ca_materials_2_desc
+		trigger = { always = no }
+		potential = { always = yes }
+		upgrades_from = ca_materials_1
+		build_cost = 0
+		build_time = 0
+		tax_income = 1
+		tradevalue = 10
+		light_cavalry_defensive = 0.1
+		knights_defensive = 0.1
+		dreadnoughts_defensive = 0.1
+		ai_creation_factor = 100000
+		extra_tech_building_start = 10.0
+	}
+	ca_materials_3 = { # Abundant Minerals
+		desc = ca_materials_3_desc
+		trigger = { always = no }
+		potential = { always = yes }
+		upgrades_from = ca_materials_2
+		build_cost = 0
+		build_time = 0
+		tax_income = 1
+		tradevalue = 10
+		light_cavalry_defensive = 0.1
+		knights_defensive = 0.1
+		dreadnoughts_defensive = 0.1
+		ai_creation_factor = 100000
+		extra_tech_building_start = 10.0
+	}
+	ca_materials_4 = { # Motherlode
+		desc = ca_materials_4_desc
+		trigger = { always = no }
+		potential = { always = yes }
+		upgrades_from = ca_materials_3
+		build_cost = 0
+		build_time = 0
+		tax_income = 2
+		tradevalue = 10
+		light_cavalry_defensive = 0.2
+		knights_defensive = 0.2
+		dreadnoughts_defensive = 0.2
+		ai_creation_factor = 100000
+		extra_tech_building_start = 10.0
+	}
+}
+city = {
+	# Environment
+	# Naturally rare, but upgradable
+	ct_environment_0 = { # Airless
+		desc = ct_environment_0_desc
+		trigger = { TECH_LEGALISM = 0 }
+		potential = { always = yes }
+		build_cost = 0
+		build_time = 0
+		ai_creation_factor = 100000000
+		extra_tech_building_start = 10.0
+	}
+	ct_environment_1 = { # Harsh
+		desc = ct_environment_1_desc
+		trigger = { TECH_LEGALISM = 2 }
+		potential = { always = yes }
+		upgrades_from = ct_environment_0
+		build_cost = 150
+		build_time = 365
+		ai_creation_factor = 100
+		extra_tech_building_start = 10.0
+	}
+	ct_environment_2 = { # Inhospitable
+		desc = ct_environment_2_desc
+		trigger = { TECH_LEGALISM = 4 }
+		potential = { always = yes }
+		upgrades_from = ct_environment_1
+		build_cost = 300
+		build_time = 730
+		ai_creation_factor = 100
+		extra_tech_building_start = 10.0
+	}
+	ct_environment_3 = { # Near-Terrestrial
+		desc = ct_environment_3_desc
+		trigger = { TECH_LEGALISM = 6 }
+		potential = { always = yes }
+		upgrades_from = ct_environment_2
+		build_cost = 600
+		build_time = 1460
+		ai_creation_factor = 100
+		extra_tech_building_start = 10.0
+	}
+	ct_environment_4 = { # Terrestrial
+		desc = ct_environment_4_desc
+		trigger = { TECH_LEGALISM = 8 }
+		potential = { always = yes }
+		upgrades_from = ct_environment_3
+		build_cost = 1200
+		build_time = 2920
+		ai_creation_factor = 100
+		extra_tech_building_start = 10.0
+	}
+	
+	# Energy
+	# Cannot be upgraded
+	ct_energy_0 = {	# No natural energy sources
+		desc = ct_energy_0_desc
+		trigger = { TECH_LEGALISM = 0 }
+		potential = { always = yes }
+		build_cost = 0
+		build_time = 0
+		ai_creation_factor = 100000
+		extra_tech_building_start = 10.0
+	}
+	ct_energy_1 = {	# Solar Power
+		desc = ct_energy_1_desc
+		trigger = { always = no }
+		potential = { always = yes }
+		upgrades_from = ct_energy_0
+		build_cost = 0
+		build_time = 0
+		tax_income = 0.5
+		military_techpoints = 0.01
+		economy_techpoints = 0.01
+		culture_techpoints = 0.01
+		ai_creation_factor = 100000
+		extra_tech_building_start = 10.0
+	}
+	ct_energy_2 = {	# Geothermal Power
+		desc = ct_energy_2_desc
+		trigger = { always = no }
+		potential = { always = yes }
+		upgrades_from = ct_energy_1
+		build_cost = 0
+		build_time = 0
+		tax_income = 0.5
+		military_techpoints = 0.01
+		economy_techpoints = 0.01
+		culture_techpoints = 0.01
+		ai_creation_factor = 100000
+		extra_tech_building_start = 10.0
+	}
+	ct_energy_3 = {	# Fuel Deposits
+		desc = ct_energy_3_desc
+		trigger = { always = no }
+		potential = { always = yes }
+		upgrades_from = ct_energy_2
+		build_cost = 0
+		build_time = 0
+		tax_income = 1
+		tradevalue = 25
+		military_techpoints = 0.01
+		economy_techpoints = 0.01
+		culture_techpoints = 0.01
+		ai_creation_factor = 100000
+		extra_tech_building_start = 10.0
+	}
+	ct_energy_4 = {	# Strange Anomaly
+		desc = ct_energy_4_desc
+		trigger = { always = no }
+		potential = { always = yes }
+		upgrades_from = ct_energy_3
+		build_cost = 0
+		build_time = 0
+		tax_income = 1
+		tradevalue = 25
+		military_techpoints = 0.02
+		economy_techpoints = 0.02
+		culture_techpoints = 0.02
+		ai_creation_factor = 100000
+		extra_tech_building_start = 10.0
+	}
+	
+	# Materials
+	# Cannot be upgraded
+	ct_materials_0 = { # No raw materials
+		desc = ct_materials_0_desc
+		trigger = { TECH_LEGALISM = 0 }
+		potential = { always = yes }
+		build_cost = 0
+		build_time = 0
+		ai_creation_factor = 100000
+		extra_tech_building_start = 10.0
+	}
+	ct_materials_1 = { # Trace Minerals
+		desc = ct_materials_1_desc
+		trigger = { always = no }
+		potential = { always = yes }
+		upgrades_from = ct_materials_0
+		build_cost = 0
+		build_time = 0
+		tax_income = 1
+		tradevalue = 10
+		light_cavalry_defensive = 0.1
+		knights_defensive = 0.1
+		dreadnoughts_defensive = 0.1
+		ai_creation_factor = 100000
+		extra_tech_building_start = 10.0
+	}
+	ct_materials_2 = { # Mineral Veins
+		desc = ct_materials_2_desc
+		trigger = { always = no }
+		potential = { always = yes }
+		upgrades_from = ct_materials_1
+		build_cost = 0
+		build_time = 0
+		tax_income = 1
+		tradevalue = 10
+		light_cavalry_defensive = 0.1
+		knights_defensive = 0.1
+		dreadnoughts_defensive = 0.1
+		ai_creation_factor = 100000
+		extra_tech_building_start = 10.0
+	}
+	ct_materials_3 = { # Abundant Minerals
+		desc = ct_materials_3_desc
+		trigger = { always = no }
+		potential = { always = yes }
+		upgrades_from = ct_materials_2
+		build_cost = 0
+		build_time = 0
+		tax_income = 1
+		tradevalue = 10
+		light_cavalry_defensive = 0.1
+		knights_defensive = 0.1
+		dreadnoughts_defensive = 0.1
+		ai_creation_factor = 100000
+		extra_tech_building_start = 10.0
+	}
+	ct_materials_4 = { # Motherlode
+		desc = ct_materials_4_desc
+		trigger = { always = no }
+		potential = { always = yes }
+		upgrades_from = ct_materials_3
+		build_cost = 0
+		build_time = 0
+		tax_income = 2
+		tradevalue = 10
+		light_cavalry_defensive = 0.2
+		knights_defensive = 0.2
+		dreadnoughts_defensive = 0.2
+		ai_creation_factor = 100000
+		extra_tech_building_start = 10.0
+	}
+}
+temple = {
+	# Environment
+	# Naturally rare, but upgradable
+	tp_environment_0 = { # Airless
+		desc = tp_environment_0_desc
+		trigger = { TECH_LEGALISM = 0 }
+		potential = { always = yes }
+		build_cost = 0
+		build_time = 0
+		ai_creation_factor = 100000000
+		extra_tech_building_start = 10.0
+	}
+	tp_environment_1 = { # Harsh
+		desc = tp_environment_1_desc
+		trigger = { TECH_LEGALISM = 2 }
+		potential = { always = yes }
+		upgrades_from = tp_environment_0
+		build_cost = 150
+		build_time = 365
+		ai_creation_factor = 100
+		extra_tech_building_start = 10.0
+	}
+	tp_environment_2 = { # Inhospitable
+		desc = tp_environment_2_desc
+		trigger = { TECH_LEGALISM = 4 }
+		potential = { always = yes }
+		upgrades_from = tp_environment_1
+		build_cost = 300
+		build_time = 730
+		ai_creation_factor = 100
+		extra_tech_building_start = 10.0
+	}
+	tp_environment_3 = { # Near-Terrestrial
+		desc = tp_environment_3_desc
+		trigger = { TECH_LEGALISM = 6 }
+		potential = { always = yes }
+		upgrades_from = tp_environment_2
+		build_cost = 600
+		build_time = 1460
+		ai_creation_factor = 100
+		extra_tech_building_start = 10.0
+	}
+	tp_environment_4 = { # Terrestrial
+		desc = tp_environment_4_desc
+		trigger = { TECH_LEGALISM = 8 }
+		potential = { always = yes }
+		upgrades_from = tp_environment_3
+		build_cost = 1200
+		build_time = 2920
+		ai_creation_factor = 100
+		extra_tech_building_start = 10.0
+	}
+	
+	# Energy
+	# Cannot be upgraded
+	tp_energy_0 = {	# No natural energy sources
+		desc = tp_energy_0_desc
+		trigger = { TECH_LEGALISM = 0 }
+		potential = { always = yes }
+		build_cost = 0
+		build_time = 0
+		ai_creation_factor = 100000
+		extra_tech_building_start = 10.0
+	}
+	tp_energy_1 = {	# Solar Power
+		desc = tp_energy_1_desc
+		trigger = { always = no }
+		potential = { always = yes }
+		upgrades_from = tp_energy_0
+		build_cost = 0
+		build_time = 0
+		tax_income = 0.5
+		military_techpoints = 0.01
+		economy_techpoints = 0.01
+		culture_techpoints = 0.01
+		ai_creation_factor = 100000
+		extra_tech_building_start = 10.0
+	}
+	tp_energy_2 = {	# Geothermal Power
+		desc = tp_energy_2_desc
+		trigger = { always = no }
+		potential = { always = yes }
+		upgrades_from = tp_energy_1
+		build_cost = 0
+		build_time = 0
+		tax_income = 0.5
+		military_techpoints = 0.01
+		economy_techpoints = 0.01
+		culture_techpoints = 0.01
+		ai_creation_factor = 100000
+		extra_tech_building_start = 10.0
+	}
+	tp_energy_3 = {	# Fuel Deposits
+		desc = tp_energy_3_desc
+		trigger = { always = no }
+		potential = { always = yes }
+		upgrades_from = tp_energy_2
+		build_cost = 0
+		build_time = 0
+		tax_income = 1
+		tradevalue = 25
+		military_techpoints = 0.01
+		economy_techpoints = 0.01
+		culture_techpoints = 0.01
+		ai_creation_factor = 100000
+		extra_tech_building_start = 10.0
+	}
+	tp_energy_4 = {	# Strange Anomaly
+		desc = tp_energy_4_desc
+		trigger = { always = no }
+		potential = { always = yes }
+		upgrades_from = tp_energy_3
+		build_cost = 0
+		build_time = 0
+		tax_income = 1
+		tradevalue = 25
+		military_techpoints = 0.02
+		economy_techpoints = 0.02
+		culture_techpoints = 0.02
+		ai_creation_factor = 100000
+		extra_tech_building_start = 10.0
+	}
+	
+	# Materials
+	# Cannot be upgraded
+	tp_materials_0 = { # No raw materials
+		desc = tp_materials_0_desc
+		trigger = { TECH_LEGALISM = 0 }
+		potential = { always = yes }
+		build_cost = 0
+		build_time = 0
+		ai_creation_factor = 100000
+		extra_tech_building_start = 10.0
+	}
+	tp_materials_1 = { # Trace Minerals
+		desc = tp_materials_1_desc
+		trigger = { always = no }
+		potential = { always = yes }
+		upgrades_from = tp_materials_0
+		build_cost = 0
+		build_time = 0
+		tax_income = 1
+		tradevalue = 10
+		light_cavalry_defensive = 0.1
+		knights_defensive = 0.1
+		dreadnoughts_defensive = 0.1
+		ai_creation_factor = 100000
+		extra_tech_building_start = 10.0
+	}
+	tp_materials_2 = { # Mineral Veins
+		desc = tp_materials_2_desc
+		trigger = { always = no }
+		potential = { always = yes }
+		upgrades_from = tp_materials_1
+		build_cost = 0
+		build_time = 0
+		tax_income = 1
+		tradevalue = 10
+		light_cavalry_defensive = 0.1
+		knights_defensive = 0.1
+		dreadnoughts_defensive = 0.1
+		ai_creation_factor = 100000
+		extra_tech_building_start = 10.0
+	}
+	tp_materials_3 = { # Abundant Minerals
+		desc = tp_materials_3_desc
+		trigger = { always = no }
+		potential = { always = yes }
+		upgrades_from = tp_materials_2
+		build_cost = 0
+		build_time = 0
+		tax_income = 1
+		tradevalue = 10
+		light_cavalry_defensive = 0.1
+		knights_defensive = 0.1
+		dreadnoughts_defensive = 0.1
+		ai_creation_factor = 100000
+		extra_tech_building_start = 10.0
+	}
+	tp_materials_4 = { # Motherlode
+		desc = tp_materials_4_desc
+		trigger = { always = no }
+		potential = { always = yes }
+		upgrades_from = tp_materials_3
+		build_cost = 0
+		build_time = 0
+		tax_income = 2
+		tradevalue = 10
+		light_cavalry_defensive = 0.2
+		knights_defensive = 0.2
+		dreadnoughts_defensive = 0.2
+		ai_creation_factor = 100000
+		extra_tech_building_start = 10.0
+	}
+}

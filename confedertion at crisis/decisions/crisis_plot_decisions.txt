@@ -1,0 +1,105 @@
+plot_decisions = {
+	launch_coup_decision = {
+		is_high_prio = yes
+		ai_check_interval = 10 
+ potential = {
+			OR = {
+				has_plot = plot_coup
+				has_plot = plot_justified_coup
+			}
+		}
+		allow = {
+			is_plot_active = no
+			is_primary_war_attacker = no # Needed for war-joining commands to work
+			NOT = { has_character_flag = flag_launching_coup }
+		}
+		effect = {
+			set_character_flag = flag_launching_coup
+			character_event = { id = coup.30 tooltip = "EVTTOOLTIPCOUP30" }
+		}
+		ai_will_do = {
+			factor = 1
+			
+			# Not without sufficient strength
+			modifier = {
+				factor = 0
+				NOT = { plot_power = 0.5 }
+			}
+			modifier = {
+				factor = 0
+				NOT = { plot_power = 1 }
+				NOT = { trait = brave }
+			}
+			
+			# Not if there's a useful likely ally
+			modifier = {
+				factor = 0
+				NOT = { had_character_flag = { flag = flag_ai_plot_timer days = 1095 } }
+				NOT = {
+					AND = {
+						has_plot = plot_justified_coup
+						capital_scope = { revolt_risk = 0.5 }
+					}
+				}
+				plot_target_char = {
+					any_vassal = {
+						NOT = { opinion = { who = PREV value = -24 } }
+						opinion = { who = ROOT value = 25 }
+						OR = {
+							relative_power_to_liege = 0.1
+							is_councillor = yes
+						}
+						NOT = { has_plot = plot_coup }
+						NOT = { has_plot = plot_justified_coup }
+						NOT = {
+							any_backed_character = {
+								OR = {
+									has_plot = plot_coup
+									has_plot = plot_justified_coup
+								}
+							}
+						}
+					}
+				}
+			}
+			
+			# Not if there's a chance for a coup event
+			modifier = {
+				factor = 0
+				NOT = { had_character_flag = { flag = flag_ai_plot_timer days = 1095 } }
+				NOT = {
+					AND = {
+						has_plot = plot_justified_coup
+						capital_scope = { revolt_risk = 0.5 }
+					}
+				}
+				NOT = { plot_power = 3 }
+				OR = {
+					AND = {
+						is_military_trigger = yes
+						plot_target_char = {
+							location = {
+								OR = {
+									any_province_character = { character = ROOT }
+									any_neighbor_province = {
+										OR = {
+											any_province_character = { character = ROOT }
+											any_neighbor_province = { any_province_character = { character = ROOT } }
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			
+			# Not if they've delayed
+			modifier = {
+				factor = 0
+				has_character_flag = flag_delayed_coup
+				NOT = { had_character_flag = { flag = flag_coup_delay days = 720 } }
+			}
+		}
+	}
+}

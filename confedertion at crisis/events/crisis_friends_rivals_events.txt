@@ -1,0 +1,1440 @@
+namespace = relations
+
+# Rivalry begins
+character_event = {
+	id = relations.0
+	desc = "EVTDESCRELATIONS0"
+	picture = GFX_evt_quarrel
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTCONFIRM
+		add_rival = FROM
+	}
+}
+
+# Friendship begins
+character_event = {
+	id = relations.10
+	desc = "EVTDESCRELATIONS10"
+	picture = GFX_evt_courtiers_talking
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTCONFIRM
+		add_friend = FROM
+	}
+}
+
+# Rivalry ends
+character_event = {
+	id = relations.20
+	desc = "EVTDESCRELATIONS20"
+	picture = GFX_evt_courtiers_talking
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTCONFIRM
+		remove_rival = FROM
+	}
+}
+
+# Friendship Ends
+character_event = {
+	id = relations.30
+	desc = "EVTDESCRELATIONS30"
+	picture = GFX_evt_quarrel
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTCONFIRM
+		remove_friend = FROM
+	}
+}
+
+# Transitive friendships/rivalries
+# The enemy of my enemy is my friend
+character_event = {
+	id = relations.100
+	hide_window = yes
+	
+	only_capable = yes
+	
+	trigger = {
+		any_rival = {
+			any_rival = {
+				NOT = { character = ROOT }
+				NOT = { is_rival = ROOT }
+				NOT = { is_friend = ROOT }
+				NOT = { trait = incapable }
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 60
+	}
+	
+	immediate = {
+		random_rival = {
+			limit = {
+				any_rival = {
+					NOT = { character = ROOT }
+					NOT = { is_rival = ROOT }
+					NOT = { is_friend = ROOT }
+					NOT = { trait = incapable }
+				}
+			}
+			random_rival = {
+				limit = {
+					NOT = { character = ROOT }
+					NOT = { is_rival = ROOT }
+					NOT = { is_friend = ROOT }
+					NOT = { trait = incapable }
+				}
+				character_event = { id = relations.101 }
+			}
+		}
+	}
+}
+character_event = {
+	id = relations.101
+	desc = "EVTDESCRELATIONS101"
+	picture = GFX_evt_courtiers_talking
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTARELATIONS101"
+		FROM = { character_event = { id = relations.102 tooltip = "EVTTOOLTIPRELATIONS102" } }
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 5
+				trait = friendly
+			}
+			modifier = {
+				factor = 0.2
+				trait = cold
+			}
+			modifier = {
+				factor = 2
+				trait = extraverted
+			}
+			modifier = {
+				factor = 0.5
+				trait = introverted
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -99 } }
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTBRELATIONS101"
+		ai_chance = { factor = 50 }
+	}
+}
+character_event = {
+	id = relations.102
+	desc = "EVTDESCRELATIONS101"
+	picture = GFX_evt_courtiers_talking
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTARELATIONS301"
+		add_friend = FROM
+		FROM = { character_event = { id = relations.10 tooltip = "EVTTOOLTIPRELATIONS10" } }
+		hidden_tooltip = {
+			any_rival = {
+				limit = { is_rival = FROM }
+				character_event = { id = relations.103 }
+			}
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 5
+				trait = friendly
+			}
+			modifier = {
+				factor = 0.2
+				trait = cold
+			}
+			modifier = {
+				factor = 2
+				trait = extraverted
+			}
+			modifier = {
+				factor = 0.5
+				trait = introverted
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -99 } }
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTBRELATIONS101"
+		hidden_tooltip = { FROM = { character_event = { id = relations.104 } } }
+		ai_chance = { factor = 50 }
+	}
+}
+character_event = {
+	id = relations.103
+	desc = "EVTDESCRELATIONS103"
+	picture = GFX_evt_courtiers_talking
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+character_event = {
+	id = relations.104
+	desc = "EVTDESCRELATIONS104"
+	picture = GFX_evt_courtiers_talking
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+# The friend of my enemy is my enemy
+character_event = {
+	id = relations.200
+	hide_window = yes
+	
+	trigger = {
+		any_friend = {
+			any_rival = {
+				NOT = { character = ROOT }
+				NOT = { is_friend = ROOT }
+				NOT = { is_rival = ROOT }
+				NOT = { trait = incapable }
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 60
+	}
+	
+	immediate = {
+		random_friend = {
+			limit = {
+				any_rival = {
+					NOT = { character = ROOT }
+					NOT = { is_friend = ROOT }
+					NOT = { is_rival = ROOT }
+					NOT = { trait = incapable }
+				}
+			}
+			random_rival = {
+				limit = {
+					NOT = { character = ROOT }
+					NOT = { is_friend = ROOT }
+					NOT = { is_rival = ROOT }
+					NOT = { trait = incapable }
+				}
+				character_event = { id = relations.201 }
+			}
+		}
+	}
+}
+character_event = {
+	id = relations.201
+	desc = "EVTDESCRELATIONS201"
+	picture = GFX_evt_quarrel
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTARELATIONS201"
+		add_rival = FROM
+		hidden_tooltip = {
+			FROM = { character_event = { id = relations.0 } }
+			any_rival = {
+				limit = { is_friend = FROM }
+				character_event = { id = relations.202 }
+			}
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROM value = -99 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = FROM value = 100 }
+			}
+			modifier = {
+				factor = 4
+				trait = cold
+			}
+			modifier = {
+				factor = 0.25
+				trait = friendly
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTBRELATIONS201"
+	}
+}
+character_event = {
+	id = relations.202
+	hide_window = yes
+	is_triggered_only = yes
+	
+	immediate = { FROMFROM = { character_event = { id = relations.203 } } }
+}
+character_event = {
+	id = relations.203
+	desc = "EVTDESCRELATIONS203"
+	show_from_from = yes
+	picture = GFX_evt_quarrel
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+# The friend of my friend is my friend
+character_event = {
+	id = relations.300
+	hide_window = yes
+	
+	only_capable = yes
+	
+	trigger = {
+		any_friend = {
+			any_friend = {
+				NOT = { character = ROOT }
+				NOT = { is_rival = ROOT }
+				NOT = { is_friend = ROOT }
+				NOT = { trait = incapable }
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 60
+	}
+	
+	immediate = {
+		random_friend = {
+			limit = {
+				any_friend = {
+					NOT = { character = ROOT }
+					NOT = { is_rival = ROOT }
+					NOT = { is_friend = ROOT }
+					NOT = { trait = incapable }
+				}
+			}
+			random_friend = {
+				limit = {
+					NOT = { character = ROOT }
+					NOT = { is_rival = ROOT }
+					NOT = { is_friend = ROOT }
+					NOT = { trait = incapable }
+				}
+				character_event = { id = relations.301 }
+			}
+		}
+	}
+}
+character_event = {
+	id = relations.301
+	desc = "EVTDESCRELATIONS301"
+	picture = GFX_evt_courtiers_talking
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTARELATIONS301"
+		FROM = { character_event = { id = relations.302 tooltip = "EVTTOOLTIPRELATIONS302" } }
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 5
+				trait = friendly
+			}
+			modifier = {
+				factor = 0.2
+				trait = cold
+			}
+			modifier = {
+				factor = 2
+				trait = extraverted
+			}
+			modifier = {
+				factor = 0.5
+				trait = introverted
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -99 } }
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTBRELATIONS301"
+		ai_chance = { factor = 50 }
+	}
+}
+character_event = {
+	id = relations.302
+	desc = "EVTDESCRELATIONS301"
+	picture = GFX_evt_courtiers_talking
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTARELATIONS301"
+		add_friend = FROM
+		FROM = { character_event = { id = relations.10 tooltip = "EVTTOOLTIPRELATIONS10" } }
+		hidden_tooltip = {
+			any_friend = {
+				limit = { is_friend = FROM }
+				character_event = { id = relations.303 }
+			}
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 5
+				trait = friendly
+			}
+			modifier = {
+				factor = 0.2
+				trait = cold
+			}
+			modifier = {
+				factor = 2
+				trait = extraverted
+			}
+			modifier = {
+				factor = 0.5
+				trait = introverted
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -99 } }
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTBRELATIONS301"
+		hidden_tooltip = { FROM = { character_event = { id = relations.304 } } }
+		ai_chance = { factor = 50 }
+	}
+}
+character_event = {
+	id = relations.303
+	desc = "EVTDESCRELATIONS303"
+	picture = GFX_evt_courtiers_talking
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+character_event = {
+	id = relations.304
+	desc = "EVTDESCRELATIONS304"
+	picture = GFX_evt_courtiers_talking
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+
+# Making friends/rivals
+# Childhood Interactions
+character_event = {
+	id = relations.500
+	hide_window = yes
+	
+	min_age = 6
+	max_age = 12
+	only_capable = yes
+	
+	trigger = {
+		location = {
+			any_province_character = {
+				age = 6
+				NOT = { age = 13 }
+				NOT = { trait = incapable }
+				NOT = { is_friend = ROOT }
+				NOT = { is_rival = ROOT }
+				NOT = { character = ROOT }
+			}
+		}
+	}
+	
+	mean_time_to_happen = { months = 30 }
+	
+	immediate = {
+		location = {
+			random_province_character = {
+				limit = {
+					age = 6
+					NOT = { age = 13 }
+					NOT = { trait = incapable }
+					NOT = { is_friend = ROOT }
+					NOT = { is_rival = ROOT }
+					NOT = { character = ROOT }
+				}
+				character_event = { id = relations.501 }
+			}
+		}
+	}
+}
+character_event = {
+	id = relations.501
+	desc = "EVTDESCRELATIONS501"
+	picture = GFX_evt_children_playing
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTARELATIONS501"
+		FROM = { character_event = { id = relations.502 tooltip = "EVTTOOLTIPRELATIONS502" } }
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 10 }
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTBRELATIONS501"
+		FROM = { character_event = { id = relations.503 tooltip = "EVTTOOLTIPRELATIONS503" } }
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2.5
+				trait = cold
+			}
+			modifier = {
+				factor = 0.4
+				trait = friendly
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROM value = -99 } }
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTCRELATIONS501"
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 5
+				trait = introverted
+			}
+			modifier = {
+				factor = 0.2
+				trait = extraverted
+			}
+		}
+	}
+}
+character_event = {
+	id = relations.502
+	desc = "EVTDESCRELATIONS502"
+	picture = GFX_evt_children_playing
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTARELATIONS502"
+		add_friend = FROM
+		hidden_tooltip = { FROM = { character_event = { id = relations.10 } } }
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 4
+				trait = friendly
+			}
+			modifier = {
+				factor = 0.25
+				trait = cold
+			}
+			modifier = {
+				factor = 2.4
+				trait = extraverted
+			}
+			modifier = {
+				factor = 0.4
+				trait = introverted
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -99 } }
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTBRELATIONS502"
+		FROM = {
+			opinion = { who = ROOT modifier = opinion_disappointed months = 12 }
+			hidden_tooltip = { character_event = { id = relations.504 } }
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+character_event = {
+	id = relations.503
+	desc = "EVTDESCRELATIONS503"
+	picture = GFX_evt_child_bully
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		add_rival = FROM
+		hidden_tooltip = { FROM = { character_event = { id = relations.0 } } }
+	}
+}
+character_event = {
+	id = relations.504
+	desc = "EVTDESCRELATIONS504"
+	picture = GFX_evt_children_playing
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+# Opinion-based friendship/rivalry changes
+# Mutual 100-opinion characters become friends
+character_event = {
+	id = relations.600
+	hide_window = yes
+	
+	min_age = 18
+	only_capable = yes
+	
+	trigger = {
+		NOT = { trait = hiver_implant }
+		location = {
+			any_province_character = {
+				age = 18
+				opinion = { who = ROOT value = 100 }
+				reverse_opinion = { who = ROOT value = 100 }
+				NOT = { trait = hiver_implant }
+				NOT = { character = ROOT }
+				NOT = { is_friend = ROOT }
+				NOT = { is_rival = ROOT }
+				NOT = { any_lover = { character = ROOT } }
+				NOT = { trait = incapable }
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 40
+		modifier = {
+			factor = 2
+			trait = introverted
+		}
+		modifier = {
+			factor = 0.5
+			trait = extraverted
+		}
+		modifier = {
+			factor = 1.5
+			num_of_friends = 1
+		}
+		modifier = {
+			factor = 1.5
+			num_of_friends = 2
+		}
+		modifier = {
+			factor = 1.5
+			num_of_friends = 3
+		}
+	}
+	
+	immediate = {
+		location = {
+			random_province_character = {
+				limit = {
+					age = 18
+					opinion = { who = ROOT value = 100 }
+					reverse_opinion = { who = ROOT value = 100 }
+					NOT = { trait = hiver_implant }
+					NOT = { character = ROOT }
+					NOT = { is_friend = ROOT }
+					NOT = { is_rival = ROOT }
+					NOT = { any_lover = { character = ROOT } }
+					NOT = { trait = incapable }
+				}
+				character_event = { id = relations.601 }
+			}
+		}
+	}
+}
+character_event = {
+	id = relations.601
+	desc = "EVTDESCRELATIONS10"
+	picture = GFX_evt_courtiers_talking
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		add_friend = FROM
+		hidden_tooltip = { FROM = { character_event = { id = relations.10 } } }
+	}
+}
+# Mutual -100-opinion characters become rivals
+character_event = {
+	id = relations.610
+	hide_window = yes
+	
+	min_age = 18
+	only_capable = yes
+	
+	trigger = {
+		NOT = { trait = hiver_implant }
+		location = {
+			any_province_character = {
+				age = 18
+				NOT = { opinion = { who = ROOT value = -99 } }
+				NOT = { reverse_opinion = { who = ROOT value = -99 } }
+				NOT = { trait = hiver_implant }
+				NOT = { character = ROOT }
+				NOT = { is_friend = ROOT }
+				NOT = { is_rival = ROOT }
+				NOT = { trait = incapable }
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 40
+		modifier = {
+			factor = 2
+			trait = cold
+		}
+		modifier = {
+			factor = 0.5
+			trait = friendly
+		}
+		modifier = {
+			factor = 1.5
+			num_of_rivals = 1
+		}
+		modifier = {
+			factor = 1.5
+			num_of_rivals = 2
+		}
+		modifier = {
+			factor = 1.5
+			num_of_rivals = 3
+		}
+	}
+	
+	immediate = {
+		location = {
+			random_province_character = {
+				limit = {
+					age = 18
+					NOT = { opinion = { who = ROOT value = -99 } }
+					NOT = { reverse_opinion = { who = ROOT value = -99 } }
+					NOT = { trait = hiver_implant }
+					NOT = { character = ROOT }
+					NOT = { is_friend = ROOT }
+					NOT = { is_rival = ROOT }
+					NOT = { trait = incapable }
+				}
+				character_event = { id = relations.611 }
+			}
+		}
+	}
+}
+character_event = {
+	id = relations.611
+	desc = "EVTDESCRELATIONS0"
+	picture = GFX_evt_quarrel
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		add_rival = FROM
+		hidden_tooltip = { FROM = { character_event = { id = relations.0 } } }
+	}
+}
+# Friendship ends due to dislike
+character_event = {
+	id = relations.620
+	hide_window = yes
+	
+	min_age = 18
+	only_capable = yes
+	
+	trigger = { any_friend = { NOT = { reverse_opinion = { who = ROOT value = 0 } } } }
+	
+	mean_time_to_happen = {
+		months = 30
+		modifier = {
+			factor = 2
+			trait = friendly
+		}
+		modifier = {
+			factor = 0.5
+			trait = cold
+		}
+	}
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		random_friend = {
+			limit = { NOT = { reverse_opinion = { who = ROOT value = 0 } } }
+			character_event = { id = relations.621 }
+		}
+	}
+}
+character_event = {
+	id = relations.621
+	desc = "EVTDESCRELATIONS30"
+	picture = GFX_evt_quarrel
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		remove_friend = FROM
+		hidden_tooltip = { FROM = { character_event = { id = relations.30 } } }
+	}
+}
+# Rivalry ends due to mutual approval
+character_event = {
+	id = relations.630
+	hide_window = yes
+	
+	min_age = 18
+	only_capable = yes
+	
+	trigger = {
+		any_rival = {
+			opinion = { who = ROOT value = 1 }
+			reverse_opinion = { who = ROOT value = 1 }
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 40
+		modifier = {
+			factor = 0.5
+			trait = friendly
+		}
+		modifier = {
+			factor = 2
+			trait = cold
+		}
+	}
+	
+	immediate = {
+		random_rival = {
+			limit = {
+				opinion = { who = ROOT value = 1 }
+				reverse_opinion = { who = ROOT value = 1 }
+			}
+			character_event = { id = relations.631 }
+		}
+	}
+}
+character_event = {
+	id = relations.631
+	desc = "EVTDESCRELATIONS620"
+	picture = GFX_evt_courtiers_talking
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		remove_rival = FROM
+		hidden_tooltip = { FROM = { character_event = { id = relations.20 } } }
+	}
+}
+# Bankrupt friend - send them a gift?
+character_event = {
+	id = relations.700
+	desc = "EVTDESCRELATIONS700"
+	picture = GFX_evt_courtiers_talking
+	border = GFX_evt_normal_frame_economy
+	
+	min_age = 18
+	only_capable = yes
+	only_rulers = yes
+	prisoner = no
+	
+	trigger = {
+		scaled_wealth = 0.2
+		any_friend = { NOT = { wealth = 0 } }
+	}
+	
+	mean_time_to_happen = {
+		months = 30
+	}
+	
+	option = {
+		name = "EVTOPTARELATIONS700"
+		random_friend = {
+			limit = { NOT = { wealth = 0 } }
+			tooltip = { ROOT = { transfer_scaled_wealth = { to = PREV value = 0.2 } } }
+			opinion = { who = ROOT modifier = opinion_grateful }
+			hidden_tooltip = { letter_event = { id = relations.701 } }
+		}
+		ai_chance = {
+			factor = 75
+			modifier = {
+				factor = 0.2
+				war = yes
+			}
+			modifier = {
+				factor = 0.2
+				has_ambition = obj_amass_wealth
+			}
+			modifier = {
+				factor = 2
+				trait = friendly
+			}
+			modifier = {
+				factor = 0.5
+				trait = cold
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTBRELATIONS700"
+		ai_chance = { factor = 25 }
+	}
+}
+letter_event = {
+	id = relations.701
+	desc = "EVTDESCRELATIONS701"
+	border = GFX_evt_letter_frame_economy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		FROM = { transfer_scaled_wealth = { to = ROOT value = 0.2 } }
+	}
+}
