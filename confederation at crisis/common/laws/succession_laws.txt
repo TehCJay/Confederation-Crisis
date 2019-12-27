@@ -17,13 +17,8 @@ succession_laws = {
 				temporary = yes
 			}
 			holder_scope = {
-				OR = {
-					government = pirate_kingdom
-					independent = yes
-				}				
-
+				government = pirate_kingdom
 			}
-			NOT = { tier = baron }
 		}
 		allow = {
 			custom_tooltip = {
@@ -40,7 +35,7 @@ succession_laws = {
 			}
 		}
 		revoke_allowed = {
-			always = no
+			always = yes
 		}			
 	}
 	
@@ -102,7 +97,6 @@ succession_laws = {
 				is_patrician = no
 				in_revolt = no
 				government = pirate_kingdom
-				always = no
 			}
 			OR = {
 				is_landless_type_title = no
@@ -578,11 +572,15 @@ succession_laws = {
 				temporary = yes
 			}
 			holder_scope = {
-				OR = {
+				AND = {
 					government = pirate_kingdom
 					independent = yes
+					OR = {
+						tier = duke
+						tier = king
+						tier = emperor
+					}
 				}
-
 			}
 			NOT = { tier = baron }
 		}
@@ -627,8 +625,11 @@ succession_laws = {
 					independent = no
 					in_revolt = yes
 				}
-				is_merchant_republic = no
 				is_patrician = no
+				is_merchant_republic = no
+				NOT = {
+					government = pirate_kingdom
+					}
 			}
 		}
 		allow = {
