@@ -35,6 +35,89 @@ character_event = {
 	}
 }
 
+# Recovery from cosmic radiation
+character_event = {
+	id = health.800
+	is_sick = yes
+	desc = "EVTDESCHEALTH800"
+	picture = GFX_evt_ill
+	
+	trigger = { trait = has_cosmic_radiation }
+	mean_time_to_happen = {
+		months = 3
+		modifier = {
+			factor = 0.75
+			base_health = 5.1
+		}
+		modifier = {
+			factor = 0.5
+			base_health = 6.0
+		}
+		modifier = {
+			factor = 0.5
+			base_health = 7.0
+		}
+		modifier = {
+			factor = 1.5
+			NOT = { base_health = 5.0 }
+		}
+		modifier = {
+			factor = 2.0
+			NOT = { base_health = 4.1 }
+		}
+		modifier = {
+			factor = 0.66
+			NOT = { age = 20 }
+		}
+		modifier = {
+			factor = 0.75
+			NOT = { age = 30 }
+		}
+		modifier = {
+			factor = 0.75
+			NOT = { age = 40 }
+		}
+		modifier = {
+			factor = 2.0
+			age = 50
+		}
+		modifier = {
+			factor = 2.0
+			age = 70
+		}
+		modifier = {
+			factor = 2.0
+			is_ill = yes
+		}
+		modifier = {
+			factor = 4.0
+			trait = infirm
+		}
+		modifier = {
+			factor = 5.0
+			trait = incapable
+		}
+	}
+	option = {
+		name = "EVTOPTCONFIRM"
+		remove_trait = has_cosmic_radiation
+	}
+}
+
+# Recovery from great depression
+character_event = {
+	id = health.700
+	desc = "EVTDESCHEALTH700"
+	picture = GFX_evt_ill
+	
+	trigger = { trait = has_great_depression }
+	mean_time_to_happen = { months = 120 }
+	option = {
+		name = "EVTOPTCONFIRM"
+		remove_trait = has_great_depression
+	}
+}
+
 # Recovery from flu
 character_event = {
 	id = health.200
