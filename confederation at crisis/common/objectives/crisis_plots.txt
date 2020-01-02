@@ -1827,8 +1827,8 @@ plot_fabricate_heresy = {
 			#dislike them and they are cynical
 			AND = {
 				NOT = { reverse_opinion = { who = FROM value = 0 } }
-				FROM = { trait = zealous }
-				trait = cynical
+				FROM = { trait = radical }
+				trait = pragmatic
 			}
 			
 			#wants revenge
@@ -1956,7 +1956,7 @@ plot_fabricate_heresy = {
 		}
 		modifier = {
 			factor = 4.0
-			FROM = { trait = zealous }
+			FROM = { trait = radical }
 		}
 	}
 	
@@ -5094,7 +5094,7 @@ plot_coup = {
 			holder_scope = { religion_authority = 0.25 }
 			NOT = { FROM = { has_weak_claim = PREV } }
 		}
-		FROM = { religion_authority = 0.1 }
+		holder_scope = { religion_authority = 0.1 }
 		OR = {
 			AND = {
 				holder_scope = { NOT = {religion_authority = 0.75 }}

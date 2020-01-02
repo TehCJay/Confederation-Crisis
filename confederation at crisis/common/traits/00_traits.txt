@@ -38,6 +38,8 @@ flamboyant_schemer = {
 	martial = 1
 	diplomacy = 1
 	stewardship = -1
+	
+	combat_rating = 10
 
 	ai_ambition = 25
 	ai_rationality = -25
@@ -54,6 +56,8 @@ intricate_webweaver = {
 	martial = 2
 	diplomacy = 2
 	stewardship = -1
+	
+	combat_rating = 20
 
 	ai_ambition = 50
 	ai_rationality = -50
@@ -69,9 +73,11 @@ elusive_shadow = {
 	education = yes
 	
 	intrigue = 9
-	martial = 3 combat_rating = 30
+	martial = 3
 	diplomacy = 3
 	stewardship = -1
+	
+	combat_rating = 30
 
 	ai_ambition = 50
 	ai_rationality = -50
@@ -106,6 +112,7 @@ underhanded_rogue = {
 	intrigue = 1
 	learning = 1
 	martial = -1
+	fertility = 0.05
 
 	ai_ambition = -25
 	ai_zeal = -25
@@ -122,6 +129,7 @@ charismatic_negotiator = {
 	intrigue = 2
 	learning = 2
 	martial = -1
+	fertility = 0.05
 
 	ai_ambition = -50
 	ai_zeal = -50
@@ -140,6 +148,7 @@ grey_eminence = {
 	intrigue = 3
 	learning = 3
 	martial = -1
+	fertility = 0.10
 
 	ai_ambition = -50
 	ai_zeal = -50
@@ -173,6 +182,8 @@ thrifty_clerk = {
 	martial = 1
 	learning = 1
 	diplomacy = -1
+	fertility = 0.05
+	
 	ai_zeal = -25
 	male_insult_adj = INSULT_MISERLY
 	female_insult_adj = INSULT_MISERLY
@@ -186,6 +197,8 @@ fortune_builder = {
 	martial = 2
 	learning = 2
 	diplomacy = -1
+	fertility = 0.10
+	
 	ai_zeal = -50
 	male_compliment_adj = COMPL_THRIFTY
 	female_compliment_adj = COMPL_THRIFTY
@@ -199,9 +212,11 @@ midas_touched = {
 	education = yes
 	
 	stewardship = 9
-	martial = 3 combat_rating = 30
+	martial = 3
 	learning = 3
 	diplomacy = -1
+	fertility = 0.15
+	
 	ai_zeal = -50
 	male_compliment_adj = COMPL_THRIFTY
 	female_compliment_adj = COMPL_THRIFTY
@@ -219,7 +234,7 @@ misguided_warrior = {
 	martial = 1
 	learning = -1
 	
-	combat_rating = 1
+	combat_rating = 20
 	
 	health = 0.5
 
@@ -230,12 +245,12 @@ tough_soldier = {
 	attribute = martial
 	education = yes
 	
-	martial = 3 combat_rating = 30
+	martial = 3
 	intrigue = 1
 	stewardship = 1
 	learning = -1
 	
-	combat_rating = 2
+	combat_rating = 30
 	
 	health = 0.5
 
@@ -246,12 +261,12 @@ skilled_tactician = {
 	attribute = martial
 	education = yes
 	
-	martial = 6 combat_rating = 60
+	martial = 6
 	intrigue = 2
 	stewardship = 2
 	learning = -1
 	
-	combat_rating = 3
+	combat_rating = 40
 	
 	health = 0.5
 
@@ -262,12 +277,12 @@ brilliant_strategist = {
 	attribute = martial
 	education = yes
 	
-	martial = 9 combat_rating = 90
+	martial = 9
 	intrigue = 3
 	stewardship = 3
 	learning = -1
 	
-	combat_rating = 4
+	combat_rating = 60
 	
 	health = 0.5
 
@@ -316,6 +331,8 @@ scholarly_theologian = {
 	diplomacy = 2
 	stewardship = 2
 	intrigue = -1
+	
+	fertility = -0.05
 
 	ai_rationality = -50
 	ai_zeal = 50
@@ -335,6 +352,8 @@ mastermind_theologian = {
 	diplomacy = 3
 	stewardship = 3
 	intrigue = -1
+	
+	fertility = -0.05
 
 	ai_rationality = -50
 	ai_zeal = 50
@@ -357,10 +376,8 @@ stressed = {
 	stewardship = -1
 	health = -1
 	fertility = -0.1
-	general_opinion = -5
-	opposites = {
-		depressed
-	}
+	combat_rating = -10
+	
 	customizer = no
 }
 depressed = { #22
@@ -371,10 +388,8 @@ depressed = { #22
 	intrigue = -2
 	health = -2
 	fertility = -0.2
-	general_opinion = -10
-	opposites = {
-		stressed
-	}
+	combat_rating = -5
+	
 	customizer = no
 	
 	male_insult_adj = INSULT_LUGUBRIOUS
@@ -385,19 +400,10 @@ depressed = { #22
 lunatic = { # Highly event driven
 	is_health = yes
 
-	general_opinion = -10
 	vassal_opinion = -5
 	sex_appeal_opinion = -10
 	same_opinion = 5
-	health = -1
-	fertility = -0.2
-	diplomacy = -4
-	stewardship = -4
-	martial = -4 combat_rating = -40
-	intrigue = -4
-	opposites = {
-		possessed
-	}
+	
 	ai_rationality = -100
 	customizer = no
 	
@@ -418,17 +424,14 @@ possessed = { # Highly event driven
 
 	ai_rationality = -50
 	
-	combat_rating = 1
+	combat_rating = 5
 	
 	male_insult = INSULT_WARLOCK
 	female_insult = INSULT_DEVIL_WOMAN
 	child_insult = INSULT_DEVIL
 	male_insult_adj = INSULT_DEMONIC
 	female_insult_adj = INSULT_DEMONIC
-
-	opposites = {
-		lunatic
-	}
+	
 	customizer = no
 }
 ill = {
@@ -439,7 +442,7 @@ ill = {
 		pneumonic
 	}
 	
-	combat_rating = -1
+	combat_rating = -10
 
 	martial = -1
 	health = -2
@@ -454,14 +457,14 @@ pneumonic = {
 		ill
 	}
 	
-	combat_rating = -3
+	combat_rating = -35
 
 	diplomacy_penalty = -2
 	stewardship_penalty = -2
 	martial_penalty = -2
 	intrigue_penalty = -2
 	learning_penalty = -2
-	health_penalty = -5
+	health_penalty = -4
 	fertility_penalty = -0.5
 	customizer = no
 }
@@ -495,7 +498,7 @@ leper = {
 	fertility_penalty = -0.95
 	customizer = no
 	
-	combat_rating = -2
+	combat_rating = -25
 	
 	male_insult = INSULT_LEPER
 	female_insult = INSULT_LEPER
@@ -507,11 +510,11 @@ leper = {
 wounded = {
 	is_health = yes
 
-	martial = -2
-	health = -2
+	martial = -1
+	health = -1
 	customizer = no
 	
-	combat_rating = -1
+	combat_rating = -15
 	
 	succession_gfx = yes
 }
@@ -522,11 +525,11 @@ maimed = {
 	sex_appeal_opinion = -10
 	same_opinion = 5
 
-	martial = -1
-	health = -1
+	martial = -2
+	health = -2
 	customizer = no
 	
-	combat_rating = -3
+	combat_rating = -30
 	
 	male_insult = INSULT_CRIPPLE
 	male_insult_adj = INSULT_USELESS
@@ -537,19 +540,19 @@ maimed = {
 infirm = {
 	is_health = yes
 
-	diplomacy = -4
-	intrigue = -4
-	stewardship = -4
-	martial = -4 combat_rating = -40
-	learning = -4
+	diplomacy = -3
+	intrigue = -3
+	stewardship = -3
+	martial = -3
+	learning = -3
 
-	health = -2
+	health = -1
 	fertility = -0.3
 	
 	ai_rationality = -10
 	customizer = no
 	
-	combat_rating = -5
+	combat_rating = -50
 	
 	male_insult = INSULT_DODDERER
 	male_insult_adj = INSULT_SENILE
@@ -589,7 +592,7 @@ drunkard = {
 	learning = -2
 	health = -1
 	
-	combat_rating = -1
+	combat_rating = -10
 
 	opposites = {
 		temperate
@@ -615,7 +618,7 @@ has_tuberculosis = {
 	intrigue_penalty = -2
 	stewardship_penalty = -1
 	health_penalty = -2
-	combat_rating = -2
+	combat_rating = -25
 	
 	customizer = no
 	male_insult_adj = INSULT_SICKLY
@@ -633,7 +636,7 @@ has_typhoid_fever = {
 	learning_penalty = -1
 	
 	health_penalty = -3
-	combat_rating = -4
+	combat_rating = -40
 
 	fertility_penalty = -0.10
 	
@@ -656,7 +659,7 @@ has_typhus = {
 	health_penalty = -4
 	
 	fertility_penalty = -0.20
-	combat_rating = -4
+	combat_rating = -40
 	
 	customizer = no
 
@@ -679,7 +682,7 @@ has_bubonic_plague = {
 	health_penalty = -7
 	
 	fertility_penalty = -0.50
-	combat_rating = -10
+	combat_rating = -100
 	
 	customizer = no
 
@@ -699,7 +702,7 @@ has_measles = {
 	health_penalty = -2
 	
 	fertility_penalty = -0.1
-	combat_rating = -3
+	combat_rating = -30
 	
 	customizer = no
 
@@ -721,7 +724,7 @@ has_small_pox = {
 	
 	fertility_penalty = -0.25
 	
-	combat_rating = -10
+	combat_rating = -100
 	
 	customizer = no
 
@@ -755,8 +758,8 @@ crusader = {
 		gondi_shahansha
 		holy_crusader
 	}
-	martial = 1
-	combat_rating = 1
+	martial = 2
+	combat_rating = 10
 
 	church_opinion = 15
 	same_opinion_if_same_religion = 15
@@ -796,7 +799,7 @@ legit_bastard = {
 	male_insult_adj = INSULT_BASEBORN
 }
 pregnant = { #44
-	combat_rating = -2
+	combat_rating = -20
 	
 	spouse_opinion = 15
 	
@@ -860,7 +863,7 @@ clubfooted = {
 	sex_appeal_opinion = -10
 	same_opinion = 5
 	
-	combat_rating = -1
+	combat_rating = -5
 
 	martial = -2
 	vassal_opinion = -10
@@ -890,7 +893,7 @@ hunchback = {
 
 	sex_appeal_opinion = -20
 
-	vassal_opinion = -20
+	vassal_opinion = -10
 
 	martial = -2
 	
@@ -901,6 +904,7 @@ hunchback = {
 }
 lisp = { #51
 	birth = 25
+	inherit_chance = 15
 
 	sex_appeal_opinion = -10
 	diplomacy = -2
@@ -913,6 +917,7 @@ lisp = { #51
 }
 stutter = {
 	birth = 25
+	inherit_chance = 15
 
 	diplomacy = -2
 	vassal_opinion = -10
@@ -923,6 +928,7 @@ stutter = {
 }
 fair = {
 	birth = 100
+	inherit_chance = 15
 	
 	opposites =  {
 		ugly
@@ -952,6 +958,7 @@ fair = {
 }
 ugly = {
 	birth = 100
+	inherit_chance = 10
 
 	opposites =  {
 		fair		
@@ -981,6 +988,8 @@ ugly = {
 }
 dwarf = {
 	birth = 25
+	inherit_chance = 25
+	both_parent_has_trait_inherit_chance = 50
 
 	opposites =  {
 		tall		
@@ -990,7 +999,7 @@ dwarf = {
 	same_opinion = 10
 	martial = -2
 	vassal_opinion = -20	
-	combat_rating = -3
+	combat_rating = -15
 	
 	male_insult = INSULT_DWARF
 	female_insult = INSULT_DWARF
@@ -1010,7 +1019,8 @@ dwarf = {
 	}
 }
 genius = {
-	birth = 10
+	birth = 50
+	inherit_chance = 15
 
 	opposites =  {
 		imbecile		
@@ -1023,9 +1033,11 @@ genius = {
 	diplomacy = 5
 	intrigue = 5
 	stewardship = 5
-	martial = 5 combat_rating = 50
+	martial = 5
 	learning = 5
 
+	combat_rating = 50
+	
 	ai_rationality = 30
 	
 	vassal_opinion = 5
@@ -1049,7 +1061,8 @@ genius = {
 	}
 }
 quick = {
-	birth = 40
+	birth = 100
+	inherit_chance = 15
 
 	opposites =  {
 		imbecile		
@@ -1061,9 +1074,11 @@ quick = {
 	diplomacy = 3
 	intrigue = 3
 	stewardship = 3
-	martial = 3 combat_rating = 30
+	martial = 3 
 	learning = 3	
 	ai_rationality = 15
+	
+	combat_rating = 30
 	
 	is_visible = {
 		OR = {			
@@ -1077,7 +1092,8 @@ quick = {
 	}
 }
 slow = {
-	birth = 40
+	birth = 50
+	inherit_chance = 15
 
 	opposites =  {
 		imbecile		
@@ -1091,8 +1107,10 @@ slow = {
 	diplomacy = -3
 	intrigue = -3
 	stewardship = -3
-	martial = -3 combat_rating = -30
+	martial = -3
 	learning = -3
+	
+	combat_rating = -30
 	
 	ai_rationality = -15
 	
@@ -1114,7 +1132,8 @@ slow = {
 	}
 }
 imbecile = {
-	birth = 10
+	birth = 50
+	inherit_chance = 15
 
 	opposites =  {
 		slow		
@@ -1129,8 +1148,10 @@ imbecile = {
 	diplomacy = -8
 	intrigue = -8
 	stewardship = -8
-	martial = -8 combat_rating = -80
+	martial = -8
 	learning = -8
+	
+	combat_rating = -80
 	
 	ai_rationality = -30
 	
@@ -1155,17 +1176,13 @@ inbred = {
 	inbred = yes
 	inherit_chance = 25
 	both_parent_has_trait_inherit_chance = 50
-	
-	opposites = {
-		fertile
-	}
 
 	sex_appeal_opinion = -30
 	
-	combat_rating = -2
+	combat_rating = -20
 
 	fertility = -0.4
-	health = -1
+	health = -1.5
 	diplomacy = -5
 	intrigue = -5
 	stewardship = -5
@@ -1183,14 +1200,16 @@ inbred = {
 }
 strong = {
 	birth = 100
+	inherit_chance = 15
 
 	opposites =  {
 		weak		
 	}
 
-	combat_rating = 2
+	combat_rating = 20
 
 	martial = 2
+	diplomacy = 1
 	health = 1
 	fertility = 0.1
 
@@ -1221,7 +1240,7 @@ weak = {
 		longevity
 	}
 	
-	combat_rating = -2
+	combat_rating = -20
 
 	health = -1
 	martial = -2
@@ -1620,6 +1639,7 @@ charitable = {
 	vassal_opinion = 5
 	opposite_opinion = -15
 	same_opinion = 5
+	combat_rating = -5
 	
 	ai_honor = 10
 	ai_ambition = -10
@@ -1647,6 +1667,7 @@ slothful = {
 	stewardship = -1
 	martial = -1
 	learning = -1
+	combat_rating = -10
 
 	same_opinion = 5
 
@@ -1697,6 +1718,7 @@ envious = {
 	}
 	intrigue = 1
 	martial = 1
+	combat_rating = 5
 	
 	vice = yes
 	
@@ -1722,6 +1744,7 @@ kind = {
 	}
 	martial = -1
 	intrigue = -1
+	combat_rating = -5
 	
 	virtue = yes
 	
@@ -1753,7 +1776,8 @@ wroth = {
 	
 	diplomacy = -1
 	intrigue = -1
-	martial = 3 combat_rating = 30
+	martial = 3 
+	combat_rating = 10
 
 	opposite_opinion = -30
 	ai_rationality = -5
@@ -1783,6 +1807,7 @@ patient = {
 	learning = 1
 	same_opinion = 5
 	opposite_opinion = -5
+	combat_rating = 10
 
 	ai_ambition = -10
 	ai_rationality = 5
@@ -1863,7 +1888,7 @@ craven = {
 
 	martial = -2
 	intrigue = 2
-	combat_rating = -1
+	combat_rating = -30
 	
 	command_modifier = {
 		morale_defence = -0.1
@@ -1888,7 +1913,7 @@ brave = {
 
 	martial = 2
 	intrigue = -2
-	combat_rating = 1
+	combat_rating = 30
 	
 	command_modifier = {
 		morale_defence = 0.1
@@ -1939,11 +1964,11 @@ ambitious = {
 		humble
 	}
 	
-	intrigue = 2
-	stewardship = 2
-	diplomacy = 2
-	martial = 2
-	learning = 2
+	intrigue = 1
+	stewardship = 1
+	diplomacy = 1
+	martial = 1
+	learning = 1
 
 	same_opinion = -10
 	ambition_opinion = -30 # Against those they want something from
@@ -1966,7 +1991,7 @@ content = {
 
 	intrigue = -3
 
-	liege_opinion = 30
+	liege_opinion = 50
 	same_opinion = 10
 	opposite_opinion = -10
 
@@ -1974,6 +1999,8 @@ content = {
 
 	ai_rationality = 50
 	ai_ambition = -40
+	ai_greed = -30
+	ai_honor = 10
 	ai_zeal = -10
 	
 	male_insult_adj = INSULT_SPINELESS
@@ -2026,62 +2053,6 @@ just = {
 	male_compliment_adj = COMPL_JUST
 	female_compliment_adj = COMPL_JUST
 	child_compliment_adj = COMPL_NICE
-}
-cynical = {
-	personality = yes
-	opposites = {
-		zealous
-		perfecti
-	}
-
-	intrigue = 3
-
-	church_opinion = -10
-	opposite_opinion = -20
-	same_opinion = 10
-
-	monthly_character_piety = -0.25
-	ai_zeal = -100
-	
-	male_compliment_adj = COMPL_WRY
-	female_compliment_adj = COMPL_WRY
-	child_compliment_adj = COMPL_CLEVER
-	male_insult = INSULT_UNBELIEVER
-	female_insult = INSULT_UNBELIEVER
-	child_insult = INSULT_DEVIL
-}
-zealous = {
-	personality = yes
-	opposites =  {
-		cynical
-		decadent
-		sympathy_christendom
-		sympathy_islam
-		sympathy_pagans
-		sympathy_zoroastrianism
-		sympathy_judaism
-		sympathy_indian
-	}
-
-	martial = 1
-
-	church_opinion = 10
-	infidel_opinion = -20
-	opposite_opinion = -20
-	same_opinion_if_same_religion = 10
-
-	monthly_character_piety = 0.5
-	ai_zeal = 100
-	
-	male_insult = INSULT_FANATIC
-	female_insult = INSULT_FANATIC
-	child_insult = INSULT_BORE
-	male_insult_adj = INSULT_NARROWMINDED
-	female_insult_adj = INSULT_NARROWMINDED
-	child_insult_adj = INSULT_NASTY
-	male_compliment_adj = COMPL_RIGHTEOUS
-	female_compliment_adj = COMPL_RIGHTEOUS
-	child_compliment_adj = COMPL_GOOD
 }
 paranoid = {
 	personality = yes
@@ -2265,201 +2236,7 @@ siege_leader = {
 ########################
 # HEALTH - Events
 ########################
-
-stressed = {
-	is_health = yes
-	intrigue = -1
-	stewardship = -1
-	health = -1
-	fertility = -0.1
-}
-depressed = {
-	is_health = yes
-	diplomacy = -1
-	stewardship = -1
-	martial = -1
-	intrigue = -1
-	health = -1
-	fertility = -0.05
-}
-lunatic = {
-	is_health = yes
-	# Highly event driven
-	
-	vassal_opinion = -25
-	sex_appeal_opinion = -25
-	same_opinion = 10
-	
-	ai_rationality = -50
-	
-	ruler_designer_cost = -10
-}
-possessed = {
-	is_health = yes
-	
-	sex_appeal_opinion = -25
-	same_opinion = 10
-	
-	ai_rationality = -40
-	
-	# Highly event driven
-}
-pneumonic = {
-	is_health = yes
-	is_illness = yes
-	
-	opposites =  {
-		ill
-	}
-	
-	diplomacy = -2
-	stewardship = -2
-	martial = -2
-	intrigue = -2
-	learning = -2
-	health = -4
-	fertility = -0.5
-	
-	customizer = no
-}
-syphilitic = {
-	is_health = yes
-	is_illness = yes
-	inherit_chance = 10
-	
-	sex_appeal_opinion = -30
-	
-	diplomacy = -1
-	stewardship = -1
-	martial = -1
-	intrigue = -1
-	learning = -1
-	
-	health = -2
-	fertility = -0.2
-}
-leper = {
-	is_health = yes
-	is_illness = yes
-	diplomacy = -2
-	health = -2
-	fertility = -0.2
-	
-	sex_appeal_opinion = -50
-	same_opinion = 10
-	
-	vassal_opinion = -20
-}
-wounded = {
-	is_health = yes
-	
-	opposites =  {
-		maimed
-	}
-	
-	martial = -1
-	health = -1
-}
-maimed = {
-	is_health = yes
-	
-	opposites =  {
-		wounded
-	}
-	
-	sex_appeal_opinion = -15
-	same_opinion = 10
-	
-	martial = -2
-	health = -2
-}
-infirm = {
-	is_health = yes
-
-	diplomacy = -3
-	intrigue = -3
-	stewardship = -3
-	martial = -3 combat_rating = -30
-	learning = -3
-	
-	health = -1
-	fertility = -0.3
-	
-	ai_rationality = -10
-}
-incapable = {
-	is_health = yes
-	
-	incapacitating = yes # Will need a regent
-	
-	diplomacy = -6
-	intrigue = -6
-	stewardship = -6
-	martial = -6 combat_rating = -60
-	learning = -6
-	
-	health = -3
-	fertility = -0.3
-}
-drunkard = {
-	is_health = yes
-	
-	stewardship = -2
-	
-	same_opinion = 10
-	church_opinion = -10
-	sex_appeal_opinion = -5
-	
-	ai_rationality = -5
-}
-has_tuberculosis = {
-	is_epidemic = yes
-	is_illness = yes
-	
-	health = -2
-	
-	customizer = no
-}
-has_typhoid_fever = {
-	is_epidemic = yes
-	is_illness = yes
-	
-	health = -3
-	
-	customizer = no
-}
-has_typhus = {
-	is_epidemic = yes
-	is_illness = yes
-	
-	health = -3
-	
-	customizer = no
-}
-has_bubonic_plague = {
-	is_epidemic = yes
-	is_illness = yes
-	
-	health = -7
-	
-	customizer = no
-}
-has_measles = {
-	is_epidemic = yes
-	is_illness = yes
-	
-	health = -2
-	
-	customizer = no
-}
-has_small_pox = {
-	is_epidemic = yes
-	is_illness = yes
-
-	health = -3
-	
-	customizer = no
-}
+#REMOVED FOR REDUNDANCY
 
 ############################
 # HARD STATUS - DO NOT REMOVE!
@@ -2535,7 +2312,8 @@ heterosexual = {
 athlete = {
 	lifestyle= yes
 	cached = yes
-	martial = 3 combat_rating = 30
+	martial = 3 
+	combat_rating = 30
 	same_opinion = 20
 }
 artist = {
@@ -2699,7 +2477,7 @@ spiritual = {
 	personality = yes
 	opposites = { skeptical }
 	
-	learning = -1
+	learning = 1
 	
 	same_opinion = 10
 	opposite_opinion = -20
@@ -2731,6 +2509,16 @@ radical = {
 	
 	ai_zeal = 30
 	ai_honor = 10
+	
+	male_insult = INSULT_FANATIC
+	female_insult = INSULT_FANATIC
+	child_insult = INSULT_BORE
+	male_insult_adj = INSULT_NARROWMINDED
+	female_insult_adj = INSULT_NARROWMINDED
+	child_insult_adj = INSULT_NASTY
+	male_compliment_adj = COMPL_RIGHTEOUS
+	female_compliment_adj = COMPL_RIGHTEOUS
+	child_compliment_adj = COMPL_GOOD
 }
 pragmatic = {
 	personality = yes
@@ -2748,6 +2536,13 @@ pragmatic = {
 	ai_greed = 20
 	ai_zeal = -20
 	ai_honor = -30
+	
+	male_compliment_adj = COMPL_WRY
+	female_compliment_adj = COMPL_WRY
+	child_compliment_adj = COMPL_CLEVER
+	male_insult = INSULT_UNBELIEVER
+	female_insult = INSULT_UNBELIEVER
+	child_insult = INSULT_DEVIL
 }
 humble = {
 	personality = yes
@@ -2763,71 +2558,4 @@ humble = {
 	opposite_opinion = -20
 	
 	ai_ambition = -20
-}
-proud = {
-	personality = yes
-	opposites = { humble }
-	
-	monthly_character_piety = -0.05
-	monthly_character_prestige = 0.1
-	
-	general_opinion = -10
-	vassal_opinion = 20
-	liege_opinion = -20
-	ambition_opinion = -20
-	opposite_opinion = -20
-	
-	ai_ambition = 20
-}
-content = {
-	personality = yes
-	opposites = { ambitious }
-	
-	liege_opinion = 50
-	same_opinion = 10
-	opposite_opinion = -20
-	
-	ai_ambition = -30
-	ai_greed = -30
-	ai_honor = 10
-}
-ambitious = {
-	personality = yes
-	opposites = { content }
-	
-	diplomacy = 1
-	martial = 1
-	stewardship = 1
-	intrigue = 1
-	learning = 1
-	
-	ambition_opinion = -25
-	
-	ai_ambition = 30
-	ai_greed = 30
-	ai_honor = -10
-}
-brave = {
-	personality = yes
-	opposites = { craven }
-	
-	martial = 3 combat_rating = 30
-	intrigue = -1
-	
-	general_opinion = 10
-	same_opinion = 10
-	
-	ai_ambition = 10
-}
-craven = {
-	personality = yes
-	opposites = { brave }
-	
-	martial = -3 combat_rating = -30
-	intrigue = 2
-	
-	general_opinion = -10
-	opposite_opinion = -20
-	
-	ai_ambition = -10
 }
