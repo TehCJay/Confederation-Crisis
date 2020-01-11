@@ -68,7 +68,13 @@ NDefines.NTitle.EMPIRE_DEJURE_COUNTY_LIMIT_TO_USURP = 0.51
 
 NDefines.NEconomy.HOLDING_SLOT_BUILD_COST_MOD = 3
 
-NDefines.NMilitary.MERCENARY_HIRE_DISTANCE_THRESHOLD = 1200
+NDefines.NMilitary.MERCENARY_MAINTENANCE_FACTOR = 8.0			-- Maintenance factor for NORMAL mercenary units
+NDefines.NMilitary.MERCENARY_VASSAL_MAINTENANCE_FACTOR = 3		-- Maintenance factor for VASSALIZED mercenary units
+NDefines.NMilitary.MERCENARY_HIRE_COST_FACTOR = 1				-- Hire cost factor for mercenary units
+NDefines.NMilitary.HOLY_ORDER_HIRE_COST_FACTOR = 1				-- Conversion of nominal gold cost to piety cost when hiring Holy Orders
+NDefines.NMilitary.HOLY_ORDER_DYNASTY_HIRE_COST_FACTOR = 1		-- Reduction of cost if the Holy Order is controlled by a dynasty member
+NDefines.NMilitary.VASSAL_MERC_HIRE_COST_FACTOR = 0.3			-- Fraction of nominal hire cost when hiring vassal mercenaries OR Holy Orders
+NDefines.NMilitary.MERCENARY_HIRE_DISTANCE_THRESHOLD = 800
 NDefines.NMilitary.PERCENT_OF_GARRISON_DETACHED = 0
 NDefines.NMilitary.ATTRITION_LEVEL_FACTOR = 0
 NDefines.NMilitary.ATTRITION_LEVEL_FACTOR_50_OVER = 0
