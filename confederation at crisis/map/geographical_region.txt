@@ -1,200 +1,198 @@
-tatadan = {
+# Geographical regions
+# Regions can be declared with one or more of the following fields:
+#	duchies = { }, takes duchy title names declared in landed_titles.txt
+#	counties = { }, takes county title names declared in landed_titles.txt
+#	provinces = { }, takes province id numbers declared in /history/provinces
+#	regions = { }, a region can also include other regions, however the subregions needs to be declared before the parent region. 
+#		E.g. If the region world_europe contains the region world_europe_west then world_europe_west needs to be declared as a region before (i.e. higher up in this file) world_europe.
+
+###########################################################################
+# World Regions
+#	These groups are mutually exclusive on the same tier
+###########################################################################
+
+world_core_terran = {
 	duchies = {
-			d_lalie d_erudaria d_saryla d_rovatia d_suduban d_qahaaq d_kolayor d_nevicya d_tidund d_kamisabdi d_aluhya d_tareexo d_karalk d_kabina d_kafurd d_amina d_suheike d_rideria d_tizanaz d_aleybn d_rataaq d_kida d_kabalie d_talk d_buhyla d_rarina d_nesers d_welisam d_kelaria d_ekunaris d_bamayor d_ranaz d_rayar d_anateria d_kagelen d_keganaaha d_werina d_bapu d_kinana d_katell d_etulataka d_rakald d_abartilbu d_kanahis d_sereke d_nekato d_kius	}
+		d_sol d_sirius d_tau_ceti d_draconis d_altair
+	}
 }
 
-emuhaaq = {
+world_core_xingjie = {
 	duchies = {
-			d_tuheike d_sacuber d_naroj d_nanana d_neodaaq d_ahunda d_amuheike d_daberi d_larorka	}
+		d_huangjing d_xuanwu d_baihu d_zhuque d_qinglong
+	}
 }
 
-damaaq = {
+world_core_celeste = {
 	duchies = {
-			d_tabdalad d_nanalad d_acatalk d_kuheike d_babana d_eferalie d_sugalad d_edanadan d_eracadha d_ruland d_rulijov d_saroyan d_abaroyan d_qarand d_aricahim d_takataa d_nenarna d_kamuber d_rugikh d_wyurun d_darude d_kyad d_sefand d_tarikh d_erudanko d_qutoyan d_asakida d_abefeph	}
+		d_encrucijada d_vega d_sexto_sol d_bolivar d_frontera
+	}
 }
 
-nakarilo = {
+world_core_samawat = {
 	duchies = {
-			d_royan d_rilohn d_agoan d_dupeslu d_kakohn d_qiice d_bakiala d_dirald d_eparet d_kubjna d_kiaca d_liseer d_digraaq d_birald d_renaan d_saan d_sahman d_atrl d_ricilad	}
+		d_makkat_al_jadiida d_amal d_jabraiil d_al_bawwaaba d_al_hadd
+	}
 }
 
-qigr = {
+world_core_angani = {
 	duchies = {
-			d_rabutq d_welida d_atudrun d_ki d_lyinius d_silo d_adisell d_tilad d_atyapa d_kiudaaq d_dovnakirmepm d_besopluk d_qaradi d_qipava d_kagissa d_raneinn d_riluff d_aliki d_norell d_rokache d_nagiki d_dyalia d_baradi d_kirava d_atoryapa	}
+		d_mpya_ya_zanzibar d_nyota_mwisho d_ndia_panda d_afolayan d_adwa
+	}
 }
 
-qiankas = {
+world_core_frontier = {
 	duchies = {
-			d_tyoukas d_kistos d_nolato d_lianell d_lulmbubm d_remal d_ragaike	}
+		d_armstrong d_apollo d_shepard d_ride d_glenn
+	}
 }
 
-kolaria = {
+world_core_centauri = {
 	duchies = {
-			d_tayor	}
+		d_gagarin d_tereshkova d_tengoku
+	}
 }
 
-wahedda = {
+world_core_helix = {
 	duchies = {
-			d_wudyana	}
+		d_lower_helix d_upper_helix
+	}
 }
 
-kanelen = {
-	duchies = {
-			d_talind	}
+world_core = {
+	regions = {
+		world_core_terran world_core_xingjie world_core_celeste world_core_samawat world_core_angani world_core_frontier world_core_centauri world_core_helix
+	}
 }
 
-senana = {
+world_periphery_south_zizhiqu = {
 	duchies = {
-			d_nabeelo	}
+		d_xin_qin d_wu_ren_zhi_ah d_macau d_tian_yuan d_hua d_yingshi d_hang_seng d_qiangying d_deng_biao d_wei d_maoxian
+	}
 }
 
-enadapal = {
+world_periphery_south_bianjiang = {
 	duchies = {
-			d_anibapal	}
+		d_shaanxi d_heibei d_sichuan d_yunnan d_guangdong d_shanghai
+	}
 }
 
-sekyak = {
-	duchies = {
-			d_kudirma	}
+world_periphery_south = {
+	regions = {
+		world_periphery_south_zizhiqu world_periphery_south_bianjiang
+	}
 }
 
-tiludo = {
+world_periphery_orion_reach = {
 	duchies = {
-			d_dyarala	}
+		d_meissa d_ortega_gaona d_santiago d_bellatrix d_betelgeuse d_paulet d_rigel
+	}
 }
 
-kyee = {
+world_periphery_orion_flame = {
 	duchies = {
-			d_anende	}
+		d_iserlohn d_shihai d_chui d_diyu d_hades
+	}
 }
 
-kavius = {
+world_periphery_orion_nebula = {
 	duchies = {
-			d_bilusha	}
+		d_melilla d_sortelha d_mar_del_tyken d_la_forja_de_dios d_principito
+	}
 }
 
-ataka = {
+world_periphery_orion_horsehead = {
 	duchies = {
-			d_akopekel	}
+		d_basilisco d_miltia d_arjona d_el_brilliante_mar d_manticore d_el_mar_del_crepusculo
+	}
 }
 
-elisrar = {
-	duchies = {
-			d_qemaria	}
+world_periphery_orion = {
+	regions = {
+		world_periphery_orion_reach world_periphery_orion_flame world_periphery_orion_nebula world_periphery_orion_horsehead
+	}
 }
 
-tineda = {
+world_periphery_east_paraiso = {
 	duchies = {
-			d_tisent	}
+		d_paraiso d_new_jerusalem
+	}
+}
+world_periphery_east_duniya = {
+	duchies = {
+		d_nai_dunya d_chandrasekhar d_ghandi d_nae_bangladesa d_darius
+	}
+}
+world_periphery_east_tarka = {
+	duchies = {
+		d_tarka d_talon d_yeni_istanbul d_qoqnoos d_mandela d_new_lusaka d_dhartvir
+	}
+}
+world_periphery_east_veil = {
+	duchies = {
+		d_outer_veil d_the_remote
+	}
+}
+world_periphery_east = {
+	regions = {
+		world_periphery_east_paraiso world_periphery_east_duniya world_periphery_east_tarka world_periphery_east_veil
+	}
+}
+world_periphery_northwest_avalon = {
+	duchies = {
+		d_avalon d_victoria d_nelson d_caliburn d_galahad d_lancelot d_alfred
+	}
+}
+world_periphery_northwest_newfrontier = {
+	duchies = {
+		d_franklin d_douglas d_lafayette d_washington d_adams d_jefferson d_deadwood
+	}
+}
+world_periphery_northwest_witchhead = {
+	duchies = {
+		d_upper_witchhead d_core_witchhead d_lower_witchhead
+	}
+}
+world_periphery_northwest = {
+	regions = {
+		world_periphery_northwest_avalon world_periphery_northwest_newfrontier world_periphery_northwest_witchhead
+	}
+}
+world_periphery_west_jion = {
+	duchies = {
+		d_jion d_hiyokuoka d_sumitomo d_okyoto_nara d_iogi d_taikun
+	}
+}
+world_periphery_west_strugatsky = {
+	duchies = {
+		d_novyy_sol d_raduga d_arkanar d_kovcheg d_saula
+	}
+}
+world_periphery_west_edem = {
+	duchies = {
+		d_novyy_edem d_prochnost d_sovershenstvo d_shen_yan d_almaz d_mir d_probeda
+	}
+}
+world_periphery_west = {
+	regions = {
+		world_periphery_west_jion world_periphery_west_strugatsky world_periphery_west_edem
+	}
+}
+world_periphery = {
+	regions = {
+		world_periphery_south world_periphery_orion world_periphery_east world_periphery_northwest world_periphery_west
+	}
 }
 
-dabedey = {
-	duchies = {
-			d_basaanna	}
-}
+###########################################################################
+# Custom Regions
+###########################################################################
 
-wahzaniac = {
-	duchies = {
-			d_qarsurd	}
-}
-
-lidinus = {
-	duchies = {
-			d_econama	}
-}
-
-sakoza = {
-	duchies = {
-			d_anahanedu	}
-}
-
-elupotoy = {
-	duchies = {
-			d_ramilla	}
-}
-
-ekozuht = {
-	duchies = {
-			d_bokenr	}
-}
-
-desina = {
-	duchies = {
-			d_ahelav	}
-}
-
-abilifon = {
-	duchies = {
-			d_tatmiritabotta	}
-}
-
-tepaneta = {
-	duchies = {
-			d_elarses	}
-}
-
-kavang = {
-	duchies = {
-			d_natamur	}
-}
-
-toyius = {
-	duchies = {
-			d_turius	}
-}
-
-basyai = {
-	duchies = {
-			d_karyai	}
-}
-
-wibesha = {
-	duchies = {
-			d_aboleata	}
-}
-
-kuogul = {
-	duchies = {
-			d_qitui	}
-}
-
-roteka = {
-	duchies = {
-			d_sabergis	}
-}
-
-kasemlragc = {
-	duchies = {
-			d_rateter	}
-}
-
-dabovan = {
-	duchies = {
-			d_raranje	}
-}
-
-lylari = {
-	duchies = {
-			d_rasavac	}
-}
-
-tiruara = {
-	duchies = {
-			d_qupine	}
-}
-
-karin = {
-	duchies = {
-			d_kagopo	}
-}
-
-seciya = {
-	duchies = {
-			d_lushan	}
-}
-
-qodola = {
-	duchies = {
-			d_tyudere	}
-}
-
+# custom_eastern_baltic = {
+	# duchies = {
+		# #Finland
+		# d_karelia d_finland d_kola d_esthonia
+		# #Lithuania
+		# d_livonia d_prussia d_polotsk d_lithuanians d_courland d_yatviags d_samogitia
+	# }
+# }

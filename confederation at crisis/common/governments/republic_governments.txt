@@ -86,13 +86,7 @@ republic_governments = {
 			colonial_government
 			system_lords
 		}
-		can_build_castle = no
-		can_build_city = no
-		can_build_temple = no
 		can_build_tribal = no
-		can_build_holdings = no
-		can_build_forts = yes
-		can_build_hospitals = yes
 		uses_piety_for_law_change = yes
 		
 		character_modifier = {
@@ -156,7 +150,16 @@ republic_governments = {
 					}
 				}
 				AND = {
-					higher_real_tier_than = count
+					OR = {
+						AND = {	
+							higher_real_tier_than = count
+							independent = yes 
+							}
+						AND = {	
+							higher_real_tier_than = baron
+							independent = no 
+							}							
+						}
 					any_demesne_province = {
 						always = yes
 					}
@@ -204,12 +207,7 @@ republic_governments = {
 		ignores_de_jure_laws = yes
 		
 		can_build_castle = no
-		can_build_city = no
-		can_build_temple = no
-		can_build_tribal = yes
-		can_build_holdings = no
-		can_build_forts = yes
-		can_build_hospitals = yes
+		can_build_tribal = no
 		
 		uses_jizya_tax = yes
 		
@@ -228,4 +226,39 @@ republic_governments = {
 			colonial_government
 		}
 	}
+#	pirate_republic_governor = { #test while trying to make pirate republic vassals creatable for pirate kingdoms
+#		preferred_holdings = { CITY }
+#		allowed_holdings = { 
+#			CITY
+#			CASTLE
+#			FORT
+#			HOSPITAL
+#		}
+#		accepts_liege_governments = { # Accepts other republics
+#			pirate_republic
+#		}
+#		frame_suffix = "_republic"
+#		title_prefix = "city_"
+#		potential = {
+#			religion = space_pirate
+#			NAND = {
+#				controls_religion = yes
+#				NOT = { religion_group = muslim }
+#			}
+#			NOT = { is_government_potential = pirate_republic }
+#			holy_order = no
+#		}
+#		
+#		color = { 209 125 130 }
+#		
+#		can_imprison_without_reason = no
+#		can_revoke_without_reason = no
+#		
+#		can_build_tribal = no
+#		
+#		capital_move_delay = 600
+#
+#		## Modifiers
+#		court_size_modifier = 5
+#	}
 }

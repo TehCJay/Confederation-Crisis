@@ -1827,8 +1827,8 @@ plot_fabricate_heresy = {
 			#dislike them and they are cynical
 			AND = {
 				NOT = { reverse_opinion = { who = FROM value = 0 } }
-				FROM = { trait = zealous }
-				trait = cynical
+				FROM = { trait = radical }
+				trait = pragmatic
 			}
 			
 			#wants revenge
@@ -1956,7 +1956,7 @@ plot_fabricate_heresy = {
 		}
 		modifier = {
 			factor = 4.0
-			FROM = { trait = zealous }
+			FROM = { trait = radical }
 		}
 	}
 	
@@ -5432,7 +5432,15 @@ plot_justified_coup = {
 			}
 		}
 		OR = {
-			holder_scope = { religion = space_pirate }
+			holder_scope = {
+				AND = {
+					religion = space_pirate
+					OR = {
+						trait = ambitious
+						trait = cold
+					}
+				}
+			}
 			holder_scope = {
 				NOT = { religion_authority = 0.8 }
 				FROM = { in_faction = faction_anti_ruler }
