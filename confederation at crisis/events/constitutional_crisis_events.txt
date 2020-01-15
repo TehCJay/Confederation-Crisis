@@ -83,6 +83,7 @@ province_event = {
 	picture = GFX_evt_rebels
 	border = GFX_evt_normal_frame_intrigue
 	notification = yes
+	is_triggered_only = yes
 	trigger = { NOT = { has_province_modifier = civil_unrest_9 } }
 	
 	mean_time_to_happen = {
@@ -612,6 +613,8 @@ province_event = {
 	desc = "EVTDESCLAWS201"
 	notification = yes
 	
+	is_triggered_only = yes
+	
 	trigger = {
 		OR = {
 			has_province_modifier = civil_unrest_0
@@ -936,6 +939,118 @@ character_event = {
 
 # End constitutional crisis - ruler victorious!
 character_event = {
+	id = laws.900
+	desc = "EVTDESCLAWS900"
+	picture = GFX_evt_speech
+	is_triggered_only = yes
+	only_rulers = yes
+	
+	immediate = {
+		any_vassal = { character_event = { id = laws.1001 } }
+		log = "laws.900 fired for [This.GetFullName] of [This.PrimaryTitle.GetFullName]"
+	}
+	
+	option = {
+		trigger = { has_character_modifier = crisis_term_limit_defied }
+		log = "laws.900 - Term Limit Defied option chosen for [This.GetFullName] of [This.PrimaryTitle.GetFullName]"
+		name = "EVTOPTALAWS900"
+		any_demesne_title = {
+			add_law = crown_term_length_4
+			add_law = local_term_length_4
+		}
+		remove_character_modifier = constitutional_crisis
+		remove_character_modifier = crisis_term_limit_defied
+		if = {
+			limit = { has_character_modifier = law_against_ruler }
+			remove_character_modifier = law_against_ruler
+		}
+		if = {
+			limit = { has_character_modifier = law_for_ruler }
+			remove_character_modifier = law_for_ruler
+		}
+		if = {
+			limit = { has_character_modifier = liege_against_ruler }
+			remove_character_modifier = liege_against_ruler
+		}
+		if = {
+			limit = { has_character_modifier = liege_for_ruler }
+			remove_character_modifier = liege_for_ruler
+		}
+		clr_character_flag = flag_crisis_timer
+		clr_character_flag = flag_crisis_emperor
+		clr_character_flag = flag_crisis_king
+		clr_character_flag = flag_crisis_duke
+		clr_character_flag = flag_crisis_count
+	}
+	
+	option = {
+		trigger = { has_character_modifier = crisis_dissolved_legislature }
+		log = "laws.1000 - Dissolved Legislature option chosen for [This.GetFullName] of [This.PrimaryTitle.GetFullName]"
+		name = "EVTOPTBLAWS1000"
+		any_demesne_title = {
+			limit = {
+				crownlaw_title = { title = PREV }
+				has_law = legislative_authority_1
+			}
+			add_law = legislative_authority_0
+		}
+		remove_character_modifier = constitutional_crisis
+		remove_character_modifier = crisis_dissolved_legislature
+		if = {
+			limit = { has_character_modifier = law_against_ruler }
+			remove_character_modifier = law_against_ruler
+		}
+		if = {
+			limit = { has_character_modifier = law_for_ruler }
+			remove_character_modifier = law_for_ruler
+		}
+		if = {
+			limit = { has_character_modifier = liege_against_ruler }
+			remove_character_modifier = liege_against_ruler
+		}
+		if = {
+			limit = { has_character_modifier = liege_for_ruler }
+			remove_character_modifier = liege_for_ruler
+		}
+		clr_character_flag = flag_crisis_timer
+		clr_character_flag = flag_crisis_emperor
+		clr_character_flag = flag_crisis_king
+		clr_character_flag = flag_crisis_duke
+		clr_character_flag = flag_crisis_count
+	}
+	
+	option = {
+		trigger = { has_character_modifier = crisis_refused_democratic_legislature_demand }
+		log = "laws.1000 - Refused Democratic Legislature option chosen for [This.GetFullName] of [This.PrimaryTitle.GetFullName]"
+		name = "EVTOPTCLAWS1000"
+		remove_character_modifier = constitutional_crisis
+		remove_character_modifier = crisis_refused_democratic_legislature_demand
+		if = {
+			limit = { has_character_modifier = law_against_ruler }
+			remove_character_modifier = law_against_ruler
+		}
+		if = {
+			limit = { has_character_modifier = law_for_ruler }
+			remove_character_modifier = law_for_ruler
+		}
+		if = {
+			limit = { has_character_modifier = liege_against_ruler }
+			remove_character_modifier = liege_against_ruler
+		}
+		if = {
+			limit = { has_character_modifier = liege_for_ruler }
+			remove_character_modifier = liege_for_ruler
+		}
+		clr_character_flag = flag_crisis_timer
+		clr_character_flag = flag_crisis_emperor
+		clr_character_flag = flag_crisis_king
+		clr_character_flag = flag_crisis_duke
+		clr_character_flag = flag_crisis_count
+	}
+}
+
+# End constitutional crisis - ruler victorious!
+character_event = {
 	id = laws.1000
 	desc = "EVTDESCLAWS1000"
 	picture = GFX_evt_speech
@@ -1232,7 +1347,7 @@ character_event = {
 		clr_character_flag = flag_crisis_king
 		clr_character_flag = flag_crisis_duke
 		clr_character_flag = flag_crisis_count
-		clr_character_flag = flag_making_crisis_decision
+		clr_character_flag = flag_making_crisis_decisions
 	}
 	option = {
 		name = "EVTOPTNEVERMIND"

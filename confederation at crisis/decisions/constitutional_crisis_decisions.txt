@@ -255,3 +255,67 @@ decisions = {
 		}
 	}
 }
+
+decisions = {
+	i_am_the_senate_decision = {
+		is_high_prio = yes
+		ai_check_interval = 10 
+ potential = {
+ 			# Is in constitutional crisis for dissolving senate
+			has_character_modifier = constitutional_crisis
+			has_character_modifier = crisis_dissolved_legislature  			
+		}
+		allow = {
+			piety = 750
+
+		}
+		effect = {
+			# Subtract prestige cost
+			piety = -750
+			character_event = { id = laws.900 tooltip = "iamthesenate" }
+		}
+		ai_will_do = {
+			factor = 1
+			# No reason to dissolve the legislature
+			modifier = {
+				factor = 0
+				NOT = {
+					any_vassal = {
+						OR = {
+							kingdom = {
+								has_law = legislative_authority_1
+								holder_scope = { character = ROOT }
+							}
+							empire = {
+								has_law = legislative_authority_1
+								holder_scope = { character = ROOT }
+							}
+						}
+						reverse_has_opinion_modifier = { who = ROOT modifier = opinion_passed_bad_bill }
+					}
+				}
+				NOT = {
+					AND = {
+						OR = {
+							religion = terran_imperial
+							religion = imperial_cult
+							religion = astrist
+							religion = neo_feudal
+						}
+						OR = {
+							trait = radical
+							is_military_trigger = no
+						}
+					}
+				}
+				NOT = { trait = ambitious }
+			}
+			
+			# This is a very non-content thing to do!
+			modifier = {
+				factor = 0
+				trait = content
+			}
+		}
+	}
+}	

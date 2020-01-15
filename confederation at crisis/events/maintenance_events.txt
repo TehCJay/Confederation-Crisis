@@ -237,6 +237,50 @@ character_event = {
 	immediate = { give_minor_title = title_prince_royal }
 }
 
+#Battle Drone construction requirements
+character_event = {
+	id = maintenance.90
+	hide_window = yes
+	is_triggered_only = yes
+	only_rulers = yes
+	
+	trigger = {
+		NOT = { has_character_flag = flag_battle_drone_construction }
+		any_demesne_title = {
+			OR = {
+				has_building = ca_olympus_shipyards
+				has_building = ca_capital_factory_q_1
+			}
+		}
+	}
+	
+	immediate = { set_character_flag = flag_battle_drone_construction }
+}
+character_event = {
+	id = maintenance.101
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		has_character_flag = flag_battle_drone_construction
+		NOT = {
+			AND = {
+				is_landed = yes
+				any_demesne_title = {
+					OR = {
+						has_building = ca_mining_drones_q_3
+						has_building = ca_mining_drones_q_4
+						has_building = ca_mining_drones_q_5
+						has_building = ca_mining_drones_q_6
+					}
+				}
+			}
+		}
+	}
+	
+	immediate = { clr_character_flag = flag_battle_drone_construction }
+}
+
+
 # Capital ship construction requirements
 character_event = {
 	id = maintenance.100

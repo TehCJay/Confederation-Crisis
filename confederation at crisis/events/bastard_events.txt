@@ -1,5440 +1,1302 @@
-################################################
-#
-# Events for Bastards
-#
-# ID 76000 - 76999 is reserved
-#
-#
-#################################################
-#
-# Written by Sara Wendel-Örtqvist
-
-#new events for AGOT by knuckey
 namespace = bastard
 
-#Irresistable young wench
-character_event = {
-	id = 76000
-	desc = "EVTDESC76000"
-	picture = "GFX_gentle_kiss"
-	border = GFX_event_normal_frame_intrigue
-	
-	only_rulers = yes
-	min_age = 16
-	max_age = 25
-	only_men = yes	
-	capable_only = yes	
-	is_married = no
-	is_triggered_only = yes
-	
-	trigger = {
-		NOR = {
-			trait = chaste
-			trait = celibate
-			trait = homosexual
-			trait = eunuch
-			has_lover = yes
-		}
-		fertility = 0.6
-		NOT = { personality_traits = 6 }
-	}
-	
-	weight_multiplier = {
-		days = 1
-		
-		modifier = {
-			factor = 2
-			trait = lustful
-		}
-		modifier = {
-			factor = 2
-			trait = gregarious
-		}
-		
-		modifier = {
-			factor = 0.5
-			trait = shy
-		}
-	}
-	
-	option = {
-		name = "EVTOPTA76000"
-		piety = -10
-		if = {
-			limit = {
-				NOT = {
-					trait = lustful
-				}
-			}
-			random = {
-				chance = 50
-				
-				add_trait = lustful
-				hidden_tooltip = {
-					character_event = {
-						id = 38272 #Notify Lustful
-					}
-				}
-			}
-		}
-	}
-	option = {
-		name = "EVTOPTB76000"
-		if = {
-			limit = {
-				NOT = { trait = lustful }
-			}
-			add_trait = chaste
-		}	
-	}
-}
+# Needs to be completely rewritten
 
-#Unwed daughter
+# Child born out of wedlock to a known father
 character_event = {
-	id = 76005
-	desc = "EVTDESC76005"
-	picture = GFX_evt_pregnancy
-	border = GFX_event_normal_frame_intrigue
-	
-	only_playable = yes
-	capable_only = yes
-	
+	id = bastard.100
+	hide_window = yes
 	is_triggered_only = yes
 	
 	trigger = {
-		any_child = {
-			is_councillor = no
-			NOT = { is_voter = yes }
-			is_female = yes
-			is_alive = yes
-			age = 16
-			NOT = { age = 45 }
-			is_abroad = no
-			is_married = no
-			fertility = 0.4
-			liege = { character = ROOT }
-			is_ruler = no
-			NOT = {
-				trait = chaste
-			}
-			NOT = {
-				trait = celibate
-			}
-			NOT = {
-				trait = homosexual
-			}
-			ROOT = {
-				job_spymaster = { 
-					NOT = { is_lover = PREVPREV }
-				}
-			}
-		}		
-	}
-	
-	weight_multiplier = {
-		days = 1
+		was_conceived_a_bastard = yes
+		is_father_real_father = yes
 	}
 	
 	immediate = {
-		random_child = {
-			limit = {
-				is_councillor = no
-				NOT = { is_voter = yes }
-				is_female = yes
-				is_alive = yes
-				age = 16
-				NOT = { age = 45 }
-				is_abroad = no
-				is_married = no
-				fertility = 0.4
-				liege = { character = ROOT }
-				is_ruler = no
-				NOT = {
-					trait = chaste
-				}
-				NOT = {
-					trait = celibate
-				}
-				NOT = {
-					trait = homosexual
-				}
-				ROOT = {
-					job_spymaster = { 
-						NOT = { is_lover = PREVPREV }
-					}
-				}
-			}
-			save_event_target_as = unwed_daughter
-		}	
-	}
-	
-	option = {
-		name = "EVTOPTA76005"
-		ai_chance = {
-			factor = 10
-		}
-		event_target:unwed_daughter = { show_portrait = yes }
-		character_event = {
-			id = 76006
-			tooltip = "EVTTOOLTIP76006"
-		}
-	}
-	option = {
-		name = "EVTOPTB76005"
-		trigger = { NOT = { trait = cruel } }
-		ai_chance = {
-			factor = 10
-			modifier = {
-				factor = 5
-				trait = kind
-			}
-			modifier = {
-				factor = 5
-				trait = familyperson
-			}
-			modifier = {
-				factor = 2
-				trait = honorable
-			}
-		}
-		event_target:unwed_daughter = {
-			show_portrait = yes
-			create_character = {
-				age = 0
-				trait = bastard
-				dynasty = THIS
-				genetic_mother = THIS
-			}
-			new_character = {
-				set_mother = PREV
-				bastard_nickname_mother_effect = yes
-			}	
-			opinion = {
-				modifier = opinion_grateful
-				who = ROOT
-				years = 10
-			}
-		}
-		prestige = -5
+		# It's up to the liege to judge these situations
 		if = {
-			limit = {
-				NOT = { trait = kind }
-				NOT = { personality_traits = 6 }
-			}
-			random = {
-				chance = 25
-				add_trait = kind
-				hidden_tooltip = {
-					character_event = {
-						id = 38268 #Notify Kind
-					}
-				}
-			}
-		}	
-	}
-	option = {
-		name = "EVTOPTC76005"
-		ai_chance = {
-			factor = 10
-			modifier = {
-				factor = 0
-				trait = kind
-			}
-			modifier = {
-				factor = 5
-				trait = cruel
-			}
-			modifier = {
-				factor = 2
-				trait = proud
-			}
-			modifier = {
-				factor = 2
-				trait = ruthless
-			}
-		}
-		event_target:unwed_daughter = {
-			show_portrait = yes
-			opinion = {
-				modifier = opinion_betrayed
-				who = ROOT
-				years = 10
-			}
-			if = {
-				limit = { NOT = { trait = lustful } }
-				add_trait = chaste
-			}	
-			if = {
-				limit = { NOT = { trait = stressed } }
-				add_trait = stressed
-			}
+			limit = { liege = { any_child = { character = ROOT } } }
+			liege = { character_event = { id = bastard.110 } }
 		}
 		if = {
-			limit = { 
-				NOT = { trait = cruel } 
-				NOT = { trait = kind }
-				NOT = { personality_traits = 6 }
-			}
-			random = {
-				chance = 25
-				
-				add_trait = cruel
-				hidden_tooltip = {
-					character_event = {
-						id = 38259 #Notify Cruel
-					}
-				}
-			}
-		}	
-		if = {
-			limit = { trait = kind }
-			remove_trait = kind
-		}
-	}
-}
- 
-#Spymaster advice you
-character_event = {
-	id = 76006
-	desc = "EVTDESC76006"
-	picture = GFX_evt_council
-	
-	is_triggered_only = yes
-	
-	option = {
-		name = "EVTOPTA76006"
-		ai_chance = {
-			factor = 10
-			modifier = {
-				factor = 0
-				trait = honest
-			}
-			modifier = {
-				factor = 5
-				trait = deceitful
-			}
-			modifier = {
-				factor = 2
-				trait = ruthless
-			}
-		}
-		scaled_wealth = -0.33
-		if = {
-			limit = {
-				NOT = { trait = deceitful }
-				NOT = { trait = honest }
-				NOT = { personality_traits = 6 }
-			}
-			add_trait = deceitful
-		}	
-		if = {
-			limit = { trait = honest }
-			remove_trait = honest
-		}
-		random = {
-			chance = 10
-			
-			add_trait = kinslayer
-			hidden_tooltip = {
-				character_event = {
-					id = 38287 #Notify Kinslayer
-				}
-			}
-		}	
-	}
-	option = {
-		name = "EVTOPTB76006"
-		ai_chance = {
-			factor = 10
-			modifier = {
-				factor = 0
-				trait = just
-			}
-			modifier = {
-				factor = 0
-				trait = honorable
-			}
-			modifier = {
-				factor = 5
-				trait = arbitrary
-			}
-			modifier = {
-				factor = 2
-				trait = cruel
-			}
-		}
-		scaled_wealth = -0.2
-		piety = -10
-		if = {
-			limit = {
-				NOT = { trait = arbitrary }
-				NOT = { trait = just }
-				NOT = { personality_traits = 6 }
-			}
-			random = {
-				chance = 33
-				
-				add_trait = arbitrary
-				hidden_tooltip = {
-					character_event = {
-						id = 38266 #Notify Arbitrary
-					}
-				}
-			}
-		}	
-		if = {
-			limit = { trait = just }
-			remove_trait = just
-		}
-	}
-	option = {
-		name = "EVTOPTC76006"
-		ai_chance = {
-			factor = 10
-			modifier = {
-				factor = 0
-				trait = paranoid
-			}
-			modifier = {
-				factor = 5
-				trait = trusting
-			}
-			modifier = {
-				factor = 2
-				trait = slothful
-			}
-		}
-		if = {
-			limit = {
-				NOT = { trait = trusting }
-				NOT = { trait = paranoid }
-				NOT = { personality_traits = 6 }
-			}
-			add_trait = trusting
-		}	
-		job_spymaster = {
-			character_event = {
-				id = 76007
-				tooltip = "EVTTOOLTIP76007"
-			}
+			limit = { liege = { NOT = { any_child = { character = ROOT } } } }
+			liege = { character_event = { id = bastard.150 } }
 		}
 	}
 }
 
-#Spymaster is trusted to deal with liege's daughter's bastard child
+# Child born out of wedlock to an unknown father, but it's SUPER OBVIOUS
 character_event = {
-	id = 76007
-	desc = "EVTDESC76007"
-	picture = GFX_evt_spymaster
+	id = bastard.101
+	hide_window = yes
+	is_triggered_only = yes
 	
+	trigger = {
+		was_conceived_a_bastard = yes
+		is_father_real_father = no
+		NOT = { mother = { graphical_culture = ROOT } }
+		NOT = { father = { graphical_culture = ROOT } }
+		real_father = { graphical_culture = ROOT }
+	}
+	
+	immediate = {
+		mother = { character_event = { id = bastard.102 } }
+		real_father = { character_event = { id = bastard.103 } }
+		father = { character_event = { id = bastard.104 } }
+	}
+}
+character_event = {
+	id = bastard.102
+	desc = "EVTDESCBASTARD102"
+	picture = GFX_evt_scandal
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTABASTARD102" } # Uh-oh.
+}
+character_event = {
+	id = bastard.103
+	desc = "EVTDESCBASTARD103"
+	picture = GFX_evt_scandal
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTABASTARD102" } # Uh-oh.
+}
+character_event = {
+	id = bastard.104
+	desc = "EVTDESCBASTARD104"
+	picture = GFX_evt_scandal
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA76007"
-		ai_chance = {
-			factor = 10
-			modifier = {
-				factor = 0.1
-				trait = humble
-			}
-			modifier = {
-				factor = 5
-				trait = proud
-			}
-			modifier = {
-				factor = 2
-				trait = diligent
-			}
-		}
-		prestige = 50
-		if = {
-			limit = {
-				NOT = { trait = proud }
-				NOT = { trait = humble }
-				NOT = { personality_traits = 6 }
-			}
-			add_trait = proud
-		}	
-		random = {
-			chance = 15
-			
-			FROM = {			
-				character_event = {
-					id = 76008
-					tooltip = "EVTTOOLTIP76008"
-				}
-				set_character_flag = failed_cover_up
-			}
-		}
-		FROM = {	
-			clr_character_flag = failed_cover_up
-		}
-	}
-	option = {
-		name = "EVTOPTB76007"
-		change_intrigue = 1
+		name = "EVTOPTCONFIRM"
 		FROM = {
-			event_target:unwed_daughter = {
-				create_character = {
-					age = 0
-					trait = bastard
-					dynasty = THIS
-					genetic_mother = THIS
-				}
-				new_character = {
-					set_mother = PREV
-					bastard_nickname_mother_effect = yes	
-				}
-				opinion = {
-					modifier = opinion_saved_me_and_child
-					who = ROOT
-					years = 10
-				}
+			real_father = {
+				FROM = { set_father = PREV }
+				reverse_opinion = { who = ROOT modifier = cuckolded }
 			}
-			character_event = {
-				id = 76009
-				tooltip = "EVTTOOLTIP76009"
-			}
+			hidden_tooltip = { character_event = { id = bastard.100 } }
 		}
 	}
 }
 
-#Spymaster let child and daughter live
+# Your newborn child has been determined to be a bastard
 character_event = {
-	id = 76008
-	desc = "EVTDESC76008"
-	picture = GFX_evt_spymaster
-	
+	id = bastard.110
+	desc = "EVTDESCBASTARD110"
+	picture = GFX_evt_scandal
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTA76008"
-		ai_chance = {
-			factor = 10
-			modifier = {
-				factor = 0
-				trait = honest
-			}
-			modifier = {
-				factor = 0
-				trait = honorable
-			}
-			modifier = {
-				factor = 5
-				trait = deceitful
-			}
-			modifier = {
-				factor = 2
-				trait = wroth
-			}
-			modifier = {
-				factor = 2
-				trait = arbitrary
-			}
-		}
-		if = {
-			limit = {
-				NOT = { trait = deceitful }
-				NOT = { trait = honest }
-				NOT = { personality_traits = 6 }
-			}
-			add_trait = deceitful
-		}	
-		if = {
-			limit = { trait = honest }
-			remove_trait = honest
-		}
+		# Legitimize them
+		name = "EVTOPTABASTARD110"
 		FROM = {
-			opinion = {
-				who = ROOT
-				modifier = opinion_arrest_attempt
-				months = 240
-			}		
-			imprison = ROOT
-		}
-	}
-	option = {
-		name = "EVTOPTB76008"
-		ai_chance = {
-			factor = 10
-			modifier = {
-				factor = 0
-				trait = proud
-			}
-			modifier = {
-				factor = 0
-				trait = deceitful
-			}
-			modifier = {
-				factor = 5
-				trait = honest
-			}
-			modifier = {
-				factor = 2
-				trait = honorable
-			}
-			modifier = {
-				factor = 2
-				trait = humble
-			}
+			dynasty = ROOT
+			add_trait = legitimized_bastard
 		}
 		if = {
-			limit = {
-				NOT = { trait = honest }
-				NOT = { trait = deceitful }
-				NOT = { personality_traits = 6 }
-			}
-			add_trait = honest
-		}
-		prestige = -20
-	}
-	option = {
-		name = "EVTOPTC76008"
-		ai_chance = {
-			factor = 10
-			modifier = {
-				factor = 0
-				trait = proud
-			}
-			modifier = {
-				factor = 0
-				trait = ruthless
-			}
-			modifier = {
-				factor = 5
-				trait = honorable
-			}
-			modifier = {
-				factor = 5
-				trait = familyperson
-			}
-			modifier = {
-				factor = 2
-				trait = kind
-			}
-		}
-		event_target:unwed_daughter = {
-			create_character = {
-				age = 0
-				trait = bastard
-				dynasty = THIS
-				genetic_mother = THIS
-			}
-			new_character = {
-				set_mother = PREV
-				bastard_nickname_mother_effect = yes	
-			}
-		}
-	}
-}
-
-#Spymaster let daugther and bastard child live
-character_event = {
-	id = 76009
-	desc = "EVTDESC76009"
-	picture = GFX_evt_spymaster
-	
-	is_triggered_only = yes
-	
-	option = {
-		name = "EVTOPTA76009"
-		prestige = -5
-	}
-}
-
-#Get rid of a bastard?
-character_event = {
-	id = 76010
-	desc = "EVTDESC76010"
-	picture = GFX_evt_whispers
-	border = GFX_event_normal_frame_intrigue
-	
-	only_playable = yes
-	capable_only = yes	
-	is_triggered_only = yes
-	prisoner = no
-	
-	trigger = {
-		num_of_children = 1
-		job_spymaster = {
-			NOT = { trait = bastard }
-			intrigue = 14
-			ROOT = {
-				any_child = {
-					trait = bastard
-					is_liege_or_above = ROOT
-					is_ruler = no
-					NOT = { age = 16 }
-					is_alive = yes
-					NOT = { is_child_of = PREVPREV }
-					NOT = { real_father = { character = PREVPREVPREV } }
-				}
-			}
-		}	
-	}
-	
-	weight_multiplier = {
-		days = 1
-	}
-	
-	immediate = {
-		job_spymaster = {
-			ROOT = {
-				random_child = {
-					limit = {
-						trait = bastard
-						is_liege_or_above = ROOT
-						is_ruler = no
-						NOT = { age = 16 }
-						is_alive = yes
-						NOT = { is_child_of = PREVPREV }
-						NOT = { real_father = { character = PREVPREVPREV } }
-					}
-					save_event_target_as = bastard_target
-				}
-			}
-		}
-	}
-	
-	option = {
-		name = "EVTOPTA76010"
-		ai_chance = {
-			factor = 1
-			modifier = {
-				factor = 0
-				trait = honorable
-			}
-			modifier = {
-				factor = 0
-				trait = familyperson
-			}
-			modifier = {
-				factor = 0
-				event_target:bastard_target = {
-					reverse_opinion = { who = ROOT value = 33 }
-				}
-			}
-			modifier = {
-				factor = 0
-				NOT = { num_of_children = 2 }
-			}
-			
-			modifier = {
-				factor = 3
-				trait = paranoid
-			}
-			modifier = {
-				factor = 3
-				trait = cruel
-			}
-			modifier = {
-				factor = 3
-				trait = ruthless
-			}
-			modifier = {
-				factor = 3
-				trait = arbitrary
-			}
-		
-			modifier = {
-				factor = 1.5
-				event_target:bastard_target = {
-					NOT = { reverse_opinion = { who = ROOT value = 0 } }
-				}
-			}
-			modifier = {
-				factor = 1.5
-				event_target:bastard_target = {
-					NOT = { reverse_opinion = { who = ROOT value = -33 } }
-				}
-			}
-			modifier = {
-				factor = 1.5
-				event_target:bastard_target = {
-					NOT = { reverse_opinion = { who = ROOT value = -66 } }
-				}
-			}
-			modifier = {
-				factor = 1.5
-				event_target:bastard_target = {
-					NOT = { reverse_opinion = { who = ROOT value = -99 } }
-				}
-			}
-			
-			modifier = {
-				factor = 2
-				num_of_children = 5
-			}
-			
-		}
-		event_target:bastard_target = {
-			set_character_flag = ruler_wants_me_dead
-			random = {
-				chance = 15
-				
-				clr_character_flag = ruler_wants_me_dead
-				ROOT_murder_red_god_resurrect_effect = yes #check for rhllor resurrection
-				death = {
-					death_reason = death_murder_unknown_fall
-					killer = ROOT
-				}
-			}
-		}
-		if = {
-			limit = { trait = honorable }
-			remove_trait = honorable
-		}
-	}
-	option = {
-		name = "EVTOPTB76010"
-		ai_chance = {
-			factor = 1
-			modifier = {
-				factor = 3
-				trait = trusting
-			}
-			modifier = {
-				factor = 3
-				trait = kind
-			}			
-			modifier = {
-				factor = 3
-				trait = just
-			}	
-			modifier = {
-				factor = 2
-				NOT = { num_of_children = 3 }
-			}	
-		}
-		if = {
-			limit = {
-				NOT = { trait = honest }
-				NOT = { trait = deceitful }
-				NOT = { personality_traits = 6 }
-			}
-			random = {
-				chance = 25
-				add_trait = honest
-				hidden_tooltip = { character_event = { id = 38262 } }
-			}	
-		}
-	}
-}
-
-# #Recognise bastard son as a legitimate heir?
-# character_event = {
-	# id = 76015
-	# desc = "EVTDESC76015"
-	# picture = GFX_evt_son_asking_father
-	
-	# is_triggered_only = yes
-	# only_rulers = yes
-	# war = no
-	
-	# trigger = {
-		# in_command = no
-		# any_child = {
-			# trait = bastard
-			# NOT = { trait = maester }
-			# NOT = { trait = archmaester }
-			# NOT = { trait = kingsguard }
-			# NOT = { trait = nightswatch }
-			# NOT = { trait = septon }
-			# NOT = { trait = drowned }
-			# NOT = { trait = red_priest }
-			# is_female = no
-			# is_ruler = no
-			# age = 16
-			# is_abroad = no
-			# NOT = { trait = depressed }
-		# }
-	# }
-	
-	# weight_multiplier = {
-		# days = 1
-	# }
-	
-	# option = {
-		# name = "EVTOPTA76015"
-		# random_child = {
-			# limit = {
-				# trait = bastard
-				# NOT = { trait = maester }
-				# NOT = { trait = archmaester }
-				# NOT = { trait = kingsguard }
-				# NOT = { trait = nightswatch }
-				# NOT = { trait = septon }
-				# NOT = { trait = drowned }
-				# NOT = { trait = red_priest }
-				# is_female = no
-				# is_ruler = no
-				# age = 16
-				# is_abroad = no
-			# }
-			# opinion = {
-				# modifier = denounced_child
-				# who = ROOT
-				# years = 5
-			# }
-			# if = {
-				# limit = {
-					# NOT = { trait = wroth }
-					# NOT = { trait = patient }
-				# }
-				# random = {
-					# chance = 33
-					
-					# add_trait = wroth
-					# hidden_tooltip = {
-						# character_event = {
-							# id = 38254 #Notify Wroth
-						# }
-					# }
-				# }
-			# }	
-		# }
-	# }
-	# option = {
-		# name = "EVTOPTB76015"
-		# random_child = {
-			# limit = {
-				# trait = bastard
-				# NOT = { trait = maester }
-				# NOT = { trait = archmaester }
-				# NOT = { trait = kingsguard }
-				# NOT = { trait = nightswatch }
-				# NOT = { trait = septon }
-				# NOT = { trait = drowned }
-				# NOT = { trait = red_priest }
-				# is_female = no
-				# is_ruler = no
-				# age = 16
-				# is_abroad = no
-				# NOT = { trait = depressed }
-			# }
-			# if = {
-				# limit = {
-					# NOT = { trait = stressed }
-				# }
-				# random = {
-					# chance = 33
-					
-					# add_trait = stressed
-					# hidden_tooltip = {
-						# character_event = {
-							# id = 38282 #Notify Stressed
-						# }
-					# }
-				# }
-			# }	
-		# }
-	# }
-	# option = {
-		# name = "EVTOPTC76015"
-		# random_child = {
-			# limit = {
-				# trait = bastard
-				# NOT = { trait = maester }
-				# NOT = { trait = archmaester }
-				# NOT = { trait = kingsguard }
-				# NOT = { trait = nightswatch }
-				# NOT = { trait = septon }
-				# NOT = { trait = drowned }
-				# NOT = { trait = red_priest }
-				# is_female = no
-				# is_ruler = no
-				# age = 16
-				# is_abroad = no
-			# }
-			# remove_trait = bastard
-			# add_trait = legit_bastard
-			# recalc_succession = yes
-			# if = {
-				# limit = {
-					# OR = {
-						# has_nickname = nick_snow
-						# has_nickname = nick_rivers
-						# has_nickname = nick_stone
-						# has_nickname = nick_hill
-						# has_nickname = nick_flowers
-						# has_nickname = nick_storm
-						# has_nickname = nick_waters
-						# has_nickname = nick_sand
-						# has_nickname = nick_pyke
-					# }
-				# }
-				# remove_nickname = yes
-			# }
-		# }
-	# }
-# }
-
-#Bastard son ask to be included in the succession
-character_event = {
-	id = 76020
-	desc = "EVTDESC76020"
-	picture = GFX_evt_son_asking_father
-	
-	min_age = 16
-	is_triggered_only = yes
-	capable_only = yes
-	prisoner = no
-	
-	trigger = {
-		trait = bastard
-		can_press_claims_trigger = yes
-		NOT = { trait = content }
-		OR = {
-			father = {
-				is_alive = yes
-				is_ruler = yes
-				can_legitimise_bastards_trigger = yes
-				is_liege_of = ROOT
-				opinion = { who = ROOT value = 25 }
-				at_location = ROOT
-				NOT = { dynasty = 0 }
-			}
-			mother = {
-				is_alive = yes
-				is_ruler = yes
-				can_legitimise_bastards_trigger = yes
-				is_liege_of = ROOT
-				opinion = { who = ROOT value = 25 }
-				at_location = ROOT
-				NOT = { dynasty = 0 }
-			}
-		}
-		OR = {
-			liege = { primary_title = { has_law = true_cognatic_succession } }
-			AND = {
-				is_female = no
-				liege = {
-					primary_title = {
-						OR = {
-							has_law = cognatic_succession
-							has_law = agnatic_succession
-						}
-					}
-				}
-			}
-			AND = {
-				is_female = yes
-				liege = {
-					primary_title = {
-						OR = {
-							has_law = enatic_cognatic_succession
-							has_law = enatic_succession
-						}
-					}
-				}
-			}
-		}
-	}
-	
-	weight_multiplier = {
-		days = 1
-		modifier = {
-			factor = 5
-			trait = ambitious
-		}
-		modifier = {
-			factor = 2
-			trait = proud
-		}
-		modifier = {
-			factor = 2
-			trait = envious
-		}
-		modifier = {
-			factor = 2
-			trait = wroth
-		}
-		modifier = {
-			factor = 2
-			trait = diligent
-		}
-		modifier = {
-			factor = 0.5
-			trait = humble
-		}
-		modifier = {
-			factor = 0.5
-			trait = honorable
-		}
-		modifier = {
-			factor = 0.5
-			trait = patient
-		}
-		modifier = {
-			factor = 0.5
-			trait = slothful
-		}
-	}
-	
-	immediate = {
-		if = { #Mother may sometimes decide
-			limit = {
-				mother = {
-					is_alive = yes
-					is_ruler = yes
-					is_liege_of = ROOT
-					can_legitimise_bastards_trigger = yes
-					opinion = { who = ROOT value = 25 }
-					at_location = ROOT
-					NOT = { dynasty = 0 }
-					OR = {
-						NOT = { father_even_if_dead = { always = yes } }
-						AND = {
-							OR = {
-								primary_title = { has_law = true_cognatic_succession }
-								tier = EMPEROR
-							}	
-							ROOT = { father_even_if_dead = { ROOT = { mother = { higher_tier_than = PREVPREV } } } }
-						}
-						primary_title = {
-							OR = {
-								has_law = enatic_cognatic_succession
-								has_law = enatic_succession
-							}
-						}	
-					}
-				}
-			}
-			set_character_flag = mother
-		}
-		if = {
-			limit = {
-				NOT = { has_character_flag = mother }
+			limit = { FROM = { mother = { character = ROOT } } }
+			FROM = {
 				father = {
-					is_alive = yes
-					is_ruler = yes
-					is_liege_of = ROOT
-					can_legitimise_bastards_trigger = yes
-					opinion = { who = ROOT value = 25 }
-					at_location = ROOT
-					NOT = { dynasty = 0 }
-				}
-			}
-			set_character_flag = father
-		}
-	}
-	
-	option = {
-		name = "EVTOPTA76020"
-		if = {
-			limit = { has_character_flag = mother }
-			mother = {
-				set_character_flag = legitimise_bastard_son
-				character_event = {
-					id = 76021
-					tooltip = "EVTTOOLTIP76021"				
-				}
-			}
-			clr_character_flag = mother
-		}
-		if = {
-			limit = { has_character_flag = father }
-			father = {
-				set_character_flag = legitimise_bastard_son
-				character_event = {
-					id = 76021
-					tooltip = "EVTTOOLTIP76021"				
-				}
-			}
-			clr_character_flag = father
-		}	
-	}
-	option = {
-		name = "EVTOPTB76020"
-		ai_chance = { factor = 0 }
-		piety = 10
-		clr_character_flag = mother
-		clr_character_flag = father
-	}
-}
-
-#Father is asked to legitimise bastard
-character_event = {
-	id = 76021
-	desc = "EVTDESC76021"
-	picture = GFX_evt_son_asking_father
-	
-	is_triggered_only = yes
-
-	option = {
-		name = "EVTOPTA76021"
-		ai_chance = {
-			factor = 100
-		}
-		FROM = {
-			hidden_tooltip = {
-				set_character_flag = father_didnt_legitimise
-				character_event = {
-					id = 76022
-				}
-			}
-			opinion = {
-				modifier = denounced_child
-				who = ROOT
-				years = 5
-			}
-			if = {
-				limit = {
-					NOT = { trait = wroth }
-					NOT = { trait = patient }
-					NOT = { personality_traits = 6 }
-				}
-				random = {
-					chance = 33
-					
-					add_trait = wroth
-					hidden_tooltip = {
-						character_event = {
-							days = 2
-							id = 38254 #Notify Wroth
-						}
+					opinion = { who = ROOT modifier = legitimized_child }
+					hidden_tooltip = { character_event = { id = bastard.111 } }
+					any_spouse = {
+						limit = { NOT = { character = ROOT } }
+						character_event = { id = bastard.112 tooltip = "EVTBASTARD112" }
 					}
 				}
-			}	
+			}
 		}
-	}
-	option = {
-		name = "EVTOPTB76021"
+		if = {
+			limit = { FROM = { father = { character = ROOT } } }
+			FROM = {
+				mother = {
+					opinion = { who = ROOT modifier = legitimized_child }
+					hidden_tooltip = { character_event = { id = bastard.111 } }
+					any_spouse = {
+						limit = { NOT = { character = ROOT } }
+						character_event = { id = bastard.112 tooltip = "EVTBASTARD112" }
+					}
+				}
+			}
+		}
+		any_spouse = {
+			limit = { NOT = { any_child = { character = FROM } } }
+			character_event = { id = bastard.113 tooltip = "EVTTOOLTIPBASTARD113" }
+		}
+		if = {
+			limit = {
+				OR = {
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = bio_directionist
+					religion_group = religious_group
+				}
+			}
+			piety = -100
+			prestige = -100
+		}
 		ai_chance = {
-			factor = 25
-			modifier = {
-				factor = 0.1
-				trait = just
-			}
-			modifier = {
-				factor = 0.33
-				trait = honorable
-			}
-			modifier = {
-				factor = 0.33
-				trait = wroth
-			}
-			modifier = {
-				factor = 0.33
-				trait = proud
-			}
-			modifier = {
-				factor = 3
-				trait = arbitrary
-			}
-			modifier = {
-				factor = 3
-				trait = familyperson
-			}
-			modifier = {
-				factor = 3
-				trait = humble
-			}
-			modifier = {
-				factor = 3
-				trait = kind
-			}
-			modifier = {
-				factor = 1.5
-				opinion = { who = FROM value = 50 }
-			}
-			modifier = {
-				factor = 1.5
-				opinion = { who = FROM value = 75 }
-			}
-			modifier = {
-				factor = 1.5
-				opinion = { who = FROM value = 100 }
-			}		
+			factor = 75
+			# Special case - the parents have since gotten married
 			modifier = {
 				factor = 10
-				age = 40
+				FROM = { father = { any_spouse = { FROM = { mother = { character = PREVPREV } } } } }
+			}
+			# Personality
+			modifier = {
+				factor = 2
+				trait = friendly
+			}
+			modifier = {
+				factor = 0.5
+				trait = cold
+			}
+			modifier = {
+				factor = 2
+				trait = open_minded
+			}
+			modifier = {
+				factor = 0.5
+				trait = close_minded
+			}
+			
+			# Ideological concerns
+			modifier = {
+				factor = 5
+				religion = astrist
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 5
+				religion = astrist
+				trait = radical
+			}
+			modifier = {
+				factor = 0.2
 				OR = {
-					is_tribal = yes
-					is_feudal = yes
-				}	
-				NOT = { primary_title = { has_law = succ_feudal_elective } }
-				current_heir = { NOT = { is_child_of = ROOT } }
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = bio_directionist
+					religion_group = religious_group
+				}
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 0.2
+				OR = {
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = bio_directionist
+					religion_group = religious_group
+				}
+				trait = radical
+			}
+			
+			# Opinion of parents
+			modifier = {
+				factor = 1.25
+				FROM = { father = { reverse_opinion = { who = ROOT value = 100 } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { father = { reverse_opinion = { who = ROOT value = 90 } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { father = { reverse_opinion = { who = ROOT value = 80 } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { father = { reverse_opinion = { who = ROOT value = 70 } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { father = { reverse_opinion = { who = ROOT value = 60 } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { father = { reverse_opinion = { who = ROOT value = 50 } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { father = { reverse_opinion = { who = ROOT value = 40 } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { father = { reverse_opinion = { who = ROOT value = 30 } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { father = { reverse_opinion = { who = ROOT value = 20 } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { father = { reverse_opinion = { who = ROOT value = 10 } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { father = { NOT = { reverse_opinion = { who = ROOT value = -9 } } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { father = { NOT = { reverse_opinion = { who = ROOT value = -19 } } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { father = { NOT = { reverse_opinion = { who = ROOT value = -29 } } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { father = { NOT = { reverse_opinion = { who = ROOT value = -39 } } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { father = { NOT = { reverse_opinion = { who = ROOT value = -49 } } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { father = { NOT = { reverse_opinion = { who = ROOT value = -59 } } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { father = { NOT = { reverse_opinion = { who = ROOT value = -69 } } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { father = { NOT = { reverse_opinion = { who = ROOT value = -79 } } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { father = { NOT = { reverse_opinion = { who = ROOT value = -89 } } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { father = { NOT = { reverse_opinion = { who = ROOT value = -99 } } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { mother = { reverse_opinion = { who = ROOT value = 100 } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { mother = { reverse_opinion = { who = ROOT value = 90 } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { mother = { reverse_opinion = { who = ROOT value = 80 } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { mother = { reverse_opinion = { who = ROOT value = 70 } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { mother = { reverse_opinion = { who = ROOT value = 60 } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { mother = { reverse_opinion = { who = ROOT value = 50 } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { mother = { reverse_opinion = { who = ROOT value = 40 } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { mother = { reverse_opinion = { who = ROOT value = 30 } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { mother = { reverse_opinion = { who = ROOT value = 20 } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { mother = { reverse_opinion = { who = ROOT value = 10 } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { mother = { NOT = { reverse_opinion = { who = ROOT value = -9 } } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { mother = { NOT = { reverse_opinion = { who = ROOT value = -19 } } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { mother = { NOT = { reverse_opinion = { who = ROOT value = -29 } } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { mother = { NOT = { reverse_opinion = { who = ROOT value = -39 } } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { mother = { NOT = { reverse_opinion = { who = ROOT value = -49 } } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { mother = { NOT = { reverse_opinion = { who = ROOT value = -59 } } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { mother = { NOT = { reverse_opinion = { who = ROOT value = -69 } } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { mother = { NOT = { reverse_opinion = { who = ROOT value = -79 } } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { mother = { NOT = { reverse_opinion = { who = ROOT value = -89 } } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { mother = { NOT = { reverse_opinion = { who = ROOT value = -99 } } } }
 			}
 		}
-		FROM = {
-			hidden_tooltip = {
-				set_character_flag = father_legitimise
-				character_event = {
-					id = 76022
-				}
-			}
-			remove_trait = bastard
-			add_trait = legit_bastard
-			if = {
-				limit = { NOT = { dynasty = ROOT } }
-				dynasty = ROOT
-			}
-			if = {
-				limit = {
-					has_bastard_nickname_trigger = yes
-				}
-				remove_nickname = yes
-			}
-			opinion = {
-				modifier = opinion_glad
-				who = ROOT
-				years = 10
-			}
-			if = {
-				limit = { 
-					ROOT = { is_female = no }
-					mother = { is_alive = yes }	
-				}
-				mother = {
-					opinion = {
-						who = ROOT
-						modifier = legitimized_child
-						years = 10
+	}
+	option = {
+		name = "EVTOPTBBASTARD110" # Denounce them
+		FROM = { add_trait = bastard }
+		if = {
+			limit = { FROM = { mother = { character = ROOT } } }
+			FROM = {
+				dynasty = mother_bastard
+				father = {
+					opinion = { who = ROOT modifier = denounced_child }
+					hidden_tooltip = { character_event = { id = bastard.114 } }
+					any_spouse = {
+						limit = { NOT = { character = ROOT } }
+						character_event = { id = bastard.115 tooltip = "EVTBASTARD115" }
 					}
 				}
-			}
-		}
-		
-		any_spouse = {
-			if = {
-				limit = {
-					NOT = {
-						is_parent_of = FROM	
-					}
-				}
-				opinion = {
-					who = ROOT
-					modifier = legitimized_bastard
-					years = 20
-				}
-			}
-		}
-		any_child = {
-			limit = {
-				NOT = { character = FROM }
-				dynasty = ROOT
-				NOT = { trait = bastard }
-			}
-			opinion = {
-				who = ROOT
-				modifier = legitimized_bastard
-				months = 12
-			}
-		}
-	}
-}
-
-#Father answers son
-character_event = {
-	id = 76022
-	desc = "EVTDESC76022"
-	picture = GFX_evt_son_asking_father
-	
-	is_triggered_only = yes
-	
-	option = {
-		name = "EVTOPTA76022"
-		trigger = {
-			has_character_flag = father_didnt_legitimise
-		}
-		clr_character_flag =  father_didnt_legitimise
-	}
-	option = {
-		name = "EVTOPTB76022"
-		trigger = {
-			has_character_flag =  father_legitimise
-		}
-		clr_character_flag =  father_legitimise
-		event_target:chronicle_player = {
-			if = {
-				limit = { 
-					OR = {	
-						character = FROM
-						is_close_relative = ROOT
-						is_liege_or_above = FROM
-					}
-				}
-				chronicle = {
-					entry = CHRONICLE_BASTARD_LEGITIMISED
-					portrait = [Root.GetID]
-				}	
-			}
-		}
-	}
-}
-
-#I have a bastard child
-character_event = {
-	id = 76025
-	desc = "EVTDESC76025"
-	picture = GFX_evt_birth
-	
-	min_age = 16
-	only_women = yes
-	is_triggered_only = yes
-	
-	trigger = {
-		NOT = {
-			has_character_flag = raising_bastard
-			trait = depressed
-		}
-		is_married = no
-		father = {
-			is_alive = yes
-			is_ruler = yes
-			is_liege_of = ROOT
-		}
-		any_child = {
-			age = 5
-			NOT = {
-				age = 16
-			}
-			trait = bastard
-			can_press_claims_trigger = yes
-			father = {
-				is_abroad = yes
-			}
-		}
-	}
-	
-	weight_multiplier = {
-		days = 1
-	}
-	
-	option = {
-		name = "EVTOPTA76025"
-		set_character_flag = raising_bastard
-		father = {
-			character_event = {
-				id = 76026
-				tooltip = "EVTTOOLTIP76026"
-			}
-		}
-	}
-	option = {
-		name = "EVTOPTB76025"
-		set_character_flag = raising_bastard
-		add_trait = stressed
-	}
-}
-
-#Daughter asks for help with bastard child
-character_event = {
-	id = 76026
-	desc = "EVTDESC76026"
-	picture = GFX_evt_daughter_asking_father
-	
-	is_triggered_only = yes
-	
-	option = {
-		name = "EVTOPTA76026"
-		prestige = -20
-		FROM = {
-			prestige = -10
-			opinion = {
-				modifier = opinion_crestfallen
-				who = ROOT
-				years = 10
 			}
 		}
 		if = {
+			limit = { FROM = { father = { character = ROOT } } }
+			FROM = {
+				dynasty = father_bastard
+				mother = {
+					opinion = { who = ROOT modifier = legitimized_child }
+					hidden_tooltip = { character_event = { id = bastard.114 } }
+					any_spouse = {
+						limit = { NOT = { character = ROOT } }
+						character_event = { id = bastard.115 tooltip = "EVTBASTARD115" }
+					}
+				}
+			}
+		}
+		any_spouse = {
+			limit = { NOT = { any_child = { character = FROM } } }
+			character_event = { id = bastard.116 tooltip = "EVTTOOLTIPBASTARD116" }
+		}
+		if = {
+			limit = { religion = astrist }
+			piety = -100
+			prestige = -100
+		}
+		ai_chance = { factor = 25 }
+	}
+}
+
+character_event = {
+	id = bastard.111
+	desc = "EVTDESCBASTARD111"
+	picture = GFX_evt_scandal
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+
+# Your unfaithful spouse's bastard was legitimized
+character_event = {
+	id = bastard.112
+	desc = "EVTDESCBASTARD112"
+	picture = GFX_evt_scandal
+	show_from_from = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTABASTARD155"
+		if = {
+			limit = { religion = astrist }
+			piety = -50
+		}
+		opinion= { who = FROM modifier = legitimized_bastard years = 10 }
+		FROMFROM = {
+			if = {
+				limit = { mother = { character = FROM } }
+				father = { reverse_opinion = { who = ROOT modifier = unfaithful } }
+			}
+			if = {
+				limit = { father = { character = FROM } }
+				mother = { reverse_opinion = { who = ROOT modifier = unfaithful } }
+			}
+		}
+		opinion = { who = FROM modifier = cuckolded }
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 4
+				trait = cold
+			}
+			modifier = {
+				factor = 0.25
+				trait = friendly
+			}
+			modifier = {
+				factor = 0.5
+				religion = astrist
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 0.5
+				religion = astrist
+				trait = radical
+			}
+			modifier = {
+				factor = 0.2
+				OR = {
+					religion = neo_feudal
+					religion = terran_imperial
+					religion = bio_directionist
+					religion_group = religious_group
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTBBASTARD155"
+		if = {
+			limit = { NOT = { religion = astrist } }
+			prestige = -50
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+
+
+# Your unfaithful spouse legitimized their own bastard!
+character_event = {
+	id = bastard.113
+	desc = "EVTDESCBASTARD113"
+	picture = GFX_evt_scandal
+	show_from_from = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTABASTARD155"
+		if = {
+			limit = { religion = astrist }
+			piety = -50
+		}
+		opinion= { who = FROM modifier = legitimized_bastard years = 10 }
+		FROMFROM = {
+			if = {
+				limit = { mother = { character = FROM } }
+				father = { reverse_opinion = { who = ROOT modifier = cuckolded } }
+			}
+			if = {
+				limit = { father = { character = FROM } }
+				mother = { reverse_opinion = { who = ROOT modifier = cuckolded } }
+			}
+		}
+		opinion = { who = FROM modifier = unfaithful }
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 4
+				trait = cold
+			}
+			modifier = {
+				factor = 0.25
+				trait = friendly
+			}
+			modifier = {
+				factor = 0.5
+				religion = astrist
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 0.5
+				religion = astrist
+				trait = radical
+			}
+			modifier = {
+				factor = 0.2
+				OR = {
+					religion = neo_feudal
+					religion = terran_imperial
+					religion = bio_directionist
+					religion_group = religious_group
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTBBASTARD155"
+		if = {
+			limit = { NOT = { religion = astrist } }
+			prestige = -50
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+
+character_event = {
+	id = bastard.114
+	desc = "EVTDESCBASTARD114"
+	picture = GFX_evt_scandal
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+
+# Your unfaithful spouse's bastard was denounced
+character_event = {
+	id = bastard.115
+	desc = "EVTDESCBASTARD115"
+	picture = GFX_evt_scandal
+	show_from_from = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTABASTARD155"
+		if = {
+			limit = { religion = astrist }
+			piety = -50
+		}
+		opinion= { who = FROM modifier = denounced_bastard years = 10 }
+		FROMFROM = {
+			if = {
+				limit = { mother = { character = FROM } }
+				father = { reverse_opinion = { who = ROOT modifier = unfaithful } }
+			}
+			if = {
+				limit = { father = { character = FROM } }
+				mother = { reverse_opinion = { who = ROOT modifier = unfaithful } }
+			}
+		}
+		opinion = { who = FROM modifier = cuckolded }
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 4
+				trait = cold
+			}
+			modifier = {
+				factor = 0.25
+				trait = friendly
+			}
+			modifier = {
+				factor = 0.5
+				religion = astrist
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 0.5
+				religion = astrist
+				trait = radical
+			}
+			modifier = {
+				factor = 0.2
+				OR = {
+					religion = neo_feudal
+					religion = terran_imperial
+					religion = bio_directionist
+					religion_group = religious_group
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTBBASTARD155"
+		if = {
+			limit = { NOT = { religion = astrist } }
+			prestige = -50
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+
+# Your unfaithful spouse denounced their own bastard
+character_event = {
+	id = bastard.116
+	desc = "EVTDESCBASTARD116"
+	picture = GFX_evt_scandal
+	show_from_from = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTABASTARD155"
+		if = {
+			limit = { religion = astrist }
+			piety = -50
+		}
+		opinion= { who = FROM modifier = denounced_bastard years = 10 }
+		FROMFROM = {
+			if = {
+				limit = { mother = { character = FROM } }
+				father = { reverse_opinion = { who = ROOT modifier = cuckolded } }
+			}
+			if = {
+				limit = { father = { character = FROM } }
+				mother = { reverse_opinion = { who = ROOT modifier = cuckolded } }
+			}
+		}
+		opinion = { who = FROM modifier = unfaithful }
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 4
+				trait = cold
+			}
+			modifier = {
+				factor = 0.25
+				trait = friendly
+			}
+			modifier = {
+				factor = 0.5
+				religion = astrist
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 0.5
+				religion = astrist
+				trait = radical
+			}
+			modifier = {
+				factor = 0.2
+				OR = {
+					religion = neo_feudal
+					religion = terran_imperial
+					religion = bio_directionist
+					religion_group = religious_group
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTBBASTARD155"
+		if = {
+			limit = { NOT = { religion = astrist } }
+			prestige = -50
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+
+# A newborn child in your court has been determined to be a bastard
+character_event = {
+	id = bastard.150
+	desc = "EVTDESCBASTARD150"
+	picture = GFX_evt_scandal
+	is_triggered_only = yes
+	
+	option = {
+		# Legitimize them
+		name = "EVTOPTABASTARD110"
+		FROM = { add_trait = legitimized_bastard }
+		if = {
 			limit = {
-				trait = kind
-			}
-			remove_trait = kind
-			prestige = -20
-		}
-	}
-	option = {
-		name = "EVTOPTB76026"
-		prestige = -20
-		FROM = {
-			random_child = {
-				limit = {
-					trait = bastard
-					can_press_claims_trigger = yes
-				}
-				prestige = -10
-				opinion = {
-					modifier = opinion_crestfallen
-					who = ROOT
-					years = 10
+				FROM = {
+					OR = {
+						mother = { is_married = no }
+						mother = { is_married_matrilineally = yes }
+						father = { is_alive = no }
+					}
+					NOT = {
+						AND = {
+							mother = { dynasty = 0 }
+							father = { is_alive = yes }
+						}
+					}
 				}
 			}
-		}
-	}
-	option = {
-		name = "EVTOPTC76026"
-		prestige = -20
-		FROM = {
-			random_child = {
-				limit = {
-					trait = bastard
-					can_press_claims_trigger = yes
+			FROM = {
+				mother = {
+					character_event = { id = bastard.151 tooltip = "EVTTOOLTIPBASTARD151" }
+					opinion = { who = ROOT modifier = legitimized_child years = 10 }
+					any_spouse = {
+						limit = {
+							NOT = { any_child = { character = FROM } }
+							NOT = { character = ROOT }
+						}
+						character_event = { id = bastard.153 tooltip = "EVTTOOLTIPBASTARD153" }
+					}
 				}
 				father = {
-					opinion = {
-						modifier = opinion_angry
-						who = ROOT
-						years = 10
-					}
-					if = {
-						limit = {
-							is_ruler = yes
-						}
-						character_event = {
-							id = 76027
-							tooltip = "EVTTOOLTIP76027"
-						}
-					}
-					if = {
-						limit = {
-							is_ruler = no
-							father = {
-								is_ruler = yes
-							}
-						}
-						character_event = {
-							id = 76028
-							tooltip = "EVTTOOLTIP76028"
-						}
-					}
-				}
-			}
-		}
-	}
-}
-
-#Father to bastard is angry
-character_event = {
-	id = 76027
-	desc = "EVTDESC76027"
-	picture = GFX_evt_birth
-	
-	is_triggered_only = yes
-	
-	option = {
-		name = "EVTOPTA76027"
-		piety = 10
-		prestige = -25
-		opinion = {
-			modifier = opinion_angry
-			who = FROM
-			years = 10
-		}
-	}
-	option = {
-		name = "EVTOPTB76027"
-		piety = -5
-		opinion = {
-			modifier = opinion_angry
-			who = FROM
-			years = 10
-		}
-	}
-}
-
-#Grandfather is angry
-character_event = {
-	id = 76028
-	desc = "EVTDESC76028"
-	picture = GFX_evt_birth
-	
-	is_triggered_only = yes
-	
-	option = {
-		name = "EVTOPTA76028"
-		piety = 10
-		prestige = -25
-		opinion = {
-			modifier = opinion_angry
-			who = FROM
-			years = 10
-		}
-	}
-	option = {
-		name = "EVTOPTB76028"
-		piety = -5
-		opinion = {
-			modifier = opinion_angry
-			who = FROM
-			years = 10
-		}
-	}
-}
-
-#A dream is born and a sword sharpened
-character_event = {
-	id = 76030
-	desc = "EVTDESC76030"
-	picture = GFX_evt_child_sword
-	border = GFX_event_normal_frame_intrigue
-	
-	is_triggered_only = yes
-	capable_only = yes
-	prisoner = no
-	min_age = 16
-	
-	trigger = {
-		trait = bastard
-		NOT = { trait = ambitious }
-		NOT = { trait = content }
-		
-		can_press_claims_trigger = yes
-		NOT = { personality_traits = 6 }
-	}
-	
-	weight_multiplier = {
-		days = 1
-		
-		modifier = {
-			factor = 2
-			trait = proud
-		}
-		modifier = {
-			factor = 2
-			trait = envious
-		}
-		modifier = {
-			factor = 2
-			trait = wroth
-		}
-		modifier = {
-			factor = 2
-			trait = diligent
-		}
-		modifier = {
-			factor = 0.5
-			trait = humble
-		}
-		modifier = {
-			factor = 0.5
-			trait = honorable
-		}
-		modifier = {
-			factor = 0.5
-			trait = patient
-		}
-		modifier = {
-			factor = 0.5
-			trait = slothful
-		}
-	}
-	
-	option = {
-		name = "EVTOPTA76030"
-		add_trait = ambitious
-	}
-}
-
-#I am teased about my inferior status
-character_event = {
-	id = 76035
-	desc = "EVTDESC76035"
-	picture = GFX_evt_child_bully
-	border = GFX_event_normal_frame_intrigue
-	
-	min_age = 6
-	max_age = 16
-	lacks_dlc = Conclave
-	
-	is_triggered_only = yes
-	
-	trigger = {
-		trait = bastard
-		father = {
-			is_ruler = yes
-			is_liege_of = ROOT
-			any_child = {
-				age = 6
-				NOT = {
-					age = 16
-				}
-				NOT = {
-					trait = bastard
-				}
-			}
-		}
-	}
-	
-	weight_multiplier = {
-		days = 1
-	}
-	
-	option = {
-		name = "EVTOPTA76035"
-		any_courtier = {
-			limit = {
-				age = 6
-				NOT = {
-					age = 16
-				}
-			}
-			opinion = {
-				modifier = opinion_despised_fighting_bastard
-				who = ROOT
-				years = 2
-			}
-		}
-		random = {
-			chance = 30
-			
-			add_trait = wroth
-			hidden_tooltip = {
-				character_event = {
-					id = 38254 #Notify Wroth
-				}
-			}
-		}
-		random = {
-			chance = 10
-			
-			change_martial = 1
-		}
-	}
-	option = {
-		name = "EVTOPTB76035"
-		trigger = { NOT = { trait = berserker } }
-		random_list = {
-			50 = {
-				add_trait = craven
-				hidden_tooltip = {
-					character_event = {
-						id = 38257 #Notify Craven
-					}
-				}
-			}
-			40 = {
-				change_learning = 1
-			}
-			10 = {
-				any_courtier = {
-					limit = {
-						age = 6
-						NOT = {
-							age = 16
-						}
-					}
-					opinion = {
-						modifier = opinion_despised_hiding_bastard
-						who = ROOT
-						years = 2
-					}
-				}
-			}
-		}
-	}
-	option = {
-		name = "EVTOPTC76035"
-		random_list = {
-			50 = {
-				change_diplomacy = 1
-			}
-			30 = {
-				add_trait = shy
-				hidden_tooltip = {
-					character_event = {
-						id = 38263 #Notify Shy
-					}
-				}
-			}
-			20 = {
-				any_courtier = {
-					limit = {
-						age = 6
-						NOT = {
-							age = 16
-						}
-					}
-					opinion = {
-						modifier = despised_bastard
-						who = ROOT
-						years = 2
-					}
-				}	
-			}
-		}
-	}
-	option = {
-		name = "EVTOPTD76035"
-		random_list = {
-			50 = {
-				change_intrigue = 1
-			}
-			30 = {
-				any_courtier = {
-					limit = {
-						age = 6
-						NOT = {
-							age = 16
-						}
-					}
-					opinion = {
-						modifier = despised_bastard
-						who = ROOT
-						years = 2
-					}
-				}
-			}
-			20 = {
-				add_trait = deceitful
-				hidden_tooltip = {
-					character_event = {
-						id = 38255 #Notify Deceitful
-					}
-				}
-			}
-		}
-	}
-}
-
-# I'm a bastard, what does that mean?
-character_event = {
-	id = 76040
-	desc = "EVTDESC76040"
-	picture = GFX_evt_guardian
-	border = GFX_event_normal_frame_intrigue
-	
-	min_age = 11
-	lacks_dlc = Conclave
-	is_triggered_only = yes
-	
-	trigger = {
-		trait = bastard
-		has_guardian = yes
-		NOT = {
-			has_character_flag = asked_about_bastard
-		}
-	}
-	
-	weight_multiplier = {
-		days = 1
-	}
-	
-	option = {
-		name = "EVTOPTA76040"
-		set_character_flag = asked_about_bastard
-		guardian = {
-			character_event = {
-				id = 76041
-				tooltip = "EVTTOOLTIP76041"
-			}
-		}
-	}
-}
-
-#Guardian is asked what being bastard means
-character_event = {
-	id = 76041
-	desc = "EVTDESC76041"
-	picture = GFX_evt_guardian
-	border = GFX_event_normal_frame_intrigue
-	
-	is_triggered_only = yes
-	
-	option = {
-		name = "EVTOPTA76041"
-		FROM = {
-			random_list = {
-				80 = {
-					add_trait = chaste
-					hidden_tooltip = {
-						character_event = {
-							id = 38274 #Notify Chaste
-						}
-						ROOT = {
-							character_event = {
-								id = 38174 #Notify child is Chaste
-							}
-						}
-					}
-				}
-				20 = {
-					add_trait = radical
-					hidden_tooltip = {
-						character_event = {
-							id = 38269 #Notify Zealous
-						}
-						ROOT = {
-							character_event = {
-								id = 38169 #Notify child is Zealous
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-	option = {
-		name = "EVTOPTB76041"
-		FROM = {
-			random_list = {
-				80 = {
-					add_trait = humble
-					hidden_tooltip = {
-						character_event = {
-							id = 38260 #Notify Humble
-						}
-						ROOT = {
-							character_event = {
-								id = 38160 #Notify child is Humble
-							}
-						}
-					}
-				}
-				20 = {
-					add_trait = shy
-					hidden_tooltip = {
-						character_event = {
-							id = 38263 #Notify Shy
-						}
-						ROOT = {
-							character_event = {
-								id = 38163 #Notify child is Shy
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-	option = {
-		name = "EVTOPTC76041"
-		FROM = {
-			random_list = {
-				80 = {
-					add_trait = ambitious
-					hidden_tooltip = {
-						character_event = {
-							id = 38278 #Notify Ambitious
-						}
-						ROOT = {
-							character_event = {
-								id = 38178 #Notify child is Ambitious
-							}
-						}
-					}
-				}
-				20 = {
-					add_trait = proud
-					hidden_tooltip = {
-						character_event = {
-							id = 38261 #Notify Proud
-						}
-						ROOT = {
-							character_event = {
-								id = 38161 #Notify child is Proud
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-}
-##new events for AGOT
-#Lonely whilst campaigning
-character_event = {
-	id = 76100
-	desc = "EVTDESC76100"
-	picture = GFX_evt_lovers
-	
-	min_age = 16
-	#only_men = yes
-	#only_rulers = yes
-	capable_only = yes
-	
-	#is_triggered_only = yes
-	
-	trigger = {
-		in_command = yes
-		OR = {
-			war = yes
-			liege = { war = yes }
-		}		
-		OR = {
-			is_female = no
-			trait = lustful
-			culture_group = hyrkoon_group
-		}		
-		NOT = { trait = chaste }
-		NOT = { trait = celibate }
-		NOT = { trait = homosexual }
-		NOT = { trait = eunuch }
-		is_pregnant = no
-		NOT = { any_lover = { at_location = ROOT } }
-		fertility = 0.35
-		NOT = { has_character_modifier = lonely_campaign_bastard }
-	}
-	
-	mean_time_to_happen = {
-		years = 100
-		
-		modifier = {
-			factor = 0.33
-			trait = lustful
-		}
-		modifier = {
-			factor = 0.75
-			trait = gregarious
-		}
-		modifier = {
-			factor = 0.75
-			trait = hedonist
-		}
-		modifier = {
-			factor = 2
-			is_female = yes
-		}
-		modifier = {
-			factor = 2.5
-			trait = shy
-		}
-	}
-	
-	immediate = {
-		add_character_modifier = {
-			name = lonely_campaign_bastard
-			duration = 365
-			hidden = yes
-		}
-		hidden_tooltip = {
-			location = {
-				owner = {
-					random_list = {
-						50 = {
-							create_character = {
-								age = 0
-								culture = PREV
-								religion = PREV
-								dynasty = none
-								female = no
-								historical = yes
-								genetic_father = ROOT
-							}	
-						}
-						50 = {	
-							create_character = {
-								age = 0
-								culture = PREV
-								religion = PREV
-								dynasty = none
-								female = yes
-								historical = yes
-								genetic_father = ROOT
-							}
-						}	
-					}	
-					new_character = {
-						set_character_flag = lonely_bastard
-						culture = ROOT
-						add_trait = bastard
-						if = {
-							limit = { ROOT = { is_female = no } }
-							set_father = ROOT
-						}
-						if = {
-							limit = { ROOT = { is_female = yes } }
-							set_mother = ROOT
-						}	
-						if = {
-							limit = { culture = high_valyrian }
-							set_character_flag = high_valyrian
-						}
-						if = {
-							limit = { ROOT = { trait = clubfooted } }
-							random = { chance = 15 add_trait = clubfooted }
-						}
-						if = {
-							limit = { ROOT = { trait = harelip } }
-							random = { chance = 15 add_trait = harelip }
-						}
-						if = {
-							limit = { ROOT = { trait = hunchback } }
-							random = { chance = 15 add_trait = hunchback }
-						}
-						if = {
-							limit = { ROOT = { trait = fair } }
-							random = { chance = 15 add_trait = fair }
-						}
-						if = {
-							limit = { ROOT = { trait = ugly  } }
-							random = { chance = 10 add_trait = ugly }
-						}
-						if = {
-							limit = { ROOT = { trait = dwarf } }
-							random = { chance = 50 add_trait = dwarf }
-						}
-						if = {
-							limit = { ROOT = { trait = genius } }
-							random = { chance = 15 add_trait = genius }
-						}
-						if = {
-							limit = { ROOT = { trait = quick } }
-							random = { chance = 15 add_trait = quick }
-						}
-						if = {
-							limit = { ROOT = { trait = slow } }
-							random = { chance = 15 add_trait = slow }
-						}
-						if = {
-							limit = { ROOT = { trait = imbecile } }
-							random = { chance = 15 add_trait = imbecile }
-						}
-						if = {
-							limit = { ROOT = { trait = inbred } }
-							random = { chance = 25 add_trait = inbred }
-						}
-						if = {
-							limit = { ROOT = { trait = strong } }
-							random = { chance = 15 add_trait = strong }
-						}
-						if = {
-							limit = { ROOT = { trait = weak } }
-							random = { chance = 15 add_trait = weak }
-						}
-						if = {
-							limit = { ROOT = { trait = tall } }
-							random = { chance = 15 add_trait = tall }
-						}
-					}
-				}	
-			}	
-		}
-		if = { #Check to see if character is important enough to keep bastard alive
-			limit = {
-				OR = {
-					ai = no
-					higher_tier_than = COUNT
-					AND = {
-						is_ruler = no
-						liege = {
-							is_close_relative = ROOT
-							OR = {
-								ai = no
-								higher_tier_than = COUNT
-							}	
-						}
-					}
-				}
-			}
-			set_character_flag = keep_bastard_alive
-		}		
-	}
-	
-	option = {
-		name = "EVTOPTA76100" #give her gold to shut her up
-		trigger = { is_female = no }
-		ai_chance = { 
-			factor = 25
-			modifier = {
-				factor = 2
-				trait = charitable
-			}
-			modifier = {
-				factor = 2
-				trait = honest
-			}
-		}		
-		if = {
-			limit = { has_character_flag = keep_bastard_alive }
-			random_child = {
-				limit = { has_character_flag = lonely_bastard }
-				set_father = 0
-				clr_character_flag = lonely_bastard
-				hidden_tooltip = { set_real_father = ROOT }
-			}
-		}	
-		if = {
-			limit = { NOT = { has_character_flag = keep_bastard_alive } }
-			random_child = {
-				limit = { has_character_flag = lonely_bastard }
-				set_father = 0
-				death = { death_reason = death_missing }
-			}
-		}	
-		clr_character_flag = keep_bastard_alive
-		piety = 35
-		scaled_wealth = -0.4
-		recalc_succession = yes
-	}
-	option = {
-		name = "EVTOPTB76100" #I name you a liar!
-		trigger = { is_female = no }
-		ai_chance = { 
-			factor = 25
-			modifier = {
-				factor = 0.5
-				trait = kind
-			}
-			modifier = {
-				factor = 2
-				trait = wroth
-			}
-			modifier = {
-				factor = 2
-				trait = greedy
-			}
-			modifier = {
-				factor = 2
-				trait = deceitful
-			}
-		}
-		if = {
-			limit = { has_character_flag = keep_bastard_alive }
-			random_child = {
-				limit = { has_character_flag = lonely_bastard }
-				set_father = 0
-				clr_character_flag = lonely_bastard
-				hidden_tooltip = { set_real_father = ROOT }
-			}
-		}	
-		if = {
-			limit = { NOT = { has_character_flag = keep_bastard_alive } }
-			random_child = {
-				limit = { has_character_flag = lonely_bastard }
-				set_father = 0
-				death = { death_reason = death_missing }
-			}
-		}	
-		clr_character_flag = keep_bastard_alive
-		prestige = -25
-		random = {
-			chance = 25
-			
-			add_trait = wroth
-			hidden_tooltip = {
-				character_event = {
-					id = 38254 #Notify wroth
-				}
-			}
-		}
-		recalc_succession = yes
-	}
-	option = {
-		name = "EVTOPTC76100" #so what?
-		trigger = { is_female = no }
-		ai_chance = { 
-			factor = 25
-			modifier = {
-				factor = 2
-				trait = lustful
-			}
-			modifier = {
-				factor = 2
-				trait = arbitrary
-			}
-			modifier = {
-				factor = 2
-				trait = selfish
-			}
-		}	
-		if = {
-			limit = { has_character_flag = keep_bastard_alive }
-			random_child = {
-				limit = { has_character_flag = lonely_bastard }
-				set_father = 0
-				clr_character_flag = lonely_bastard
-				hidden_tooltip = { set_real_father = ROOT }
-			}
-		}	
-		if = {
-			limit = { NOT = { has_character_flag = keep_bastard_alive } }
-			random_child = {
-				limit = { has_character_flag = lonely_bastard }
-				set_father = 0
-				death = { death_reason = death_missing }
-			}
-		}	
-		clr_character_flag = keep_bastard_alive
-		piety = -35
-		if = {
-			limit = {
-				NOT = {
-					trait = lustful
-				}
-			}
-			random = {
-				chance = 25
-				
-				add_trait = lustful
-				hidden_tooltip = {
-					character_event = {
-						id = 38272 #Notify Lustful
-					}
-				}
-			}
-		}
-		recalc_succession = yes
-	}
-	option = {
-		name = "EVTOPTE76100" #leave child here with father
-		trigger = { is_female = yes }
-		ai_chance = { 
-			factor = 25
-			modifier = {
-				factor = 2
-				trait = lustful
-			}
-			modifier = {
-				factor = 2
-				trait = arbitrary
-			}
-			modifier = {
-				factor = 2
-				trait = selfish
-			}
-		}	
-		if = {
-			limit = { has_character_flag = keep_bastard_alive }
-			random_child = {
-				limit = { has_character_flag = lonely_bastard }
-				set_mother = 0
-				clr_character_flag = lonely_bastard
-			}
-		}	
-		if = {
-			limit = { NOT = { has_character_flag = keep_bastard_alive } }
-			random_child = {
-				limit = { has_character_flag = lonely_bastard }
-				set_mother = 0
-				death = { death_reason = death_missing }
-			}
-		}	
-		clr_character_flag = keep_bastard_alive
-		piety = -35
-		if = {
-			limit = {
-				NOT = {
-					trait = lustful
-				}
-			}
-			random = {
-				chance = 25
-				
-				add_trait = lustful
-				hidden_tooltip = {
-					character_event = {
-						id = 38272 #Notify Lustful
-					}
-				}
-			}
-		}
-		recalc_succession = yes
-	}
-	option = {
-		name = "EVTOPTD76100" #adopt the child
-		ai_chance = { 
-			factor = 25
-			modifier = {
-				factor = 2
-				trait = just
-			}
-			modifier = {
-				factor = 2
-				trait = kind
-			}
-			modifier = {
-				factor = 2
-				trait = familyperson
-			}
-		}
-		piety = 40
-		random_child = {
-			limit = { has_character_flag = lonely_bastard }
-			if = {
-				limit = { ROOT = { is_female = no } }
-				set_father = ROOT
-			}
-			if = {
-				limit = { ROOT = { is_female = yes } }
-				set_mother = ROOT
-			}
-			dynasty = ROOT
-			if = {
-				limit = {
-					ROOT = { #no concept of bastardry
-						culture = dothraki 
-						OR = {
-							is_ruler = yes
-							liege = { culture = dothraki }
-						}
-					} 								
-				}
-				set_character_flag = dothraki_bastard
-				remove_trait = bastard				
-			}
-			bastard_nickname_ROOT_effect = yes
-			ROOT = {
-				if = {
-					limit = { is_ruler = yes }
-					reverse_banish = PREV
-				}
-				if = {
-					limit = { is_ruler = no }
-					liege = { reverse_banish = PREVPREV }
-				}
-			}	
-			if = {
-				limit = { ROOT = { ai = no } }
-				character_event = { id = CM.19011 } #chronicle
-			}
-			clr_character_flag = lonely_bastard
-		}
-		clr_character_flag = keep_bastard_alive
-		spouse = {
-			character_event = { id = 76101 tooltip = "EVTTOOLTIP308" } # The wife is angered
-		}
-		recalc_succession = yes
-	}
-}
-# The wife is angered
-character_event = {
-	id = 76101
-	picture = "GFX_evt_quarrel"
-	
-	is_triggered_only = yes 
-		
-	desc = "EVTDESC308"
-
-	option = {
-		name = "EVTOPTA308"	
-		spouse = {
-			reverse_opinion = {
-				who = root
-				modifier = acknowledged_bastard
-				years = 10
-			}
-		}
-	}
-}
-#Lord's Right
-character_event = {
-	id = 76102
-	desc = "EVTDESC76102"
-	picture = GFX_evt_hunt	
-	
-	only_playable = yes
-	min_age = 16
-	only_men = yes
-	capable_only = yes
-	
-	is_triggered_only = yes
-	
-	trigger = {
-		OR = {
-			culture_group = first_men
-			culture_group = free_folk
-			culture = high_valyrian
-			crownlaw_title = { has_law = first_night_1 }
-		}	
-		NOT = { trait = chaste }
-		NOT = { trait = celibate }
-		NOT = { trait = homosexual }
-		NOT = { trait = eunuch }		
-	}
-	
-	weight_multiplier = {
-		days = 1
-		
-		modifier = {
-			factor = 2
-			trait = lustful
-		}
-		modifier = {
-			factor = 2
-			trait = lunatic
-		}
-		
-		modifier = {
-			factor = 0.5
-			trait = shy
-		}
-	}
-	
-	option = {
-		name = "EVTOPTA76102" #it is against the law
-		trigger = { NOT = { crownlaw_title = { has_law = first_night_1 } } }
-		ai_chance = { 
-			factor = 40		
-			modifier = {
-				factor = 3
-				trait = honest
-			}
-			modifier = {
-				factor = 5
-				trait = kind
-			}
-			modifier = {
-				factor = 3
-				trait = honorable
-			}
-			modifier = {
-				factor = 3
-				trait = charitable
-			}
-		}	
-		piety = 30
-	}
-	option = {
-		name = "EVTOPTD76102" #Not just
-		trigger = { crownlaw_title = { has_law = first_night_1 } } 
-		ai_chance = { 
-			factor = 30	
-			modifier = {
-				factor = 3
-				trait = honest
-			}
-			modifier = {
-				factor = 5
-				trait = kind
-			}
-			modifier = {
-				factor = 3
-				trait = honorable
-			}
-			modifier = {
-				factor = 3
-				trait = charitable
-			}
-		}	
-		piety = 30
-	}
-	option = {
-		name = "EVTOPTB76102" #demand compensation
-		ai_chance = { 
-			factor = 10
-			modifier = {
-				factor = 0
-				trait = just
-			}		
-			modifier = {
-				factor = 3
-				trait = greedy
-			}
-			modifier = {
-				factor = 3
-				trait = deceitful
-			}
-			modifier = {
-				factor = 3
-				trait = arbitrary
-			}
-		}
-		piety = -30
-		wealth = 20
-		if = {
-			limit = {
-				NOT = {
-					trait = greedy
-				}
-			}
-			random = {
-				chance = 25
-				
-				add_trait = greedy
-				hidden_tooltip = {
-					character_event = {
-						id = 38252 #Notify Lustful
-					}
-				}
-			}
-		}
-	}
-	option = {
-		name = "EVTOPTC76102" #take my right
-		ai_chance = { 
-			factor = 10
-			modifier = {
-				factor = 0
-				trait = just
-			}
-			modifier = {
-				factor = 4
-				trait = lustful
-			}
-			modifier = {
-				factor = 3
-				trait = arbitrary
-			}
-			modifier = {
-				factor = 3
-				trait = selfish
-			}
-			modifier = {
-				factor = 3
-				trait = wroth
-			}
-			modifier = {
-				factor = 3
-				trait = cruel
-			}
-		}	
-		if = {
-			limit = { 
-				NOT = { liege = { character = ROOT } }
-				NOT = { crownlaw_title = { has_law = first_night_1 } }
-			}
-			random = { #liege discovers
-				chance = 15
-				liege = {
-					character_event = { id = 76103 days = 5 tooltip = "EVTTOOLTIP76103" }
-				}
-			}
-		}	
-		hidden_tooltip = {
-			random = { #bastard is born
-				chance = 50
-				character_event = { id = 76104 days = 1825 }
-			}
-		}	
-		piety = -50
-		if = {
-			limit = {
-				NOT = {
-					trait = lustful
-				}
-			}
-			random = {
-				chance = 25
-				
-				add_trait = lustful
-				hidden_tooltip = {
-					character_event = {
-						id = 38272 #Notify Lustful
-					}
-				}
-			}
-		}
-	}
-}
-#Liege discovers transgression
-character_event = {
-	id = 76103
-	desc = "EVTDESC76103"
-	#picture = GFX_evt_lovers
-	
-	is_triggered_only = yes
-		
-	option = {
-		name = "EVTOPTA76103" #reprimand
-		ai_chance = { 
-			factor = 25
-			modifier = {
-				factor = 3
-				trait = patient
-			}
-			modifier = {
-				factor = 3
-				trait = honest
-			}
-			modifier = {
-				factor = 3
-				trait = kind
-			}
-			modifier = {
-				factor = 3
-				trait = craven
-			}
-		}	
-		FROM = {
-			letter_event = { id = 76105 tooltip = "EVTTOOLTIP76105" }
-		}
-		piety = 20
-	}
-	option = {
-		name = "EVTOPTB76103" #ignore
-		ai_chance = { 
-			factor = 25
-			modifier = {
-				factor = 3
-				trait = lustful
-			}
-			modifier = {
-				factor = 3
-				trait = deceitful
-			}
-			modifier = {
-				factor = 3
-				trait = arbitrary
-			}
-			modifier = {
-				factor = 3
-				trait = slothful
-			}
-		}
-		piety = -40
-	}
-	option = {
-		name = "EVTOPTC76103" #imprison
-		ai_chance = { 
-			factor = 20
-			modifier = {
-				factor = 3
-				trait = wroth
-			}
-			modifier = {
-				factor = 3
-				trait = brave
-			}
-			modifier = {
-				factor = 3
-				trait = honorable
-			}
-			modifier = {
-				factor = 3
-				trait = just
-			}
-		}	
-		tooltip = { FROM = { imprison = ROOT } }
-		piety = 40
-		hidden_tooltip = {
-			FROM = {
-				letter_event = { id = 76106 }
-			}
-		}	
-	}
-}
-#peasant presents a baby
-character_event = {
-	id = 76104
-	desc = "EVTDESC76104"
-	#picture = GFX_evt_lovers
-	
-	is_triggered_only = yes
-		
-	option = {
-		name = "EVTOPTA76100" #give her gold to shut her up
-		ai_chance = { 
-			factor = 25
-			modifier = {
-				factor = 3
-				trait = charitable
-			}
-			modifier = {
-				factor = 3
-				trait = honest
-			}
-		}	
-		piety = 35
-		scaled_wealth = -0.4
-	}
-	option = {
-		name = "EVTOPTB76104" #hang her for bothering you
-		ai_chance = { 
-			factor = 25
-			modifier = {
-				factor = 0
-				trait = kind
-			}
-			modifier = {
-				factor = 3
-				trait = wroth
-			}
-			modifier = {
-				factor = 3
-				trait = greedy
-			}
-			modifier = {
-				factor = 3
-				trait = deceitful
-			}
-		}
-		prestige = 25
-		piety = -50
-		random = {
-			chance = 25
-			
-			add_trait = wroth
-			hidden_tooltip = {
-				character_event = {
-					id = 38254 #Notify wroth
-				}
-			}
-		}
-	}
-	option = {
-		name = "EVTOPTC76100" #so what?
-		ai_chance = { 
-			factor = 25
-			modifier = {
-				factor = 3
-				trait = lustful
-			}
-			modifier = {
-				factor = 3
-				trait = arbitrary
-			}
-			modifier = {
-				factor = 3
-				trait = selfish
-			}
-		}	
-		piety = -35
-	}
-	option = {
-		name = "EVTOPTD76100" #adopt the child
-		ai_chance = { 
-			factor = 25
-			modifier = {
-				factor = 3
-				trait = just
-			}
-			modifier = {
-				factor = 3
-				trait = kind
-			}
-			modifier = {
-				factor = 3
-				trait = familyperson
-			}
-			modifier = {
-				factor = 3
-				trait = honorable
-			}
-		}
-		piety = 40
-		create_character = {
-			age = 5
-			trait = bastard
-			historical = yes
-			genetic_father = ROOT
-		}
-		new_character = {
-			set_father = PREV
-			dynasty = ROOT
-			change_stewardship = 2
-			change_intrigue = 2
-			change_martial = 2
-			change_diplomacy = 2
-			change_learning = 2
-			random = {
-				chance = 15
-				add_trait = lunatic
-			}
-			bastard_nickname_father_effect = yes	
-			if = {
-				limit = { ROOT = { ai = no } }
-				character_event = { id = CM.19011 } #chronicle
-			}
-		}	
-		spouse = {
-			character_event = { id = 76101 tooltip = "EVTTOOLTIP308" } # The wife is angered
-		}
-	}
-}
-letter_event = { #recieve reprimand
-	id = 76105
-	desc = "EVTDESC76105"
-	#picture = GFX_evt_lovers
-	
-	is_triggered_only = yes
-	
-	option = {
-		name = "EVTOPTA76105"
-		prestige = -50
-		scaled_wealth = -0.25
-		add_character_modifier = {
-			name = took_illegal_first_night
-			duration = 1095
-		}
-	}	
-}	
-letter_event = { #imprison notified
-	id = 76106
-	desc = "EVTDESC76106"
-	#picture = GFX_evt_lovers
-	
-	is_triggered_only = yes
-	
-	option = {
-		name = "EVTOPTA76106"
-		imprison = FROM
-		prestige = -75
-		scaled_wealth = -0.4
-		add_character_modifier = {
-			name = took_illegal_first_night
-			duration = 1095
-		}
-	}	
-}	
-###Ruler is asked for legitimisation
-character_event = { #ping to bastard to make them FROM scope
-	id = bastard.600
-	
-	is_triggered_only = yes
-	hide_window = yes
-	
-	immediate = {
-		event_target:liege_to_ask_for_legit = { character_event = { id = bastard.601 days = 1 } }
-	}
-}
-character_event = { #ping to liege and determine if regent should respond
-	id = bastard.601
-	
-	is_triggered_only = yes
-	hide_window = yes
-	
-	trigger = {
-		can_legitimise_bastards_trigger = yes
-		FROM = {
-			is_alive = yes
-			trait = bastard
-		}
-		FROMFROM = {
-			is_alive = yes
-		}
-	}
-	
-	immediate = {
-		if = {
-			limit = {
-				OR = {
-					is_adult = no
-					is_incapable = yes
-					prisoner = yes
-				}
-			}
-			regent = { letter_event = { id = 76107 } }
-		}
-		else = {
-			letter_event = { id = 76107 }
-		}
-	}
-}
-letter_event = { 
-	id = 76107
-	
-	desc = {
-		text = "EVTDESC76107" #FROMFROMFROM asking for self, no regent
-		trigger = { 
-			FROMFROMFROM = { character = ROOT_FROMFROM }
-			can_legitimise_bastards_trigger = yes
-		}
-	}	
-	desc = {
-		text = "EVTDESC76107B" #FROMFROMFROM asking for self, regent
-		trigger = { 
-			FROMFROMFROM = { character = ROOT_FROMFROM }
-			NOT = { can_legitimise_bastards_trigger = yes }
-		}
-	}
-	desc = {
-		text = "EVTDESC76107C" #FROMFROMFROM asking for child, no regent
-		trigger = { 
-			NOT = { FROMFROMFROM = { character = ROOT_FROMFROM } }
-			can_legitimise_bastards_trigger = yes
-		}
-	}	
-	desc = {
-		text = "EVTDESC76107D" #FROMFROMFROM asking for child, regent
-		trigger = { 
-			NOT = { FROMFROMFROM = { character = ROOT_FROMFROM } }
-			NOT = { can_legitimise_bastards_trigger = yes }
-		}
-	}
-	
-	is_triggered_only = yes
-	show_from_from_from = yes
-	
-	immediate = {
-		#Find father for loc
-		if = {
-			limit = { 
-				ai = no 
-				FROMFROMFROM = { character = ROOT_FROMFROM }
-			}
-			FROMFROM = {
-				if = {
-					limit = {				
-						OR = {
-							NOT = { father_even_if_dead = { always = yes } }
-							has_character_flag = bastardised
-						}
-					}				
-					real_father_even_if_dead = {
-						save_event_target_as = bastard_father
-						break = yes
-					}
-				}
-				father_even_if_dead = {
-					save_event_target_as = bastard_father
-				}
-			}
-		}	
-	}
-	
-	option = { #Yes
-		name = "EVTOPTA76107"
-		ai_chance = {
-			factor = 50
-			
-			modifier = { #Never legitimise cadets of the player
-				factor = 0
-				FROMFROM = {
-					trait = assign_mission_target
-					has_dynasty_flag = is_cadet_house
-					any_close_relative = {
-						ai = no
-						trait = assign_mission_target
-						has_dynasty_flag = has_cadet_house	
-						has_dynasty_flag = owned_cadet_house_@PREV
-					}
-				}
-			}
-			#Competing claim reluctance
-			modifier = { 
-				factor = 0
-				FROMFROM = {
-					has_character_flag = bastardised
-					real_father_even_if_dead = {
-						primary_title = {
-							holder_scope = {
-								OR = {
-									character = ROOT
-									is_close_relative = ROOT
-								}
-							}
-						}
-					}
-				}
-			}	
-			modifier = { #bastard of older sibling
-				factor = 0
-				FROMFROM = {
-					NOT = { has_character_flag = bastardised }
-					father_even_if_dead = {
-						sibling = ROOT
-						NOT = { character = ROOT }
-						OR = {
-							is_older_than = ROOT
-							AND = {
-								is_alive = no
-								primary_title = { holder_scope = { character = ROOT } }
-							}
-						}
-					}
-				}	
-				OR = {
-					trait = just
-					trait = ruthless
-					trait = diligent
-					NOT = { opinion = { who = FROMFROMFROM value = 25 } }
-				}
-			}
-			modifier = { 
-				factor = 0.1
-				FROMFROM = {
-					NAND = {
-						has_character_flag = bastardised
-						real_father_even_if_dead = { always = yes }
-					}
-					OR = {
-						father_even_if_dead = {
-							dynasty = PREV
-							OR = {
-								primary_title = {
-									holder_scope = {
-										OR = {
-											character = ROOT
-											is_close_relative = ROOT
-										}
-									}
-								}
-								father_even_if_dead = {
-									dynasty = PREVPREV
-									primary_title = {
-										holder_scope = {
-											OR = {
-												character = ROOT
-												is_close_relative = ROOT
-											}
-										}
-									}
-								}	
-								mother_even_if_dead = {
-									dynasty = PREVPREV
-									primary_title = {
-										holder_scope = {
-											OR = {
-												character = ROOT
-												is_close_relative = ROOT
-											}
-										}
-									}
-								}
-							}
-						}
-						mother_even_if_dead = {
-							dynasty = PREV
-							OR = {
-								primary_title = {
-									holder_scope = {
-										OR = {
-											character = ROOT
-											is_close_relative = ROOT
-										}
-									}
-								}
-								father_even_if_dead = {
-									dynasty = PREVPREV
-									primary_title = {
-										holder_scope = {
-											OR = {
-												character = ROOT
-												is_close_relative = ROOT
-											}
-										}
-									}
-								}	
-								mother_even_if_dead = {
-									dynasty = PREVPREV
-									primary_title = {
-										holder_scope = {
-											OR = {
-												character = ROOT
-												is_close_relative = ROOT
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}	
-			}
-			modifier = { #My bastard reluctance
-				factor = 0.5
-				FROMFROM = {
-					OR = {
-						father = { character = ROOT }
-						real_father = { character = ROOT }
-					}	
-				}	
-			}	
-			modifier = { #My bastard relation reluctance
-				factor = 0.25
-				FROMFROM = {
-					NOT = {
-						OR = {
-							father = { character = ROOT }
-							real_father = { character = ROOT }
-						}
-					}
-					OR = {
-						is_close_relative = ROOT
-						real_father_even_if_dead = { is_close_relative = ROOT }
-					}					
-				}	
-			}
-			modifier = { #Incest!
-				factor = 0.1
-				FROMFROM = {
-					OR = {
-						has_character_modifier = abomination_of_incest
-						has_character_modifier = grandchild_of_incest
-					}					
-				}	
-			}
-			modifier = {
-				factor = 0
-				trait = radical
-				FROMFROM = {
-					OR = {
-						has_character_modifier = abomination_of_incest
-						has_character_modifier = grandchild_of_incest
-					}					
-				}	
-			}
-			
-			modifier = {
-				factor = 2
-				FROMFROMFROM = { tier = KING }
-			}	
-			modifier = {
-				factor = 1.5
-				trait = pragmatic
-			}
-			modifier = {
-				factor = 1.5
-				trait = arbitrary
-			}
-			modifier = {
-				factor = 1.5
-				trait = kind
-			}
-			modifier = {
-				factor = 1.5
-				trait = ruthless
-			}
-			modifier = {
-				factor = 1.5
-				opinion = { who = FROMFROM value = 20 }
-			}
-			modifier = {
-				factor = 1.5
-				opinion = { who = FROMFROM value = 40 }
-			}
-			modifier = {
-				factor = 1.5
-				opinion = { who = FROMFROM value = 60 }
-			}
-			modifier = {
-				factor = 1.5
-				opinion = { who = FROMFROM value = 80 }
-			}
-			
-			modifier = {
-				factor = 1.5
-				opinion = { who = FROMFROMFROM value = 20 }
-				NOT = { FROMFROMFROM = { character = ROOT_FROMFROM } }				
-			}
-			modifier = {
-				factor = 1.5
-				opinion = { who = FROMFROMFROM value = 40 }
-				NOT = { FROMFROMFROM = { character = ROOT_FROMFROM } }	
-			}
-			modifier = {
-				factor = 1.5
-				opinion = { who = FROMFROMFROM value = 60 }
-				NOT = { FROMFROMFROM = { character = ROOT_FROMFROM } }	
-			}
-			modifier = {
-				factor = 1.5
-				opinion = { who = FROMFROMFROM value = 80 }
-				NOT = { FROMFROMFROM = { character = ROOT_FROMFROM } }	
-			}
-		}
-		piety = -30
-		FROMFROMFROM = {
-			hidden_tooltip = {
-				if = {
-					limit = { character = ROOT_FROMFROM }
-					letter_event = { id = 76108 }
-				}	
-				if = {
-					limit = { NOT = { character = ROOT_FROMFROM } }
-					letter_event = { id = bastard.602 }
-				}
-			}	
-			opinion = { who = ROOT modifier = opinion_accepted_legit years = 15 }
-		}
-		FROMFROM = {
-			tooltip = { add_trait = legit_bastard }
-			if = {
-				limit = { NOT = { character = ROOT_FROMFROMFROM } }
-				opinion = { who = ROOT modifier = opinion_accepted_legit years = 15 }
-			}	
-		}
-		if = {
-			limit = { NOT = { can_legitimise_bastards_trigger = yes } }
-			liege = {
-				hidden_tooltip = {
-					reverse_opinion = { who = FROMFROMFROM modifier = opinion_accepted_legit years = 15 }
-					if = {
-						limit = { FROMFROM = { NOT = { character = ROOT_FROMFROMFROM } } }
-						reverse_opinion = { who = FROMFROM modifier = opinion_accepted_legit years = 15 }
-					}
-					character_event = { id = bastard.500 }
-				}
-			}
-		}
-		event_target:bastard_father = { tooltip = { show_portrait = yes } }
-		show_portrait = FROMFROM
-	}	
-	
-	option = { #No
-		name = "EVTOPTB76107"
-		ai_chance = {
-			factor = 50
-			modifier = {
-				factor = 2
-				NOT = { FROMFROMFROM = { liege = { character = ROOT } } } #Don't care as much about non direct vassals
-			}
-			modifier = {
-				factor = 1.5
-				trait = radical
-			}
-			modifier = {
-				factor = 1.5
-				trait = just
-			}
-			modifier = {
-				factor = 1.5
-				trait = cruel
-			}
-			modifier = {
-				factor = 1.5
-				trait = honorable
-			}
-			modifier = {
-				factor = 1.5
-				NOT = { opinion = { who = FROMFROM value = -20 } }
-			}
-			modifier = {
-				factor = 1.5
-				NOT = { opinion = { who = FROMFROM value = -40 } }
-			}
-			modifier = {
-				factor = 1.5
-				NOT = { opinion = { who = FROMFROM value = -60 } }
-			}
-			modifier = {
-				factor = 1.5
-				NOT = { opinion = { who = FROMFROM value = -80 } }
-			}
-			
-			modifier = {
-				factor = 1.5
-				NOT = { opinion = { who = FROMFROMFROM value = -20 } }
-				NOT = { FROMFROMFROM = { character = ROOT_FROMFROM } }				
-			}
-			modifier = {
-				factor = 1.5
-				NOT = { opinion = { who = FROMFROMFROM value = -40 } }
-				NOT = { FROMFROMFROM = { character = ROOT_FROMFROM } }	
-			}
-			modifier = {
-				factor = 1.5
-				NOT = { opinion = { who = FROMFROMFROM value = -60 } }
-				NOT = { FROMFROMFROM = { character = ROOT_FROMFROM } }	
-			}
-			modifier = {
-				factor = 1.5
-				NOT = { opinion = { who = FROMFROMFROM value = -80 } }
-				NOT = { FROMFROMFROM = { character = ROOT_FROMFROM } }	
-			}
-		}
-		piety = 15
-		FROMFROMFROM = {
-			hidden_tooltip = { letter_event = { id = 76109 } }
-			opinion = { who = ROOT modifier = opinion_refused_legit years = 15 }
-		}
-		FROMFROM = {
-			if = {
-				limit = { NOT = { character = ROOT_FROMFROMFROM } }
-				opinion = { who = ROOT modifier = opinion_refused_legit years = 15 }
-			}	
-		}
-		if = {
-			limit = { NOT = { can_legitimise_bastards_trigger = yes } }
-			liege = {
-				hidden_tooltip = {
-					reverse_opinion = { who = FROMFROMFROM modifier = opinion_refused_legit years = 8 }
-					if = {
-						limit = { FROMFROM = { NOT = { character = ROOT_FROMFROMFROM } } }
-						reverse_opinion = { who = FROMFROM modifier = opinion_refused_legit years = 8 }
-					}
-					character_event = { id = bastard.499 }
-				}
-			}
-		}
-	}	
-}
-###Inform accept
-letter_event = { #for self
-	id = 76108
-	desc = "EVTDESC76108"
-	
-	is_triggered_only = yes
-	
-	trigger = {
-		is_alive = yes
-		trait = bastard
-	}
-	
-	option = { #Yes
-		name = "EVTOPTA76108"
-		tooltip = {
-			remove_trait = bastard
-			add_trait = legit_bastard	
-		}	
-		recalc_succession = yes
-		piety = -20
-		mother = {
-			if = {
-				limit = { is_alive = yes }
-				opinion = {
-					who = ROOT
-					modifier = legitimized_child
-					years = 10
-				}
-			}	
-		}
-		if = {
-			limit = { has_character_flag = bastardised }
-			#change siblings in this case as well
-			any_sibling_even_if_dead = {
-				limit = {
-					trait = bastard
-					has_character_flag = bastardised
-					mother_even_if_dead = { is_parent_of = ROOT }
-					real_father_even_if_dead = { ROOT = { real_father_even_if_dead = { character = PREVPREV } } }
-				}
-				tooltip = { remove_trait = bastard }	
-				hidden_tooltip = {
-					character_event = { id = bastard.999 } #generic legitimise event
-				}
-			}
-		}	
-		hidden_tooltip = {
-			character_event = { id = bastard.999 } #generic legitimise event
-		}
-		if = {
-			limit = { ai = no }
-			chronicle = {
-				entry = CHRONICLE_LEGITIMISED_BY_KING
-				portrait = [From.GetID]
-			}
-		}
-		event_target:chronicle_player = {
-			if = {
-				limit = {
-					NOT = { character = ROOT }
-					OR = {
-						is_close_relative = ROOT
-						AND = {
-							same_realm = ROOT
-							ROOT = { higher_tier_than = COUNT }
-						}
-					}
-				}
-				hidden_tooltip = { character_event = { id = CM.11508 } }
-			}
-		}
-		hidden_tooltip = { #inform family
-			any_dynasty_member = { 
-				limit = {
-					NOT = { character = ROOT }
-					NOT = { character = FROM }
-					is_alive = yes
-					OR = {
-						ai = no
-						dynasty_head = { character = PREV }
-						is_parent_of = ROOT
-						is_grandparent_of = ROOT
-					}	
-				}
-				letter_event = { id = bastard.501 }
-			}
-			father = {
-				if = {
-					limit = {
-						NOT = { dynasty = ROOT }				
-						NOT = { character = FROM }
-						is_alive = yes					
-					}
-					letter_event = { id = bastard.501 }
-				}
-			}
-			mother = {
-				if = {
-					limit = {
-						NOT = { dynasty = ROOT }			
-						NOT = { character = FROM }
-						is_alive = yes					
-					}
-					letter_event = { id = bastard.501 }
-				}
-			}
-			any_child = {
-				limit = {
-					ai = no
-					NOT = { dynasty = ROOT }				
-					NOT = { character = FROM }
-					is_alive = yes				
-					NOT = { is_father = ROOT }
-					NOT = { is_mother = ROOT }
-				}
-				letter_event = { id = bastard.501 }
-			}
-			any_spouse = {
-				limit = {
-					ai = no
-					NOT = { dynasty = ROOT }				
-					NOT = { character = FROM }
-					is_alive = yes					
-					NOT = { is_father = ROOT }
-					NOT = { is_mother = ROOT }
-					NOT = { is_child_of = ROOT }
-				}
-				letter_event = { id = bastard.501 }
-			}
-		}
-	}
-}
-letter_event = { #for child
-	id = bastard.602
-	desc = "EVTDESCbastard.602"
-	
-	is_triggered_only = yes
-	
-	trigger = {
-		FROMFROMFROM = {
-			trait = bastard
-			is_alive = yes
-		}	
-	}
-	
-	option = { #Yes
-		name = "EVTOPTAbastard.602"
-		show_portrait = FROMFROMFROM
-		clr_character_flag = legitimising_bastard
-		FROMFROMFROM = {
-			if = {
-				limit = { NOT = { age = 1 } } #Newborn effects
-				legitimise_newborn_FROM_effect = yes
-				if = {
-					limit = { 
-						ROOT = { 
-							is_female = no
-							NOT = { culture = summer_islander } #Promiscious culture does not care
-						} 
-					} 
-					mother = {
-						character_event = { id = 303 tooltip = EVTTOOLTIP303 } # The child's mother is very pleased
-						any_spouse = {
-							character_event = { id = 304 tooltip = EVTTOOLTIP304 } # The child's mother's husband is pissed off
-						}
-						consort = {
-							character_event = { id = 304 tooltip = EVTTOOLTIP304 } # The child's mother's lord is pissed off
-						}			
-					}
-				}
-				if = {
-					limit = { 
-						ROOT = { 
-							is_female = yes
-							NOT = { culture = summer_islander } #Promiscious culture does not care
-						} 
-					} 
-					father = {
-						character_event = { id = 303 tooltip = EVTTOOLTIP303A } # The child's father is very pleased
-						any_spouse = {
-							character_event = { id = 304 tooltip = EVTTOOLTIP304A } # The child's father's wife is pissed off
-						}		
-					}
-				}
-				ROOT = {
-					piety = -20
-					if = {
-						limit = { NOT = { culture = summer_islander } } #Promiscious culture does not care
-						any_child = {
-							limit = {
-								NOT = { character = ROOT_FROMFROMFROM }
-								dynasty = ROOT
-								NOT = { trait = bastard }
-							}
-							opinion = {
-								who = ROOT
-								modifier = legitimized_bastard
-								months = 60
-							}
-						}
-					}	
-				}
-			}			
-			else = { #non-newborn effects
-				tooltip = {
-					remove_trait = bastard
-					add_trait = legit_bastard
-					if = {
-						limit = {
-							is_patrician = no
-						}
-						dynasty = ROOT	
-					}
-				}	
-				mother = {
-					opinion = {
-						who = ROOT
-						modifier = legitimized_child
-						years = 10
-					}
-				}				
-				ROOT = { 
-					piety = -20 
-					any_child = {
-						limit = {
-							NOT = { character = FROMFROMFROM }
-							dynasty = PREV
-							NOT = { trait = bastard }
-						}
-						opinion = {
-							who = ROOT
-							modifier = legitimized_bastard
-							months = 36
-						}
-					}
+					character_event = { id = bastard.152 tooltip = "EVTTOOLTIPBASTARD152" }
+					opinion = { who = ROOT modifier = legitimized_child years = 10 }
 					any_spouse = {
 						limit = {
-							NOT = { is_parent_of = FROMFROMFROM }
-						}
-						opinion = {
-							who = ROOT
-							modifier = legitimized_bastard
-							years = 20
-						}
-					}
-				}
-				if = {
-					limit = {
-						prisoner = yes
-						host = { character = ROOT }
-					}
-					imprison = no
-				}	
-				hidden_tooltip = {
-					character_event = { id = bastard.999 } #generic legitimise event
-				}
-				event_target:chronicle_player = {
-					if = {
-						limit = { 
-							OR = {	
-								character = ROOT_FROMFROMFROM
-								is_close_relative = ROOT_FROMFROMFROM
-								is_liege_or_above = ROOT_FROMFROMFROM
-							}
-						}
-						chronicle = {
-							entry = CHRONICLE_BASTARD_LEGITIMISED
-							portrait = [FromFrom.GetID]
-						}	
-					}
-				}
-				hidden_tooltip = { #inform family
-					any_dynasty_member = { 
-						limit = {
+							NOT = { any_child = { character = FROM } }
 							NOT = { character = ROOT }
-							NOT = { character = FROM }
-							is_alive = yes
-							OR = {
-								ai = no
-								dynasty_head = { character = PREV }
-								is_parent_of = ROOT_FROMFROMFROM
-								is_grandparent_of = ROOT_FROMFROMFROM
-							}	
 						}
-						letter_event = { id = bastard.501 }
+						character_event = { id = bastard.153 tooltip = "EVTTOOLTIPBASTARD153" }
 					}
-					father = {
-						if = {
-							limit = {
-								NOT = { dynasty = ROOT }				
-								NOT = { character = FROM }
-								is_alive = yes					
-							}
-							letter_event = { id = bastard.501 }
+				}
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					OR = {
+						mother = { dynasty = 0 }
+						mother = {
+							is_married = yes
+							is_married_matrilineally = no
 						}
 					}
-					mother = {
-						if = {
-							limit = {
-								NOT = { dynasty = ROOT }			
-								NOT = { character = FROM }
-								is_alive = yes					
-							}
-							letter_event = { id = bastard.501 }
-						}
-					}
-					any_child = {
-						limit = {
-							ai = no
-							NOT = { dynasty = ROOT }				
-							NOT = { character = FROM }
-							is_alive = yes				
-							NOT = { is_parent_of = ROOT_FROMFROMFROM }
-						}
-						letter_event = { id = bastard.501 }
-					}
+					father = { is_alive = yes }
+				}
+			}
+			FROM = {
+				father = {
+					character_event = { id = bastard.151 tooltip = "EVTTOOLTIPBASTARD151" }
+					opinion = { who = ROOT modifier = legitimized_child years = 10 }
 					any_spouse = {
 						limit = {
-							ai = no
-							NOT = { dynasty = ROOT }				
-							NOT = { character = FROM }
-							is_alive = yes					
-							NOT = { is_parent_of = ROOT_FROMFROMFROM }
-							NOT = { is_child_of = ROOT }
+							NOT = { any_child = { character = FROM } }
+							NOT = { character = ROOT }
 						}
-						letter_event = { id = bastard.501 }
+						character_event = { id = bastard.153 tooltip = "EVTTOOLTIPBASTARD153" }
 					}
 				}
-			}
-		}	
-	}
-}
-letter_event = {  ###Inform reject
-	id = 76109
-	desc = "EVTDESC76109"
-	
-	is_triggered_only = yes
-	
-	option = {
-		name = "EVTOPTA76109"
-		prestige = -50
-		show_portrait = FROMFROMFROM
-		clr_character_flag = legitimising_bastard
-		FROMFROMFROM = {
-			if = {
-				limit = { NOT = { age = 1 } }
-				acknowledge_newborn_FROM_effect = yes
-				if = {
-					limit = { 
-						ROOT = { 
-							is_female = no
-							NOT = { culture = summer_islander } #Promiscious culture does not care
-						} 
-					} 	
-					mother = {
-						character_event = { id = 307 tooltip = EVTTOOLTIP307 } # The child's mother is pleased
-						any_spouse = {
-							character_event = { id = 304 tooltip = EVTTOOLTIP304 } # The child's mother's husband is pissed off
+				mother = {
+					character_event = { id = bastard.152 tooltip = "EVTTOOLTIPBASTARD152" }
+					opinion = { who = ROOT modifier = legitimized_child years = 10 }
+					any_spouse = {
+						limit = {
+							NOT = { any_child = { character = FROM } }
+							NOT = { character = ROOT }
 						}
-						consort = {
-							character_event = { id = 304 tooltip = EVTTOOLTIP304 } # The child's mother's lord is pissed off
-						}				
-					}
-				}
-				if = {
-					limit = { 
-						ROOT = { 
-							is_female = yes
-							NOT = { culture = summer_islander } #Promiscious culture does not care
-						} 
-					} 	
-					father = {
-						character_event = { id = 307 tooltip = EVTTOOLTIP307A } # The child's father is pleased
-						any_spouse = {
-							character_event = { id = 304 tooltip = EVTTOOLTIP304A } # The child's father's wife is pissed off
-						}			
+						character_event = { id = bastard.153 tooltip = "EVTTOOLTIPBASTARD153" }
 					}
 				}
 			}
 		}
-	}
-}	
-character_event = {  ###Inform regent rejected
-	id = bastard.499
-	desc = "EVTDESCbastard.499"
-	
-	is_triggered_only = yes
-	show_from_from_from = yes
-	
-	option = {
-		name = "EVTOPTAbastard.499"
-		show_portrait = FROM
-		show_portrait = FROMFROMFROMFROM
-		tooltip = {
-			reverse_opinion = {
-				who = FROMFROMFROMFROM
-				modifier = opinion_refused_legit
-				years = 15
-			}
-		}	
-	}
-}
-character_event = {  ###Inform regent accepted
-	id = bastard.500
-	desc = "EVTDESCbastard.500"
-	
-	is_triggered_only = yes
-	show_from_from_from = yes
-	
-	option = {
-		name = "EVTOPTAbastard.500"
-		show_portrait = FROM
-		show_portrait = FROMFROMFROMFROM
-		tooltip = {
-			reverse_opinion = {
-				who = FROMFROMFROMFROM
-				modifier = opinion_accepted_legit
-				years = 15
-			}
-		}	
-	}
-}
-letter_event = {  ###Inform family
-	id = bastard.501
-	desc = "EVTDESCbastard.501"
-	
-	is_triggered_only = yes
-	show_from_from = yes
-	
-	option = { #OK
-		name = "EVTOPTAbastard.501"
-		ai_chance = {
-			factor = 10
-			modifier = {
-				factor = 2
-				trait = humble
-			}
-			modifier = {
-				factor = 2
-				trait = patient
-			}
-			modifier = {
-				factor = 2
-				trait = kind
-			}
-			modifier = {
-				factor = 1.5
-				opinion = { who = FROMFROMFROMFROM value = 15 }
-			}
-			modifier = {
-				factor = 1.5
-				opinion = { who = FROMFROMFROMFROM value = 40 }
-			}
-			modifier = {
-				factor = 1.5
-				opinion = { who = FROMFROMFROMFROM value = 65 }
-			}
-			modifier = {
-				factor = 1.5
-				opinion = { who = FROMFROMFROMFROM value = 90 }
-			}
-		}
-		show_portrait = FROMFROMFROMFROM
-		show_portrait = FROM
 		if = {
 			limit = {
-				ai = no
-				is_female = yes
-				trait = disinherited
-				has_character_flag = matri_inheritance_check
-			}
-			custom_tooltip = { text = TOOLTIPbastard.501B }
-		}
-	}
-	
-	option = { #I am angry at this
-		name = "EVTOPTBbastard.501"
-		trigger = {
-			NOT = { trait = incapable }
-			OR = {
-				AND = {
-					dynasty = FROMFROMFROMFROM
-					dynasty_head = { character = ROOT }					
-				}	
 				OR = {
-					is_parent_of = FROMFROMFROMFROM
-					is_grandparent_of = FROMFROMFROMFROM
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = bio_directionist
+					religion_group = religious_group
 				}
-			}	
+			}
+			piety = -100
+			prestige = -100
 		}
 		ai_chance = {
-			factor = 10
-			modifier = { #Reasons to be angry
-				factor = 0
-				NOT = { trait = lunatic } 
-				NOT = { trait = proud }
-				NOT = { trait = just }
-				NOT = { trait = radical }
-				NOT = { trait = wroth }
-				opinion = { who = FROMFROMFROMFROM value = -19 } #I dislike the bastard
-				OR = { #This changed by heir
-					primary_title = { has_law = succ_feudal_elective }
-					NOT = { current_heir = { character = FROM } } 
-				}	
-			}
+			factor = 50
+			# Special case - the parents have since gotten married
 			modifier = {
-				factor = 2
-				trait = proud
+				factor = 10
+				FROM = { father = { any_spouse = { FROM = { mother = { character = PREVPREV } } } } }
 			}
-			modifier = {
-				factor = 2
-				trait = wroth
-			}
-			modifier = {
-				factor = 2
-				trait = cruel
-			}
-			modifier = {
-				factor = 1.5
-				NOT = { opinion = { who = FROMFROMFROMFROM value = -15 } }
-			}
-			modifier = {
-				factor = 1.5
-				NOT = { opinion = { who = FROMFROMFROMFROM value = -40 } }
-			}
-			modifier = {
-				factor = 1.5
-				NOT = { opinion = { who = FROMFROMFROMFROM value = -65 } }
-			}
-			modifier = {
-				factor = 1.5
-				NOT = { opinion = { who = FROMFROMFROMFROM value = -90 } }
-			}
-		}
-		prestige = -25
-		opinion = {
-			who = FROMFROM
-			modifier = opinion_legitimised_kin_angry
-			months = 120
-		}
-	}
-}	
-#First Night- peasant presents a baby
-character_event = {
-	id = 76110
-	desc = "EVTDESC76110"
-	picture = GFX_evt_quarrel
-	
-	min_age = 16
-	only_men = yes
-	capable_only = yes
-	prisoner = no
-	
-	is_triggered_only = yes
-	
-	trigger = {
-		OR = {
-			AND = {
-				is_ruler = yes
-				crownlaw_title = { has_law = first_night_1 }
-				higher_tier_than = BARON
-			}
-			AND = {
-				is_ruler = no
-				liege = {
-					is_close_relative = ROOT
-					crownlaw_title = { has_law = first_night_1 }
-					higher_tier_than = BARON
-				}	
-			}
-		}	
-		fertility = 0.1
-		NOT = { trait = honorable }
-		NOT = { trait = kind }
-		NOT = { trait = chaste }
-		NOT = { trait = celibate }
-		NOT = { trait = homosexual }
-		NOT = { trait = eunuch }		
-	}
-	
-	weight_multiplier = {
-		days = 1
-		
-		modifier = {
-			factor = 3
-			culture = high_valyrian
-		}
-		modifier = {
-			factor = 4
-			trait = lustful
-		}
-		modifier = {
-			factor = 2
-			trait = lunatic
-		}	
-		modifier = {
-			factor = 2
-			trait = proud
-		}	
-		modifier = {
-			factor = 2
-			trait = cruel
-		}	
-		modifier = {
-			factor = 2
-			trait = arbitrary
-		}	
-		modifier = {
-			factor = 0.5
-			trait = humble
-		}	
-		modifier = {
-			factor = 0.5
-			trait = patient
-		}	
-		modifier = {
-			factor = 0.5
-			trait = just
-		}			
-		modifier = {
-			factor = 0.2
-			trait = shy
-		}
-		modifier = {
-			factor = 0.5
-			NOT = { fertility = 0.3 }
-		}
-		modifier = {
-			factor = 1.5
-			fertility = 0.7
-		}
-		modifier = {
-			factor = 1.5
-			fertility = 0.9
-		}
-		modifier = {
-			factor = 0.5
-			num_of_children = 6
-		}
-		modifier = {
-			factor = 0.5
-			num_of_children = 8
-		}
-		modifier = {
-			factor = 0.5
-			num_of_children = 10
-		}
-	}
-	
-	immediate = {
-		if = {
-			limit = { is_ruler = yes }
-			random_vassal = {
-				limit = { tier = BARON is_theocracy = no }
-				random_list = {
-					50 = {
-						create_character = {
-							age = 0
-							female = no
-							culture = ROOT
-							dynasty = none
-							historical = yes
-							genetic_father = ROOT
-						}						
-					}	
-					50 = {
-						create_character = {
-							age = 0
-							female = yes
-							culture = ROOT
-							dynasty = none
-							historical = yes
-							genetic_father = ROOT
-						}
-					}
-				}	
-				new_character = {
-					character_event = { id = birth.990 } #on_birth event
-					set_father = ROOT
-					save_event_target_as = first_night_seed
-				}
-			}
-		}
-		if = {
-			limit = { is_ruler = no }
-			liege = {
-				random_vassal = {
-					limit = { tier = BARON is_theocracy = no }
-					random_list = {
-						50 = {
-							create_character = {
-								age = 0
-								female = no
-								culture = ROOT
-								dynasty = none
-								historical = yes
-								genetic_father = ROOT
-							}						
-						}	
-						50 = {
-							create_character = {
-								age = 0
-								female = yes
-								culture = ROOT
-								dynasty = none
-								historical = yes
-								genetic_father = ROOT
-							}
-						}
-					}	
-					new_character = {
-						character_event = { id = birth.990 } #on_birth event
-						set_father = ROOT
-						save_event_target_as = first_night_seed
-					}
-				}
-			}	
-		}
-		if = {
-			limit = { NOT = { event_target:first_night_seed = { always = yes } } }
-			random_list = {
-				50 = {
-					create_character = {
-						age = 0
-						female = no
-						culture = ROOT
-						dynasty = none
-						historical = yes
-						genetic_father = ROOT
-					}					
-				}	
-				50 = {
-					create_character = {
-						age = 0
-						female = yes
-						culture = ROOT
-						dynasty = none
-						historical = yes
-						genetic_father = ROOT
-					}
-				}
-			}	
-			new_character = {
-				character_event = { id = birth.990 } #on_birth event
-				set_father = ROOT
-				save_event_target_as = first_night_seed
-			}
-		}
-		event_target:first_night_seed = {
-			if = {
-				limit = { culture = high_valyrian }
-				character_event = { id = high_valyrian.1 }
-			}
-			if = {
-				limit = { ROOT = { trait = clubfooted } }
-				random = { chance = 15 add_trait = clubfooted }
-			}
-			if = {
-				limit = { ROOT = { trait = harelip } }
-				random = { chance = 15 add_trait = harelip }
-			}
-			if = {
-				limit = { ROOT = { trait = hunchback } }
-				random = { chance = 15 add_trait = hunchback }
-			}
-			if = {
-				limit = { ROOT = { trait = fair } }
-				random = { chance = 15 add_trait = fair }
-			}
-			if = {
-				limit = { ROOT = { trait = ugly  } }
-				random = { chance = 10 add_trait = ugly }
-			}
-			if = {
-				limit = { ROOT = { trait = dwarf } }
-				random = { chance = 50 add_trait = dwarf }
-			}
-			if = {
-				limit = { ROOT = { trait = genius } }
-				random = { chance = 15 add_trait = genius }
-			}
-			if = {
-				limit = { ROOT = { trait = quick } }
-				random = { chance = 15 add_trait = quick }
-			}
-			if = {
-				limit = { ROOT = { trait = slow } }
-				random = { chance = 15 add_trait = slow }
-			}
-			if = {
-				limit = { ROOT = { trait = imbecile } }
-				random = { chance = 15 add_trait = imbecile }
-			}
-			if = {
-				limit = { ROOT = { trait = inbred } }
-				random = { chance = 25 add_trait = inbred }
-			}
-			if = {
-				limit = { ROOT = { trait = strong } }
-				random = { chance = 15 add_trait = strong }
-			}
-			if = {
-				limit = { ROOT = { trait = weak } }
-				random = { chance = 15 add_trait = weak }
-			}
-			if = {
-				limit = { ROOT = { trait = tall } }
-				random = { chance = 15 add_trait = tall }
-			}
-			if = {
-				limit = { 
-					NOT = { trait = clubfooted }
-					NOT = { trait = harelip } 
-					NOT = { trait = hunchback }						
-				}
-				random = { chance = 50 random = { chance = 1 add_trait = clubfooted } }
-			}
-			if = {
-				limit = { 
-					NOT = { trait = clubfooted }
-					NOT = { trait = harelip } 
-					NOT = { trait = hunchback }						
-				}
-				random = { chance = 50 random = { chance = 1 add_trait = harelip } }
-			}
-			if = {
-				limit = { 
-					NOT = { trait = clubfooted }
-					NOT = { trait = harelip } 
-					NOT = { trait = hunchback }						
-				}
-				random = { chance = 50 random = { chance = 1 add_trait = hunchback } }
-			}
-			if = {
-				limit = { 
-					NOT = { trait = fair }
-					NOT = { trait = ugly } 					
-				}
-				random = { chance = 1 add_trait = fair }
-			}
-			if = {
-				limit = { 
-					NOT = { trait = fair }
-					NOT = { trait = ugly } 					
-				}
-				random = { chance = 1 add_trait = ugly }
-			}
-			if = {
-				limit = { 
-					NOT = { trait = dwarf }
-					NOT = { trait = tall } 					
-				}
-				random = { chance = 25 random = { chance = 1 add_trait = dwarf } }
-			}
-			if = {
-				limit = { 
-					NOT = { trait = genius }
-					NOT = { trait = quick } 
-					NOT = { trait = slow } 
-					NOT = { trait = imbecile } 					
-				}
-				random = { chance = 50 random = { chance = 1 add_trait = genius } }
-			}
-			if = {
-				limit = { 
-					NOT = { trait = genius }
-					NOT = { trait = quick } 
-					NOT = { trait = slow } 
-					NOT = { trait = imbecile } 					
-				}
-				random = { chance = 1 add_trait = quick }
-			}
-			if = {
-				limit = { 
-					NOT = { trait = genius }
-					NOT = { trait = quick } 
-					NOT = { trait = slow } 
-					NOT = { trait = imbecile } 					
-				}
-				random = { chance = 1 add_trait = slow }
-			}
-			if = {
-				limit = { 
-					NOT = { trait = genius }
-					NOT = { trait = quick } 
-					NOT = { trait = slow } 
-					NOT = { trait = imbecile } 					
-				}
-				random = { chance = 50 random = { chance = 1 add_trait = imbecile } }
-			}
-			if = {
-				limit = { 
-					NOT = { trait = strong }
-					NOT = { trait = weak } 					
-				}
-				random = { chance = 1 add_trait = strong }
-			}
-			if = {
-				limit = { 
-					NOT = { trait = strong }
-					NOT = { trait = weak } 					
-				}
-				random = { chance = 1 add_trait = weak }
-			}
-			if = {
-				limit = { 
-					NOT = { trait = dwarf }
-					NOT = { trait = tall } 					
-				}
-				random = { chance = 50 random = { chance = 1 add_trait = tall } }
-			}
-		}		
-	}
-		
-	option = {
-		name = "EVTOPTA76110" #Denounce
-		ai_chance = { 
-			factor = 125
-			modifier = {
-				factor = 3
-				trait = proud
-			}
-			modifier = {
-				factor = 3
-				trait = cruel
-			}
-			modifier = {
-				factor = 3
-				trait = wroth
-			}
-			modifier = {
-				factor = 2
-				trait = arbitrary
-			}
-			modifier = {
-				factor = 2
-				trait = ruthless
-			}
+			# Personality
 			modifier = {
 				factor = 4
-				event_target:first_night_seed = {
-					OR = {
-						trait = clubfooted
-						trait = harelip 
-						trait = hunchback
-						trait = ugly
-						trait = dwarf
-						trait = weak
-						trait = inbred
-						trait = imbecile
-						trait = slow
-					}
-				}
-			}		
-		}	
-		if = {
-			limit = { 
-				is_ruler = yes 
-				NOT = { culture_group = valyrian }
-			}
-			capital_scope = {
-				add_province_modifier = {
-					name = claimed_first_night
-					duration = 365
-				}
-			}
-		}
-		if = { #If important keep the bastard
-			limit = {
-				OR = {
-					higher_tier_than = COUNT
-					ai = no
-					AND = {
-						is_ruler = no
-						liege = {
-							OR = {
-								higher_tier_than = COUNT
-								ai = yes
-							}	
-						}
-					}
-				}
-			}
-			event_target:first_night_seed = {
-				custom_tooltip = {
-					text = TOOLTIPEVTOPTA76110		
-					hidden_tooltip = { 
-						add_trait = bastard
-						set_father = 0
-						set_real_father = ROOT 
-					}
-				}
-			}
-			break = yes
-		}	
-		hidden_tooltip = {
-			#If unimportant cull the bastard
-			event_target:first_night_seed = {
-				set_father = 0
-				death = { death_reason = death_missing }
-			}
-		}	
-	}
-	option = {
-		name = "EVTOPTB76110" #Acknowledge
-		ai_chance = { 
-			factor = 25
-			modifier = {
-				factor = 3
-				trait = humble
+				trait = friendly
 			}
 			modifier = {
-				factor = 3
-				trait = kind
-			}
-			modifier = {
-				factor = 3
-				trait = patient
+				factor = 0.25
+				trait = cold
 			}
 			modifier = {
 				factor = 2
-				trait = just
+				trait = open_minded
 			}
 			modifier = {
-				factor = 2
-				trait = familyperson
+				factor = 0.5
+				trait = close_minded
 			}
-			modifier = {
-				factor = 3
-				event_target:first_night_seed = {
-					OR = {
-						trait = fair
-						trait = tall
-						trait = strong
-						trait = genius
-						trait = quick
-					}
-				}
-			}	
-		}
-		event_target:first_night_seed = {
-			acknowledge_newborn_FROM_effect = yes
-			if = {
-				limit = { ROOT = { ai = no } }
-				character_event = { id = CM.19011 } #chronicle
-			}
-		}
-		if = {
-			limit = { is_ruler = yes }
-			event_target:first_night_seed = {
-				move_character = ROOT
-			}
-		}	
-		hidden_tooltip = {
-			if = {
-				limit = { is_ruler = no }
-				liege = { character_event = { id = 76111 } }
-			}
-		}
-	}
-	option = {
-		name = "EVTOPTC76110" #legitimise
-		trigger = {
-			can_legitimise_bastards_trigger = yes
-			NOT = { trait = bastard } 
-			NOT = { dynasty = 0 }
-			can_press_claims_trigger = yes
-		}
-		ai_chance = { 
-			factor = 10
-			modifier = {
-				factor = 3
-				is_ruler = yes
-				age = 30
-				NOT = {
-					any_child = {
-						is_alive = yes
-						NOT = { trait = bastard }
-					}
-				}
-			}
-			modifier = {
-				factor = 3
-				trait = humble
-			}
-			modifier = {
-				factor = 3
-				trait = kind
-			}
-			modifier = {
-				factor = 3
-				trait = patient
-			}
-			modifier = {
-				factor = 3
-				trait = honorable
-			}
-			modifier = {
-				factor = 4
-				event_target:first_night_seed = {
-					OR = {
-						trait = fair
-						trait = tall
-						trait = strong
-						trait = genius
-						trait = quick
-					}
-				}
-			}
-		}
-		prestige = -50
-		event_target:first_night_seed = {
-			legitimise_newborn_FROM_effect = yes
-			if = {
-				limit = { ROOT = { ai = no } }
-				character_event = { id = CM.19011 } #chronicle
-			}
-		}
-		if = {
-			limit = { is_ruler = yes }
-			event_target:first_night_seed = {
-				move_character = ROOT
-			}
-		}
-		if = {
-			limit = { ROOT = { NOT = { culture = summer_islander } } } #Promiscious culture does not care
-			any_child = {
-				limit = {
-					dynasty = ROOT
-					NOT = { trait = bastard }
-					NOT = { trait = legit_bastard }
-				}
-				opinion = {
-					who = ROOT
-					modifier = legitimized_bastard
-					months = 60
-				}
-			}
-		}	
-		hidden_tooltip = {
-			if = {
-				limit = { is_ruler = no }
-				liege = { character_event = { id = 76111 } }
-			}
-		}		
-	}
-}
-#Inform relative acknowledge first night bastard
-character_event = {
-	id = 76111
-	desc = "EVTDESC76111"
-	picture = GFX_evt_quarrel
-	
-	is_triggered_only = yes
-	
-	option = {
-		name = EVTOPT76111
-		FROM = {
-			event_target:first_night_seed = {
-				move_character = ROOT
-			}
-		}
-	}
-}	
-
-##Cersei Style bastard murder##
-character_event = {
-	id = bastard.1
-	desc = "EVTDESCbastard.1"
-	picture = GFX_evt_quarrel
-	
-	is_triggered_only = yes
-	prisoner = no
-	capable_only = yes
-	
-	trigger = {
-		liege = {
-			is_child_of = FROM
-			is_child_of = ROOT
-		}
-		FROM = {
-			trait = lustful
-			any_child = {
-				trait = bastard
-				is_ruler = no
-				NOT = { is_child_of = ROOT }
-				is_alive = yes
-				OR = {
-					at_location = ROOT
-					location = { owner = { is_liege_of = ROOT } }				
-				}	
-				NOT = { is_inaccessible_trigger = yes }
-			}
-		}				
-		OR = {
-			intrigue = 14
-			AND = { 
-				intrigue = 10
-				OR = {
-					is_councillor = yes
-					has_minor_title = title_regent
-				}
-			}	
-		}
-		OR = {
-			trait = paranoid
-			trait = ruthless
-			trait = ambitious
-		}
-		NOT = { trait = trusting }
-		NOT = { trait = honorable }
-	}
-	
-	option = {
-		name = EVTOPTAbastard.1 #Have them all removed
-		ai_chance = {
-			factor = 33
-			modifier = {
-				factor = 2
-				trait = paranoid
-			}
-			modifier = {
-				factor = 2
-				trait = ruthless
-			}
-			modifier = {
-				factor = 2
-				trait = ambitious
-			}
-			modifier = {
-				factor = 2
-				trait = deceitful
-			}
-			modifier = {
-				factor = 1.66
-				trait = wroth
-			}
-			modifier = {
-				factor = 1.66
-				trait = lunatic
-			}
-			modifier = {
-				factor = 1.66
-				trait = envious
-			}
-			modifier = {
-				factor = 1.66
-				trait = cruel
-			}
-		}
-		tooltip_info = intrigue
-		tooltip = { #display targets
-			FROM = {
-				any_child = {
-					limit = {
-						trait = bastard
-						is_ruler = no
-						NOT = { is_child_of = ROOT }
-						is_alive = yes
-						OR = {
-							at_location = ROOT
-							location = { owner = { is_liege_of = ROOT } }				
-						}	
-						NOT = { is_inaccessible_trigger = yes }
-					}
-					tooltip = { show_portrait = yes }
-					custom_tooltip = { text = TOOLTIPbastard.1 }
-				}
-			}
-			top_liege = {
-				any_realm_character = {
-					limit = {
-						trait = bastard
-						is_ruler = no
-						NOT = { is_child_of = ROOT }
-						real_father_even_if_dead = { character = FROM }
-						OR = {
-							at_location = ROOT
-							location = { owner = { is_liege_of = ROOT } }				
-						}	
-						NOT = { is_inaccessible_trigger = yes }
-					}
-					tooltip = { show_portrait = yes }
-					custom_tooltip = { text = TOOLTIPbastard.1 }
-				}
-			}
-		}
-		random_list = {
-			80 = { #undiscovered
-				modifier = {
-					factor = 1.5
-					intrigue = 14
-				}
-				modifier = {
-					factor = 1.5
-					intrigue = 18
-				}
-				character_event = { id = bastard.2 days = 4 tooltip = TOOLTIPbastard.2 }
-			}
-			20 = { #discovered
-				character_event = { id = bastard.3 days = 4 tooltip = TOOLTIPbastard.3 }
-			}
-		}
-	}
-	option = {
-		name = EVTOPTBbastard.1 #No
-		ai_chance = {
-			factor = 66
 			
+			# Personally insulted
 			modifier = {
-				factor = 3
-				trait = honest
-			}
-			modifier = {
-				factor = 2
-				trait = content
-			}
-			modifier = {
-				factor = 1.66
-				trait = patient
-			}
-			modifier = {
-				factor = 1.66
-				trait = kind
-			}
-		}
-	}
-}	
-character_event = { #Undiscovered
-	id = bastard.2
-	desc = "EVTDESCbastard.2"
-	picture = GFX_evt_quarrel
-	
-	is_triggered_only = yes
-	prisoner = no
-	capable_only = yes
-	
-	option = {
-		name = EVTOPTAbastard.2
-		FROMFROM = {
-			any_child = {
-				limit = {
-					trait = bastard
-					is_ruler = no
-					NOT = { is_child_of = ROOT }
-					is_alive = yes
+				factor = 0.25
+				NOT = { trait = friendly }
+				FROM = {
 					OR = {
-						at_location = ROOT
-						location = { owner = { is_liege_of = ROOT } }				
-					}	
-					NOT = { is_inaccessible_trigger = yes }
-				}
-				tooltip = { death = yes }
-				hidden_tooltip = { character_event = { id = bastard.4 } }
-			}
-		}
-		top_liege = {
-			any_realm_character = {
-				limit = {
-					trait = bastard
-					is_ruler = no
-					NOT = { is_child_of = ROOT }
-					real_father_even_if_dead = { character = FROMFROM }
-					OR = {
-						at_location = ROOT
-						location = { owner = { is_liege_of = ROOT } }				
-					}	
-					NOT = { is_inaccessible_trigger = yes }
-				}
-				tooltip = { death = yes }
-				hidden_tooltip = { character_event = { id = bastard.4 } }
-			}
-		}
-		hidden_tooltip = {
-			#spawn random escaped bastard?
-			random = {
-				chance = 33
-				character_event = { id = bastard.6 days = 2 }
-			}
-		}
-	}
-}	
-character_event = { #Discovered
-	id = bastard.3
-	desc = "EVTDESCbastard.3"
-	picture = GFX_evt_quarrel
-	
-	is_triggered_only = yes
-	prisoner = no
-	capable_only = yes
-	
-	option = {
-		name = EVTOPTAbastard.3
-		set_character_flag = bastard_murder_discovered
-		FROMFROM = {
-			any_child = {
-				limit = {
-					trait = bastard
-					is_ruler = no
-					NOT = { is_child_of = ROOT }
-					is_alive = yes
-					OR = {
-						at_location = ROOT
-						location = { owner = { is_liege_of = ROOT } }				
-					}	
-					NOT = { is_inaccessible_trigger = yes }				
-				}
-				tooltip = { death = yes }
-				hidden_tooltip = { character_event = { id = bastard.4 } }
-			}
-		}
-		top_liege = {
-			any_realm_character = {
-				limit = {
-					trait = bastard
-					is_ruler = no
-					NOT = { is_child_of = ROOT }
-					real_father_even_if_dead = { character = FROMFROM }
-					OR = {
-						at_location = ROOT
-						location = { owner = { is_liege_of = ROOT } }				
-					}	
-					NOT = { is_inaccessible_trigger = yes }
-				}
-				tooltip = { death = yes }
-				hidden_tooltip = { character_event = { id = bastard.4 } }
-			}
-		}
-		tooltip = { add_trait = dishonorable1 }
-		hidden_tooltip = {
-			change_variable = { which = "dishonorable" value = 10 } 
-			character_event = { id = maintenance.3 } #dishonorable trait
-		}
-		piety = -200
-		if = {
-			limit = {
-				NOT = { trait = deceitful }
-				NOT = { trait = honest }
-			}
-			random = {
-				chance = 33
-				add_trait = deceitful
-				hidden_tooltip = {
-					character_event = {
-						id = 38255 #Notify Deceitful
-					}
-				}				
-			}	
-		}		
-		if = {
-			limit = {
-				trait = honest
-			}
-			remove_trait = honest
-		}	
-		hidden_tooltip = { #inform realm
-			any_playable_ruler = {
-				limit = {
-					ai = no
-					NOT = { character = ROOT }
-					OR = {
-						is_close_relative = ROOT
-						ROOT = { liege = { is_vassal_or_below = PREVPREV } }
+						father = { any_spouse = { character = ROOT } }
+						mother = { any_spouse = { character = ROOT } }
 					}
 				}
-				character_event = { id = bastard.7 }
+			}
+			modifier = {
+				factor = 0.5
+				trait = cold
+				FROM = {
+					OR = {
+						father = { any_spouse = { character = ROOT } }
+						mother = { any_spouse = { character = ROOT } }
+					}
+				}
+			}
+			
+			# Ideological concerns
+			modifier = {
+				factor = 5
+				religion = astrist
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 5
+				religion = astrist
+				trait = radical
+			}
+			modifier = {
+				factor = 0.2
+				OR = {
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = bio_directionist
+					religion_group = religious_group
+				}
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 0.2
+				OR = {
+					religion = terran_imperial
+					religion = neo_feudal
+					religion = bio_directionist
+					religion_group = religious_group
+				}
+				trait = radical
+			}
+			
+			# Opinion of parents
+			modifier = {
+				factor = 1.25
+				FROM = { father = { reverse_opinion = { who = ROOT value = 100 } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { father = { reverse_opinion = { who = ROOT value = 90 } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { father = { reverse_opinion = { who = ROOT value = 80 } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { father = { reverse_opinion = { who = ROOT value = 70 } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { father = { reverse_opinion = { who = ROOT value = 60 } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { father = { reverse_opinion = { who = ROOT value = 50 } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { father = { reverse_opinion = { who = ROOT value = 40 } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { father = { reverse_opinion = { who = ROOT value = 30 } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { father = { reverse_opinion = { who = ROOT value = 20 } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { father = { reverse_opinion = { who = ROOT value = 10 } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { father = { NOT = { reverse_opinion = { who = ROOT value = -9 } } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { father = { NOT = { reverse_opinion = { who = ROOT value = -19 } } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { father = { NOT = { reverse_opinion = { who = ROOT value = -29 } } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { father = { NOT = { reverse_opinion = { who = ROOT value = -39 } } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { father = { NOT = { reverse_opinion = { who = ROOT value = -49 } } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { father = { NOT = { reverse_opinion = { who = ROOT value = -59 } } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { father = { NOT = { reverse_opinion = { who = ROOT value = -69 } } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { father = { NOT = { reverse_opinion = { who = ROOT value = -79 } } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { father = { NOT = { reverse_opinion = { who = ROOT value = -89 } } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { father = { NOT = { reverse_opinion = { who = ROOT value = -99 } } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { mother = { reverse_opinion = { who = ROOT value = 100 } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { mother = { reverse_opinion = { who = ROOT value = 90 } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { mother = { reverse_opinion = { who = ROOT value = 80 } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { mother = { reverse_opinion = { who = ROOT value = 70 } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { mother = { reverse_opinion = { who = ROOT value = 60 } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { mother = { reverse_opinion = { who = ROOT value = 50 } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { mother = { reverse_opinion = { who = ROOT value = 40 } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { mother = { reverse_opinion = { who = ROOT value = 30 } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { mother = { reverse_opinion = { who = ROOT value = 20 } } }
+			}
+			modifier = {
+				factor = 1.25
+				FROM = { mother = { reverse_opinion = { who = ROOT value = 10 } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { mother = { NOT = { reverse_opinion = { who = ROOT value = -9 } } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { mother = { NOT = { reverse_opinion = { who = ROOT value = -19 } } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { mother = { NOT = { reverse_opinion = { who = ROOT value = -29 } } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { mother = { NOT = { reverse_opinion = { who = ROOT value = -39 } } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { mother = { NOT = { reverse_opinion = { who = ROOT value = -49 } } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { mother = { NOT = { reverse_opinion = { who = ROOT value = -59 } } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { mother = { NOT = { reverse_opinion = { who = ROOT value = -69 } } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { mother = { NOT = { reverse_opinion = { who = ROOT value = -79 } } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { mother = { NOT = { reverse_opinion = { who = ROOT value = -89 } } } }
+			}
+			modifier = {
+				factor = 0.8
+				FROM = { mother = { NOT = { reverse_opinion = { who = ROOT value = -99 } } } }
 			}
 		}
 	}
-}	
-character_event = { #Bastard murdered
-	id = bastard.4
+	option = {
+		name = "EVTOPTBBASTARD110" # Denounce them
+		FROM = { add_trait = bastard }
+		if = {
+			limit = {
+				FROM = {
+					OR = {
+						mother = { is_married = no }
+						mother = { is_married_matrilineally = yes }
+						father = { is_alive = no }
+					}
+					NOT = {
+						AND = {
+							mother = { dynasty = 0 }
+							father = { is_alive = yes }
+						}
+					}
+				}
+			}
+			FROM = {
+				dynasty = mother_bastard
+				mother = {
+					hidden_tooltip = { character_event = { id = bastard.154 } }
+					opinion = { who = ROOT modifier = denounced_child years = 10 }
+					any_spouse = {
+						limit = {
+							NOT = { any_child = { character = FROM } }
+							NOT = { character = ROOT }
+						}
+						character_event = { id = bastard.155 tooltip = "EVTTOOLTIPBASTARD155" }
+					}
+				}
+				father = {
+					hidden_tooltip = { character_event = { id = bastard.154 } }
+					opinion = { who = ROOT modifier = denounced_child years = 10 }
+					any_spouse = {
+						limit = {
+							NOT = { any_child = { character = FROM } }
+							NOT = { character = ROOT }
+						}
+						character_event = { id = bastard.155 tooltip = "EVTTOOLTIPBASTARD155" }
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					OR = {
+						mother = { dynasty = 0 }
+						mother = {
+							is_married = yes
+							is_married_matrilineally = no
+						}
+					}
+					father = { is_alive = yes }
+				}
+			}
+			FROM = {
+				dynasty = father_bastard
+				mother = {
+					hidden_tooltip = { character_event = { id = bastard.154 } }
+					opinion = { who = ROOT modifier = denounced_child years = 10 }
+					any_spouse = {
+						limit = {
+							NOT = { any_child = { character = FROM } }
+							NOT = { character = ROOT }
+						}
+						character_event = { id = bastard.155 tooltip = "EVTTOOLTIPBASTARD155" }
+					}
+				}
+				father = {
+					hidden_tooltip = { character_event = { id = bastard.154 } }
+					opinion = { who = ROOT modifier = denounced_child years = 10 }
+					any_spouse = {
+						limit = {
+							NOT = { any_child = { character = FROM } }
+							NOT = { character = ROOT }
+						}
+						character_event = { id = bastard.155 tooltip = "EVTTOOLTIPBASTARD155" }
+					}
+				}
+			}
+		}
+		if = {
+			limit = { FROM = { mother = { any_spouse = { character = ROOT } } } }
+			FROM = { mother = { reverse_opinion = { who = ROOT modifier = unfaithful } } }
+			FROM = { father = { reverse_opinion = { who = ROOT modifier = cuckolded } } }
+		}
+		if = {
+			limit = { FROM = { father = { any_spouse = { character = ROOT } } } }
+			FROM = { father = { reverse_opinion = { who = ROOT modifier = unfaithful } } }
+			FROM = { mother = { reverse_opinion = { who = ROOT modifier = cuckolded } } }
+		}
+		if = {
+			limit = { religion = astrist }
+			piety = -100
+			prestige = -100
+		}
+		ai_chance = { factor = 50 }
+	}
+}
 
-	is_triggered_only = yes
-	hide_window = yes
-	
-	option = {
-		name = DEATH
-		ai_chance = {
-			factor = 80
-		}
-		if = {
-			limit = { FROM = { has_character_flag = bastard_murder_discovered } }
-			save_event_target_as = target_victim
-			FROM = { 
-				set_character_flag = murder_event_override
-				character_event = { id = 10 } # Consequences of discovery
-			} 
-			clear_event_target = target_victim
-			death = {
-				death_reason = death_murder
-				killer = FROM
-			}
-		}	
-		if = {
-			limit = { FROM = { NOT = { has_character_flag = bastard_murder_discovered } } }
-			death = {
-				death_reason = death_murder_unknown
-				killer = FROM
-			}
-		}	
-	}
-	option = {
-		name = ESCAPE
-		trigger = {
-			OR = {
-				intrigue = 8
-				mother = {
-					intrigue = 8
-					same_liege = ROOT
-					is_alive = yes
-				}
-			}
-		}
-		ai_chance = {
-			factor = 20
-			modifier = {
-				factor = 2
-				intrigue = 10
-			}
-			modifier = {
-				factor = 2
-				intrigue = 14
-			}
-			modifier = {
-				factor = 2
-				intrigue = 18
-			}
-			modifier = {
-				factor = 2
-				mother = {
-					intrigue = 8
-					same_liege = ROOT
-					is_alive = yes
-				}
-			}
-			modifier = {
-				factor = 2
-				mother = {
-					intrigue = 14
-					same_liege = ROOT
-					is_alive = yes
-				}
-			}
-			modifier = {
-				factor = 2
-				mother = {
-					intrigue = 18
-					same_liege = ROOT
-					is_alive = yes
-				}
-			}
-		}
-		if = {
-			limit = { same_liege = FROM }
-			leave_court_effect = yes
-			mother = {
-				if = {
-					limit = { same_liege = FROM }
-					ROOT = { liege = { reverse_banish = PREVPREV } }
-				}	
-			}
-		}
-		FROM = { character_event = { id = bastard.5 } }
-	}
-}	
-character_event = { #bastard escapes
-	id = bastard.5
-	desc = "EVTDESCbastard.5"
-	picture = GFX_evt_quarrel
-	
-	is_triggered_only = yes
-	
-	option = {
-		name = EVTOPTAbastard.5
-		if = {
-			limit = { has_character_flag = bastard_murder_discovered }
-			hidden_tooltip = { 
-				FROM = { save_event_target_as = target_victim }
-				set_character_flag = murder_event_override
-				character_event = { id = 11 }  # Consequences of discovery
-				FROM = { clear_event_target = target_victim }
-			}	
-			add_rival = FROM
-			tooltip = {
-				reverse_opinion = {
-					who = FROM
-					modifier = attempted_murder
-					months = 600
-				}
-			}
-		}	
-	}
-}	
-character_event = { #spawn escaped bastard
-	id = bastard.6
-	desc = "EVTDESCbastard.6"
-	picture = GFX_evt_quarrel
-	
-	is_triggered_only = yes
-	
-	immediate = {
-		liege = {
-			capital_scope = {
-				random_list = {
-					10 = {
-						create_character = {
-							age = 2
-							trait = bastard
-							dynasty = none
-							culture = FROMFROMFROM
-							religion = THIS
-							historical = yes
-							genetic_father = FROMFROMFROM
-						}
-					}	
-					10 = {
-						modifier = {
-							factor = 0
-							FROMFROMFROM = { NOT = { age = 23 } }
-						}
-						create_character = {
-							age = 8
-							trait = bastard
-							dynasty = none
-							culture = FROMFROMFROM
-							religion = THIS
-							historical = yes
-							genetic_father = FROMFROMFROM
-						}
-					}	
-					10 = {
-						modifier = {
-							factor = 0
-							FROMFROMFROM = { NOT = { age = 31 } }
-						}
-						create_character = {
-							age = 16
-							trait = bastard
-							dynasty = none
-							culture = FROMFROMFROM
-							religion = THIS
-							historical = yes
-							genetic_father = FROMFROMFROM
-						}
-					}	
-					10 = {
-						modifier = {
-							factor = 0
-							FROMFROMFROM = { NOT = { age = 39 } }
-						}
-						create_character = {
-							age = 24
-							trait = bastard
-							dynasty = none
-							culture = FROMFROMFROM
-							religion = THIS
-							historical = yes
-							genetic_father = FROMFROMFROM
-						}
-					}	
-					10 = {
-						modifier = {
-							factor = 0
-							FROMFROMFROM = { NOT = { age = 44 } }
-						}
-						create_character = {
-							age = 29
-							trait = bastard
-							dynasty = none
-							culture = FROMFROMFROM
-							religion = THIS
-							historical = yes
-							genetic_father = FROMFROMFROM
-						}
-					}	
-				}	
-				new_character = {
-					set_real_father = FROMFROMFROM
-					save_event_target_as = escaped_bastard
-					random = {
-						chance = 50
-						add_trait = ambitious
-						remove_trait = content
-					}
-				}
-				random = { #set mother
-					chance = 50
-					if = {
-						limit = { event_target:escaped_bastard = { age = 24 } }
-						create_character = {
-							age = 45
-							dynasty = none
-							female = yes
-							culture = THIS
-							religion = THIS
-							historical = yes
-						}
-					}
-					if = {
-						limit = { 
-							event_target:escaped_bastard = { 
-								age = 8
-								NOT = { age = 24 }
-							} 
-						}
-						create_character = {
-							age = 32
-							dynasty = none
-							female = yes
-							culture = THIS
-							religion = THIS
-							historical = yes
-						}
-					}
-					if = {
-						limit = { 
-							event_target:escaped_bastard = { 
-								NOT = { age = 8 }
-							} 
-						}
-						create_character = {
-							age = 18
-							dynasty = none
-							female = yes
-							culture = THIS
-							religion = THIS
-							historical = yes
-						}
-					}
-					new_character = {
-						event_target:escaped_bastard = { set_mother = PREV }
-						random = {
-							chance = 50
-							modifier = {
-								factor = 2
-								event_target:escaped_bastard = { NOT = { age = 16 } }
-							}
-							add_trait = ambitious
-							remove_trait = content
-						}
-					}
-				}	
-			}	
-		}
-		FROMFROMFROM = {
-			primary_title = { add_weak_pressed_claim = event_target:escaped_bastard }
-		}
-		event_target:escaped_bastard = {
-			bastard_nickname_mother_effect = yes
-			leave_court_effect = yes
-			mother = {
-				event_target:escaped_bastard = { liege = { reverse_banish = PREVPREV } }
-			}
-		}	
-	}
-	
-	option = {
-		name = EVTOPTAbastard.6	
-		event_target:escaped_bastard = {
-			tooltip = { show_portrait = yes }
-		}
-	}
-}	
-character_event = { #inform realm bastards murdered
-	id = bastard.7
-	desc = "EVTDESCbastard.7"
-	picture = GFX_evt_quarrel
-	
-	is_triggered_only = yes
-	
-	option = {
-		name = EVTOPTAbastard.7
-		FROMFROMFROM = { tooltip = { show_portrait = yes } }
-	}
-}	
-#Legitimise bastard, called from various places
+# Your liege legitimizes your newborn bastard child
 character_event = {
-	id = bastard.999
-	
+	id = bastard.151
+	desc = "EVTDESCBASTARD151"
+	picture = GFX_evt_birth
 	is_triggered_only = yes
-	hide_window = yes
-	
-	immediate = {
-		#remove cadet links
-		if = {
-			limit = { 
-				has_dynasty_flag = is_cadet_house 
-				trait = assign_mission_target
-				OR = {
-					father_even_if_dead = { has_dynasty_flag = owned_cadet_house_@PREV }
-					mother_even_if_dead = { has_dynasty_flag = owned_cadet_house_@PREV }
-				}	
-			}
-			remove_trait = assign_mission_target
-			clr_dynasty_flag = is_cadet_house
-			father_even_if_dead = {
-				clr_dynasty_flag = owned_cadet_house_@PREV
-				ROOT = { clr_dynasty_flag = cadet_house_@PREV }
-			}
-			mother_even_if_dead = {
-				clr_dynasty_flag = owned_cadet_house_@PREV
-				ROOT = { clr_dynasty_flag = cadet_house_@PREV }
-			}
-		}
-		
-		remove_trait = bastard
-		add_trait = legit_bastard	
-		if = {
-			limit = { 					
-				real_father_even_if_dead = { always = yes }
-				OR = {
-					NOT = { father_even_if_dead = { always = yes } }
-					has_character_flag = bastardised
-				}
-			}	
-			if = {
-				limit = { has_character_flag = bastardised }
-				clear_event_target = old_father
-				father_even_if_dead = { save_event_target_as = old_father }
-				clr_character_flag = bastardised
-				remove_trait = legit_bastard
-			}					
-			real_father_even_if_dead = {
-				ROOT = { set_father = PREV } 
-			}
-			event_target:old_father = { ROOT = { set_real_father = PREV } }
-			clear_event_target = old_father
-		}
-		if = { #May take mother's dynasty
-			limit = {
-				is_patrician = no
-				mother_even_if_dead = { NOT = { dynasty = 0 } }
-				NOT = { father_even_if_dead = { dynasty = ROOT } }
-				OR = {
-					father_even_if_dead = { dynasty = 0 }
-					mother_even_if_dead = {
-						OR = {
-							AND = {
-								is_ruler = yes
-								OR = {
-									primary_title = { has_law = true_cognatic_succession }
-									tier = EMPEROR
-								}	
-								ROOT = { father_even_if_dead = { ROOT = { mother_even_if_dead = { higher_tier_than = PREVPREV } } } }
-							}
-							AND = {
-								is_ruler = yes
-								primary_title = {
-									OR = {
-										has_law = enatic_cognatic_succession
-										has_law = enatic_succession
-									}
-								}	
-							}
-							AND = {
-								is_ruler = no
-								liege = {
-									primary_title = {
-										OR = {
-											has_law = enatic_cognatic_succession
-											has_law = enatic_succession
-										}
-									}
-								}	
-							}
-						}
-					}
-				}	
-			}
-			set_character_flag = mother_dynasty
-		}	
-		
-		father_even_if_dead = {
-			any_spouse = {
-				if = {
-					limit = {
-						NOT = {
-							is_parent_of = ROOT
-						}
-						is_alive = yes
-					}
-					opinion = {
-						who = ROOT
-						modifier = legitimized_bastard
-						years = 20
-					}
-				}
-			}
-			any_child = {
-				limit = {
-					is_alive = yes
-					NOT = { character = ROOT }
-					dynasty = PREV
-					NOT = { trait = bastard }
-					NOT = { has_character_flag = unbastardise }
-				}
-				opinion = {
-					who = ROOT
-					modifier = legitimized_bastard
-					months = 60
-				}
-			}
-		}
-		if = {
-			limit = { has_character_flag = mother_dynasty }
-			mother_even_if_dead = { 
-				ROOT = { 
-					# hidden_tooltip = {
-						# any_child_even_if_dead = {
-							# limit = { dynasty = ROOT }
-							# any_child_even_if_dead = {
-								# limit = { dynasty = ROOT }
-								# any_child_even_if_dead = {
-									# limit = { dynasty = ROOT }
-									# dynasty = PREVPREVPREVPREV 
-								# }
-								# dynasty = PREVPREVPREV 
-							# }
-							# dynasty = PREVPREV 
-						# }
-					# }
-					dynasty = PREV 
-				} 
-				if = {
-					limit = { is_alive = no }
-					primary_title = { add_pressed_claim = ROOT }
-					father_even_if_dead = {
-						if = {
-							limit = { is_alive = no }
-							primary_title = { 
-								if = {
-									limit = { ROOT = { NOT = { has_strong_claim = PREV } } }
-									add_weak_claim = ROOT
-								}
-							}
-						}	
-					}
-					mother_even_if_dead = {
-						if = {
-							limit = { is_alive = no }
-							primary_title = { 
-								if = {
-									limit = { ROOT = { NOT = { has_strong_claim = PREV } } }
-									add_weak_claim = ROOT
-								}
-							}
-						}	
-					}
-				}
-			}
-		}
-		if = {
-			limit = {
-				NOT = { has_character_flag = mother_dynasty }
-				father_even_if_dead = { NOT = { dynasty = 0 } }
-				is_patrician = no	
-			}
-			father_even_if_dead = { 
-				ROOT = { 
-					# hidden_tooltip = {
-						# any_child_even_if_dead = {
-							# limit = { dynasty = ROOT }
-							# any_child_even_if_dead = {
-								# limit = { dynasty = ROOT }
-								# any_child_even_if_dead = {
-									# limit = { dynasty = ROOT }
-									# dynasty = PREVPREVPREVPREV 
-								# }
-								# dynasty = PREVPREVPREV 
-							# }
-							# dynasty = PREVPREV 
-						# }
-					# }
-					dynasty = PREV 
-				}
-				if = {
-					limit = { is_alive = no }
-					primary_title = { add_pressed_claim = ROOT }
-					father_even_if_dead = {
-						if = {
-							limit = { is_alive = no }
-							primary_title = { 
-								if = {
-									limit = { ROOT = { NOT = { has_strong_claim = PREV } } }
-									add_weak_claim = ROOT
-								}
-							}
-						}	
-					}
-					mother_even_if_dead = {
-						if = {
-							limit = { is_alive = no }
-							primary_title = { 
-								if = {
-									limit = { ROOT = { NOT = { has_strong_claim = PREV } } }
-									add_weak_claim = ROOT
-								}
-							}
-						}	
-					}
-				}
-			}
-		}
-		clr_character_flag = mother_dynasty
-		hidden_tooltip = {
-			if = {
-				limit = { 
-					is_married_matrilineally = yes 
-					is_female = no
-				}
-				set_character_flag = no_wedding_event
-				any_spouse = {
-					limit = {
-						is_female = yes
-						NOR = {
-							NOT = { lower_tier_than = ROOT }
-							father_even_if_dead = {
-								NOT = { lower_tier_than = ROOT }
-							}
-							mother_even_if_dead = {
-								NOT = { lower_tier_than = ROOT }
-							}
-						}
-					}
-					set_character_flag = no_wedding_event
-					remove_spouse = ROOT
-					add_spouse = ROOT
-					clr_character_flag = no_wedding_event
-					#Matrilineal inheritance checks
-					if = {
-						limit = { is_ruler = yes }
-						add_trait = disinherited
-						set_character_flag = matri_inheritance_check
-						recalc_succession = yes
-					}
-					any_dynasty_member = {
-						limit = { 
-							is_ruler = yes 
-							is_close_relative = PREV
-							OR = {
-								current_heir = { character = PREVPREV }
-								primary_title = { 
-									OR = {
-										has_law = true_cognatic_succession 
-										has_law = enatic_cognatic_succession
-										has_law = enatic_succession
-									}	
-								}
-							}	
-						}
-						ROOT = { add_trait = disinherited }
-						set_character_flag = matri_inheritance_check
-						recalc_succession = yes
-					}
-				}
-				clr_character_flag = no_wedding_event
-			}	
-			if = {
-				limit = { is_female = no }
-				any_child_even_if_dead = {
-					limit = {
-						NOT = { trait = bastard }
-						NOT = {
-							father_even_if_dead = { 
-								NOT = { character = ROOT }
-								NOT = { dynasty = 0 }
-								dynasty = PREV
-								NOT = { lower_tier_than = ROOT }	
-							} 
-						}
-						NOT = {
-							mother_even_if_dead = { 
-								NOT = { character = ROOT }
-								NOT = { dynasty = 0 }
-								dynasty = PREV
-								NOT = { lower_tier_than = ROOT }
-							} 
-						}
-					}
-					any_child_even_if_dead = {
-						limit = { dynasty = PREV }
-						any_child_even_if_dead = {
-							limit = { dynasty = PREVPREV }
-							dynasty = ROOT
-						}
-						dynasty = ROOT
-					}
-					dynasty = ROOT
-				}
-			}
-		}
-		if = {
-			limit = {
-				has_bastard_nickname_trigger = yes
-			}
-			remove_nickname = yes
-		}
-		recalc_succession = yes
-		character_event = { id = dynamic_coa.1 } #check dynamic CoA
-	}
 	
 	option = {
-		name = OK
+		name = "EVTOPTCONFIRM"
+		FROM = { FROM = { dynasty = ROOT } }
+	}
+}
+character_event = {
+	id = bastard.152
+	desc = "EVTDESCBASTARD152"
+	picture = GFX_evt_birth
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+	}
+}
+# Your unfaithful spouse's bastard was legitimized!
+character_event = {
+	id = bastard.153
+	desc = "EVTDESCBASTARD153"
+	picture = GFX_evt_scandal
+	show_from_from = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTABASTARD155"
+		if = {
+			limit = { religion = astrist }
+			piety = -50
+		}
+		opinion= { who = FROM modifier = legitimized_bastard years = 10 }
+		FROMFROM = {
+			if = {
+				limit = { father = { any_spouse = { character = ROOT } } }
+				father = { reverse_opinion = { who = ROOT modifier = unfaithful } }
+				mother = { reverse_opinion = { who = ROOT modifier = cuckolded } }
+			}
+			if = {
+				limit = { mother = { any_spouse = { character = ROOT } } }
+				mother = { reverse_opinion = { who = ROOT modifier = unfaithful } }
+				father = { reverse_opinion = { who = ROOT modifier = cuckolded } }
+			}
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 4
+				trait = cold
+			}
+			modifier = {
+				factor = 0.25
+				trait = friendly
+			}
+			modifier = {
+				factor = 0.5
+				religion = astrist
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 0.5
+				religion = astrist
+				trait = radical
+			}
+			modifier = {
+				factor = 0.2
+				OR = {
+					religion = neo_feudal
+					religion = terran_imperial
+					religion = bio_directionist
+					religion_group = religious_group
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTBBASTARD155"
+		if = {
+			limit = { NOT = { religion = astrist } }
+			prestige = -50
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+character_event = {
+	id = bastard.154
+	desc = "EVTDESCBASTARD154"
+	picture = GFX_evt_birth
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+	}
+}
+# Your unfaithful spouse's bastard was denounced!
+character_event = {
+	id = bastard.155
+	desc = "EVTDESCBASTARD155"
+	picture = GFX_evt_scandal
+	show_from_from = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTABASTARD155"
+		if = {
+			limit = { religion = astrist }
+			piety = -50
+		}
+		opinion= { who = FROM modifier = denounced_bastard years = 10 }
+		FROMFROM = {
+			if = {
+				limit = { father = { any_spouse = { character = ROOT } } }
+				father = { reverse_opinion = { who = ROOT modifier = unfaithful } }
+				mother = { reverse_opinion = { who = ROOT modifier = cuckolded } }
+			}
+			if = {
+				limit = { mother = { any_spouse = { character = ROOT } } }
+				mother = { reverse_opinion = { who = ROOT modifier = unfaithful } }
+				father = { reverse_opinion = { who = ROOT modifier = cuckolded } }
+			}
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 4
+				trait = cold
+			}
+			modifier = {
+				factor = 0.25
+				trait = friendly
+			}
+			modifier = {
+				factor = 0.5
+				religion = astrist
+				NOT = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 0.5
+				religion = astrist
+				trait = radical
+			}
+			modifier = {
+				factor = 0.2
+				OR = {
+					religion = neo_feudal
+					religion = terran_imperial
+					religion = bio_directionist
+					religion_group = religious_group
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTBBASTARD155"
+		if = {
+			limit = { NOT = { religion = astrist } }
+			prestige = -50
+		}
+		ai_chance = { factor = 50 }
 	}
 }
