@@ -1,0 +1,148 @@
+namespace = narrative
+
+#placeholder startup event
+long_character_event = {
+	id = narrative.1
+	desc = "EVTDESCNARRATIVE1"
+	title = "EVTTITLENARRATIVE1"
+	picture = GFX_evt_city
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+
+narrative_event = { #Crisis Ended: Confederation Surrender - Colonies gain full independence
+	id = narrative.100
+	desc = "EVTDESCNARRATIVE100"
+	title = "EVTTITLENARRATIVE100"
+	picture = GFX_evt_cabal
+	is_triggered_only = yes
+	
+	option = { #Damn uppity colonials
+		name = "EVTOPTANARRATIVE100" 
+		trigger = {
+			OR = {
+				religion = terran_federalist
+				religion = terran_republican
+				religion = terran_imperial
+			}
+		}
+	}
+	option = { #Freedom!
+		name = "EVTOPTBNARRATIVE100" 
+		trigger = {
+			OR = {
+				religion = colonial_separatist
+				religion = neo_feudal
+				religion = neo_socialist
+				religion = astrist
+			}
+		}
+	}
+	option = { #Hope they don't crack down now...
+		name = "EVTOPTCNARRATIVE100" 
+		trigger = {
+			religion_group = outlaw_group
+		}
+	}	
+	option = { #Thank God its over
+		name = "EVTOPTDNARRATIVE100" 
+		trigger = {
+			OR = {
+				religion_group = religious_group
+				religion_group = transhumanist_group
+			}
+		}
+	}
+}
+
+narrative_event = { #Crisis Ended: Negotiated Peace
+	id = narrative.101
+	desc = "EVTDESCNARRATIVE101"
+	title = "EVTTITLENARRATIVE101"
+	picture = GFX_evt_office
+	is_triggered_only = yes
+	
+	option = { #It could be worse...
+		name = "EVTOPTANARRATIVE101" 
+		trigger = {
+			OR = {
+				religion = terran_federalist
+				religion = terran_republican
+				religion = terran_imperial
+			}
+		}
+	}
+	option = { #One day we shall all be free!
+		name = "EVTOPTBNARRATIVE101" 
+		trigger = {
+			OR = {
+				religion = colonial_separatist
+				religion = neo_feudal
+				religion = neo_socialist
+				religion = astrist
+			}
+		}
+	}
+	option = { #Hope they don't crack down now...
+		name = "EVTOPTCNARRATIVE101" 
+		trigger = {
+			religion_group = outlaw_group
+		}
+	}	
+	option = { #Thank God its over
+		name = "EVTOPTDNARRATIVE101" 
+		trigger = {
+			OR = {
+				religion_group = religious_group
+				religion_group = transhumanist_group
+			}
+		}
+	}
+}
+
+narrative_event = { #Crisis Ended: Victory for the Confedercy - only furthest colonies able to gain independence
+	id = narrative.102
+	desc = "EVTDESCNARRATIVE102"
+	title = "EVTTITLENARRATIVE102"
+	picture = GFX_evt_city
+	is_triggered_only = yes
+	
+	option = { #Victory for the Motherworld!
+		name = "EVTOPTANARRATIVE102" 
+		trigger = {
+			OR = {
+				religion = terran_federalist
+				religion = terran_republican
+				religion = terran_imperial
+			}
+		}
+	}
+	option = { #One day we shall come back...
+		name = "EVTOPTBNARRATIVE102" 
+		trigger = {
+			OR = {
+				religion = colonial_separatist
+				religion = neo_feudal
+				religion = neo_socialist
+				religion = astrist
+			}
+		}
+	}
+	option = { #Hope they don't crack down now...
+		name = "EVTOPTBCARRATIVE102" 
+		trigger = {
+			religion_group = outlaw_group
+		}
+	}	
+	option = { #Thank God its over
+		name = "EVTOPTDNARRATIVE102" 
+		trigger = {
+			OR = {
+				religion_group = religious_group
+				religion_group = transhumanist_group
+			}
+		}
+	}
+}
+
