@@ -1,0 +1,400 @@
+#New Events for Neofeudals
+namespace = neofeudal
+
+#neofeudal.0-5, Levy Taxation events
+character_event = {
+	id = neofeudal.0
+	desc = "EVTDESCNEOFEUDAL0"
+	picture = GFX_evt_council
+	border = GFX_evt_normal_frame_economy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		clr_character_flag = flag_requesting_funds
+		clr_character_flag = flag_funding_request_cooldown
+		set_character_flag = flag_funding_request_cooldown
+		hidden_tooltip = {
+			any_vassal = {
+				limit = {
+					NOT = { is_inaccessible_trigger = yes }
+					prisoner = no
+					NOT = { has_character_flag = do_not_disturb }
+					NOT = { trait = incapable }
+					war = no
+					is_adult = yes
+				}
+				letter_event = {
+					id = neofeudal.1
+					tooltip = "EVTTOOLTIPBUDGET1"
+					days = 5 
+					random = 3
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTNEVERMIND"
+		clr_character_flag = flag_requesting_funds
+	}
+}
+
+letter_event = {
+	id = neofeudal.1
+	desc = "EVTDESCNEOFEUDAL1"
+	border = GFX_evt_letter_frame_economy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTANEOFEUDAL1" # 10%
+		tooltip = { transfer_scaled_wealth = { to = FROM value = 0.1 } }
+		FROM = { hidden_tooltip = { letter_event = { id = neofeudal.2 } } } # Inform of response
+		ai_chance = {
+			factor = 40
+			# Opinion of FROM
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = -99 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = -89 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = -79 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = -69 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = -59 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = -49 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = -39 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = -29 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = -19 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = -9 }
+			}
+		}
+	}
+	
+	option = {
+		trigger = { scaled_wealth = 0.2 }
+		name = "EVTOPTBNEOFEUDAL1" # 20%
+		tooltip = { transfer_scaled_wealth = { to = FROM value = 0.2 } }
+		FROM = {
+			opinion = { who = ROOT modifier = opinion_moderate_budget }
+			hidden_tooltip = { letter_event = { id = neofeudal.3 } }
+		}
+		ai_chance = {
+			factor = 20
+			modifier = {
+				factor = 0.5
+				NOT = { FROM = { relative_power_to_liege = 0.2 } }
+			}
+			# Opinion of FROM
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = -99 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = -89 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = -79 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = -69 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = -59 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = -49 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = -39 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = -29 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = -19 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = -9 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 50 }
+			}
+		}
+	}
+	
+	option = {
+		trigger = { scaled_wealth = 0.3 }
+		name = "EVTOPTCNEOFEUDAL1" # 30%
+		tooltip = { transfer_scaled_wealth = { to = FROM value = 0.3 } }
+		FROM = {
+			opinion = { who = ROOT modifier = opinion_large_budget }
+			hidden_tooltip = { letter_event = { id = neofeudal.4 } }
+		}
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 0.5
+				NOT = { FROM = { relative_power_to_liege = 0.2 } }
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { FROM = { relative_power_to_liege = 0.3 } }
+			}
+			# Opinion of FROM
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = -99 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = -89 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = -79 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = -69 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = -59 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = -49 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = -39 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = -29 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = -19 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = -9 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 100 }
+			}
+		}
+	}
+	
+	option = {
+		# Send nothing
+		name = "EVTOPTDNEOFEUDAL1"
+		FROM = {
+			opinion = { who = ROOT modifier = opinion_no_budget }
+			hidden_tooltip = { letter_event = { id = neofeudal.5 } }
+		}
+		ai_chance = {
+			factor = 80
+			# No money
+			modifier = {
+				factor = 2
+				NOT = { scaled_wealth = 0.1 }
+			}
+			modifier = {
+				factor = 5
+				NOT = { scaled_wealth = 0.1 }
+				independent = yes
+			}
+			# Lots of money
+			modifier = {
+				factor = 0.8
+				scaled_wealth = 0.2
+			}
+			modifier = {
+				factor = 0.8
+				scaled_wealth = 0.3
+			}
+			modifier = {
+				factor = 0.8
+				scaled_wealth = 0.4
+			}
+			modifier = {
+				factor = 0.8
+				scaled_wealth = 0.5
+			}
+			modifier = {
+				factor = 0.8
+				scaled_wealth = 0.6
+			}
+			modifier = {
+				factor = 0.8
+				scaled_wealth = 0.7
+			}
+			modifier = {
+				factor = 0.8
+				scaled_wealth = 0.8
+			}
+			modifier = {
+				factor = 0.8
+				scaled_wealth = 0.9
+			}
+			modifier = {
+				factor = 0.8
+				scaled_wealth = 1
+			}
+			# FROM needs the money
+			modifier = {
+				factor = 0.5
+				FROM = { NOT = { wealth = 0 } }
+			}
+			modifier = {
+				factor = 2
+				FROM = { wealth = 100 }
+			}
+			modifier = {
+				factor = 0.25
+				FROM = {
+					any_war = {
+						using_cb = cb_military_campaign
+						attacker = { character = FROM }
+					}
+				}
+			}
+		}
+	}
+}
+
+letter_event = {
+	id = neofeudal.2
+	desc = "EVTDESCNEOFEUDAL2"
+	border = GFX_evt_letter_frame_economy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		FROM = { transfer_scaled_wealth = { to = ROOT value = 0.1 } }
+	}
+}
+
+letter_event = {
+	id = neofeudal.3
+	desc = "EVTDESCNEOFEUDAL3"
+	border = GFX_evt_letter_frame_economy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		FROM = { transfer_scaled_wealth = { to = ROOT value = 0.2 } }
+	}
+}
+
+letter_event = {
+	id = neofeudal.4
+	desc = "EVTDESCNEOFEUDAL4"
+	border = GFX_evt_letter_frame_economy
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		FROM = { transfer_scaled_wealth = { to = ROOT value = 0.3 } }
+	}
+}
+
+letter_event = {
+	id = neofeudal.5
+	desc = "EVTDESCNEOFEUDAL5"
+	border = GFX_evt_letter_frame_economy
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
