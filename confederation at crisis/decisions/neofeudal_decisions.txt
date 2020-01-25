@@ -1,0 +1,33 @@
+decisions = {
+	levy_tax_decision = {
+		is_high_prio = yes
+		ai_check_interval = 10
+	potential = {
+			is_ruler = yes
+			independent = yes # Only the sovereign may call for a levy tax
+			religion = neo_feudal # Levy taxation is a concept unique to their ideology
+			NOT = { has_character_flag = flag_requesting_funds }
+		}
+		allow = {
+			custom_tooltip = {
+				text = "ONEYEARCOOLDOWN"
+				hidden_tooltip = {
+					OR = {
+						NOT = { has_character_flag = flag_funding_request_cooldown }
+						had_character_flag = { flag = flag_funding_request_cooldown days = 365 }
+					}
+				}
+			}
+			num_of_vassals = 1
+			prisoner = no
+		}
+		effect = {
+			set_character_flag = flag_requesting_funds
+			character_event = { id = neofeudal.0 }
+		}
+		ai_will_do = {
+			factor = 0 #Currently player-only
+		}
+	}
+	#To add: study the English Classics for Avalonian Kings
+}
