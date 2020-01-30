@@ -634,7 +634,10 @@
 		birth = "2957.1.1"
 		effect = { set_dynasty_flag = flag_dynasty_processed }
 	}
-
+	3008.1.1 = {
+		religion = cyberneticist
+		add_trait = odin_mk_iii
+	}
 }
 
 1208857 = {
@@ -801,12 +804,15 @@
 	}
 	3007.1.18 = {
 		effect = {
+			religion_authority = { modifier = allowed_major_rebellion years = 180 } #added because entire map would not stop switching to neo socialists
+			religion_authority = { modifier = allowed_major_rebellion years = 60 }
+			religion_authority = { modifier = allowed_major_rebellion years = 60 }		
 			# Imprisoned by Tao Luo after the Confederate Civil War
 			e_terran_confederation = {
 				add_pressed_claim = ROOT
 				holder_scope = { ROOT = { imprison = PREV } }
 			}
-		}
+		}	
 	}
 }
 11020006 = {
@@ -1067,6 +1073,16 @@
 			}
 		}
 	}
+	3008.1.1 = {
+		effect = {
+			religion = terran_imperial
+			add_trait = scarred
+			religion_authority = {
+				modifier = deposed_antipope
+				years = 75
+			}		
+		}
+	}
 }
 
 11013073 = {
@@ -1088,7 +1104,37 @@
 		birth = 2970.1.1
 		effect = { set_dynasty_flag = flag_dynasty_processed }
 	}
+	3008.1.1 = {
+		religion = terran_imperial
+		add_trait = radical
+	}	
 
+}
+
+90000001 = {
+	# Son of Tao Luo
+	# Commander of Korolev, 2996 - ?
+	# Grand Admiral of Confederate Space Command, 3003 - ?
+	# Captain-General of Terran Confederation, 3007 - ?
+	name = "Wei"
+	dynasty = 12833 # Luo
+	female = no
+	
+	religion = terran_imperial
+	culture = sino_terran
+	
+	diplomacy = 2
+	martial = 6
+	stewardship = 6
+	health = 4
+	
+	add_trait = quick
+	
+	
+	father = 11112833 # Tao Luo
+	mother = 11013073 # Shan Yuan
+	
+	3004.4.1 = { birth = "3004.4.1" }
 }
 
 1105329 = {
