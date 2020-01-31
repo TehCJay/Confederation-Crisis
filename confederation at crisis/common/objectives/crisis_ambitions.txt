@@ -7626,20 +7626,19 @@ obj_warlord = {
 		is_adult = yes
 		is_playable = yes
 		is_landed = yes
+		independent = yes
 		higher_tier_than = COUNT
-		lower_tier_than = EMPEROR
-		NOT = {
-			any_heir_title = {
-				higher_tier_than = KING
-			}
-		}
+		#NOT = {
+		#	any_heir_title = {
+		#		higher_tier_than = KING
+		#	}
+		#}
 		NOT = { trait = warlord }
 	}
 	
 	allow = {
-		#Traits that prohibit you from becomeing a Warlord
+		#Traits that prohibit you from becoming a Warlord
 		NOT = { trait = incapable }
-		NOT = { trait = greybeard }
 		NOT = { trait = slothful }
 		NOT = { trait = content }
 		NOT = { trait = kind }
@@ -7650,14 +7649,13 @@ obj_warlord = {
 			AND = {
 				NOT = { age = 200 }
 				is_immortal = no
-				is_mer = yes
 			}
 			AND = {
 				NOT = { age = 500 }
 				is_immortal = yes
 			}
 		}
-		
+	
 		prestige = 500
 	}
 	
@@ -7671,6 +7669,21 @@ obj_warlord = {
 		modifier = {
 			factor = 4
 			trait = ambitious
+		}
+		modifier = {
+			factor = 2.5
+			OR = {
+				religion_group = outlaw_group
+				religion = imperial_cultist
+			}
+		}
+		modifier = {
+			factor = 2
+			religion = xenoterran
+		}
+		modifier = {
+			factor = 1.5
+			religion = terran_imperial
 		}
 		modifier = {
 			factor = 3
@@ -7693,12 +7706,12 @@ obj_warlord = {
 			trait = brave
 		}
 		modifier = {
-			factor = 2
-			trait = lich
+			factor = 3
+			trait = pragmatic
 		}
 		modifier = {
 			factor = 2
-			trait = radical
+			trait = zealous
 		}
 		modifier = {
 			factor = 0.0
@@ -7753,10 +7766,6 @@ obj_warlord = {
 			trait = slow
 		}
 		modifier = {
-			factor = 1.25
-			trait = powerful_voice
-		}
-		modifier = {
 			factor = 0.8
 			trait = clubfooted
 		}
@@ -7786,7 +7795,7 @@ obj_warlord = {
 		}
 		modifier = {
 			factor = 0.75
-			trait = pragmatic
+			trait = cynical
 		}
 		modifier = {
 			factor = 0.75
@@ -7837,8 +7846,20 @@ obj_warlord = {
 			tier = KING
 		}
 		modifier = {
+			factor = 0
+			NOT = { year = 3007 }
+		}
+		modifier = {
+			factor = 1.25
+			year = 3008
+		}
+		modifier = {
+			factor = 0.75
+			e_terran_confederation = { has_holder = yes }
+		}
+		modifier = {
 			factor = 2
-			e_tamriel = {
+			e_terran_confederation = {
 				holder_scope = {
 					OR = {
 						NOT = { age = 17 }
@@ -7849,6 +7870,13 @@ obj_warlord = {
 				}
 			}
 		}
+		modifier = {
+			factor = 0.5
+			top_liege = {
+				tier = emperor
+				NOT = { has_landed_title = e_terran_confederation }
+			}
+		}
 	}
 	
 	abort = {
@@ -7856,10 +7884,13 @@ obj_warlord = {
 			trait = incapable
 			is_playable = no
 			independent = no
-			higher_tier_than = KING
-			any_heir_title = {
+			AND = {
 				higher_tier_than = KING
+				NOT = { has_landed_title = e_terran_confederation }
 			}
+			#any_heir_title = {
+			#	higher_tier_than = KING
+			#}
 		}
 	}
 	
