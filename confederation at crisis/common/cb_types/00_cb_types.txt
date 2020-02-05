@@ -5827,23 +5827,15 @@ religious = {
 	sort_priority = 800
 	
 	can_use_gui = {
-		ROOT = {
-			OR = {
-				NOT = { religion = buddhist }
-				piety = 250
-			}
-		}
+		ROOT = { piety = 250 }
+		ROOT = { prestige = 250 }
 	}
 	
 	on_add = {
 		ROOT = {
 			show_scope_change = no
-			if = {
-				limit = {
-					religion = buddhist
-				}
-				piety = -250
-			}
+			ROOT = { piety = 250 }
+			ROOT = { prestige = 250 }			
 		}
 		hidden_tooltip = { fire_haruspicy_event_effect = yes }
 		if = {
@@ -5858,16 +5850,21 @@ religious = {
 	can_use = {
 		ROOT = {
 			is_nomadic = no
-			NOT = { religion_group = pagan_group }
+			NOT = { religion_group = outlaw_group }
 			NOT = { pacifist = yes }
 			NOT = { religion = taoist }
-			NAND = {
-				OR = {
-					has_landed_title = k_teutonic_state
-					has_landed_title = d_teutonic_order
-				}
-				has_global_flag = northern_crusades_active
+			AND = {
+				NOT = { has_landed_title = e_terran_confederation }
+				NOT = { religion = terran_imperial }
+				NOT = { religion = imperial_cult }
 			}
+			#NAND = {
+			#	OR = {
+			#		has_landed_title = e_terran_confederation
+			#		has_landed_title = d_teutonic_order
+			#	}
+			#	has_global_flag = northern_crusades_active
+			#}
 			NOR = {
 				has_character_flag = currently_reconquering_iberia
 				reconquista_check_trigger = yes
@@ -5891,22 +5888,17 @@ religious = {
 				is_heresy_of = FROM
 				is_parent_religion = FROM
 				AND = {
-					has_dharmic_religion_trigger = yes
-					FROM = { religion = taoist }
+					religion_group = political_group
+					NOT = { religion = FROM }
 				}
 				AND = {
-					religion_group = muslim
+					religion_group = religious_group
 					NOT = { religion = FROM }
-					FROM = {
-						NOT = { 
-							any_current_enemy = {
-								NOT = {
-									religion_group = muslim
-								}
-							}
-						}
-					}
 				}
+				AND = {
+					religion_group = transhumanist_group
+					NOT = { religion = FROM }
+				}				
 				AND = {
 					religion_group = FROM
 					FROM = {
@@ -5972,22 +5964,22 @@ religious = {
 							}
 							AND = {
 								is_land = no
-								OR = {
-									ROOT = { religion_group = muslim }
-									FROM = { religion_group = muslim }
-									AND = {
-										ROOT = { religion_group = pagan_group }
-										has_global_flag = pagan_ghws_unlocked
-									}
-									AND = {
-										ROOT = { religion_group = christian }
-										has_global_flag = christian_crusades_unlocked
-									}
-									AND = {
-										ROOT = { religion_group = muslim }
-										has_global_flag = muslim_jihads_unlocked
-									}
-								}
+								#OR = { # CAN CHANGE THESE FLAGS TO ANARCHY HAS BEGUN?
+								#	ROOT = { religion_group = muslim }
+								#	FROM = { religion_group = muslim }
+								#	AND = {
+								#		ROOT = { religion_group = pagan_group }
+								#		has_global_flag = pagan_ghws_unlocked
+								#	}
+								#	AND = {
+								#		ROOT = { religion_group = christian }
+								#		has_global_flag = christian_crusades_unlocked
+								#	}
+								#	AND = {
+								#		ROOT = { religion_group = muslim }
+								#		has_global_flag = muslim_jihads_unlocked
+								#	}
+								#}
 								any_neighbor_province = {
 									OR = {
 										AND = {
@@ -6022,32 +6014,27 @@ religious = {
 
 	is_valid = {
 		ROOT = {
-			NOT = { religion_group = pagan_group }
+			NOT = { religion_group = outlaw_group }
 			NOT = { pacifist = yes }
 			NOT = { same_realm = FROM }
 			OR = {
 				NOT = { religion_group = FROM }
 				is_heresy_of = FROM
 				is_parent_religion = FROM
-				AND = {
-					has_dharmic_religion_trigger = yes
-					FROM = { religion = taoist }
-				}
-				AND = {
-					religion_group = FROM
-					FROM = {
-						has_character_modifier = known_satanist
+				OR = {
+					AND = {
+						religion_group = political_group
+						NOT = { religion = FROM }
 					}
-					ROOT = {
-						NOT = {
-							has_character_modifier = known_satanist
-						}
+					AND = {
+						religion_group = religious_group
+						NOT = { religion = FROM }
 					}
-				}
-				AND = {
-					religion_group = muslim
-					NOT = { religion = FROM }
-				}
+					AND = {
+						religion_group = transhumanist_group
+						NOT = { religion = FROM }
+					}					
+				}	
 			}
 			top_liege = {
 				OR = {
@@ -6140,15 +6127,15 @@ religious = {
 				OR = {
 					ROOT = {
 						NOT = {
-							religion_group = muslim
+							religion_group = political_group
 						}
 					}
 					AND = {
 						ROOT = {
-							religion_group = muslim
+							religion_group = political_group
 						}
 						FROM = {
-							religion_group = muslim
+							religion_group = political_group
 						}
 					}
 				}
@@ -6172,11 +6159,11 @@ religious = {
 			show_scope_change = no
 			limit = {
 				ROOT = {
-					religion_group = muslim
+					religion_group = political_group
 				}
 				FROM = {
 					NOT = {
-						religion_group = muslim
+						religion_group = political_group
 					}
 				}
 			}
@@ -6428,7 +6415,7 @@ religious = {
 		modifier = {
 			factor = 2.0
 			OR = {
-				culture = persian
+				culture_group = terran_group
 				culture = baloch
 				culture = afghan
 				culture = turkish
@@ -9692,70 +9679,31 @@ imperial_reconquest = {
 
 	can_use = {
 		ROOT = {
-			has_landed_title = e_roman_empire
+			has_landed_title = e_terran_confederation
 			independent = yes
 			OR = { 
-				religion_group = christian
-				religion = hellenic_pagan
-				religion = hellenic_pagan_reformed
+				religion_group = imperial_cult
+				religion = terran_imperial
+				religion = neo_feudalist
+				religion = neo_socialist
 			}
 			NOT = { same_realm = FROM }
 			mercenary = no
 		}
-		FROM = {
-			NOT = { religion_group = muslim }
-		}
+		#FROM = {
+		#	NOT = { religion_group = muslim }
+		#}
 	}
 
 	can_use_title = {
 		OR = {
-			de_jure_liege_or_above = k_byzantium
-			de_jure_liege_or_above = k_thrace
-			de_jure_liege_or_above = k_anatolia
-			de_jure_liege_or_above = k_epirus
-			de_jure_liege_or_above = k_trebizond
-			de_jure_liege_or_above = k_armenia
-			de_jure_liege_or_above = k_bulgaria
-			de_jure_liege_or_above = k_serbia
-			de_jure_liege_or_above = k_croatia
-			de_jure_liege_or_above = k_italy
-			de_jure_liege_or_above = k_sicily
-			de_jure_liege_or_above = k_bavaria
-			de_jure_liege_or_above = k_burgundy
-			de_jure_liege_or_above = k_france
-			de_jure_liege_or_above = k_aquitaine
-			de_jure_liege_or_above = k_brittany
-			de_jure_liege_or_above = k_england
-			de_jure_liege_or_above = k_wales
-			de_jure_liege_or_above = k_frisia
-			de_jure_liege_or_above = k_lotharingia
-			de_jure_liege_or_above = k_aragon
-			de_jure_liege_or_above = k_castille
-			de_jure_liege_or_above = k_andalusia
-			de_jure_liege_or_above = k_badajoz
-			de_jure_liege_or_above = k_valencia
-			de_jure_liege_or_above = k_leon
-			de_jure_liege_or_above = k_spanish_galicia
-			de_jure_liege_or_above = k_portugal
-			de_jure_liege_or_above = k_navarra
-			de_jure_liege_or_above = k_syria
-			de_jure_liege_or_above = k_jerusalem
-			de_jure_liege_or_above = k_egypt
-			de_jure_liege_or_above = k_africa
-			de_jure_liege_or_above = k_mauretania
-			de_jure_liege_or_above = k_papal_state
-			de_jure_liege_or_above = k_papacy
-			de_jure_liege_or_above = k_asturias
-			de_jure_liege_or_above = k_sardinia
-			de_jure_liege_or_above = k_antioch
-			de_jure_liege_or_above = k_cyprus
-			de_jure_liege_or_above = k_amalfi
-			de_jure_liege_or_above = k_venice
-			de_jure_liege_or_above = k_pisa
-			de_jure_liege_or_above = k_genoa
-			de_jure_liege_or_above = k_switzerland
-			de_jure_liege_or_above = k_romagna
-			de_jure_liege_or_above = k_carinthia
+			de_jure_liege_or_above = k_terran_commonwealth
+			de_jure_liege_or_above = k_centauri_reach
+			de_jure_liege_or_above = k_zenye_nyota_angani
+			de_jure_liege_or_above = k_al_samawat
+			de_jure_liege_or_above = k_tierra_celeste
+			de_jure_liege_or_above = k_xingjie
+			de_jure_liege_or_above = k_frontier
 		}
 	}
 	
@@ -9763,9 +9711,10 @@ imperial_reconquest = {
 		ROOT = {
 			independent = yes
 			OR = { 
-				religion_group = christian
-				religion = hellenic_pagan
-				religion = hellenic_pagan_reformed
+				religion_group = imperial_cult
+				religion = terran_imperial
+				religion = neo_feudalist
+				religion = neo_socialist
 			}
 			NOT = { same_realm = FROM }
 		}
