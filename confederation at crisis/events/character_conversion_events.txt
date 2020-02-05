@@ -6035,7 +6035,7 @@ character_event = {
 	}
 	
 	mean_time_to_happen = {
-		years = 9999 #set extremly high because the majority of map kept becoming socialist in a large portion of test games despite having similar conditions to the other character conversion events
+		years = 1200
 		
 		#Ideology
 		modifier = {
@@ -12138,7 +12138,13 @@ character_event = {
 			liege = { religion = imperial_cult }
 		}
 		NOT = { religion = imperial_cult }
-		NOT = { religion_authority = 0.5 }
+		OR = { 
+			NOT = { religion_authority = 0.5 }
+			AND = {
+				religion_authority = 0.75
+				religion = imperial_cult
+				}
+			}
 		NOT = {
 			any_war = {
 				attacker = { character = ROOT }
