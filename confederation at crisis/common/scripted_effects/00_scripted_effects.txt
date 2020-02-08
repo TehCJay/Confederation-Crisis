@@ -524,6 +524,17 @@ add_trait_silently_cynical_effect = {
 	}
 }
 
+add_trait_silently_content_effect = {
+	if = {
+		limit = {
+			NOR = {
+				trait = content
+				trait = ambitious
+			}
+		}
+		add_trait = content
+	}
+}
 add_trait_silently_deceitful_effect = {
 	if = {
 		limit = { 
@@ -791,6 +802,13 @@ add_trait_silently_wroth_effect = {
 #Add new ones in alphabetical order.
 
 #Add with notification
+remove_trait_brave_effect = {
+	if = {
+		limit = { trait = brave }
+		remove_trait = brave
+		hidden_tooltip = { character_event = { id = 38320 } }
+	}
+}  
 remove_trait_charitable_effect = {
 	if = {
 		limit = { trait = charitable }
@@ -829,6 +847,13 @@ remove_trait_cruel_effect = {
 	}	
 }
 
+remove_trait_depressed_effect = {
+	if = {
+		limit = { trait = depressed }
+		remove_trait = depressed
+		hidden_tooltip = { character_event = { id = 38314 } }
+	}
+}
 remove_trait_diligent_effect = {
 	if = {
 		limit = { trait = diligent }
@@ -948,6 +973,18 @@ remove_trait_zealous_effect = {
 }
 
 #Silently
+remove_trait_silently_ambitious_effect = {
+	if = {
+		limit = { trait = ambitious }
+		remove_trait = ambitious
+	}
+}
+remove_trait_silently_brave_effect = {
+	if = {
+		limit = { trait = brave }
+		remove_trait = brave
+	}
+}										  
 remove_trait_silently_charitable_effect = {
 	if = {
 		limit = { trait = charitable }
@@ -11937,6 +11974,302 @@ calculate_health_level_of_all_ingredients_effect = {
 			clr_artifact_flag = ingredient_counted
 		}
     }
+}
+
+#Current variable values: Scarred = 1, Very Scarred = 5, Horrifically Scarred = 10. To rebalance how quickly a character moves up from one to the other, just change the variable effects on all the following scripted_effects.
+add_scarred_tiered_effect = {
+	if = {
+		limit = { has_dlc = "Holy Fury" }
+		hidden_tooltip = { change_variable = { which = scarred_variable value = 1 } } 
+		if = {
+			limit = {
+				check_variable = { which = scarred_variable value = 1 }
+				NOT = { check_variable = { which = scarred_variable value = 5 } } 
+			}
+			if = { 
+				limit = { trait = scarred_mid } 
+				remove_trait = scarred_mid 
+			}
+			if = { 
+				limit = { trait = scarred_high } 
+				remove_trait = scarred_high 
+			}
+			add_trait = scarred
+		}
+		if = {
+			limit = {
+				check_variable = { which = scarred_variable value = 5 }
+				NOT = { check_variable = { which = scarred_variable value = 10 } } 
+			}
+			if = { 
+				limit = { trait = scarred } 
+				remove_trait = scarred
+			}
+			if = { 
+				limit = { trait = scarred_high } 
+				remove_trait = scarred_high 
+			}
+			add_trait = scarred_mid
+		}
+		if = {
+			limit = {
+				check_variable = { which = scarred_variable value = 10 }
+			}
+			if = { 
+				limit = { trait = scarred_mid } 
+				remove_trait = scarred_mid 
+			}
+			if = { 
+				limit = { trait = scarred } 
+				remove_trait = scarred 
+			}
+			if = {
+				limit = {
+					NOT = { trait = scarred_high }
+				}
+				add_trait = scarred_high
+			}
+		}
+	}
+	else_if =  { 
+		limit = { NOT = { has_dlc = "Holy Fury" } }
+		add_trait = scarred
+	}
+	hidden_tooltip = {
+		if = {
+			limit = {
+				NOR = { 
+					trait = scarred_type_1
+					trait = scarred_type_2
+					trait = scarred_type_3
+					trait = scarred_type_4
+					trait = scarred_type_5
+					trait = scarred_type_6
+					trait = scarred_type_7
+					trait = scarred_type_8
+					trait = scarred_type_9
+					trait = scarred_type_10
+				}
+			}
+			random_list = { 
+				10 = { add_trait = scarred_type_1 } 
+				10 = { add_trait = scarred_type_2 } 
+				10 = { add_trait = scarred_type_3 } 
+				10 = { add_trait = scarred_type_4 } 
+				10 = { add_trait = scarred_type_5 } 
+				10 = { add_trait = scarred_type_6 } 
+				10 = { add_trait = scarred_type_7 } 
+				10 = { add_trait = scarred_type_8 } 
+				10 = { add_trait = scarred_type_9 } 
+				10 = { add_trait = scarred_type_10 }
+			}
+		}
+	}
+}
+
+add_scarred_medium_effect = {
+	if = { 
+		limit = { has_dlc = "Holy Fury" }
+	hidden_tooltip = { set_variable = { which = scarred_variable value = 5 } }
+		if = {
+			limit = {
+				check_variable = { which = scarred_variable value = 5 }
+				NOT = { check_variable = { which = scarred_variable value = 10 } } 
+			}
+			if = { 
+				limit = { trait = scarred_high } 
+				remove_trait = scarred_high 
+			}
+			if = { 
+				limit = { trait = scarred } 
+				remove_trait = scarred
+			}
+			add_trait = scarred_mid
+		}
+	}
+	else_if =  { 
+		limit = { NOT = { has_dlc = "Holy Fury" } }
+		add_trait = scarred
+	}
+	hidden_tooltip = { 
+		if = {
+			limit = {
+				NOR = { 
+					trait = scarred_type_1
+					trait = scarred_type_2
+					trait = scarred_type_3
+					trait = scarred_type_4
+					trait = scarred_type_5
+					trait = scarred_type_6
+					trait = scarred_type_7
+					trait = scarred_type_8
+					trait = scarred_type_9
+					trait = scarred_type_10
+				}
+			}
+			random_list = { 
+				10 = { add_trait = scarred_type_1 } 
+				10 = { add_trait = scarred_type_2 } 
+				10 = { add_trait = scarred_type_3 } 
+				10 = { add_trait = scarred_type_4 } 
+				10 = { add_trait = scarred_type_5 } 
+				10 = { add_trait = scarred_type_6 } 
+				10 = { add_trait = scarred_type_7 } 
+				10 = { add_trait = scarred_type_8 } 
+				10 = { add_trait = scarred_type_9 } 
+				10 = { add_trait = scarred_type_10 }
+			}
+		}
+	}
+}
+add_scarred_high_effect = {
+	if = { 
+		limit = { has_dlc = "Holy Fury" }
+	hidden_tooltip = { set_variable = { which = scarred_variable value = 10 } } 
+		if = {
+			limit = {
+				check_variable = { which = scarred_variable value = 10 }
+			}
+			if = { 
+				limit = { trait = scarred } 
+				remove_trait = scarred
+			}
+			if = { 
+				limit = { trait = scarred_mid } 
+				remove_trait = scarred_mid
+			}
+			add_trait = scarred_high
+		}
+	}
+	else_if =  { 
+		limit = { NOT = { has_dlc = "Holy Fury" } }
+		add_trait = scarred
+	}
+	hidden_tooltip = { 
+		if = {
+			limit = {
+				NOR = { 
+					trait = scarred_type_1
+					trait = scarred_type_2
+					trait = scarred_type_3
+					trait = scarred_type_4
+					trait = scarred_type_5
+					trait = scarred_type_6
+					trait = scarred_type_7
+					trait = scarred_type_8
+					trait = scarred_type_9
+					trait = scarred_type_10
+				}
+			}
+			random_list = { 
+				10 = { add_trait = scarred_type_1 } 
+				10 = { add_trait = scarred_type_2 } 
+				10 = { add_trait = scarred_type_3 } 
+				10 = { add_trait = scarred_type_4 } 
+				10 = { add_trait = scarred_type_5 } 
+				10 = { add_trait = scarred_type_6 } 
+				10 = { add_trait = scarred_type_7 } 
+				10 = { add_trait = scarred_type_8 } 
+				10 = { add_trait = scarred_type_9 } 
+				10 = { add_trait = scarred_type_10 }
+			}
+		}
+	}
+}
+
+add_scarred_start_effect = {
+	if = { 
+		limit = { has_dlc = "Holy Fury" }
+		if = {
+			limit = {
+				trait = scarred
+			}
+			change_variable = { which = scarred_variable value = 1 }
+		}
+		if = {
+			limit = {
+				trait = scarred_mid
+			}
+			change_variable = { which = scarred_variable value = 5 }
+		}
+		if = {
+			limit = {
+				trait = scarred_high
+			}
+			change_variable = { which = scarred_variable value = 10 }
+		}
+	}
+	else_if =  { 
+		limit = { NOT = { has_dlc = "Holy Fury" } }
+		add_trait = scarred
+	}
+	hidden_tooltip = { 
+		if = {
+			limit = {
+				NOR = { 
+					trait = scarred_type_1
+					trait = scarred_type_2
+					trait = scarred_type_3
+					trait = scarred_type_4
+					trait = scarred_type_5
+					trait = scarred_type_6
+					trait = scarred_type_7
+					trait = scarred_type_8
+					trait = scarred_type_9
+					trait = scarred_type_10
+				}
+			}
+			random_list = { 
+				10 = { add_trait = scarred_type_1 } 
+				10 = { add_trait = scarred_type_2 } 
+				10 = { add_trait = scarred_type_3 } 
+				10 = { add_trait = scarred_type_4 } 
+				10 = { add_trait = scarred_type_5 } 
+				10 = { add_trait = scarred_type_6 } 
+				10 = { add_trait = scarred_type_7 } 
+				10 = { add_trait = scarred_type_8 } 
+				10 = { add_trait = scarred_type_9 } 
+				10 = { add_trait = scarred_type_10 }
+			}
+		}
+	}
+}
+
+add_blood_splatter_effect = {
+	hidden_tooltip = { 
+		if = {
+			limit = {
+				has_character_modifier = blood_splatter_3
+			}
+			remove_character_modifier = blood_splatter_3
+			add_character_modifier = { modifier = blood_splatter_3 months = 5 hidden = yes }
+		}
+		else_if = {
+			limit = {
+				OR = { 
+					has_character_modifier = blood_splatter_1
+					has_character_modifier = blood_splatter_2
+				}
+			}
+			remove_character_modifier = blood_splatter_1
+			remove_character_modifier = blood_splatter_2
+			add_character_modifier = { modifier = blood_splatter_3 months = 5 hidden = yes }
+		}
+		else_if = {
+			limit = {
+				NOR = { 
+					has_character_modifier = blood_splatter_1
+					has_character_modifier = blood_splatter_2
+					has_character_modifier = blood_splatter_3
+				}
+			}
+			random_list = { 
+				50 = { add_character_modifier = { modifier = blood_splatter_1 months = 5 hidden = yes } }
+				40 = { add_character_modifier = { modifier = blood_splatter_2 months = 5 hidden = yes } }
+				10 = { add_character_modifier = { modifier = blood_splatter_3 months = 5 hidden = yes } }
+			}
+		}
+	}
 }
 
 # Referenced by the "button_rename" button in the character view 
