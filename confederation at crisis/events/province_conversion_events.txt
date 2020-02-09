@@ -729,7 +729,7 @@ province_event = {
 	trigger = {
 		NOT = { religion = terran_imperial }
 		NOT = { religion = hiver }
-		NOT = { religion_authority = 0.3 }
+		NOT = { religion_authority = 0.4 }
 		OR = {
 			religion = terran_republican
 			province_id = 202 # Terran ideologies are always available to Earth
@@ -1325,7 +1325,7 @@ province_event = {
 	trigger = {
 		NOT = { religion = neo_feudal }
 		NOT = { religion = hiver }
-		NOT = { religion_authority = 0.3 }
+		NOT = { religion_authority = 0.25 }
 		OR = {
 			religion = terran_imperial
 			religion = colonial_separatist
@@ -4842,7 +4842,7 @@ province_event = {
 			any_province_lord = { religion = solar_cultist }
 			any_neighbor_province = { religion = solar_cultist }
 		}
-		NOT = { revolt_risk = 0.1 }
+		NOT = { revolt_risk = 0.3 }
 		owner = { top_liege = { is_elective_trigger = no } }
 	}
 	
@@ -5167,344 +5167,6 @@ province_event = {
 	}
 }
 
-# Solar Cultist
-province_event = {
-	id = conversion.115
-	desc = "EVTDESCCONVERSION115"
-	picture = GFX_evt_speech
-	
-	trigger = {
-		NOT = { religion = solarian }
-		NOT = { religion = hiver }
-		NOT = { religion_authority = 0.4 }
-		OR = {
-			religion = solar_cultist
-			any_province_lord = { religion = solarian }
-			any_neighbor_province = { religion = solarian }
-		}
-	}
-	
-	mean_time_to_happen = {
-		months = 600
-		
-		# Religion Authority Effects
-		modifier = {
-			factor = 2
-			religion_authority = 0.1
-		}
-		modifier = {
-			factor = 2
-			religion_authority = 0.2
-		}
-		modifier = {
-			factor = 2
-			religion_authority = 0.3
-		}
-		modifier = {
-			factor = 2
-			religion_authority = 0.4
-		}
-		modifier = {
-			factor = 0.5
-			any_province_lord = {
-				any_realm_character = {
-					religion = solarian
-					religion_authority = 0.1
-				}
-			}
-		}
-		modifier = {
-			factor = 0.5
-			any_province_lord = {
-				any_realm_character = {
-					religion = solarian
-					religion_authority = 0.2
-				}
-			}
-		}
-		modifier = {
-			factor = 0.5
-			any_province_lord = {
-				any_realm_character = {
-					religion = solarian
-					religion_authority = 0.3
-				}
-			}
-		}
-		modifier = {
-			factor = 0.5
-			any_province_lord = {
-				any_realm_character = {
-					religion = solarian
-					religion_authority = 0.4
-				}
-			}
-		}
-		modifier = {
-			factor = 0.5
-			any_province_lord = {
-				any_realm_character = {
-					religion = solarian
-					religion_authority = 0.5
-				}
-			}
-		}
-		modifier = {
-			factor = 0.5
-			any_province_lord = {
-				any_realm_character = {
-					religion = solarian
-					religion_authority = 0.6
-				}
-			}
-		}
-		modifier = {
-			factor = 0.5
-			any_province_lord = {
-				any_realm_character = {
-					religion = solarian
-					religion_authority = 0.7
-				}
-			}
-		}
-		modifier = {
-			factor = 0.5
-			any_province_lord = {
-				any_realm_character = {
-					religion = solarian
-					religion_authority = 0.8
-				}
-			}
-		}
-		modifier = {
-			factor = 0.5
-			any_province_lord = {
-				any_realm_character = {
-					religion = solarian
-					religion_authority = 0.9
-				}
-			}
-		}
-		modifier = {
-			factor = 0.5
-			any_province_lord = {
-				any_realm_character = {
-					religion = solarian
-					religion_authority = 1
-				}
-			}
-		}
-		
-		# Military provinces tend to prefer military ideologies
-		modifier = {
-			factor = 0.25
-			NOT = { religion = astrist }
-			NOT = { religion = neo_feudal }
-			NOT = { religion = terran_imperial }
-			NOT = { religion_group = outlaw_group }
-			owner = { is_military_trigger = yes }
-		}
-		
-		
-		# Harder to take these people seriously as gods
-		modifier = {
-			factor = 20
-			owner = { top_liege = { is_elective_trigger = yes } }
-		}
-		# Neighboring Province Effects
-		modifier = {
-			factor = 2
-			any_neighbor_province = { NOT = { religion = solarian } }
-		}
-		modifier = {
-			factor = 2
-			any_neighbor_province = {
-				NOT = { religion = solarian }
-				count = 2
-			}
-		}
-		modifier = {
-			factor = 2
-			any_neighbor_province = {
-				NOT = { religion = solarian }
-				count = 3
-			}
-		}
-		modifier = {
-			factor = 2
-			any_neighbor_province = {
-				NOT = { religion = solarian }
-				count = 4
-			}
-		}
-		modifier = {
-			factor = 2
-			any_neighbor_province = {
-				NOT = { religion = solarian }
-				count = 5
-			}
-		}
-		modifier = {
-			factor = 2
-			any_neighbor_province = {
-				culture_group = ROOT
-				religion = ROOT
-			}
-		}
-		modifier = {
-			factor = 2
-			any_neighbor_province = {
-				culture_group = ROOT
-				religion = ROOT
-				count = 2
-			}
-		}
-		modifier = {
-			factor = 2
-			any_neighbor_province = {
-				culture_group = ROOT
-				religion = ROOT
-				count = 3
-			}
-		}
-		modifier = {
-			factor = 2
-			any_neighbor_province = {
-				culture_group = ROOT
-				religion = ROOT
-				count = 4
-			}
-		}
-		modifier = {
-			factor = 2
-			any_neighbor_province = {
-				culture_group = ROOT
-				religion = ROOT
-				count = 5
-			}
-		}
-		modifier = {
-			factor = 0.5
-			any_neighbor_province = { religion = solarian }
-		}
-		modifier = {
-			factor = 0.5
-			any_neighbor_province = {
-				religion = solarian
-				count = 2
-			}
-		}
-		modifier = {
-			factor = 0.5
-			any_neighbor_province = {
-				religion = solarian
-				count = 3
-			}
-		}
-		modifier = {
-			factor = 0.5
-			any_neighbor_province = {
-				religion = solarian
-				count = 4
-			}
-		}
-		modifier = {
-			factor = 0.5
-			any_neighbor_province = {
-				religion = solarian
-				count = 5
-			}
-		}
-		
-		# Ruler Prestige Effect
-		modifier = {
-			factor = 0.9
-			owner = { top_liege = { prestige = 100 } }
-		}
-		modifier = {
-			factor = 0.9
-			owner = { top_liege = { prestige = 200 } }
-		}
-		modifier = {
-			factor = 0.9
-			owner = { top_liege = { prestige = 300 } }
-		}
-		modifier = {
-			factor = 0.9
-			owner = { top_liege = { prestige = 400 } }
-		}
-		modifier = {
-			factor = 0.9
-			owner = { top_liege = { prestige = 500 } }
-		}
-		modifier = {
-			factor = 0.9
-			owner = { top_liege = { prestige = 600 } }
-		}
-		modifier = {
-			factor = 0.9
-			owner = { top_liege = { prestige = 700 } }
-		}
-		modifier = {
-			factor = 0.9
-			owner = { top_liege = { prestige = 800 } }
-		}
-		modifier = {
-			factor = 0.9
-			owner = { top_liege = { prestige = 900 } }
-		}
-		modifier = {
-			factor = 0.9
-			owner = { top_liege = { prestige = 1000 } }
-		}
-		modifier = {
-			factor = 0.9
-			owner = { top_liege = { prestige = 1200 } }
-		}
-		modifier = {
-			factor = 0.9
-			owner = { top_liege = { prestige = 1400 } }
-		}
-		modifier = {
-			factor = 0.9
-			owner = { top_liege = { prestige = 1600 } }
-		}
-		modifier = {
-			factor = 0.9
-			owner = { top_liege = { prestige = 1800 } }
-		}
-		modifier = {
-			factor = 0.9
-			owner = { top_liege = { prestige = 2000 } }
-		}
-		modifier = {
-			factor = 0.9
-			owner = { top_liege = { prestige = 2500 } }
-		}
-		modifier = {
-			factor = 0.9
-			owner = { top_liege = { prestige = 3000 } }
-		}
-		modifier = {
-			factor = 0.9
-			owner = { top_liege = { prestige = 3500 } }
-		}
-		modifier = {
-			factor = 0.9
-			owner = { top_liege = { prestige = 4000 } }
-		}
-		modifier = {
-			factor = 0.9
-			owner = { top_liege = { prestige = 5000 } }
-		}
-	}
-	
-	option = {
-		name = "EVTOPTCONFIRM"
-		religion = solarian
-	}
-}
-
 # Solarian
 province_event = {
 	id = conversion.115
@@ -5517,8 +5179,11 @@ province_event = {
 		NOT = { religion_authority = 0.4 }
 		OR = {
 			religion = pilgrim
+			religion = solar_cult
 			any_province_lord = { religion = solarian }
 			any_neighbor_province = { religion = solarian }
+			any_province_lord = { religion = solar_cult }
+			any_neighbor_province = { religion = solar_cult }			
 		}
 		NOT = { revolt_risk = 0.2 }
 	}
