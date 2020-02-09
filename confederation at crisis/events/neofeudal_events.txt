@@ -32,11 +32,13 @@ character_event = {
 				}
 			}
 		}
+		ai_chance = { factor = 1 }
 	}
 	
 	option = {
 		name = "EVTOPTNEVERMIND"
 		clr_character_flag = flag_requesting_funds
+		ai_chance = { factor = 0 }
 	}
 }
 
@@ -281,7 +283,6 @@ letter_event = {
 		name = "EVTOPTDNEOFEUDAL1"
 		FROM = {
 			opinion = { who = ROOT modifier = opinion_no_budget }
-			hidden_tooltip = { letter_event = { id = neofeudal.5 } }
 		}
 		ai_chance = {
 			factor = 80
@@ -354,47 +355,32 @@ letter_event = {
 	}
 }
 
-letter_event = {
+character_event = {
 	id = neofeudal.2
-	desc = "EVTDESCNEOFEUDAL2"
-	border = GFX_evt_letter_frame_economy
 	is_triggered_only = yes
+	hide_window = yes
 	
-	option = {
-		name = "EVTOPTCONFIRM"
+	immediate = {
 		FROM = { transfer_scaled_wealth = { to = ROOT value = 0.1 } }
 	}
 }
 
-letter_event = {
+character_event = {
 	id = neofeudal.3
-	desc = "EVTDESCNEOFEUDAL3"
-	border = GFX_evt_letter_frame_economy
 	is_triggered_only = yes
+	hide_window = yes
 	
-	option = {
-		name = "EVTOPTCONFIRM"
+	immediate = {
 		FROM = { transfer_scaled_wealth = { to = ROOT value = 0.2 } }
 	}
 }
 
-letter_event = {
+character_event = {
 	id = neofeudal.4
-	desc = "EVTDESCNEOFEUDAL4"
-	border = GFX_evt_letter_frame_economy
 	is_triggered_only = yes
+	hide_window = yes
 	
-	option = {
-		name = "EVTOPTCONFIRM"
+	immediate = {
 		FROM = { transfer_scaled_wealth = { to = ROOT value = 0.3 } }
 	}
-}
-
-letter_event = {
-	id = neofeudal.5
-	desc = "EVTDESCNEOFEUDAL5"
-	border = GFX_evt_letter_frame_economy
-	is_triggered_only = yes
-	
-	option = { name = "EVTOPTCONFIRM" }
 }
