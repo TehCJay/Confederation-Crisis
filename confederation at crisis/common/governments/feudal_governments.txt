@@ -558,6 +558,39 @@ feudal_governments = {
 
 	}
 	
+	pirate_republic_governor = { #test while trying to make pirate republic vassals creatable for pirate kingdoms
+		preferred_holdings = { CITY }
+		allowed_holdings = {
+			CITY
+			CASTLE
+			FORT
+			HOSPITAL
+		}
+		accepts_liege_governments = { # Accepts other republics
+			pirate_republic
+		}
+		frame_suffix = "_merchantrepublic"
+		title_prefix = "pirate_republic_governor"
+		potential = {
+			religion = space_pirate
+			NOT = { is_government_potential = pirate_republic }
+			holy_order = no
+		}
+		
+		color = { 209 125 130 }
+		
+		can_imprison_without_reason = no
+		can_revoke_without_reason = no
+		
+		can_build_castle = no
+		can_build_tribal = no
+	
+		capital_move_delay = 600
+
+		## Modifiers
+		court_size_modifier = 5
+	}	
+	
 	administrative_republic = {
 		preferred_holdings = { TEMPLE }
 		allowed_holdings = {
