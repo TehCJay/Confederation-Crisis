@@ -1,0 +1,656 @@
+#Workaround for the opinion modifiers from laws.
+namespace = lawopinion
+
+character_event = {
+	id = lawopinion.001
+	hide_window = yes
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		crownlaw_title = {
+			has_law = centralization_0
+		}
+		OR = {
+			has_character_modifier = central1_opmod
+			has_character_modifier = central2_opmod
+			has_character_modifier = central3_opmod
+			has_character_modifier = central4_opmod
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		add_character_modifier = { name = central0_opmod duration = -1 }
+		remove_character_modifier = central1_opmod
+		remove_character_modifier = central2_opmod
+		remove_character_modifier = central3_opmod
+		remove_character_modifier = central4_opmod
+	}
+}
+
+character_event = {
+	id = lawopinion.002
+	hide_window = yes
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		crownlaw_title = {
+			has_law = centralization_1
+		}
+		NOT = { has_character_modifier = central1_opmod }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		add_character_modifier = { name = central1_opmod duration = -1 }
+		remove_character_modifier = central0_opmod
+		remove_character_modifier = central2_opmod
+		remove_character_modifier = central3_opmod
+		remove_character_modifier = central4_opmod
+	}
+}
+
+character_event = {
+	id = lawopinion.003
+	hide_window = yes
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		crownlaw_title = {
+			has_law = centralization_2
+		}
+		NOT = { has_character_modifier = central2_opmod }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		add_character_modifier = { name = central2_opmod duration = -1 }
+		remove_character_modifier = central1_opmod
+		remove_character_modifier = central0_opmod
+		remove_character_modifier = central3_opmod
+		remove_character_modifier = central4_opmod
+	}
+}
+
+character_event = {
+	id = lawopinion.004
+	hide_window = yes
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		crownlaw_title = {
+			has_law = centralization_3
+		}
+		NOT = { has_character_modifier = central3_opmod }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		add_character_modifier = { name = central3_opmod duration = -1 }
+		remove_character_modifier = central1_opmod
+		remove_character_modifier = central2_opmod
+		remove_character_modifier = central0_opmod
+		remove_character_modifier = central4_opmod
+	}
+}
+
+character_event = {
+	id = lawopinion.005
+	hide_window = yes
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		crownlaw_title = {
+			has_law = centralization_4
+		}
+		NOT = { has_character_modifier = central4_opmod }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		add_character_modifier = { name = central4_opmod duration = -1 }
+		remove_character_modifier = central1_opmod
+		remove_character_modifier = central2_opmod
+		remove_character_modifier = central3_opmod
+		remove_character_modifier = central0_opmod
+	}
+}
+
+character_event = {
+	id = lawopinion.006
+	hide_window = yes
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		crownlaw_title = {
+			has_law = public_order_0
+		}
+		OR = {
+			has_character_modifier = civordm_opmod
+			has_character_modifier = civords_opmod
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		remove_character_modifier = civordm_opmod
+		remove_character_modifier = civords_opmod
+	}
+}
+
+character_event = {
+	id = lawopinion.007
+	hide_window = yes
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		crownlaw_title = {
+			has_law = public_order_1
+		}
+		NOT = { has_character_modifier = civordm_opmod }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		add_character_modifier = { name = civordm_opmod duration = -1 }
+		remove_character_modifier = civords_opmod
+	}
+}
+
+character_event = {
+	id = lawopinion.008
+	hide_window = yes
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		crownlaw_title = {
+			has_law = public_order_2
+		}
+		NOT = { has_character_modifier = civords_opmod }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		add_character_modifier = { name = civords_opmod duration = -1 }
+		remove_character_modifier = civordm_opmod
+	}
+}
+
+character_event = {
+	id = lawopinion.009
+	hide_window = yes
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		crownlaw_title = {
+			has_law = legislative_authority_1
+		}
+		NOT = { has_character_modifier = legiauth1_opmod }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		add_character_modifier = { name = legiauth1_opmod duration = -1 }
+	}
+}
+
+character_event = {
+	id = lawopinion.010
+	hide_window = yes
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		crownlaw_title = {
+			has_law = legislative_authority_0
+		}
+		has_character_modifier = legiauth1_opmod
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		remove_character_modifier = legiauth1_opmod
+	}
+}
+
+character_event = {
+	id = lawopinion.011
+	hide_window = yes
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		crownlaw_title = {
+			has_law = crown_term_length_4
+		}
+		OR = {
+			has_character_modifier = termlen0_opmod
+			has_character_modifier = termlen1_opmod
+			has_character_modifier = termlen2_opmod
+			has_character_modifier = termlen3_opmod
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		remove_character_modifier = termlen0_opmod
+		remove_character_modifier = termlen1_opmod
+		remove_character_modifier = termlen2_opmod
+		remove_character_modifier = termlen3_opmod
+	}
+}
+
+character_event = {
+	id = lawopinion.012
+	hide_window = yes
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		crownlaw_title = {
+			has_law = crown_term_length_0
+		}
+		NOT = { has_character_modifier = termlen0_opmod }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		add_character_modifier = { name = termlen0_opmod duration = -1 }
+		remove_character_modifier = termlen1_opmod
+		remove_character_modifier = termlen2_opmod
+		remove_character_modifier = termlen3_opmod
+	}
+}
+
+character_event = {
+	id = lawopinion.013
+	hide_window = yes
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		crownlaw_title = {
+			has_law = crown_term_length_1
+		}
+		NOT = { has_character_modifier = termlen1_opmod }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		add_character_modifier = { name = termlen1_opmod duration = -1 }
+		remove_character_modifier = termlen0_opmod
+		remove_character_modifier = termlen2_opmod
+		remove_character_modifier = termlen3_opmod
+	}
+}
+
+character_event = {
+	id = lawopinion.014
+	hide_window = yes
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		crownlaw_title = {
+			has_law = crown_term_length_2
+		}
+		NOT = { has_character_modifier = termlen2_opmod }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		add_character_modifier = { name = termlen2_opmod duration = -1 }
+		remove_character_modifier = termlen0_opmod
+		remove_character_modifier = termlen1_opmod
+		remove_character_modifier = termlen3_opmod
+	}
+}
+
+character_event = {
+	id = lawopinion.015
+	hide_window = yes
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		crownlaw_title = {
+			has_law = crown_term_length_3
+		}
+		NOT = { has_character_modifier = termlen3_opmod }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		add_character_modifier = { name = termlen3_opmod duration = -1 }
+		remove_character_modifier = termlen0_opmod
+		remove_character_modifier = termlen2_opmod
+		remove_character_modifier = termlen1_opmod
+	}
+}
+
+character_event = {
+	id = lawopinion.016
+	hide_window = yes
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		crownlaw_title = {
+			has_law = dote_autonomy_0
+		}
+		NOT = { has_character_modifier = locaut1_opmod }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		add_character_modifier = { name = locaut1_opmod duration = -1 }
+		remove_character_modifier = locaut2_opmod
+	}
+}
+
+character_event = {
+	id = lawopinion.017
+	hide_window = yes
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		crownlaw_title = {
+			has_law = dote_autonomy_1
+		}
+		OR = {
+			has_character_modifier = locaut1_opmod
+			has_character_modifier = locaut2_opmod
+		}
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		remove_character_modifier = locaut1_opmod
+		remove_character_modifier = locaut2_opmod
+	}
+}
+
+character_event = {
+	id = lawopinion.018
+	hide_window = yes
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		crownlaw_title = {
+			has_law = dote_autonomy_2
+		}
+		NOT = { has_character_modifier = locaut2_opmod }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		add_character_modifier = { name = locaut2_opmod duration = -1 }
+		remove_character_modifier = locaut1_opmod
+	}
+}
+
+character_event = {
+	id = lawopinion.019
+	hide_window = yes
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		crownlaw_title = {
+			has_law = military_vassal_legitimacy_0
+		}
+		NOT = { has_character_flag = mil_leg_0 }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		set_character_flag = mil_leg_0
+		clr_character_flag = mil_leg_1
+		any_vassal = {
+			limit = { is_military_trigger = yes }
+			remove_character_modifier = milgov1_opmod
+		}
+	}
+}
+
+character_event = {
+	id = lawopinion.020
+	hide_window = yes
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		OR = {
+			crownlaw_title = {
+				has_law = military_vassal_legitimacy_1
+			}
+			crownlaw_title = {
+				has_law = military_vassal_legitimacy_2
+			}
+		}
+		NOT = { has_character_flag = mil_leg_1 }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		set_character_flag = mil_leg_1
+		clr_character_flag = mil_leg_0
+		any_vassal = {
+			limit = { is_military_trigger = yes }
+			add_character_modifier = { name = milgov1_opmod duration = -1 }
+		}
+	}
+}
+
+character_event = {
+	id = lawopinion.021
+	hide_window = yes
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		crownlaw_title = {
+			has_law = republic_vassal_legitimacy_0
+		}
+		NOT = { has_character_flag = rep_leg_0 }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		set_character_flag = rep_leg_0
+		clr_character_flag = rep_leg_1
+		any_vassal = {
+			limit = { is_corporate_trigger = yes }
+			remove_character_modifier = civgov1_opmod
+		}
+	}
+}
+
+character_event = {
+	id = lawopinion.022
+	hide_window = yes
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		OR = {
+			crownlaw_title = {
+				has_law = republic_vassal_legitimacy_1
+			}
+			crownlaw_title = {
+				has_law = republic_vassal_legitimacy_2
+			}
+		}
+		NOT = { has_character_flag = rep_leg_1 }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		set_character_flag = rep_leg_1
+		clr_character_flag = rep_leg_0
+		any_vassal = {
+			limit = { is_corporate_trigger = yes }
+			add_character_modifier = { name = civgov1_opmod duration = -1 }
+		}
+	}
+}
+
+character_event = {
+	id = lawopinion.023
+	hide_window = yes
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		crownlaw_title = {
+			has_law = theocracy_vassal_legitimacy_0
+		}
+		NOT = { has_character_flag = the_leg_0 }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		set_character_flag = the_leg_0
+		clr_character_flag = the_leg_1
+		any_vassal = {
+			limit = { is_administrative_trigger = yes }
+			remove_character_modifier = admgov1_opmod
+		}
+	}
+}
+
+character_event = {
+	id = lawopinion.024
+	hide_window = yes
+	
+	only_playable = yes
+	only_independent = yes
+	
+	trigger = {
+		OR = {
+			crownlaw_title = {
+				has_law = theocracy_vassal_legitimacy_1
+			}
+			crownlaw_title = {
+				has_law = theocracy_vassal_legitimacy_2
+			}
+		}
+		NOT = { has_character_flag = the_leg_1 }
+	}
+	
+	mean_time_to_happen = {
+		days = 1
+	}
+	
+	immediate = {
+		set_character_flag = the_leg_1
+		clr_character_flag = the_leg_0
+		any_vassal = {
+			limit = { is_administrative_trigger = yes }
+			add_character_modifier = { name = admgov1_opmod duration = -1 }
+		}
+	}
+}
