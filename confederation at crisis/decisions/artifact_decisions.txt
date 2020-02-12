@@ -1,0 +1,438 @@
+decisions = {
+	# Commissioning New Ships
+	commission_a_corvette_decision = {
+		potential = {
+			# Must have a facility capable of producing this unit
+			capital_scope = {
+				any_province_lord = {
+					NOT = { war_with = ROOT }
+					any_demesne_title = {
+						tier = baron
+						location = { province_id = PREVPREVPREV }
+						OR = {
+							has_building = ca_spaceyard_q_1
+							has_building = ct_factories_q_2
+							has_building = ca_olympus_shipyards
+							has_building = ca_pirate_harbor
+							has_building = ct_pirate_harbor
+							has_building = tp_pirate_harbor
+						}
+					}
+				}
+			}
+			NOT = { has_character_flag = flag_buying_new_vehicle }
+		}
+		allow = {
+			age = 16
+			NOT = { trait = incapable }
+			wealth = 150
+			custom_tooltip = {
+				text = EVTTOOLTIPALREADYCOMMISSIONEDASHIP
+				NOT = { has_character_flag = flag_commissioned_new_ship }
+			}
+		}
+		effect = {
+			set_character_flag = flag_buying_new_vehicle
+			character_event = { id = cotc_artifact.100 tooltip = "EVTTOOLTIPCOTCARTIFACT100" }
+		}
+		ai_will_do = {
+			factor = 1
+			
+			# Random factor
+			modifier = {
+				factor = 0.1
+			}
+			
+			# Needs a positive reason to want a corvette
+			modifier = {
+				factor = 0
+				has_education_stewardship_trigger = no
+				is_ruler = no
+			}
+			
+			# Already have a ship
+			modifier = {
+				factor = 0
+				any_artifact = {
+					is_active = yes
+					has_artifact_flag = ship
+				}
+			}
+			
+			# Would prefer a different, more expensive ship
+			modifier = {
+				factor = 0.1
+				trait = proud
+				OR = {
+					wealth = 400
+					yearly_income = 50
+					trait = disciplined
+				}
+			}
+			modifier = {
+				factor = 0.1
+				has_education_diplomacy_trigger = yes
+				OR = {
+					wealth = 400
+					yearly_income = 50
+					trait = disciplined
+				}
+			}
+			modifier = {
+				factor = 0
+				trait = warship_captain
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.1
+				trait = warship_captain
+			}
+		}
+	}
+	commission_a_freighter_decision = {
+		potential = {
+			# Must have a facility capable of producing this unit
+			capital_scope = {
+				any_province_lord = {
+					NOT = { war_with = ROOT }
+					any_demesne_title = {
+						tier = baron
+						location = { province_id = PREVPREVPREV }
+						OR = {
+							has_building = ca_spaceyard_q_1
+							has_building = ct_factories_q_2
+							has_building = ca_olympus_shipyards
+							has_building = ca_pirate_harbor
+							has_building = ct_pirate_harbor
+							has_building = tp_pirate_harbor
+						}
+					}
+				}
+			}
+			NOT = { has_character_flag = flag_buying_new_vehicle }
+		}
+		allow = {
+			wealth = 100
+			age = 16
+			NOT = { trait = incapable }
+			custom_tooltip = {
+				text = EVTTOOLTIPALREADYCOMMISSIONEDASHIP
+				NOT = { has_character_flag = flag_commissioned_new_ship }
+			}
+		}
+		effect = {
+			set_character_flag = flag_buying_new_vehicle
+			character_event = { id = cotc_artifact.200 tooltip = "EVTTOOLTIPCOTCARTIFACT100" }
+		}
+		ai_will_do = {
+			factor = 1
+			
+			# Random factor
+			modifier = {
+				factor = 0.1
+			}
+			
+			# Needs a positive reason to want a freighter
+			modifier = {
+				factor = 0
+				has_education_stewardship_trigger = no
+				has_education_intrigue_trigger = no
+				NOT = { religion_group = outlaw_group }
+			}
+			
+			# Already have a ship
+			modifier = {
+				factor = 0
+				any_artifact = {
+					is_active = yes
+					has_artifact_flag = ship
+				}
+			}
+			
+			# Would prefer a different, more expensive ship
+			modifier = {
+				factor = 0.1
+				is_ruler = yes
+				OR = {
+					yearly_income = 10
+					trait = disciplined
+				}
+			}
+			modifier = {
+				factor = 0.1
+				has_education_stewardship_trigger = yes
+				OR = {
+					yearly_income = 10
+					trait = disciplined
+				}
+			}
+			modifier = {
+				factor = 0.1
+				trait = proud
+				OR = {
+					wealth = 400
+					yearly_income = 50
+					trait = disciplined
+				}
+			}
+			modifier = {
+				factor = 0.1
+				has_education_diplomacy_trigger = yes
+				OR = {
+					wealth = 400
+					yearly_income = 50
+					trait = disciplined
+				}
+			}
+			modifier = {
+				factor = 0
+				trait = warship_captain
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.1
+				trait = warship_captain
+			}
+		}
+	}
+	commission_a_yacht_decision = {
+		potential = {
+			# Must have a facility capable of producing this unit
+			capital_scope = {
+				any_province_lord = {
+					NOT = { war_with = ROOT }
+					any_demesne_title = {
+						tier = baron
+						location = { province_id = PREVPREVPREV }
+						OR = {
+							has_building = ca_spaceyard_q_2
+							has_building = ct_factories_q_3
+							has_building = ca_olympus_shipyards
+						}
+					}
+				}
+			}
+			NOT = { has_character_flag = flag_buying_new_vehicle }
+		}
+		allow = {
+			wealth = 500
+			age = 16
+			NOT = { trait = incapable }
+			custom_tooltip = {
+				text = EVTTOOLTIPALREADYCOMMISSIONEDASHIP
+				NOT = { has_character_flag = flag_commissioned_new_ship }
+			}
+		}
+		effect = {
+			set_character_flag = flag_buying_new_vehicle
+			character_event = { id = cotc_artifact.300 tooltip = "EVTTOOLTIPCOTCARTIFACT100" }
+		}
+		ai_will_do = {
+			factor = 1
+			
+			# Random factor
+			modifier = {
+				factor = 0.1
+			}
+			
+			# Needs a positive reason to want a yacht
+			modifier = {
+				factor = 0
+				has_education_diplomacy_trigger = no
+				NOT = { trait = proud }
+				is_ruler = no
+			}
+			
+			# Already have a ship
+			modifier = {
+				factor = 0
+				any_artifact = {
+					is_active = yes
+					has_artifact_flag = ship
+				}
+			}
+			
+			modifier = {
+				factor = 0.25
+				trait = humble
+			}
+			modifier = {
+				factor = 4
+				trait = proud
+			}
+			
+			# Would prefer a different, more expensive ship
+			modifier = {
+				factor = 0
+				trait = warship_captain
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.1
+				trait = warship_captain
+			}
+		}
+	}
+	commission_a_dreadnought_decision = {
+		potential = {
+			# Must have a facility capable of producing this unit
+			capital_scope = {
+				any_province_lord = {
+					NOT = { war_with = ROOT }
+					any_demesne_title = {
+						tier = baron
+						location = { province_id = PREVPREVPREV }
+						OR = {
+							has_building = ca_spaceyard_q_2
+							has_building = ca_olympus_shipyards
+						}
+					}
+				}
+			}
+			NOT = { has_character_flag = flag_buying_new_vehicle }
+		}
+		allow = {
+			wealth = 750
+			age = 16
+			NOT = { trait = incapable }
+			custom_tooltip = {
+				text = EVTTOOLTIPALREADYCOMMISSIONEDASHIP
+				NOT = { has_character_flag = flag_commissioned_new_ship }
+			}
+		}
+		effect = {
+			set_character_flag = flag_buying_new_vehicle
+			character_event = { id = cotc_artifact.400 tooltip = "EVTTOOLTIPCOTCARTIFACT100" }
+		}
+		ai_will_do = {
+			factor = 1
+			
+			# Random factor
+			modifier = {
+				factor = 0.1
+			}
+			
+			# Needs a positive reason to want a dreadnought
+			modifier = {
+				factor = 0
+				NOT = { trait = warship_captain }
+			}
+			
+			# Already have a ship
+			modifier = {
+				factor = 0
+				any_artifact = {
+					is_active = yes
+					has_artifact_flag = ship
+				}
+			}
+		}
+	}
+	buy_a_fighter_decision = {
+		potential = {
+			# Must have a facility capable of producing this unit
+			capital_scope = {
+				any_province_lord = {
+					NOT = { war_with = ROOT }
+					any_demesne_title = {
+						tier = baron
+						location = { province_id = PREVPREVPREV }
+						OR = {
+							has_building = ca_spaceyard_q_1
+							has_building = ct_factories_q_1
+							has_building = ca_olympus_shipyards
+							has_building = ca_pirate_harbor
+							has_building = ct_pirate_harbor
+							has_building = tp_pirate_harbor
+						}
+					}
+				}
+			}
+			NOT = { has_character_flag = flag_buying_new_vehicle }
+		}
+		allow = {
+			wealth = 100
+			age = 16
+			NOT = { trait = incapable }
+		}
+		effect = {
+			set_character_flag = flag_buying_new_vehicle
+			character_event = { id = cotc_artifact.500 tooltip = "EVTTOOLTIPCOTCARTIFACT100" }
+		}
+		ai_will_do = {
+			factor = 1
+			
+			# Random factor
+			modifier = {
+				factor = 0.1
+			}
+			
+			# Needs a positive reason to want a fighter
+			modifier = {
+				factor = 0
+				NOT = { trait = fighter_pilot }
+			}
+			
+			# Already have a fighter
+			modifier = {
+				factor = 0
+				any_artifact = {
+					is_active = yes
+					has_artifact_flag = fighter
+				}
+			}
+		}
+	}
+	buy_urban_assault_armor_decision = {
+		potential = {
+			# Must have a facility capable of producing this unit
+			capital_scope = {
+				any_province_lord = {
+					NOT = { war_with = ROOT }
+					any_demesne_title = {
+						tier = baron
+						location = { province_id = PREVPREVPREV }
+						OR = {
+							has_building = ct_robotics_infrastructure_q_1
+							has_building = ct_factories_q_1
+							has_building = tp_robotics_lab_q_1
+						}
+					}
+				}
+			}
+			NOT = { has_character_flag = flag_buying_new_vehicle }
+		}
+		allow = {
+			wealth = 100
+			age = 16
+			NOT = { trait = incapable }
+		}
+		effect = {
+			set_character_flag = flag_buying_new_vehicle
+			character_event = { id = cotc_artifact.600 tooltip = "EVTTOOLTIPCOTCARTIFACT100" }
+		}
+		ai_will_do = {
+			factor = 1
+			
+			# Random factor
+			modifier = {
+				factor = 0.1
+			}
+			
+			# Needs a positive reason to want a fighter
+			modifier = {
+				factor = 0
+				NOT = { trait = marine_colonel }
+			}
+			
+			# Already have a ground vehicle
+			modifier = {
+				factor = 0
+				any_artifact = {
+					is_active = yes
+					has_artifact_flag = ground
+				}
+			}
+		}
+	}
+}

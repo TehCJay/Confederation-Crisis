@@ -1,0 +1,98 @@
+# Vehicles! Mostly generic for now, more interesting ones to come later
+
+# Flag Explanations:
+# vehicle: self-explanatory
+# mechanical: This is a large complex machine and it could theoretically break and need repairs
+# networked: This machine relies on a network connection that could be hacked
+# ground: This is a ground vehicle.
+# space: This is a spacecraft.
+# ship: This is a large spacecraft, with a pressurized cabin and multiple crew personnel.
+# fighter: This is a small, one-man spacecraft.
+# military_vehicle: This vehicle is intended to be used in a military role.
+
+# Hermes-class Corvette
+hermes_class_corvette = {
+	picture = "GFX_handgun" # Placeholder
+	stewardship = 2 # Keep closer tabs on your investments
+	demesne_size = 1 # Fast response time allows you to respond easily to problems as they come up
+	command_modifier = {
+		speed = 0.1
+		retreat = 0.1
+	}
+	flags = { vehicle mechanical networked space ship }
+	quality = 2
+	slot = vehicle
+}
+
+# Shangri La-class Yacht
+shangri_la_class_yacht = {
+	picture = "GFX_handgun" # Placeholder
+	diplomacy = 3 # Host fancy parties
+	monthly_character_prestige = 0.5 # Very impressive-looking
+	neo_socialist_opinion = -25 # EXTREMELY bourgeosie
+	colonial_separatist_opinion = -25 # A symbol of Confederate corruption
+	terran_imperial_opinion = -25 # A symbol of weakness and decadence
+	flags = { vehicle mechanical space ship }
+	quality = 2
+	slot = vehicle
+}
+
+# Calico-class Heavy Freighter
+calico_class_heavy_freighter = {
+	picture = "GFX_handgun" # Placeholder
+	martial = 1
+	intrigue = 1
+	command_modifier = {
+		# A very, very fast ship
+		speed = 0.5
+		retreat = 0.5
+	}
+	flags = { vehicle mechanical space ship }
+	quality = 2
+	slot = vehicle
+}
+
+# Bishamonten-class Dreadnought
+bishamonten_class_dreadnought = {
+	picture = "GFX_handgun" # Placeholder
+	martial = 2
+	command_modifier = {
+		# This thing is built like a brick wall. She'll keep fighting no matter what. Best used where the action is.
+		morale_defence = 0.2
+		center = 0.2
+		cavalry = 0.1
+		retreat = -0.1 # Quite slow.
+	}
+	active = { trait = warship_captain }
+	flags = { vehicle mechanical space ship military_vehicle }
+	quality = 2
+	slot = vehicle
+}
+
+# SSF-59 Dao Starfighter
+ssf_59_dao_starfighter = {
+	picture = "GFX_handgun" # Placeholder
+	martial = 1
+	command_modifier = {
+		# High speed makes it excellent for flanking attacks
+		flank = 0.2
+		skirmish = 0.1
+		retreat = 0.1
+	}
+	active = { trait = fighter_pilot }
+	flags = { vehicle mechanical networked space ship military_vehicle }
+	quality = 2
+	slot = vehicle
+}
+
+# Valkyrie Urban Assault Armor
+valkyrie_urban_assault_armor = {
+	picture = "GFX_handgun" # Placeholder
+	martial = 1
+	command_modifier = { siege = 0.1 } # Best used in ground combat
+	combat_rating = 50 # Legally classified as armor
+	active = { trait = marine_colonel }
+	flags = { vehicle mechanical networked ground military_vehicle }
+	quality = 2
+	slots = vehicle
+}

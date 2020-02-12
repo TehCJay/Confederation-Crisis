@@ -1,0 +1,429 @@
+namespace = cotc_artifact
+
+# COMMISSIONING SHIPS
+# CORVETTES
+character_event = {
+	id = cotc_artifact.100
+	desc = "EVTDESCCOTCARTIFACT100"
+	picture = GFX_evt_hangar
+	is_triggered_only = yes
+	
+	# Hermes-class
+	option = {
+		trigger = { wealth = 150 }
+		name = "EVTOPTACOTCARTIFACT100"
+		wealth = -150
+		clr_character_flag = flag_buying_new_vehicle
+		set_character_flag = flag_commissioned_new_ship
+		set_character_flag = flag_commissioned_hermes_class_corvette
+		custom_tooltip = { text = "HERMESDESC" }
+		custom_tooltip = { text = "EVTTOOLTIPABOUTEIGHTMONTHS" }
+		hidden_tooltip = { character_event = { id = cotc_artifact.101 days = 210 random = 60 } }
+	}
+	
+	option = {
+		name = "EVTOPTNEVERMIND"
+		clr_character_flag = flag_buying_new_vehicle
+		ai_chance = { factor = 0 }
+	}
+}
+character_event = {
+	id = cotc_artifact.101
+	desc = "EVTDESCCOTCARTIFACT101"
+	picture = GFX_evt_hangar
+	
+	is_triggered_only = yes
+	trigger = { has_character_flag = flag_commissioned_hermes_class_corvette }
+	immediate = {
+		add_artifact = hermes_class_corvette
+		new_artifact = { save_event_target_as = target_new_ship }
+	}
+	option = {
+		name = "EVTOPTACCEPT"
+		clr_character_flag = flag_commissioned_new_ship
+		clr_character_flag = flag_commissioned_hermes_class_corvette
+	}
+}
+# FREIGHTERS
+character_event = {
+	id = cotc_artifact.200
+	desc = "EVTDESCCOTCARTIFACT200"
+	picture = GFX_evt_hangar
+	is_triggered_only = yes
+	
+	# Calico-class
+	option = {
+		trigger = { wealth = 100 }
+		name = "EVTOPTACOTCARTIFACT200"
+		wealth = -100
+		clr_character_flag = flag_buying_new_vehicle
+		set_character_flag = flag_commissioned_new_ship
+		set_character_flag = flag_commissioned_calico_class_heavy_freighter
+		custom_tooltip = { text = "CALICODESC" }
+		custom_tooltip = { text = "EVTTOOLTIPABOUTTENMONTHS" }
+		hidden_tooltip = { character_event = { id = cotc_artifact.101 days = 270 random = 60 } }
+	}
+	
+	option = {
+		name = "EVTOPTNEVERMIND"
+		clr_character_flag = flag_buying_new_vehicle
+		ai_chance = { factor = 0 }
+	}
+}
+character_event = {
+	id = cotc_artifact.201
+	desc = "EVTDESCCOTCARTIFACT201"
+	picture = GFX_evt_hangar
+	
+	is_triggered_only = yes
+	trigger = { has_character_flag = flag_commissioned_calico_class_heavy_freighter }
+	immediate = {
+		add_artifact = calico_class_heavy_freighter
+		new_artifact = { save_event_target_as = target_new_ship }
+	}
+	option = {
+		name = "EVTOPTACCEPT"
+		clr_character_flag = flag_commissioned_new_ship
+		clr_character_flag = flag_commissioned_calico_class_heavy_freighter
+	}
+}
+# YACHTS
+character_event = {
+	id = cotc_artifact.300
+	desc = "EVTDESCCOTCARTIFACT300"
+	picture = GFX_evt_hangar
+	is_triggered_only = yes
+	
+	# Shangri La-class
+	option = {
+		trigger = { wealth = 500 }
+		name = "EVTOPTACOTCARTIFACT300"
+		wealth = -500
+		clr_character_flag = flag_buying_new_vehicle
+		set_character_flag = flag_commissioned_new_ship
+		set_character_flag = flag_commissioned_shangri_la_class_yacht
+		custom_tooltip = { text = "SHANGRILADESC" }
+		custom_tooltip = { text = "EVTTOOLTIPABOUTAYEAR" }
+		hidden_tooltip = { character_event = { id = cotc_artifact.301 days = 330 random = 60 } }
+	}
+	
+	option = {
+		name = "EVTOPTNEVERMIND"
+		clr_character_flag = flag_buying_new_vehicle
+		ai_chance = { factor = 0 }
+	}
+}
+character_event = {
+	id = cotc_artifact.301
+	desc = "EVTDESCCOTCARTIFACT101"
+	picture = GFX_evt_hangar
+	is_triggered_only = yes
+	
+	trigger = { has_character_flag = flag_commissioned_shangri_la_class_yacht }
+	immediate = {
+		add_artifact = shangri_la_class_yacht
+		new_artifact = { save_event_target_as = target_new_ship }
+	}
+	option = {
+		name = "EVTOPTACCEPT"
+		clr_character_flag = flag_commissioned_new_ship
+		clr_character_flag = flag_commissioned_shangri_la_class_yacht
+	}
+}
+# DREADNOUGHTS
+character_event = {
+	id = cotc_artifact.400
+	desc = "EVTDESCCOTCARTIFACT400"
+	picture = GFX_evt_hangar
+	is_triggered_only = yes
+	
+	# Bishamonten-class
+	option = {
+		trigger = { wealth = 750 }
+		name = "EVTOPTACOTCARTIFACT400"
+		wealth = -750
+		clr_character_flag = flag_buying_new_vehicle
+		set_character_flag = flag_commissioned_new_ship
+		set_character_flag = flag_commissioned_bishamonten_class_dreadnought
+		custom_tooltip = { text = "BISHAMONTENDESC" }
+		custom_tooltip = { text = "EVTTOOLTIPABOUTTWOYEARS" }
+		hidden_tooltip = { character_event = { id = cotc_artifact.401 days = 670 random = 120 } }
+	}
+	
+	option = {
+		name = "EVTOPTNEVERMIND"
+		clr_character_flag = flag_buying_new_vehicle
+		ai_chance = { factor = 0 }
+	}
+}
+character_event = {
+	id = cotc_artifact.401
+	desc = "EVTDESCCOTCARTIFACT401"
+	picture = GFX_evt_hangar
+	is_triggered_only = yes
+	
+	trigger = { has_character_flag = flag_commissioned_bishamonten_class_dreadnought }
+	immediate = {
+		add_artifact = bishamonten_class_dreadnought
+		new_artifact = { save_event_target_as = target_new_ship }
+	}
+	option = {
+		name = "EVTOPTACCEPT"
+		clr_character_flag = flag_commissioned_new_ship
+		clr_character_flag = flag_commissioned_bishamonten_class_dreadnought
+	}
+}
+# PURCHASING NEW VEHICLES
+# Fighters
+character_event = {
+	id = cotc_artifact.500
+	desc = "EVTDESCCOTCARTIFACT500"
+	picture = GFX_evt_hangar
+	is_triggered_only = yes
+	
+	# SFF-59 Dao
+	option = {
+		trigger = { wealth = 100 }
+		name = "EVTOPTACOTCARTIFACT500"
+		wealth = -100
+		clr_character_flag = flag_buying_new_vehicle
+		custom_tooltip = { text = "SSF59DAODESC" }
+		add_artifact = ssf_59_dao_starfighter
+	}
+	
+	option = {
+		name = "EVTOPTNEVERMIND"
+		clr_character_flag = flag_buying_new_vehicle
+		ai_chance = { factor = 0 }
+	}
+}
+# Urban Assault Armor
+character_event = {
+	id = cotc_artifact.600
+	desc = "EVTDESCCOTCARTIFACT600"
+	picture = GFX_evt_hangar
+	is_triggered_only = yes
+	
+	# Valkyrie
+	option = {
+		trigger = { wealth = 100 }
+		name = "EVTOPTACOTCARTIFACT600"
+		wealth = -100
+		clr_character_flag = flag_buying_new_vehicle
+		custom_tooltip = { text = "VALKYRIEDESC" }
+		add_artifact = valkyrie_urban_assault_armor
+	}
+	
+	option = {
+		name = "EVTOPTNEVERMIND"
+		clr_character_flag = flag_buying_new_vehicle
+		ai_chance = { factor = 0 }
+	}
+}
+
+###### Whoops, you dead. Now your heir MIGHT inherit the commission
+character_event = {
+	id = cotc_artifact.1000
+	hide_window = yes
+	is_triggered_only = yes
+	
+	trigger = { has_character_flag = flag_commissioned_new_ship }
+	
+	immediate = {
+		
+		random_list = {
+			100 = {
+				modifier = {
+					factor = 1.25
+					trait = friendly
+				}
+				modifier = {
+					factor = 2
+					player_heir = { trait = friendly }
+				}
+				modifier = {
+					factor = 0.8
+					trait = cold
+				}
+				modifier = {
+					factor = 0.5
+					player_heir = { trait = cold }
+				}
+				modifier = {
+					factor = 1.25
+					trait = confident
+				}
+				modifier = {
+					factor = 2
+					player_heir = { trait = confident }
+				}
+				modifier = {
+					factor = 0.8
+					trait = neurotic
+				}
+				modifier = {
+					factor = 0.5
+					player_heir = { trait = neurotic }
+				}
+				player_heir = { character_event = { id = 1001 } } # All's well
+			}
+			100 = { player_heir = { character_event = { id = 1002 } } } # All is not well
+		}
+	}
+}
+character_event = {
+	id = cotc_artifact.1001
+	desc = "EVTDESCCOTCARTIFACT1001"
+	picture = GFX_evt_death
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTACCEPT"
+		set_character_flag = flag_commissioned_new_ship
+		if = {
+			limit = { FROM = { has_character_flag = flag_commissioned_hermes_class_corvette } }
+			set_character_flag = flag_commissioned_hermes_class_corvette
+			custom_tooltip = { text = "EVTTOOLTIPABOUTEIGHTMONTHS" }
+			hidden_tooltip = { character_event = { id = cotc_artifact.101 days = 210 random = 60 } }
+		}
+		if = {
+			limit = { FROM = { has_character_flag = flag_commissioned_calico_class_heavy_freighter } }
+			set_character_flag = flag_commissioned_calico_class_heavy_freighter
+			custom_tooltip = { text = "EVTTOOLTIPABOUTTENMONTHS" }
+			hidden_tooltip = { character_event = { id = cotc_artifact.101 days = 270 random = 60 } }
+		}
+		if = {
+			limit = { FROM = { has_character_flag = flag_commissioned_shangri_la_class_yacht } }
+			set_character_flag = flag_commissioned_shangri_la_class_yacht
+			custom_tooltip = { text = "EVTTOOLTIPABOUTAYEAR" }
+			hidden_tooltip = { character_event = { id = cotc_artifact.301 days = 330 random = 60 } }
+		}
+		if = {
+			limit = { FROM = { has_character_flag = flag_commissioned_bishamonten_class_dreadnought } }
+			set_character_flag = flag_commissioned_bishamonten_class_dreadnought
+			custom_tooltip = { text = "EVTTOOLTIPABOUTTWOYEARS" }
+			hidden_tooltip = { character_event = { id = cotc_artifact.401 days = 670 random = 120 } }
+		}
+	}
+}
+character_event = {
+	id = cotc_artifact.1002
+	desc = "EVTDESCCOTCARTIFACT1002"
+	picture = GFX_evt_quarrel
+	is_triggered_only = yes
+	
+	# Out-bureaucracy them
+	option = {
+		trigger = { stewardship = 15 }
+		tooltip_info = stewardship
+		if = {
+			limit = { FROM = { has_character_flag = flag_commissioned_hermes_class_corvette } }
+			set_character_flag = flag_commissioned_hermes_class_corvette
+			custom_tooltip = { text = "EVTTOOLTIPABOUTEIGHTMONTHS" }
+			hidden_tooltip = { character_event = { id = cotc_artifact.101 days = 210 random = 60 } }
+		}
+		if = {
+			limit = { FROM = { has_character_flag = flag_commissioned_calico_class_heavy_freighter } }
+			set_character_flag = flag_commissioned_calico_class_heavy_freighter
+			custom_tooltip = { text = "EVTTOOLTIPABOUTTENMONTHS" }
+			hidden_tooltip = { character_event = { id = cotc_artifact.101 days = 270 random = 60 } }
+		}
+		if = {
+			limit = { FROM = { has_character_flag = flag_commissioned_shangri_la_class_yacht } }
+			set_character_flag = flag_commissioned_shangri_la_class_yacht
+			custom_tooltip = { text = "EVTTOOLTIPABOUTAYEAR" }
+			hidden_tooltip = { character_event = { id = cotc_artifact.301 days = 330 random = 60 } }
+		}
+		if = {
+			limit = { FROM = { has_character_flag = flag_commissioned_bishamonten_class_dreadnought } }
+			set_character_flag = flag_commissioned_bishamonten_class_dreadnought
+			custom_tooltip = { text = "EVTTOOLTIPABOUTTWOYEARS" }
+			hidden_tooltip = { character_event = { id = cotc_artifact.401 days = 670 random = 120 } }
+		}
+		ai_chance = { factor = 1 }
+	}
+	
+	# Bribe them. The cost is half the original commission.
+	option = {
+		name = "EVTOPTBARTIFACT1002"
+		trigger = {
+			FROM = { has_character_flag = flag_commissioned_hermes_class_corvette }
+			wealth = 75
+		}
+		wealth = -75
+		set_character_flag = flag_commissioned_new_ship
+		set_character_flag = flag_commissioned_hermes_class_corvette
+		custom_tooltip = { text = "EVTTOOLTIPABOUTEIGHTMONTHS" }
+		hidden_tooltip = { character_event = { id = cotc_artifact.101 days = 210 random = 60 } }
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				stewardship = 15
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTBARTIFACT1002"
+		trigger = {
+			FROM = { has_character_flag = flag_commissioned_calico_class_heavy_freighter }
+			wealth = 50
+		}
+		wealth = -50
+		set_character_flag = flag_commissioned_new_ship
+		set_character_flag = flag_commissioned_calico_class_heavy_freighter
+		custom_tooltip = { text = "EVTTOOLTIPABOUTTENMONTHS" }
+		hidden_tooltip = { character_event = { id = cotc_artifact.101 days = 270 random = 60 } }
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				stewardship = 15
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTBARTIFACT1002"
+		trigger = {
+			FROM = { has_character_flag = flag_commissioned_shangri_la_class_yacht }
+			wealth = 250
+		}
+		wealth = -250
+		set_character_flag = flag_commissioned_new_ship
+		set_character_flag = flag_commissioned_shangri_la_class_yacht
+		custom_tooltip = { text = "EVTTOOLTIPABOUTAYEAR" }
+		hidden_tooltip = { character_event = { id = cotc_artifact.301 days = 330 random = 60 } }
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				stewardship = 15
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTBARTIFACT1002"
+		trigger = {
+			FROM = { has_character_flag = flag_commissioned_bishamonten_class_dreadnought }
+			wealth = 375
+		}
+		wealth = -375
+		set_character_flag = flag_commissioned_new_ship
+		set_character_flag = flag_commissioned_bishamonten_class_dreadnought
+		custom_tooltip = { text = "EVTTOOLTIPABOUTTWOYEARS" }
+		hidden_tooltip = { character_event = { id = cotc_artifact.401 days = 670 random = 120 } }
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				stewardship = 15
+			}
+		}
+	}
+	
+	# Can't out-bureaucracy and can't bribe
+	option = {
+		name = "EVTOPTCARTIFACT1002"
+		ai_chance = { factor = 0 }
+	}
+}
