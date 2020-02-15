@@ -9,7 +9,6 @@ character_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		NOT = { trait = wounded }
 		NOT = { trait = full_cybernetic_conversion }
 		trait = fighter_pilot
 		FROM = {
@@ -106,7 +105,7 @@ character_event = {
 	}
 	option = {
 		name = "EVTOPTCONFIRM"
-		add_trait = wounded
+		inflict_minor_injury_effect = yes
 		any_artifact = {
 			limit = {
 				has_artifact_flag = fighter
@@ -139,7 +138,7 @@ character_event = {
 		name = "EVTOPTCONFIRM"
 		prestige = 10
 		FROM = {
-			add_trait = wounded
+			#add_trait = wounded
 			opinion = { who = ROOT modifier = opinion_shot_me_down }
 		}
 		hidden_tooltip = {
@@ -166,7 +165,6 @@ character_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		NOT = { trait = maimed }
 		NOT = { trait = full_cybernetic_conversion }
 		trait = fighter_pilot
 		FROM = {
@@ -263,7 +261,10 @@ character_event = {
 	}
 	option = {
 		name = "EVTOPTCONFIRM"
-		add_trait = maimed
+		random_list = {
+			60 = { inflict_moderate_injury_effect = yes }
+			40 = { inflict_major_injury_effect = yes }
+		}
 		any_artifact = {
 			limit = {
 				has_artifact_flag = fighter
@@ -296,7 +297,7 @@ character_event = {
 		name = "EVTOPTCONFIRM"
 		prestige = 25
 		FROM = {
-			add_trait = maimed
+			#add_trait = maimed
 			opinion = { who = ROOT modifier = opinion_shot_me_down }
 		}
 		hidden_tooltip = {
@@ -472,7 +473,6 @@ character_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		NOT = { trait = wounded }
 		NOT = { trait = full_cybernetic_conversion }
 		trait = fighter_pilot
 		FROM = {
@@ -578,7 +578,7 @@ character_event = {
 	}
 	option = {
 		name = "EVTOPTCONFIRM"
-		add_trait = wounded
+		inflict_minor_injury_effect = yes
 		any_artifact = {
 			limit = {
 				has_artifact_flag = fighter
@@ -611,7 +611,7 @@ character_event = {
 		name = "EVTOPTCONFIRM"
 		prestige = 5
 		FROM = {
-			add_trait = wounded
+			#add_trait = wounded
 			opinion = { who = ROOT modifier = opinion_shot_me_down }
 		}
 	}
@@ -625,7 +625,6 @@ character_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		NOT = { trait = maimed }
 		NOT = { trait = full_cybernetic_conversion }
 		trait = fighter_pilot
 		FROM = {
@@ -731,7 +730,10 @@ character_event = {
 	}
 	option = {
 		name = "EVTOPTCONFIRM"
-		add_trait = maimed
+		random_list = {
+			60 = { inflict_moderate_injury_effect = yes }
+			40 = { inflict_major_injury_effect = yes }
+		}
 		any_artifact = {
 			limit = {
 				has_artifact_flag = fighter
@@ -764,7 +766,7 @@ character_event = {
 		name = "EVTOPTCONFIRM"
 		prestige = 10
 		FROM = {
-			add_trait = maimed
+			#add_trait = maimed
 			opinion = { who = ROOT modifier = opinion_shot_me_down }
 		}
 	}
@@ -930,7 +932,6 @@ character_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		NOT = { trait = wounded }
 		NOT = { trait = full_cybernetic_conversion }
 		NOT = { trait = fighter_pilot }
 		FROM = {
@@ -1028,7 +1029,7 @@ character_event = {
 	}
 	option = {
 		name = "EVTOPTABATTLE20"
-		add_trait = wounded
+		inflict_minor_injury_effect = yes
 		FROM = {
 			random_realm_character = {
 				limit = {
@@ -1053,7 +1054,7 @@ character_event = {
 	option = {
 		name = "EVTOPTABATTLE21"
 		prestige = 25
-		FROM = { add_trait = wounded }
+	#	FROM = { #add_trait = wounded }
 	}
 }
 # Warship versus Warship: Maimed
@@ -1065,7 +1066,6 @@ character_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		NOT = { trait = maimed }
 		NOT = { trait = full_cybernetic_conversion }
 		NOT = { trait = fighter_pilot }
 		FROM = {
@@ -1163,7 +1163,10 @@ character_event = {
 	}
 	option = {
 		name = "EVTOPTABATTLE22"
-		add_trait = maimed
+		random_list = {
+			60 = { inflict_moderate_injury_effect = yes }
+			40 = { inflict_major_injury_effect = yes }
+		}
 		FROM = {
 			random_realm_character = {
 				limit = {
@@ -1189,7 +1192,7 @@ character_event = {
 		name = "EVTOPTABATTLE23"
 		prestige = 25
 		FROM = {
-			add_trait = maimed
+			#add_trait = maimed
 		}
 	}
 }
@@ -1342,7 +1345,6 @@ character_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		NOT = { trait = wounded }
 		NOT = { trait = full_cybernetic_conversion }
 		NOT = { trait = fighter_pilot }
 		FROM = {
@@ -1449,7 +1451,7 @@ character_event = {
 	}
 	option = {
 		name = "EVTOPTABATTLE30"
-		add_trait = wounded
+		inflict_minor_injury_effect = yes
 		FROM = {
 			random_realm_character = {
 				limit = {
@@ -1474,7 +1476,7 @@ character_event = {
 	option = {
 		name = "EVTOPTABATTLE31"
 		prestige = 50
-		FROM = { add_trait = wounded }
+		# FROM = { #add_trait = wounded }
 	}
 }
 # Fighter shoots down warship somehow: Maimed
@@ -1486,8 +1488,6 @@ character_event = {
 	is_triggered_only = yes
 	
 	trigger = {
-		NOT = { trait = maimed }
-		NOT = { trait = full_cybernetic_conversion }
 		NOT = { trait = fighter_pilot }
 		FROM = {
 			NOT = {
@@ -1593,7 +1593,10 @@ character_event = {
 	}
 	option = {
 		name = "EVTOPTABATTLE32"
-		add_trait = maimed
+		random_list = {
+			60 = { inflict_moderate_injury_effect = yes }
+			40 = { inflict_major_injury_effect = yes }
+		}
 		FROM = {
 			random_realm_character = {
 				limit = {
@@ -1619,7 +1622,7 @@ character_event = {
 		name = "EVTOPTABATTLE33"
 		prestige = 50
 		FROM = {
-			add_trait = maimed
+			#add_trait = maimed
 		}
 	}
 }

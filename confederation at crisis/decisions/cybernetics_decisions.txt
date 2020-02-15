@@ -2,7 +2,7 @@ decisions = {
 	get_full_cybernetic_conversion_decision = {
 		is_high_prio = yes
 		ai_check_interval = 40 
- potential = {
+		potential = {
 			NOT = { trait = full_cybernetic_conversion }
 			age = 16
 			NOT = { trait = incapable }
@@ -69,6 +69,34 @@ decisions = {
 				limit = { trait = maimed }
 				remove_trait = maimed
 			}
+			if = {	
+				limit = { trait = severely_injured }
+				remove_trait = severely_injured
+			}
+			if = {
+				limit = { trait = one_handed }
+				remove_trait = one_handed
+			}
+			if = {
+				limit = { trait = one_legged }
+				remove_trait = one_legged
+			}
+			if = {
+				limit = { trait = disfigured }
+				remove_trait = disfigured
+			}
+			if = {
+				limit = { trait = mangled }
+				remove_trait = mangled
+			}
+			if = {
+				limit = { trait = one_eyed }
+				remove_trait = one_eyed
+			}
+			if = {
+				limit = { trait = blinded }
+				remove_trait = blinded
+			}
 			if = {
 				limit = { trait = ill }
 				remove_trait = ill
@@ -100,10 +128,6 @@ decisions = {
 			if = {
 				limit = { trait = infirm }
 				remove_trait = infirm
-			}
-			if = {
-				limit = { trait = cybernetic_limb }
-				remove_trait = cybernetic_limb
 			}
 			# Remove Congenital Traits
 			if = {
@@ -163,6 +187,24 @@ decisions = {
 				remove_trait = stutter
 			}
 			add_trait = full_cybernetic_conversion
+			if = {
+				limit = { NOT = { trait = cybernetic_limb } }
+				add_trait = cybernetic_limb
+			}
+			if = {
+				limit = {
+					NOT = { trait = cybernetic_leg }
+					has_dlc = "Reapers"
+				}
+				add_trait = cybernetic_leg
+			}
+			if = {
+				limit = {
+					NOT = { trait = cybernetic_skeleton }
+					has_dlc = "Reapers"
+				}
+				add_trait = cybernetic_skeleton
+			}
 			if = {
 				limit = {
 					is_landed = yes
@@ -278,7 +320,7 @@ decisions = {
 	get_dni_decision = {
 		is_high_prio = yes
 		ai_check_interval = 40 
- potential = {
+		potential = {
 			NOT = { trait = dni }
 			age = 16
 			NOT = { trait = incapable }
@@ -432,7 +474,7 @@ decisions = {
 	get_iaei_mk_i_decision = {
 		is_high_prio = yes
 		ai_check_interval = 40 
- potential = {
+		potential = {
 			trait = dni
 			NOT = { trait = thoth_mk_i }
 			NOT = { trait = pci_mk_i }
@@ -632,7 +674,7 @@ decisions = {
 	get_iaei_mk_ii_decision = {
 		is_high_prio = yes
 		ai_check_interval = 40 
- potential = {
+		potential = {
 			trait = dni
 			location = { TECH_POPULAR_CUSTOMS = 2 }
 			NOT = { trait = iaei_mk_ii }
@@ -824,7 +866,7 @@ decisions = {
 	get_iaei_mk_iii_decision = {
 		is_high_prio = yes
 		ai_check_interval = 40 
- potential = {
+		potential = {
 			trait = dni
 			location = { TECH_POPULAR_CUSTOMS = 4 }
 			NOT = { trait = iaei_mk_iii }
@@ -981,7 +1023,7 @@ decisions = {
 	get_iaei_mk_iv_decision = {
 		is_high_prio = yes
 		ai_check_interval = 40 
- potential = {
+		potential = {
 			trait = dni
 			location = { TECH_POPULAR_CUSTOMS = 6 }
 			NOT = { trait = iaei_mk_iv }
@@ -1103,7 +1145,7 @@ decisions = {
 	get_iaei_mk_v_decision = {
 		is_high_prio = yes
 		ai_check_interval = 40 
- potential = {
+		potential = {
 			trait = dni
 			location = { TECH_POPULAR_CUSTOMS = 8 }
 			NOT = { trait = iaei_mk_v }
@@ -1190,7 +1232,7 @@ decisions = {
 	get_odin_mk_i_decision = {
 		is_high_prio = yes
 		ai_check_interval = 40 
- potential = {
+		potential = {
 			trait = dni
 			NOT = { trait = thoth_mk_i }
 			NOT = { trait = pci_mk_i }
@@ -1307,6 +1349,15 @@ decisions = {
 				limit = { location = { TECH_POPULAR_CUSTOMS = 6 } }
 				wealth = -5
 			}
+			if = {
+				limit = { trait = one_eyed }
+				remove_trait = one_eyed
+			}
+			if = {
+				limit = { trait = blinded }
+				remove_trait = blinded
+				add_trait = one_eyed
+			}
 			add_trait = odin_mk_i
 			hidden_tooltip = { character_event = { id = cybernetics.5010 } }
 			if = {
@@ -1385,7 +1436,7 @@ decisions = {
 	get_odin_mk_ii_decision = {
 		is_high_prio = yes
 		ai_check_interval = 40 
- potential = {
+		potential = {
 			trait = dni
 			location = { TECH_POPULAR_CUSTOMS = 2 }
 			NOT = { trait = odin_mk_ii }
@@ -1502,6 +1553,15 @@ decisions = {
 				limit = { location = { TECH_POPULAR_CUSTOMS = 8 } }
 				wealth = -5
 			}
+			if = {
+				limit = { trait = one_eyed }
+				remove_trait = one_eyed
+			}
+			if = {
+				limit = { trait = blinded }
+				remove_trait = blinded
+				add_trait = one_eyed
+			}
 			remove_trait = odin_mk_i
 			add_trait = odin_mk_ii
 			hidden_tooltip = { character_event = { id = cybernetics.5010 } }
@@ -1572,7 +1632,7 @@ decisions = {
 	get_odin_mk_iii_decision = {
 		is_high_prio = yes
 		ai_check_interval = 40 
- potential = {
+		potential = {
 			trait = dni
 			location = { TECH_POPULAR_CUSTOMS = 4 }
 			NOT = { trait = odin_mk_iii }
@@ -1662,6 +1722,15 @@ decisions = {
 				limit = { location = { TECH_POPULAR_CUSTOMS = 8 } }
 				wealth = -25
 			}
+			if = {
+				limit = { trait = one_eyed }
+				remove_trait = one_eyed
+			}
+			if = {
+				limit = { trait = blinded }
+				remove_trait = blinded
+				add_trait = one_eyed
+			}
 			remove_trait = odin_mk_i
 			remove_trait = odin_mk_ii
 			add_trait = odin_mk_iii
@@ -1724,7 +1793,7 @@ decisions = {
 	get_odin_mk_iv_decision = {
 		is_high_prio = yes
 		ai_check_interval = 40 
- potential = {
+		potential = {
 			trait = dni
 			location = { TECH_POPULAR_CUSTOMS = 6 }
 			NOT = { trait = odin_mk_iv }
@@ -1787,6 +1856,15 @@ decisions = {
 				limit = { location = { TECH_POPULAR_CUSTOMS = 8 } }
 				wealth = -100
 			}
+			if = {
+				limit = { trait = one_eyed }
+				remove_trait = one_eyed
+			}
+			if = {
+				limit = { trait = blinded }
+				remove_trait = blinded
+				add_trait = one_eyed
+			}
 			remove_trait = odin_mk_i
 			remove_trait = odin_mk_ii
 			remove_trait = odin_mk_iii
@@ -1841,7 +1919,7 @@ decisions = {
 	get_odin_mk_v_decision = {
 		is_high_prio = yes
 		ai_check_interval = 40 
- potential = {
+		potential = {
 			trait = dni
 			location = { TECH_POPULAR_CUSTOMS = 8 }
 			NOT = { trait = odin_mk_v }
@@ -1877,6 +1955,15 @@ decisions = {
 		}
 		effect = {
 			wealth = -500
+			if = {
+				limit = { trait = one_eyed }
+				remove_trait = one_eyed
+			}
+			if = {
+				limit = { trait = blinded }
+				remove_trait = blinded
+				add_trait = one_eyed
+			}
 			remove_trait = odin_mk_i
 			remove_trait = odin_mk_ii
 			remove_trait = odin_mk_iii
@@ -1923,7 +2010,7 @@ decisions = {
 	get_pci_mk_i_decision = {
 		is_high_prio = yes
 		ai_check_interval = 40 
- potential = {
+		potential = {
 			trait = dni
 			NOT = { trait = thoth_mk_i }
 			NOT = { trait = pluto_mk_i }
@@ -2117,7 +2204,7 @@ decisions = {
 	get_pci_mk_ii_decision = {
 		is_high_prio = yes
 		ai_check_interval = 40 
- potential = {
+		potential = {
 			trait = dni
 			location = { TECH_POPULAR_CUSTOMS = 2 }
 			NOT = { trait = pci_mk_ii }
@@ -2303,7 +2390,7 @@ decisions = {
 	get_pci_mk_iii_decision = {
 		is_high_prio = yes
 		ai_check_interval = 40 
- potential = {
+		potential = {
 			trait = dni
 			location = { TECH_POPULAR_CUSTOMS = 4 }
 			NOT = { trait = pci_mk_iii }
@@ -2454,7 +2541,7 @@ decisions = {
 	get_pci_mk_iv_decision = {
 		is_high_prio = yes
 		ai_check_interval = 40 
- potential = {
+		potential = {
 			trait = dni
 			location = { TECH_POPULAR_CUSTOMS = 6 }
 			NOT = { trait = pci_mk_iv }
@@ -2570,7 +2657,7 @@ decisions = {
 	get_pci_mk_v_decision = {
 		is_high_prio = yes
 		ai_check_interval = 40 
- potential = {
+		potential = {
 			trait = dni
 			location = { TECH_POPULAR_CUSTOMS = 8 }
 			NOT = { trait = pci_mk_v }
@@ -2651,7 +2738,7 @@ decisions = {
 	get_pluto_mk_i_decision = {
 		is_high_prio = yes
 		ai_check_interval = 40 
- potential = {
+		potential = {
 			trait = dni
 			NOT = { trait = thoth_mk_i }
 			NOT = { trait = pci_mk_i }
@@ -2845,7 +2932,7 @@ decisions = {
 	get_pluto_mk_ii_decision = {
 		is_high_prio = yes
 		ai_check_interval = 40 
- potential = {
+		potential = {
 			trait = dni
 			location = { TECH_POPULAR_CUSTOMS = 2 }
 			NOT = { trait = pluto_mk_ii }
@@ -3031,7 +3118,7 @@ decisions = {
 	get_pluto_mk_iii_decision = {
 		is_high_prio = yes
 		ai_check_interval = 40 
- potential = {
+		potential = {
 			trait = dni
 			location = { TECH_POPULAR_CUSTOMS = 4 }
 			NOT = { trait = pluto_mk_iii }
@@ -3182,7 +3269,7 @@ decisions = {
 	get_pluto_mk_iv_decision = {
 		is_high_prio = yes
 		ai_check_interval = 40 
- potential = {
+		potential = {
 			trait = dni
 			location = { TECH_POPULAR_CUSTOMS = 6 }
 			NOT = { trait = pluto_mk_iv }
@@ -3298,7 +3385,7 @@ decisions = {
 	get_pluto_mk_v_decision = {
 		is_high_prio = yes
 		ai_check_interval = 40 
- potential = {
+		potential = {
 			trait = dni
 			location = { TECH_POPULAR_CUSTOMS = 8 }
 			NOT = { trait = pluto_mk_v }
@@ -3379,7 +3466,7 @@ decisions = {
 	get_thoth_mk_i_decision = {
 		is_high_prio = yes
 		ai_check_interval = 40 
- potential = {
+		potential = {
 			trait = dni
 			NOT = { trait = pci_mk_i }
 			NOT = { trait = pluto_mk_i }
@@ -3574,7 +3661,7 @@ decisions = {
 	get_thoth_mk_ii_decision = {
 		is_high_prio = yes
 		ai_check_interval = 40 
- potential = {
+		potential = {
 			trait = dni
 			location = { TECH_POPULAR_CUSTOMS = 2 }
 			NOT = { trait = thoth_mk_ii }
@@ -3761,7 +3848,7 @@ decisions = {
 	get_thoth_mk_iii_decision = {
 		is_high_prio = yes
 		ai_check_interval = 40 
- potential = {
+		potential = {
 			trait = dni
 			location = { TECH_POPULAR_CUSTOMS = 4 }
 			NOT = { trait = thoth_mk_iii }
@@ -3913,7 +4000,7 @@ decisions = {
 	get_thoth_mk_iv_decision = {
 		is_high_prio = yes
 		ai_check_interval = 40 
- potential = {
+		potential = {
 			trait = dni
 			location = { TECH_POPULAR_CUSTOMS = 6 }
 			NOT = { trait = thoth_mk_iv }
@@ -4030,7 +4117,7 @@ decisions = {
 	get_thoth_mk_v_decision = {
 		is_high_prio = yes
 		ai_check_interval = 40 
- potential = {
+		potential = {
 			trait = dni
 			location = { TECH_POPULAR_CUSTOMS = 8 }
 			NOT = { trait = thoth_mk_v }
@@ -4113,10 +4200,10 @@ decisions = {
 	get_cybernetic_limb_decision = {
 		is_high_prio = yes
 		ai_check_interval = 40 
- potential = {
-			trait = maimed
+		potential = {
 			age = 16
 			NOT = { trait = incapable }
+			NOT = { trait = cybernetic_limb }
 			prisoner = no
 			OR = {
 				ai = yes
@@ -4221,7 +4308,28 @@ decisions = {
 				limit = { location = { TECH_POPULAR_CUSTOMS = 6 } }
 				wealth = -5
 			}
-			remove_trait = maimed
+			if = {
+				limit = { trait = wounded }
+				remove_trait = wounded
+			}
+			if = {
+				limit = { trait = maimed }
+				remove_trait = maimed
+			}
+			if = {
+				limit = {
+					has_dlc = "Reapers"
+					trait = severely_injured
+				}
+				remove_trait = severely_injured
+			}
+			if = {
+				limit = {
+					has_dlc = "Reapers"
+					trait = one_handed
+				}
+				remove_trait = one_handed
+			}
 			add_trait = cybernetic_limb
 			hidden_tooltip = { character_event = { id = cybernetics.5060 } }
 			if = {
@@ -4245,15 +4353,430 @@ decisions = {
 		ai_will_do = {
 			factor = 1
 			modifier = {
+				factor = 0.1
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_dlc = "Reapers" }
+				NOT = { trait = maimed }
+				NOT = {
+					AND = {
+						OR = {
+							religion = cyberneticist
+							religion = machine_cultist
+							religion = hiver
+						}
+					}
+					trait = radical
+				}
+			}
+			modifier = {
+				factor = 0
+				has_dlc = "Reapers"
+				NOT = { trait = one_handed }
+				NOT = {
+					AND = {
+						OR = {
+							religion = cyberneticist
+							religion = machine_cultist
+							religion = hiver
+						}
+					}
+					trait = radical
+				}
+			}
+			modifier = {
 				factor = 0
 				religion_group = religious_group
 				NOT = { trait = pragmatic }
-				health = 1
+				NOT = { trait = severely_injured }
 			}
 			modifier = {
 				factor = 0
 				trait = close_minded
 				health = 2
+				NOT = { trait = severely_injured }
+				NOT = { trait = maimed }
+			}
+			modifier = {
+				factor = 0
+				religion_group = religious_group
+				trait = radical
+			}
+		}
+	}
+	# Get cybernetic leg
+	get_cybernetic_leg_decision = {
+		is_high_prio = yes
+		ai_check_interval = 40 
+		potential = {
+			has_dlc = "Reapers"
+			age = 16
+			NOT = { trait = incapable }
+			NOT = { trait = cybernetic_leg }
+			prisoner = no
+			OR = {
+				ai = yes
+				has_character_flag = flag_cybernetics_menu_open
+			}
+			location = {
+				any_province_lord = {
+					NOT = { war_with = ROOT }
+					any_demesne_title = {
+						tier = baron
+						location = { province_id = PREVPREVPREV }
+						has_building = tp_cybernetics_lab_q_1
+					}
+				}
+			}
+		}
+		allow = {
+			OR = {
+				wealth = 500
+				AND = {
+					location = { TECH_POPULAR_CUSTOMS = 1 }
+					wealth = 250
+				}
+				AND = {
+					location = { TECH_POPULAR_CUSTOMS = 2 }
+					wealth = 100
+				}
+				AND = {
+					location = { TECH_POPULAR_CUSTOMS = 3 }
+					wealth = 50
+				}
+				AND = {
+					location = { TECH_POPULAR_CUSTOMS = 4 }
+					wealth = 25
+				}
+				AND = {
+					location = { TECH_POPULAR_CUSTOMS = 5 }
+					wealth = 10
+				}
+				AND = {
+					location = { TECH_POPULAR_CUSTOMS = 6 }
+					wealth = 5
+				}
+			}
+			OR = {
+				NOT = { religion_group = religious_group }
+				trait = pragmatic
+				piety = 100
+			}
+		}
+		effect = {
+			if = {
+				limit = { location = { NOT = { TECH_POPULAR_CUSTOMS = 1 } } }
+				wealth = -500
+			}
+			if = {
+				limit = {
+					location = {
+						TECH_POPULAR_CUSTOMS = 1
+						NOT = { TECH_POPULAR_CUSTOMS = 2 }
+					}
+				}
+				wealth = -250
+			}
+			if = {
+				limit = {
+					location = {
+						TECH_POPULAR_CUSTOMS = 2
+						NOT = { TECH_POPULAR_CUSTOMS = 3 }
+					}
+				}
+				wealth = -100
+			}
+			if = {
+				limit = {
+					location = {
+						TECH_POPULAR_CUSTOMS = 3
+						NOT = { TECH_POPULAR_CUSTOMS = 4 }
+					}
+				}
+				wealth = -50
+			}
+			if = {
+				limit = {
+					location = {
+						TECH_POPULAR_CUSTOMS = 4
+						NOT = { TECH_POPULAR_CUSTOMS = 5 }
+					}
+				}
+				wealth = -25
+			}
+			if = {
+				limit = {
+					location = {
+						TECH_POPULAR_CUSTOMS = 5
+						NOT = { TECH_POPULAR_CUSTOMS = 6 }
+					}
+				}
+				wealth = -10
+			}
+			if = {
+				limit = { location = { TECH_POPULAR_CUSTOMS = 6 } }
+				wealth = -5
+			}
+			if = {
+				limit = { trait = wounded }
+				remove_trait = wounded
+			}
+			if = {
+				limit = { trait = maimed }
+				remove_trait = maimed
+			}
+			if = {
+				limit = {
+					has_dlc = "Reapers"
+					trait = severely_injured
+				}
+				remove_trait = severely_injured
+			}
+			if = {
+				limit = {
+					has_dlc = "Reapers"
+					trait = one_legged
+				}
+				remove_trait = one_legged
+			}
+			add_trait = cybernetic_leg
+			hidden_tooltip = { character_event = { id = cybernetics.5070 } }
+			if = {
+				limit = {
+					is_landed = yes
+					religion_group = religious_group
+				}
+				piety = -100
+				religion_authority = { modifier = ruler_cybernetics_bad years = 1 }
+			}
+			if = {
+				limit = {
+					is_landed = yes
+					religion_group = transhumanist_group
+					NOT = { religion = bio_directionist }
+				}
+				piety = 100
+				religion_authority = { modifier = ruler_cybernetics_good years = 1 }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.1
+			}
+			modifier = {
+				factor = 0
+				has_dlc = "Reapers"
+				NOT = { trait = one_legged }
+				NOT = {
+					AND = {
+						OR = {
+							religion = cyberneticist
+							religion = machine_cultist
+							religion = hiver
+						}
+					}
+					trait = radical
+				}
+			}
+			modifier = {
+				factor = 0
+				religion_group = religious_group
+				NOT = { trait = pragmatic }
+				NOT = { trait = severely_injured }
+			}
+			modifier = {
+				factor = 0
+				trait = close_minded
+				health = 2
+				NOT = { trait = severely_injured }
+				NOT = { trait = maimed }
+			}
+			modifier = {
+				factor = 0
+				religion_group = religious_group
+				trait = radical
+			}
+		}
+	}
+	# Get cybernetic skeleton
+	get_cybernetic_skeleton_decision = {
+		is_high_prio = yes
+		ai_check_interval = 40 
+		potential = {
+			has_dlc = "Reapers"
+			age = 16
+			NOT = { trait = incapable }
+			NOT = { trait = cybernetic_skeleton }
+			prisoner = no
+			OR = {
+				ai = yes
+				has_character_flag = flag_cybernetics_menu_open
+			}
+			location = {
+				any_province_lord = {
+					NOT = { war_with = ROOT }
+					any_demesne_title = {
+						tier = baron
+						location = { province_id = PREVPREVPREV }
+						has_building = tp_cybernetics_lab_q_1
+					}
+				}
+			}
+		}
+		allow = {
+			OR = {
+				AND = {
+					location = { TECH_POPULAR_CUSTOMS = 3 }
+					wealth = 500
+				}
+				AND = {
+					location = { TECH_POPULAR_CUSTOMS = 4 }
+					wealth = 250
+				}
+				AND = {
+					location = { TECH_POPULAR_CUSTOMS = 5 }
+					wealth = 100
+				}
+				AND = {
+					location = { TECH_POPULAR_CUSTOMS = 6 }
+					wealth = 50
+				}
+				AND = {
+					location = { TECH_POPULAR_CUSTOMS = 7 }
+					wealth = 25
+				}
+				AND = {
+					location = { TECH_POPULAR_CUSTOMS = 8 }
+					wealth = 10
+				}
+			}
+			OR = {
+				NOT = { religion_group = religious_group }
+				trait = pragmatic
+				piety = 100
+			}
+		}
+		effect = {
+			if = {
+				limit = { location = { NOT = { TECH_POPULAR_CUSTOMS = 4 } } }
+				wealth = -500
+			}
+			if = {
+				limit = {
+					location = {
+						TECH_POPULAR_CUSTOMS = 4
+						NOT = { TECH_POPULAR_CUSTOMS = 5 }
+					}
+				}
+				wealth = -250
+			}
+			if = {
+				limit = {
+					location = {
+						TECH_POPULAR_CUSTOMS = 5
+						NOT = { TECH_POPULAR_CUSTOMS = 6 }
+					}
+				}
+				wealth = -100
+			}
+			if = {
+				limit = {
+					location = {
+						TECH_POPULAR_CUSTOMS = 6
+						NOT = { TECH_POPULAR_CUSTOMS = 7 }
+					}
+				}
+				wealth = -50
+			}
+			if = {
+				limit = {
+					location = {
+						TECH_POPULAR_CUSTOMS = 7
+						NOT = { TECH_POPULAR_CUSTOMS = 8 }
+					}
+				}
+				wealth = -25
+			}
+			if = {
+				limit = { location = { TECH_POPULAR_CUSTOMS = 8 } }
+				wealth = -10
+			}
+			if = {
+				limit = { trait = wounded }
+				remove_trait = wounded
+			}
+			if = {
+				limit = { trait = maimed }
+				remove_trait = maimed
+			}
+			if = {
+				limit = {
+					has_dlc = "Reapers"
+					trait = severely_injured
+				}
+				remove_trait = severely_injured
+			}
+			if = {
+				limit = {
+					has_dlc = "Reapers"
+					trait = mangled
+				}
+				remove_trait = mangled
+			}
+			add_trait = cybernetic_skeleton
+			hidden_tooltip = { character_event = { id = cybernetics.5080 } }
+			if = {
+				limit = {
+					is_landed = yes
+					religion_group = religious_group
+				}
+				piety = -100
+				religion_authority = { modifier = ruler_cybernetics_bad years = 1 }
+			}
+			if = {
+				limit = {
+					is_landed = yes
+					religion_group = transhumanist_group
+					NOT = { religion = bio_directionist }
+				}
+				piety = 100
+				religion_authority = { modifier = ruler_cybernetics_good years = 1 }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.1
+			}
+			modifier = {
+				factor = 0
+				has_dlc = "Reapers"
+				NOT = { trait = mangled }
+				NOT = {
+					AND = {
+						OR = {
+							religion = cyberneticist
+							religion = machine_cultist
+							religion = hiver
+						}
+					}
+					trait = radical
+				}
+			}
+			modifier = {
+				factor = 0
+				religion_group = religious_group
+				NOT = { trait = pragmatic }
+				NOT = { trait = severely_injured }
+			}
+			modifier = {
+				factor = 0
+				trait = close_minded
+				health = 2
+				NOT = { trait = severely_injured }
+				NOT = { trait = maimed }
 			}
 			modifier = {
 				factor = 0
@@ -4266,17 +4789,15 @@ decisions = {
 targetted_decisions = {
 	# Get dni
 	get_relative_dni_decision = {
-		filter = dynasty
-		ai_target_filter = dynasty
+		filter = home_court
+		ai_target_filter = home_court
 		from_potential = {
 			NOT = { trait = incapable }
 			prisoner = no
 		}
 		ai_check_interval = 40 
- potential = {
-			dynasty = FROM
+		potential = {
 			NOT = { trait = dni }
-			NOT = { trait = incapable }
 			prisoner = no
 			is_landed = no
 			liege = { character = FROM }
@@ -4319,9 +4840,27 @@ targetted_decisions = {
 					piety = 100
 				}
 			}
+			OR = {
+				NOT = { age = 16 }
+				trait = severely_injured
+				trait = incapable
+				opinion = { who = FROM value = 50 }
+			}
 		}
 		effect = {
 			add_trait = dni
+			if = {
+				limit = {
+					OR = {
+						AND = {
+							religion_group = religious_group
+							NOT = { trait = pragmatic }
+						}
+						trait = spiritual
+					}
+				}
+				opinion = { who = FROM modifier = opinion_never_asked_for_this }
+			}
 			hidden_tooltip = { character_event = { id = cybernetics.5001 } }
 			if = {
 				limit = { location = { NOT = { TECH_POPULAR_CUSTOMS = 2 } } }
@@ -4494,22 +5033,27 @@ targetted_decisions = {
 	}
 	# Get cybernetic limb
 	get_relative_cybernetic_limb_decision = {
-		filter = dynasty
-		ai_target_filter = dynasty
+		filter = home_court
+		ai_target_filter = home_court
 		from_potential = {
 			NOT = { trait = incapable }
 			prisoner = no
 		}
 		ai_check_interval = 40 
- potential = {
-			dynasty = FROM
-			trait = maimed
-			NOT = { trait = incapable }
+		potential = {
+			NOT = { trait = cybernetic_limb }
 			prisoner = no
 			is_landed = no
 			liege = { character = FROM }
 		}
 		allow = {
+			OR = {
+				AND = {
+					trait = maimed
+					NOT = { has_dlc = "Reapers" }
+				}
+				trait = one_handed
+			}
 			OR = {
 				FROM = { wealth = 500 }
 				AND = {
@@ -4554,10 +5098,49 @@ targetted_decisions = {
 					}
 				}
 			}
+			OR = {
+				NOT = { age = 16 }
+				trait = severely_injured
+				trait = incapable
+				opinion = { who = FROM value = 50 }
+			}
 		}
 		effect = {
-			remove_trait = maimed
+			if = {
+				limit = { trait = wounded }
+				remove_trait = wounded
+			}
+			if = {
+				limit = { trait = maimed }
+				remove_trait = maimed
+			}
+			if = {
+				limit = {
+					has_dlc = "Reapers"
+					trait = severely_injured
+				}
+				remove_trait = severely_injured
+			}
+			if = {
+				limit = {
+					has_dlc = "Reapers"
+					trait = one_handed
+				}
+				remove_trait = one_handed
+			}
 			add_trait = cybernetic_limb
+			if = {
+				limit = {
+					OR = {
+						AND = {
+							religion_group = religious_group
+							NOT = { trait = pragmatic }
+						}
+						trait = spiritual
+					}
+				}
+				opinion = { who = FROM modifier = opinion_never_asked_for_this }
+			}
 			hidden_tooltip = { character_event = { id = cybernetics.5061 } }
 			if = {
 				limit = { location = { NOT = { TECH_POPULAR_CUSTOMS = 1 } } }
@@ -4636,6 +5219,634 @@ targetted_decisions = {
 			factor = 1
 			modifier = {
 				factor = 0.1
+			}
+			modifier = {
+				factor = 0
+				NOT = { trait = maimed }
+				NOT = { has_dlc = "Reapers" }
+			}
+			modifier = {
+				factor = 0
+				NOT = { trait = one_handed }
+				has_dlc = "Reapers"
+			}
+			modifier = {
+				factor = 5
+				FROM = {
+					religion_group = transhumanist_group
+					NOT = { religion = bio_directionist }
+				}
+			}
+			modifier = {
+				factor = 0.2
+				FROM = {
+					religion_group = religious_group
+					NOT = { trait = pragmatic }
+				}
+			}
+			modifier = {
+				factor = 2
+				FROM = { trait = friendly }
+			}
+			modifier = {
+				factor = 0.5
+				FROM = { trait = cold }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -99 } }
+			}
+			modifier = {
+				factor = 2
+				NOT = { health = 5 }
+			}
+			modifier = {
+				factor = 2
+				NOT = { health = 4 }
+			}
+			modifier = {
+				factor = 2
+				NOT = { health = 3 }
+			}
+			modifier = {
+				factor = 2
+				NOT = { health = 2 }
+			}
+			modifier = {
+				factor = 2
+				NOT = { health = 1 }
+			}
+		}
+	}
+	# Get cybernetic leg
+	get_relative_cybernetic_leg_decision = {
+		filter = home_court
+		ai_target_filter = home_court
+		from_potential = {
+			NOT = { trait = incapable }
+			prisoner = no
+		}
+		ai_check_interval = 40 
+		potential = {
+			has_dlc = "Reapers"
+			NOT = { trait = cybernetic_leg }
+			prisoner = no
+			is_landed = no
+			liege = { character = FROM }
+		}
+		allow = {
+			trait = one_legged
+			OR = {
+				FROM = { wealth = 500 }
+				AND = {
+					location = { TECH_POPULAR_CUSTOMS = 1 }
+					FROM = { wealth = 250 }
+				}
+				AND = {
+					location = { TECH_POPULAR_CUSTOMS = 2 }
+					FROM = { wealth = 100 }
+				}
+				AND = {
+					location = { TECH_POPULAR_CUSTOMS = 3 }
+					FROM = { wealth = 50 }
+				}
+				AND = {
+					location = { TECH_POPULAR_CUSTOMS = 4 }
+					FROM = { wealth = 25 }
+				}
+				AND = {
+					location = { TECH_POPULAR_CUSTOMS = 5 }
+					FROM = { wealth = 10 }
+				}
+				AND = {
+					location = { TECH_POPULAR_CUSTOMS = 6 }
+					FROM = { wealth = 5 }
+				}
+			}
+			FROM = {
+				OR = {
+					NOT = { religion_group = religious_group }
+					trait = pragmatic
+					piety = 100
+				}
+			}
+			location = {
+				any_province_lord = {
+					NOT = { war_with = FROM }
+					any_demesne_title = {
+						tier = baron
+						location = { province_id = PREVPREVPREV }
+						has_building = tp_cybernetics_lab_q_1
+					}
+				}
+			}
+			OR = {
+				NOT = { age = 16 }
+				trait = severely_injured
+				trait = incapable
+				opinion = { who = FROM value = 50 }
+			}
+		}
+		effect = {
+			if = {
+				limit = { trait = wounded }
+				remove_trait = wounded
+			}
+			if = {
+				limit = { trait = maimed }
+				remove_trait = maimed
+			}
+			if = {
+				limit = {
+					has_dlc = "Reapers"
+					trait = severely_injured
+				}
+				remove_trait = severely_injured
+			}
+			if = {
+				limit = {
+					has_dlc = "Reapers"
+					trait = one_legged
+				}
+				remove_trait = one_legged
+			}
+			add_trait = cybernetic_leg
+			if = {
+				limit = {
+					OR = {
+						AND = {
+							religion_group = religious_group
+							NOT = { trait = pragmatic }
+						}
+						trait = spiritual
+					}
+				}
+				opinion = { who = FROM modifier = opinion_never_asked_for_this }
+			}
+			hidden_tooltip = { character_event = { id = cybernetics.5071 } }
+			if = {
+				limit = { location = { NOT = { TECH_POPULAR_CUSTOMS = 1 } } }
+				FROM = { wealth = -500 }
+			}
+			if = {
+				limit = {
+					location = {
+						TECH_POPULAR_CUSTOMS = 1
+						NOT = { TECH_POPULAR_CUSTOMS = 2 }
+					}
+				}
+				FROM = { wealth = -250 }
+			}
+			if = {
+				limit = {
+					location = {
+						TECH_POPULAR_CUSTOMS = 2
+						NOT = { TECH_POPULAR_CUSTOMS = 3 }
+					}
+				}
+				FROM = { wealth = -100 }
+			}
+			if = {
+				limit = {
+					location = {
+						TECH_POPULAR_CUSTOMS = 3
+						NOT = { TECH_POPULAR_CUSTOMS = 4 }
+					}
+				}
+				FROM = { wealth = -50 }
+			}
+			if = {
+				limit = {
+					location = {
+						TECH_POPULAR_CUSTOMS = 4
+						NOT = { TECH_POPULAR_CUSTOMS = 5 }
+					}
+				}
+				FROM = { wealth = -25 }
+			}
+			if = {
+				limit = {
+					location = {
+						TECH_POPULAR_CUSTOMS = 5
+						NOT = { TECH_POPULAR_CUSTOMS = 6 }
+					}
+				}
+				FROM = { wealth = -10 }
+			}
+			if = {
+				limit = { location = { TECH_POPULAR_CUSTOMS = 6 } }
+				FROM = { wealth = -5 }
+			}
+			FROM = {
+				if = {
+					limit = {
+						is_landed = yes
+						religion_group = religious_group
+					}
+					piety = -100
+					religion_authority = { modifier = ruler_cybernetics_bad years = 1 }
+				}
+				if = {
+					limit = {
+						is_landed = yes
+						religion_group = transhumanist_group
+						NOT = { religion = bio_directionist }
+					}
+					piety = 100
+					religion_authority = { modifier = ruler_cybernetics_good years = 1 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.1
+			}
+			modifier = {
+				factor = 0
+				NOT = { trait = one_legged }
+			}
+			modifier = {
+				factor = 5
+				FROM = {
+					religion_group = transhumanist_group
+					NOT = { religion = bio_directionist }
+				}
+			}
+			modifier = {
+				factor = 0.2
+				FROM = {
+					religion_group = religious_group
+					NOT = { trait = pragmatic }
+				}
+			}
+			modifier = {
+				factor = 2
+				FROM = { trait = friendly }
+			}
+			modifier = {
+				factor = 0.5
+				FROM = { trait = cold }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -99 } }
+			}
+			modifier = {
+				factor = 2
+				NOT = { health = 5 }
+			}
+			modifier = {
+				factor = 2
+				NOT = { health = 4 }
+			}
+			modifier = {
+				factor = 2
+				NOT = { health = 3 }
+			}
+			modifier = {
+				factor = 2
+				NOT = { health = 2 }
+			}
+			modifier = {
+				factor = 2
+				NOT = { health = 1 }
+			}
+		}
+	}
+	# Get cybernetic skeleton
+	get_relative_cybernetic_skeleton_decision = {
+		filter = home_court
+		ai_target_filter = home_court
+		from_potential = {
+			NOT = { trait = incapable }
+			prisoner = no
+		}
+		ai_check_interval = 40 
+		potential = {
+			has_dlc = "Reapers"
+			NOT = { trait = cybernetic_skeleton }
+			prisoner = no
+			is_landed = no
+			liege = { character = FROM }
+		}
+		allow = {
+			trait = mangled
+			OR = {
+				AND = {
+					location = { TECH_POPULAR_CUSTOMS = 3 }
+					FROM = { wealth = 500 }
+				}
+				AND = {
+					location = { TECH_POPULAR_CUSTOMS = 4 }
+					FROM = { wealth = 250 }
+				}
+				AND = {
+					location = { TECH_POPULAR_CUSTOMS = 5 }
+					FROM = { wealth = 100 }
+				}
+				AND = {
+					location = { TECH_POPULAR_CUSTOMS = 6 }
+					FROM = { wealth = 50 }
+				}
+				AND = {
+					location = { TECH_POPULAR_CUSTOMS = 7 }
+					FROM = { wealth = 25 }
+				}
+				AND = {
+					location = { TECH_POPULAR_CUSTOMS = 8 }
+					FROM = { wealth = 10 }
+				}
+			}
+			FROM = {
+				OR = {
+					NOT = { religion_group = religious_group }
+					trait = pragmatic
+					piety = 100
+				}
+			}
+			location = {
+				any_province_lord = {
+					NOT = { war_with = FROM }
+					any_demesne_title = {
+						tier = baron
+						location = { province_id = PREVPREVPREV }
+						has_building = tp_cybernetics_lab_q_1
+					}
+				}
+			}
+			OR = {
+				NOT = { age = 16 }
+				trait = severely_injured
+				trait = incapable
+				opinion = { who = FROM value = 50 }
+			}
+		}
+		effect = {
+			if = {
+				limit = { trait = wounded }
+				remove_trait = wounded
+			}
+			if = {
+				limit = { trait = maimed }
+				remove_trait = maimed
+			}
+			if = {
+				limit = {
+					has_dlc = "Reapers"
+					trait = severely_injured
+				}
+				remove_trait = severely_injured
+			}
+			if = {
+				limit = {
+					has_dlc = "Reapers"
+					trait = mangled
+				}
+				remove_trait = mangled
+			}
+			add_trait = cybernetic_skeleton
+			if = {
+				limit = {
+					OR = {
+						AND = {
+							religion_group = religious_group
+							NOT = { trait = pragmatic }
+						}
+						trait = spiritual
+					}
+				}
+				opinion = { who = FROM modifier = opinion_never_asked_for_this }
+			}
+			hidden_tooltip = { character_event = { id = cybernetics.5071 } }
+			if = {
+				limit = { location = { NOT = { TECH_POPULAR_CUSTOMS = 4 } } }
+				FROM = { wealth = -500 }
+			}
+			if = {
+				limit = {
+					location = {
+						TECH_POPULAR_CUSTOMS = 4
+						NOT = { TECH_POPULAR_CUSTOMS = 5 }
+					}
+				}
+				FROM = { wealth = -250 }
+			}
+			if = {
+				limit = {
+					location = {
+						TECH_POPULAR_CUSTOMS = 5
+						NOT = { TECH_POPULAR_CUSTOMS = 6 }
+					}
+				}
+				FROM = { wealth = -100 }
+			}
+			if = {
+				limit = {
+					location = {
+						TECH_POPULAR_CUSTOMS = 6
+						NOT = { TECH_POPULAR_CUSTOMS = 7 }
+					}
+				}
+				FROM = { wealth = -50 }
+			}
+			if = {
+				limit = {
+					location = {
+						TECH_POPULAR_CUSTOMS = 7
+						NOT = { TECH_POPULAR_CUSTOMS = 8 }
+					}
+				}
+				FROM = { wealth = -25 }
+			}
+			if = {
+				limit = {
+					location = {
+						TECH_POPULAR_CUSTOMS = 8
+					}
+				}
+				FROM = { wealth = -10 }
+			}
+			FROM = {
+				if = {
+					limit = {
+						is_landed = yes
+						religion_group = religious_group
+					}
+					piety = -100
+					religion_authority = { modifier = ruler_cybernetics_bad years = 1 }
+				}
+				if = {
+					limit = {
+						is_landed = yes
+						religion_group = transhumanist_group
+						NOT = { religion = bio_directionist }
+					}
+					piety = 100
+					religion_authority = { modifier = ruler_cybernetics_good years = 1 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.1
+			}
+			modifier = {
+				factor = 0
+				NOT = { trait = mangled }
 			}
 			modifier = {
 				factor = 5

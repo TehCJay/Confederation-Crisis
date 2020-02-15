@@ -286,7 +286,7 @@ character_event = {
 	
 	option = {
 		name = "EVTOPTACYBERNETICS10015"
-		add_trait = wounded
+		inflict_minor_injury_effect = yes
 	}
 }
 
@@ -1718,7 +1718,7 @@ character_event = {
 		FROM = {
 			if = {
 				limit = { NOT = { trait = full_cybernetic_conversion } }
-				add_trait = wounded
+				inflict_minor_injury_effect = yes
 			}
 			character_event = { id = cybernetics.10043 tooltip = "EVTTOOLTIPCYBERNETICS10043" }
 		}
@@ -1770,7 +1770,7 @@ character_event = {
 	
 	option = {
 		name = "EVTOPTACYBERNETICS10043"
-		add_trait = wounded
+		inflict_minor_injury_effect = yes
 		add_rival = FROM
 	}
 }
@@ -1989,6 +1989,179 @@ character_event = {
 	is_triggered_only = yes
 	
 	option = { name = "EVTOPTACYBERNETICS10050" }
+}
+
+# Cybernetics damaged
+character_event = {
+	id = cybernetics.10060
+	desc = "EVTDESCCYBERNETICS10060"
+	picture = GFX_evt_wounded
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTACYBERNETICS10060"
+	}
+}
+# Cybernetics repaired
+character_event = {
+	id = cybernetics.10061
+	desc = "EVTDESCCYBERNETICS10061"
+	picture = GFX_evt_cybernetics
+	
+	prisoner = no
+	
+	trigger = { trait = cybernetics_damaged }
+	
+	mean_time_to_happen = { months = 6 }
+	
+	option = {
+		name = "EVTOPTACYBERNETICS10061"
+		remove_trait = cybernetics_damaged
+	}
+}
+# Cybernetic Arm Destroyed
+character_event = {
+	id = cybernetics.10062
+	desc = "EVTDESCCYBERNETICS10062"
+	picture = GFX_evt_wounded
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTACYBERNETICS10062"
+		remove_trait = cybernetic_limb
+		if = {
+			limit = { has_dlc = "Reapers" }
+			add_trait = one_handed
+		}
+		if = {
+			limit = { NOT = { has_dlc = "Reapers" } }
+			add_trait = maimed
+		}
+		# Well, there is some good news...
+		if = {
+			limit = {
+				trait = damaged_cybernetics
+				NOT = { trait = cybernetic_leg }
+				NOT = { trait = cybernetic_skeleton }
+			}
+			remove_trait = damaged_cybernetics
+		}
+	}
+}
+# Cybernetic Leg Destroyed
+character_event = {
+	id = cybernetics.10063
+	desc = "EVTDESCCYBERNETICS10063"
+	picture = GFX_evt_wounded
+	is_triggered_only = yes
+	
+	trigger = { has_dlc = "Reapers" }
+	
+	option = {
+		name = "EVTOPTACYBERNETICS10063"
+		remove_trait = cybernetic_leg
+		add_trait = one_legged
+		# Well, there is some good news...
+		if = {
+			limit = {
+				trait = damaged_cybernetics
+				NOT = { trait = cybernetic_limb }
+				NOT = { trait = cybernetic_skeleton }
+			}
+			remove_trait = damaged_cybernetics
+		}
+	}
+}
+# Cybernetic Skeleton Destroyed
+character_event = {
+	id = cybernetics.10064
+	desc = "EVTDESCCYBERNETICS10064"
+	picture = GFX_evt_wounded
+	is_triggered_only = yes
+	
+	trigger = { has_dlc = "Reapers" }
+	
+	option = {
+		name = "EVTOPTACYBERNETICS10064"
+		remove_trait = cybernetic_skeleton
+		add_trait = mangled
+		# Well, there is some good news...
+		if = {
+			limit = {
+				trait = damaged_cybernetics
+				NOT = { trait = cybernetic_leg }
+				NOT = { trait = cybernetic_limb }
+			}
+			remove_trait = damaged_cybernetics
+		}
+	}
+}
+# You have a full cybernetic conversion but not the other cybernetic traits!
+character_event = {
+	id = cybernetics.10070
+	desc = "EVTDESCCYBERNETIC10070"
+	picture = GFX_evt_cybernetics
+	
+	trigger = {
+		trait = full_cybernetic_conversion
+		OR = {
+			AND = {
+				NOT = { trait = cybernetic_limb }
+				NOT = { trait = maimed }
+				NOT = { has_dlc = "Reapers" }
+			}
+			AND = {
+				NOT = { trait = cybernetic_limb }
+				NOT = { trait = one_handed }
+				has_dlc = "Reapers"
+			}
+			AND = {
+				NOT = { trait = cybernetic_leg }
+				NOT = { trait = one_legged }
+				has_dlc = "Reapers"
+			}
+			AND = {
+				NOT = { trait = cybernetic_skeleton }
+				NOT = { trait = mangled }
+				has_dlc = "Reapers"
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTOKAY"
+		if = {
+			limit = {
+				NOT = { trait = cybernetic_limb }
+				NOT = { trait = maimed }
+				NOT = { has_dlc = "Reapers" }
+			}
+			add_trait = cybernetic_limb
+		}
+		if = {
+			limit = {
+				NOT = { trait = cybernetic_limb }
+				NOT = { trait = one_handed }
+				has_dlc = "Reapers"
+			}
+			add_trait = cybernetic_limb
+		}
+		if = {
+			limit = {
+				NOT = { trait = cybernetic_leg }
+				NOT = { trait = one_legged }
+				has_dlc = "Reapers"
+			}
+			add_trait = cybernetic_leg
+		}
+		if = {
+			limit = {
+				NOT = { trait = cybernetic_skeleton }
+				NOT = { trait = mangled }
+				has_dlc = "Reapers"
+			}
+			add_trait = cybernetic_skeleton
+		}
+	}
 }
 
 # Implant software upgrade beta tests
@@ -2495,8 +2668,9 @@ character_event = {
 		name = "EVTOPTACYBERNETICS10203"
 		troops = -0.1
 		random_list = {
-			75 = { add_trait = wounded }
-			20 = { add_trait = maimed }
+			65 = { inflict_minor_injury_effect = yes }
+			20 = { inflict_moderate_injury_effect = yes }
+			10 = { inflict_major_injury_effect = yes }
 			5 = { death = { death_reason = death_battle killer = FROM } }
 		}
 	}
@@ -2557,8 +2731,9 @@ character_event = {
 		name = "EVTOPTACYBERNETICS10205"
 		troops = -0.1
 		random_list = {
-			75 = { add_trait = wounded }
-			20 = { add_trait = maimed }
+			65 = { inflict_minor_injury_effect = yes }
+			20 = { inflict_moderate_injury_effect = yes }
+			10 = { inflict_major_injury_effect = yes }
 			5 = { death = { death_reason = death_battle killer = FROM } }
 		}
 		FROM = { custom_tooltip = { text = "EVTTOOLTIPCYBERNETICS10204" } }
@@ -2601,8 +2776,9 @@ character_event = {
 		name = "EVTOPTCONFIRM"
 		troops = -0.1
 		random_list = {
-			75 = { add_trait = wounded }
-			20 = { add_trait = maimed }
+			65 = { inflict_minor_injury_effect = yes }
+			20 = { inflict_moderate_injury_effect = yes }
+			10 = { inflict_major_injury_effect = yes }
 			5 = { death = { death_reason = death_battle killer = FROM } }
 		}
 	}

@@ -1607,27 +1607,15 @@ province_event = {
 		name = "EVTOPTAFLAVOR800"
 		province_event = { id = flavor.810 tooltip = "EVTTOOLTIPFLAVOR810" }
 		owner = {
-			if = {
-				limit = {
-					NOT = { trait = wounded }
-					NOT = { trait = full_cybernetic_conversion }
-				}
-				random = {
-					chance = 33
-					add_trait = wounded
-					hidden_tooltip = { character_event = { id = flavor.801 } }
-				}
+			random = {
+				chance = 33
+				inflict_minor_injury_effect = yes
+				hidden_tooltip = { character_event = { id = flavor.801 } }
 			}
-			if = {
-				limit = {
-					NOT = { trait = maimed }
-					NOT = { trait = full_cybernetic_conversion }
-				}
-				random = {
-					chance = 10
-					add_trait = maimed
-					hidden_tooltip = { character_event = { id = flavor.802 } }
-				}
+			random = {
+				chance = 10
+				inflict_major_injury_effect = yes
+				hidden_tooltip = { character_event = { id = flavor.802 } }
 			}
 			random = {
 				chance = 5
@@ -1731,7 +1719,6 @@ character_event = {
 	
 	option = {
 		name = "EVTOPTCONFIRM"
-		add_trait = wounded
 	}
 }
 # Maimed during a rescue
@@ -1743,7 +1730,6 @@ character_event = {
 	
 	option = {
 		name = "EVTOPTCONFIRM"
-		add_trait = maimed
 	}
 }
 # Killed during a rescue
@@ -1779,27 +1765,15 @@ character_event = {
 	option = {
 		name = "EVTOPTCONFIRM"
 		prestige = 50
-		if = {
-			limit = {
-				NOT = { trait = wounded }
-				NOT = { trait = full_cybernetic_conversion }
-			}
-			random = {
-				chance = 33
-				add_trait = wounded
-				hidden_tooltip = { character_event = { id = flavor.801 } }
-			}
+		random = {
+			chance = 33
+			inflict_minor_injury_effect = yes
+			hidden_tooltip = { character_event = { id = flavor.801 } }
 		}
-		if = {
-			limit = {
-				NOT = { trait = maimed }
-				NOT = { trait = full_cybernetic_conversion }
-			}
-			random = {
-				chance = 10
-				add_trait = maimed
-				hidden_tooltip = { character_event = { id = flavor.802 } }
-			}
+		random = {
+			chance = 10
+			inflict_major_injury_effect = yes
+			hidden_tooltip = { character_event = { id = flavor.802 } }
 		}
 		random = {
 			chance = 5

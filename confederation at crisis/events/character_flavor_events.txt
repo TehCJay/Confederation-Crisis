@@ -485,39 +485,7 @@ character_event = {
 	
 	option = {
 		name = "EVTOPTCONFIRM"
-		if = {
-			limit = {
-				trait = maimed
-				NOT = { trait = wounded }
-			}
-			random = {
-				chance = 50
-				add_trait = wounded
-			}
-		}
-		if = {
-			limit = {
-				trait = wounded
-				NOT = { trait = maimed }
-				NOT = { trait = cybernetic_limb }
-			}
-			random = {
-				chance = 25
-				remove_trait = wounded
-				add_trait = maimed
-			}
-		}
-		if = {
-			limit = {
-				NOT = { trait = wounded }
-				NOT = { trait = maimed }
-				NOT = { trait = full_cybernetic_conversion }
-			}
-			random = {
-				chance = 25
-				add_trait = wounded
-			}
-		}
+		inflict_minor_injury_effect = yes
 	}
 }
 

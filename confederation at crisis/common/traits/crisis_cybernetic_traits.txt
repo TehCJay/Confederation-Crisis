@@ -70,8 +70,10 @@ odin_mk_i = {
 		odin_mk_iii
 		odin_mk_iv
 		odin_mk_v
+		blinded
 	}
 	martial = 2
+	combat_rating = 10
 }
 odin_mk_ii = {
 	customizer = no # Requires more tech than exists in 2998
@@ -81,8 +83,10 @@ odin_mk_ii = {
 		odin_mk_iii
 		odin_mk_iv
 		odin_mk_v
+		blinded
 	}
-	martial = 4 combat_rating = 40
+	martial = 4
+	combat_rating = 20
 }
 odin_mk_iii = {
 	customizer = no # Requires more tech than exists in 2998
@@ -92,8 +96,10 @@ odin_mk_iii = {
 		odin_mk_ii
 		odin_mk_iv
 		odin_mk_v
+		blinded
 	}
-	martial = 6 combat_rating = 60
+	martial = 6
+	combat_rating = 30
 }
 odin_mk_iv = {
 	customizer = no # Requires more tech than exists in 2998
@@ -103,8 +109,10 @@ odin_mk_iv = {
 		odin_mk_ii
 		odin_mk_iii
 		odin_mk_v
+		blinded
 	}
-	martial = 8 combat_rating = 80
+	martial = 8
+	combat_rating = 40
 }
 odin_mk_v = {
 	customizer = no # Requires more tech than exists in 2998
@@ -114,8 +122,10 @@ odin_mk_v = {
 		odin_mk_ii
 		odin_mk_iii
 		odin_mk_iv
+		blinded
 	}
 	martial = 10
+	combat_rating = 50
 }
 # Personal Calculation Implant (PCI) Line - Stewardship Buff
 pci_mk_i = {
@@ -284,9 +294,24 @@ thoth_mk_v = {
 	learning = 10
 }
 # Other assorted cybernetic implants
-cybernetic_limb = {
+cybernetic_limb = { # Generic limb in vanilla, arm with Reaper's Due
 	is_health = yes
-	opposites = { full_cybernetic_conversion }
+	health = 1
+	opposites = { one_handed }
+	combat_rating = 10
+}
+cybernetic_leg = {
+	is_health = yes
+	health = 1
+	potential = { has_dlc = "Reapers" }
+	opposites = { one_legged }
+	combat_rating = 5
+}
+cybernetic_skeleton = {
+	is_health = yes
+	health = 1
+	potential = { has_dlc = "Reapers" }
+	opposites = { mangled }
 }
 full_cybernetic_conversion = {
 	random = no
@@ -296,9 +321,15 @@ full_cybernetic_conversion = {
 	}
 
 	opposites = {
-		cybernetic_limb
 		wounded
 		maimed
+		severely_injured
+		disfigured
+		mangled
+		one_eyed
+		blinded
+		one_legged
+		one_handed
 		scarred
 		ill
 		# Any genetic traits we put in should go here
@@ -311,7 +342,29 @@ full_cybernetic_conversion = {
 	same_opinion = 25 # Not quite so creepy
 	fertility = -10000
 	ruler_designer_cost = 20 # The game apparently severely undervalues "no fertility" relative to "lives forever."
+	combat_rating = 30
 }
+damaged_cybernetics = {
+	is_health = yes
+	
+	potential = {
+		OR = {
+			trait = cybernetic_limb
+			trait = cybernetic_leg
+			trait = cybernetic_skeleton
+			trait = full_cybernetic_conversion
+		}
+	}
+
+	martial = -1
+	health = -1
+	customizer = no
+	
+	combat_rating = -15
+	
+	succession_gfx = yes
+}
+
 # HIVER IMPLANT - MASSIVELY PLOT IMPORTANT
 hiver_implant = {
 	potential = { has_global_flag = flag_hiver_implant_invented }

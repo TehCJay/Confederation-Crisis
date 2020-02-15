@@ -1570,7 +1570,7 @@ character_event = {
 
 	option = {
 		name = "EVTOPTA157"
-		add_trait = wounded
+		inflict_minor_injury_effect = yes
 	}
 }
 
@@ -1629,7 +1629,10 @@ character_event = {
 
 	option = {
 		name = "EVTOPTA158"
-		add_maimed_trait_effect = yes
+		random_list = {
+			60 = { inflict_moderate_injury_effect = yes }
+			40 = { inflict_major_injury_effect = yes }
+		}
 	}
 }
 
@@ -1746,7 +1749,7 @@ character_event = {
 	
 	option = {
 		name = "EVTOPTA160"
-		add_trait = wounded
+		inflict_minor_injury_effect = yes
 		if = {
 			limit = {
 				host = { NOT = { character = FROM } }
