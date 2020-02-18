@@ -12,7 +12,7 @@ replace_path="events"
 #replace_path="interface"
 #replace_path ="gfx/flags"
 #replace_path ="gfx/characters"
-replace_path="gfx\loadingscreens"
+replace_path="gfx/loadingscreens"
 replace_path = "dlc_metadata/dlc_characters"
 
 replace_path="common/landed_titles"
