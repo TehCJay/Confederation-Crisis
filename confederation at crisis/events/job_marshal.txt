@@ -99,14 +99,14 @@ character_event = {
 		trigger = {
 			has_character_flag = marshal_wounded 
 		}
-		add_trait = wounded
+		inflict_minor_injury_effect = yes
 		liege = { letter_event = { id = 20380 tooltip = "EVTTOOLTIP20380" } }
 		clr_character_flag = marshal_wounded
 	}
 	option = {
 		name = "EVOPTB938"
 		trigger = { has_character_flag = marshal_maimed }
-		add_maimed_trait_effect = yes
+		inflict_moderate_injury_effect = yes
 		liege = { letter_event = { id = 20381 tooltip = "EVTTOOLTIP20380" } }
 		clr_character_flag = marshal_maimed
 	}
@@ -122,7 +122,7 @@ letter_event = {
 	option = {
 		name = "EVTOPTA20380"
 		tooltip = {
-			FROM = { add_trait = wounded }
+			FROM = { inflict_minor_injury_effect = yes }
 		}
 	}
 }
@@ -137,7 +137,7 @@ letter_event = {
 	option = {
 		name = "EVTOPTA20381"
 		tooltip = {
-			FROM = { add_maimed_trait_effect = yes }
+			FROM = { inflict_moderate_injury_effect = yes }
 		}
 	}
 }

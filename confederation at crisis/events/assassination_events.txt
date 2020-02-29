@@ -1713,27 +1713,18 @@ character_event = {
 			clear_event_target = target_victim
 		}
 		random_list = {
-			70 = { }
+			65 = { }
 			20 = {
-				if = {
-					limit = {
-						NOT = { trait = wounded }
-						NOT = { trait = full_cybernetic_conversion }
-					}
-					add_trait = wounded
-					set_character_flag = flag_plot_wounded
-				}
+				inflict_minor_injury_effect = yes
+				set_character_flag = flag_plot_wounded
 			}
 			10 = {
-				if = {
-					limit = {
-						NOT = { trait = maimed }
-						NOT = { trait = full_cybernetic_conversion }
-						NOT = { trait = cybernetic_limb }
-					}
-					add_trait = maimed
-					set_character_flag = flag_plot_maimed
-				}
+				inflict_moderate_injury_effect = yes
+				set_character_flag = flag_plot_maimed
+			}
+			5 = {
+				inflict_major_injury_effect = yes
+				set_character_flag = flag_plot_maimed
 			}
 		}
 	}
@@ -1744,27 +1735,18 @@ character_event = {
 		name = "EVTOPTBASSASSINATION220"
 		FROM = { character_event = { id = assassination.223 tooltip = "EVTTOOLTIPASSASSINATION223" } }
 		random_list = {
-			70 = { }
+			65 = { }
 			20 = {
-				if = {
-					limit = {
-						NOT = { trait = wounded }
-						NOT = { trait = full_cybernetic_conversion }
-					}
-					add_trait = wounded
-					set_character_flag = flag_plot_wounded
-				}
+				inflict_minor_injury_effect = yes
+				set_character_flag = flag_plot_wounded
 			}
 			10 = {
-				if = {
-					limit = {
-						NOT = { trait = maimed }
-						NOT = { trait = full_cybernetic_conversion }
-						NOT = { trait = cybernetic_limb }
-					}
-					add_trait = maimed
-					set_character_flag = flag_plot_maimed
-				}
+				inflict_moderate_injury_effect = yes
+				set_character_flag = flag_plot_maimed
+			}
+			5 = {
+				inflict_major_injury_effect = yes
+				set_character_flag = flag_plot_maimed
 			}
 		}
 	}
@@ -1790,20 +1772,12 @@ character_event = {
 	option = {
 		trigger = { FROM = { has_character_flag = flag_plot_wounded } }
 		name = "EVTOPTBASSASSINATION211"
-		FROM = {
-			add_trait = wounded
-			clr_character_flag = flag_plot_wounded
-		}
 		clr_character_flag = murder_in_motion
 	}
 	
 	option = {
 		trigger = { FROM = { has_character_flag = flag_plot_maimed } }
 		name = "EVTOPTCASSASSINATION211"
-		FROM = {
-			add_trait = wounded
-			clr_character_flag = flag_plot_maimed
-		}
 		clr_character_flag = murder_in_motion
 	}
 }
@@ -1866,7 +1840,6 @@ character_event = {
 			FROM = { any_realm_character = { character_event = { id = assassination.224 } } }
 		}
 		FROM = {
-			add_trait = wounded
 			clr_character_flag = flag_plot_wounded
 		}
 		clr_character_flag = murder_in_motion
@@ -1883,7 +1856,6 @@ character_event = {
 			FROM = { any_realm_character = { character_event = { id = assassination.224 } } }
 		}
 		FROM = {
-			add_trait = maimed
 			clr_character_flag = flag_plot_maimed
 		}
 		clr_character_flag = murder_in_motion
@@ -1935,27 +1907,18 @@ character_event = {
 			clear_event_target = target_victim
 		}
 		random_list = {
-			70 = { }
+			65 = { }
 			20 = {
-				if = {
-					limit = {
-						NOT = { trait = wounded }
-						NOT = { trait = full_cybernetic_conversion }
-					}
-					add_trait = wounded
-					set_character_flag = flag_plot_wounded
-				}
+				inflict_minor_injury_effect = yes
+				set_character_flag = flag_plot_wounded
 			}
 			10 = {
-				if = {
-					limit = {
-						NOT = { trait = maimed }
-						NOT = { trait = full_cybernetic_conversion }
-						NOT = { trait = cybernetic_limb }
-					}
-					add_trait = maimed
-					set_character_flag = flag_plot_maimed
-				}
+				inflict_moderate_injury_effect = yes
+				set_character_flag = flag_plot_maimed
+			}
+			5 = {
+				inflict_major_injury_effect = yes
+				set_character_flag = flag_plot_maimed
 			}
 		}
 	}
@@ -1966,27 +1929,18 @@ character_event = {
 		name = "EVTOPTBASSASSINATION230"
 		FROM = { character_event = { id = assassination.233 tooltip = "EVTTOOLTIPASSASSINATION233" } }
 		random_list = {
-			70 = { }
+			65 = { }
 			20 = {
-				if = {
-					limit = {
-						NOT = { trait = wounded }
-						NOT = { trait = full_cybernetic_conversion }
-					}
-					add_trait = wounded
-					set_character_flag = flag_plot_wounded
-				}
+				inflict_minor_injury_effect = yes
+				set_character_flag = flag_plot_wounded
 			}
 			10 = {
-				if = {
-					limit = {
-						NOT = { trait = maimed }
-						NOT = { trait = full_cybernetic_conversion }
-						NOT = { trait = cybernetic_limb }
-					}
-					add_trait = maimed
-					set_character_flag = flag_plot_maimed
-				}
+				inflict_moderate_injury_effect = yes
+				set_character_flag = flag_plot_maimed
+			}
+			5 = {
+				inflict_major_injury_effect = yes
+				set_character_flag = flag_plot_maimed
 			}
 		}
 	}
@@ -2013,7 +1967,6 @@ character_event = {
 		trigger = { FROM = { has_character_flag = flag_plot_wounded } }
 		name = "EVTOPTBASSASSINATION211"
 		FROM = {
-			add_trait = wounded
 			clr_character_flag = flag_plot_wounded
 		}
 		clr_character_flag = murder_in_motion
@@ -2023,7 +1976,6 @@ character_event = {
 		trigger = { FROM = { has_character_flag = flag_plot_maimed } }
 		name = "EVTOPTCASSASSINATION211"
 		FROM = {
-			add_trait = wounded
 			clr_character_flag = flag_plot_maimed
 		}
 		clr_character_flag = murder_in_motion
@@ -2088,7 +2040,6 @@ character_event = {
 			FROM = { any_realm_character = { character_event = { id = assassination.234 } } }
 		}
 		FROM = {
-			add_trait = wounded
 			clr_character_flag = flag_plot_wounded
 		}
 		clr_character_flag = murder_in_motion
@@ -2105,7 +2056,6 @@ character_event = {
 			FROM = { any_realm_character = { character_event = { id = assassination.234 } } }
 		}
 		FROM = {
-			add_trait = maimed
 			clr_character_flag = flag_plot_maimed
 		}
 		clr_character_flag = murder_in_motion
@@ -2157,27 +2107,18 @@ character_event = {
 			clear_event_target = target_victim
 		}
 		random_list = {
-			70 = { }
+			65 = { }
 			20 = {
-				if = {
-					limit = {
-						NOT = { trait = wounded }
-						NOT = { trait = full_cybernetic_conversion }
-					}
-					add_trait = wounded
-					set_character_flag = flag_plot_wounded
-				}
+				inflict_minor_injury_effect = yes
+				set_character_flag = flag_plot_wounded
 			}
 			10 = {
-				if = {
-					limit = {
-						NOT = { trait = maimed }
-						NOT = { trait = full_cybernetic_conversion }
-						NOT = { trait = cybernetic_limb }
-					}
-					add_trait = maimed
-					set_character_flag = flag_plot_maimed
-				}
+				inflict_moderate_injury_effect = yes
+				set_character_flag = flag_plot_maimed
+			}
+			5 = {
+				inflict_major_injury_effect = yes
+				set_character_flag = flag_plot_maimed
 			}
 		}
 	}
@@ -2188,27 +2129,18 @@ character_event = {
 		name = "EVTOPTBASSASSINATION240"
 		FROM = { character_event = { id = assassination.243 tooltip = "EVTTOOLTIPASSASSINATION243" } }
 		random_list = {
-			70 = { }
+			65 = { }
 			20 = {
-				if = {
-					limit = {
-						NOT = { trait = wounded }
-						NOT = { trait = full_cybernetic_conversion }
-					}
-					add_trait = wounded
-					set_character_flag = flag_plot_wounded
-				}
+				inflict_minor_injury_effect = yes
+				set_character_flag = flag_plot_wounded
 			}
 			10 = {
-				if = {
-					limit = {
-						NOT = { trait = maimed }
-						NOT = { trait = full_cybernetic_conversion }
-						NOT = { trait = cybernetic_limb }
-					}
-					add_trait = maimed
-					set_character_flag = flag_plot_maimed
-				}
+				inflict_moderate_injury_effect = yes
+				set_character_flag = flag_plot_maimed
+			}
+			5 = {
+				inflict_major_injury_effect = yes
+				set_character_flag = flag_plot_maimed
 			}
 		}
 	}
@@ -2235,7 +2167,6 @@ character_event = {
 		trigger = { FROM = { has_character_flag = flag_plot_wounded } }
 		name = "EVTOPTBASSASSINATION211"
 		FROM = {
-			add_trait = wounded
 			clr_character_flag = flag_plot_wounded
 		}
 		clr_character_flag = murder_in_motion
@@ -2245,7 +2176,6 @@ character_event = {
 		trigger = { FROM = { has_character_flag = flag_plot_maimed } }
 		name = "EVTOPTCASSASSINATION211"
 		FROM = {
-			add_trait = wounded
 			clr_character_flag = flag_plot_maimed
 		}
 		clr_character_flag = murder_in_motion
@@ -2310,7 +2240,6 @@ character_event = {
 			FROM = { any_realm_character = { character_event = { id = assassination.244 } } }
 		}
 		FROM = {
-			add_trait = wounded
 			clr_character_flag = flag_plot_wounded
 		}
 		clr_character_flag = murder_in_motion
@@ -2327,7 +2256,6 @@ character_event = {
 			FROM = { any_realm_character = { character_event = { id = assassination.244 } } }
 		}
 		FROM = {
-			add_trait = maimed
 			clr_character_flag = flag_plot_maimed
 		}
 		clr_character_flag = murder_in_motion
@@ -2379,27 +2307,18 @@ character_event = {
 			clear_event_target = target_victim
 		}
 		random_list = {
-			70 = { }
+			65 = { }
 			20 = {
-				if = {
-					limit = {
-						NOT = { trait = wounded }
-						NOT = { trait = full_cybernetic_conversion }
-					}
-					add_trait = wounded
-					set_character_flag = flag_plot_wounded
-				}
+				inflict_minor_injury_effect = yes
+				set_character_flag = flag_plot_wounded
 			}
 			10 = {
-				if = {
-					limit = {
-						NOT = { trait = maimed }
-						NOT = { trait = full_cybernetic_conversion }
-						NOT = { trait = cybernetic_limb }
-					}
-					add_trait = maimed
-					set_character_flag = flag_plot_maimed
-				}
+				inflict_moderate_injury_effect = yes
+				set_character_flag = flag_plot_maimed
+			}
+			5 = {
+				inflict_major_injury_effect = yes
+				set_character_flag = flag_plot_maimed
 			}
 		}
 	}
@@ -2410,27 +2329,18 @@ character_event = {
 		name = "EVTOPTBASSASSINATION250"
 		FROM = { character_event = { id = assassination.253 tooltip = "EVTTOOLTIPASSASSINATION253" } }
 		random_list = {
-			70 = { }
+			65 = { }
 			20 = {
-				if = {
-					limit = {
-						NOT = { trait = wounded }
-						NOT = { trait = full_cybernetic_conversion }
-					}
-					add_trait = wounded
-					set_character_flag = flag_plot_wounded
-				}
+				inflict_minor_injury_effect = yes
+				set_character_flag = flag_plot_wounded
 			}
 			10 = {
-				if = {
-					limit = {
-						NOT = { trait = maimed }
-						NOT = { trait = full_cybernetic_conversion }
-						NOT = { trait = cybernetic_limb }
-					}
-					add_trait = maimed
-					set_character_flag = flag_plot_maimed
-				}
+				inflict_moderate_injury_effect = yes
+				set_character_flag = flag_plot_maimed
+			}
+			5 = {
+				inflict_major_injury_effect = yes
+				set_character_flag = flag_plot_maimed
 			}
 		}
 	}
@@ -2457,7 +2367,6 @@ character_event = {
 		trigger = { FROM = { has_character_flag = flag_plot_wounded } }
 		name = "EVTOPTBASSASSINATION211"
 		FROM = {
-			add_trait = wounded
 			clr_character_flag = flag_plot_wounded
 		}
 		clr_character_flag = murder_in_motion
@@ -2467,7 +2376,6 @@ character_event = {
 		trigger = { FROM = { has_character_flag = flag_plot_maimed } }
 		name = "EVTOPTCASSASSINATION211"
 		FROM = {
-			add_trait = wounded
 			clr_character_flag = flag_plot_maimed
 		}
 		clr_character_flag = murder_in_motion
@@ -2532,7 +2440,6 @@ character_event = {
 			FROM = { any_realm_character = { character_event = { id = assassination.254 } } }
 		}
 		FROM = {
-			add_trait = wounded
 			clr_character_flag = flag_plot_wounded
 		}
 		clr_character_flag = murder_in_motion
@@ -2549,7 +2456,6 @@ character_event = {
 			FROM = { any_realm_character = { character_event = { id = assassination.254 } } }
 		}
 		FROM = {
-			add_trait = maimed
 			clr_character_flag = flag_plot_maimed
 		}
 		clr_character_flag = murder_in_motion
@@ -2601,27 +2507,18 @@ character_event = {
 			clear_event_target = target_victim
 		}
 		random_list = {
-			70 = { }
+			65 = { }
 			20 = {
-				if = {
-					limit = {
-						NOT = { trait = wounded }
-						NOT = { trait = full_cybernetic_conversion }
-					}
-					add_trait = wounded
-					set_character_flag = flag_plot_wounded
-				}
+				inflict_minor_injury_effect = yes
+				set_character_flag = flag_plot_wounded
 			}
 			10 = {
-				if = {
-					limit = {
-						NOT = { trait = maimed }
-						NOT = { trait = full_cybernetic_conversion }
-						NOT = { trait = cybernetic_limb }
-					}
-					add_trait = maimed
-					set_character_flag = flag_plot_maimed
-				}
+				inflict_moderate_injury_effect = yes
+				set_character_flag = flag_plot_maimed
+			}
+			5 = {
+				inflict_major_injury_effect = yes
+				set_character_flag = flag_plot_maimed
 			}
 		}
 	}
@@ -2632,27 +2529,18 @@ character_event = {
 		name = "EVTOPTBASSASSINATION260"
 		FROM = { character_event = { id = assassination.263 tooltip = "EVTTOOLTIPASSASSINATION263" } }
 		random_list = {
-			70 = { }
+			65 = { }
 			20 = {
-				if = {
-					limit = {
-						NOT = { trait = wounded }
-						NOT = { trait = full_cybernetic_conversion }
-					}
-					add_trait = wounded
-					set_character_flag = flag_plot_wounded
-				}
+				inflict_minor_injury_effect = yes
+				set_character_flag = flag_plot_wounded
 			}
 			10 = {
-				if = {
-					limit = {
-						NOT = { trait = maimed }
-						NOT = { trait = full_cybernetic_conversion }
-						NOT = { trait = cybernetic_limb }
-					}
-					add_trait = maimed
-					set_character_flag = flag_plot_maimed
-				}
+				inflict_moderate_injury_effect = yes
+				set_character_flag = flag_plot_maimed
+			}
+			5 = {
+				inflict_major_injury_effect = yes
+				set_character_flag = flag_plot_maimed
 			}
 		}
 	}
@@ -2679,7 +2567,6 @@ character_event = {
 		trigger = { FROM = { has_character_flag = flag_plot_wounded } }
 		name = "EVTOPTBASSASSINATION211"
 		FROM = {
-			add_trait = wounded
 			clr_character_flag = flag_plot_wounded
 		}
 		clr_character_flag = murder_in_motion
@@ -2689,7 +2576,6 @@ character_event = {
 		trigger = { FROM = { has_character_flag = flag_plot_maimed } }
 		name = "EVTOPTCASSASSINATION211"
 		FROM = {
-			add_trait = wounded
 			clr_character_flag = flag_plot_maimed
 		}
 		clr_character_flag = murder_in_motion
@@ -2754,7 +2640,6 @@ character_event = {
 			FROM = { any_realm_character = { character_event = { id = assassination.264 } } }
 		}
 		FROM = {
-			add_trait = wounded
 			clr_character_flag = flag_plot_wounded
 		}
 		clr_character_flag = murder_in_motion
@@ -2771,7 +2656,6 @@ character_event = {
 			FROM = { any_realm_character = { character_event = { id = assassination.264 } } }
 		}
 		FROM = {
-			add_trait = maimed
 			clr_character_flag = flag_plot_maimed
 		}
 		clr_character_flag = murder_in_motion
@@ -3995,25 +3879,19 @@ character_event = {
 			add_trait = stressed
 		}
 		random_list = {
-			40 = {
-				if = {
-					limit = { NOT = { trait = wounded } }
-					add_trait = wounded
-				}
-			}
-			30 = {
-				if = {
-					limit = { NOT = { trait = maimed } }
-					add_trait = maimed
-				}
-			}
+			65 = { }
 			20 = {
-				if = {
-					limit = { NOT = { trait = incapable } }
-					add_trait = incapable
-				}
+				inflict_minor_injury_effect = yes
+				set_character_flag = flag_plot_wounded
 			}
-			10 = { death = { death_reason = death_accident } }
+			10 = {
+				inflict_moderate_injury_effect = yes
+				set_character_flag = flag_plot_maimed
+			}
+			5 = {
+				inflict_major_injury_effect = yes
+				set_character_flag = flag_plot_maimed
+			}
 		}
 		if = {
 			limit = { has_character_flag = flag_brainjacking_middleman }
@@ -4847,26 +4725,19 @@ character_event = {
 		name = "EVTOPTAASSASSINATION520"
 		clr_character_flag = flag_killer_exposed
 		# Limited chance to be wounded or maimed
-		if = {
-			limit = {
-				NOT = { trait = full_cybernetic_conversion }
-				NOT = { trait = cybernetic_limb }
-				NOT = { trait = maimed }
-				trait = wounded
+		random_list = {
+			65 = { }
+			20 = {
+				inflict_minor_injury_effect = yes
+				set_character_flag = flag_plot_wounded
 			}
-			random = {
-				chance = 10
-				add_trait = maimed
+			10 = {
+				inflict_moderate_injury_effect = yes
+				set_character_flag = flag_plot_maimed
 			}
-		}
-		if = {
-			limit = {
-				NOT = { trait = full_cybernetic_conversion }
-				NOT = { trait = wounded }
-			}
-			random = {
-				chance = 25
-				add_trait = wounded
+			5 = {
+				inflict_major_injury_effect = yes
+				set_character_flag = flag_plot_maimed
 			}
 		}
 		if = {
@@ -4889,26 +4760,19 @@ character_event = {
 		trigger = { NOT = { has_character_flag = flag_killer_exposed } }
 		name = "EVTOPTBASSASSINATION520"
 		# Limited chance to be wounded or maimed
-		if = {
-			limit = {
-				NOT = { trait = full_cybernetic_conversion }
-				NOT = { trait = cybernetic_limb }
-				NOT = { trait = maimed }
-				trait = wounded
+		random_list = {
+			65 = { }
+			20 = {
+				inflict_minor_injury_effect = yes
+				set_character_flag = flag_plot_wounded
 			}
-			random = {
-				chance = 10
-				add_trait = maimed
+			10 = {
+				inflict_moderate_injury_effect = yes
+				set_character_flag = flag_plot_maimed
 			}
-		}
-		if = {
-			limit = {
-				NOT = { trait = full_cybernetic_conversion }
-				NOT = { trait = wounded }
-			}
-			random = {
-				chance = 25
-				add_trait = wounded
+			5 = {
+				inflict_major_injury_effect = yes
+				set_character_flag = flag_plot_maimed
 			}
 		}
 		hidden_tooltip = {
@@ -5682,26 +5546,19 @@ character_event = {
 		name = "EVTOPTAASSASSINATION520"
 		clr_character_flag = flag_killer_exposed
 		# Limited chance to be wounded or maimed
-		if = {
-			limit = {
-				NOT = { trait = full_cybernetic_conversion }
-				NOT = { trait = cybernetic_limb }
-				NOT = { trait = maimed }
-				trait = wounded
+		random_list = {
+			65 = { }
+			20 = {
+				inflict_minor_injury_effect = yes
+				set_character_flag = flag_plot_wounded
 			}
-			random = {
-				chance = 10
-				add_trait = maimed
+			10 = {
+				inflict_moderate_injury_effect = yes
+				set_character_flag = flag_plot_maimed
 			}
-		}
-		if = {
-			limit = {
-				NOT = { trait = full_cybernetic_conversion }
-				NOT = { trait = wounded }
-			}
-			random = {
-				chance = 25
-				add_trait = wounded
+			5 = {
+				inflict_major_injury_effect = yes
+				set_character_flag = flag_plot_maimed
 			}
 		}
 		hidden_tooltip = { FROM = { FROM = { character_event = { id = assassination.571 } } } }
@@ -5712,26 +5569,19 @@ character_event = {
 		trigger = { NOT = { has_character_flag = flag_killer_exposed } }
 		name = "EVTOPTBASSASSINATION520"
 		# Limited chance to be wounded or maimed
-		if = {
-			limit = {
-				NOT = { trait = full_cybernetic_conversion }
-				NOT = { trait = cybernetic_limb }
-				NOT = { trait = maimed }
-				trait = wounded
+		random_list = {
+			65 = { }
+			20 = {
+				inflict_minor_injury_effect = yes
+				set_character_flag = flag_plot_wounded
 			}
-			random = {
-				chance = 10
-				add_trait = maimed
+			10 = {
+				inflict_moderate_injury_effect = yes
+				set_character_flag = flag_plot_maimed
 			}
-		}
-		if = {
-			limit = {
-				NOT = { trait = full_cybernetic_conversion }
-				NOT = { trait = wounded }
-			}
-			random = {
-				chance = 25
-				add_trait = wounded
+			5 = {
+				inflict_major_injury_effect = yes
+				set_character_flag = flag_plot_maimed
 			}
 		}
 		hidden_tooltip = {
