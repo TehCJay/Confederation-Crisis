@@ -69,7 +69,7 @@ decisions = {
 					culture = ROOT
 					holder = ROOT
 					base_title = THIS
-					copy_title_laws = yes
+					copy_title_laws = ROOT
 				}
 
 				hidden_tooltip = {
@@ -136,126 +136,126 @@ decisions = {
 		}
 	}
 
-	form_new_empire = {
-		only_independent = yes
-		is_high_prio = yes
-		
-		potential = {
-			is_playable = yes
-			tier = KING
-			is_nomadic = no
-			has_dlc = "Charlemagne"
-			
-			holy_order = no
-			
-			NOT = { tier = EMPEROR }
-			OR = {
-				ai = no
-				AND = {
-					trait = proud
-					prestige = 40000
-				}
-				AND = {
-					trait = ambitious
-					prestige = 40000
-				}
-				prestige = 120000
-			}
-			
-			NOT = {
-				has_game_rule = {
-					name = dynamic_realms
-					value = off
-				}
-			}
-		}
-		allow = {
-			is_adult = yes
-			prisoner = no
-			NOT = { trait = incapable }
-			independent = yes
-			prestige = 8000
-			OR = {
-				realm_size = 180
-				custom_tooltip = {
-					text = form_new_empire_requirement_tooltip
-					hidden_tooltip = {
-						any_demesne_title = {
-							count = 3
-							tier = KING
-						}
-					}
-				}
-			}
-			wealth = 1000
-		}
-		effect = {
-			primary_title = {
-				create_title = {
-					tier = EMPEROR
-					landless = no
-					temporary = no
-					custom_created = yes
-					culture = ROOT
-					holder = ROOT
-					base_title = THIS
-					copy_title_laws = yes
-				}
-
-				hidden_tooltip = {
-					ROOT = {
-						primary_title = {
-							holder_scope = {
-								any_title_under = {
-									limit = {
-										tier = KING
-										NOT = {
-											empire = { has_holder = yes }
-										}
-									}
-									de_jure_liege = PREVPREV
-								}
-								any_title_under = {
-									limit = {
-										tier = DUKE
-										location = {
-											kingdom = {
-												NOT = {
-													empire = { has_holder = yes }
-												}
-												
-												NOT = { de_jure_liege_or_above = PREVPREVPREVPREV }
-												ROOT = {
-													completely_controls = PREV
-												}
-											}
-										}
-									}
-									location = {
-										kingdom = {
-											de_jure_liege = PREVPREVPREVPREV
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-			wealth = -1000
-			custom_tooltip = { text = form_new_empire_tooltip }
-			chronicle = {
-				entry = CHRONICLE_FOUNDED_NEW_KINGDOM_OR_EMPIRE
-				portrait = [Root.GetID]
-			}
-		}
-		revoke_allowed = {
-			always = no
-		}
-		ai_will_do = {
-			factor = 1
-		}
-	}
+#	form_new_empire = { #Disabled because redundant and was causing bugs with centralization authroity
+#		only_independent = yes
+#		is_high_prio = yes
+#		
+#		potential = {
+#			is_playable = yes
+#			tier = KING
+#			is_nomadic = no
+#			has_dlc = "Charlemagne"
+#			
+#			holy_order = no
+#			
+#			NOT = { tier = EMPEROR }
+#			OR = {
+#				ai = no
+#				AND = {
+#					trait = proud
+#					prestige = 40000
+#				}
+#				AND = {
+#					trait = ambitious
+#					prestige = 40000
+#				}
+#				prestige = 120000
+#			}
+#			
+#			NOT = {
+#				has_game_rule = {
+#					name = dynamic_realms
+#					value = off
+#				}
+#			}
+#		}
+#		allow = {
+#			is_adult = yes
+#			prisoner = no
+#			NOT = { trait = incapable }
+#			independent = yes
+#			prestige = 8000
+#			OR = {
+#				realm_size = 180
+#				custom_tooltip = {
+#					text = form_new_empire_requirement_tooltip
+#					hidden_tooltip = {
+#						any_demesne_title = {
+#							count = 3
+#							tier = KING
+#						}
+#					}
+#				}
+#			}
+#			wealth = 1000
+#		}
+#		effect = {
+#			primary_title = {
+#				create_title = {
+#					tier = EMPEROR
+#					landless = no
+#					temporary = no
+#					custom_created = yes
+#					culture = ROOT
+#					holder = ROOT
+#					base_title = THIS
+#					copy_title_laws = FROM
+#				}
+#
+#				hidden_tooltip = {
+#					ROOT = {
+#						primary_title = {
+#							holder_scope = {
+#								any_title_under = {
+#									limit = {
+#										tier = KING
+#										NOT = {
+#											empire = { has_holder = yes }
+#										}
+#									}
+#									de_jure_liege = PREVPREV
+#								}
+#								any_title_under = {
+#									limit = {
+#										tier = DUKE
+#										location = {
+#											kingdom = {
+#												NOT = {
+#													empire = { has_holder = yes }
+#												}
+#												
+#												NOT = { de_jure_liege_or_above = PREVPREVPREVPREV }
+#												ROOT = {
+#													completely_controls = PREV
+#												}
+#											}
+#										}
+#									}
+#									location = {
+#										kingdom = {
+#											de_jure_liege = PREVPREVPREVPREV
+#										}
+#									}
+#								}
+#							}
+#						}
+#					}
+#				}
+#			}
+#			wealth = -1000
+#			custom_tooltip = { text = form_new_empire_tooltip }
+#			chronicle = {
+#				entry = CHRONICLE_FOUNDED_NEW_KINGDOM_OR_EMPIRE
+#				portrait = [Root.GetID]
+#			}
+#		}
+#		revoke_allowed = {
+#			always = no
+#		}
+#		ai_will_do = {
+#			factor = 1
+#		}
+#	}
 
 	
 	host_confederation_congress = {
