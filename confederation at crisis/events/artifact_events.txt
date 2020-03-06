@@ -36,12 +36,20 @@ character_event = {
 	trigger = { has_character_flag = flag_commissioned_hermes_class_corvette }
 	immediate = {
 		add_artifact = hermes_class_corvette
-		new_artifact = { save_event_target_as = target_new_ship }
+		new_artifact = {
+			save_event_target_as = target_new_ship
+			set_name = "SHIPNAME"
+		}
 	}
 	option = {
 		name = "EVTOPTACCEPT"
 		clr_character_flag = flag_commissioned_new_ship
 		clr_character_flag = flag_commissioned_hermes_class_corvette
+	}
+	option = {
+		name = "EVTOPTRENAMESHIP"
+		event_target:target_new_ship = { prompt_name = { player = ROOT type = SHIPNAMING } }
+		ai_chance = { factor = 0 } # Obviously this option should only be taken by the player
 	}
 }
 # FREIGHTERS
@@ -79,12 +87,20 @@ character_event = {
 	trigger = { has_character_flag = flag_commissioned_calico_class_heavy_freighter }
 	immediate = {
 		add_artifact = calico_class_heavy_freighter
-		new_artifact = { save_event_target_as = target_new_ship }
+		new_artifact = {
+			save_event_target_as = target_new_ship
+			set_name = "SHIPNAME"
+		}
 	}
 	option = {
 		name = "EVTOPTACCEPT"
 		clr_character_flag = flag_commissioned_new_ship
 		clr_character_flag = flag_commissioned_calico_class_heavy_freighter
+	}
+	option = {
+		name = "EVTOPTRENAMESHIP"
+		event_target:target_new_ship = { prompt_name = { player = ROOT type = SHIPNAMING } }
+		ai_chance = { factor = 0 } # Obviously this option should only be taken by the player
 	}
 }
 # YACHTS
@@ -122,12 +138,20 @@ character_event = {
 	trigger = { has_character_flag = flag_commissioned_shangri_la_class_yacht }
 	immediate = {
 		add_artifact = shangri_la_class_yacht
-		new_artifact = { save_event_target_as = target_new_ship }
+		new_artifact = {
+			save_event_target_as = target_new_ship
+			set_name = "SHIPNAME"
+		}
 	}
 	option = {
 		name = "EVTOPTACCEPT"
 		clr_character_flag = flag_commissioned_new_ship
 		clr_character_flag = flag_commissioned_shangri_la_class_yacht
+	}
+	option = {
+		name = "EVTOPTRENAMESHIP"
+		event_target:target_new_ship = { prompt_name = { player = ROOT type = SHIPNAMING } }
+		ai_chance = { factor = 0 } # Obviously this option should only be taken by the player
 	}
 }
 # DREADNOUGHTS
@@ -165,12 +189,20 @@ character_event = {
 	trigger = { has_character_flag = flag_commissioned_bishamonten_class_dreadnought }
 	immediate = {
 		add_artifact = bishamonten_class_dreadnought
-		new_artifact = { save_event_target_as = target_new_ship }
+		new_artifact = {
+			save_event_target_as = target_new_ship
+			set_name = "SHIPNAME"
+		}
 	}
 	option = {
 		name = "EVTOPTACCEPT"
 		clr_character_flag = flag_commissioned_new_ship
 		clr_character_flag = flag_commissioned_bishamonten_class_dreadnought
+	}
+	option = {
+		name = "EVTOPTRENAMESHIP"
+		event_target:target_new_ship = { prompt_name = { player = ROOT type = SHIPNAMING } }
+		ai_chance = { factor = 0 } # Obviously this option should only be taken by the player
 	}
 }
 # PURCHASING NEW VEHICLES
