@@ -1,0 +1,3345 @@
+### CHARACTER LOCS
+defined_text = {
+	name = GetOpponentName
+	use_first_valid = yes
+	text = {
+		trigger = {
+			# Must have a landed or princely title
+			OR = {
+				is_landed = yes
+				has_minor_title = title_prince_royal
+				has_minor_title = title_ruler_consort
+			}
+			# Must be an appropriate religion or government type for this title style
+			OR = {
+				religion = neo_feudal
+				religion = terran_imperial
+				religion = imperial_cultist
+				government = military_monarchy
+				government = corporate_monarchy
+				government = administrative_monarchy
+			}
+			has_character_flag = flag_enemy_spotted
+		}
+		localisation_key = String_duel_opponent_titled_first_name
+	}
+	text = {
+		trigger = {
+			# Must have an appropriate title
+			OR = {
+				is_landed = yes
+				has_minor_title = title_commander
+			}
+			has_character_flag = flag_enemy_spotted
+		}
+		localisation_key = String_duel_opponent_titled_last_name
+	}
+	text = {
+		trigger = {
+			NOT = { has_character_flag = flag_friendly_duel }
+			has_character_flag = flag_enemy_spotted
+		}
+		localisation_key = String_duel_opponent_first_name_last_name
+	}
+	text = {
+		trigger = {
+			NOT = { dynasty = ROOT }
+			has_character_flag = flag_enemy_spotted
+		}
+		localisation_key = String_duel_opponent_last_name
+	}
+	text = {
+		trigger = { has_character_flag = flag_enemy_spotted }
+		localisation_key = String_duel_opponent_first_name
+	}
+	text = { localisation_key = String_duel_opponent }
+}
+defined_text = {
+	name = GetOpponentNameCap
+	use_first_valid = yes
+	text = {
+		trigger = {
+			# Must have a landed or princely title
+			OR = {
+				is_landed = yes
+				has_minor_title = title_prince_royal
+				has_minor_title = title_ruler_consort
+			}
+			# Must be an appropriate religion or government type for this title style
+			OR = {
+				religion = neo_feudal
+				religion = terran_imperial
+				religion = imperial_cultist
+				government = military_monarchy
+				government = corporate_monarchy
+				government = administrative_monarchy
+			}
+			has_character_flag = flag_enemy_spotted
+		}
+		localisation_key = String_duel_opponent_titled_first_name
+	}
+	text = {
+		trigger = {
+			# Must have an appropriate title
+			OR = {
+				is_landed = yes
+				has_minor_title = title_commander
+			}
+			has_character_flag = flag_enemy_spotted
+		}
+		localisation_key = String_duel_opponent_titled_last_name
+	}
+	text = {
+		trigger = {
+			NOT = { has_character_flag = flag_friendly_duel }
+			has_character_flag = flag_enemy_spotted
+		}
+		localisation_key = String_duel_opponent_first_name_last_name
+	}
+	text = {
+		trigger = {
+			NOT = { dynasty = ROOT }
+			has_character_flag = flag_enemy_spotted
+		}
+		localisation_key = String_duel_opponent_last_name
+	}
+	text = {
+		trigger = { has_character_flag = flag_enemy_spotted }
+		localisation_key = String_duel_opponent_first_name
+	}
+	text = { localisation_key = String_duel_opponent_cap }
+}
+defined_text = {
+	name = GetHersHisCap
+	text = {
+		trigger = { is_female = yes }
+		localisation_key = String_hers_cap
+	}
+	text = {
+		trigger = { is_female = no }
+		localisation_key = String_his_cap
+	}
+}
+defined_text = {
+	name = GetDuelistHealthAdvice
+	use_first_valid = yes
+	text = {
+		trigger = { trait = severely_injured }
+		localisation_key = String_duelist_health_advice_severely_injured
+	}
+	text = {
+		trigger = {
+			trait = maimed
+		}
+		localisation_key = String_duelist_health_advice_maimed
+	}
+	text = {
+		trigger = {
+			OR = {
+				trait = one_eyed
+				trait = blinded
+			}
+		}
+		localisation_key = String_duelist_health_advice_blinded
+	}
+	text = {
+		trigger = {
+			trait = damaged_cybernetics
+			trait = cybernetic_limb
+			trait = cybernetic_leg
+		}
+		localisation_key = String_duelist_health_advice_damaged_cybernetics
+	}
+	text = {
+		trigger = {
+			trait = damaged_cybernetics
+			trait = cybernetic_limb
+		}
+		localisation_key = String_duelist_health_advice_damaged_cybernetic_arm
+	}
+	text = {
+		trigger = {
+			trait = damaged_cybernetics
+			trait = cybernetic_leg
+		}
+		localisation_key = String_duelist_health_advice_damaged_cybernetic_leg
+	}
+	text = {
+		trigger = { trait = wounded }
+		localisation_key = String_duelist_health_advice_wounded
+	}
+	text = {
+		trigger = {
+			trait = cybernetic_limb
+			trait = cybernetic_leg
+		}
+		localisation_key = String_duelist_health_advice_cybernetics
+	}
+	text = {
+		trigger = { trait = cybernetic_limb }
+		localisation_key = String_duelist_health_advice_cybernetic_arm
+	}
+	text = {
+		trigger = { trait = cybernetic_leg }
+		localisation_key = String_duelist_health_advice_cybernetic_leg
+	}
+}
+
+### WEAPON, ARMOR, AND VEHICLE LOCS
+defined_text = {
+	name = GetAnAName
+	use_first_valid = yes
+	# Returns the artifact's name with the appropriate article attached
+	text = {
+		trigger = {
+			# Add any weapon, armor, or ground combat vehicle whose name starts with a vowel to this list.
+			OR = {
+				artifact_type = ares_main_battle_tank
+			}
+		}
+		localisation_key = String_an_artifact
+	}
+	text = { localisation_key = String_a_artifact }
+}
+defined_text = {
+	name = GetBasicEquipmentDescription
+	text = {
+		localisation_key = String_an_assault_rifle
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = assault_rifle }
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_artifact_flag = laser
+					has_artifact_flag = plasma
+				}
+			}
+		}
+	}
+	text = {
+		localisation_key = String_a_sniper_rifle
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = sniper_rifle }
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_artifact_flag = laser
+					has_artifact_flag = plasma
+				}
+			}
+		}
+	}
+	text = {
+		localisation_key = String_a_laser_rifle
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = laser }
+				NOT = { has_artifact_flag = assault_rifle }
+				NOT = { has_artifact_flag = sniper_rifle }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_a_plasma_rifle
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = plasma }
+				NOT = { has_artifact_flag = assault_rifle }
+				NOT = { has_artifact_flag = sniper_rifle }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_an_anti_tank_rifle
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = anti_tank_rifle }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_a_missile_launcher
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = missile_launcher }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_a_plasma_cannon
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = plasma_cannon }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_a_handgun
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = handgun }
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_artifact_flag = laser
+					has_artifact_flag = plasma
+				}
+			}
+		}
+	}
+	text = {
+		localisation_key = String_a_hand_laser
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = handgun }
+				NOT = { has_artifact_flag = laser }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_a_plasma_pistol
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = handgun }
+				NOT = { has_artifact_flag = plasma }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_a_rocket_pistol
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = rocket_pistol }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_a_sword
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = sword }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_a_pneumatic_hammer
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = hammer }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_a_plasma_cutter
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = plasma_cutter }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_a_laser_sword
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = laser_sword }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_body_armor
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = armor }
+			}
+			modifier = {
+				factor = 0
+				has_artifact_flag = power_armor
+			}
+		}
+	}
+	text = {
+		localisation_key = String_power_armor
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = power_armor }
+			}
+		}
+	}
+}
+defined_text = {
+	name = GetWeaponType
+	
+	text = {
+		localisation_key = String_rifle
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				persistent_event_target:my_weapon = { always = yes }
+				NOT = {
+					persistent_event_target:my_weapon = {
+						OR = {
+							has_artifact_flag = assault_rifle
+							has_artifact_flag = sniper_rifle
+							has_artifact_flag = anti_tank_rifle
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				persistent_event_target:my_weapon = { has_artifact_flag = laser }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_missile_launcher
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { persistent_event_target:my_weapon = { has_artifact_flag = missile_launcher } }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_cannon
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { persistent_event_target:my_weapon = { has_artifact_flag = cannon } }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_handgun
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { persistent_event_target:my_weapon = { has_artifact_flag = handgun } }
+			}
+			modifier = {
+				factor = 0
+				persistent_event_target:my_weapon = { has_artifact_flag = laser }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_laser
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { persistent_event_target:my_weapon = { has_artifact_flag = laser } }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_sword
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { persistent_event_target:my_weapon = { has_artifact_flag = sword } }
+				NOT = { persistent_event_target:my_weapon = { has_artifact_flag = laser_sword } }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_plasma_cutter
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { persistent_event_target:my_weapon = { has_artifact_flag = plasma_cutter } }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_hammer
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { persistent_event_target:my_weapon = { has_artifact_flag = hammer } }
+			}
+		}
+	}
+}
+defined_text = {
+	name = GetMeleeWeaponType
+	
+	text = {
+		localisation_key = String_bayonet
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				persistent_event_target:my_weapon = {
+					OR = {
+						has_artifact_flag = sword
+						has_artifact_flag = laser_sword
+						has_artifact_flag = plasma_cutter
+						has_artifact_flag = hammer
+					}
+				}
+			}
+		}
+	}
+	text = {
+		localisation_key = String_sword
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = {
+					persistent_event_target:my_weapon = {
+						OR = {
+							has_artifact_flag = sword
+							has_artifact_flag = laser_sword
+						}
+					}
+				}
+			}
+		}
+	}
+	text = {
+		localisation_key = String_plasma_cutter
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { persistent_event_target:my_weapon = { has_artifact_flag = plasma_cutter } }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_hammer
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { persistent_event_target:my_weapon = { has_artifact_flag = hammer } }
+			}
+		}
+	}
+}
+defined_text = {
+	name = GetEquipmentBasic
+	use_first_valid = yes
+	text = {
+		localisation_key = String_no_equipment
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				persistent_event_target:my_weapon = { always = yes }
+			}
+			modifier = {
+				factor = 0
+				persistent_event_target:my_armor = { always = yes }
+			}
+			modifier = {
+				factor = 0
+				has_character_flag = flag_melee_duel
+			}
+		}
+	}
+	text = {
+		localisation_key = String_no_equipment_melee
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				persistent_event_target:my_weapon = { always = yes }
+			}
+			modifier = {
+				factor = 0
+				persistent_event_target:my_armor = { always = yes }
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_character_flag = flag_melee_duel }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_armor_equipped
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				persistent_event_target:my_weapon = { always = yes }
+			}
+			modifier = {
+				factor = 0
+				NOT = { persistent_event_target:my_armor = { always = yes } }
+			}
+			modifier = {
+				factor = 0
+				has_character_flag = flag_melee_duel
+			}
+		}
+	}
+	text = {
+		localisation_key = String_armor_equipped_melee
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				persistent_event_target:my_weapon = { always = yes }
+			}
+			modifier = {
+				factor = 0
+				NOT = { persistent_event_target:my_armor = { always = yes } }
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_character_flag = flag_melee_duel }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_weapon_equipped
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { persistent_event_target:my_weapon = { always = yes } }
+			}
+			modifier = {
+				factor = 0
+				persistent_event_target:my_armor = { always = yes }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_weapon_and_armor_equipped
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { persistent_event_target:my_weapon = { always = yes } }
+			}
+			modifier = {
+				factor = 0
+				NOT = { persistent_event_target:my_armor = { always = yes } }
+			}
+		}
+	}
+}
+defined_text = {
+	name = GetEquipmentDetailed
+	use_first_valid = yes
+	text = {
+		localisation_key = String_no_equipment
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				persistent_event_target:my_weapon = { always = yes }
+			}
+			modifier = {
+				factor = 0
+				persistent_event_target:my_armor = { always = yes }
+			}
+			modifier = {
+				factor = 0
+				has_character_flag = flag_melee_duel
+			}
+		}
+	}
+	text = {
+		localisation_key = String_no_equipment_melee
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				persistent_event_target:my_weapon = { always = yes }
+			}
+			modifier = {
+				factor = 0
+				persistent_event_target:my_armor = { always = yes }
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_character_flag = flag_melee_duel }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_armor_equipped_detailed
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				persistent_event_target:my_weapon = { always = yes }
+			}
+			modifier = {
+				factor = 0
+				NOT = { persistent_event_target:my_armor = { always = yes } }
+			}
+			modifier = {
+				factor = 0
+				has_character_flag = flag_melee_duel
+			}
+		}
+	}
+	text = {
+		localisation_key = String_armor_equipped_melee_detailed
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				persistent_event_target:my_weapon = { always = yes }
+			}
+			modifier = {
+				factor = 0
+				NOT = { persistent_event_target:my_armor = { always = yes } }
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_character_flag = flag_melee_duel }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_weapon_equipped_detailed
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { persistent_event_target:my_weapon = { always = yes } }
+			}
+			modifier = {
+				factor = 0
+				persistent_event_target:my_armor = { always = yes }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_weapon_and_armor_equipped_detailed
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { persistent_event_target:my_weapon = { always = yes } }
+			}
+			modifier = {
+				factor = 0
+				NOT = { persistent_event_target:my_armor = { always = yes } }
+			}
+		}
+	}
+}
+defined_text = {
+	name = GetVehicleMelee
+	text = {
+		localisation_key = String_vehicle_melee_list
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = melee_bonus }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_blank
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_artifact_flag = melee_bonus
+			}
+		}
+	}
+}
+defined_text = {
+	name = GetVehicleAntiVehicle
+	text = {
+		localisation_key = String_vehicle_anti_vehicle_list
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = anti_vehicle_weapon }
+			}
+			modifier = {
+				factor = 0
+				has_artifact_flag = melee_bonus
+			}
+		}
+	}
+	text = {
+		localisation_key = String_vehicle_anti_vehicle_list_comma
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = anti_vehicle_weapon }
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = melee_bonus }
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = anti_personnel_weapon }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_vehicle_anti_vehicle_list_and
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = anti_vehicle_weapon }
+			}
+			modifier = {
+				factor = 0
+				has_artifact_flag = melee_bonus
+			}
+			modifier = {
+				factor = 0
+				has_artifact_flag = anti_personnel_weapon
+			}
+		}
+	}
+	text = {
+		localisation_key = String_blank
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_artifact_flag = anti_vehicle_weapon
+			}
+		}
+	}
+}
+defined_text = {
+	name = GetVehicleAntiPersonnel
+	text = {
+		localisation_key = String_vehicle_anti_personnel_list
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = anti_personnel_weapon }
+			}
+			modifier = {
+				factor = 0
+				has_artifact_flag = melee_bonus
+			}
+			modifier = {
+				factor = 0
+				has_artifact_flag = anti_vehicle_weapon
+			}
+		}
+	}
+	text = {
+		localisation_key = String_vehicle_anti_personnel_list_and
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = anti_personnel_weapon }
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = melee_bonus }
+				NOT = { has_artifact_flag = anti_vehicle_weapon }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_blank
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_artifact_flag = anti_personnel_weapon
+			}
+		}
+	}
+}
+# Automatically get vehicle weapon names based on tech tags
+defined_text = {
+	name = GetVehicleMeleeWeapon
+	text = {
+		localisation_key = String_vehicle_melee_fist
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_artifact_flag = melee_bonus
+			}
+		}
+	}
+	text = {
+		localisation_key = String_vehicle_melee_weapon_low_tech
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				OR = {
+					has_artifact_flag = tech_3
+					has_artifact_flag = tech_4
+					has_artifact_flag = tech_5
+					has_artifact_flag = tech_6
+					has_artifact_flag = tech_7
+					has_artifact_flag = tech_8
+				}
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = melee_bonus }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_vehicle_melee_weapon_mid_tech
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = tech_3 }
+				NOT = { has_artifact_flag = tech_4 }
+				NOT = { has_artifact_flag = tech_5 }
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = melee_bonus }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_vehicle_melee_weapon_high_tech
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = tech_6 }
+				NOT = { has_artifact_flag = tech_7 }
+				NOT = { has_artifact_flag = tech_8 }
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = melee_bonus }
+			}
+		}
+	}
+}
+defined_text = {
+	name = GetVehicleAntiVehicleWeapon
+	text = {
+		localisation_key = String_vehicle_anti_vehicle_weapon_low_tech
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				OR = {
+					has_artifact_flag = tech_3
+					has_artifact_flag = tech_4
+					has_artifact_flag = tech_5
+					has_artifact_flag = tech_6
+					has_artifact_flag = tech_7
+					has_artifact_flag = tech_8
+				}
+			}
+		}
+	}
+	text = {
+		localisation_key = String_vehicle_anti_vehicle_weapon_mid_tech
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = tech_3 }
+				NOT = { has_artifact_flag = tech_4 }
+				NOT = { has_artifact_flag = tech_5 }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_vehicle_anti_vehicle_weapon_high_tech
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = tech_6 }
+				NOT = { has_artifact_flag = tech_7 }
+				NOT = { has_artifact_flag = tech_8 }
+			}
+		}
+	}
+}
+defined_text = {
+	name = GetVehicleAntiPersonnelWeapon
+	text = {
+		localisation_key = String_vehicle_anti_personnel_weapon_low_tech
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				OR = {
+					has_artifact_flag = tech_3
+					has_artifact_flag = tech_4
+					has_artifact_flag = tech_5
+					has_artifact_flag = tech_6
+					has_artifact_flag = tech_7
+					has_artifact_flag = tech_8
+				}
+			}
+		}
+	}
+	text = {
+		localisation_key = String_vehicle_anti_personnel_weapon_mid_tech
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = tech_3 }
+				NOT = { has_artifact_flag = tech_4 }
+				NOT = { has_artifact_flag = tech_5 }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_vehicle_anti_personnel_weapon_high_tech
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = tech_6 }
+				NOT = { has_artifact_flag = tech_7 }
+				NOT = { has_artifact_flag = tech_8 }
+			}
+		}
+	}
+}
+defined_text = {
+	name = GetWeaponMeleeBonusAdvice
+	
+	text = {
+		localisation_key = String_blank
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_artifact_flag = melee_bonus
+			}
+		}
+	}
+	text = {
+		localisation_key = String_describe_weapon_melee_bonus_advice
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = melee_bonus }
+			}
+		}
+	}
+}
+defined_text = {
+	name = GetWeaponAntiPersonnelBonusAdvice
+	
+	text = {
+		localisation_key = String_blank
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_artifact_flag = anti_personnel_bonus
+			}
+		}
+	}
+	text = {
+		localisation_key = String_describe_weapon_anti_personnel_bonus_advice
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = anti_personnel_bonus }
+			}
+		}
+	}
+}
+defined_text = {
+	name = GetWeaponAntiVehicleBonusAdvice
+	
+	text = {
+		localisation_key = String_blank
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_artifact_flag = anti_vehicle_bonus
+			}
+		}
+	}
+	text = {
+		localisation_key = String_describe_weapon_anti_vehicle_bonus_advice
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = anti_vehicle_bonus }
+			}
+		}
+	}
+}
+defined_text = {
+	name = GetArmorAntiPersonnelResistanceAdvice
+	
+	text = {
+		localisation_key = String_blank
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_artifact_flag = anti_personnel_resistance
+			}
+		}
+	}
+	text = {
+		localisation_key = String_describe_armor_anti_personnel_resistance_advice
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = anti_personnel_resistance }
+			}
+		}
+	}
+}
+defined_text = {
+	name = GetVehicleAntiVehicleBonusAdvice
+	
+	text = {
+		localisation_key = String_blank
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_artifact_flag = anti_vehicle_bonus
+			}
+		}
+	}
+	text = {
+		localisation_key = String_vehicle_anti_vehicle_bonus_advice
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = anti_vehicle_bonus }
+			}
+		}
+	}
+}
+defined_text = {
+	name = GetVehicleAntiPersonnelBonusAdvice
+	
+	text = {
+		localisation_key = String_blank
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_artifact_flag = anti_personnel_bonus
+			}
+		}
+	}
+	text = {
+		localisation_key = String_vehicle_anti_personnel_bonus_advice
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = anti_personnel_bonus }
+			}
+		}
+	}
+}
+defined_text = {
+	name = GetVehicleAntiVehicleResistanceAdvice
+	
+	text = {
+		localisation_key = String_blank
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_artifact_flag = anti_vehicle_resistance
+			}
+		}
+	}
+	text = {
+		localisation_key = String_vehicle_anti_vehicle_resistance_advice
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = anti_vehicle_resistance }
+			}
+		}
+	}
+}
+defined_text = {
+	name = GetVehicleAntiPersonnelVulnerableAdvice
+	
+	text = {
+		localisation_key = String_blank
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_artifact_flag = anti_personnel_vulnerable
+			}
+		}
+	}
+	text = {
+		localisation_key = String_vehicle_anti_personnel_vulnerable_advice
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = anti_personnel_vulnerable }
+			}
+		}
+	}
+}
+defined_text = {
+	name = GetVehicleMeleeVulnerableAdvice
+	
+	text = {
+		localisation_key = String_blank
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_artifact_flag = melee_vulnerable
+			}
+		}
+	}
+	text = {
+		localisation_key = String_vehicle_melee_vulnerable_advice
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_artifact_flag = melee_vulnerable }
+			}
+		}
+	}
+}
+defined_text = {
+	name = GetAmmunitionType
+	
+	text = {
+		localisation_key = String_bullets
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				persistent_event_target:my_weapon = { always = yes }
+				persistent_event_target:my_weapon = {
+					has_artifact_flag = anti_personnel
+					NOT = { has_artifact_flag = ballistic }
+				}
+			}
+		}
+	}
+	text = {
+		localisation_key = String_lead
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				persistent_event_target:my_weapon = { always = yes }
+				persistent_event_target:my_weapon = {
+					has_artifact_flag = anti_personnel
+					NOT = { has_artifact_flag = ballistic }
+				}
+			}
+		}
+	}
+	text = {
+		localisation_key = String_tungsten
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				persistent_event_target:my_weapon = { always = yes }
+				persistent_event_target:my_weapon = {
+					has_artifact_flag = anti_personnel
+					NOT = { has_artifact_flag = ballistic }
+				}
+			}
+		}
+	}
+	text = {
+		localisation_key = String_lasers
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { persistent_event_target:my_weapon = { always = yes } }
+			}
+			modifier = {
+				factor = 0
+				persistent_event_target:my_weapon = {
+					has_artifact_flag = anti_personnel
+					NOT = { has_artifact_flag = laser }
+				}
+			}
+		}
+	}
+	text = {
+		localisation_key = String_light
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { persistent_event_target:my_weapon = { always = yes } }
+			}
+			modifier = {
+				factor = 0
+				persistent_event_target:my_weapon = {
+					has_artifact_flag = anti_personnel
+					NOT = { has_artifact_flag = laser }
+				}
+			}
+		}
+	}
+	text = {
+		localisation_key = String_photons
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { persistent_event_target:my_weapon = { always = yes } }
+			}
+			modifier = {
+				factor = 0
+				persistent_event_target:my_weapon = {
+					has_artifact_flag = anti_personnel
+					NOT = { has_artifact_flag = laser }
+				}
+			}
+		}
+	}
+	text = {
+		localisation_key = String_plasma
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { persistent_event_target:my_weapon = { always = yes } }
+			}
+			modifier = {
+				factor = 0
+				persistent_event_target:my_weapon = {
+					has_artifact_flag = anti_personnel
+					NOT = { has_artifact_flag = plasma }
+				}
+			}
+		}
+	}
+	text = {
+		localisation_key = String_plasma_bolts
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { persistent_event_target:my_weapon = { always = yes } }
+			}
+			modifier = {
+				factor = 0
+				persistent_event_target:my_weapon = {
+					has_artifact_flag = anti_personnel
+					NOT = { has_artifact_flag = plasma_bolts }
+				}
+			}
+		}
+	}
+}
+
+# DUEL LOCS
+defined_text = {
+	name = GetDuelText
+	use_first_valid = yes
+	
+	# At martial 15+, you get a detailed description of the enemy
+	text = {
+		trigger = {
+			FROM = { has_character_flag = flag_in_vehicle }
+			has_character_flag = flag_enemy_analyzed
+		}
+		localisation_key = String_enemy_identified_in_vehicle
+	}
+	text = {
+		trigger = { has_character_flag = flag_enemy_analyzed }
+		localisation_key = String_enemy_identified_on_foot
+	}
+	# You've spotted the enemy
+	text = {
+		trigger = {
+			FROM = { has_character_flag = flag_in_vehicle }
+			has_character_flag = flag_enemy_spotted
+		}
+		localisation_key = String_enemy_spotted_in_vehicle
+	}
+	text = {
+		trigger = { has_character_flag = flag_enemy_spotted }
+		localisation_key = String_enemy_spotted_on_foot
+	}
+	# You have no idea what's going on
+	text = { localisation_key = String_enemy_unspotted }
+}
+defined_text = {
+	name = GetSpottingContext
+	text = {
+		localisation_key = String_on_an_open_field
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_character_flag = flag_open_field }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_after_first_round
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_character_flag = flag_first_round
+			}
+		}
+	}
+	text = {
+		localisation_key = String_martial_spotting_bonus
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { martial = 10 }
+			}
+		}
+	}
+}
+defined_text = {
+	name = GetLocationAmbience
+	text = {
+		localisation_key = String_bombed_out_buildings
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_character_flag = flag_interior
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_character_flag = flag_battlefield }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_narrow_streets
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_character_flag = flag_interior
+			}
+		}
+	}
+	text = {
+		localisation_key = String_narrow_corridors
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_character_flag = flag_interior }
+			}
+		}
+	}
+}
+defined_text = {
+	name = GetLocationDescription
+	use_first_valid = yes
+	text = {
+		trigger = { has_character_flag = flag_friendly_duel }
+		localisation_key = String_duel_location_description_arena_on
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_open_field
+			event_target:duel_location = { is_pressurized_trigger = yes }
+		}
+		localisation_key = String_duel_location_description_massive_chamber_on
+	}
+	text = {
+		trigger = { has_character_flag = flag_open_field }
+		localisation_key = String_duel_location_description_open_field
+	}
+	text = { localisation_key = String_duel_location_description_urban }
+}
+defined_text = {
+	name = GetDuelIntro
+	use_first_valid = yes
+	text = {
+		trigger = {
+			NOT = {
+				any_artifact = {
+					is_artifact_equipped = yes
+					has_artifact_flag = ground
+					has_artifact_flag = military_vehicle
+				}
+			}
+		}
+		localisation_key = String_duel_intro_unmounted
+	}
+	text = {
+		trigger = { has_character_flag = flag_infantry_duel }
+		localisation_key = String_duel_intro_infantry_duel
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_walker_duel
+			NOT = {
+				any_artifact = {
+					is_artifact_equipped = yes
+					has_artifact_flag = ground
+					has_artifact_flag = military_vehicle
+					has_artifact_flag = walker
+				}
+			}
+		}
+		localisation_key = String_duel_intro_walker_duel
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_interior
+			NOT = {
+				any_artifact = {
+					is_artifact_equipped = yes
+					has_artifact_flag = ground
+					has_artifact_flag = military_vehicle
+					has_artifact_flag = walker
+				}
+			}
+		}
+		localisation_key = String_duel_intro_autodismount
+	}
+	text = { localisation_key = String_duel_intro_mounted }
+}
+defined_text = {
+	name = GetDuelAction
+	text = {
+		localisation_key = String_taking_cover
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_character_flag = flag_open_field
+			}
+		}
+	}
+	text = {
+		localisation_key = String_waving_weapon
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { persistent_event_target:my_weapon = { always = yes } }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_training_weapon
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_character_flag = flag_melee_duel }
+				NOT = { persistent_event_target:my_weapon = { has_artifact_flag = melee } }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_circling_you
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				OR = {
+					has_character_flag = flag_melee_duel
+					persistent_event_target:my_weapon = { has_artifact_flag = melee }
+				}
+			}
+		}
+	}
+}
+defined_text = {
+	name = GetRandomCover
+	text = {
+		localisation_key = String_burnt_out_tank
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_character_flag = flag_interior
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_character_flag = flag_battlefield }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_groundcar
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_character_flag = flag_interior
+			}
+			modifier = {
+				factor = 0
+				has_character_flag = flag_duel_friendly
+			}
+		}
+	}
+	text = {
+		localisation_key = String_speeder
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_character_flag = flag_interior
+			}
+			modifier = {
+				factor = 0
+				has_character_flag = flag_duel_friendly
+			}
+		}
+	}
+	text = {
+		localisation_key = String_building
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_character_flag = flag_interior
+			}
+			modifier = {
+				factor = 0
+				has_character_flag = flag_open_field
+			}
+		}
+	}
+	text = {
+		localisation_key = String_low_wall
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_character_flag = flag_interior
+			}
+			modifier = {
+				factor = 0
+				has_character_flag = flag_open_field
+				NOT = { has_character_flag = flag_duel_friendly } # Arenas have low walls built into them.
+			}
+		}
+	}
+	text = {
+		localisation_key = String_corner
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_character_flag = flag_open_field
+			}
+		}
+	}
+	text = {
+		localisation_key = String_pillar
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_character_flag = flag_open_field
+				NOT = { event_target:duel_location = { is_pressurized_trigger = yes } }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_pile_of_rubble
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_character_flag = flag_battlefield }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_boulder
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_character_flag = flag_battlefield }
+			}
+			modifier = {
+				factor = 0
+				event_target:duel_location = { is_pressurized_trigger = yes }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_rock
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_character_flag = flag_open_field }
+			}
+			modifier = {
+				factor = 0
+				event_target:duel_location = { is_pressurized_trigger = yes }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_hill
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_character_flag = flag_open_field }
+			}
+			modifier = {
+				factor = 0
+				event_target:duel_location = { is_pressurized_trigger = yes }
+			}
+		}
+	}
+}
+defined_text = {
+	name = GetMeleeAttackDescription
+	use_first_valid = yes
+	text = {
+		trigger = { persistent_event_target:my_weapon = { has_artifact_flag = melee\ } }
+		localisation_key = String_melee_attack_weapon
+	}
+	text = {
+		trigger = { has_character_flag = flag_melee_duel }
+		localisation_key = String_melee_attack_sword
+	}
+	text = {
+		trigger = {
+			any_artifact = {
+				is_artifact_equipped = yes
+				has_artifact_flag = ground
+			}
+			NOT = { has_character_flag = flag_infantry_duel }
+			NOT = { has_character_flag = flag_interior }
+		}
+		localisation_key = String_drive_me_closer
+	}
+	text = { localisation_key = String_melee_attack_bayonet }
+}
+defined_text = {
+	name = GetMeleeVehicleAttackDescription
+	use_first_valid = yes
+	text = {
+		trigger = {
+			persistent_event_target:my_vehicle = {
+				has_artifact_flag = walker
+				has_artifact_flag = melee_bonus
+			}
+		}
+		localisation_key = String_melee_attack_walker_bonus
+	}
+	text = {
+		trigger = { persistent_event_target:my_vehicle = { has_artifact_flag = walker } }
+		localisation_key = String_melee_attack_walker
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_enemy_analyzed
+			FROM = { NOT = { has_character_flag = flag_in_vehicle } }
+		}
+		localisation_key = String_melee_attack_run_over
+	}
+	text = { localisation_key = String_melee_attack_ram }
+}
+defined_text = {
+	name = GetAntiPersonnelAttackDescription
+	use_first_valid = yes
+	text = {
+		trigger = { has_character_flag = flag_in_vehicle }
+		localisation_key = String_fire_vehicle_anti_personnel
+	}
+	text = {
+		trigger = { persistent_event_target:my_weapon = { has_artifact_flag = laser } }
+		localisation_key = String_take_cover_and_fire_laser
+	}
+	text = {
+		trigger = { persistent_event_target:my_weapon = { has_artifact_flag = anti_personnel } }
+		localisation_key = String_take_cover_and_fire_weapon
+	}
+	text = { localisation_key = String_take_cover_and_fire_basic }
+}
+defined_text = {
+	name = GetAntiVehicleAttackDescription
+	use_first_valid = yes
+	text = {
+		trigger = { has_character_flag = flag_in_vehicle }
+		localisation_key = String_fire_vehicle_anti_vehicle
+	}
+	text = { localisation_key = String_fire_infantry_anti_vehicle }
+}
+defined_text = {
+	name = GetDuelRoundVictoryDescription
+	
+	# Melee Infantry
+	text = {
+		trigger = {
+			has_character_flag = flag_melee_tactics
+			FROM = { has_character_flag = flag_melee_tactics }
+		}
+		localisation_key = String_melee_infantry_victory_over_melee_infantry
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_melee_tactics
+			FROM = { has_character_flag = flag_melee_vehicle_tactics }
+		}
+		localisation_key = String_melee_infantry_victory_over_melee_vehicle
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_melee_tactics
+			FROM = {
+				has_character_flag = flag_anti_personnel_tactics
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+		}
+		localisation_key = String_melee_infantry_victory_over_anti_personnel_infantry
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_melee_tactics
+			FROM = {
+				has_character_flag = flag_anti_personnel_tactics
+				has_character_flag = flag_in_vehicle
+			}
+		}
+		localisation_key = String_melee_infantry_victory_over_anti_personnel_vehicle
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_melee_tactics
+			FROM = {
+				has_character_flag = flag_anti_vehicle_tactics
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+		}
+		localisation_key = String_melee_infantry_victory_over_anti_vehicle_infantry
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_melee_tactics
+			FROM = {
+				has_character_flag = flag_anti_vehicle_tactics
+				has_character_flag = flag_in_vehicle
+			}
+		}
+		localisation_key = String_melee_infantry_victory_over_anti_vehicle_vehicle
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_melee_tactics
+			FROM = {
+				has_character_flag = flag_withdrawing
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+		}
+		localisation_key = String_melee_infantry_victory_over_withdrawing_infantry
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_melee_tactics
+			FROM = {
+				has_character_flag = flag_withdrawing
+				has_character_flag = flag_in_vehicle
+			}
+		}
+		localisation_key = String_melee_infantry_victory_over_withdrawing_vehicle
+	}
+	# Melee Vehicle
+	text = {
+		trigger = {
+			has_character_flag = flag_melee_vehicle_tactics
+			FROM = { has_character_flag = flag_melee_tactics }
+		}
+		localisation_key = String_melee_vehicle_victory_over_melee_infantry
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_melee_vehicle_tactics
+			NOT = { persistent_event_target:my_vehicle = { has_artifact_flag = walker } }
+			FROM = { has_character_flag = flag_melee_vehicle_tactics }
+		}
+		localisation_key = String_melee_vehicle_victory_over_melee_vehicle
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_melee_vehicle_tactics
+			persistent_event_target:my_vehicle = { has_artifact_flag = walker }
+			FROM = {
+				has_character_flag = flag_melee_vehicle_tactics
+				NOT = { persistent_event_target:my_vehicle = { has_artifact_flag = walker } }
+			}
+		}
+		localisation_key = String_melee_walker_victory_over_melee_vehicle
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_melee_vehicle_tactics
+			persistent_event_target:my_vehicle = { has_artifact_flag = walker }
+			FROM = {
+				has_character_flag = flag_melee_vehicle_tactics
+				persistent_event_target:my_vehicle = { has_artifact_flag = walker }
+			}
+		}
+		localisation_key = String_melee_walker_victory_over_melee_walker
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_melee_vehicle_tactics
+			FROM = {
+				has_character_flag = flag_anti_personnel_tactics
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+		}
+		localisation_key = String_melee_vehicle_victory_over_anti_personnel_infantry
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_melee_vehicle_tactics
+			FROM = {
+				has_character_flag = flag_anti_personnel_tactics
+				has_character_flag = flag_in_vehicle
+			}
+		}
+		localisation_key = String_melee_vehicle_victory_over_anti_personnel_vehicle
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_melee_vehicle_tactics
+			FROM = {
+				has_character_flag = flag_anti_vehicle_tactics
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+		}
+		localisation_key = String_melee_vehicle_victory_over_anti_vehicle_infantry
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_melee_vehicle_tactics
+			FROM = {
+				has_character_flag = flag_anti_vehicle_tactics
+				has_character_flag = flag_in_vehicle
+			}
+		}
+		localisation_key = String_melee_vehicle_victory_over_anti_vehicle_vehicle
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_melee_vehicle_tactics
+			FROM = {
+				has_character_flag = flag_withdrawing
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+		}
+		localisation_key = String_melee_vehicle_victory_over_withdrawing_infantry
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_melee_vehicle_tactics
+			FROM = {
+				has_character_flag = flag_withdrawing
+				has_character_flag = flag_in_vehicle
+			}
+		}
+		localisation_key = String_melee_vehicle_victory_over_withdrawing_vehicle
+	}
+	# Anti-Personnel Infantry
+	text = {
+		trigger = {
+			has_character_flag = flag_anti_personnel_tactics
+			NOT = { has_character_flag = flag_in_vehicle }
+			FROM = { has_character_flag = flag_melee_tactics }
+		}
+		localisation_key = String_anti_personnel_infantry_victory_over_melee_infantry
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_anti_personnel_tactics
+			NOT = { has_character_flag = flag_in_vehicle }
+			FROM = { has_character_flag = flag_melee_vehicle_tactics }
+		}
+		localisation_key = String_anti_personnel_infantry_victory_over_melee_vehicle
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_anti_personnel_tactics
+			NOT = { has_character_flag = flag_in_vehicle }
+			FROM = {
+				has_character_flag = flag_anti_personnel_tactics
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+		}
+		localisation_key = String_anti_personnel_infantry_victory_over_anti_personnel_infantry
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_anti_personnel_tactics
+			NOT = { has_character_flag = flag_in_vehicle }
+			FROM = {
+				has_character_flag = flag_anti_personnel_tactics
+				has_character_flag = flag_in_vehicle
+			}
+		}
+		localisation_key = String_anti_personnel_infantry_victory_over_anti_personnel_vehicle
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_anti_personnel_tactics
+			NOT = { has_character_flag = flag_in_vehicle }
+			FROM = {
+				has_character_flag = flag_anti_vehicle_tactics
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+		}
+		localisation_key = String_anti_personnel_infantry_victory_over_anti_vehicle_infantry
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_anti_personnel_tactics
+			NOT = { has_character_flag = flag_in_vehicle }
+			FROM = {
+				has_character_flag = flag_anti_vehicle_tactics
+				has_character_flag = flag_in_vehicle
+			}
+		}
+		localisation_key = String_anti_personnel_infantry_victory_over_anti_vehicle_vehicle
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_anti_personnel_tactics
+			NOT = { has_character_flag = flag_in_vehicle }
+			FROM = {
+				has_character_flag = flag_withdrawing
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+		}
+		localisation_key = String_anti_personnel_infantry_victory_over_withdrawing_infantry
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_anti_personnel_tactics
+			NOT = { has_character_flag = flag_in_vehicle }
+			FROM = {
+				has_character_flag = flag_withdrawing
+				has_character_flag = flag_in_vehicle
+			}
+		}
+		localisation_key = String_anti_personnel_infantry_victory_over_withdrawing_vehicle
+	}
+	# Anti-Personnel Vehicle
+	text = {
+		trigger = {
+			has_character_flag = flag_anti_personnel_tactics
+			has_character_flag = flag_in_vehicle
+			FROM = { has_character_flag = flag_melee_tactics }
+		}
+		localisation_key = String_anti_personnel_vehicle_victory_over_melee_infantry
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_anti_personnel_tactics
+			has_character_flag = flag_in_vehicle
+			FROM = { has_character_flag = flag_melee_vehicle_tactics }
+		}
+		localisation_key = String_anti_personnel_vehicle_victory_over_melee_vehicle
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_anti_personnel_tactics
+			has_character_flag = flag_in_vehicle
+			FROM = {
+				has_character_flag = flag_anti_personnel_tactics
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+		}
+		localisation_key = String_anti_personnel_vehicle_victory_over_anti_personnel_infantry
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_anti_personnel_tactics
+			has_character_flag = flag_in_vehicle
+			FROM = {
+				has_character_flag = flag_anti_personnel_tactics
+				has_character_flag = flag_in_vehicle
+			}
+		}
+		localisation_key = String_anti_personnel_vehicle_victory_over_anti_personnel_vehicle
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_anti_personnel_tactics
+			has_character_flag = flag_in_vehicle
+			FROM = {
+				has_character_flag = flag_anti_vehicle_tactics
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+		}
+		localisation_key = String_anti_personnel_vehicle_victory_over_anti_vehicle_infantry
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_anti_personnel_tactics
+			has_character_flag = flag_in_vehicle
+			FROM = {
+				has_character_flag = flag_anti_vehicle_tactics
+				has_character_flag = flag_in_vehicle
+			}
+		}
+		localisation_key = String_anti_personnel_vehicle_victory_over_anti_vehicle_vehicle
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_anti_personnel_tactics
+			has_character_flag = flag_in_vehicle
+			FROM = {
+				has_character_flag = flag_withdrawing
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+		}
+		localisation_key = String_anti_personnel_vehicle_victory_over_withdrawing_infantry
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_anti_personnel_tactics
+			has_character_flag = flag_in_vehicle
+			FROM = {
+				has_character_flag = flag_withdrawing
+				has_character_flag = flag_in_vehicle
+			}
+		}
+		localisation_key = String_anti_personnel_vehicle_victory_over_withdrawing_vehicle
+	}
+	# Anti-Vehicle Infantry
+	text = {
+		trigger = {
+			has_character_flag = flag_anti_vehicle_tactics
+			NOT = { has_character_flag = flag_in_vehicle }
+			FROM = { has_character_flag = flag_melee_tactics }
+		}
+		localisation_key = String_anti_vehicle_infantry_victory_over_melee_infantry
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_anti_vehicle_tactics
+			NOT = { has_character_flag = flag_in_vehicle }
+			FROM = { has_character_flag = flag_melee_vehicle_tactics }
+		}
+		localisation_key = String_anti_vehicle_infantry_victory_over_melee_vehicle
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_anti_vehicle_tactics
+			NOT = { has_character_flag = flag_in_vehicle }
+			FROM = {
+				has_character_flag = flag_anti_vehicle_tactics
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+		}
+		localisation_key = String_anti_vehicle_infantry_victory_over_anti_vehicle_infantry
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_anti_vehicle_tactics
+			NOT = { has_character_flag = flag_in_vehicle }
+			FROM = {
+				has_character_flag = flag_anti_vehicle_tactics
+				has_character_flag = flag_in_vehicle
+			}
+		}
+		localisation_key = String_anti_vehicle_infantry_victory_over_anti_vehicle_vehicle
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_anti_vehicle_tactics
+			NOT = { has_character_flag = flag_in_vehicle }
+			FROM = {
+				has_character_flag = flag_anti_vehicle_tactics
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+		}
+		localisation_key = String_anti_vehicle_infantry_victory_over_anti_vehicle_infantry
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_anti_vehicle_tactics
+			NOT = { has_character_flag = flag_in_vehicle }
+			FROM = {
+				has_character_flag = flag_anti_vehicle_tactics
+				has_character_flag = flag_in_vehicle
+			}
+		}
+		localisation_key = String_anti_vehicle_infantry_victory_over_anti_vehicle_vehicle
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_anti_vehicle_tactics
+			NOT = { has_character_flag = flag_in_vehicle }
+			FROM = {
+				has_character_flag = flag_withdrawing
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+		}
+		localisation_key = String_anti_vehicle_infantry_victory_over_withdrawing_infantry
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_anti_vehicle_tactics
+			NOT = { has_character_flag = flag_in_vehicle }
+			FROM = {
+				has_character_flag = flag_withdrawing
+				has_character_flag = flag_in_vehicle
+			}
+		}
+		localisation_key = String_anti_vehicle_infantry_victory_over_withdrawing_vehicle
+	}
+	# Anti-Vehicle Vehicle
+	text = {
+		trigger = {
+			has_character_flag = flag_anti_vehicle_tactics
+			has_character_flag = flag_in_vehicle
+			FROM = { has_character_flag = flag_melee_tactics }
+		}
+		localisation_key = String_anti_vehicle_vehicle_victory_over_melee_infantry
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_anti_vehicle_tactics
+			has_character_flag = flag_in_vehicle
+			FROM = { has_character_flag = flag_melee_vehicle_tactics }
+		}
+		localisation_key = String_anti_vehicle_vehicle_victory_over_melee_vehicle
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_anti_vehicle_tactics
+			has_character_flag = flag_in_vehicle
+			FROM = {
+				has_character_flag = flag_anti_personnel_tactics
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+		}
+		localisation_key = String_anti_vehicle_vehicle_victory_over_anti_personnel_infantry
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_anti_vehicle_tactics
+			has_character_flag = flag_in_vehicle
+			FROM = {
+				has_character_flag = flag_anti_personnel_tactics
+				has_character_flag = flag_in_vehicle
+			}
+		}
+		localisation_key = String_anti_vehicle_vehicle_victory_over_anti_personnel_vehicle
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_anti_vehicle_tactics
+			has_character_flag = flag_in_vehicle
+			FROM = {
+				has_character_flag = flag_anti_vehicle_tactics
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+		}
+		localisation_key = String_anti_vehicle_vehicle_victory_over_anti_vehicle_infantry
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_anti_vehicle_tactics
+			has_character_flag = flag_in_vehicle
+			FROM = {
+				has_character_flag = flag_anti_vehicle_tactics
+				has_character_flag = flag_in_vehicle
+			}
+		}
+		localisation_key = String_anti_vehicle_vehicle_victory_over_anti_vehicle_vehicle
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_anti_vehicle_tactics
+			has_character_flag = flag_in_vehicle
+			FROM = {
+				has_character_flag = flag_withdrawing
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+		}
+		localisation_key = String_anti_vehicle_vehicle_victory_over_withdrawing_infantry
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_anti_vehicle_tactics
+			has_character_flag = flag_in_vehicle
+			FROM = {
+				has_character_flag = flag_withdrawing
+				has_character_flag = flag_in_vehicle
+			}
+		}
+		localisation_key = String_anti_vehicle_vehicle_victory_over_withdrawing_vehicle
+	}
+}
+defined_text = {
+	name = GetDuelRoundDefeatDescription
+	
+	# Melee Infantry
+	text = {
+		trigger = {
+			FROM = { has_character_flag = flag_melee_tactics }
+			ROOT = { has_character_flag = flag_melee_tactics }
+		}
+		localisation_key = String_melee_infantry_defeats_melee_infantry
+	}
+	text = {
+		trigger = {
+			FROM = { has_character_flag = flag_melee_tactics }
+			ROOT = { has_character_flag = flag_melee_vehicle_tactics }
+		}
+		localisation_key = String_melee_infantry_defeats_melee_vehicle
+	}
+	text = {
+		trigger = {
+			FROM = { has_character_flag = flag_melee_tactics }
+			ROOT = {
+				has_character_flag = flag_anti_personnel_tactics
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+		}
+		localisation_key = String_melee_infantry_defeats_anti_personnel_infantry
+	}
+	text = {
+		trigger = {
+			FROM = { has_character_flag = flag_melee_tactics }
+			ROOT = {
+				has_character_flag = flag_anti_personnel_tactics
+				has_character_flag = flag_in_vehicle
+			}
+		}
+		localisation_key = String_melee_infantry_defeats_anti_personnel_vehicle
+	}
+	text = {
+		trigger = {
+			FROM = { has_character_flag = flag_melee_tactics }
+			ROOT = {
+				has_character_flag = flag_anti_vehicle_tactics
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+		}
+		localisation_key = String_melee_infantry_defeats_anti_vehicle_infantry
+	}
+	text = {
+		trigger = {
+			FROM = { has_character_flag = flag_melee_tactics }
+			ROOT = {
+				has_character_flag = flag_anti_vehicle_tactics
+				has_character_flag = flag_in_vehicle
+			}
+		}
+		localisation_key = String_melee_infantry_defeats_anti_vehicle_vehicle
+	}
+	text = {
+		trigger = {
+			FROM = { has_character_flag = flag_melee_tactics }
+			ROOT = {
+				has_character_flag = flag_withdrawing
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+		}
+		localisation_key = String_melee_infantry_defeats_withdrawing_infantry
+	}
+	text = {
+		trigger = {
+			FROM = { has_character_flag = flag_melee_tactics }
+			ROOT = {
+				has_character_flag = flag_withdrawing
+				has_character_flag = flag_in_vehicle
+			}
+		}
+		localisation_key = String_melee_infantry_defeats_withdrawing_vehicle
+	}
+	# Melee Vehicle
+	text = {
+		trigger = {
+			FROM = { has_character_flag = flag_melee_vehicle_tactics }
+			ROOT = { has_character_flag = flag_melee_tactics }
+		}
+		localisation_key = String_melee_vehicle_defeats_melee_infantry
+	}
+	text = {
+		trigger = {
+			FROM = {
+				has_character_flag = flag_melee_vehicle_tactics
+				NOT = { persistent_event_target:my_vehicle = { has_artifact_flag = walker } }
+			}
+			ROOT = { has_character_flag = flag_melee_vehicle_tactics }
+		}
+		localisation_key = String_melee_vehicle_defeats_melee_vehicle
+	}
+	text = {
+		trigger = {
+			FROM = {
+				has_character_flag = flag_melee_vehicle_tactics
+				persistent_event_target:my_vehicle = { has_artifact_flag = walker }
+			}
+			ROOT = {
+				has_character_flag = flag_melee_vehicle_tactics
+				NOT = { persistent_event_target:my_vehicle = { has_artifact_flag = walker } }
+			}
+		}
+		localisation_key = String_melee_walker_defeats_melee_vehicle
+	}
+	text = {
+		trigger = {
+			FROM = {
+				has_character_flag = flag_melee_vehicle_tactics
+				persistent_event_target:my_vehicle = { has_artifact_flag = walker }
+			}
+			ROOT = {
+				has_character_flag = flag_melee_vehicle_tactics
+				persistent_event_target:my_vehicle = { has_artifact_flag = walker }
+			}
+		}
+		localisation_key = String_melee_walker_defeats_melee_walker
+	}
+	text = {
+		trigger = {
+			FROM = { has_character_flag = flag_melee_vehicle_tactics }
+			ROOT = {
+				has_character_flag = flag_anti_personnel_tactics
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+		}
+		localisation_key = String_melee_vehicle_defeats_anti_personnel_infantry
+	}
+	text = {
+		trigger = {
+			FROM = { has_character_flag = flag_melee_vehicle_tactics }
+			ROOT = {
+				has_character_flag = flag_anti_personnel_tactics
+				has_character_flag = flag_in_vehicle
+			}
+		}
+		localisation_key = String_melee_vehicle_defeats_anti_personnel_vehicle
+	}
+	text = {
+		trigger = {
+			FROM = { has_character_flag = flag_melee_vehicle_tactics }
+			ROOT = {
+				has_character_flag = flag_anti_vehicle_tactics
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+		}
+		localisation_key = String_melee_vehicle_defeats_anti_vehicle_infantry
+	}
+	text = {
+		trigger = {
+			FROM = { has_character_flag = flag_melee_vehicle_tactics }
+			ROOT = {
+				has_character_flag = flag_anti_vehicle_tactics
+				has_character_flag = flag_in_vehicle
+			}
+		}
+		localisation_key = String_melee_vehicle_defeats_anti_vehicle_vehicle
+	}
+	text = {
+		trigger = {
+			FROM = { has_character_flag = flag_melee_vehicle_tactics }
+			ROOT = {
+				has_character_flag = flag_withdrawing
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+		}
+		localisation_key = String_melee_vehicle_defeats_withdrawing_infantry
+	}
+	text = {
+		trigger = {
+			FROM = { has_character_flag = flag_melee_vehicle_tactics }
+			ROOT = {
+				has_character_flag = flag_withdrawing
+				has_character_flag = flag_in_vehicle
+			}
+		}
+		localisation_key = String_melee_vehicle_defeats_withdrawing_vehicle
+	}
+	# Anti-Personnel Infantry
+	text = {
+		trigger = {
+			FROM = {
+				has_character_flag = flag_anti_personnel_tactics
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+			ROOT = { has_character_flag = flag_melee_tactics }
+		}
+		localisation_key = String_anti_personnel_infantry_defeats_melee_infantry
+	}
+	text = {
+		trigger = {
+			FROM = {
+				has_character_flag = flag_anti_personnel_tactics
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+			ROOT = { has_character_flag = flag_melee_vehicle_tactics }
+		}
+		localisation_key = String_anti_personnel_infantry_defeats_melee_vehicle
+	}
+	text = {
+		trigger = {
+			FROM = {
+				has_character_flag = flag_anti_personnel_tactics
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+			ROOT = {
+				has_character_flag = flag_anti_personnel_tactics
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+		}
+		localisation_key = String_anti_personnel_infantry_defeats_anti_personnel_infantry
+	}
+	text = {
+		trigger = {
+			FROM = {
+				has_character_flag = flag_anti_personnel_tactics
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+			ROOT = {
+				has_character_flag = flag_anti_personnel_tactics
+				has_character_flag = flag_in_vehicle
+			}
+		}
+		localisation_key = String_anti_personnel_infantry_defeats_anti_personnel_vehicle
+	}
+	text = {
+		trigger = {
+			FROM = {
+				has_character_flag = flag_anti_personnel_tactics
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+			ROOT = {
+				has_character_flag = flag_anti_vehicle_tactics
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+		}
+		localisation_key = String_anti_personnel_infantry_defeats_anti_vehicle_infantry
+	}
+	text = {
+		trigger = {
+			FROM = {
+				has_character_flag = flag_anti_personnel_tactics
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+			ROOT = {
+				has_character_flag = flag_anti_vehicle_tactics
+				has_character_flag = flag_in_vehicle
+			}
+		}
+		localisation_key = String_anti_personnel_infantry_defeats_anti_vehicle_vehicle
+	}
+	text = {
+		trigger = {
+			FROM = {
+				has_character_flag = flag_anti_personnel_tactics
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+			ROOT = {
+				has_character_flag = flag_withdrawing
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+		}
+		localisation_key = String_anti_personnel_infantry_defeats_withdrawing_infantry
+	}
+	text = {
+		trigger = {
+			FROM = {
+				has_character_flag = flag_anti_personnel_tactics
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+			ROOT = {
+				has_character_flag = flag_withdrawing
+				has_character_flag = flag_in_vehicle
+			}
+		}
+		localisation_key = String_anti_personnel_infantry_defeats_withdrawing_vehicle
+	}
+	# Anti-Personnel Vehicle
+	text = {
+		trigger = {
+			FROM = {
+				has_character_flag = flag_anti_personnel_tactics
+				has_character_flag = flag_in_vehicle
+			}
+			ROOT = { has_character_flag = flag_melee_tactics }
+		}
+		localisation_key = String_anti_personnel_vehicle_defeats_melee_infantry
+	}
+	text = {
+		trigger = {
+			FROM = {
+				has_character_flag = flag_anti_personnel_tactics
+				has_character_flag = flag_in_vehicle
+			}
+			ROOT = { has_character_flag = flag_melee_vehicle_tactics }
+		}
+		localisation_key = String_anti_personnel_vehicle_defeats_melee_vehicle
+	}
+	text = {
+		trigger = {
+			FROM = {
+				has_character_flag = flag_anti_personnel_tactics
+				has_character_flag = flag_in_vehicle
+			}
+			ROOT = {
+				has_character_flag = flag_anti_personnel_tactics
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+		}
+		localisation_key = String_anti_personnel_vehicle_defeats_anti_personnel_infantry
+	}
+	text = {
+		trigger = {
+			FROM = {
+				has_character_flag = flag_anti_personnel_tactics
+				has_character_flag = flag_in_vehicle
+			}
+			ROOT = {
+				has_character_flag = flag_anti_personnel_tactics
+				has_character_flag = flag_in_vehicle
+			}
+		}
+		localisation_key = String_anti_personnel_vehicle_defeats_anti_personnel_vehicle
+	}
+	text = {
+		trigger = {
+			FROM = {
+				has_character_flag = flag_anti_personnel_tactics
+				has_character_flag = flag_in_vehicle
+			}
+			ROOT = {
+				has_character_flag = flag_anti_vehicle_tactics
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+		}
+		localisation_key = String_anti_personnel_vehicle_defeats_anti_vehicle_infantry
+	}
+	text = {
+		trigger = {
+			FROM = {
+				has_character_flag = flag_anti_personnel_tactics
+				has_character_flag = flag_in_vehicle
+			}
+			ROOT = {
+				has_character_flag = flag_anti_vehicle_tactics
+				has_character_flag = flag_in_vehicle
+			}
+		}
+		localisation_key = String_anti_personnel_vehicle_defeats_anti_vehicle_vehicle
+	}
+	text = {
+		trigger = {
+			FROM = {
+				has_character_flag = flag_anti_personnel_tactics
+				has_character_flag = flag_in_vehicle
+			}
+			ROOT = {
+				has_character_flag = flag_withdrawing
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+		}
+		localisation_key = String_anti_personnel_vehicle_defeats_withdrawing_infantry
+	}
+	text = {
+		trigger = {
+			FROM = {
+				has_character_flag = flag_anti_personnel_tactics
+				has_character_flag = flag_in_vehicle
+			}
+			ROOT = {
+				has_character_flag = flag_withdrawing
+				has_character_flag = flag_in_vehicle
+			}
+		}
+		localisation_key = String_anti_personnel_vehicle_defeats_withdrawing_vehicle
+	}
+	# Anti-Vehicle Infantry
+	text = {
+		trigger = {
+			FROM = {
+				has_character_flag = flag_anti_vehicle_tactics
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+			ROOT = { has_character_flag = flag_melee_tactics }
+		}
+		localisation_key = String_anti_vehicle_infantry_defeats_melee_infantry
+	}
+	text = {
+		trigger = {
+			FROM = {
+				has_character_flag = flag_anti_vehicle_tactics
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+			ROOT = { has_character_flag = flag_melee_vehicle_tactics }
+		}
+		localisation_key = String_anti_vehicle_infantry_defeats_melee_vehicle
+	}
+	text = {
+		trigger = {
+			FROM = {
+				has_character_flag = flag_anti_vehicle_tactics
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+			ROOT = {
+				has_character_flag = flag_anti_vehicle_tactics
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+		}
+		localisation_key = String_anti_vehicle_infantry_defeats_anti_vehicle_infantry
+	}
+	text = {
+		trigger = {
+			FROM = {
+				has_character_flag = flag_anti_vehicle_tactics
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+			ROOT = {
+				has_character_flag = flag_anti_vehicle_tactics
+				has_character_flag = flag_in_vehicle
+			}
+		}
+		localisation_key = String_anti_vehicle_infantry_defeats_anti_vehicle_vehicle
+	}
+	text = {
+		trigger = {
+			FROM = {
+				has_character_flag = flag_anti_vehicle_tactics
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+			ROOT = {
+				has_character_flag = flag_anti_vehicle_tactics
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+		}
+		localisation_key = String_anti_vehicle_infantry_defeats_anti_vehicle_infantry
+	}
+	text = {
+		trigger = {
+			FROM = {
+				has_character_flag = flag_anti_vehicle_tactics
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+			ROOT = {
+				has_character_flag = flag_anti_vehicle_tactics
+				has_character_flag = flag_in_vehicle
+			}
+		}
+		localisation_key = String_anti_vehicle_infantry_defeats_anti_vehicle_vehicle
+	}
+	text = {
+		trigger = {
+			FROM = {
+				has_character_flag = flag_anti_vehicle_tactics
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+			ROOT = {
+				has_character_flag = flag_withdrawing
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+		}
+		localisation_key = String_anti_vehicle_infantry_defeats_withdrawing_infantry
+	}
+	text = {
+		trigger = {
+			FROM = {
+				has_character_flag = flag_anti_vehicle_tactics
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+			ROOT = {
+				has_character_flag = flag_withdrawing
+				has_character_flag = flag_in_vehicle
+			}
+		}
+		localisation_key = String_anti_vehicle_infantry_defeats_withdrawing_vehicle
+	}
+	# Anti-Vehicle Vehicle
+	text = {
+		trigger = {
+			FROM = {
+				has_character_flag = flag_anti_vehicle_tactics
+				has_character_flag = flag_in_vehicle
+			}
+			ROOT = { has_character_flag = flag_melee_tactics }
+		}
+		localisation_key = String_anti_vehicle_vehicle_defeats_melee_infantry
+	}
+	text = {
+		trigger = {
+			FROM = {
+				has_character_flag = flag_anti_vehicle_tactics
+				has_character_flag = flag_in_vehicle
+			}
+			ROOT = { has_character_flag = flag_melee_vehicle_tactics }
+		}
+		localisation_key = String_anti_vehicle_vehicle_defeats_melee_vehicle
+	}
+	text = {
+		trigger = {
+			FROM = {
+				has_character_flag = flag_anti_vehicle_tactics
+				has_character_flag = flag_in_vehicle
+			}
+			ROOT = {
+				has_character_flag = flag_anti_personnel_tactics
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+		}
+		localisation_key = String_anti_vehicle_vehicle_defeats_anti_personnel_infantry
+	}
+	text = {
+		trigger = {
+			FROM = {
+				has_character_flag = flag_anti_vehicle_tactics
+				has_character_flag = flag_in_vehicle
+			}
+			ROOT = {
+				has_character_flag = flag_anti_personnel_tactics
+				has_character_flag = flag_in_vehicle
+			}
+		}
+		localisation_key = String_anti_vehicle_vehicle_defeats_anti_personnel_vehicle
+	}
+	text = {
+		trigger = {
+			FROM = {
+				has_character_flag = flag_anti_vehicle_tactics
+				has_character_flag = flag_in_vehicle
+			}
+			ROOT = {
+				has_character_flag = flag_anti_vehicle_tactics
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+		}
+		localisation_key = String_anti_vehicle_vehicle_defeats_anti_vehicle_infantry
+	}
+	text = {
+		trigger = {
+			FROM = {
+				has_character_flag = flag_anti_vehicle_tactics
+				has_character_flag = flag_in_vehicle
+			}
+			ROOT = {
+				has_character_flag = flag_anti_vehicle_tactics
+				has_character_flag = flag_in_vehicle
+			}
+		}
+		localisation_key = String_anti_vehicle_vehicle_defeats_anti_vehicle_vehicle
+	}
+	text = {
+		trigger = {
+			FROM = {
+				has_character_flag = flag_anti_vehicle_tactics
+				has_character_flag = flag_in_vehicle
+			}
+			ROOT = {
+				has_character_flag = flag_withdrawing
+				NOT = { has_character_flag = flag_in_vehicle }
+			}
+		}
+		localisation_key = String_anti_vehicle_vehicle_defeats_withdrawing_infantry
+	}
+	text = {
+		trigger = {
+			FROM = {
+				has_character_flag = flag_anti_vehicle_tactics
+				has_character_flag = flag_in_vehicle
+			}
+			ROOT = {
+				has_character_flag = flag_withdrawing
+				has_character_flag = flag_in_vehicle
+			}
+		}
+		localisation_key = String_anti_vehicle_vehicle_defeats_withdrawing_vehicle
+	}
+}
+defined_text = {
+	name = GetDuelContext
+	use_first_valid = yes
+	text = {
+		trigger = { has_character_flag = flag_friendly_duel }
+		localisation_key = String_an_arranged_duel
+	}
+	text = {
+		trigger = {
+			has_character_flag = flag_battlefield
+			has_character_flag = flag_executed
+		}
+		localisation_key = String_after_surrendering
+	}
+	text = {
+		trigger = { has_character_flag = flag_battlefield }
+		localisation_key = String_in_combat
+	}
+	text = { localisation_key = String_in_a_duel }
+}
+defined_text = {
+	name = GetDuelSurrenderDescription
+	text = {
+		trigger = {
+			FROM = {
+				NOT = { has_character_flag = flag_in_vehicle }
+				NOT = { trait = severely_injured }
+				NOT = { has_character_flag = flag_vehicle_destroyed }
+			}
+		}
+		localisation_key = String_surrender_on_foot_healthy
+	}
+	text = {
+		trigger = {
+			FROM = {
+				has_character_flag = flag_in_vehicle
+				NOT = { trait = severely_injured }
+				NOT = { has_character_flag = flag_vehicle_destroyed }
+			}
+		}
+		localisation_key = String_surrender_in_vehicle_healthy
+	}
+	text = {
+		trigger = {
+			FROM = {
+				NOT = { has_character_flag = flag_in_vehicle }
+				trait = severely_injured
+				NOT = { has_character_flag = flag_vehicle_destroyed }
+			}
+		}
+		localisation_key = String_surrender_on_foot_injured
+	}
+	text = {
+		trigger = {
+			FROM = {
+				has_character_flag = flag_in_vehicle
+				trait = severely_injured
+				NOT = { has_character_flag = flag_vehicle_destroyed }
+			}
+		}
+		localisation_key = String_surrender_in_vehicle_injured
+	}
+	text = {
+		trigger = { FROM = { has_character_flag = flag_vehicle_destroyed } }
+		localisation_key = String_surrender_vehicle_destroyed
+	}
+}
+defined_text = {
+	name = GetSurrenderReleaseLine
+	text = {
+		trigger = { NOT = { has_character_flag = flag_friendly_duel } }
+		localisation_key = String_free_to_go
+	}
+	text = {
+		trigger = { has_character_flag = flag_friendly_duel }
+		localisation_key = String_this_match_is_mine
+	}
+}
+defined_text = {
+	name = GetSurrenderReleaseDescription
+	use_first_valid = yes
+	text = {
+		trigger = { has_character_flag = flag_friendly_duel }
+		localisation_key = String_free_to_go_friendly
+	}
+	text = {
+		trigger = { trait = severely_injured }
+		localisation_key = String_free_to_go_injured
+	}
+	text = { localisation_key = String_free_to_go_healthy }
+}
+defined_text = {
+	name = GetSurrenderCaptureDescription
+	use_first_valid = yes
+	text = {
+		trigger = { trait = severely_injured }
+		localisation_key = String_captured_injured
+	}
+	text = { localisation_key = String_captured_healthy }
+}
+defined_text = {
+	name = GetSuccessfulRetreatDescription
+	use_first_valid = yes
+	text = {
+		trigger = {
+			has_character_flag = flag_in_vehicle
+			has_character_flag = flag_open_field
+		}
+		localisation_key = String_vehicle_successful_withdrawal_open_field
+	}
+	text = {
+		trigger = { has_character_flag = flag_in_vehicle }
+		localisation_key = String_vehicle_successful_withdrawal
+	}
+	text = {
+		trigger = { has_character_flag = flag_open_field }
+		localisation_key = String_infantry_successful_withdrawal_open_field
+	}
+	text = { localisation_key = String_infantry_successful_withdrawal }
+}
+defined_text = {
+	name = GetSuccessfulOpponentRetreatDescription
+	use_first_valid = yes
+	text = {
+		trigger = { FROM = { has_character_flag = flag_in_vehicle } }
+		localisation_key = String_enemy_vehicle_successful_withdrawal
+	}
+	text = { localisation_key = String_enemy_infantry_successful_withdrawal }
+}
+defined_text = {
+	name = GetSurrenderExecuteDescription
+	use_first_valid = yes
+	text = {
+		trigger = { trait = severely_injured }
+		localisation_key = String_executed_injured
+	}
+	text = { localisation_key = String_executed_healthy }
+}
+defined_text = {
+	name = GetPreMortemOneLiner
+	text = {
+		localisation_key = String_this_is_the_end
+	}
+	text = {
+		trigger = {
+			FROM = {
+				any_dynasty_member = {
+					NOT = { character = FROM }
+					is_close_relative = FROM
+					is_rival = ROOT
+				}
+			}
+		}
+		localisation_key = String_blame_the_misfortune_of_your_birth
+	}
+	text = {
+		trigger = {
+			NOT = { FROM = { trait = severely_injured } }
+			has_opinion_modifier = { who = FROM modifier = opinion_killed_my_father }
+			has_opinion_modifier = { who = FROM modifier = opinion_killed_my_mother }
+		}
+		localisation_key = String_is_that_what_you_said_parents
+	}
+	text = {
+		trigger = {
+			NOT = { FROM = { trait = severely_injured } }
+			has_opinion_modifier = { who = FROM modifier = opinion_killed_my_father }
+		}
+		localisation_key = String_is_that_what_you_said_father
+	}
+	text = {
+		trigger = {
+			NOT = { FROM = { trait = severely_injured } }
+			has_opinion_modifier = { who = FROM modifier = opinion_killed_my_mother }
+		}
+		localisation_key = String_is_that_what_you_said_mother
+	}
+	text = {
+		trigger = {
+			NOT = { FROM = { trait = severely_injured } }
+			has_opinion_modifier = { who = FROM modifier = opinion_killed_my_brother }
+		}
+		localisation_key = String_is_that_what_you_said_brother
+	}
+	text = {
+		trigger = {
+			NOT = { FROM = { trait = severely_injured } }
+			has_opinion_modifier = { who = FROM modifier = opinion_killed_my_sister }
+		}
+		localisation_key = String_is_that_what_you_said_sister
+	}
+	text = {
+		trigger = {
+			NOT = { FROM = { trait = severely_injured } }
+			has_opinion_modifier = { who = FROM modifier = opinion_killed_my_son }
+		}
+		localisation_key = String_is_that_what_you_said_son
+	}
+	text = {
+		trigger = {
+			NOT = { FROM = { trait = severely_injured } }
+			has_opinion_modifier = { who = FROM modifier = opinion_killed_my_daughter }
+		}
+		localisation_key = String_is_that_what_you_said_daughter
+	}
+	text = {
+		trigger = {
+			NOT = { FROM = { trait = severely_injured } }
+			has_opinion_modifier = { who = FROM modifier = opinion_killed_my_husband }
+		}
+		localisation_key = String_is_that_what_you_said_husband
+	}
+	text = {
+		trigger = {
+			NOT = { FROM = { trait = severely_injured } }
+			has_opinion_modifier = { who = FROM modifier = opinion_killed_my_wife }
+		}
+		localisation_key = String_is_that_what_you_said_wife
+	}
+	text = {
+		trigger = {
+			NOT = { FROM = { trait = severely_injured } }
+			has_opinion_modifier = { who = FROM modifier = opinion_killed_my_lover }
+		}
+		localisation_key = String_is_that_what_you_said_lover
+	}
+	text = {
+		trigger = {
+			NOT = { FROM = { trait = severely_injured } }
+			has_opinion_modifier = { who = FROM modifier = opinion_killed_my_friend }
+		}
+		localisation_key = String_is_that_what_you_said_friend
+	}
+	text = {
+		trigger = {
+			NOT = { FROM = { trait = severely_injured } }
+			has_opinion_modifier = { who = FROM modifier = opinion_killed_my_father }
+			has_opinion_modifier = { who = FROM modifier = opinion_killed_my_mother }
+		}
+		localisation_key = String_inigo_montoya_parents
+	}
+	text = {
+		trigger = {
+			NOT = { FROM = { trait = severely_injured } }
+			has_opinion_modifier = { who = FROM modifier = opinion_killed_my_father }
+		}
+		localisation_key = String_inigo_montoya_father
+	}
+	text = {
+		trigger = {
+			NOT = { FROM = { trait = severely_injured } }
+			has_opinion_modifier = { who = FROM modifier = opinion_killed_my_mother }
+		}
+		localisation_key = String_inigo_montoya_mother
+	}
+	text = {
+		trigger = {
+			NOT = { FROM = { trait = severely_injured } }
+			has_opinion_modifier = { who = FROM modifier = opinion_killed_my_brother }
+		}
+		localisation_key = String_inigo_montoya_brother
+	}
+	text = {
+		trigger = {
+			NOT = { FROM = { trait = severely_injured } }
+			has_opinion_modifier = { who = FROM modifier = opinion_killed_my_sister }
+		}
+		localisation_key = String_inigo_montoya_sister
+	}
+	text = {
+		trigger = {
+			NOT = { FROM = { trait = severely_injured } }
+			has_opinion_modifier = { who = FROM modifier = opinion_killed_my_son }
+		}
+		localisation_key = String_inigo_montoya_son
+	}
+	text = {
+		trigger = {
+			NOT = { FROM = { trait = severely_injured } }
+			has_opinion_modifier = { who = FROM modifier = opinion_killed_my_daughter }
+		}
+		localisation_key = String_inigo_montoya_daughter
+	}
+	text = {
+		trigger = {
+			NOT = { FROM = { trait = severely_injured } }
+			has_opinion_modifier = { who = FROM modifier = opinion_killed_my_husband }
+		}
+		localisation_key = String_inigo_montoya_husband
+	}
+	text = {
+		trigger = {
+			NOT = { FROM = { trait = severely_injured } }
+			has_opinion_modifier = { who = FROM modifier = opinion_killed_my_wife }
+		}
+		localisation_key = String_inigo_montoya_wife
+	}
+	text = {
+		trigger = {
+			NOT = { FROM = { trait = severely_injured } }
+			has_opinion_modifier = { who = FROM modifier = opinion_killed_my_lover }
+		}
+		localisation_key = String_inigo_montoya_lover
+	}
+	text = {
+		trigger = {
+			NOT = { FROM = { trait = severely_injured } }
+			has_opinion_modifier = { who = FROM modifier = opinion_killed_my_friend }
+		}
+		localisation_key = String_inigo_montoya_friend
+	}
+}
+defined_text = {
+	name = GetDuelRoundVictoryOneLiner
+	text = { localisation_key = String_this_is_the_end }
+	text = { localisation_key = String_last_mistake_youll_ever_make }
+	text = {
+		trigger = {
+			FROM = {
+				any_dynasty_member = {
+					NOT = { character = FROM }
+					is_close_relative = FROM
+					is_rival = ROOT
+				}
+			}
+		}
+		localisation_key = String_blame_the_misfortune_of_your_birth
+	}
+	text = {
+		trigger = {
+			NOT = { FROM = { trait = severely_injured } }
+			has_opinion_modifier = { who = FROM modifier = opinion_killed_my_father }
+			has_opinion_modifier = { who = FROM modifier = opinion_killed_my_mother }
+		}
+		localisation_key = String_inigo_montoya_parents
+	}
+	text = {
+		trigger = {
+			NOT = { FROM = { trait = severely_injured } }
+			has_opinion_modifier = { who = FROM modifier = opinion_killed_my_father }
+		}
+		localisation_key = String_inigo_montoya_father
+	}
+	text = {
+		trigger = {
+			NOT = { FROM = { trait = severely_injured } }
+			has_opinion_modifier = { who = FROM modifier = opinion_killed_my_mother }
+		}
+		localisation_key = String_inigo_montoya_mother
+	}
+	text = {
+		trigger = {
+			NOT = { FROM = { trait = severely_injured } }
+			has_opinion_modifier = { who = FROM modifier = opinion_killed_my_brother }
+		}
+		localisation_key = String_inigo_montoya_brother
+	}
+	text = {
+		trigger = {
+			NOT = { FROM = { trait = severely_injured } }
+			has_opinion_modifier = { who = FROM modifier = opinion_killed_my_sister }
+		}
+		localisation_key = String_inigo_montoya_sister
+	}
+	text = {
+		trigger = {
+			NOT = { FROM = { trait = severely_injured } }
+			has_opinion_modifier = { who = FROM modifier = opinion_killed_my_son }
+		}
+		localisation_key = String_inigo_montoya_son
+	}
+	text = {
+		trigger = {
+			NOT = { FROM = { trait = severely_injured } }
+			has_opinion_modifier = { who = FROM modifier = opinion_killed_my_daughter }
+		}
+		localisation_key = String_inigo_montoya_daughter
+	}
+	text = {
+		trigger = {
+			NOT = { FROM = { trait = severely_injured } }
+			has_opinion_modifier = { who = FROM modifier = opinion_killed_my_husband }
+		}
+		localisation_key = String_inigo_montoya_husband
+	}
+	text = {
+		trigger = {
+			NOT = { FROM = { trait = severely_injured } }
+			has_opinion_modifier = { who = FROM modifier = opinion_killed_my_wife }
+		}
+		localisation_key = String_inigo_montoya_wife
+	}
+	text = {
+		trigger = {
+			NOT = { FROM = { trait = severely_injured } }
+			has_opinion_modifier = { who = FROM modifier = opinion_killed_my_lover }
+		}
+		localisation_key = String_inigo_montoya_lover
+	}
+	text = {
+		trigger = {
+			NOT = { FROM = { trait = severely_injured } }
+			has_opinion_modifier = { who = FROM modifier = opinion_killed_my_friend }
+		}
+		localisation_key = String_inigo_montoya_friend
+	}
+}

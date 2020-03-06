@@ -111,27 +111,62 @@ character_event = {
 		FROM = {
 			death = { death_reason = death_execution killer = ROOT }
 			father = {
-				opinion = { who = ROOT modifier = opinion_killed_my_child }
+				if = {
+					limit = { FROM = { is_female = yes } }
+					opinion = { who = ROOT modifier = opinion_killed_my_daughter }
+				}
+				if = {
+					limit = { FROM = { is_female = no } }
+					opinion = { who = ROOT modifier = opinion_killed_my_son }
+				}
 				hidden_tooltip = { character_event = { id = regent.1102 } }
 			}
 			mother = {
-				opinion = { who = ROOT modifier = opinion_killed_my_child }
+				if = {
+					limit = { FROM = { is_female = yes } }
+					opinion = { who = ROOT modifier = opinion_killed_my_daughter }
+				}
+				if = {
+					limit = { FROM = { is_female = no } }
+					opinion = { who = ROOT modifier = opinion_killed_my_son }
+				}
 				hidden_tooltip = { character_event = { id = regent.1102 } }
 			}
 			any_sibling = {
-				opinion = { who = ROOT modifier = opinion_killed_my_sibling }
+				if = {
+					limit = { FROM = { is_female = yes } }
+					opinion = { who = ROOT modifier = opinion_killed_my_sister }
+				}
+				if = {
+					limit = { FROM = { is_female = no } }
+					opinion = { who = ROOT modifier = opinion_killed_my_brother }
+				}
 				hidden_tooltip = { character_event = { id = regent.1102 } }
 			}
 			any_child = {
-				opinion = { who = ROOT modifier = opinion_killed_my_parent }
+				if = {
+					limit = { FROM = { is_female = yes } }
+					opinion = { who = ROOT modifier = opinion_killed_my_mother }
+				}
+				if = {
+					limit = { FROM = { is_female = no } }
+					opinion = { who = ROOT modifier = opinion_killed_my_father }
+				}
 				hidden_tooltip = { character_event = { id = regent.1102 } }
 			}
 			any_lover = {
-				opinion = { who = ROOT modifier = opinion_killed_my_beloved }
+				opinion = { who = ROOT modifier = opinion_killed_my_lover }
 				hidden_tooltip = { character_event = { id = regent.1102 } }
 			}
 			spouse = {
-				opinion = { who = ROOT modifier = opinion_killed_my_spouse }
+				if = {
+					limit = { FROM = { is_female = yes } }
+					opinion = { who = ROOT modifier = opinion_killed_my_wife }
+				}
+				if = {
+					limit = { FROM = { is_female = no } }
+					opinion = { who = ROOT modifier = opinion_killed_my_husband }
+				}
 				hidden_tooltip = { character_event = { id = regent.1102 } }
 			}
 			any_friend = {

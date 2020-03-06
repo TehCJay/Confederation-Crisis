@@ -717,7 +717,14 @@ character_event = {
 	
 	option = {
 		name = "EVTOPTCONFIRM"
-		opinion = { who = FROMFROM modifier = opinion_killed_my_child }
+		if = {
+			limit = { FROM = { is_female = yes } }
+			opinion = { who = FROMFROM modifier = opinion_killed_my_daughter }
+		}
+		if = {
+			limit = { FROM = { is_female = no } }
+			opinion = { who = FROMFROM modifier = opinion_killed_my_son }
+		}
 	}
 }
 character_event = {
@@ -730,7 +737,14 @@ character_event = {
 	
 	option = {
 		name = "EVTOPTCONFIRM"
-		opinion = { who = FROMFROM modifier = opinion_killed_my_sibling }
+		if = {
+			limit = { FROM = { is_female = yes } }
+			opinion = { who = FROMFROM modifier = opinion_killed_my_sister }
+		}
+		if = {
+			limit = { FROM = { is_female = no } }
+			opinion = { who = FROMFROM modifier = opinion_killed_my_brother }
+		}
 	}
 }
 character_event = {
@@ -743,7 +757,14 @@ character_event = {
 	
 	option = {
 		name = "EVTOPTCONFIRM"
-		opinion = { who = FROMFROM modifier = opinion_killed_my_parent }
+		if = {
+			limit = { FROM = { is_female = yes } }
+			opinion = { who = FROMFROM modifier = opinion_killed_my_mother }
+		}
+		if = {
+			limit = { FROM = { is_female = no } }
+			opinion = { who = FROMFROM modifier = opinion_killed_my_father }
+		}
 	}
 }
 character_event = {
@@ -782,7 +803,14 @@ character_event = {
 	
 	option = {
 		name = "EVTOPTCONFIRM"
-		opinion = { who = FROMFROM modifier = opinion_killed_my_spouse }
+		if = {
+			limit = { FROM = { is_female = yes } }
+			opinion = { who = FROMFROM modifier = opinion_killed_my_wife }
+		}
+		if = {
+			limit = { FROM = { is_female = no } }
+			opinion = { who = FROMFROM modifier = opinion_killed_my_husband }
+		}
 	}
 }
 
