@@ -1,5 +1,5 @@
 name="Confederation at Crisis"
-path="mod/Confederation at Crisis"
+path="mod/confederation at crisis"
 #archive="mod/Confederation at Crisis.zip"
 user_dir = "Confederation at Crisis"
 replace_path="history/titles"
