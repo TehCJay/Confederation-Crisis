@@ -1,0 +1,103 @@
+namespace = cotc_siege
+
+# A one-on-one duel between the siege leaders!
+character_event = {
+	id = cotc_siege.0
+	desc = "EVTDESCCOTCSIEGE0"
+	picture = GFX_evt_siege
+	is_triggered_only = yes
+	
+	weight_multiplier = {
+		factor = 1
+		modifier = {
+			factor = 2
+			trait = brave
+		}
+		modifier = {
+			factor = 0.5
+			trait = craven
+		}
+		modifier = {
+			factor = 3
+			trait = marine_colonel
+		}
+	}
+	
+	immediate = {
+		location = {
+			random_province_holding = {
+				limit = { has_siege = yes }
+				save_event_target_as = duel_location
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTACOTCSIEGE0"
+		set_character_flag = flag_busy
+		set_character_flag = flag_battlefield
+		set_character_flag = flag_siege_duel_chain
+		hidden_tooltip = { siege = { enemy = { leader = { character_event = { id = cotc_siege.1 } } } } } # Bounce to get both siege leaders.
+	}
+}
+character_event = {
+	id = cotc_siege.1
+	desc = "EVTDESCCOTCSIEGE0"
+	picture = GFX_evt_siege
+	hide_from = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		location = {
+			random_province_holding = {
+				limit = { has_siege = yes }
+				save_event_target_as = duel_location
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTACOTCSIEGE0"
+		set_character_flag = flag_busy
+		set_character_flag = flag_battlefield
+		set_character_flag = flag_siege_duel_chain
+		hidden_tooltip = { siege = { enemy = { leader = { character_event = { id = duel.50 } } } } } # Start the duel
+	}
+}
+# Trigger for the victorious duelist
+character_event = {
+	id = cotc_siege.2
+	desc = "EVTDESCCOTCSIEGE2"
+	picture = GFX_evt_siege
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTACOTCSIEGE2"
+		# Good morale for you, bad morale for the enemy
+		siege = {
+			morale = 0.2
+			enemy = {
+				morale = -0.2
+				leader = { character_event = { id = cotc_siege.3 } }
+			}
+		}
+	}
+}
+# You were defeated in combat
+character_event = {
+	id = cotc_siege.3
+	desc = "EVTDESCCOTCSIEGE3"
+	picture = GFX_evt_siege
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTACOTCSIEGE3"
+		# Bad morale for you, good morale for the enemy
+		tooltip = {
+			siege = {
+				morale = -0.2
+				enemy = { morale = 0.2 }
+			}
+		}
+	}
+}

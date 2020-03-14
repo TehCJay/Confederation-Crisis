@@ -426,3 +426,12 @@ province_event = {
 		trade_post_owner = { destroy_tradepost = ROOT }
 	}
 }
+
+# If a character is trapped in a "busy" state, pull them out of it
+character_event = {
+	id = maintenance.600
+	hide_window = yes
+	
+	trigger = { had_character_flag = { flag = flag_busy days = 30 } }
+	immediate = { clr_character_flag = flag_busy }
+}

@@ -224,6 +224,38 @@ plot_kill_character = {
 					ROOT = { job_spymaster = { character = FROM } }
 					NOT = { opinion = { who = ROOT value = 0 } }
 				}
+				
+				# Avenge my family
+				reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_father }
+				reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_mother }
+				reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_brother }
+				reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_sister }
+				reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_son }
+				reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_daughter }
+				reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_wife }
+				reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_husband }
+				reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_lover }
+				reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_friend }
+				
+				# Really thoroughly avenge my family
+				AND = {
+					FROM = { trait = cold }
+					any_dynasty_member = {
+						is_close_relative = ROOT
+						OR = {
+							reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_father }
+							reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_mother }
+							reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_brother }
+							reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_sister }
+							reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_son }
+							reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_daughter }
+							reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_wife }
+							reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_husband }
+							reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_lover }
+							reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_friend }
+						}
+					}
+				}
 			}
 		}
 	}
@@ -443,6 +475,48 @@ plot_kill_character = {
 		modifier = {
 			factor = 2
 			FROM = { intrigue = 20 }
+		}
+		
+		# Very powerful motive
+		modifier = {
+			factor = 10
+			OR = {
+				reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_father }
+				reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_mother }
+				reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_brother }
+				reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_sister }
+				reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_son }
+				reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_daughter }
+				reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_wife }
+				reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_husband }
+				reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_lover }
+				reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_friend }
+			}
+		}
+		
+		# Very specific motive
+		modifier = {
+			factor = 20
+			FROM = {
+				trait = cold
+				trait = ambitious
+				trait = proud
+			}
+			any_dynasty_member = {
+				is_close_relative = ROOT
+				OR = {
+					reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_father }
+					reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_mother }
+					reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_brother }
+					reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_sister }
+					reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_son }
+					reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_daughter }
+					reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_wife }
+					reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_husband }
+					reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_lover }
+					reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_friend }
+				}
+			}
 		}
 	}
 	
