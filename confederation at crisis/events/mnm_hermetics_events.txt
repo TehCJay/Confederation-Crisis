@@ -1595,7 +1595,7 @@ character_event = {
     			10 = { add_trait = genius }
     			10 = { add_trait = quick }
     			10 = { add_trait = shrewd }
-    			10 = { trigger = { NOT = { religion_group = muslim } } add_trait = scholar }
+    			10 = { trigger = { NOT = { religion_group = muslim } } add_trait = intellectual }
     			10 = { trigger = { religion_group = muslim } add_trait = faqih }
     			10 = { add_trait = mystic }
     			10 = { add_trait = gardener }
@@ -6685,7 +6685,7 @@ character_event = { # Child contemplates their destiny - is this what they want?
         
 		random = {
 			chance = 50
-			add_trait = stressed
+			degrade_mood_effect = yes
 			hidden_tooltip = {
 				character_event = {
 					id = 38282 #Notify Stressed
@@ -7389,7 +7389,7 @@ character_event = {
 
         if = { 
 			limit = { trait = stressed }
-			remove_trait = stressed
+			improve_mood_effect = yes
 		}
 		if = { 
 			limit = { trait = depressed }
@@ -7463,7 +7463,7 @@ character_event = {
         tooltip = {
 	        if = { 
 				limit = { trait = stressed }
-				remove_trait = stressed
+				improve_mood_effect = yes
 			}
 			if = { 
 				limit = { trait = depressed }
@@ -7527,7 +7527,7 @@ character_event = {
     	FROM = {
 	        if = { 
 				limit = { trait = stressed }
-				remove_trait = stressed
+				improve_mood_effect = yes
 			}
 			if = { 
 				limit = { trait = depressed }
@@ -7699,7 +7699,7 @@ character_event = {
 	is_triggered_only = yes
 	
 	desc = {
-		trigger = { trait = scholar }
+		trigger = { trait = intellectual }
 		picture = GFX_evt_comet
 		text = EVTDESCA_MNM_1901
 	}
@@ -7720,7 +7720,7 @@ character_event = {
 		name = EVTOPTA_MNM_1901
 		
 		trigger = {
-			NOT = { trait = scholar }
+			NOT = { trait = intellectual }
 		}
 		
 		if = {
@@ -7731,7 +7731,7 @@ character_event = {
 			limit = { trait = theologian }
 			remove_trait = theologian
 		}
-		add_trait = scholar
+		add_trait = intellectual
 		clr_character_flag = choosing_hermetic_art
 	}
 	
@@ -7743,8 +7743,8 @@ character_event = {
 		}
 		
 		if = {
-			limit = { trait = scholar }
-			remove_trait = scholar
+			limit = { trait = intellectual }
+			remove_trait = intellectual
 		}
 		if = {
 			limit = { trait = theologian }
@@ -7762,8 +7762,8 @@ character_event = {
 		}
 		
 		if = {
-			limit = { trait = scholar }
-			remove_trait = scholar
+			limit = { trait = intellectual }
+			remove_trait = intellectual
 		}
 		if = {
 			limit = { trait = mystic }
@@ -7915,7 +7915,7 @@ character_event = {
 				remove_lifestyle_trait_effect = yes
 			}
 		}
-		add_trait = scholar
+		add_trait = intellectual
 		clr_character_flag = choosing_hermetic_art
 	}
 }
@@ -10873,7 +10873,7 @@ character_event = {
     		}
     		random = {
     			chance = 10
-    			add_trait = stressed
+    			degrade_mood_effect = yes
     		}
     	}
     	scaled_wealth = { value = -1 min = -25 }
@@ -10952,7 +10952,7 @@ character_event = {
 				}
 				modifier = {
 					factor = 1.4
-					trait = scholar
+					trait = intellectual
 				}
 				modifier = {
 					factor = 1.4
@@ -11034,11 +11034,11 @@ character_event = {
 				}
 				modifier = {
 					factor = 1.3
-					trait = scholarly_theologian
+					trait = intellectually_theologian
 				}
 				modifier = {
 					factor = 1.4
-					trait = scholar
+					trait = intellectual
 				}
 				modifier = {
 					factor = 1.4
@@ -11139,7 +11139,7 @@ character_event = {
 				}
 				modifier = {
 					factor = 0.8
-					trait = scholar
+					trait = intellectual
 				}
 				modifier = {
 					factor = 0.8
@@ -11284,7 +11284,7 @@ character_event = {
 				set_character_flag = MNM_1640_translating_hieroglyphics
 				modifier = {
 					factor = 3
-					trait = scholar
+					trait = intellectual
 				}
 				modifier = {
 					factor = 2
@@ -11331,7 +11331,7 @@ character_event = {
 				set_character_flag = MNM_1640_planets
 				modifier = {
 					factor = 3
-					trait = scholar
+					trait = intellectual
 				}
 				modifier = {
 					factor = 3
@@ -11342,21 +11342,21 @@ character_event = {
 				set_character_flag = MNM_1640_stars
 				modifier = {
 					factor = 3
-					trait = scholar
+					trait = intellectual
 				}
 			}
 			10 = {
 				set_character_flag = MNM_1640_moon
 				modifier = {
 					factor = 3
-					trait = scholar
+					trait = intellectual
 				}
 			}
 			10 = {
 				set_character_flag = MNM_1640_sun
 				modifier = {
 					factor = 3
-					trait = scholar
+					trait = intellectual
 				}
 			}
 		}
@@ -13229,7 +13229,7 @@ letter_event = {
 			modifier = {
 				factor = 2
 				OR = {
-					trait = scholar
+					trait = intellectual
 					trait = mystic
 					trait = theologian
 				}
@@ -13464,7 +13464,7 @@ character_event = {
 			factor = 10
 			modifier = {
 				factor = 2
-				trait = scholar
+				trait = intellectual
 			}
 		}
 	}
@@ -13490,7 +13490,7 @@ character_event = {
 			factor = 10
 			modifier = {
 				factor = 2
-				trait = scholar
+				trait = intellectual
 			}
 		}
 	}
@@ -13587,7 +13587,7 @@ character_event = {
 			if = {
 				limit = {
 					OR = {
-						trait = scholar
+						trait = intellectual
 						trait = mystic
 						trait = theologian
 						trait = humble
@@ -13598,7 +13598,7 @@ character_event = {
 			if = {
 				limit = {
 					NOR = {
-						trait = scholar
+						trait = intellectual
 						trait = mystic
 						trait = theologian
 						trait = humble
@@ -13613,7 +13613,7 @@ character_event = {
 			factor = 10
 			modifier = {
 				factor = 2
-				trait = scholar
+				trait = intellectual
 			}
 			modifier = {
 				factor = 2
@@ -13715,7 +13715,7 @@ character_event = {
 			if = {
 				limit = {
 					OR = {
-						trait = scholar
+						trait = intellectual
 						trait = mystic
 						trait = theologian
 						trait = humble
@@ -13726,7 +13726,7 @@ character_event = {
 			if = {
 				limit = {
 					NOR = {
-						trait = scholar
+						trait = intellectual
 						trait = mystic
 						trait = theologian
 						trait = humble
@@ -13741,7 +13741,7 @@ character_event = {
 			factor = 10
 			modifier = {
 				factor = 2
-				trait = scholar
+				trait = intellectual
 			}
 			modifier = {
 				factor = 2
@@ -14111,7 +14111,7 @@ character_event = {
 				limit = {
 					OR = {
 						trait = erudite
-						trait = scholar
+						trait = intellectual
 						trait = faqih
 						trait = diligent
 					}
@@ -14122,7 +14122,7 @@ character_event = {
 				limit = {
 					NOR = {
 						trait = erudite
-						trait = scholar
+						trait = intellectual
 						trait = faqih
 						trait = diligent
 					}
@@ -14144,7 +14144,7 @@ character_event = {
 			}
 			modifier = {
 				factor = 2
-				trait = scholar
+				trait = intellectual
 			}
 			modifier = {
 				factor = 2

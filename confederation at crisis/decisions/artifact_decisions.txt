@@ -448,3 +448,538 @@ decisions = {
 		}
 	}
 }
+
+targetted_decisions = {
+	# Buying exotic plants
+	purchase_onideguzu_specimen_decision = {
+		filter = realm_characters
+		ai_target_filter = realm_characters
+		ai_check_interval = 12
+		
+		from_potential = {
+			trait = gardener
+			prisoner = no
+			NOT = { trait = incapable }
+			NOT = { has_artifact = onideguzu_specimen }
+		}
+		
+		potential = {
+			NOT = { trait = gardener }
+			is_within_diplo_range = FROM
+			has_artifact = onideguzu_specimen
+		}
+		
+		allow = {
+			FROM = { wealth = 100 }
+			NOT = { has_opinion_modifier = { who = FROM modifier = opinion_very_recent_request } }
+		}
+		
+		effect = {
+			hidden_tooltip = { opinion = { who = FROM modifier = opinion_very_recent_request } }
+			FROM = { save_event_target_as = purchaser }
+			random_artifact = {
+				limit = { artifact_type = onideguzu_specimen }
+				save_event_target_as = purchased_plant
+			}
+			letter_event = { id = lifestyle.16010 }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+			}
+			modifier = {
+				factor = 0
+				FROM = {
+					OR = {
+						has_ambition = obj_amass_wealth
+						has_ambition = obj_amass_wealth_2
+						has_ambition = obj_amass_wealth_3
+						has_ambition = obj_amass_wealth_4
+						has_ambition = obj_build_a_war_chest
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				FROM = { trait = content }
+			}
+			modifier = {
+				factor = 0
+				NOT = { opinion = { who = FROM value = 0 } }
+			}
+		}
+	}
+	purchase_omidi_giant_mangrove_specimen_decision = {
+		filter = realm_characters
+		ai_target_filter = realm_characters
+		ai_check_interval = 12
+		
+		from_potential = {
+			trait = gardener
+			prisoner = no
+			NOT = { trait = incapable }
+			NOT = { has_artifact = omidi_giant_mangrove_specimen }
+		}
+		
+		potential = {
+			NOT = { trait = gardener }
+			is_within_diplo_range = FROM
+			has_artifact = omidi_giant_mangrove_specimen
+		}
+		
+		allow = {
+			FROM = { wealth = 100 }
+			NOT = { has_opinion_modifier = { who = FROM modifier = opinion_very_recent_request } }
+		}
+		
+		effect = {
+			hidden_tooltip = { opinion = { who = FROM modifier = opinion_very_recent_request } }
+			FROM = { save_event_target_as = purchaser }
+			random_artifact = {
+				limit = { artifact_type = omidi_giant_mangrove_specimen }
+				save_event_target_as = purchased_plant
+			}
+			letter_event = { id = lifestyle.16010 }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+			}
+			modifier = {
+				factor = 0
+				FROM = {
+					OR = {
+						has_ambition = obj_amass_wealth
+						has_ambition = obj_amass_wealth_2
+						has_ambition = obj_amass_wealth_3
+						has_ambition = obj_amass_wealth_4
+						has_ambition = obj_build_a_war_chest
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				FROM = { trait = content }
+			}
+			modifier = {
+				factor = 0
+				NOT = { opinion = { who = FROM value = 0 } }
+			}
+		}
+	}
+	purchase_steelwood_specimen_decision = {
+		filter = realm_characters
+		ai_target_filter = realm_characters
+		ai_check_interval = 12
+		
+		from_potential = {
+			trait = gardener
+			prisoner = no
+			NOT = { trait = incapable }
+			NOT = { has_artifact = steelwood_specimen }
+		}
+		
+		potential = {
+			NOT = { trait = gardener }
+			is_within_diplo_range = FROM
+			has_artifact = steelwood_specimen
+		}
+		
+		allow = {
+			FROM = { wealth = 100 }
+			NOT = { has_opinion_modifier = { who = FROM modifier = opinion_very_recent_request } }
+		}
+		
+		effect = {
+			hidden_tooltip = { opinion = { who = FROM modifier = opinion_very_recent_request } }
+			FROM = { save_event_target_as = purchaser }
+			random_artifact = {
+				limit = { artifact_type = steelwood_specimen }
+				save_event_target_as = purchased_plant
+			}
+			letter_event = { id = lifestyle.16010 }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+			}
+			modifier = {
+				factor = 0
+				FROM = {
+					OR = {
+						has_ambition = obj_amass_wealth
+						has_ambition = obj_amass_wealth_2
+						has_ambition = obj_amass_wealth_3
+						has_ambition = obj_amass_wealth_4
+						has_ambition = obj_build_a_war_chest
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				FROM = { trait = content }
+			}
+			modifier = {
+				factor = 0
+				NOT = { opinion = { who = FROM value = 0 } }
+			}
+		}
+	}
+	purchase_chengdu_coral_specimen_decision = {
+		filter = realm_characters
+		ai_target_filter = realm_characters
+		ai_check_interval = 12
+		
+		from_potential = {
+			trait = gardener
+			prisoner = no
+			NOT = { trait = incapable }
+			NOT = { has_artifact = chengdu_coral_specimen }
+		}
+		
+		potential = {
+			NOT = { trait = gardener }
+			is_within_diplo_range = FROM
+			has_artifact = chengdu_coral_specimen
+		}
+		
+		allow = {
+			FROM = { wealth = 100 }
+			NOT = { has_opinion_modifier = { who = FROM modifier = opinion_very_recent_request } }
+		}
+		
+		effect = {
+			hidden_tooltip = { opinion = { who = FROM modifier = opinion_very_recent_request } }
+			FROM = { save_event_target_as = purchaser }
+			random_artifact = {
+				limit = { artifact_type = chengdu_coral_specimen }
+				save_event_target_as = purchased_plant
+			}
+			letter_event = { id = lifestyle.16010 }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+			}
+			modifier = {
+				factor = 0
+				FROM = {
+					OR = {
+						has_ambition = obj_amass_wealth
+						has_ambition = obj_amass_wealth_2
+						has_ambition = obj_amass_wealth_3
+						has_ambition = obj_amass_wealth_4
+						has_ambition = obj_build_a_war_chest
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				FROM = { trait = content }
+			}
+			modifier = {
+				factor = 0
+				NOT = { opinion = { who = FROM value = 0 } }
+			}
+		}
+	}
+	purchase_razorgrass_specimen_decision = {
+		filter = realm_characters
+		ai_target_filter = realm_characters
+		ai_check_interval = 12
+		
+		from_potential = {
+			trait = gardener
+			prisoner = no
+			NOT = { trait = incapable }
+			NOT = { has_artifact = razorgrass_specimen }
+		}
+		
+		potential = {
+			NOT = { trait = gardener }
+			is_within_diplo_range = FROM
+			has_artifact = razorgrass_specimen
+		}
+		
+		allow = {
+			FROM = { wealth = 100 }
+			NOT = { has_opinion_modifier = { who = FROM modifier = opinion_very_recent_request } }
+		}
+		
+		effect = {
+			hidden_tooltip = { opinion = { who = FROM modifier = opinion_very_recent_request } }
+			FROM = { save_event_target_as = purchaser }
+			random_artifact = {
+				limit = { artifact_type = razorgrass_specimen }
+				save_event_target_as = purchased_plant
+			}
+			letter_event = { id = lifestyle.16010 }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+			}
+			modifier = {
+				factor = 0
+				FROM = {
+					OR = {
+						has_ambition = obj_amass_wealth
+						has_ambition = obj_amass_wealth_2
+						has_ambition = obj_amass_wealth_3
+						has_ambition = obj_amass_wealth_4
+						has_ambition = obj_build_a_war_chest
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				FROM = { trait = content }
+			}
+			modifier = {
+				factor = 0
+				NOT = { opinion = { who = FROM value = 0 } }
+			}
+		}
+	}
+	purchase_metagenic_wasp_specimen_decision = {
+		filter = realm_characters
+		ai_target_filter = realm_characters
+		ai_check_interval = 12
+		
+		from_potential = {
+			trait = gardener
+			prisoner = no
+			NOT = { trait = incapable }
+			NOT = { has_artifact = metagenic_wasp_specimen }
+		}
+		
+		potential = {
+			NOT = { trait = gardener }
+			is_within_diplo_range = FROM
+			has_artifact = metagenic_wasp_specimen
+		}
+		
+		allow = {
+			FROM = { wealth = 100 }
+			NOT = { has_opinion_modifier = { who = FROM modifier = opinion_very_recent_request } }
+		}
+		
+		effect = {
+			hidden_tooltip = { opinion = { who = FROM modifier = opinion_very_recent_request } }
+			FROM = { save_event_target_as = purchaser }
+			random_artifact = {
+				limit = { artifact_type = metagenic_wasp_specimen }
+				save_event_target_as = purchased_plant
+			}
+			letter_event = { id = lifestyle.16010 }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+			}
+			modifier = {
+				factor = 0
+				FROM = {
+					OR = {
+						has_ambition = obj_amass_wealth
+						has_ambition = obj_amass_wealth_2
+						has_ambition = obj_amass_wealth_3
+						has_ambition = obj_amass_wealth_4
+						has_ambition = obj_build_a_war_chest
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				FROM = { trait = content }
+			}
+			modifier = {
+				factor = 0
+				NOT = { opinion = { who = FROM value = 0 } }
+			}
+		}
+	}
+	purchase_world_tree_specimen_decision = {
+		filter = realm_characters
+		ai_target_filter = realm_characters
+		ai_check_interval = 12
+		
+		from_potential = {
+			trait = gardener
+			prisoner = no
+			NOT = { trait = incapable }
+			NOT = { has_artifact = world_tree_specimen }
+		}
+		
+		potential = {
+			NOT = { trait = gardener }
+			is_within_diplo_range = FROM
+			has_artifact = world_tree_specimen
+		}
+		
+		allow = {
+			FROM = { wealth = 100 }
+			NOT = { has_opinion_modifier = { who = FROM modifier = opinion_very_recent_request } }
+		}
+		
+		effect = {
+			hidden_tooltip = { opinion = { who = FROM modifier = opinion_very_recent_request } }
+			FROM = { save_event_target_as = purchaser }
+			random_artifact = {
+				limit = { artifact_type = world_tree_specimen }
+				save_event_target_as = purchased_plant
+			}
+			letter_event = { id = lifestyle.16010 }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+			}
+			modifier = {
+				factor = 0
+				FROM = {
+					OR = {
+						has_ambition = obj_amass_wealth
+						has_ambition = obj_amass_wealth_2
+						has_ambition = obj_amass_wealth_3
+						has_ambition = obj_amass_wealth_4
+						has_ambition = obj_build_a_war_chest
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				FROM = { trait = content }
+			}
+			modifier = {
+				factor = 0
+				NOT = { opinion = { who = FROM value = 0 } }
+			}
+		}
+	}
+	purchase_rainbow_grass_specimen_decision = {
+		filter = realm_characters
+		ai_target_filter = realm_characters
+		ai_check_interval = 12
+		
+		from_potential = {
+			trait = gardener
+			prisoner = no
+			NOT = { trait = incapable }
+			NOT = { has_artifact = rainbow_grass_specimen }
+		}
+		
+		potential = {
+			NOT = { trait = gardener }
+			is_within_diplo_range = FROM
+			has_artifact = rainbow_grass_specimen
+		}
+		
+		allow = {
+			FROM = { wealth = 100 }
+			NOT = { has_opinion_modifier = { who = FROM modifier = opinion_very_recent_request } }
+		}
+		
+		effect = {
+			hidden_tooltip = { opinion = { who = FROM modifier = opinion_very_recent_request } }
+			FROM = { save_event_target_as = purchaser }
+			random_artifact = {
+				limit = { artifact_type = rainbow_grass_specimen }
+				save_event_target_as = purchased_plant
+			}
+			letter_event = { id = lifestyle.16010 }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+			}
+			modifier = {
+				factor = 0
+				FROM = {
+					OR = {
+						has_ambition = obj_amass_wealth
+						has_ambition = obj_amass_wealth_2
+						has_ambition = obj_amass_wealth_3
+						has_ambition = obj_amass_wealth_4
+						has_ambition = obj_build_a_war_chest
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				FROM = { trait = content }
+			}
+			modifier = {
+				factor = 0
+				NOT = { opinion = { who = FROM value = 0 } }
+			}
+		}
+	}
+	purchase_touchdown_tumbleweed_specimen_decision = {
+		filter = realm_characters
+		ai_target_filter = realm_characters
+		ai_check_interval = 12
+		
+		from_potential = {
+			trait = gardener
+			prisoner = no
+			NOT = { trait = incapable }
+			NOT = { has_artifact = touchdown_tumbleweed_specimen }
+		}
+		
+		potential = {
+			NOT = { trait = gardener }
+			is_within_diplo_range = FROM
+			has_artifact = touchdown_tumbleweed_specimen
+		}
+		
+		allow = {
+			FROM = { wealth = 100 }
+			NOT = { has_opinion_modifier = { who = FROM modifier = opinion_very_recent_request } }
+		}
+		
+		effect = {
+			hidden_tooltip = { opinion = { who = FROM modifier = opinion_very_recent_request } }
+			FROM = { save_event_target_as = purchaser }
+			random_artifact = {
+				limit = { artifact_type = touchdown_tumbleweed_specimen }
+				save_event_target_as = purchased_plant
+			}
+			letter_event = { id = lifestyle.16010 }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+			}
+			modifier = {
+				factor = 0
+				FROM = {
+					OR = {
+						has_ambition = obj_amass_wealth
+						has_ambition = obj_amass_wealth_2
+						has_ambition = obj_amass_wealth_3
+						has_ambition = obj_amass_wealth_4
+						has_ambition = obj_build_a_war_chest
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				FROM = { trait = content }
+			}
+			modifier = {
+				factor = 0
+				NOT = { opinion = { who = FROM value = 0 } }
+			}
+		}
+	}
+}

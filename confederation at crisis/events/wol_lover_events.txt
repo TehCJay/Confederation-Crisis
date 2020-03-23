@@ -3821,7 +3821,7 @@ character_event = {
 		ai_chance = {
 			factor = 100
 		}
-		add_trait = stressed
+		degrade_mood_effect = yes
 	}
 	option = {
 		name = EVTOPTB_WOL_1150 # End an affair
@@ -4028,15 +4028,9 @@ character_event = {
 				trait = humble
 			}
 		}
-		if = {
-			limit = { trait = stressed }
-			random = {
-				chance = 50
-				remove_trait = stressed
-				hidden_tooltip = {
-					character_event = { id = 38313 days = 1 } # Notify lost Stressed
-				}
-			}
+		random = {
+			chance = 50
+			improve_mood_effect = yes
 		}
 		if = {
 			limit = { trait = depressed }
@@ -4135,10 +4129,7 @@ character_event = {
 				trait = deceitful
 			}
 		}
-		if = {
-			limit = { trait = stressed }
-			remove_trait = stressed
-		}
+		improve_mood_effect = yes
 		if = {
 			limit = { trait = depressed }
 			random = {
