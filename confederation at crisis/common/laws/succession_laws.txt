@@ -15,9 +15,25 @@ succession_laws = {
 				is_landless_type_title = no
 				is_tribal_type_title = yes
 				temporary = yes
-			}
+			}			
 			holder_scope = {
-				government = pirate_kingdom
+				OR = {
+					government = pirate_kingdom
+					OR = {
+						AND = {
+							independent = yes
+							government = military_command
+						}
+						AND = {
+							independent = yes						
+							government = military_republic
+						}
+						AND = {
+							independent = yes						
+							government = military_directorate
+						}							
+					}				
+				}
 			}
 		}
 		allow = {
@@ -418,7 +434,6 @@ succession_laws = {
 					government = military_republic
 					government = corporate_republic
 					government = administrative_republic
-					government = military_directorate
 					government = corporate_directorate
 					government = administrative_directorate
 					AND = {
@@ -578,16 +593,34 @@ succession_laws = {
 				temporary = yes
 			}
 			holder_scope = {
-				AND = {
-					government = pirate_kingdom
-					independent = yes
-					OR = {
-						tier = duke
-						tier = king
-						tier = emperor
+				OR = {
+					AND = {
+						government = pirate_kingdom
+						independent = yes
+						OR = {
+							tier = duke
+							tier = king
+							tier = emperor
+						}
 					}
+					AND = {
+						independent = yes						
+						government = military_monarchy
+					}
+					AND = {
+						independent = yes						
+						government = administrative_monarchy
+					}
+					AND = {
+						independent = yes						
+						government = corporate_monarchy
+					}						
+					AND = {
+						independent = yes						
+						government = military_directorate
+					}											
 				}
-			}
+			}			
 			NOT = { tier = baron }
 		}
 		allow = {
