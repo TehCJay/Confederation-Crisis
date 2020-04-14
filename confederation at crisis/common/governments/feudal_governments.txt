@@ -846,6 +846,8 @@ feudal_governments = {
 		}
 		accepts_liege_governments = {
 			military_republic
+			military_command
+			corporate_republic
 			corporate_monarchy
 			merchant_republic_government
 			corporate_directorate
@@ -859,7 +861,10 @@ feudal_governments = {
 		}
 		frame_suffix = "_republic"
 		potential = {
-			NOT = { is_government_potential = merchant_republic_government }
+			OR = {
+				NOT = { is_government_potential = merchant_republic_government }
+				trait = is_republic
+			}
 			NOT = { religion_group = outlaw_group }
 			NOT = { trait = hiver_implant }
 			primary_title = { is_tribal_type_title = no }
