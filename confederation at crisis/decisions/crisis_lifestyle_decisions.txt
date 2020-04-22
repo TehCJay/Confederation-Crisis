@@ -9,7 +9,18 @@ decisions = {
 			NOT = { has_character_flag = flag_research_project_self }
 			NOT = { has_character_flag = flag_research_project_liege }
 		}
-		allow = { always = yes }
+		allow = {
+			NOT = { trait = stressed }
+			custom_tooltip = {
+				text = FIVEYEARCOOLDOWN
+				hidden_tooltip = {
+					OR = {
+						NOT = { has_character_flag = flag_completed_research_project }
+						had_character_flag = { flag = flag_completed_research_project days = 1825 }
+					}
+				}
+			}
+		}
 		effect = {
 			set_character_flag = flag_starting_research_project
 			set_character_flag = flag_research_project_self
@@ -48,7 +59,19 @@ decisions = {
 			NOT = { has_character_flag = flag_research_project_self }
 			NOT = { has_character_flag = flag_research_project_liege }
 		}
-		allow = { NOT = { reverse_has_opinion_modifier = { who = liege modifier = opinion_very_recent_request } } }
+		allow = {
+			NOT = { reverse_has_opinion_modifier = { who = liege modifier = opinion_very_recent_request } }
+			NOT = { trait = stressed }
+			custom_tooltip = {
+				text = FIVEYEARCOOLDOWN
+				hidden_tooltip = {
+					OR = {
+						NOT = { has_character_flag = flag_completed_research_project }
+						had_character_flag = { flag = flag_completed_research_project days = 1825 }
+					}
+				}
+			}
+		}
 		effect = {
 			set_character_flag = flag_starting_research_project
 			set_character_flag = flag_research_project_liege
