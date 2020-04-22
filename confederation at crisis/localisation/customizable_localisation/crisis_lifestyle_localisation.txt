@@ -175,3 +175,92 @@ defined_text = {
 	text = { localisation_key = String_prose }
 	text = { localisation_key = String_characterization }
 }
+defined_text = {
+	name = GetRandomResearchResult
+	
+	text = {
+		trigger = { has_character_modifier = military_research_project }
+		localisation_key = String_designed_a_new_missile_guidance_system
+	}
+	text = {
+		trigger = { has_character_modifier = military_research_project }
+		localisation_key = String_developed_a_new_super_strong_alloy
+	}
+	text = {
+		trigger = { has_character_modifier = military_research_project }
+		localisation_key = String_designed_a_revolutionary_new_propulsion_system
+	}
+	text = {
+		trigger = { has_character_modifier = military_research_project }
+		localisation_key = String_developed_an_extremely_powerful_energy_weapon
+	}
+	text = {
+		trigger = { has_character_modifier = social_research_project }
+		localisation_key = String_made_a_revolutionary_breakthrough_in_economic_theory
+	}
+	text = {
+		trigger = { has_character_modifier = social_research_project }
+		localisation_key = String_made_a_revolutionary_breakthrough_in_human_psychology
+	}
+	text = {
+		trigger = { has_character_modifier = social_research_project }
+		localisation_key = String_made_a_revolutionary_breakthrough_in_social_psychology
+	}
+	text = {
+		trigger = { has_character_modifier = physical_research_project }
+		localisation_key = String_developed_a_new_medicine
+	}
+	text = {
+		trigger = { has_character_modifier = physical_research_project }
+		localisation_key = String_made_a_revolutionary_breakthrough_in_neuroscience
+	}
+	text = {
+		trigger = { has_character_modifier = physical_research_project }
+		localisation_key = String_taxonomized_an_entire_planet
+	}
+	text = {
+		trigger = { has_character_modifier = physical_research_project }
+		localisation_key = String_developed_a_revolutionary_new_processing_chip
+	}
+}
+defined_text = {
+	name = GetProjectType
+	
+	text = {
+		trigger = { has_character_modifier = military_research_project }
+		localisation_key = String_military_engineering
+	}
+	text = {
+		trigger = { has_character_modifier = social_research_project }
+		localisation_key = String_social_science
+	}
+	text = {
+		trigger = { has_character_modifier = physical_research_project }
+		localisation_key = String_natural_science
+	}
+}
+defined_text = {
+	name = GetRootFieldKnowledge
+	use_first_valid = yes
+	
+	text = {
+		trigger = {
+			OR = {
+				AND = {
+					has_character_modifier = military_research_project
+					ROOT = { martial = 20 }
+				}
+				AND = {
+					has_character_modifier = social_research_project
+					ROOT = { stewardship = 20 }
+				}
+				AND = {
+					has_character_modifier = physical_research_project
+					ROOT = { learning = 20 }
+				}
+			}
+		}
+		localisation_key = String_field_knowledge_good
+	}
+	text = { localisation_key = String_field_knowledge_bad }
+}

@@ -1,0 +1,104 @@
+decisions = {
+	start_research_project_self_decision = {
+		potential = {
+			trait = intellectual
+			is_landed = yes
+			age = 16
+			NOT = { trait = incapable }
+			NOT = { has_character_flag = flag_starting_research_project }
+			NOT = { has_character_flag = flag_research_project_self }
+			NOT = { has_character_flag = flag_research_project_liege }
+		}
+		allow = { always = yes }
+		effect = {
+			set_character_flag = flag_starting_research_project
+			set_character_flag = flag_research_project_self
+			character_event = { id = lifestyle.10911 tooltip = "EVTTOOLTIPLIFESTYLE10911" }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.2
+			}
+			modifier = {
+				factor = 2
+				trait = open_minded
+			}
+			modifier = {
+				factor = 0.5
+				trait = close_minded
+			}
+			modifier = {
+				factor = 2
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.5
+				trait = carefree
+			}
+		}
+	}
+	start_research_project_liege_decision = {
+		potential = {
+			trait = intellectual
+			NOT = { liege = { character = ROOT } }
+			age = 16
+			NOT = { trait = incapable }
+			NOT = { has_character_flag = flag_starting_research_project }
+			NOT = { has_character_flag = flag_research_project_self }
+			NOT = { has_character_flag = flag_research_project_liege }
+		}
+		allow = { NOT = { reverse_has_opinion_modifier = { who = liege modifier = opinion_very_recent_request } } }
+		effect = {
+			set_character_flag = flag_starting_research_project
+			set_character_flag = flag_research_project_liege
+			character_event = { id = lifestyle.11011 tooltip = "EVTTOOLTIPLIFESTYLE10911" }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.1
+			}
+			modifier = {
+				factor = 0
+				NOT = { liege = { wealth = 100 } }
+			}
+			modifier = {
+				factor = 2
+				liege = { wealth = 200 }
+			}
+			modifier = {
+				factor = 2
+				liege = { wealth = 300 }
+			}
+			modifier = {
+				factor = 2
+				liege = { wealth = 400 }
+			}
+			modifier = {
+				factor = 2
+				liege = { wealth = 500 }
+			}
+			modifier = {
+				factor = 2
+				trait = open_minded
+			}
+			modifier = {
+				factor = 0.5
+				trait = close_minded
+			}
+			modifier = {
+				factor = 2
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.5
+				trait = carefree
+			}
+			modifier = {
+				factor = 5
+				has_job_title = job_spiritual
+			}
+		}
+	}
+}

@@ -4458,3 +4458,3294 @@ letter_event = {
 	
 	option = { name = "EVTOPTCONFIRM" }
 }
+
+# INTELLECTUAL EVENTS
+# Starting a new research project
+character_event = {
+	id = lifestyle.10911
+	desc = "EVTDESCLIFESTYLE10911"
+	picture = GFX_evt_laboratory
+	is_triggered_only = yes
+	
+	# Military
+	option = {
+		name = "EVTOPTALIFESTYLE10911"
+		# Calculate research difficulty
+		if = {
+			limit = {
+				capital_scope = {
+					TECH_INFANTRY = 7
+					TECH_CAVALRY = 7
+					TECH_SKIRMISH = 7
+					TECH_MELEE = 7
+					TECH_SIEGE_EQUIPMENT = 7
+					TECH_RECRUITMENT = 7
+				}
+			}
+			set_variable = { which = research_difficulty value = 45 }
+		}
+		else_if = {
+			limit = {
+				capital_scope = {
+					TECH_INFANTRY = 6
+					TECH_CAVALRY = 6
+					TECH_SKIRMISH = 6
+					TECH_MELEE = 6
+					TECH_SIEGE_EQUIPMENT = 6
+					TECH_RECRUITMENT = 6
+				}
+			}
+			set_variable = { which = research_difficulty value = 40 }
+		}
+		else_if = {
+			limit = {
+				capital_scope = {
+					TECH_INFANTRY = 5
+					TECH_CAVALRY = 5
+					TECH_SKIRMISH = 5
+					TECH_MELEE = 5
+					TECH_SIEGE_EQUIPMENT = 5
+					TECH_RECRUITMENT = 5
+				}
+			}
+			set_variable = { which = research_difficulty value = 35 }
+		}
+		else_if = {
+			limit = {
+				capital_scope = {
+					TECH_INFANTRY = 4
+					TECH_CAVALRY = 4
+					TECH_SKIRMISH = 4
+					TECH_MELEE = 4
+					TECH_SIEGE_EQUIPMENT = 4
+					TECH_RECRUITMENT = 4
+				}
+			}
+			set_variable = { which = research_difficulty value = 30 }
+		}
+		else_if = {
+			limit = {
+				capital_scope = {
+					TECH_INFANTRY = 3
+					TECH_CAVALRY = 3
+					TECH_SKIRMISH = 3
+					TECH_MELEE = 3
+					TECH_SIEGE_EQUIPMENT = 3
+					TECH_RECRUITMENT = 3
+				}
+			}
+			set_variable = { which = research_difficulty value = 25 }
+		}
+		else_if = {
+			limit = {
+				capital_scope = {
+					TECH_INFANTRY = 2
+					TECH_CAVALRY = 2
+					TECH_SKIRMISH = 2
+					TECH_MELEE = 2
+					TECH_SIEGE_EQUIPMENT = 2
+					TECH_RECRUITMENT = 2
+				}
+			}
+			set_variable = { which = research_difficulty value = 20 }
+		}
+		else_if = {
+			limit = {
+				capital_scope = {
+					TECH_INFANTRY = 1
+					TECH_CAVALRY = 1
+					TECH_SKIRMISH = 1
+					TECH_MELEE = 1
+					TECH_SIEGE_EQUIPMENT = 1
+					TECH_RECRUITMENT = 1
+				}
+			}
+			set_variable = { which = research_difficulty value = 15 }
+		}
+		else = { set_variable = { which = research_difficulty value = 10 } }
+		set_variable = { which = research_progress value = 0 }
+		add_character_modifier = { name = military_research_project duration = -1 }
+		clr_character_flag = flag_starting_research_project
+		log = "[Root.GetBestName started a military research project."
+		ai_chance = {
+			factor = 33
+			modifier = {
+				factor = 3
+				has_education_martial_trigger = yes
+			}
+			modifier = {
+				factor = 2
+				trait = cold
+			}
+			modifier = {
+				factor = 0.5
+				trait = friendly
+			}
+			modifier = {
+				factor = 5
+				war = yes
+			}
+		}
+	}
+	# Social
+	option = {
+		name = "EVTOPTBLIFESTYLE10911"
+		# Calculate research difficulty
+		if = {
+			limit = {
+				capital_scope = {
+					TECH_CASTLE_CONSTRUCTION = 7
+					TECH_CITY_CONSTRUCTION = 7
+					TECH_FORTIFICATIONS_CONSTRUCTION = 7
+					TECH_TRADE_PRACTICES = 7
+					TECH_CONSTRUCTION = 7
+					TECH_NAVAL = 7
+				}
+			}
+			set_variable = { which = research_difficulty value = 45 }
+		}
+		else_if = {
+			limit = {
+				capital_scope = {
+					TECH_CASTLE_CONSTRUCTION = 6
+					TECH_CITY_CONSTRUCTION = 6
+					TECH_FORTIFICATIONS_CONSTRUCTION = 6
+					TECH_TRADE_PRACTICES = 6
+					TECH_CONSTRUCTION = 6
+					TECH_NAVAL = 6
+				}
+			}
+			set_variable = { which = research_difficulty value = 40 }
+		}
+		else_if = {
+			limit = {
+				capital_scope = {
+					TECH_CASTLE_CONSTRUCTION = 5
+					TECH_CITY_CONSTRUCTION = 5
+					TECH_FORTIFICATIONS_CONSTRUCTION = 5
+					TECH_TRADE_PRACTICES = 5
+					TECH_CONSTRUCTION = 5
+					TECH_NAVAL = 5
+				}
+			}
+			set_variable = { which = research_difficulty value = 35 }
+		}
+		else_if = {
+			limit = {
+				capital_scope = {
+					TECH_CASTLE_CONSTRUCTION = 4
+					TECH_CITY_CONSTRUCTION = 4
+					TECH_FORTIFICATIONS_CONSTRUCTION = 4
+					TECH_TRADE_PRACTICES = 4
+					TECH_CONSTRUCTION = 4
+					TECH_NAVAL = 4
+				}
+			}
+			set_variable = { which = research_difficulty value = 30 }
+		}
+		else_if = {
+			limit = {
+				capital_scope = {
+					TECH_CASTLE_CONSTRUCTION = 3
+					TECH_CITY_CONSTRUCTION = 3
+					TECH_FORTIFICATIONS_CONSTRUCTION = 3
+					TECH_TRADE_PRACTICES = 3
+					TECH_CONSTRUCTION = 3
+					TECH_NAVAL = 3
+				}
+			}
+			set_variable = { which = research_difficulty value = 25 }
+		}
+		else_if = {
+			limit = {
+				capital_scope = {
+					TECH_CASTLE_CONSTRUCTION = 2
+					TECH_CITY_CONSTRUCTION = 2
+					TECH_FORTIFICATIONS_CONSTRUCTION = 2
+					TECH_TRADE_PRACTICES = 2
+					TECH_CONSTRUCTION = 2
+					TECH_NAVAL = 2
+				}
+			}
+			set_variable = { which = research_difficulty value = 20 }
+		}
+		else_if = {
+			limit = {
+				capital_scope = {
+					TECH_CASTLE_CONSTRUCTION = 1
+					TECH_CITY_CONSTRUCTION = 1
+					TECH_FORTIFICATIONS_CONSTRUCTION = 1
+					TECH_TRADE_PRACTICES = 1
+					TECH_CONSTRUCTION = 1
+					TECH_NAVAL = 1
+				}
+			}
+			set_variable = { which = research_difficulty value = 15 }
+		}
+		else = { set_variable = { which = research_difficulty value = 10 } }
+		set_variable = { which = research_progress value = 0 }
+		add_character_modifier = { name = social_research_project duration = -1 }
+		clr_character_flag = flag_starting_research_project
+		log = "[Root.GetBestName started a social research project."
+		ai_chance = {
+			factor = 33
+			modifier = {
+				factor = 3
+				has_education_stewardship_trigger = yes
+			}
+			modifier = {
+				factor = 2
+				trait = extraverted
+			}
+			modifier = {
+				factor = 0.5
+				trait = introverted
+			}
+		}
+	}
+	# Physical
+	option = {
+		name = "EVTOPTCLIFESTYLE10911"
+		# Calculate research difficulty
+		if = {
+			limit = {
+				capital_scope = {
+					TECH_NOBLE_CUSTOMS = 7
+					TECH_POPULAR_CUSTOMS = 7
+					TECH_RELIGIOUS_CUSTOMS = 7
+					TECH_MAJESTY = 7
+					TECH_CULTURE_FLEX = 7
+					TECH_LEGALISM = 7
+				}
+			}
+			set_variable = { which = research_difficulty value = 45 }
+		}
+		else_if = {
+			limit = {
+				capital_scope = {
+					TECH_NOBLE_CUSTOMS = 6
+					TECH_POPULAR_CUSTOMS = 6
+					TECH_RELIGIOUS_CUSTOMS = 6
+					TECH_MAJESTY = 6
+					TECH_CULTURE_FLEX = 6
+					TECH_LEGALISM = 6
+				}
+			}
+			set_variable = { which = research_difficulty value = 40 }
+		}
+		else_if = {
+			limit = {
+				capital_scope = {
+					TECH_NOBLE_CUSTOMS = 5
+					TECH_POPULAR_CUSTOMS = 5
+					TECH_RELIGIOUS_CUSTOMS = 5
+					TECH_MAJESTY = 5
+					TECH_CULTURE_FLEX = 5
+					TECH_LEGALISM = 5
+				}
+			}
+			set_variable = { which = research_difficulty value = 35 }
+		}
+		else_if = {
+			limit = {
+				capital_scope = {
+					TECH_NOBLE_CUSTOMS = 4
+					TECH_POPULAR_CUSTOMS = 4
+					TECH_RELIGIOUS_CUSTOMS = 4
+					TECH_MAJESTY = 4
+					TECH_CULTURE_FLEX = 4
+					TECH_LEGALISM = 4
+				}
+			}
+			set_variable = { which = research_difficulty value = 30 }
+		}
+		else_if = {
+			limit = {
+				capital_scope = {
+					TECH_NOBLE_CUSTOMS = 3
+					TECH_POPULAR_CUSTOMS = 3
+					TECH_RELIGIOUS_CUSTOMS = 3
+					TECH_MAJESTY = 3
+					TECH_CULTURE_FLEX = 3
+					TECH_LEGALISM = 3
+				}
+			}
+			set_variable = { which = research_difficulty value = 25 }
+		}
+		else_if = {
+			limit = {
+				capital_scope = {
+					TECH_NOBLE_CUSTOMS = 2
+					TECH_POPULAR_CUSTOMS = 2
+					TECH_RELIGIOUS_CUSTOMS = 2
+					TECH_MAJESTY = 2
+					TECH_CULTURE_FLEX = 2
+					TECH_LEGALISM = 2
+				}
+			}
+			set_variable = { which = research_difficulty value = 20 }
+		}
+		else_if = {
+			limit = {
+				capital_scope = {
+					TECH_NOBLE_CUSTOMS = 1
+					TECH_POPULAR_CUSTOMS = 1
+					TECH_RELIGIOUS_CUSTOMS = 1
+					TECH_MAJESTY = 1
+					TECH_CULTURE_FLEX = 1
+					TECH_LEGALISM = 1
+				}
+			}
+			set_variable = { which = research_difficulty value = 15 }
+		}
+		else = { set_variable = { which = research_difficulty value = 10 } }
+		set_variable = { which = research_progress value = 0 }
+		add_character_modifier = { name = physical_research_project duration = -1 }
+		clr_character_flag = flag_starting_research_project
+		log = "[Root.GetBestName started a physical research project."
+		ai_chance = {
+			factor = 33
+			modifier = {
+				factor = 3
+				has_education_learning_trigger = yes
+			}
+			modifier = {
+				factor = 2
+				trait = open_minded
+			}
+			modifier = {
+				factor = 0.5
+				trait = close_minded
+			}
+		}
+	}
+	# Nevermind
+	option = {
+		name = "EVTOPTNEVERMIND"
+		clr_character_flag = flag_starting_research_project
+		clr_character_flag = flag_research_project_self
+		ai_chance = { factor = 0 }
+	}
+}
+
+# Petition your liege for a research grant
+character_event = {
+	id = lifestyle.11011
+	desc = "EVTDESCLIFESTYLE11011"
+	picture = GFX_evt_laboratory
+	is_triggered_only = yes
+	
+	# Military
+	option = {
+		name = "EVTOPTALIFESTYLE10911"
+		# Calculate research difficulty
+		if = {
+			limit = {
+				liege = {
+					capital_scope = {
+						TECH_INFANTRY = 7
+						TECH_CAVALRY = 7
+						TECH_SKIRMISH = 7
+						TECH_MELEE = 7
+						TECH_SIEGE_EQUIPMENT = 7
+						TECH_RECRUITMENT = 7
+					}
+				}
+			}
+			set_variable = { which = research_difficulty value = 45 }
+		}
+		else_if = {
+			limit = {
+				liege = {
+					capital_scope = {
+						TECH_INFANTRY = 6
+						TECH_CAVALRY = 6
+						TECH_SKIRMISH = 6
+						TECH_MELEE = 6
+						TECH_SIEGE_EQUIPMENT = 6
+						TECH_RECRUITMENT = 6
+					}
+				}
+			}
+			set_variable = { which = research_difficulty value = 40 }
+		}
+		else_if = {
+			limit = {
+				liege = {
+					capital_scope = {
+						TECH_INFANTRY = 5
+						TECH_CAVALRY = 5
+						TECH_SKIRMISH = 5
+						TECH_MELEE = 5
+						TECH_SIEGE_EQUIPMENT = 5
+						TECH_RECRUITMENT = 5
+					}
+				}
+			}
+			set_variable = { which = research_difficulty value = 35 }
+		}
+		else_if = {
+			limit = {
+				liege = {
+					capital_scope = {
+						TECH_INFANTRY = 4
+						TECH_CAVALRY = 4
+						TECH_SKIRMISH = 4
+						TECH_MELEE = 4
+						TECH_SIEGE_EQUIPMENT = 4
+						TECH_RECRUITMENT = 4
+					}
+				}
+			}
+			set_variable = { which = research_difficulty value = 30 }
+		}
+		else_if = {
+			limit = {
+				liege = {
+					capital_scope = {
+						TECH_INFANTRY = 3
+						TECH_CAVALRY = 3
+						TECH_SKIRMISH = 3
+						TECH_MELEE = 3
+						TECH_SIEGE_EQUIPMENT = 3
+						TECH_RECRUITMENT = 3
+					}
+				}
+			}
+			set_variable = { which = research_difficulty value = 25 }
+		}
+		else_if = {
+			limit = {
+				liege = {
+					capital_scope = {
+						TECH_INFANTRY = 2
+						TECH_CAVALRY = 2
+						TECH_SKIRMISH = 2
+						TECH_MELEE = 2
+						TECH_SIEGE_EQUIPMENT = 2
+						TECH_RECRUITMENT = 2
+					}
+				}
+			}
+			set_variable = { which = research_difficulty value = 20 }
+		}
+		else_if = {
+			limit = {
+				liege = {
+					capital_scope = {
+						TECH_INFANTRY = 1
+						TECH_CAVALRY = 1
+						TECH_SKIRMISH = 1
+						TECH_MELEE = 1
+						TECH_SIEGE_EQUIPMENT = 1
+						TECH_RECRUITMENT = 1
+					}
+				}
+			}
+			set_variable = { which = research_difficulty value = 15 }
+		}
+		else = { set_variable = { which = research_difficulty value = 10 } }
+		liege = { letter_event = { id = lifestyle.311 } }
+		log = "[Root.GetBestName] asked [Root.Liege.GetBestName] for a military research grant."
+		ai_chance = {
+			factor = 33
+			modifier = {
+				factor = 3
+				has_education_martial_trigger = yes
+			}
+			modifier = {
+				factor = 2
+				trait = cold
+			}
+			modifier = {
+				factor = 0.5
+				trait = friendly
+			}
+			modifier = {
+				factor = 5
+				war = yes
+			}
+		}
+	}
+	# Social
+	option = {
+		name = "EVTOPTBLIFESTYLE10911"
+		# Calculate research difficulty
+		if = {
+			limit = {
+				liege = {
+					capital_scope = {
+						TECH_CASTLE_CONSTRUCTION = 7
+						TECH_CITY_CONSTRUCTION = 7
+						TECH_FORTIFICATIONS_CONSTRUCTION = 7
+						TECH_TRADE_PRACTICES = 7
+						TECH_CONSTRUCTION = 7
+						TECH_NAVAL = 7
+					}
+				}
+				set_variable = { which = research_difficulty value = 45 }
+			}
+		}
+		else_if = {
+			limit = {
+				liege = {
+					capital_scope = {
+						TECH_CASTLE_CONSTRUCTION = 6
+						TECH_CITY_CONSTRUCTION = 6
+						TECH_FORTIFICATIONS_CONSTRUCTION = 6
+						TECH_TRADE_PRACTICES = 6
+						TECH_CONSTRUCTION = 6
+						TECH_NAVAL = 6
+					}
+				}
+			}
+			set_variable = { which = research_difficulty value = 40 }
+		}
+		else_if = {
+			limit = {
+				liege = {
+					capital_scope = {
+						TECH_CASTLE_CONSTRUCTION = 5
+						TECH_CITY_CONSTRUCTION = 5
+						TECH_FORTIFICATIONS_CONSTRUCTION = 5
+						TECH_TRADE_PRACTICES = 5
+						TECH_CONSTRUCTION = 5
+						TECH_NAVAL = 5
+					}
+				}
+			}
+			set_variable = { which = research_difficulty value = 35 }
+		}
+		else_if = {
+			limit = {
+				liege = {
+					capital_scope = {
+						TECH_CASTLE_CONSTRUCTION = 4
+						TECH_CITY_CONSTRUCTION = 4
+						TECH_FORTIFICATIONS_CONSTRUCTION = 4
+						TECH_TRADE_PRACTICES = 4
+						TECH_CONSTRUCTION = 4
+						TECH_NAVAL = 4
+					}
+				}
+			}
+			set_variable = { which = research_difficulty value = 30 }
+		}
+		else_if = {
+			limit = {
+				liege = {
+					capital_scope = {
+						TECH_CASTLE_CONSTRUCTION = 3
+						TECH_CITY_CONSTRUCTION = 3
+						TECH_FORTIFICATIONS_CONSTRUCTION = 3
+						TECH_TRADE_PRACTICES = 3
+						TECH_CONSTRUCTION = 3
+						TECH_NAVAL = 3
+					}
+				}
+			}
+			set_variable = { which = research_difficulty value = 25 }
+		}
+		else_if = {
+			limit = {
+				liege = {
+					capital_scope = {
+						TECH_CASTLE_CONSTRUCTION = 2
+						TECH_CITY_CONSTRUCTION = 2
+						TECH_FORTIFICATIONS_CONSTRUCTION = 2
+						TECH_TRADE_PRACTICES = 2
+						TECH_CONSTRUCTION = 2
+						TECH_NAVAL = 2
+					}
+				}
+			}
+			set_variable = { which = research_difficulty value = 20 }
+		}
+		else_if = {
+			limit = {
+				liege = {
+					capital_scope = {
+						TECH_CASTLE_CONSTRUCTION = 1
+						TECH_CITY_CONSTRUCTION = 1
+						TECH_FORTIFICATIONS_CONSTRUCTION = 1
+						TECH_TRADE_PRACTICES = 1
+						TECH_CONSTRUCTION = 1
+						TECH_NAVAL = 1
+					}
+				}
+			}
+			set_variable = { which = research_difficulty value = 15 }
+		}
+		else = { set_variable = { which = research_difficulty value = 10 } }
+		liege = { letter_event = { id = lifestyle.11411 } }
+		log = "[Root.GetBestName] asked [Root.Liege.GetBestName] for a social research grant."
+		ai_chance = {
+			factor = 33
+			modifier = {
+				factor = 3
+				has_education_stewardship_trigger = yes
+			}
+			modifier = {
+				factor = 2
+				trait = extraverted
+			}
+			modifier = {
+				factor = 0.5
+				trait = introverted
+			}
+		}
+	}
+	# Physical
+	option = {
+		name = "EVTOPTCLIFESTYLE10911"
+		# Calculate research difficulty
+		if = {
+			limit = {
+				liege = {
+					capital_scope = {
+						TECH_NOBLE_CUSTOMS = 7
+						TECH_POPULAR_CUSTOMS = 7
+						TECH_RELIGIOUS_CUSTOMS = 7
+						TECH_MAJESTY = 7
+						TECH_CULTURE_FLEX = 7
+						TECH_LEGALISM = 7
+					}
+				}
+			}
+			set_variable = { which = research_difficulty value = 45 }
+		}
+		else_if = {
+			limit = {
+				liege = {
+					capital_scope = {
+						TECH_NOBLE_CUSTOMS = 6
+						TECH_POPULAR_CUSTOMS = 6
+						TECH_RELIGIOUS_CUSTOMS = 6
+						TECH_MAJESTY = 6
+						TECH_CULTURE_FLEX = 6
+						TECH_LEGALISM = 6
+					}
+				}
+			}
+			set_variable = { which = research_difficulty value = 40 }
+		}
+		else_if = {
+			limit = {
+				liege = {
+					capital_scope = {
+						TECH_NOBLE_CUSTOMS = 5
+						TECH_POPULAR_CUSTOMS = 5
+						TECH_RELIGIOUS_CUSTOMS = 5
+						TECH_MAJESTY = 5
+						TECH_CULTURE_FLEX = 5
+						TECH_LEGALISM = 5
+					}
+				}
+			}
+			set_variable = { which = research_difficulty value = 35 }
+		}
+		else_if = {
+			limit = {
+				liege = {
+					capital_scope = {
+						TECH_NOBLE_CUSTOMS = 4
+						TECH_POPULAR_CUSTOMS = 4
+						TECH_RELIGIOUS_CUSTOMS = 4
+						TECH_MAJESTY = 4
+						TECH_CULTURE_FLEX = 4
+						TECH_LEGALISM = 4
+					}
+				}
+			}
+			set_variable = { which = research_difficulty value = 30 }
+		}
+		else_if = {
+			limit = {
+				liege = {
+					capital_scope = {
+						TECH_NOBLE_CUSTOMS = 3
+						TECH_POPULAR_CUSTOMS = 3
+						TECH_RELIGIOUS_CUSTOMS = 3
+						TECH_MAJESTY = 3
+						TECH_CULTURE_FLEX = 3
+						TECH_LEGALISM = 3
+					}
+				}
+			}
+			set_variable = { which = research_difficulty value = 25 }
+		}
+		else_if = {
+			limit = {
+				liege = {
+					capital_scope = {
+						TECH_NOBLE_CUSTOMS = 2
+						TECH_POPULAR_CUSTOMS = 2
+						TECH_RELIGIOUS_CUSTOMS = 2
+						TECH_MAJESTY = 2
+						TECH_CULTURE_FLEX = 2
+						TECH_LEGALISM = 2
+					}
+				}
+			}
+			set_variable = { which = research_difficulty value = 20 }
+		}
+		else_if = {
+			limit = {
+				liege = {
+					capital_scope = {
+						TECH_NOBLE_CUSTOMS = 1
+						TECH_POPULAR_CUSTOMS = 1
+						TECH_RELIGIOUS_CUSTOMS = 1
+						TECH_MAJESTY = 1
+						TECH_CULTURE_FLEX = 1
+						TECH_LEGALISM = 1
+					}
+				}
+			}
+			set_variable = { which = research_difficulty value = 15 }
+		}
+		else = { set_variable = { which = research_difficulty value = 10 } }
+		liege = { letter_event = { id = lifestyle.11611 } }
+		log = "[Root.GetBestName] asked [Root.Liege.GetBestName] for a physical research grant."
+		ai_chance = {
+			factor = 33
+			modifier = {
+				factor = 3
+				has_education_learning_trigger = yes
+			}
+			modifier = {
+				factor = 2
+				trait = open_minded
+			}
+			modifier = {
+				factor = 0.5
+				trait = close_minded
+			}
+		}
+	}
+	# Nevermind
+	option = {
+		name = "EVTOPTNEVERMIND"
+		clr_character_flag = flag_starting_research_project
+		clr_character_flag = flag_research_project_liege
+		ai_chance = { factor = 0 }
+	}
+}
+
+# A scientist asks you for a military research grant
+letter_event = {
+	id = lifestyle.11111
+	desc = "EVTDESCLIFESTYLE11111"
+	is_triggered_only = yes
+	
+	immediate = {
+		opinion = { who = FROM modifier = opinion_very_recent_request }
+		FROM = {
+			set_variable = { which = global_grant_cost which = research_difficulty }
+			multiply_variable = { which = global_grant_cost value = -10 }
+		}
+		export_to_variable = { which = funds value = wealth } # For AI purposes
+	}
+	
+	# Approve
+	option = {
+		name = "EVTOPTAPPROVE"
+		wealth = global_grant_cost
+		tooltip = { FROM = { add_character_modifier = { name = military_research_project duration = -1 } } }
+		FROM = {
+			letter_event = { id = lifestyle.11211 }
+			opinion = { who = ROOT modifier = opinion_approved_grant }
+		}
+		ai_chance = {
+			factor = 75
+			modifier = {
+				factor = 0
+				NOT = { check_variable = { which = funds which = global_grant_cost } }
+			}
+			modifier = {
+				factor = 5
+				war = yes
+			}
+			modifier = {
+				factor = 4
+				has_education_martial_trigger = yes
+			}
+			modifier = {
+				factor = 0.2
+				OR = {
+					has_ambition = obj_amass_wealth
+					has_ambition = obj_amass_wealth_2
+					has_ambition = obj_amass_wealth_3
+					has_ambition = obj_amass_wealth_4
+					has_ambition = obj_build_a_war_chest
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = open_minded
+			}
+			modifier = {
+				factor = 0.5
+				trait = close_minded
+			}
+			modifier = {
+				factor = 2
+				trait = cold
+			}
+			modifier = {
+				factor = 0.5
+				trait = friendly
+			}
+		}
+	}
+	# Refuse
+	option = {
+		name = "EVTOPTREFUSE"
+		FROM = {
+			letter_event = { id = lifestyle.11311 }
+			opinion = { who = ROOT modifier = opinion_refused_grant }
+		}
+		ai_chance = { factor = 25 }
+	}
+}
+
+# Your military research grant has been approved
+letter_event = {
+	id = lifestyle.11211
+	desc = "EVTDESCLIFESTYLE11211"
+	is_triggered_only = yes
+	
+	immediate = {
+		set_variable = { which = research_grant which = research_difficulty }
+		multiply_variable = { which = research_grant value = 10 }
+	}
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		wealth = research_grant
+		set_variable = { which = research_progress value = 0 }
+		add_character_modifier = { name = military_research_project duration = -1 }
+		clr_character_flag = flag_starting_research_project
+		log = "[Root.GetBestName] received a military research grant from [Root.Liege.GetBestName]."
+	}
+}
+
+# Your research grant has not been approved
+letter_event = {
+	id = lifestyle.11311
+	desc = "EVTDESCLIFESTYLE11311"
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		clr_character_flag = flag_research_project_liege
+		clr_character_flag = flag_starting_research_project
+	}
+}
+
+# A scientists ask you for a social research grant
+letter_event = {
+	id = lifestyle.11411
+	desc = "EVTDESCLIFESTYLE11411"
+	is_triggered_only = yes
+	
+	immediate = {
+		opinion = { who = FROM modifier = opinion_very_recent_request }
+		FROM = {
+			set_variable = { which = global_grant_cost which = research_difficulty }
+			multiply_variable = { which = global_grant_cost value = -10 }
+		}
+		export_to_variable = { which = funds value = wealth } # For AI purposes
+	}
+	
+	# Approve
+	option = {
+		name = "EVTOPTAPPROVE"
+		wealth = global_grant_cost
+		tooltip = { FROM = { add_character_modifier = { name = social_research_project duration = -1 } } }
+		FROM = {
+			letter_event = { id = lifestyle.11511 }
+			opinion = { who = ROOT modifier = opinion_approved_grant }
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0
+				NOT = { check_variable = { which = funds which = global_grant_cost } }
+			}
+			modifier = {
+				factor = 0.2
+				war = yes
+			}
+			modifier = {
+				factor = 4
+				has_education_stewardship_trigger = yes
+			}
+			modifier = {
+				factor = 2
+				trait = open_minded
+			}
+			modifier = {
+				factor = 0.5
+				trait = close_minded
+			}
+		}
+	}
+	# Refuse
+	option = {
+		name = "EVTOPTREFUSE"
+		FROM = {
+			letter_event = { id = lifestyle.11311 }
+			opinion = { who = ROOT modifier = opinion_refused_grant }
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+
+# Your social research grant has been approved
+letter_event = {
+	id = lifestyle.11511
+	desc = "EVTDESCLIFESTYLE11211"
+	is_triggered_only = yes
+	
+	immediate = {
+		set_variable = { which = research_grant which = research_difficulty }
+		multiply_variable = { which = research_grant value = 10 }
+	}
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		wealth = research_grant
+		set_variable = { which = research_progress value = 0 }
+		add_character_modifier = { name = social_research_project duration = -1 }
+		clr_character_flag = flag_starting_research_project
+		log = "[Root.GetBestName] received a social research grant from [Root.Liege.GetBestName]."
+	}
+}
+
+# A scientists ask you for a physical research grant
+letter_event = {
+	id = lifestyle.11611
+	desc = "EVTDESCLIFESTYLE11611"
+	is_triggered_only = yes
+	
+	immediate = {
+		opinion = { who = FROM modifier = opinion_very_recent_request }
+		FROM = {
+			set_variable = { which = global_grant_cost which = research_difficulty }
+			multiply_variable = { which = global_grant_cost value = -10 }
+		}
+		export_to_variable = { which = funds value = wealth } # For AI purposes
+	}
+	
+	# Approve
+	option = {
+		name = "EVTOPTAPPROVE"
+		wealth = global_grant_cost
+		tooltip = { FROM = { add_character_modifier = { name = physical_research_project duration = -1 } } }
+		FROM = {
+			letter_event = { id = lifestyle.11711 }
+			opinion = { who = ROOT modifier = opinion_approved_grant }
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0
+				NOT = { check_variable = { which = funds which = global_grant_cost } }
+			}
+			modifier = {
+				factor = 0.2
+				war = yes
+			}
+			modifier = {
+				factor = 4
+				has_education_learning_trigger = yes
+			}
+			modifier = {
+				factor = 0.2
+				OR = {
+					has_ambition = obj_amass_wealth
+					has_ambition = obj_amass_wealth_2
+					has_ambition = obj_amass_wealth_3
+					has_ambition = obj_amass_wealth_4
+					has_ambition = obj_build_a_war_chest
+				}
+			}
+			modifier = {
+				factor = 4
+				trait = open_minded
+			}
+			modifier = {
+				factor = 0.25
+				trait = close_minded
+			}
+		}
+	}
+	# Refuse
+	option = {
+		name = "EVTOPTREFUSE"
+		FROM = {
+			letter_event = { id = lifestyle.11311 }
+			opinion = { who = ROOT modifier = opinion_refused_grant }
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+
+# Your physical research grant has been approved
+letter_event = {
+	id = lifestyle.11711
+	desc = "EVTDESCLIFESTYLE11211"
+	is_triggered_only = yes
+	
+	immediate = {
+		set_variable = { which = research_grant which = research_difficulty }
+		multiply_variable = { which = research_grant value = 10 }
+	}
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		wealth = research_grant
+		set_variable = { which = research_progress value = 0 }
+		add_character_modifier = { name = physical_research_project duration = -1 }
+		clr_character_flag = flag_starting_research_project
+		log = "[Root.GetBestName] received a physical research grant from [Root.Liege.GetBestName]."
+	}
+}
+
+# Your project is over because you no longer have a demesne
+character_event = {
+	id = lifestyle.10011
+	desc = "EVTDESCLIFESTYLE10011"
+	
+	trigger = {
+		has_character_flag = flag_research_project_self
+		is_landed = no
+	}
+	
+	option = {
+		name = "EVTOPTALIFESTYLE10011"
+		clr_character_flag = flag_research_project_self
+		remove_character_modifier = military_research_project
+		remove_character_modifier = social_research_project
+		remove_character_modifier = physical_research_project
+	}
+}
+
+# Your project is now for your own benefit
+character_event = {
+	id = lifestyle.10111
+	desc = "EVTDESCLIFESTYLE10111"
+	picture = GFX_evt_laboratory
+	
+	trigger = {
+		has_character_flag = flag_research_project_liege
+		liege = { character = ROOT }
+	}
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		clr_character_flag = flag_research_project_liege
+		set_character_flag = flag_research_project_self
+	}
+}
+
+# A scientist working for you has made progress
+character_event = {
+	id = lifestyle.10211
+	desc = "EVTDESCLIFESTYLE10211"
+	notification = yes
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+
+# You have made progress on your research project
+character_event = {
+	id = lifestyle.10311
+	desc = "EVTDESCLIFESTYLE10311"
+	notification = yes
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+
+# Your research project is complete
+character_event = {
+	id = lifestyle.10411
+	desc = "EVTDESCLIFESTYLE10411"
+	picture = GFX_evt_laboratory
+	border = GFX_event_normal_frame_religion
+	
+	prisoner = no
+	
+	trigger = {
+		has_character_flag = flag_research_project_self
+		check_variable = { which = research_progress which = research_difficulty }
+	}
+	
+	mean_time_to_happen = { months = 0 }
+	
+	immediate = {
+		set_variable = { which = research_reward which = research_progress }
+		multiply_variable = { which = research_reward value = 10 }
+		log = "[Root.GetBestName] completed a research project."
+	}
+	
+	option = {
+		name = "EVTOPTALIFESTYLE10411"
+		clr_character_flag = flag_research_project_self
+		prestige = research_reward
+		if = {
+			limit = { has_character_modifier = military_research_project }
+			remove_character_modifier = military_research_project
+			military_techpoints = research_reward
+		}
+		if = {
+			limit = { has_character_modifier = social_research_project }
+			remove_character_modifier = social_research_project
+			economy_techpoints = research_reward
+		}
+		if = {
+			limit = { has_character_modifier = physical_research_project }
+			remove_character_modifier = physical_research_project
+			culture_techpoints = research_reward
+		}
+	}
+}
+
+# You have completed a research project for your liege
+character_event = {
+	id = lifestyle.10511
+	desc = "EVTDESCLIFESTYLE10511"
+	picture = gfX_evt_laboratory
+	border = GFX_event_normal_frame_religion
+	
+	prisoner = no
+	
+	trigger = {
+		has_character_flag = flag_research_project_liege
+		check_variable = { which = research_progress which = research_difficulty }
+	}
+	
+	mean_time_to_happen = { months = 0 }
+	
+	immediate = {
+		set_variable = { which = research_reward which = research_progress }
+		multiply_variable = { which = research_reward value = 10 }
+		log = "[Root.GetBestName] completed a research project for [Root.Liege.GetBestName]."
+	}
+	
+	option = {
+		name = "EVTOPTALIFESTYLE10411"
+		clr_character_flag = flag_research_project_liege
+		prestige = research_reward
+		liege = { opinion = { who = ROOT modifier = opinion_produced_results } }
+		if = {
+			limit = { has_character_modifier = military_research_project }
+			remove_character_modifier = military_research_project
+			liege = {
+				tooltip = { military_techpoints = research_reward }
+				hidden_tooltip = { character_event = { id = lifestyle.10611 } }
+			}
+		}
+		if = {
+			limit = { has_character_modifier = social_research_project }
+			remove_character_modifier = social_research_project
+			liege = {
+				tooltip = { economy_techpoints = research_reward }
+				hidden_tooltip = { character_event = { id = lifestyle.10711 } }
+			}
+		}
+		if = {
+			limit = { has_character_modifier = physical_research_project }
+			remove_character_modifier = physical_research_project
+			liege = {
+				tooltip = { culture_techpoints = research_reward }
+				hidden_tooltip = { character_event = { id = lifestyle.10811 } }
+			}
+		}
+	}
+}
+
+# Your scientist has completed a research project for you
+character_event = {
+	id = lifestyle.10611
+	desc = "EVTDESCLIFESTYLE10611"
+	picture = GFX_evt_laboratory
+	border = GFX_event_normal_frame_religion
+	is_triggered_only = yes
+	
+	immediate = {
+		FROM = {
+			set_variable = { which = global_research_reward which = research_difficulty }
+			multiply_variable = { which = global_research_reward value = 10 }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTALIFESTYLE10611"
+		military_techpoints = global_research_reward
+	}
+}
+character_event = {
+	id = lifestyle.10711
+	desc = "EVTDESCLIFESTYLE10611"
+	picture = GFX_evt_laboratory
+	border = GFX_event_normal_frame_religion
+	is_triggered_only = yes
+	
+	immediate = {
+		FROM = {
+			set_variable = { which = global_research_reward which = research_difficulty }
+			multiply_variable = { which = global_research_reward value = 10 }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTALIFESTYLE10611"
+		economy_techpoints = global_research_reward
+	}
+}
+character_event = {
+	id = lifestyle.10811
+	desc = "EVTDESCLIFESTYLE10611"
+	picture = GFX_evt_laboratory
+	border = GFX_event_normal_frame_religion
+	is_triggered_only = yes
+	
+	immediate = {
+		FROM = {
+			set_variable = { which = global_research_reward which = research_difficulty }
+			multiply_variable = { which = global_research_reward value = 10 }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTALIFESTYLE10611"
+		culture_techpoints = global_research_reward
+	}
+}
+
+# Minor breakthrough
+character_event = {
+	id = lifestyle.1011
+	desc = "EVTDESCLIFESTYLE1011"
+	picture = GFX_evt_laboratory
+	border = GFX_event_normal_frame_religion
+	is_triggered_only = yes
+	
+	trigger = {
+		OR = {
+			has_character_flag = flag_research_project_liege
+			has_character_flag = flag_research_project_self
+		}
+	}
+	
+	weight_multiplier = { factor = 1 }
+	
+	immediate = {
+		export_to_variable = { which = funds value = wealth }
+		set_variable = { which = research_cost which = research_difficulty }
+		multiply_variable = { which = research_cost value = -1 }
+	}
+	
+	# Just take the progress
+	option = {
+		name = "EVTOPTALIFESTYLE1011"
+		change_variable = { which = research_progress value = 1 }
+		hidden_tooltip = {
+			character_event = { id = lifestyle.10311 }
+			if = {
+				limit = { has_character_flag = flag_research_project_liege }
+				liege = { character_event = { id = lifestyle.10411 } }
+			}
+		}
+		ai_chance = { factor = 10 }
+	}
+	
+	# Spend money on follow-up research
+	option = {
+		trigger = { check_variable = { which = funds which = research_difficulty } }
+		name = "EVTOPTBLIFESTYLE1011"
+		wealth = research_cost
+		random_list = {
+			40 = {
+				tooltip = { change_variable = { which = research_progress value = 1 } }
+				hidden_tooltip = { character_event = { id = lifestyle.1111 days = 30 random = 60 } }
+			}
+			20 = {
+				tooltip = { change_variable = { which = research_progress value = 2 } }
+				hidden_tooltip = { character_event = { id = lifestyle.1211 days = 30 random = 60 } }
+			}
+			10 = {
+				tooltip = { change_variable = { which = research_progress value = 3 } }
+				hidden_tooltip = { character_event = { id = lifestyle.1311 days = 30 random = 60 } }
+			}
+		}
+		ai_chance = { factor = 50 }
+	}
+	
+	# Work harder
+	option = {
+		trigger = { NOT = { trait = stressed } }
+		name = "EVTOPTCLIFESTYLE1011"
+		random = {
+			chance = 30
+			degrade_mood_effect = yes
+		}
+		random_list = {
+			40 = {
+				tooltip = { change_variable = { which = research_progress value = 1 } }
+				hidden_tooltip = { character_event = { id = lifestyle.1111 days = 30 random = 60 } }
+			}
+			20 = {
+				tooltip = { change_variable = { which = research_progress value = 2 } }
+				hidden_tooltip = { character_event = { id = lifestyle.1211 days = 30 random = 60 } }
+			}
+			10 = {
+				tooltip = { change_variable = { which = research_progress value = 3 } }
+				hidden_tooltip = { character_event = { id = lifestyle.1311 days = 30 random = 60 } }
+			}
+		}
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 2
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.5
+				trait = carefree
+			}
+		}
+	}
+	
+	# Work harder AND spend money
+	option = {
+		trigger = {
+			check_variable = { which = funds which = research_difficulty }
+			NOT = { trait = stressed }
+		}
+		name = "EVTOPTDLIFESTYLE1011"
+		wealth = research_cost
+		random = {
+			chance = 30
+			degrade_mood_effect = yes
+		}
+		random_list = {
+			20 = {
+				tooltip = { change_variable = { which = research_progress value = 1 } }
+				hidden_tooltip = { character_event = { id = lifestyle.1111 days = 30 random = 60 } }
+			}
+			20 = {
+				tooltip = { change_variable = { which = research_progress value = 2 } }
+				hidden_tooltip = { character_event = { id = lifestyle.1211 days = 30 random = 60 } }
+			}
+			20 = {
+				tooltip = { change_variable = { which = research_progress value = 3 } }
+				hidden_tooltip = { character_event = { id = lifestyle.1311 days = 30 random = 60 } }
+			}
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.5
+				trait = carefree
+			}
+		}
+	}
+}
+
+# Your extra research did not pay off
+character_event = {
+	id = lifestyle.1111
+	desc = "EVTDESCLIFESTYLE1111"
+	picture = GFX_evt_laboratory
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTALIFESTYLE1111"
+		change_variable = { which = research_progress value = 1 }
+		hidden_tooltip = {
+			character_event = { id = lifestyle.10311 }
+			if = {
+				limit = { has_character_flag = flag_research_project_liege }
+				liege = { character_event = { id = lifestyle.10411 } }
+			}
+		}
+	}
+}
+
+# Your extra research paid off slightly
+character_event = {
+	id = lifestyle.1211
+	desc = "EVTDESCLIFESTYLE1211"
+	picture = GFX_evt_laboratory
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTALIFESTYLE1211"
+		change_variable = { which = research_progress value = 2 }
+		hidden_tooltip = {
+			character_event = { id = lifestyle.10311 }
+			if = {
+				limit = { has_character_flag = flag_research_project_liege }
+				liege = { character_event = { id = lifestyle.10411 } }
+			}
+		}
+	}
+}
+
+# Your extra research paid off significantly
+character_event = {
+	id = lifestyle.1311
+	desc = "EVTDESCLIFESTYLE1311"
+	picture = GFX_evt_laboratory
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTALIFESTYLE1311"
+		change_variable = { which = research_progress value = 3 }
+		hidden_tooltip = {
+			character_event = { id = lifestyle.10311 }
+			if = {
+				limit = { has_character_flag = flag_research_project_liege }
+				liege = { character_event = { id = lifestyle.10411 } }
+			}
+		}
+	}
+}
+
+# Moderate breakthrough
+character_event = {
+	id = lifestyle.1411
+	desc = "EVTDESCLIFESTYLE1411"
+	picture = GFX_evt_laboratory
+	border = GFX_event_normal_frame_religion
+	is_triggered_only = yes
+	
+	trigger = {
+		OR = {
+			has_character_flag = flag_research_project_liege
+			has_character_flag = flag_research_project_self
+		}
+	}
+	
+	weight_multiplier = {
+		factor = 1
+		modifier = {
+			factor = 1.1
+			learning = 1
+		}
+		modifier = {
+			factor = 1.1
+			learning = 2
+		}
+		modifier = {
+			factor = 1.1
+			learning = 3
+		}
+		modifier = {
+			factor = 1.1
+			learning = 4
+		}
+		modifier = {
+			factor = 1.1
+			learning = 5
+		}
+		modifier = {
+			factor = 1.1
+			learning = 6
+		}
+		modifier = {
+			factor = 1.1
+			learning = 7
+		}
+		modifier = {
+			factor = 1.1
+			learning = 8
+		}
+		modifier = {
+			factor = 1.1
+			learning = 9
+		}
+		modifier = {
+			factor = 1.1
+			learning = 10
+		}
+		modifier = {
+			factor = 1.1
+			learning = 11
+		}
+		modifier = {
+			factor = 1.1
+			learning = 12
+		}
+		modifier = {
+			factor = 1.1
+			learning = 13
+		}
+		modifier = {
+			factor = 1.1
+			learning = 14
+		}
+		modifier = {
+			factor = 1.1
+			learning = 15
+		}
+		modifier = {
+			factor = 1.1
+			learning = 16
+		}
+		modifier = {
+			factor = 1.1
+			learning = 17
+		}
+		modifier = {
+			factor = 1.1
+			learning = 18
+		}
+		modifier = {
+			factor = 1.1
+			learning = 19
+		}
+		modifier = {
+			factor = 1.1
+			learning = 20
+		}
+		modifier = {
+			factor = 1.1
+			learning = 21
+		}
+		modifier = {
+			factor = 1.1
+			learning = 22
+		}
+		modifier = {
+			factor = 1.1
+			learning = 23
+		}
+		modifier = {
+			factor = 1.1
+			learning = 24
+		}
+		modifier = {
+			factor = 1.1
+			learning = 25
+		}
+		modifier = {
+			factor = 1.05
+			learning = 26
+		}
+		modifier = {
+			factor = 1.05
+			learning = 27
+		}
+		modifier = {
+			factor = 1.05
+			learning = 28
+		}
+		modifier = {
+			factor = 1.05
+			learning = 29
+		}
+		modifier = {
+			factor = 1.05
+			learning = 30
+		}
+		modifier = {
+			factor = 1.05
+			learning = 31
+		}
+		modifier = {
+			factor = 1.05
+			learning = 32
+		}
+		modifier = {
+			factor = 1.05
+			learning = 33
+		}
+		modifier = {
+			factor = 1.05
+			learning = 34
+		}
+		modifier = {
+			factor = 1.05
+			learning = 35
+		}
+		modifier = {
+			factor = 1.05
+			learning = 36
+		}
+		modifier = {
+			factor = 1.05
+			learning = 37
+		}
+		modifier = {
+			factor = 1.05
+			learning = 38
+		}
+		modifier = {
+			factor = 1.05
+			learning = 39
+		}
+		modifier = {
+			factor = 1.05
+			learning = 40
+		}
+		modifier = {
+			factor = 1.05
+			learning = 41
+		}
+		modifier = {
+			factor = 1.05
+			learning = 42
+		}
+		modifier = {
+			factor = 1.05
+			learning = 43
+		}
+		modifier = {
+			factor = 1.05
+			learning = 44
+		}
+		modifier = {
+			factor = 1.05
+			learning = 45
+		}
+		modifier = {
+			factor = 1.05
+			learning = 46
+		}
+		modifier = {
+			factor = 1.05
+			learning = 47
+		}
+		modifier = {
+			factor = 1.05
+			learning = 48
+		}
+		modifier = {
+			factor = 1.05
+			learning = 49
+		}
+		modifier = {
+			factor = 1.05
+			learning = 50
+		}
+	}
+	
+	immediate = {
+		export_to_variable = { which = funds value = wealth }
+		set_variable = { which = research_cost which = research_difficulty }
+		multiply_variable = { which = research_cost value = -1 }
+	}
+	
+	# Just take the progress
+	option = {
+		name = "EVTOPTALIFESTYLE1011"
+		change_variable = { which = research_progress value = 2 }
+		hidden_tooltip = {
+			character_event = { id = lifestyle.10311 }
+			if = {
+				limit = { has_character_flag = flag_research_project_liege }
+				liege = { character_event = { id = lifestyle.10411 } }
+			}
+		}
+		ai_chance = { factor = 10 }
+	}
+	
+	# Spend money on follow-up research
+	option = {
+		trigger = { check_variable = { which = funds which = research_difficulty } }
+		name = "EVTOPTBLIFESTYLE1011"
+		wealth = research_cost
+		random_list = {
+			40 = {
+				tooltip = { change_variable = { which = research_progress value = 2 } }
+				hidden_tooltip = { character_event = { id = lifestyle.1511 days = 30 random = 60 } }
+			}
+			20 = {
+				tooltip = { change_variable = { which = research_progress value = 4 } }
+				hidden_tooltip = { character_event = { id = lifestyle.1611 days = 30 random = 60 } }
+			}
+			10 = {
+				tooltip = { change_variable = { which = research_progress value = 6 } }
+				hidden_tooltip = { character_event = { id = lifestyle.1711 days = 30 random = 60 } }
+			}
+		}
+		ai_chance = { factor = 50 }
+	}
+	
+	# Work harder
+	option = {
+		trigger = { NOT = { trait = stressed } }
+		name = "EVTOPTCLIFESTYLE1011"
+		random = {
+			chance = 30
+			degrade_mood_effect = yes
+		}
+		random_list = {
+			40 = {
+				tooltip = { change_variable = { which = research_progress value = 2 } }
+				hidden_tooltip = { character_event = { id = lifestyle.1511 days = 30 random = 60 } }
+			}
+			20 = {
+				tooltip = { change_variable = { which = research_progress value = 4 } }
+				hidden_tooltip = { character_event = { id = lifestyle.1611 days = 30 random = 60 } }
+			}
+			10 = {
+				tooltip = { change_variable = { which = research_progress value = 6 } }
+				hidden_tooltip = { character_event = { id = lifestyle.1711 days = 30 random = 60 } }
+			}
+		}
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 2
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.5
+				trait = carefree
+			}
+		}
+	}
+	
+	# Work harder AND spend money
+	option = {
+		trigger = {
+			check_variable = { which = funds which = research_difficulty }
+			NOT = { trait = stressed }
+		}
+		name = "EVTOPTDLIFESTYLE1011"
+		wealth = research_cost
+		random = {
+			chance = 30
+			degrade_mood_effect = yes
+		}
+		random_list = {
+			20 = {
+				tooltip = { change_variable = { which = research_progress value = 2 } }
+				hidden_tooltip = { character_event = { id = lifestyle.1511 days = 30 random = 60 } }
+			}
+			20 = {
+				tooltip = { change_variable = { which = research_progress value = 4 } }
+				hidden_tooltip = { character_event = { id = lifestyle.1611 days = 30 random = 60 } }
+			}
+			20 = {
+				tooltip = { change_variable = { which = research_progress value = 6 } }
+				hidden_tooltip = { character_event = { id = lifestyle.1711 days = 30 random = 60 } }
+			}
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.5
+				trait = carefree
+			}
+		}
+	}
+}
+
+# Your extra research did not pay off
+character_event = {
+	id = lifestyle.1511
+	desc = "EVTDESCLIFESTYLE1111"
+	picture = GFX_evt_laboratory
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTALIFESTYLE1111"
+		change_variable = { which = research_progress value = 2 }
+		hidden_tooltip = {
+			character_event = { id = lifestyle.10311 }
+			if = {
+				limit = { has_character_flag = flag_research_project_liege }
+				liege = { character_event = { id = lifestyle.10411 } }
+			}
+		}
+	}
+}
+
+# Your extra research paid off slightly
+character_event = {
+	id = lifestyle.1611
+	desc = "EVTDESCLIFESTYLE1211"
+	picture = GFX_evt_laboratory
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTALIFESTYLE1211"
+		change_variable = { which = research_progress value = 4 }
+		hidden_tooltip = {
+			character_event = { id = lifestyle.10311 }
+			if = {
+				limit = { has_character_flag = flag_research_project_liege }
+				liege = { character_event = { id = lifestyle.10411 } }
+			}
+		}
+	}
+}
+
+# Your extra research paid off significantly
+character_event = {
+	id = lifestyle.1711
+	desc = "EVTDESCLIFESTYLE1311"
+	picture = GFX_evt_laboratory
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTALIFESTYLE1311"
+		change_variable = { which = research_progress value = 6 }
+		hidden_tooltip = {
+			character_event = { id = lifestyle.10311 }
+			if = {
+				limit = { has_character_flag = flag_research_project_liege }
+				liege = { character_event = { id = lifestyle.10411 } }
+			}
+		}
+	}
+}
+
+# Major breakthrough
+character_event = {
+	id = lifestyle.1811
+	desc = "EVTDESCLIFESTYLE1811"
+	picture = GFX_evt_laboratory
+	border = GFX_event_normal_frame_religion
+	is_triggered_only = yes
+	
+	trigger = {
+		OR = {
+			has_character_flag = flag_research_project_liege
+			has_character_flag = flag_research_project_self
+		}
+	}
+	
+	weight_multiplier = {
+		factor = 1
+		modifier = {
+			factor = 1.1
+			learning = 1
+		}
+		modifier = {
+			factor = 1.1
+			learning = 2
+		}
+		modifier = {
+			factor = 1.1
+			learning = 3
+		}
+		modifier = {
+			factor = 1.1
+			learning = 4
+		}
+		modifier = {
+			factor = 1.1
+			learning = 5
+		}
+		modifier = {
+			factor = 1.1
+			learning = 6
+		}
+		modifier = {
+			factor = 1.1
+			learning = 7
+		}
+		modifier = {
+			factor = 1.1
+			learning = 8
+		}
+		modifier = {
+			factor = 1.1
+			learning = 9
+		}
+		modifier = {
+			factor = 1.1
+			learning = 10
+		}
+		modifier = {
+			factor = 1.1
+			learning = 11
+		}
+		modifier = {
+			factor = 1.1
+			learning = 12
+		}
+		modifier = {
+			factor = 1.1
+			learning = 13
+		}
+		modifier = {
+			factor = 1.1
+			learning = 14
+		}
+		modifier = {
+			factor = 1.1
+			learning = 15
+		}
+		modifier = {
+			factor = 1.1
+			learning = 16
+		}
+		modifier = {
+			factor = 1.1
+			learning = 17
+		}
+		modifier = {
+			factor = 1.1
+			learning = 18
+		}
+		modifier = {
+			factor = 1.1
+			learning = 19
+		}
+		modifier = {
+			factor = 1.1
+			learning = 20
+		}
+		modifier = {
+			factor = 1.1
+			learning = 21
+		}
+		modifier = {
+			factor = 1.1
+			learning = 22
+		}
+		modifier = {
+			factor = 1.1
+			learning = 23
+		}
+		modifier = {
+			factor = 1.1
+			learning = 24
+		}
+		modifier = {
+			factor = 1.1
+			learning = 25
+		}
+		modifier = {
+			factor = 1.1
+			learning = 26
+		}
+		modifier = {
+			factor = 1.1
+			learning = 27
+		}
+		modifier = {
+			factor = 1.1
+			learning = 28
+		}
+		modifier = {
+			factor = 1.1
+			learning = 29
+		}
+		modifier = {
+			factor = 1.1
+			learning = 30
+		}
+		modifier = {
+			factor = 1.1
+			learning = 31
+		}
+		modifier = {
+			factor = 1.1
+			learning = 32
+		}
+		modifier = {
+			factor = 1.1
+			learning = 33
+		}
+		modifier = {
+			factor = 1.1
+			learning = 34
+		}
+		modifier = {
+			factor = 1.1
+			learning = 35
+		}
+		modifier = {
+			factor = 1.1
+			learning = 36
+		}
+		modifier = {
+			factor = 1.1
+			learning = 37
+		}
+		modifier = {
+			factor = 1.1
+			learning = 38
+		}
+		modifier = {
+			factor = 1.1
+			learning = 39
+		}
+		modifier = {
+			factor = 1.1
+			learning = 40
+		}
+		modifier = {
+			factor = 1.1
+			learning = 41
+		}
+		modifier = {
+			factor = 1.1
+			learning = 42
+		}
+		modifier = {
+			factor = 1.1
+			learning = 43
+		}
+		modifier = {
+			factor = 1.1
+			learning = 44
+		}
+		modifier = {
+			factor = 1.1
+			learning = 45
+		}
+		modifier = {
+			factor = 1.1
+			learning = 46
+		}
+		modifier = {
+			factor = 1.1
+			learning = 47
+		}
+		modifier = {
+			factor = 1.1
+			learning = 48
+		}
+		modifier = {
+			factor = 1.1
+			learning = 49
+		}
+		modifier = {
+			factor = 1.1
+			learning = 50
+		}
+	}
+	
+	immediate = {
+		export_to_variable = { which = funds value = wealth }
+		set_variable = { which = research_cost which = research_difficulty }
+		multiply_variable = { which = research_cost value = -1 }
+	}
+	
+	# Just take the progress
+	option = {
+		name = "EVTOPTALIFESTYLE1011"
+		change_variable = { which = research_progress value = 3 }
+		hidden_tooltip = {
+			character_event = { id = lifestyle.10311 }
+			if = {
+				limit = { has_character_flag = flag_research_project_liege }
+				liege = { character_event = { id = lifestyle.10411 } }
+			}
+		}
+		ai_chance = { factor = 10 }
+	}
+	
+	# Spend money on follow-up research
+	option = {
+		trigger = { check_variable = { which = funds which = research_difficulty } }
+		name = "EVTOPTBLIFESTYLE1011"
+		wealth = research_cost
+		random_list = {
+			40 = {
+				tooltip = { change_variable = { which = research_progress value = 3 } }
+				hidden_tooltip = { character_event = { id = lifestyle.1911 days = 30 random = 60 } }
+			}
+			20 = {
+				tooltip = { change_variable = { which = research_progress value = 6 } }
+				hidden_tooltip = { character_event = { id = lifestyle.2011 days = 30 random = 60 } }
+			}
+			10 = {
+				tooltip = { change_variable = { which = research_progress value = 9 } }
+				hidden_tooltip = { character_event = { id = lifestyle.2111 days = 30 random = 60 } }
+			}
+		}
+		ai_chance = { factor = 50 }
+	}
+	
+	# Work harder
+	option = {
+		trigger = { NOT = { trait = stressed } }
+		name = "EVTOPTCLIFESTYLE1011"
+		random = {
+			chance = 30
+			degrade_mood_effect = yes
+		}
+		random_list = {
+			40 = {
+				tooltip = { change_variable = { which = research_progress value = 3 } }
+				hidden_tooltip = { character_event = { id = lifestyle.1911 days = 30 random = 60 } }
+			}
+			20 = {
+				tooltip = { change_variable = { which = research_progress value = 6 } }
+				hidden_tooltip = { character_event = { id = lifestyle.2011 days = 30 random = 60 } }
+			}
+			10 = {
+				tooltip = { change_variable = { which = research_progress value = 9 } }
+				hidden_tooltip = { character_event = { id = lifestyle.2111 days = 30 random = 60 } }
+			}
+		}
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 2
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.5
+				trait = carefree
+			}
+		}
+	}
+	
+	# Work harder AND spend money
+	option = {
+		trigger = {
+			check_variable = { which = funds which = research_difficulty }
+			NOT = { trait = stressed }
+		}
+		name = "EVTOPTDLIFESTYLE1011"
+		wealth = research_cost
+		random = {
+			chance = 30
+			degrade_mood_effect = yes
+		}
+		random_list = {
+			20 = {
+				tooltip = { change_variable = { which = research_progress value = 3 } }
+				hidden_tooltip = { character_event = { id = lifestyle.1911 days = 30 random = 60 } }
+			}
+			20 = {
+				tooltip = { change_variable = { which = research_progress value = 6 } }
+				hidden_tooltip = { character_event = { id = lifestyle.2011 days = 30 random = 60 } }
+			}
+			20 = {
+				tooltip = { change_variable = { which = research_progress value = 9 } }
+				hidden_tooltip = { character_event = { id = lifestyle.2111 days = 30 random = 60 } }
+			}
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.5
+				trait = carefree
+			}
+		}
+	}
+}
+
+# Your extra research did not pay off
+character_event = {
+	id = lifestyle.1911
+	desc = "EVTDESCLIFESTYLE1111"
+	picture = GFX_evt_laboratory
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTALIFESTYLE1111"
+		change_variable = { which = research_progress value = 3 }
+		hidden_tooltip = {
+			character_event = { id = lifestyle.10311 }
+			if = {
+				limit = { has_character_flag = flag_research_project_liege }
+				liege = { character_event = { id = lifestyle.10411 } }
+			}
+		}
+	}
+}
+
+# Your extra research paid off slightly
+character_event = {
+	id = lifestyle.2011
+	desc = "EVTDESCLIFESTYLE1211"
+	picture = GFX_evt_laboratory
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTALIFESTYLE1211"
+		change_variable = { which = research_progress value = 6 }
+		hidden_tooltip = {
+			character_event = { id = lifestyle.10311 }
+			if = {
+				limit = { has_character_flag = flag_research_project_liege }
+				liege = { character_event = { id = lifestyle.10411 } }
+			}
+		}
+	}
+}
+
+# Your extra research paid off significantly
+character_event = {
+	id = lifestyle.2111
+	desc = "EVTDESCLIFESTYLE1311"
+	picture = GFX_evt_laboratory
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTALIFESTYLE1311"
+		change_variable = { which = research_progress value = 9 }
+		hidden_tooltip = {
+			character_event = { id = lifestyle.10311 }
+			if = {
+				limit = { has_character_flag = flag_research_project_liege }
+				liege = { character_event = { id = lifestyle.10411 } }
+			}
+		}
+	}
+}
+
+# A fellow intellectual can collaborate on the project with you
+character_event = {
+	id = lifestyle.2211
+	desc = "EVTDESCLIFESTYLE2211"
+	picture = GFX_evt_courtiers_talking
+	border = GFX_event_normal_frame_religion
+	is_triggered_only = yes
+	
+	min_age = 16
+	only_capable = yes
+	
+	trigger = {
+		trait = intellectual
+		location = {
+			any_province_character = {
+				NOT = { character = ROOT }
+				OR = {
+					has_character_flag = flag_research_project_liege
+					has_character_flag = flag_research_project_self
+				}
+			}
+		}
+	}
+	
+	weight_multiplier = {
+		factor = 1
+		modifier = {
+			factor = 1.1
+			learning = 1
+		}
+		modifier = {
+			factor = 1.1
+			learning = 2
+		}
+		modifier = {
+			factor = 1.1
+			learning = 3
+		}
+		modifier = {
+			factor = 1.1
+			learning = 4
+		}
+		modifier = {
+			factor = 1.1
+			learning = 5
+		}
+		modifier = {
+			factor = 1.1
+			learning = 6
+		}
+		modifier = {
+			factor = 1.1
+			learning = 7
+		}
+		modifier = {
+			factor = 1.1
+			learning = 8
+		}
+		modifier = {
+			factor = 1.1
+			learning = 9
+		}
+		modifier = {
+			factor = 1.1
+			learning = 10
+		}
+		modifier = {
+			factor = 1.1
+			learning = 11
+		}
+		modifier = {
+			factor = 1.1
+			learning = 12
+		}
+		modifier = {
+			factor = 1.1
+			learning = 13
+		}
+		modifier = {
+			factor = 1.1
+			learning = 14
+		}
+		modifier = {
+			factor = 1.1
+			learning = 15
+		}
+		modifier = {
+			factor = 1.1
+			learning = 16
+		}
+		modifier = {
+			factor = 1.1
+			learning = 17
+		}
+		modifier = {
+			factor = 1.1
+			learning = 18
+		}
+		modifier = {
+			factor = 1.1
+			learning = 19
+		}
+		modifier = {
+			factor = 1.1
+			learning = 20
+		}
+		modifier = {
+			factor = 1.1
+			learning = 21
+		}
+		modifier = {
+			factor = 1.1
+			learning = 22
+		}
+		modifier = {
+			factor = 1.1
+			learning = 23
+		}
+		modifier = {
+			factor = 1.1
+			learning = 24
+		}
+		modifier = {
+			factor = 1.1
+			learning = 25
+		}
+		modifier = {
+			factor = 1.1
+			learning = 26
+		}
+		modifier = {
+			factor = 1.1
+			learning = 27
+		}
+		modifier = {
+			factor = 1.1
+			learning = 28
+		}
+		modifier = {
+			factor = 1.1
+			learning = 29
+		}
+		modifier = {
+			factor = 1.1
+			learning = 30
+		}
+		modifier = {
+			factor = 1.1
+			learning = 31
+		}
+		modifier = {
+			factor = 1.1
+			learning = 32
+		}
+		modifier = {
+			factor = 1.1
+			learning = 33
+		}
+		modifier = {
+			factor = 1.1
+			learning = 34
+		}
+		modifier = {
+			factor = 1.1
+			learning = 35
+		}
+		modifier = {
+			factor = 1.1
+			learning = 36
+		}
+		modifier = {
+			factor = 1.1
+			learning = 37
+		}
+		modifier = {
+			factor = 1.1
+			learning = 38
+		}
+		modifier = {
+			factor = 1.1
+			learning = 39
+		}
+		modifier = {
+			factor = 1.1
+			learning = 40
+		}
+		modifier = {
+			factor = 1.1
+			learning = 41
+		}
+		modifier = {
+			factor = 1.1
+			learning = 42
+		}
+		modifier = {
+			factor = 1.1
+			learning = 43
+		}
+		modifier = {
+			factor = 1.1
+			learning = 44
+		}
+		modifier = {
+			factor = 1.1
+			learning = 45
+		}
+		modifier = {
+			factor = 1.1
+			learning = 46
+		}
+		modifier = {
+			factor = 1.1
+			learning = 47
+		}
+		modifier = {
+			factor = 1.1
+			learning = 48
+		}
+		modifier = {
+			factor = 1.1
+			learning = 49
+		}
+		modifier = {
+			factor = 1.1
+			learning = 50
+		}
+	}
+	immediate = {
+		location = {
+			random_province_character = {
+				limit = {
+					NOT = { character = ROOT }
+					OR = {
+						has_character_flag = flag_research_project_liege
+						has_character_flag = flag_research_project_self
+					}
+				}
+				preferred_limit = { reverse_opinion = { who = ROOT value = 75 } }
+				preferred_limit = { reverse_opinion = { who = ROOT value = 50 } }
+				preferred_limit = { reverse_opinion = { who = ROOT value = 25 } }
+				preferred_limit = { reverse_opinion = { who = ROOT value = 0 } }
+				save_event_target_as = assistance_target
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTALIFESTYLE2211"
+		event_target:assistance_target = {
+			opinion = { who = ROOT modifier = opinion_assisted_my_research }
+			hidden_tooltip = { character_event = { id = lifestyle.2311 } }
+		}
+		ai_chance = {
+			factor = 75
+			modifier = {
+				factor = 1.25
+				opinion = { who = event_target:assistance_target value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = event_target:assistance_target value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = event_target:assistance_target value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = event_target:assistance_target value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = event_target:assistance_target value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = event_target:assistance_target value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = event_target:assistance_target value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = event_target:assistance_target value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = event_target:assistance_target value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = event_target:assistance_target value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = event_target:assistance_target value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = event_target:assistance_target value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = event_target:assistance_target value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = event_target:assistance_target value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = event_target:assistance_target value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = event_target:assistance_target value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = event_target:assistance_target value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = event_target:assistance_target value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = event_target:assistance_target value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = event_target:assistance_target value = -99 } }
+			}
+			modifier = {
+				factor = 0.5
+				event_target:assistance_target = { has_character_modifier = military_research_project }
+				trait = friendly
+			}
+			modifier = {
+				factor = 2
+				event_target:assistance_target = { has_character_modifier = military_research_project }
+				trait = cold
+			}
+			modifier = {
+				factor = 2
+				trait = extraverted
+			}
+			modifier = {
+				factor = 0.5
+				trait = introverted
+			}
+			modifier = {
+				factor = 0.25
+				war_with = event_target:assistance_target
+			}
+			modifier = {
+				factor = 0.25
+				war_with = event_target:assistance_target
+				NOT = { trait = open_minded }
+			}
+			modifier = {
+				factor = 0.25
+				war_with = event_target:assistance_target
+				trait = close_minded
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTBLIFESTYLE2211"
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 0
+				event_target:assistance_target = {
+					has_character_flag = flag_research_project_liege
+					liege = { character = ROOT }
+				}
+			}
+		}
+	}
+}
+character_event = {
+	id = lifestyle.2311
+	desc = "EVTDESCLIFESTYLE2311"
+	picture = GFX_evt_courtiers_talking
+	border = GFX_event_normal_frame_religion
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTALIFESTYLE2311"
+		if = {
+			limit = {
+				has_character_modifier = military_research_project
+				FROM = { martial = 20 }
+			}
+			change_variable = { which = research_progress value = 5 }
+		}
+		else_if = {
+			limit = {
+				has_character_modifier = social_research_project
+				FROM = { stewardship = 20 }
+			}
+			change_variable = { which = research_progress value = 5 }
+		}
+		else_if = {
+			limit = {
+				has_character_modifier = physical_research_project
+				FROM = { learning = 20 }
+			}
+			change_variable = { which = research_progress value = 5 }
+		}
+		else = { change_variable = { which = research_progress value = 3 } }
+	}
+}
+
+# A mystic can collaborate on the project with you
+character_event = {
+	id = lifestyle.2411
+	desc = "EVTDESCLIFESTYLE2411"
+	picture = GFX_evt_courtiers_talking
+	border = GFX_event_normal_frame_religion
+	is_triggered_only = yes
+	
+	min_age = 16
+	only_capable = yes
+	
+	trigger = {
+		trait = mystic
+		location = {
+			any_province_character = {
+				NOT = { character = ROOT }
+				OR = {
+					has_character_flag = flag_research_project_liege
+					has_character_flag = flag_research_project_self
+				}
+			}
+		}
+	}
+	
+	weight_multiplier = {
+		factor = 1
+		modifier = {
+			factor = 1.1
+			learning = 1
+		}
+		modifier = {
+			factor = 1.1
+			learning = 2
+		}
+		modifier = {
+			factor = 1.1
+			learning = 3
+		}
+		modifier = {
+			factor = 1.1
+			learning = 4
+		}
+		modifier = {
+			factor = 1.1
+			learning = 5
+		}
+		modifier = {
+			factor = 1.1
+			learning = 6
+		}
+		modifier = {
+			factor = 1.1
+			learning = 7
+		}
+		modifier = {
+			factor = 1.1
+			learning = 8
+		}
+		modifier = {
+			factor = 1.1
+			learning = 9
+		}
+		modifier = {
+			factor = 1.1
+			learning = 10
+		}
+		modifier = {
+			factor = 1.1
+			learning = 11
+		}
+		modifier = {
+			factor = 1.1
+			learning = 12
+		}
+		modifier = {
+			factor = 1.1
+			learning = 13
+		}
+		modifier = {
+			factor = 1.1
+			learning = 14
+		}
+		modifier = {
+			factor = 1.1
+			learning = 15
+		}
+		modifier = {
+			factor = 1.1
+			learning = 16
+		}
+		modifier = {
+			factor = 1.1
+			learning = 17
+		}
+		modifier = {
+			factor = 1.1
+			learning = 18
+		}
+		modifier = {
+			factor = 1.1
+			learning = 19
+		}
+		modifier = {
+			factor = 1.1
+			learning = 20
+		}
+		modifier = {
+			factor = 1.1
+			learning = 21
+		}
+		modifier = {
+			factor = 1.1
+			learning = 22
+		}
+		modifier = {
+			factor = 1.1
+			learning = 23
+		}
+		modifier = {
+			factor = 1.1
+			learning = 24
+		}
+		modifier = {
+			factor = 1.1
+			learning = 25
+		}
+		modifier = {
+			factor = 1.1
+			learning = 26
+		}
+		modifier = {
+			factor = 1.1
+			learning = 27
+		}
+		modifier = {
+			factor = 1.1
+			learning = 28
+		}
+		modifier = {
+			factor = 1.1
+			learning = 29
+		}
+		modifier = {
+			factor = 1.1
+			learning = 30
+		}
+		modifier = {
+			factor = 1.1
+			learning = 31
+		}
+		modifier = {
+			factor = 1.1
+			learning = 32
+		}
+		modifier = {
+			factor = 1.1
+			learning = 33
+		}
+		modifier = {
+			factor = 1.1
+			learning = 34
+		}
+		modifier = {
+			factor = 1.1
+			learning = 35
+		}
+		modifier = {
+			factor = 1.1
+			learning = 36
+		}
+		modifier = {
+			factor = 1.1
+			learning = 37
+		}
+		modifier = {
+			factor = 1.1
+			learning = 38
+		}
+		modifier = {
+			factor = 1.1
+			learning = 39
+		}
+		modifier = {
+			factor = 1.1
+			learning = 40
+		}
+		modifier = {
+			factor = 1.1
+			learning = 41
+		}
+		modifier = {
+			factor = 1.1
+			learning = 42
+		}
+		modifier = {
+			factor = 1.1
+			learning = 43
+		}
+		modifier = {
+			factor = 1.1
+			learning = 44
+		}
+		modifier = {
+			factor = 1.1
+			learning = 45
+		}
+		modifier = {
+			factor = 1.1
+			learning = 46
+		}
+		modifier = {
+			factor = 1.1
+			learning = 47
+		}
+		modifier = {
+			factor = 1.1
+			learning = 48
+		}
+		modifier = {
+			factor = 1.1
+			learning = 49
+		}
+		modifier = {
+			factor = 1.1
+			learning = 50
+		}
+	}
+	immediate = {
+		location = {
+			random_province_character = {
+				limit = {
+					NOT = { character = ROOT }
+					OR = {
+						has_character_flag = flag_research_project_liege
+						has_character_flag = flag_research_project_self
+					}
+				}
+				preferred_limit = { reverse_opinion = { who = ROOT value = 75 } }
+				preferred_limit = { reverse_opinion = { who = ROOT value = 50 } }
+				preferred_limit = { reverse_opinion = { who = ROOT value = 25 } }
+				preferred_limit = { reverse_opinion = { who = ROOT value = 0 } }
+				save_event_target_as = assistance_target
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTALIFESTYLE2211"
+		event_target:assistance_target = { character_event = { id = lifestyle.2511 tooltip = "EVTTOOLTIPLIFESTYLE2511" } }
+		ai_chance = {
+			factor = 75
+			modifier = {
+				factor = 1.25
+				opinion = { who = event_target:assistance_target value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = event_target:assistance_target value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = event_target:assistance_target value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = event_target:assistance_target value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = event_target:assistance_target value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = event_target:assistance_target value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = event_target:assistance_target value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = event_target:assistance_target value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = event_target:assistance_target value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = event_target:assistance_target value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = event_target:assistance_target value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = event_target:assistance_target value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = event_target:assistance_target value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = event_target:assistance_target value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = event_target:assistance_target value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = event_target:assistance_target value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = event_target:assistance_target value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = event_target:assistance_target value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = event_target:assistance_target value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = event_target:assistance_target value = -99 } }
+			}
+			modifier = {
+				factor = 0.5
+				event_target:assistance_target = { has_character_modifier = military_research_project }
+				trait = friendly
+			}
+			modifier = {
+				factor = 2
+				event_target:assistance_target = { has_character_modifier = military_research_project }
+				trait = cold
+			}
+			modifier = {
+				factor = 2
+				trait = extraverted
+			}
+			modifier = {
+				factor = 0.5
+				trait = introverted
+			}
+			modifier = {
+				factor = 0.25
+				war_with = event_target:assistance_target
+			}
+			modifier = {
+				factor = 0.25
+				war_with = event_target:assistance_target
+				NOT = { trait = open_minded }
+			}
+			modifier = {
+				factor = 0.25
+				war_with = event_target:assistance_target
+				trait = close_minded
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTBLIFESTYLE2211"
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 0
+				event_target:assistance_target = {
+					has_character_flag = flag_research_project_liege
+					liege = { character = ROOT }
+				}
+			}
+		}
+	}
+}
+character_event = {
+	id = lifestyle.2511
+	desc = "EVTDESCLIFESTYLE2511"
+	picture = GFX_evt_courtiers_talking
+	border = GFX_event_normal_frame_religion
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTALIFESTYLE2511"
+		FROM = { opinion = { who = ROOT modifier = opinion_accepted_my_assistance } }
+		random_list = {
+			50 = {
+				tooltip = { change_variable = { which = research_progress value = 10 } }
+				hidden_tooltip = { character_event = { id = lifestyle.2611 } }
+			}
+			50 = {
+				change_variable = { which = research_progress value = -5 }
+				hidden_tooltip = { character_event = { id = lifestyle.2811 } }
+			}
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				trait = spiritual
+			}
+			modifier = {
+				factor = 2
+				trait = open_minded
+			}
+			modifier = {
+				factor = 0.5
+				trait = skeptical
+			}
+			modifier = {
+				factor = 0.5
+				trait = close_minded
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 100 }
+				OR = {
+					trait = spiritual
+					trait = open_minded
+					trait = friendly
+				}
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 90 }
+				OR = {
+					trait = spiritual
+					trait = open_minded
+					trait = friendly
+				}
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 80 }
+				OR = {
+					trait = spiritual
+					trait = open_minded
+					trait = friendly
+				}
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 70 }
+				OR = {
+					trait = spiritual
+					trait = open_minded
+					trait = friendly
+				}
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 60 }
+				OR = {
+					trait = spiritual
+					trait = open_minded
+					trait = friendly
+				}
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 50 }
+				OR = {
+					trait = spiritual
+					trait = open_minded
+					trait = friendly
+				}
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 40 }
+				OR = {
+					trait = spiritual
+					trait = open_minded
+					trait = friendly
+				}
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 30 }
+				OR = {
+					trait = spiritual
+					trait = open_minded
+					trait = friendly
+				}
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 20 }
+				OR = {
+					trait = spiritual
+					trait = open_minded
+					trait = friendly
+				}
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 10 }
+				OR = {
+					trait = spiritual
+					trait = open_minded
+					trait = friendly
+				}
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -99 } }
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTBLIFESTYLE2511"
+		FROM = {
+			opinion = { who = ROOT modifier = opinion_refused_my_assistance }
+			hidden_tooltip = { character_event = { id = lifestyle.3011 } }
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+# A surprising success!
+character_event = {
+	id = lifestyle.2611
+	desc = "EVTDESCLIFESTYLE2611"
+	picture = GFX_evt_courtiers_talking
+	border = GFX_event_normal_frame_religion
+	show_from_from = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTALIFESTYLE2611"
+		change_variable = { which = research_progress value = 10 }
+		hidden_tooltip = { FROM = { character_event = { id = lifestyle.2711 } } }
+	}
+}
+character_event = {
+	id = lifestyle.2711
+	desc = "EVTDESCLIFESTYLE2711"
+	picture = GFX_evt_courtiers_talking
+	border = GFX_event_normal_frame_religion
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTALIFESTYLE2711"
+		FROM = { opinion = { who = ROOT modifier = opinion_assisted_my_research } }
+	}
+}
+# An unsurprising failure!
+character_event = {
+	id = lifestyle.2811
+	desc = "EVTDESCLIFESTYLE2811"
+	picture = GFX_evt_courtiers_talking
+	border = GFX_event_normal_frame_religion
+	show_from_from = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTALIFESTYLE2811"
+		change_variable = { which = research_progress value = -3 }
+		hidden_tooltip = { FROM = { character_event = { id = lifestyle.2911 } } }
+	}
+}
+character_event = {
+	id = lifestyle.2911
+	desc = "EVTDESCLIFESTYLE2911"
+	picture = GFX_evt_courtiers_talking
+	border = GFX_event_normal_frame_religion
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTALIFESTYLE2911"
+		FROM = { opinion = { who = ROOT modifier = opinion_ruined_my_research } }
+	}
+}
+# Outright refusal
+character_event = {
+	id = lifestyle.3011
+	desc = "EVTDESCLIFESTYLE3011"
+	picture = GFX_evt_quarrel
+	border = GFX_event_normal_frame_religion
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTALIFESTYLE2911" }
+}
