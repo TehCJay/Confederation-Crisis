@@ -1694,15 +1694,24 @@ character_event = {
 	prisoner = no
 	
 	trigger = {
-		religion = cyberneticist
+		religion_group = transhumanist_group
+		NOT = { religion = bio_directionist	}
 		NOT = { has_global_flag = flag_hiver_implant_invented }
-		capital_scope = { TECH_POPULAR_CUSTOMS = 5 }
-		learning = 20
+		capital_scope = { TECH_POPULAR_CUSTOMS = 4 }
+		learning = 18
 		NOT = { has_character_flag = flag_refused_hiver_implant_invention }
 	}
 	
 	mean_time_to_happen = {
 		months = 480
+		modifier = {
+			factor = 0.8
+			learning = 19
+		}
+		modifier = {
+			factor = 0.8
+			learning = 20
+		}
 		modifier = {
 			factor = 0.8
 			learning = 21
@@ -1745,16 +1754,20 @@ character_event = {
 		}
 		modifier = {
 			factor = 0.5
+			capital_scope = { TECH_POPULAR_CUSTOMS = 5 }
+		}
+		modifier = {
+			factor = 0.5
 			capital_scope = { TECH_POPULAR_CUSTOMS = 6 }
 		}
 		modifier = {
 			factor = 0.5
 			capital_scope = { TECH_POPULAR_CUSTOMS = 7 }
 		}
-		modifier = {
+		modifier = { #delete if nerfing, bring other TECH_POPULAR_CUSTOMS back up 1 level
 			factor = 0.5
 			capital_scope = { TECH_POPULAR_CUSTOMS = 8 }
-		}
+		}		
 	}
 	
 	# Do it, what could possibly go wrong?
