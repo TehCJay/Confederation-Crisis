@@ -1,4 +1,15 @@
-#FROM scope
+# This character is a subordinate of their liege and violating an order is outright illegal
+is_subordinate_trigger = {
+	OR = {
+		AND = {
+			is_landed = yes
+			primary_title = { has_law = succ_appointment }
+		}
+		has_minor_title = title_commander
+		is_councillor = yes
+	}
+}
+
 is_pressurized_trigger = {
 	NOT = { has_building = ca_environment_1 }
 	NOT = { has_building = ct_environment_1 }
