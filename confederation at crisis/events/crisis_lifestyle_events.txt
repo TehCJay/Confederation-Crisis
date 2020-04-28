@@ -6,12 +6,12 @@ character_event = {
 	id = lifestyle.10
 	desc = "EVTDESCLIFESTYLE10"
 	picture = GFX_evt_garden
-	
-	min_age = 12
-	only_capable = yes
-	prisoner = no
+	is_triggered_only = yes
 	
 	trigger = {
+		age = 12
+		NOT = { trait = incapable }
+		prisoner = no
 		NOT = { lifestyle_traits = 1 }
 		
 		# Must be somewhere where gardening is a plausible hobby
@@ -28,18 +28,22 @@ character_event = {
 		in_command = no
 	}
 	
-	mean_time_to_happen = {
-		months = 240
+	weight_multiplier = {
+		factor = 1
 		modifier = {
-			factor = 0.5
-			trait = friendly
+			factor = 10
+			has_ambition = obj_adopt_a_lifestyle
 		}
 		modifier = {
 			factor = 2
-			trait = cold
+			trait = friendly
 		}
 		modifier = {
 			factor = 0.5
+			trait = cold
+		}
+		modifier = {
+			factor = 2
 			has_education_stewardship_trigger = yes
 		}
 	}
@@ -59,40 +63,66 @@ character_event = {
 	id = lifestyle.11
 	desc = "EVTDESCLIFESTYLE11"
 	picture = GFX_evt_library
-	
-	min_age = 12
-	only_capable = yes
-	prisoner = no
+	is_triggered_only = yes
 	
 	trigger = {
+		age = 12
+		NOT = { trait = incapable }
+		prisoner = no
 		NOT = { lifestyle_traits = 1 }
 	}
 	
-	mean_time_to_happen = {
-		months = 240
+	weight_multiplier = {
+		factor = 1
 		modifier = {
-			factor = 0.5
+			factor = 10
+			has_ambition = obj_adopt_a_lifestyle
+		}
+		modifier = {
+			factor = 2
 			has_focus = focus_scholarship
 		}
 		modifier = {
-			factor = 0.5
+			factor = 2
 			trait = open_minded
 		}
 		modifier = {
-			factor = 2
+			factor = 0.5
 			trait = close_minded
 		}
 		modifier = {
-			factor = 0.5
+			factor = 2
 			trait = introverted
 		}
 		modifier = {
-			factor = 2
+			factor = 0.5
 			trait = extraverted
 		}
 		modifier = {
-			factor = 0.5
-			has_education_learning_trigger = yes
+			factor = 2
+			has_education_stewardship_trigger = yes
+		}
+		modifier = {
+			factor = 1.25
+			trait = genius
+		}
+		modifier = {
+			factor = 1.25
+			OR = {
+				trait = genius
+				trait = quick
+			}
+		}
+		modifier = {
+			factor = 0.8
+			OR = {
+				trait = slow
+				trait = imbecile
+			}
+		}
+		modifier = {
+			factor = 0.8
+			trait = imbecile
 		}
 	}
 	
@@ -111,12 +141,12 @@ character_event = {
 	id = lifestyle.12
 	desc = "EVTDESCLIFESTYLE12"
 	picture = GFX_evt_sports
-	
-	min_age = 12
-	only_capable = yes
-	prisoner = no
+	is_triggered_only = yes
 	
 	trigger = {
+		age = 12
+		NOT = { trait = incapable }
+		prisoner = no
 		NOT = { lifestyle_traits = 1 }
 		NOT = { trait = maimed }
 		NOT = { trait = mangled }
@@ -124,31 +154,47 @@ character_event = {
 		NOT = { trait = one_legged }
 	}
 	
-	mean_time_to_happen = {
-		months = 240
+	weight_multiplier = {
+		factor = 1
 		modifier = {
-			factor = 0.5
+			factor = 10
+			has_ambition = obj_adopt_a_lifestyle
+		}
+		modifier = {
+			factor = 2
 			trait = disciplined
 		}
 		modifier = {
-			factor = 2
+			factor = 0.5
 			trait = carefree
 		}
 		modifier = {
-			factor = 0.5
+			factor = 2
 			trait = extraverted
 		}
 		modifier = {
-			factor = 2
+			factor = 0.5
 			trait = introverted
 		}
 		modifier = {
-			factor = 2
+			factor = 0.5
 			trait = craven
 		}
 		modifier = {
-			factor = 0.5
-			has_education_martial_trigger = yes
+			factor = 1.25
+			trait = strong
+		}
+		modifier = {
+			factor = 1.25
+			trait = agile
+		}
+		modifier = {
+			factor = 0.8
+			trait = weak
+		}
+		modifier = {
+			factor = 0.8
+			trait = clumsy
 		}
 	}
 	
@@ -168,19 +214,19 @@ character_event = {
 	id = lifestyle.13
 	desc = "EVTDESCLIFESTYLE13"
 	picture = GFX_evt_hunting_party
-	
-	min_age = 16
-	only_capable = yes
-	prisoner = no
+	is_triggered_only = yes
 	
 	trigger = {
+		age = 16
+		NOT = { trait = incapable }
+		prisoner = no
 		NOT = { lifestyle_traits = 1 }
 		NOT = { trait = maimed }
 		NOT = { trait = mangled }
 		NOT = { trait = one_handed }
 		NOT = { trait = one_legged }
 		
-		# Must be somewhere where hunting is a plausible hobby
+		# Must live somewhere where hunting is a plausible hobby
 		OR = {
 			AND = {
 				is_ruler = yes
@@ -191,29 +237,32 @@ character_event = {
 				liege = { capital_holding = { NOT = { is_pressurized_trigger = yes } } }
 			}
 		}
-		in_command = no
 	}
 	
-	mean_time_to_happen = {
-		months = 240
+	weight_multiplier = {
+		factor = 1
 		modifier = {
-			factor = 0.5
+			factor = 10
+			has_ambition = obj_adopt_a_lifestyle
+		}
+		modifier = {
+			factor = 2
 			trait = cold
 		}
 		modifier = {
-			factor = 2
+			factor = 0.5
 			trait = friendly
 		}
 		modifier = {
-			factor = 0.5
+			factor = 2
 			trait = brave
 		}
 		modifier = {
-			factor = 2
+			factor = 0.5
 			trait = craven
 		}
 		modifier = {
-			factor = 0.5
+			factor = 2
 			has_education_martial_trigger = yes
 		}
 	}
@@ -242,18 +291,19 @@ character_event = {
 	id = lifestyle.14
 	desc = "EVTDESCLIFESTYLE14"
 	picture = GFX_evt_falconer
-	
-	min_age = 12
-	only_capable = yes
-	prisoner = no
+	is_triggered_only = yes
 	
 	trigger = {
+		age = 12
+		NOT = { trait = incapable }
+		prisoner = no
 		NOT = { lifestyle_traits = 1 }
 		OR = {
 			religion = neo_feudal
 			religion = terran_imperial
+			trait = open_minded
 		}
-		# Must be somewhere where falconry is a plausible hobby
+		# Must live somewhere where falconry is a plausible hobby
 		OR = {
 			AND = {
 				is_ruler = yes
@@ -264,18 +314,25 @@ character_event = {
 				liege = { capital_holding = { NOT = { is_pressurized_trigger = yes } } }
 			}
 		}
-		in_command = no
 	}
 	
-	mean_time_to_happen = {
-		months = 240
+	weight_multiplier = {
+		factor = 1
 		modifier = {
-			factor = 0.5
+			factor = 10
+			has_ambition = obj_adopt_a_lifestyle
+		}
+		modifier = {
+			factor = 2
+			OR = {
+				religion = neo_feudal
+				religion = terran_imperial
+			}
 			trait = radical
 		}
 		modifier = {
 			factor = 2
-			trait = pragmatic
+			has_education_diplomacy_trigger = yes
 		}
 	}
 	
@@ -294,21 +351,35 @@ character_event = {
 	id = lifestyle.15
 	desc = "EVTDESCLIFESTYLE15"
 	picture = GFX_evt_library
+	is_triggered_only = yes
 	
-	min_age = 12
-	only_capable = yes
+	trigger = {
+		age = 12
+		NOT = { trait = incapable }
+		NOT = { lifestyle_traits = 1 }
+	}
 	
-	trigger = { NOT = { lifestyle_traits = 1 } }
-	
-	mean_time_to_happen = {
-		months = 240
+	weight_multiplier = {
+		factor = 1
 		modifier = {
-			factor = 0.5
-			trait = open_minded
+			factor = 10
+			has_ambition = obj_adopt_a_lifestyle
 		}
 		modifier = {
 			factor = 2
+			trait = open_minded
+		}
+		modifier = {
+			factor = 0.5
 			trait = close_minded
+		}
+		modifier = {
+			factor = 2
+			trait = introverted
+		}
+		modifier = {
+			factor = 0.5
+			trait = extraverted
 		}
 	}
 	
@@ -327,24 +398,30 @@ character_event = {
 	id = lifestyle.16
 	desc = "EVTDESCLIFESTYLE16"
 	picture = GFX_evt_painting
+	is_triggered_only = yes
 	
-	min_age = 12
-	only_capable = yes
+	trigger = {
+		age = 12
+		NOT = { trait = incapable }
+		NOT = { lifestyle_traits = 1 }
+	}
 	
-	trigger = { NOT = { lifestyle_traits = 1 } }
-	
-	mean_time_to_happen = {
-		months = 240
+	weight_multiplier = {
+		factor = 1
 		modifier = {
-			factor = 0.5
+			factor = 10
+			has_ambition = obj_adopt_a_lifestyle
+		}
+		modifier = {
+			factor = 2
 			trait = open_minded
 		}
 		modifier = {
-			factor = 2
+			factor = 0.5
 			trait = close_minded
 		}
 		modifier = {
-			factor = 2
+			factor = 0.5
 			religion = astrist
 		}
 	}
@@ -364,12 +441,12 @@ character_event = {
 	id = lifestyle.17
 	desc = "EVTDESCLIFESTYLE17"
 	picture = GFX_evt_siege
-	
-	min_age = 16
-	only_capable = yes
-	prisoner = no
+	is_triggered_only = yes
 	
 	trigger = {
+		age = 16
+		NOT = { trait = incapable }
+		prisoner = no
 		NOT = { lifestyle_traits = 1 }
 		NOT = { trait = maimed }
 		NOT = { trait = mangled }
@@ -382,26 +459,30 @@ character_event = {
 		}
 	}
 	
-	mean_time_to_happen = {
-		months = 240
+	weight_multiplier = {
+		factor = 1
 		modifier = {
-			factor = 0.5
+			factor = 10
+			has_ambition = obj_adopt_a_lifestyle = yes
+		}
+		modifier = {
+			factor = 2
 			trait = brave
 		}
 		modifier = {
-			factor = 2
+			factor = 0.25
 			trait = craven
 		}
 		modifier = {
-			factor = 0.5
+			factor = 2
 			trait = cold
 		}
 		modifier = {
-			factor = 2
+			factor = 0.5
 			trait = friendly
 		}
 		modifier = {
-			factor = 0.5
+			factor = 2
 			has_education_martial_trigger = yes
 		}
 	}
@@ -421,33 +502,45 @@ character_event = {
 	id = lifestyle.18
 	desc = "EVTDESCLIFESTYLE18"
 	picture = GFX_evt_library
-	
-	min_age = 12
-	only_capable = yes
-	prisoner = no
+	is_triggered_only = yes
 	
 	trigger = {
+		age = 12
+		NOT = { trait = incapable }
+		prisoner = no
 		NOT = { lifestyle_traits = 1 }
 		NOT = { trait = skeptical }
 	}
 	
-	mean_time_to_happen = {
-		months = 240
+	weight_multiplier = {
+		factor = 1
 		modifier = {
-			factor = 0.5
+			factor = 10
+			has_ambition = obj_adopt_a_lifestyle
+		}
+		modifier = {
+			factor = 4
 			trait = spiritual
 		}
 		modifier = {
 			factor = 2
-			religion_group = transhumanist_group
-			NOT = { religion = machine_cultist }
+			trait = open_minded
 		}
 		modifier = {
 			factor = 0.5
+			trait = close_minded
+		}
+		modifier = {
+			factor = 2
 			OR = {
 				religion_group = religious_group
 				religion = machine_cultist
 			}
+		}
+		modifier = {
+			factor = 0.5
+			religion_group = transhumanist_group
+			NOT = { religion = machine_cultist }
 		}
 	}
 	
@@ -467,16 +560,22 @@ character_event = {
 	id = lifestyle.19
 	desc = "EVTDESCLIFESTYLE19"
 	picture = GFX_evt_library
+	is_triggered_only = yes
 	
-	min_age = 12
-	only_capable = yes
+	trigger = {
+		age = 12
+		NOT = { trait = incapable }
+		NOT = { lifestyle_traits = 1 }
+	}
 	
-	trigger = { NOT = { lifestyle_traits = 1 } }
-	
-	mean_time_to_happen = {
-		months = 240
+	weight_multiplier = {
+		factor = 1
 		modifier = {
-			factor = 0.5
+			factor = 10
+			has_ambition = obj_adopt_a_lifestyle
+		}
+		modifier = {
+			factor = 2
 			trait = introverted
 		}
 		modifier = {
@@ -500,13 +599,13 @@ character_event = {
 character_event = {
 	id = lifestyle.110
 	hide_window = yes
-	
-	min_age = 16
-	only_capable = yes
-	prisoner = no
+	is_triggered_only = yes
 	
 	trigger = {
 		trait = gardener
+		age = 16
+		NOT = { trait = incapable }
+		prisoner = no
 		location = {
 			any_province_character = {
 				NOT = { lifestyle_traits = 1 }
@@ -535,26 +634,26 @@ character_event = {
 		}
 	}
 	
-	mean_time_to_happen = {
-		months = 240
+	weight_multiplier = {
+		factor = 1
 		modifier = {
-			factor = 0.5
+			factor = 2
 			trait = confident
 		}
 		modifier = {
-			factor = 2
+			factor = 0.5
 			trait = neurotic
 		}
 		modifier = {
-			factor = 0.5
+			factor = 2
 			trait = extraverted
 		}
 		modifier = {
-			factor = 2
+			factor = 0.5
 			trait = introverted
 		}
 		modifier = {
-			factor = 0.5
+			factor = 2
 			trait = friendly
 		}
 	}
@@ -718,13 +817,13 @@ character_event = {
 character_event = {
 	id = lifestyle.111
 	hide_window = yes
-	
-	min_age = 16
-	only_capable = yes
-	prisoner = no
+	is_triggered_only = yes
 	
 	trigger = {
 		trait = intellectual
+		age = 16
+		NOT = { trait = incapable }
+		prisoner = no
 		location = {
 			any_province_character = {
 				NOT = { lifestyle_traits = 1 }
@@ -741,26 +840,26 @@ character_event = {
 		}
 	}
 	
-	mean_time_to_happen = {
-		months = 240
+	weight_multiplier = {
+		factor = 1
 		modifier = {
-			factor = 0.5
+			factor = 2
 			trait = confident
 		}
 		modifier = {
-			factor = 2
+			factor = 0.5
 			trait = neurotic
 		}
 		modifier = {
-			factor = 0.5
+			factor = 2
 			trait = extraverted
 		}
 		modifier = {
-			factor = 2
+			factor = 0.5
 			trait = introverted
 		}
 		modifier = {
-			factor = 0.5
+			factor = 2
 			trait = friendly
 		}
 	}
@@ -924,13 +1023,13 @@ character_event = {
 character_event = {
 	id = lifestyle.112
 	hide_window = yes
-	
-	min_age = 16
-	only_capable = yes
-	prisoner = no
+	is_triggered_only = yes
 	
 	trigger = {
 		trait = athlete
+		age = 16
+		NOT = { trait = incapable }
+		prisoner = no
 		location = {
 			any_province_character = {
 				NOT = { lifestyle_traits = 1 }
@@ -951,26 +1050,26 @@ character_event = {
 		}
 	}
 	
-	mean_time_to_happen = {
-		months = 240
+	weight_multiplier = {
+		factor = 1
 		modifier = {
-			factor = 0.5
+			factor = 2
 			trait = confident
 		}
 		modifier = {
-			factor = 2
+			factor = 0.5
 			trait = neurotic
 		}
 		modifier = {
-			factor = 0.5
+			factor = 2
 			trait = extraverted
 		}
 		modifier = {
-			factor = 2
+			factor = 0.5
 			trait = introverted
 		}
 		modifier = {
-			factor = 0.5
+			factor = 2
 			trait = friendly
 		}
 	}
@@ -1137,14 +1236,14 @@ character_event = {
 # Hunter
 character_event = {
 	id = lifestyle.113
-	hide_window = yes
-	
-	min_age = 16
-	only_capable = yes
-	prisoner = no
+	hide_window = 
+	is_triggered_only = yes
 	
 	trigger = {
 		trait = hunter
+		age = 16
+		NOT = { trait = incapable }
+		prisoner = no
 		location = {
 			any_province_character = {
 				NOT = { lifestyle_traits = 1 }
@@ -1177,26 +1276,26 @@ character_event = {
 		}
 	}
 	
-	mean_time_to_happen = {
-		months = 240
+	weight_multiplier = {
+		factor = 1
 		modifier = {
-			factor = 0.5
+			factor = 2
 			trait = confident
 		}
 		modifier = {
-			factor = 2
+			factor = 0.5
 			trait = neurotic
 		}
 		modifier = {
-			factor = 0.5
+			factor = 2
 			trait = extraverted
 		}
 		modifier = {
-			factor = 2
+			factor = 0.5
 			trait = introverted
 		}
 		modifier = {
-			factor = 0.5
+			factor = 2
 			trait = friendly
 		}
 	}
@@ -1372,13 +1471,13 @@ character_event = {
 character_event = {
 	id = lifestyle.114
 	hide_window = yes
-	
-	min_age = 16
-	only_capable = yes
-	prisoner = no
+	is_triggered_only = yes
 	
 	trigger = {
 		trait = falconer
+		age = 16
+		NOT = { trait = incapable }
+		prisoner = no
 		location = {
 			any_province_character = {
 				NOT = { lifestyle_traits = 1 }
@@ -1407,26 +1506,26 @@ character_event = {
 		}
 	}
 	
-	mean_time_to_happen = {
-		months = 240
+	weight_multiplier = {
+		factor = 1
 		modifier = {
-			factor = 0.5
+			factor = 2
 			trait = confident
 		}
 		modifier = {
-			factor = 2
+			factor = 0.5
 			trait = neurotic
 		}
 		modifier = {
-			factor = 0.5
+			factor = 2
 			trait = extraverted
 		}
 		modifier = {
-			factor = 2
+			factor = 0.5
 			trait = introverted
 		}
 		modifier = {
-			factor = 0.5
+			factor = 2
 			trait = friendly
 		}
 	}
@@ -1594,13 +1693,13 @@ character_event = {
 character_event = {
 	id = lifestyle.115
 	hide_window = yes
-	
-	min_age = 16
-	only_capable = yes
-	prisoner = no
+	is_triggered_only = yes
 	
 	trigger = {
 		trait = poet
+		age = 16
+		NOT = { trait = incapable }
+		prisoner = no
 		location = {
 			any_province_character = {
 				NOT = { lifestyle_traits = 1 }
@@ -1616,26 +1715,26 @@ character_event = {
 		}
 	}
 	
-	mean_time_to_happen = {
-		months = 240
+	weight_multiplier = {
+		factor = 1
 		modifier = {
-			factor = 0.5
+			factor = 2
 			trait = confident
 		}
 		modifier = {
-			factor = 2
+			factor = 0.5
 			trait = neurotic
 		}
 		modifier = {
-			factor = 0.5
+			factor = 2
 			trait = extraverted
 		}
 		modifier = {
-			factor = 2
+			factor = 0.5
 			trait = introverted
 		}
 		modifier = {
-			factor = 0.5
+			factor = 2
 			trait = friendly
 		}
 	}
@@ -1782,13 +1881,13 @@ character_event = {
 character_event = {
 	id = lifestyle.116
 	hide_window = yes
-	
-	min_age = 16
-	only_capable = yes
-	prisoner = no
+	is_triggered_only = yes
 	
 	trigger = {
 		trait = artist
+		age = 16
+		NOT = { trait = incapable }
+		prisoner = no
 		location = {
 			any_province_character = {
 				NOT = { lifestyle_traits = 1 }
@@ -1804,26 +1903,26 @@ character_event = {
 		}
 	}
 	
-	mean_time_to_happen = {
-		months = 240
+	weight_multiplier = {
+		factor = 1
 		modifier = {
-			factor = 0.5
+			factor = 2
 			trait = confident
 		}
 		modifier = {
-			factor = 2
+			factor = 0.5
 			trait = neurotic
 		}
 		modifier = {
-			factor = 0.5
+			factor = 2
 			trait = extraverted
 		}
 		modifier = {
-			factor = 2
+			factor = 0.5
 			trait = introverted
 		}
 		modifier = {
-			factor = 0.5
+			factor = 2
 			trait = friendly
 		}
 	}
@@ -1970,13 +2069,13 @@ character_event = {
 character_event = {
 	id = lifestyle.117
 	hide_window = yes
-	
-	min_age = 16
-	only_capable = yes
-	prisoner = no
+	is_triggered_only = yes
 	
 	trigger = {
 		trait = duelist
+		age = 16
+		NOT = { trait = incapable }
+		prisoner = no
 		location = {
 			any_province_character = {
 				NOT = { lifestyle_traits = 1 }
@@ -1997,26 +2096,26 @@ character_event = {
 		}
 	}
 	
-	mean_time_to_happen = {
-		months = 240
+	weight_multiplier = {
+		factor = 1
 		modifier = {
-			factor = 0.5
+			factor = 2
 			trait = confident
 		}
 		modifier = {
-			factor = 2
+			factor = 0.5
 			trait = neurotic
 		}
 		modifier = {
-			factor = 0.5
+			factor = 2
 			trait = extraverted
 		}
 		modifier = {
-			factor = 2
+			factor = 0.5
 			trait = introverted
 		}
 		modifier = {
-			factor = 0.5
+			factor = 2
 			trait = friendly
 		}
 	}
@@ -2180,13 +2279,13 @@ character_event = {
 character_event = {
 	id = lifestyle.118
 	hide_window = yes
-	
-	min_age = 16
-	only_capable = yes
-	prisoner = no
+	is_triggered_only = yes
 	
 	trigger = {
 		trait = mystic
+		age = 16
+		NOT = { trait = incapable }
+		prisoner = no
 		location = {
 			any_province_character = {
 				NOT = { lifestyle_traits = 1 }
@@ -2203,26 +2302,26 @@ character_event = {
 		}
 	}
 	
-	mean_time_to_happen = {
-		months = 240
+	weight_multiplier = {
+		factor = 1
 		modifier = {
-			factor = 0.5
+			factor = 2
 			trait = confident
 		}
 		modifier = {
-			factor = 2
+			factor = 0.5
 			trait = neurotic
 		}
 		modifier = {
-			factor = 0.5
+			factor = 2
 			trait = extraverted
 		}
 		modifier = {
-			factor = 2
+			factor = 0.5
 			trait = introverted
 		}
 		modifier = {
-			factor = 0.5
+			factor = 2
 			trait = friendly
 		}
 	}
@@ -2381,13 +2480,13 @@ character_event = {
 character_event = {
 	id = lifestyle.119
 	hide_window = yes
-	
-	min_age = 16
-	only_capable = yes
-	prisoner = no
+	is_triggered_only = yes
 	
 	trigger = {
 		trait = gamer
+		age = 16
+		NOT = { trait = incapable }
+		prisoner = no
 		location = {
 			any_province_character = {
 				NOT = { lifestyle_traits = 1 }
@@ -2404,26 +2503,26 @@ character_event = {
 		}
 	}
 	
-	mean_time_to_happen = {
-		months = 240
+	weight_multiplier = {
+		factor = 1
 		modifier = {
-			factor = 0.5
+			factor = 2
 			trait = confident
 		}
 		modifier = {
-			factor = 2
+			factor = 0.5
 			trait = neurotic
 		}
 		modifier = {
-			factor = 0.5
+			factor = 2
 			trait = extraverted
 		}
 		modifier = {
-			factor = 2
+			factor = 0.5
 			trait = introverted
 		}
 		modifier = {
-			factor = 0.5
+			factor = 2
 			trait = friendly
 		}
 	}
@@ -4303,6 +4402,7 @@ character_event = {
 	id = lifestyle.20010
 	desc = "EVTDESCLIFESTYLE20010"
 	picture = GFX_evt_garden
+	is_triggered_only = yes
 	
 	trigger = {
 		any_artifact = { has_artifact_flag = plant }
@@ -4312,8 +4412,6 @@ character_event = {
 			trait = incapable
 		}
 	}
-	
-	mean_time_to_happen = { months = 30 }
 	
 	immediate = {
 		random_artifact = {
@@ -7752,23 +7850,4 @@ character_event = {
 	is_triggered_only = yes
 	
 	option = { name = "EVTOPTALIFESTYLE2911" }
-}
-
-# FALCONER EVENTS
-# Acquiring new raptors
-# Peregrine Falcon
-character_event = {
-	id = lifestyle.1014
-	desc = "EVTDESCLIFESTYLE1014"
-	picture = GFX_evt_falconer
-	
-	min_age = 12
-	only_capable = yes
-	prisoner = no
-	
-	trigger = {
-		trait = falconer
-		wealth = 100
-		NOT = { has_artifact = peregrine_falcon }
-	}
 }
