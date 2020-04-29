@@ -11,6 +11,7 @@ feudal_governments = {
 			CITY
 			TEMPLE
 			TRIBAL
+			HOSPITAL
 		}
 		potential = {
 			culture = ruin
@@ -105,6 +106,9 @@ feudal_governments = {
 			land_morale = 0.15
 			land_organisation = 0.15
 		}
+		unit_modifier = {
+			levy_size = 0.3
+		}
 		
 		ignore_in_vassal_limit_calculation = {
 			colonial_government
@@ -168,6 +172,9 @@ feudal_governments = {
 			castle_vassal_tax_modifier = -0.2
 			land_morale = 0.15
 			land_organisation = 0.15
+		}
+		unit_modifier = {
+			levy_size = 0.3
 		}
 		
 		vassal_call_to_arms = {
@@ -329,6 +336,9 @@ feudal_governments = {
 			land_organisation = 0.1
 			retinuesize_perc = 2
 		}
+		unit_modifier = {
+			levy_size = 0.25
+		}
 		
 		vassal_call_to_arms = {
 			military_monarchy
@@ -402,6 +412,9 @@ feudal_governments = {
 			land_morale = 0.2
 			land_organisation = 0.2
 			retinuesize_perc = 2
+		}
+		unit_modifier = {
+			levy_size = 0.3
 		}
 		
 		vassal_call_to_arms = {
@@ -481,14 +494,17 @@ feudal_governments = {
 		uses_piety_for_law_change = yes
 		
 		character_modifier = {
-			levy_size = 0.6
+			levy_size = 0.4
 			global_tax_modifier = -0.25
 			city_vassal_tax_modifier = -0.25
 			temple_vassal_tax_modifier = -0.25
 			castle_vassal_tax_modifier = -0.25
 			land_morale = 0.2
 			land_organisation = 0.2
-			retinuesize_perc = 4
+			retinuesize_perc = 2
+		}
+		unit_modifier = {
+			levy_size = 0.4
 		}
 		
 		can_revoke_without_reason = yes
@@ -676,8 +692,10 @@ feudal_governments = {
 			land_morale = -0.1
 			land_organisation = -0.1
 			demesne_size = 2
-			tech_growth_modifier = 0.2
 			#retinuesize_perc = 2
+		}
+		unit_modifier = {
+			levy_size = -0.4
 		}
 		
 		ignore_in_vassal_limit_calculation = {
@@ -740,26 +758,30 @@ feudal_governments = {
 		barons_need_dynasty = no
 		
 		can_build_tribal = no
-		uses_piety_for_law_change = no
+		uses_piety_for_law_change = yes
 		
 		uses_decadence = yes
 		uses_jizya_tax = yes
 		
 		character_modifier = {
-			levy_size = -0.15
+			levy_size = -0.25
 			city_vassal_min_levy = -0.1
 			castle_vassal_min_levy = -0.1
 			temple_vassal_min_levy = -0.1
-			city_vassal_max_levy = -0.15
-			castle_vassal_max_levy = -0.15
-			temple_vassal_max_levy = -0.15
-			global_tax_modifier = 0.3
+			city_vassal_max_levy = -0.25
+			castle_vassal_max_levy = -0.25
+			temple_vassal_max_levy = -0.25
+			global_tax_modifier = 0.15
 			city_vassal_tax_modifier = 0.15
 			temple_vassal_tax_modifier = 0.15
 			castle_vassal_tax_modifier = 0.15
+			land_morale = 0.1
+			land_organisation = 0.1
 			demesne_size = 3
-			retinuesize_perc = 1
-			tech_growth_modifier = 0.1
+			#retinuesize_perc = 2
+		}
+		unit_modifier = {
+			levy_size = -0.25
 		}
 		
 		ignore_in_vassal_limit_calculation = {
@@ -833,15 +855,18 @@ feudal_governments = {
 			city_vassal_max_levy = -0.2
 			castle_vassal_max_levy = -0.2
 			temple_vassal_max_levy = -0.2
-			global_tax_modifier = 0.25
+			global_tax_modifier = 0.2
 			city_vassal_tax_modifier = 0.2
 			temple_vassal_tax_modifier = 0.2
 			castle_vassal_tax_modifier = 0.2
 			land_morale = -0.2
 			land_organisation = -0.2
 			demesne_size = 1
-			retinuesize_perc = 2
-			tech_growth_modifier = 0.15
+			#retinuesize_perc = 2
+		}
+		
+		unit_modifier = {
+			levy_size = -0.3
 		}
 		
 		ignore_in_vassal_limit_calculation = {
@@ -849,7 +874,7 @@ feudal_governments = {
 		}
 	}
 	
-	corporate_republic = { #Liberal Republic
+	corporate_republic = {
 		preferred_holdings = { CITY }
 		allowed_holdings = {
 			CITY
@@ -857,7 +882,7 @@ feudal_governments = {
 			HOSPITAL
 		}
 		accepts_liege_governments = {
-			corporate_republic
+			corporate_republic		 
 			military_republic
 			corporate_monarchy
 			merchant_republic_government
@@ -873,7 +898,7 @@ feudal_governments = {
 		frame_suffix = "_republic"
 		potential = {
 			is_patrician = no
-			NOT = { government = merchant_republic_government }			
+			NOT = { government = merchant_republic_government }
 			NOT = { religion_group = outlaw_group }
 			NOT = { trait = hiver_implant }
 			primary_title = { is_tribal_type_title = no }
@@ -882,7 +907,7 @@ feudal_governments = {
 				has_game_started = yes
 				government = corporate_republic
 			}
-		}		
+		}
 		
 		color = { 0 0 192 }
 		
@@ -913,6 +938,9 @@ feudal_governments = {
 			retinue_maintenence_cost = -0.25
 			vassal_opinion = -15
 			demesne_size = 1
+		}
+		unit_modifier = {
+			levy_size = -0.2
 		}
 		
 		ignore_in_vassal_limit_calculation = {
@@ -978,21 +1006,19 @@ feudal_governments = {
 		barons_need_dynasty = no
 		
 		can_build_tribal = no
-		uses_piety_for_law_change = no
+		uses_piety_for_law_change = yes
 		
 		uses_decadence = yes
 		uses_jizya_tax = yes
 		
 		character_modifier	= {
-			levy_size = -0.15
-			land_morale = -0.15
+			levy_size = -0.3
+			land_morale = -0.2
 			retinue_maintenence_cost = -0.5
-			vassal_opinion = -10
-			global_tax_modifier = 0.35
-			city_vassal_tax_modifier = 0.15
-			demense_size = 1
-			retinuesize_perc = 3
-			land_organisation = -0.1			
+			vassal_opinion = -35
+		}
+		unit_modifier = {
+			levy_size = -0.3
 		}
 		
 		ignore_in_vassal_limit_calculation = {
@@ -1067,11 +1093,10 @@ feudal_governments = {
 			levy_size = -0.2
 			land_morale = -0.1
 			retinue_maintenence_cost = -0.25
-			vassal_opinion = -10
-			global_tax_modifier = .5
-			city_vassal_tax_modifier = 0.2
-			retinuesize_perc = 1
-			land_organisation = 0.1			
+			vassal_opinion = -15
+		}
+		unit_modifier = {
+			levy_size = -0.2
 		}
 		
 		ignore_in_vassal_limit_calculation = {
