@@ -125,7 +125,7 @@ political_group = {
 		crusade_name = "UNIFICATION"
 		
 		# Defaults to the Pilgrimage
-		scripture_name = THE_THESIS
+		scripture_name = THE_LAW
 		piety_name = LEGITIMACY
 		high_god_name = GOD_GOD
 		god_names = { GOD_GOD GOD_HOLY_TERRA GOD_THE_LORD }
@@ -153,6 +153,7 @@ political_group = {
 		}
 		
 		can_call_crusade = yes
+		can_have_antipopes = yes
 		priests_can_marry = yes
 		female_temple_holders = yes
 		feminist = yes
@@ -173,7 +174,7 @@ political_group = {
 		color = { 0.2 0.8 0.2 }
 		
 		# Defaults to the Pilgrimage
-		scripture_name = THE_ARTICLES
+		scripture_name = THE_LAW
 		piety_name = CREDIBILITY
 		high_god_name = GOD_GOD
 		god_names = { GOD_GOD GOD_THE_LORD }
@@ -243,7 +244,9 @@ political_group = {
 		priests_can_marry = yes
 		female_temple_holders = yes
 		feminist = yes
-		#Cut the caste tag since the only thing it adds is already done by the Clone trait
+		
+		castes = yes
+		caste_opinions = yes
 		psc_marriage = no
 		intermarry = political_group
 		intermarry = religious_group
@@ -267,7 +270,10 @@ political_group = {
 			diplomacy = 2
 			learning = 2
 			intrigue = -1
-            castle_vassal_tax_modifier = -0.15
+            
+            castle_vassal_min_levy = -0.05
+            castle_vassal_max_levy = -0.05
+            
             vassal_opinion = 5
 		}
 		autocephaly = yes
@@ -280,7 +286,7 @@ political_group = {
 		color = { 0.8 0.2 0.2 }
 		
 		# Defaults to the Pilgrimage
-		scripture_name = THE_MANIFESTOS
+		scripture_name = THE_LAW
 		piety_name = CREDIBILITY
 		high_god_name = GOD_GOD
 		god_names = { GOD_THE_GREATER_GOOD GOD_THE_CAUSE }
@@ -329,7 +335,7 @@ political_group = {
 		color = { 0.2 0.2 0.2 }
 		
 		# Defaults to the Pilgrimage
-		scripture_name = THE_DOCTRINE
+		scripture_name = THE_LAW
 		piety_name = CREDIBILITY
 		high_god_name = GOD_GOD
 		god_names = { GOD_THE_GREATER_GOOD GOD_THE_CAUSE }
@@ -763,7 +769,7 @@ religious_group = {
 		crusade_name = "UNIFICATION"
 		
 		# Defaults to the Pilgrimage
-		scripture_name = THE_THESIS
+		scripture_name = THE_LAW
 		high_god_name = GOD_THE_EMPEROR
 		god_names = { GOD_THE_EMPEROR }
 		evil_god_names = {
@@ -802,7 +808,7 @@ religious_group = {
 		#intermarry = outlaw_group
 		psc_marriage = no
 		autocephaly = yes
-		# can_have_antipopes = yes
+		can_have_antipopes = yes
 	}
 #This one shouldn´t spawn normaly
 old_world_religion = { 
@@ -859,10 +865,11 @@ transhumanist_group = {
 	cyberneticist = {
 		graphical_culture = westerngfx
 		icon = 11
+		heresy_icon = 11
 		
 		color = { 0.5 0.5 0.5 }
 		
-		scripture_name = THE_LAWS
+		scripture_name = THE_LAW
 		piety_name = ASPIRATION
 		high_god_name = THE_CAUSE
 		god_names = { THE_CAUSE }
@@ -957,6 +964,7 @@ transhumanist_group = {
 	hiver = {
 		graphical_culture = westerngfx
 		icon = 13
+		heresy_icon = 13
 		
 		color = { 0.1 0.1 0.1 }
 		evil_god_names = {
@@ -1020,7 +1028,7 @@ transhumanist_group = {
 			OP_PROMETHAIOS OP_HOUJI OP_SEPPO_ILMARINEN OP_WIELAND OP_HEPHESTOS OP_IMHOTEP OP_UTNAPISHTIM
 		}
 		
-		scripture_name = THE_PRINCIPLES
+		scripture_name = THE_LAW
 		piety_name = ASPIRATION
 		high_god_name = THE_CAUSE
 		god_names = { THE_CAUSE }
@@ -1083,7 +1091,7 @@ outlaw_group = {
 		color = { 0.3 0.3 0.3 }
 		
 		# Default to the Pilgrimage
-		scripture_name = THE_CODE
+		scripture_name = THE_SCRIPTURES
 		piety_name = RESPECT
 		high_god_name = GOD_GOD
 		god_names = { GOD_GOD GOD_HOLY_TERRA GOD_THE_LORD }
