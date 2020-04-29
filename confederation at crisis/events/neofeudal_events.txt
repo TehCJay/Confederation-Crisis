@@ -1,11 +1,11 @@
 #New Events for Neofeudals
 namespace = neofeudal
 
-#neofeudal.0-5, Levy Taxation events
+#neofeudal.0-4, Levy Taxation events
 character_event = {
 	id = neofeudal.0
 	desc = "EVTDESCNEOFEUDAL0"
-	picture = GFX_evt_council
+	picture = GFX_evt_office
 	border = GFX_evt_normal_frame_economy
 	is_triggered_only = yes
 	
@@ -21,7 +21,7 @@ character_event = {
 					prisoner = no
 					NOT = { has_character_flag = do_not_disturb }
 					NOT = { trait = incapable }
-					war = no
+					#war = no Scutage isn't in yet
 					is_adult = yes
 				}
 				letter_event = {
@@ -382,5 +382,412 @@ character_event = {
 	
 	immediate = {
 		FROM = { transfer_scaled_wealth = { to = ROOT value = 0.3 } }
+	}
+}
+
+#neofeudal.5-8, Gallant-Knight-Worthy trait events
+
+character_event = {
+	id = neofeudal.5
+	desc = {
+		trigger = { independent = no }
+		text = "EVTDESCNEOFEUDAL5"
+	}
+	desc = {
+		trigger = { independent = yes }
+		text = "EVTDESCNEOFEUDAL5_ALT"
+	}
+	picture = GFX_evt_space_battle
+	border = GFX_event_normal_frame_war
+	
+	hide_from = yes
+	
+	is_triggered_only = yes
+	
+	min_age = 16
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		NOR = {
+			trait = knight
+			trait = gallant
+			trait = worthy
+		}
+		religion = neo_feudal
+		FROM = { always = yes }
+	}
+	
+	option = {
+		name = "EVTOPTANEOFEUDAL5"
+		add_trait = knight
+		hidden_tooltip = {
+			set_variable = { which = martial_deeds value = 0 }
+		}
+	}
+}
+
+character_event = {
+	id = neofeudal.6
+	desc = "EVTDESCNEOFEUDAL6"
+	picture = GFX_evt_space_battle
+	border = GFX_event_normal_frame_war
+	
+	hide_from = yes
+	
+	is_triggered_only = yes
+	
+	min_age = 16
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		trait = knight
+		NOR = {
+			trait = gallant
+			trait = worthy
+		}
+		religion = neo_feudal
+		check_variable = { which = martial_deeds value = 25 }
+		FROM = { always = yes }
+	}
+	
+	option = {
+		name = "EVTOPTANEOFEUDAL6"
+		remove_trait = knight
+		add_trait = gallant
+	}
+}
+
+character_event = {
+	id = neofeudal.7
+	desc = "EVTDESCNEOFEUDAL7"
+	picture = GFX_evt_space_battle
+	border = GFX_event_normal_frame_war
+	
+	hide_from = yes
+	
+	is_triggered_only = yes
+	
+	min_age = 16
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		trait = gallant
+		NOT = {
+			trait = worthy
+		}
+		religion = neo_feudal
+		check_variable = { which = martial_deeds value = 50 }
+		FROM = { always = yes }
+	}
+	
+	option = {
+		name = "EVTOPTANEOFEUDAL7"
+		remove_trait = gallant
+		add_trait = worthy
+		add_trait = proud
+		ai_chance = {
+			factor = 50
+		}
+	}
+	option = {
+		name = "EVTOPTBNEOFEUDAL7"
+		remove_trait = gallant
+		add_trait = worthy
+		add_trait = humble
+		ai_chance = {
+			factor = 50
+		}
+	}
+}
+
+character_event = {
+	id = neofeudal.8
+	
+	hide_window = yes
+	
+	is_triggered_only = yes
+	
+	min_age = 16
+	capable_only = yes
+	prisoner = no
+	
+	trigger = {
+		OR = {
+			trait = knight
+			trait = gallant
+			trait = worthy #Like Sea King, going even further beyond will create a bloodline, when I add it.
+		}
+		religion = neo_feudal
+		FROM = { always = yes }
+	}
+	
+	immediate = {
+		change_variable = { which = martial_deeds value = 2 }
+	}
+}
+
+character_event = {
+	id = neofeudal.9
+	desc = EVTDESCNEOFEUDAL9
+
+	picture = GFX_evt_office
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = { 
+		name = EVTOPTANEOFEUDAL9
+		set_character_flag = flag_studying_classics_shakespeare
+		custom_tooltip = { text = tooltipt_neofeudal9_A }
+		ai_chance = { factor = 0 }
+	}
+	option = { 
+		name = EVTOPTBNEOFEUDAL9
+		set_character_flag = flag_studying_military_tolkien
+		custom_tooltip = { text = tooltipt_neofeudal9_B }
+		ai_chance = { factor = 0 }
+	}
+	option = { 
+		name = EVTOPTCNEOFEUDAL9
+		set_character_flag = flag_studying_classics_beowulf
+		custom_tooltip = { text = tooltipt_neofeudal9_C }
+		ai_chance = { factor = 0 }
+	}
+	option = { 
+		name = EVTOPTDNEOFEUDAL9
+		set_character_flag = flag_studying_classics_monarchy
+		custom_tooltip = { text = tooltipt_neofeudal9_D }
+		ai_chance = { factor = 100 } #Already unlikely to happen for the AI, so pick the one meaningful choice.
+	}
+	after = { #Determine outcome based on choice and learning.
+		hidden_tooltip = { 
+			random_list = { 	
+				10 = { #Failure
+					trigger = { NOT = { has_character_flag = flag_studying_classics_monarchy } } #See above
+					modifier = {  
+						factor = 1.5
+						NOT = { learning = 2 }
+					}
+					modifier = {  
+						factor = 1.5
+						NOT = { learning = 4 }
+					}
+					modifier = {  
+						factor = 1.5
+						NOT = { learning = 6 }
+					}
+					modifier = {  
+						factor = 1.25
+						NOT = { learning = 8 }
+					}
+					modifier = {  
+						factor = 0.85
+						learning = 10
+					}
+					modifier = {  
+						factor = 0.85
+						learning = 12
+					}
+					modifier = {  
+						factor = 0.75
+						learning = 14
+					}
+					modifier = {  
+						factor = 0.75
+						learning = 16
+					}
+					modifier = {  
+						factor = 0.75
+						learning = 18
+					}
+					modifier = {  
+						factor = 0.5
+						learning = 20
+					}
+					modifier = {  
+						factor = 0.5
+						learning = 24
+					}
+					modifier = {  
+						factor = 0.25
+						learning = 26
+					}
+					modifier = {  
+						factor = 2
+						trait = slow
+					}
+					modifier = {  
+						factor = 3
+						trait = imbecile
+					}
+					modifier = {  
+						factor = 3
+						trait = inbred
+					}
+					modifier = {  
+						factor = 2
+						trait = dull
+					}
+					character_event = { id = neofeudal.10 days = 100 random = 100 }
+				} 
+				20 = {
+					trigger = { has_character_flag = flag_studying_classics_shakespeare } 
+					character_event = { id = neofeudal.11 days = 100 random = 100 }
+				} 
+				20 = {
+					trigger = { has_character_flag = flag_studying_military_tolkien } 
+					character_event = { id = neofeudal.12 days = 100 random = 100 }
+				} 
+				20 = {
+					trigger = { has_character_flag = flag_studying_classics_beowulf } 
+					character_event = { id = neofeudal.13 days = 100 random = 100 }
+				} 
+				20 = {
+					trigger = { has_character_flag = flag_studying_classics_monarchy } 
+					character_event = { id = neofeudal.14 days = 100 random = 100 }
+				} 
+			}
+			clr_character_flag = flag_studying_classics_shakespeare
+			clr_character_flag = flag_studying_military_tolkien
+			clr_character_flag = flag_studying_classics_beowulf
+			clr_character_flag = flag_studying_classics_monarchy
+		}	
+	}
+}
+#Study ended in failure.
+character_event = {
+	id = neofeudal.10
+	desc = EVTDESCNEOFEUDAL10
+
+	picture = GFX_evt_office
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = { 
+		name = EVTOPTANEOFEUDAL10
+		ai_chance = { factor = 100 } 
+	}
+}
+#Reference material for when I add the proper event later
+#character_event = {
+#	id = HF.23028
+#	desc = EVTDESCAHF23028
+#
+#	picture = GFX_evt_office
+#	border = GFX_event_normal_frame_religion
+#	
+#	is_triggered_only = yes
+#	
+#	option = { 
+#		name = EVTOPTAHF23028
+#		trigger = { 
+#			NOR = { 
+#				religion = hellenic_pagan
+#				religion = hellenic_pagan_reformed
+#				secret_religion = hellenic_pagan
+#				secret_religion = hellenic_pagan_reformed
+#			}  
+#		} 
+#		if = { 
+#			limit = { trait = zealous } 
+#			remove_trait = zealous
+#		} 
+#		if = {
+#			limit = {
+#				has_game_rule = {
+#					name = secret_cults
+#					value = default
+#				}
+#			}
+#			set_secret_religion = hellenic_pagan
+#		}
+#		if = {
+#			limit = {
+#				has_game_rule = {
+#					name = secret_cults
+#					value = none
+#				}
+#			}
+#			religion = hellenic_pagan
+#		}
+#		ai_chance = { factor = 2 } 
+#	}
+#	option = { 
+#		name = EVTOPTCHF23028
+#		trigger = { 
+#			OR = { 
+#				religion = hellenic_pagan
+#				religion = hellenic_pagan_reformed
+#				secret_religion = hellenic_pagan
+#				secret_religion = hellenic_pagan_reformed
+#			}  
+#		} 
+#		tiered_piety_reward_effect = yes
+#		ai_chance = { factor = 0 } 
+#	}
+#	option = { 
+#		name = EVTOPTBHF23028
+#		ai_chance = { factor = 98 } 
+#	}
+#}
+
+character_event = {
+	id = neofeudal.11
+	desc = EVTDESCNEOFEUDAL11
+
+	picture = GFX_evt_office
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = { 
+		name = EVTOPTANEOFEUDAL11
+		add_character_modifier = { 
+			name = shakespeares_insight 
+			duration = -1 
+		}
+		ai_chance = { factor = 100 } 
+	}
+}
+
+character_event = {
+	id = neofeudal.12
+	desc = EVTDESCNEOFEUDAL12
+
+	picture = GFX_evt_office
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = { 
+		name = EVTOPTANEOFEUDAL11
+		add_character_modifier = { 
+			name = noldors_insight 
+			duration = -1 
+		}
+		ai_chance = { factor = 100 } 
+	}
+}
+
+character_event = {
+	id = neofeudal.13
+	desc = EVTDESCNEOFEUDAL13
+
+	picture = GFX_evt_office
+	border = GFX_event_normal_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = { 
+		name = EVTOPTANEOFEUDAL11
+		add_character_modifier = { 
+			name = beowulfs_insight 
+			duration = -1 
+		}
+		ai_chance = { factor = 100 } 
 	}
 }
