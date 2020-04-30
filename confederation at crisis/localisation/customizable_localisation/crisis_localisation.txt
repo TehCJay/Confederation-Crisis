@@ -194,6 +194,41 @@ defined_text = {
 	}
 	text = { localisation_key = String_get_full_name }
 }
+defined_text = {
+	name = GetManWomanCap
+	text = {
+		trigger = { is_female = no }
+		localisation_key = String_man_cap
+	}
+	text = {
+		trigger = { is_female = yes }
+		localisation_key = String_woman_cap
+	}
+}
+defined_text = {
+	name = GetServiceBranch
+	text = {
+		trigger = {
+			OR = {
+				trait = warship_captain
+				trait = fighter_pilot
+			}
+		}
+		localisation_key = String_navy
+	}
+	text = {
+		trigger = { trait = marine_colonel }
+		localisation_key = String_marines
+	}
+	text = {
+		trigger = {
+			NOT = { trait = warship_captain }
+			NOT = { trait = fighter_pilot }
+			NOT = { trait = marine_colonel }
+		}
+		localisation_key = String_army
+	}
+}
 
 # Dynamic trait names and descs
 defined_text = {

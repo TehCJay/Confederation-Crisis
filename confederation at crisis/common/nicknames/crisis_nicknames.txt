@@ -1,0 +1,33 @@
+nick_the_comet = { }
+
+nick_the_old_man = {
+	allow = {
+		is_military_trigger = yes
+		has_education_martial_trigger = yes
+		age = 40
+		prestige = 1000
+		OR = {
+			liege = { character = ROOT }
+			NOT = { liege = { is_military_trigger = yes } }
+		}
+	}
+	chance = {
+		factor = 3
+		modifier = {
+			factor = 1.25
+			trait = friendly
+		}
+		modifier = {
+			factor = 1.25
+			trait = disciplined
+		}
+		modifier = {
+			factor = 2
+			prestige = 2000
+		}
+		modifier = {
+			factor = 2
+			prestige = 3000
+		}
+	}
+}
