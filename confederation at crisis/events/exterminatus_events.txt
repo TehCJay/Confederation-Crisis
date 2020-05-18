@@ -41,20 +41,22 @@ character_event = {
 					}
 				}
 			}
+			# Absolute guarantee to destroy the Homeworld
+			if = {
+				limit = { has_building = ct_homeworld_1 }
+				remove_building = ct_homeworld_1
+				# Ya dun goofed
+				ROOT = {
+					give_nickname = nick_the_living_armageddon
+					add_trait = living_armageddon
+					create_bloodline = { type = legacy_of_armageddon }
+					new_bloodline = { propagate_bloodline_from = ROOT }
+					narrative_event = { id = invasion.110 tooltip = "EVTTOOLTIPINVASION110" }
+				}
+			}
 			# 25% chance to destroy any "special" buildings
 			random = {
 				chance = 25
-				if = {
-					limit = { has_building = ct_homeworld_1 }
-					remove_building = ct_homeworld_1
-					# Ya dun goofed
-					ROOT = {
-						give_nickname = nick_the_worldbreaker
-						add_trait = saoshyant
-						any_child = { add_trait = saoshyant_descendant }
-						narrative_event = { id = invasion.110 tooltip = "EVTTOOLTIPINVASION110" }
-					}
-				}
 				if = {
 					limit = { has_building = ca_olympus_shipyards }
 					remove_building = ca_olympus_shipyards
@@ -1777,6 +1779,15 @@ character_event = {
 	picture = GFX_evt_siege
 	border = GFX_evt_character_frame_war
 	is_triggered_only = yes
+	
+	immediate = {
+		location = {
+			random_province_holding = {
+				limit = { has_siege = yes }
+				save_event_target_as = bombardment_target
+			}
+		}
+	}
 	
 	option = {
 		trigger = {

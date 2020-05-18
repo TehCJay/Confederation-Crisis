@@ -277,3 +277,59 @@ defined_text = {
 		}
 	}
 }
+
+defined_text = {
+	name = GetOrbitalBombardmentDesc
+	use_first_valid = yes
+	
+	text = {
+		trigger = { event_target:bombardment_target = { NOT = { has_building = ct_homeworld_1 } } }
+		localisation_key = String_orbital_bombardment_generic
+	}
+	text = {
+		trigger = { ROOT = { religion = xenoterran } }
+		localisation_key = String_orbital_bombardment_earth_xenoterran
+	}
+	text = {
+		trigger = {
+			ROOT = {
+				OR = {
+					culture_group = terran_group
+					religion = terran_republican
+					religion = terran_federal
+					religion = terran_imperial
+				}
+			}
+		}
+		localisation_key = String_orbital_bombardment_earth_terran
+	}
+	text = { localisation_key = String_orbital_bombardment_earth }
+}
+
+defined_text = {
+	name = GetOrbitalBombardmentOption
+	use_first_valid = yes
+	
+	text = {
+		trigger = { event_target:bombardment_target = { NOT = { has_building = ct_homeworld_1 } } }
+		localisation_key = String_orbital_bombardment_command_generic
+	}
+	text = {
+		trigger = { ROOT = { religion = xenoterran } }
+		localisation_key = String_orbital_bombardment_command_earth
+	}
+	text = {
+		trigger = {
+			ROOT = {
+				OR = {
+					culture_group = terran_group
+					religion = terran_republican
+					religion = terran_federal
+					religion = terran_imperial
+				}
+			}
+		}
+		localisation_key = String_orbital_bombardment_command_generic
+	}
+	text = { localisation_key = String_orbital_bombardment_command_earth }
+}
