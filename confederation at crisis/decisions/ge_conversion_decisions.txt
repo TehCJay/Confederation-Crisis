@@ -8,7 +8,7 @@ decisions = {
 		
 		potential = {
 			is_playable = yes
-			religion = bio_directionist
+			OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
 			trait = heavy_worlder
 			has_dlc = "Holy Fury"
 			OR = {
@@ -47,7 +47,7 @@ decisions = {
 						}
 						if = {
 							limit = { 
-								religion = bio_directionist
+								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
 								NOT = { distance = { who = ROOT distance = 100 } } 
 							}
 							random = { 
@@ -57,7 +57,7 @@ decisions = {
 						}
 						if = {
 							limit = { 
-								religion = bio_directionist
+								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
 								NOT = { distance = { who = ROOT distance = 200 } } 
 							}
 							random = { 
@@ -67,7 +67,7 @@ decisions = {
 						}
 						if = {
 							limit = { 
-								religion = bio_directionist
+								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
 								NOT = { distance = { who = ROOT distance = 400 } } 
 							}
 							random = { 
@@ -80,7 +80,7 @@ decisions = {
 			}
 			hidden_tooltip = {
 				if = { #Heavy Worlder Emperor gets chance to spread Bio-Directionism a bit alongside the culture.
-					limit = { religion = bio_directionist }
+					limit = { OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult } }
 					any_realm_province = {
 						if = {
 							limit = { any_neighbor_province = { culture = heavy_worlder_ge } }
@@ -117,12 +117,11 @@ decisions = {
 			factor = 1
 			modifier = {
 				factor = 3
-				religion = bio_directionist
-				tier = EMPEROR
+				trait = radical
 			}
 			modifier = {
 				factor = 0.01 #Would consider it a step down.
-				trait = radical
+				OR = { trait = skeptical culture = terran_terran }
 			}
 		}
 	}
@@ -135,7 +134,7 @@ decisions = {
 			NOT = { culture = heavy_worlder_ge }
 			AND = { 
 				trait = heavy_worlder 
-				religion = bio_directionist
+				OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
 			}
 			has_dlc = "Holy Fury"
 
@@ -166,14 +165,14 @@ decisions = {
 							limit = { 
 								any_neighbor_province = { 
 									culture = heavy_worlder_ge 
-									religion = bio_directionist
+									OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
 								} 	
 							}
 							culture = heavy_worlder_ge
 						}
 						if = {
 							limit = { 
-								religion = bio_directionist
+								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
 								capital_scope = { NOT = { distance = { where = PREV distance = 100 } } } 
 							}
 							random = { 
@@ -183,7 +182,7 @@ decisions = {
 						}
 						if = {
 							limit = { 
-								religion = bio_directionist
+								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
 								capital_scope = { NOT = { distance = { where = PREV distance = 200 } } } 
 							}
 							random = { 
@@ -193,7 +192,7 @@ decisions = {
 						}
 						if = {
 							limit = { 
-								religion = bio_directionist
+								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
 								capital_scope = { NOT = { distance = { where = PREV distance = 400 } } } 
 							}
 							random = { 
@@ -205,7 +204,7 @@ decisions = {
 				}
 			}
 			if = { #Heavy Worlders get chance to spread Bio-Directionism a bit alongside the culture.
-				limit = { religion = bio_directionist }
+				limit = { OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult } }
 				hidden_tooltip = {
 					any_demesne_province = {
 						if = {
@@ -243,8 +242,7 @@ decisions = {
 			factor = 1
 			modifier = {
 				factor = 3
-				religion = bio_directionist
-				trait = 
+				trait = radical
 			}
 			modifier = {
 				factor = 3
@@ -252,7 +250,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0.01 #Would consider it a step down.
-				trait = radical
+				OR = { trait = skeptical culture = terran_terran }
 			}
 		}
 	}
@@ -265,7 +263,7 @@ decisions = {
 		
 		potential = {
 			is_playable = yes
-			religion = bio_directionist
+			OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
 			trait = cat_splice
 			has_dlc = "Holy Fury"
 			OR = {
@@ -304,7 +302,7 @@ decisions = {
 						}
 						if = {
 							limit = { 
-								religion = bio_directionist
+								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
 								NOT = { distance = { who = ROOT distance = 100 } } 
 							}
 							random = { 
@@ -314,7 +312,7 @@ decisions = {
 						}
 						if = {
 							limit = { 
-								religion = bio_directionist
+								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
 								NOT = { distance = { who = ROOT distance = 200 } } 
 							}
 							random = { 
@@ -324,7 +322,7 @@ decisions = {
 						}
 						if = {
 							limit = { 
-								religion = bio_directionist
+								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
 								NOT = { distance = { who = ROOT distance = 400 } } 
 							}
 							random = { 
@@ -337,7 +335,7 @@ decisions = {
 			}
 			hidden_tooltip = {
 				if = { #Hellenic Emperor gets chance to spread Hellenism a bit alongside the culture.
-					limit = { religion = bio_directionist }
+					limit = { OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult } }
 					any_realm_province = {
 						if = {
 							limit = { any_neighbor_province = { culture = cat_splice_ge } }
@@ -374,12 +372,11 @@ decisions = {
 			factor = 1
 			modifier = {
 				factor = 3
-				religion = bio_directionist
-				tier = EMPEROR
+				trait = radical
 			}
 			modifier = {
 				factor = 0.01 #Would consider it a step down.
-				trait = skeptical
+				OR = { trait = skeptical culture = terran_terran }
 			}
 		}
 	}
@@ -392,7 +389,7 @@ decisions = {
 			NOT = { culture = cat_splice_ge }
 			AND = { 
 				trait = cat_splice 
-				religion = bio_directionist
+				OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
 			}
 			has_dlc = "Holy Fury"
 
@@ -423,14 +420,14 @@ decisions = {
 							limit = { 
 								any_neighbor_province = { 
 									culture = cat_splice_ge 
-									religion = bio_directionist
+									OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
 								} 	
 							}
 							culture = cat_splice_ge
 						}
 						if = {
 							limit = { 
-								religion = bio_directionist
+								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
 								capital_scope = { NOT = { distance = { where = PREV distance = 100 } } } 
 							}
 							random = { 
@@ -440,7 +437,7 @@ decisions = {
 						}
 						if = {
 							limit = { 
-								religion = bio_directionist
+								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
 								capital_scope = { NOT = { distance = { where = PREV distance = 200 } } } 
 							}
 							random = { 
@@ -450,7 +447,7 @@ decisions = {
 						}
 						if = {
 							limit = { 
-								religion = bio_directionist
+								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
 								capital_scope = { NOT = { distance = { where = PREV distance = 400 } } } 
 							}
 							random = { 
@@ -462,7 +459,7 @@ decisions = {
 				}
 			}
 			if = { #Cat-Spliced people get chance to spread Bio-Directionism a bit alongside the culture.
-				limit = { religion = bio_directionist }
+				limit = { OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult } }
 				hidden_tooltip = {
 					any_demesne_province = {
 						if = {
@@ -500,8 +497,7 @@ decisions = {
 			factor = 1
 			modifier = {
 				factor = 3
-				religion = bio_directionist
-				trait = 
+				trait = radical
 			}
 			modifier = {
 				factor = 3
@@ -509,7 +505,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0.01 #Would consider it a step down.
-				trait = skeptical
+				OR = { trait = skeptical culture = terran_terran }
 			}
 		}
 	}
@@ -523,7 +519,7 @@ decisions = {
 		
 		potential = {
 			is_playable = yes
-			religion = bio_directionist
+			OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
 			trait = organic_wifi
 			has_dlc = "Holy Fury"
 			OR = {
@@ -562,7 +558,7 @@ decisions = {
 						}
 						if = {
 							limit = { 
-								religion = bio_directionist
+								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
 								NOT = { distance = { who = ROOT distance = 100 } } 
 							}
 							random = { 
@@ -572,7 +568,7 @@ decisions = {
 						}
 						if = {
 							limit = { 
-								religion = bio_directionist
+								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
 								NOT = { distance = { who = ROOT distance = 200 } } 
 							}
 							random = { 
@@ -582,7 +578,7 @@ decisions = {
 						}
 						if = {
 							limit = { 
-								religion = bio_directionist
+								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
 								NOT = { distance = { who = ROOT distance = 400 } } 
 							}
 							random = { 
@@ -595,7 +591,7 @@ decisions = {
 			}
 			hidden_tooltip = {
 				if = { #Organic Wifi Emperor gets chance to spread Bio-Directionism a bit alongside the culture.
-					limit = { religion = bio_directionist }
+					limit = { OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult } }
 					any_realm_province = {
 						if = {
 							limit = { any_neighbor_province = { culture = organic_wifi_ge } }
@@ -632,12 +628,11 @@ decisions = {
 			factor = 1
 			modifier = {
 				factor = 3
-				religion = bio_directionist
-				tier = EMPEROR
+				trait = radical
 			}
 			modifier = {
 				factor = 0.01 #Would consider it a step down.
-				trait = skeptical
+				OR = { trait = skeptical culture = terran_terran }
 			}
 		}
 	}
@@ -650,7 +645,7 @@ decisions = {
 			NOT = { culture = organic_wifi_ge }
 			AND = { 
 				trait = organic_wifi 
-				religion = bio_directionist
+				OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
 			}
 			has_dlc = "Holy Fury"
 
@@ -681,14 +676,14 @@ decisions = {
 							limit = { 
 								any_neighbor_province = { 
 									culture = organic_wifi_ge 
-									religion = bio_directionist
+									OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
 								} 	
 							}
 							culture = organic_wifi_ge
 						}
 						if = {
 							limit = { 
-								religion = bio_directionist
+								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
 								capital_scope = { NOT = { distance = { where = PREV distance = 100 } } } 
 							}
 							random = { 
@@ -698,7 +693,7 @@ decisions = {
 						}
 						if = {
 							limit = { 
-								religion = bio_directionist
+								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
 								capital_scope = { NOT = { distance = { where = PREV distance = 200 } } } 
 							}
 							random = { 
@@ -708,7 +703,7 @@ decisions = {
 						}
 						if = {
 							limit = { 
-								religion = bio_directionist
+								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
 								capital_scope = { NOT = { distance = { where = PREV distance = 400 } } } 
 							}
 							random = { 
@@ -720,7 +715,7 @@ decisions = {
 				}
 			}
 			if = { #Organic Wifi gets chance to spread Bio-Directionism a bit alongside the culture.
-				limit = { religion = bio_directionist }
+				limit = { OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult } }
 				hidden_tooltip = {
 					any_demesne_province = {
 						if = {
@@ -758,8 +753,7 @@ decisions = {
 			factor = 1
 			modifier = {
 				factor = 3
-				religion = bio_directionist
-				trait = organic_wifi
+				trait = radical
 			}
 			modifier = {
 				factor = 3
@@ -767,7 +761,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0.01 #Would consider it a step down.
-				trait = skeptical
+				OR = { trait = skeptical culture = terran_terran }
 			}
 		}
 	}
@@ -780,7 +774,7 @@ decisions = {
 		
 		potential = {
 			is_playable = yes
-			religion = bio_directionist
+			OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
 			OR = {
 				trait = heavy_worlder
 				trait = cat_splice
@@ -834,7 +828,7 @@ decisions = {
 						}
 						if = {
 							limit = { 
-								religion = bio_directionist
+								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
 								NOT = { distance = { who = ROOT distance = 100 } } 
 							}
 							random = { 
@@ -844,7 +838,7 @@ decisions = {
 						}
 						if = {
 							limit = { 
-								religion = bio_directionist
+								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
 								NOT = { distance = { who = ROOT distance = 200 } } 
 							}
 							random = { 
@@ -854,7 +848,7 @@ decisions = {
 						}
 						if = {
 							limit = { 
-								religion = bio_directionist
+								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
 								NOT = { distance = { who = ROOT distance = 400 } } 
 							}
 							random = { 
@@ -867,7 +861,7 @@ decisions = {
 			}
 			hidden_tooltip = {
 				if = { #Hellenic Emperor gets chance to spread Hellenism a bit alongside the culture.
-					limit = { religion = bio_directionist }
+					limit = { OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult } }
 					any_realm_province = {
 						if = {
 							limit = { any_neighbor_province = { culture = bio_ge } }
@@ -904,12 +898,11 @@ decisions = {
 			factor = 1
 			modifier = {
 				factor = 3
-				religion = bio_directionist
-				tier = EMPEROR
+				trait = radical
 			}
 			modifier = {
 				factor = 0.01 #Would consider it a step down.
-				trait = skeptical
+				OR = { trait = skeptical culture = terran_terran }
 			}
 		}
 	}
@@ -920,7 +913,7 @@ decisions = {
 		potential = {
 			is_playable = yes
 			NOT = { culture = bio_ge }
-			religion = bio_directionist
+			OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
 			OR = {
 				trait = heavy_worlder
 				trait = cat_splice
@@ -959,14 +952,14 @@ decisions = {
 							limit = { 
 								any_neighbor_province = { 
 									culture = bio_ge 
-									religion = bio_directionist
+									OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
 								} 	
 							}
 							culture = bio_ge
 						}
 						if = {
 							limit = { 
-								religion = bio_directionist
+								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
 								capital_scope = { NOT = { distance = { where = PREV distance = 100 } } } 
 							}
 							random = { 
@@ -976,7 +969,7 @@ decisions = {
 						}
 						if = {
 							limit = { 
-								religion = bio_directionist
+								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
 								capital_scope = { NOT = { distance = { where = PREV distance = 200 } } } 
 							}
 							random = { 
@@ -986,7 +979,7 @@ decisions = {
 						}
 						if = {
 							limit = { 
-								religion = bio_directionist
+								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
 								capital_scope = { NOT = { distance = { where = PREV distance = 400 } } } 
 							}
 							random = { 
@@ -998,7 +991,7 @@ decisions = {
 				}
 			}
 			if = { #GE culture get chance to spread Bio-Directionism a bit alongside the culture.
-				limit = { religion = bio_directionist }
+				limit = { OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult } }
 				hidden_tooltip = {
 					any_demesne_province = {
 						if = {
@@ -1044,7 +1037,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0.01 #Would consider it a step down.
-				trait = skeptical
+				OR = { trait = skeptical culture = terran_terran }
 			}
 		}
 	}	
