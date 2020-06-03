@@ -982,6 +982,7 @@ targetted_decisions = {
 				secret_religion = bio_directionist
 				religion = imperial_cult
 				secret_religion = imperial_cult
+				religion = xenoterran
 				trait = pragmatic
 			}
 			NOT = { religion = cyberneticist}				
@@ -1208,6 +1209,987 @@ targetted_decisions = {
 			}
 		}
 	}
+	
+	# heavy_worlder Trait - Genetically Engineer newborn relatives
+	get_relative_heavy_worlder_decision = {
+		filter = dynasty
+		ai_target_filter = dynasty
+		from_potential = {
+			NOT = { trait = incapable }
+			prisoner = no
+			OR = {
+				religion_group = transhumanist_group
+				secret_religion = bio_directionist
+				secret_religion = xenoterran
+				religion = xenoterran
+				religion = imperial_cult
+				secret_religion = imperial_cult
+				trait = pragmatic
+				trait = lunatic
+			}
+			NOT = { religion = cyberneticist}			
+		}
+		ai_check_interval = 6
+		from_potential = {
+		
+		}
+		potential = {
+			dynasty = FROM
+			NOT = { age = 1 }
+			age = 0
+			NOT = { trait = heavy_worlder }
+			NOT = { trait = incapable }
+	
+			
+			prisoner = no
+			is_landed = no
+			liege = { character = FROM }
+		}
+		allow = {
+			OR = {
+				FROM = { wealth = 2500 }
+				AND = {
+					location = { TECH_POPULAR_CUSTOMS = 3 }
+					FROM = { wealth = 5000 }
+				}
+				AND = {
+					location = { TECH_POPULAR_CUSTOMS = 4 }
+					FROM = { wealth = 4000 }
+				}
+				AND = {
+					location = { TECH_POPULAR_CUSTOMS = 5 }
+					FROM = { wealth = 3000 }
+				}
+				AND = {
+					location = { TECH_POPULAR_CUSTOMS = 6 }
+					FROM = { wealth = 500 }
+				}
+				location = { TECH_POPULAR_CUSTOMS = 7 }
+			}
+			location = {
+				any_province_lord = {
+					NOT = { war_with = FROM }
+					any_demesne_title = {
+						tier = baron
+						location = { province_id = PREVPREVPREV }
+						has_building = tp_biogenetics_lab_q_3
+					}
+				}
+			}
+			FROM = {
+				OR = {
+					NOT = { religion_group = religious_group }
+					trait = pragmatic
+					piety = 250
+				}
+			}
+		}
+		effect = {
+			add_trait = heavy_worlder
+			add_trait = GMO
+			remove_trait = imbecile		
+			remove_trait = slow				
+			remove_trait = dull
+			remove_trait = spacer_physiology
+			hidden_tooltip = { character_event = { id = cybernetics.5001 } }
+			if = {
+				limit = { location = { NOT = { TECH_POPULAR_CUSTOMS = 3 } } }
+				FROM = { wealth = -1000 }
+			}
+			if = {
+				limit = {
+					location = {
+						TECH_POPULAR_CUSTOMS = 3
+						NOT = { TECH_POPULAR_CUSTOMS = 4 }
+					}
+				}
+				FROM = { wealth = -5000 }
+			}
+			if = {
+				limit = {
+					location = {
+						TECH_POPULAR_CUSTOMS = 4
+						NOT = { TECH_POPULAR_CUSTOMS = 5 }
+					}
+				}
+				FROM = { wealth = -4000 }
+			}
+			if = {
+				limit = {
+					location = {
+						TECH_POPULAR_CUSTOMS = 5
+						NOT = { TECH_POPULAR_CUSTOMS = 6 }
+					}
+				}
+				FROM = { wealth = -3000 }
+			}
+			if = {
+				limit = {
+					location = {
+						TECH_POPULAR_CUSTOMS = 6
+						NOT = { TECH_POPULAR_CUSTOMS = 7 }
+					}
+				}
+				FROM = { wealth = -500 }
+			}
+			FROM = {
+				if = {
+					limit = {
+						is_landed = yes
+						religion_group = religious_group
+					}
+					piety = -100
+					religion_authority = { modifier = ruler_cybernetics_bad years = 1 }
+				}
+				if = {
+					limit = {
+						is_landed = yes
+						religion_group = bio_directionist
+						NOT = { religion = hiver }
+					}
+					piety = 100
+					religion_authority = { modifier = ruler_cybernetics_good years = 1 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.1
+			}
+			modifier = {
+				factor = 5
+				FROM = {
+					religion = bio_directionist
+				}
+			}
+			modifier = {
+				factor = 0.2
+				FROM = {
+					religion_group = religious_group
+					NOT = { trait = pragmatic }
+				}
+			}
+			modifier = {
+				factor = 2
+				FROM = { trait = friendly }
+			}
+			modifier = {
+				factor = 0.5
+				FROM = { trait = cold }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -99 } }
+			}
+		}
+	}
+
+	# spacer_physiology Trait - Genetically Engineer newborn relatives
+	get_relative_spacer_physiology_decision = {
+		filter = dynasty
+		ai_target_filter = dynasty
+		from_potential = {
+			NOT = { trait = incapable }
+			prisoner = no
+			OR = {
+				religion_group = astrist
+				trait = lunatic
+			}
+		}
+		ai_check_interval = 9
+		from_potential = {
+		
+		}
+		potential = {
+			dynasty = FROM
+			NOT = { age = 1 }
+			age = 0
+			NOT = { trait = spacer_physiology }
+			NOT = { trait = incapable }
+	
+			
+			prisoner = no
+			is_landed = no
+			liege = { character = FROM }
+		}
+		allow = {
+			OR = {
+				FROM = { wealth = 1000 }
+				AND = {
+					location = { TECH_POPULAR_CUSTOMS = 3 }
+					FROM = { wealth = 2000 }
+				}
+				AND = {
+					location = { TECH_POPULAR_CUSTOMS = 4 }
+					FROM = { wealth = 2000 }
+				}
+				AND = {
+					location = { TECH_POPULAR_CUSTOMS = 5 }
+					FROM = { wealth = 2000 }
+				}
+				AND = {
+					location = { TECH_POPULAR_CUSTOMS = 6 }
+					FROM = { wealth = 500 }
+				}
+				location = { TECH_POPULAR_CUSTOMS = 7 }
+			}
+			location = {
+				any_province_lord = {
+					NOT = { war_with = FROM }
+					any_demesne_title = {
+						tier = baron
+						location = { province_id = PREVPREVPREV }
+						has_building = tp_biogenetics_lab_q_1
+					}
+				}
+			}
+			FROM = {
+				OR = {
+					NOT = { religion_group = religious_group }
+					trait = pragmatic
+					piety = 250
+				}
+			}
+		}
+		effect = {
+			add_trait = spacer_physiology
+			add_trait = GMO
+			remove_trait = imbecile		
+			remove_trait = slow				
+			remove_trait = dull
+			remove_trait = heavy_worlder
+			hidden_tooltip = { character_event = { id = cybernetics.5001 } }
+			if = {
+				limit = { location = { NOT = { TECH_POPULAR_CUSTOMS = 3 } } }
+				FROM = { wealth = -1000 }
+			}
+			if = {
+				limit = {
+					location = {
+						TECH_POPULAR_CUSTOMS = 3
+						NOT = { TECH_POPULAR_CUSTOMS = 4 }
+					}
+				}
+				FROM = { wealth = -2000 }
+			}
+			if = {
+				limit = {
+					location = {
+						TECH_POPULAR_CUSTOMS = 4
+						NOT = { TECH_POPULAR_CUSTOMS = 5 }
+					}
+				}
+				FROM = { wealth = -2000 }
+			}
+			if = {
+				limit = {
+					location = {
+						TECH_POPULAR_CUSTOMS = 5
+						NOT = { TECH_POPULAR_CUSTOMS = 6 }
+					}
+				}
+				FROM = { wealth = -2000 }
+			}
+			if = {
+				limit = {
+					location = {
+						TECH_POPULAR_CUSTOMS = 6
+						NOT = { TECH_POPULAR_CUSTOMS = 7 }
+					}
+				}
+				FROM = { wealth = -500 }
+			}
+			FROM = {
+				if = {
+					limit = {
+						is_landed = yes
+						religion_group = religious_group
+					}
+					piety = -100
+					religion_authority = { modifier = ruler_cybernetics_bad years = 1 }
+				}
+				if = {
+					limit = {
+						is_landed = yes
+						religion_group = bio_directionist
+						NOT = { religion = hiver }
+					}
+					piety = 100
+					religion_authority = { modifier = ruler_cybernetics_good years = 1 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.1
+			}
+			modifier = {
+				factor = 5
+				FROM = {
+					religion = lunatic
+				}
+			}
+			modifier = {
+				factor = 0.2
+				FROM = {
+					religion_group = religious_group
+					NOT = { trait = pragmatic }
+				}
+			}
+			modifier = {
+				factor = 2
+				FROM = { trait = friendly }
+			}
+			modifier = {
+				factor = 0.5
+				FROM = { trait = cold }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -99 } }
+			}
+		}
+	}
+	
+	# organic_wifi Trait - Genetically Engineer newborn relatives
+	get_relative_organic_wifi_decision = {
+		filter = dynasty
+		ai_target_filter = dynasty
+		from_potential = {
+			NOT = { trait = incapable }
+			prisoner = no
+			OR = {
+				religion_group = transhumanist_group
+				secret_religion = bio_directionist
+				religion = imperial_cult
+				secret_religion = imperial_cult
+				religion = xenoterran
+				trait = pragmatic
+				trait = lunatic
+			}
+			NOT = { religion = cyberneticist}			
+		}
+		ai_check_interval = 6
+		from_potential = {
+		
+		}
+		potential = {
+			dynasty = FROM
+			NOT = { age = 1 }
+			age = 0
+			NOT = { trait = organic_wifi }
+			NOT = { trait = incapable }
+	
+			
+			prisoner = no
+			is_landed = no
+			liege = { character = FROM }
+		}
+		allow = {
+			OR = {
+				FROM = { wealth = 2500 }
+				AND = {
+					location = { TECH_POPULAR_CUSTOMS = 3 }
+					FROM = { wealth = 5000 }
+				}
+				AND = {
+					location = { TECH_POPULAR_CUSTOMS = 4 }
+					FROM = { wealth = 4000 }
+				}
+				AND = {
+					location = { TECH_POPULAR_CUSTOMS = 5 }
+					FROM = { wealth = 3000 }
+				}
+				AND = {
+					location = { TECH_POPULAR_CUSTOMS = 6 }
+					FROM = { wealth = 500 }
+				}
+				location = { TECH_POPULAR_CUSTOMS = 7 }
+			}
+			location = {
+				any_province_lord = {
+					NOT = { war_with = FROM }
+					any_demesne_title = {
+						tier = baron
+						location = { province_id = PREVPREVPREV }
+						has_building = tp_biogenetics_lab_q_3
+					}
+				}
+			}
+			FROM = {
+				OR = {
+					NOT = { religion_group = religious_group }
+					trait = pragmatic
+					piety = 250
+				}
+			}
+		}
+		effect = {
+			add_trait = organic_wifi
+			add_trait = GMO
+			remove_trait = imbecile		
+			remove_trait = slow				
+			remove_trait = dull
+			hidden_tooltip = { character_event = { id = cybernetics.5001 } }
+			if = {
+				limit = { location = { NOT = { TECH_POPULAR_CUSTOMS = 3 } } }
+				FROM = { wealth = -1000 }
+			}
+			if = {
+				limit = {
+					location = {
+						TECH_POPULAR_CUSTOMS = 3
+						NOT = { TECH_POPULAR_CUSTOMS = 4 }
+					}
+				}
+				FROM = { wealth = -5000 }
+			}
+			if = {
+				limit = {
+					location = {
+						TECH_POPULAR_CUSTOMS = 4
+						NOT = { TECH_POPULAR_CUSTOMS = 5 }
+					}
+				}
+				FROM = { wealth = -4000 }
+			}
+			if = {
+				limit = {
+					location = {
+						TECH_POPULAR_CUSTOMS = 5
+						NOT = { TECH_POPULAR_CUSTOMS = 6 }
+					}
+				}
+				FROM = { wealth = -3000 }
+			}
+			if = {
+				limit = {
+					location = {
+						TECH_POPULAR_CUSTOMS = 6
+						NOT = { TECH_POPULAR_CUSTOMS = 7 }
+					}
+				}
+				FROM = { wealth = -500 }
+			}
+			FROM = {
+				if = {
+					limit = {
+						is_landed = yes
+						religion_group = religious_group
+					}
+					piety = -100
+					religion_authority = { modifier = ruler_cybernetics_bad years = 1 }
+				}
+				if = {
+					limit = {
+						is_landed = yes
+						religion_group = bio_directionist
+						NOT = { religion = hiver }
+					}
+					piety = 100
+					religion_authority = { modifier = ruler_cybernetics_good years = 1 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.1
+			}
+			modifier = {
+				factor = 5
+				FROM = {
+					religion = bio_directionist
+				}
+			}
+			modifier = {
+				factor = 0.2
+				FROM = {
+					religion_group = religious_group
+					NOT = { trait = pragmatic }
+				}
+			}
+			modifier = {
+				factor = 2
+				FROM = { trait = friendly }
+			}
+			modifier = {
+				factor = 0.5
+				FROM = { trait = cold }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -99 } }
+			}
+		}
+	}	
+
+	# cat_splice Trait - Genetically Engineer newborn relatives
+	get_relative_cat_splice_decision = {
+		filter = dynasty
+		ai_target_filter = dynasty
+		from_potential = {
+			NOT = { trait = incapable }
+			prisoner = no
+			OR = {
+				religion = bio_directionist
+				secret_religion = bio_directionist
+				religion = xenoterran
+				secretion_religion = xenoterran
+				religion = imperial_cult
+				secret_religion = imperial_cult
+				trait = lunatic 
+			}
+			NOT = { religion = cyberneticist}			
+		}
+		ai_check_interval = 9
+		from_potential = {
+		
+		}
+		allow = {
+			OR = {
+				FROM = { wealth = 2500 }
+				AND = {
+					location = { TECH_POPULAR_CUSTOMS = 3 }
+					FROM = { wealth = 5000 }
+				}
+				AND = {
+					location = { TECH_POPULAR_CUSTOMS = 4 }
+					FROM = { wealth = 4000 }
+				}
+				AND = {
+					location = { TECH_POPULAR_CUSTOMS = 5 }
+					FROM = { wealth = 3000 }
+				}
+				AND = {
+					location = { TECH_POPULAR_CUSTOMS = 6 }
+					FROM = { wealth = 500 }
+				}
+				location = { TECH_POPULAR_CUSTOMS = 7 }
+			}
+			location = {
+				any_province_lord = {
+					NOT = { war_with = FROM }
+					any_demesne_title = {
+						tier = baron
+						location = { province_id = PREVPREVPREV }
+						has_building = tp_biogenetics_lab_q_3
+					}
+				}
+			}
+			FROM = {
+				OR = {
+					NOT = { religion_group = religious_group }
+					trait = pragmatic
+					piety = 250
+				}
+			}
+		}
+		effect = {
+			add_trait = cat_splice
+			add_trait = GMO
+			remove_trait = imbecile		
+			remove_trait = slow				
+			remove_trait = dull
+			hidden_tooltip = { character_event = { id = cybernetics.5001 } }
+			if = {
+				limit = { location = { NOT = { TECH_POPULAR_CUSTOMS = 3 } } }
+				FROM = { wealth = -1000 }
+			}
+			if = {
+				limit = {
+					location = {
+						TECH_POPULAR_CUSTOMS = 4
+						NOT = { TECH_POPULAR_CUSTOMS = 5 }
+					}
+				}
+				FROM = { wealth = -5000 }
+			}
+			if = {
+				limit = {
+					location = {
+						TECH_POPULAR_CUSTOMS = 5
+						NOT = { TECH_POPULAR_CUSTOMS = 6 }
+					}
+				}
+				FROM = { wealth = -4000 }
+			}
+			if = {
+				limit = {
+					location = {
+						TECH_POPULAR_CUSTOMS = 6
+						NOT = { TECH_POPULAR_CUSTOMS = 7 }
+					}
+				}
+				FROM = { wealth = -3000 }
+			}
+			if = {
+				limit = {
+					location = {
+						TECH_POPULAR_CUSTOMS = 7
+						NOT = { TECH_POPULAR_CUSTOMS = 8 }
+					}
+				}
+				FROM = { wealth = -500 }
+			}
+			FROM = {
+				if = {
+					limit = {
+						is_landed = yes
+						religion_group = religious_group
+					}
+					piety = -100
+					religion_authority = { modifier = ruler_cybernetics_bad years = 1 }
+				}
+				if = {
+					limit = {
+						is_landed = yes
+						religion_group = bio_directionist
+						NOT = { religion = hiver }
+					}
+					piety = 100
+					religion_authority = { modifier = ruler_cybernetics_good years = 1 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.1
+			}
+			modifier = {
+				factor = 5
+				FROM = {
+					religion = bio_directionist
+				}
+			}
+			modifier = {
+				factor = 0.2
+				FROM = {
+					religion_group = religious_group
+					NOT = { trait = pragmatic }
+				}
+			}
+			modifier = {
+				factor = 2
+				FROM = { trait = friendly }
+			}
+			modifier = {
+				factor = 0.5
+				FROM = { trait = cold }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -99 } }
+			}
+		}
+	}
 
 #Remove Minor_Negative Traits - Genetically Engineer newborn relatives
 	get_relative_remove_negative_decision = {
@@ -1221,8 +2203,9 @@ targetted_decisions = {
 				religion_group = transhumanist_group
 				secret_religion = bio_directionist
 				religion = imperial_cult
+				religion = xenoterran
 				secret_religion = imperial_cult
-				secret_religion = imperial_cult
+				secret_religion = xenoterran
 				trait = pragmatic
 				trait = ambitious
 			}

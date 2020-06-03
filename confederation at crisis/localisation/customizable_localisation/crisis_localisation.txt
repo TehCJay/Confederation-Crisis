@@ -9,6 +9,7 @@ defined_text = {
 				any_lover = { character = ROOT }
 				any_friend = { character = ROOT }
 			}
+			NOT = { character = ROOT }
 		}
 		localisation_key = String_get_first_name
 	}
@@ -30,7 +31,6 @@ defined_text = {
 				government = corporate_monarchy
 				government = administrative_monarchy
 			}
-			has_character_flag = flag_enemy_spotted
 		}
 		localisation_key = String_get_best_name
 	}
@@ -41,7 +41,6 @@ defined_text = {
 				is_landed = yes
 				has_minor_title = title_commander
 			}
-			has_character_flag = flag_enemy_spotted
 		}
 		localisation_key = String_get_titled_last_name
 	}
@@ -61,6 +60,174 @@ defined_text = {
 		localisation_key = String_get_full_name_inverted
 	}
 	text = { localisation_key = String_get_full_name }
+}
+defined_text = {
+	name = GetCrisisFromBestName
+	use_first_valid = yes
+	text = {
+		trigger = {
+			OR = {
+				is_close_relative = FROM
+				any_lover = { character = FROM }
+				any_friend = { character = FROM }
+			}
+			NOT = { character = FROM }
+		}
+		localisation_key = String_get_first_name
+	}
+	text = {
+		trigger = {
+			# Must have a landed or princely title
+			OR = {
+				is_landed = yes
+				has_minor_title = title_prince_royal
+				has_minor_title = title_ruler_consort
+			}
+			# Must be an appropriate religion or government type for this title style
+			OR = {
+				religion = neo_feudal
+				religion = terran_imperial
+				religion = imperial_cultist
+				religion = space_pirate
+				government = military_monarchy
+				government = corporate_monarchy
+				government = administrative_monarchy
+			}
+		}
+		localisation_key = String_get_best_name
+	}
+	text = {
+		trigger = {
+			# Must have an appropriate title
+			OR = {
+				is_landed = yes
+				has_minor_title = title_commander
+			}
+		}
+		localisation_key = String_get_titled_last_name
+	}
+	text = {
+		trigger = {
+			# Cultures that place the family name first
+			OR = {
+				culture = japanese_terran
+				culture = sino_terran
+				culture_group = xingjie_group
+				culture_group = tengoku_group
+				culture_group = bianjiangese_group
+				culture = japanese_outerrim
+				culture = sino_outerrim
+			}
+		}
+		localisation_key = String_get_full_name_inverted
+	}
+	text = { localisation_key = String_get_full_name }
+}
+defined_text = {
+	name = GetCrisisFormalName
+	use_first_valid = yes
+	text = {
+		trigger = {
+			# Must have a landed or princely title
+			OR = {
+				is_landed = yes
+				has_minor_title = title_prince_royal
+				has_minor_title = title_ruler_consort
+			}
+			# Must be an appropriate religion or government type for this title style
+			OR = {
+				religion = neo_feudal
+				religion = terran_imperial
+				religion = imperial_cultist
+				religion = space_pirate
+				government = military_monarchy
+				government = corporate_monarchy
+				government = administrative_monarchy
+			}
+		}
+		localisation_key = String_get_best_name
+	}
+	text = {
+		trigger = {
+			# Must have an appropriate title
+			OR = {
+				is_landed = yes
+				has_minor_title = title_commander
+			}
+			# Cultures that place the family name first
+			OR = {
+				culture = japanese_terran
+				culture = sino_terran
+				culture_group = xingjie_group
+				culture_group = tengoku_group
+				culture_group = bianjiangese_group
+				culture = japanese_outerrim
+				culture = sino_outerrim
+			}
+		}
+		localisation_key = String_get_titled_full_name_inverted
+	}
+	text = {
+		trigger = {
+			# Must have an appropriate title
+			OR = {
+				is_landed = yes
+				has_minor_title = title_commander
+			}
+		}
+		localisation_key = String_get_titled_full_name
+	}
+	text = {
+		trigger = {
+			# Cultures that place the family name first
+			OR = {
+				culture = japanese_terran
+				culture = sino_terran
+				culture_group = xingjie_group
+				culture_group = tengoku_group
+				culture_group = bianjiangese_group
+				culture = japanese_outerrim
+				culture = sino_outerrim
+			}
+		}
+		localisation_key = String_get_full_name_inverted
+	}
+	text = { localisation_key = String_get_full_name }
+}
+defined_text = {
+	name = GetManWomanCap
+	text = {
+		trigger = { is_female = no }
+		localisation_key = String_man_cap
+	}
+	text = {
+		trigger = { is_female = yes }
+		localisation_key = String_woman_cap
+	}
+}
+defined_text = {
+	name = GetServiceBranch
+	text = {
+		trigger = {
+			OR = {
+				trait = warship_captain
+				trait = fighter_pilot
+			}
+		}
+		localisation_key = String_navy
+	}
+	text = {
+		trigger = { trait = marine_colonel }
+		localisation_key = String_marines
+	}
+	text = {
+		trigger = {
+			NOT = { trait = warship_captain }
+			NOT = { trait = fighter_pilot }
+			NOT = { trait = marine_colonel }
+		}
+		localisation_key = String_army
+	}
 }
 
 # Dynamic trait names and descs
@@ -109,4 +276,60 @@ defined_text = {
 			}
 		}
 	}
+}
+
+defined_text = {
+	name = GetOrbitalBombardmentDesc
+	use_first_valid = yes
+	
+	text = {
+		trigger = { event_target:bombardment_target = { NOT = { has_building = ct_homeworld_1 } } }
+		localisation_key = String_orbital_bombardment_generic
+	}
+	text = {
+		trigger = { ROOT = { religion = xenoterran } }
+		localisation_key = String_orbital_bombardment_earth_xenoterran
+	}
+	text = {
+		trigger = {
+			ROOT = {
+				OR = {
+					culture_group = terran_group
+					religion = terran_republican
+					religion = terran_federal
+					religion = terran_imperial
+				}
+			}
+		}
+		localisation_key = String_orbital_bombardment_earth_terran
+	}
+	text = { localisation_key = String_orbital_bombardment_earth }
+}
+
+defined_text = {
+	name = GetOrbitalBombardmentOption
+	use_first_valid = yes
+	
+	text = {
+		trigger = { event_target:bombardment_target = { NOT = { has_building = ct_homeworld_1 } } }
+		localisation_key = String_orbital_bombardment_command_generic
+	}
+	text = {
+		trigger = { ROOT = { religion = xenoterran } }
+		localisation_key = String_orbital_bombardment_command_earth
+	}
+	text = {
+		trigger = {
+			ROOT = {
+				OR = {
+					culture_group = terran_group
+					religion = terran_republican
+					religion = terran_federal
+					religion = terran_imperial
+				}
+			}
+		}
+		localisation_key = String_orbital_bombardment_command_generic
+	}
+	text = { localisation_key = String_orbital_bombardment_command_earth }
 }

@@ -1,0 +1,222 @@
+namespace = racial
+
+character_event = {
+	id = spacer_physiology.0 #chance to give Spacer Physiology to Astrists on birth. Fires from crisis_on_actions
+	# desc = spacerphysiology
+	hide_window = yes
+	hide_from = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		religion = astrist
+		#trait = astrist_spacefarer
+		NOR = {
+			trait = heavy_worlder
+			trait = spacer_physiology
+		}
+	}
+	
+	immediate = {
+		random_list = {
+			33 = { add_trait = spacer_physiology }
+			67 = {}
+		}		
+	}
+}
+#character_event = { #chance to give randomly generated astrist courtiers the spacer trait
+#	id = spacer_physiology.1
+#	# desc = spacerphysiology
+#	hide_window = yes
+#	hide_from = yes
+#	
+#	trigger = {
+#		religion = astrist
+#		#trait = astrist_spacefarer
+#		NOR = {
+#			trait = heavy_worlder
+#			trait = spacer_physiology
+#		}
+#		#using this as a work around to select only newly generated courtiers.
+#		NOT = {	father_even_if_dead = { always = yes } }
+#		NOT = {	mother_even_if_dead = { always = yes } }		
+#	}
+#	
+#	mean_time_to_happen = {
+#		months = 1200
+#
+#		# Location Effects
+#		modifier = {
+#			factor = 0.2
+#			location = {
+#				any_province_lord = {
+#					NOT = { war_with = ROOT }
+#					any_demesne_title = {
+#						tier = baron
+#						location = { province_id = PREVPREVPREV } # PREVPREVPREV copied from cybernetics_decisions
+#						has_building = tp_environment_0
+#						NAND = { 
+#								has_building = tp_environment_2
+#								has_building = tp_environment_3
+#								has_building = tp_environment_4
+#								has_building = tp_environment_5
+#						}						
+#					}
+#				}
+#			}		
+#		}
+#		
+#		# Military Astrists are more likely to live in space
+#		modifier = {
+#			factor = 0.25
+#			owner = { is_military_trigger = yes }
+#		}	
+#	
+#	immediate = {
+#		random_list = {
+#			50 = { add_trait = spacer_physiology }
+#			50 = {}
+#		}		
+#	}
+#}
+#character_event = { #Generate Heavy Worlder courtiers in systems with Heavy Worlder culture
+#	id = heavy_worlder_courtiers.0
+#	# desc = heavyworldercourtiers
+#	hide_window = yes
+#	hide_from = yes
+#	
+#	mean_time_to_happen = { months = 20 }
+#	
+#	trigger = {
+#		#liege = { capital_scope = { culture = heavy_worlder_ge } }
+#		culture = heavy_worlder_ge
+#		#religion = bio_directionist
+#		NOR = {
+#			trait = heavy_worlder
+#			trait = spacer_physiology
+#			trait = organic_wifi
+#			trait = cat_splice
+#		}
+#		#using this as a work around to select newly generated courtiers.
+#		NOT = {	father_even_if_dead = { always = yes } }
+#		NOT = {	mother_even_if_dead = { always = yes } }
+#	}
+#	immediate = {
+#		add_trait = heavy_worlder
+#	}
+#}
+#character_event = {
+#	id = cat_splice_courtiers.0
+#	# desc = catsplicecourtiers
+#	hide_window = yes
+#	hide_from = yes
+#	
+#	is_triggered_only = yes
+#	
+#	trigger = {
+#		capital_scope = { culture = cat_splice_ge }
+#		NOR = {
+#			trait = cat_splice
+#			trait = spacer_physiology
+#			trait = organic_wifi
+#			trait = cat_splice
+#		}
+#		#using this as a work around to select newly generated courtiers.
+#		NOT = {	father_even_if_dead = { always = yes } }
+#		NOT = {	mother_even_if_dead = { always = yes } }
+#	}
+#	
+#	immediate = {
+#		add_trait = cat_splice
+#	}
+#}
+#character_event = {
+#	id = organic_wifi_courtiers.0
+#	# desc = heavyworldercourtiers
+#	hide_window = yes
+#	hide_from = yes
+#	
+#	is_triggered_only = yes
+#	
+#	trigger = {
+#		capital_scope = { culture = organic_wifi_ge }
+#		NOR = {
+#			trait = organic_wifi
+#			trait = spacer_physiology
+#			trait = cat_splice
+#			trait = organic_wifi
+#		}
+#		#using this as a work around to select newly generated courtiers.
+#		NOT = {	father_even_if_dead = { always = yes } }
+#		NOT = {	mother_even_if_dead = { always = yes } }
+#	}
+#	
+#	immediate = {
+#		add_trait = organic_wifi
+#	}
+#}
+#character_event = {
+#	id = ge_courtiers.0
+#	# desc = gecourtiers
+#	hide_window = yes
+#	hide_from = yes
+#	
+#	is_triggered_only = yes
+#	
+#	trigger = {
+#		capital_scope = { culture = bio_ge }
+#		NOR = {
+#			trait = heavy_worlder
+#			trait = spacer_physiology
+#			trait = cat_splice
+#			trait = organic_wifi
+#		}
+#		#using this as a work around to select newly generated courtiers.
+#		NOT = {	father_even_if_dead = { always = yes } }
+#		NOT = {	mother_even_if_dead = { always = yes } }
+#	}
+#	
+#	immediate = {
+#		random_list = {
+#			35 = { add_trait = heavy_worlder }
+#			25 = { add_trait = cat_splice }
+#			35 = { add_trait = organic_wifi }
+#			5 = { add_trait = spacer_physiology }
+#		}		
+#	}
+#}
+#character_event = {
+#	id = born_near_sol_courtiers.0
+#	# desc = bornnearsolcourtiers
+#	hide_window = yes
+#	hide_from = yes
+#	
+#	is_triggered_only = yes
+#	
+#	trigger = {
+#		de_jure_liege = { 
+#			OR = {
+#			has_landed_title = b_earth
+#			has_landed_title = b_moon
+#			has_landed_title = b_mars
+#			has_landed_title = b_ceres
+#			has_landed_title = b_europa
+#			has_landed_title = b_ganymede
+#			has_landed_title = b_titan
+#			}
+#		}
+#		culture = terran_terran
+#		is_landed = no
+#		NOR = {
+#			trait = born_in_the_purple
+#			trait = spacer_physiology
+#		}
+#		#using this as a work around to select newly generated courtiers.
+#		NOT = {	father_even_if_dead = { always = yes } }
+#		NOT = {	mother_even_if_dead = { always = yes } }
+#	}
+#	
+#	immediate = {
+#		add_trait = born_in_the_purple
+#	}
+#}

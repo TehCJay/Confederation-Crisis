@@ -742,10 +742,7 @@ character_event = {
 		trigger = {
 			NOT = { trait = greedy }
 		}
-		if = {
-			limit = { spouse = { trait = stressed  } }
-			spouse = { remove_trait = stressed  }
-		}
+		improve_mood_effect = yes
 		add_trait = charitable
 		character_event = { id = 73005 days = 10 tooltip = EVTTOOLTIP73005 }
 	}	
@@ -811,9 +808,10 @@ character_event = {
 		name = EVTOPTA73008 #Hire him.
 		create_random_diplomat = {
 			random_traits = yes
-			dynasty = random
+			dynasty = actually_culture
 			female = no
 		}
+		new_character = { set_dynasty_flag = flag_valid_surname }
 		scaled_wealth = -0.1
 	}
 	option = {
@@ -939,10 +937,11 @@ character_event = {
 		scaled_wealth = -0.2
 		create_random_soldier = {
 			random_traits = yes
-			dynasty = random
+			dynasty = actually_culture
 			female = no
 		}
 		new_character = {
+			set_dynasty_flag = flag_valid_surname
 			ROOT = {
 				random_current_enemy = {
 					limit = {
@@ -1323,7 +1322,7 @@ letter_event = {
 		random_list = {
 			50 = {}
 			30 = { change_martial = 1 }
-			20 = { add_trait = stressed hidden_tooltip = { character_event = { id = 38282 }} }
+			20 = { degrade_mood_effect = yes hidden_tooltip = { character_event = { id = 38282 }} }
 		}
 	}
 	
@@ -1550,7 +1549,7 @@ letter_event = {
 		random_list = {
 			50 = {}
 			30 = { change_intrigue = 1 }
-			20 = { add_trait = stressed hidden_tooltip = { character_event = { id = 38282 }} }
+			20 = { degrade_mood_effect = yes hidden_tooltip = { character_event = { id = 38282 }} }
 		}
 	}
 	option = {
@@ -1766,7 +1765,7 @@ letter_event = {
 		random_list = {
 			50 = {}
 			30 = { change_stewardship = 1 }
-			20 = { add_trait = stressed hidden_tooltip = { character_event = { id = 38282 }} }
+			20 = { degrade_mood_effect = yes hidden_tooltip = { character_event = { id = 38282 }} }
 		}
 	}
 	option = {
@@ -2011,7 +2010,7 @@ letter_event = {
 		random_list = {
 			50 = {}
 			30 = { change_learning = 1 }
-			20 = { add_trait = stressed hidden_tooltip = { character_event = { id = 38282 }} }
+			20 = { degrade_mood_effect = yes hidden_tooltip = { character_event = { id = 38282 }} }
 		}
 	}
 	option = {
@@ -2229,7 +2228,7 @@ letter_event = {
 		random_list = {
 			50 = {}
 			30 = { change_diplomacy = 1 }
-			20 = { add_trait = stressed hidden_tooltip = { character_event = { id = 38282 }} }
+			20 = { degrade_mood_effect = yes hidden_tooltip = { character_event = { id = 38282 }} }
 		}
 	}
 	option = {

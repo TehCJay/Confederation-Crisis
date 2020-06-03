@@ -162,7 +162,7 @@ character_event = {
 			limit = { NOT = { trait = stressed } }
 			random = {
 				chance = 50
-				add_trait = stressed
+				degrade_mood_effect = yes
 			}
 		}
 	}
@@ -775,7 +775,7 @@ character_event = {
 				trait = close_minded
 				NOT = { trait = stressed }
 			}
-			add_trait = stressed
+			degrade_mood_effect = yes
 		}
 		if = {
 			limit = { trait = close_minded }
@@ -883,7 +883,7 @@ character_event = {
 				trait = open_minded
 				NOT = { trait = stressed }
 			}
-			add_trait = stressed
+			degrade_mood_effect = yes
 		}
 		if = {
 			limit = { trait = open_minded }
@@ -991,7 +991,7 @@ character_event = {
 				trait = carefree
 				NOT = { trait = stressed }
 			}
-			add_trait = stressed
+			degrade_mood_effect = yes
 		}
 		if = {
 			limit = { trait = carefree }
@@ -1099,7 +1099,7 @@ character_event = {
 				trait = disciplined
 				NOT = { trait = stressed }
 			}
-			add_trait = stressed
+			degrade_mood_effect = yes
 		}
 		if = {
 			limit = { trait = disciplined }
@@ -1207,7 +1207,7 @@ character_event = {
 				trait = cold
 				NOT = { trait = stressed }
 			}
-			add_trait = stressed
+			degrade_mood_effect = yes
 		}
 		if = {
 			limit = { trait = cold }
@@ -1315,7 +1315,7 @@ character_event = {
 				trait = friendly
 				NOT = { trait = stressed }
 			}
-			add_trait = stressed
+			degrade_mood_effect = yes
 		}
 		if = {
 			limit = { trait = friendly }
@@ -1423,7 +1423,7 @@ character_event = {
 				trait = extraverted
 				NOT = { trait = stressed }
 			}
-			add_trait = stressed
+			degrade_mood_effect = yes
 		}
 		if = {
 			limit = { trait = extraverted }
@@ -1531,7 +1531,7 @@ character_event = {
 				trait = introverted
 				NOT = { trait = stressed }
 			}
-			add_trait = stressed
+			degrade_mood_effect = yes
 		}
 		if = {
 			limit = { trait = introverted }
@@ -1694,15 +1694,24 @@ character_event = {
 	prisoner = no
 	
 	trigger = {
-		religion = cyberneticist
+		religion_group = transhumanist_group
+		NOT = { religion = bio_directionist	}
 		NOT = { has_global_flag = flag_hiver_implant_invented }
-		capital_scope = { TECH_POPULAR_CUSTOMS = 5 }
-		learning = 20
+		capital_scope = { TECH_POPULAR_CUSTOMS = 4 }
+		learning = 18
 		NOT = { has_character_flag = flag_refused_hiver_implant_invention }
 	}
 	
 	mean_time_to_happen = {
 		months = 480
+		modifier = {
+			factor = 0.8
+			learning = 19
+		}
+		modifier = {
+			factor = 0.8
+			learning = 20
+		}
 		modifier = {
 			factor = 0.8
 			learning = 21
@@ -1745,16 +1754,20 @@ character_event = {
 		}
 		modifier = {
 			factor = 0.5
+			capital_scope = { TECH_POPULAR_CUSTOMS = 5 }
+		}
+		modifier = {
+			factor = 0.5
 			capital_scope = { TECH_POPULAR_CUSTOMS = 6 }
 		}
 		modifier = {
 			factor = 0.5
 			capital_scope = { TECH_POPULAR_CUSTOMS = 7 }
 		}
-		modifier = {
+		modifier = { #delete if nerfing, bring other TECH_POPULAR_CUSTOMS back up 1 level
 			factor = 0.5
 			capital_scope = { TECH_POPULAR_CUSTOMS = 8 }
-		}
+		}		
 	}
 	
 	# Do it, what could possibly go wrong?
@@ -2716,7 +2729,7 @@ character_event = {
 	
 	option = {
 		name = "EVTOPTAHIVER2400"
-		remove_trait = stressed
+		improve_mood_effect = yes
 		hidden_tooltip = {
 			if = {
 				limit = {

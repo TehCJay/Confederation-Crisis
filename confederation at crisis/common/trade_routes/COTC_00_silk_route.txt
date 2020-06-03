@@ -19,6 +19,7 @@ helium_road = {
 			province_id = 272 #Qinqlong
 			#province_id = 271 #Nie Haishen
 			province_id = 267 #Skagen
+			province_id = 264			
 			##Altair to  Hermanes de Oro (Tierra Celeste)			
 			province_id = 81 #Nuevo Sol
 			#province_id = 82 #Prosperidad
@@ -28,6 +29,7 @@ helium_road = {
 			#province_id = 204 #Eta Cassiopeia
 			province_id = 205 #Tau Ceti
 			province_id = 307 #Makkat Al-Jadiida
+			province_id = 305 #Israafiil
 			#province_id = 306 #Janna			
 			##Neuvo Sol to Orion Reach
 			province_id = 67 #Estrella de Bolivar
@@ -39,7 +41,30 @@ helium_road = {
 			#province_id = 288 #Varmland
 			province_id = 292 #Sodermanland
 			#province_id = 286 #Anansi
-			province_id = 285 #Afolayan			
+			province_id = 285 #Afolayan
+			#Avalon
+			province_id = 25 #Avalon
+			province_id = 24 #Etherland
+			province_id = 44 #Victoria
+			#Bianjiang
+			province_id = 51 #Chengdu
+			province_id = 278
+			province_id = 49			
+			#Centauri Reach
+			province_id = 210
+			province_id = 211
+			#Jion
+			province_id = 129
+			province_id = 126
+			province_id = 114			
+			#Xin Zizhiqu
+			province_id = 244
+			#Strugatsky
+			province_id = 177
+			province_id = 185			
+			#Mukta Duniyeh
+			province_id = 343
+			
 		}
 	}
 
@@ -68,18 +93,41 @@ helium_road = {
 		path = {	# Sol-Sirius-Armstrong-Heartland-Overlook
 		202
 	}
-
+	# Glenn to Avalon Helium Route	
+		path = {	
+		90 92 28 25
+		}
+	# Centauri Reach to Jion Helium Route	
+		path = {	
+		199 213 211 209 210 129 127 125 126
+		}
+	# Jion to Strugatsky Helium Route	
+		path = {	
+		126 123 113 114 180 177 181 183 185
+		}		
 	# Xingjie Helium Route	
 		path = {	 
 			202 198 196 194 193 272 271 267		
 		}
+	# Xingjie to Bianjiang Helium Route	
+		path = {	 
+		267	269 278 48 49
+		}		
+	# Xingjie to Xin Zizhiqu Helium Route	
+		path = {	 
+			267	268 264 265 244
+		}		
 	# Tierra Celeste Helium Route	
 		path = {	 
 			193 81 82 70 71
 		}
-	#al-Samawat Helium Route	
+	# Tierra Celeste to Bianjiang Helium Route	
 		path = {	 
-		202 204 205 307 306
+			65 50 51
+		}		
+	#al-Samawat t Mukta Buniyeh Helium Route	
+		path = {	 
+		202 204 205 307 306 305 301 299 342 343
 		}
 	#Orion Reach Helium Route	
 		path = {	 
@@ -88,13 +136,103 @@ helium_road = {
 	# Nenye Nyota Angani Helium Route	
 		path = {	
 		200 203 290 288 292 286 285
+		}
+	# Nenye Nyota Angani to Etherland Avalon Helium Route	
+		path = {	
+		286 282 280 24
+		}
+	# Nenye Nyota Angani to Victoria Avalon Helium Route	
+		path = {	
+		280 44
 		}		
-
-	
 }
 
+spice_road = {
+	wealth = 10			# Total base wealth of silk route
+	trade_post_display_trigger = {
+		OR = {
+		#Orion Nebula Spice Road		
+		province_id = 431 # Principito
+		province_id = 428 # La Forja
+		province_id = 424 # OR-793
+		province_id = 435 # FN-071
+		province_id = 439 # FN-122
+		province_id = 243 #Wanguan	
+		province_id = 411 		
+			
+		}
+	}
 
+	modifier = {			# How the trade route modifies the provinces it passes
+		castle_tax_modifier = 0.10
+		city_tax_modifier = 0.10
+		temple_tax_modifier = 0.10
+		tribal_tax_modifier = 0.10
+		trade_route_value = 15
+		local_movement_speed = 0.20
+		tech_growth_modifier = 0.20
+		icon = 4
+	}
+
+	start = {				# Start provinces of trade route
+		431 # Principito
+	}
+
+	# Orion Nebula Spice Road
+	path = {
+		431 432 430 428 426 424 436 435 439 437 243
+	}
+	# Orion Spice Road
+	path = {
+		435 412	411 409 405 404
+	}	
+}
+cyber_road = {
+	wealth = 20			# Total base wealth of silk route
+	trade_post_display_trigger = {
+		OR = {
+		#Tarka Cyber Road		
+		province_id = 10
+		province_id = 9
+		province_id = 3
+		province_id = 23
+		province_id = 36
+		#Tarka to Avalon
+		province_id = 13
+		province_id = 314
+		#Tarka to Mukta Duniyeh
+		province_id = 341	
+		}
+	}
+
+	modifier = {			# How the trade route modifies the provinces it passes
+		castle_tax_modifier = 0.10
+		city_tax_modifier = 0.10
+		temple_tax_modifier = 0.10
+		tribal_tax_modifier = 0.10
+		trade_route_value = 15
+		local_movement_speed = 0.20
+		tech_growth_modifier = 0.20
+		icon = 4
+	}
+
+	start = {				# Start provinces of trade route
+		10 # Tarka
+	}
+
+	# Tarka to Avalon Cyber Road
+	path = {
+		10 8 9 5 3 1 23 38 36
+	}
+	# Tarka to Al-Samawat Cyber Road
+	path = {
+		10 12 14 13 313 314 312
+	}
+	# Tarka to Mukta Cyber Road
+	path = {
+		14 15 17 341
+	}		
+}
 			##Xin Zizhiqu-Novyy Edem-Strugatsky-Jion
-			##Tarka to Avalon
-			##New Frontier to Avalon
-			##Orion Nebula to Orion Reach and Bianjiang
+			##Tarka to Avalon and Mukta Duniyeh
+			##New Frontier to Avalon and Jion

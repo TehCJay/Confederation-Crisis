@@ -11,12 +11,20 @@ decisions = {
 				ai = yes
 				has_character_flag = flag_cybernetics_menu_open
 			}
+			OR = {
+				religion_group = transhumanist_group
+				trait = lunatic
+				AND = {
+					trait = pragmatic
+					age = 60
+				}
+			}
 		}
 		allow = {
 			is_pregnant = no
 			NOT = { has_character_flag = flag_busy }
 			location = {
-				TECH_POPULAR_CUSTOMS = 6
+				TECH_POPULAR_CUSTOMS = 5
 				any_province_lord = {
 					NOT = { war_with = ROOT }
 					any_demesne_title = {
@@ -29,11 +37,11 @@ decisions = {
 			OR = {
 				wealth = 2000
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 7 }
+					location = { TECH_POPULAR_CUSTOMS = 6 }
 					wealth = 1000
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 8 }
+					location = { TECH_POPULAR_CUSTOMS = 7 }
 					wealth = 500
 				}
 			}
@@ -45,20 +53,20 @@ decisions = {
 		}
 		effect = {
 			if = {
-				limit = { location = { NOT = { TECH_POPULAR_CUSTOMS = 7 } } }
+				limit = { location = { NOT = { TECH_POPULAR_CUSTOMS = 6 } } }
 				wealth = -2000
 			}
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 7
-						NOT = { TECH_POPULAR_CUSTOMS = 8 }
+						TECH_POPULAR_CUSTOMS = 6
+						NOT = { TECH_POPULAR_CUSTOMS = 7 }
 					}
 				}
 				wealth = -1000
 			}
 			if = {
-				limit = { location = { TECH_POPULAR_CUSTOMS = 8 } }
+				limit = { location = { TECH_POPULAR_CUSTOMS = 7 } }
 				wealth = -500
 			}
 			# Remove Health Traits

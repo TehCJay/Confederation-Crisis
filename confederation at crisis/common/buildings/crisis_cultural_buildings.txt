@@ -4,8 +4,14 @@ castle = {
 		trigger = { }
 		build_cost = 50
 		build_time = 180
-		potential = { religion = space_pirate }
+		potential = { 
+			OR = {
+				religion = space_pirate
+				FROM = { religion = space_pirate }
+			}
+		}
 		trigger = {
+			religion = space_pirate
 			FROM = {
 				religion = space_pirate
 			}
@@ -175,7 +181,7 @@ trade_post = {
 				religion = space_pirate
 			}
 		}
-		desc = tr_port_1_desc
+		desc = tr_spice_1_desc
 		trigger = {
 			FROM = { family_palace = { has_building = fp_spice_1 } }
 		}

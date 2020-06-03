@@ -13,12 +13,11 @@ province_event = {
 	
 	trigger = {
 		NOT = { religion = terran_federalist }
-		NOT = { religion_authority = 0.3 }
+		NOT = { religion_authority = 0.25 }
 		NOT = { religion = hiver }
 		OR = {
 			religion = terran_republican
 			religion = terran_imperial
-			religion = colonial_separatist
 			province_id = 202 # Terran ideologies are always available to Earth
 			any_province_lord = { religion = terran_federalist }
 			any_neighbor_province = { religion = terran_federalist }
@@ -1066,15 +1065,16 @@ province_event = {
 		NOT = { province_id = 202 } # Earth is never going to follow an inherently anti-Terran ideology.
 		OR = {
 			religion = terran_federalist
-			religion = neo_feudal
-			religion = neo_socialist
+			religion = terran_republican
+			#religion = neo_feudal
+			#religion = neo_socialist
 			any_province_lord = { religion = colonial_separatist }
 			any_neighbor_province = { religion = colonial_separatist }
 		}
 	}
 	
 	mean_time_to_happen = {
-		months = 1800
+		months = 1200
 		
 		# Religion Authority Effects
 		modifier = {
@@ -1327,9 +1327,12 @@ province_event = {
 		NOT = { religion = hiver }
 		NOT = { religion_authority = 0.25 }
 		OR = {
-			religion = terran_imperial
+			AND = {
+				religion = terran_imperial
+				NOT = { culture_group = terran_group}
+			}
 			religion = colonial_separatist
-			religion = astrist
+			#religion = astrist
 			any_province_lord = { religion = neo_feudal }
 			any_neighbor_province = { religion = neo_feudal }
 		}
@@ -2340,6 +2343,7 @@ province_event = {
 		NOT = { religion_authority = 0.3 }
 		OR = {
 			religion = machine_cultist
+			religion = colonial_separatist
 			TECH_POPULAR_CUSTOMS = 6
 			any_province_lord = { religion = cyberneticist }
 			any_neighbor_province = { religion = cyberneticist }
@@ -3154,6 +3158,8 @@ province_event = {
 		NOT = { religion_authority = 0.3 }
 		OR = {
 			religion = neo_feudal
+			religion = colonial_separatist
+			religion = terran_federalist
 			TECH_RELIGIOUS_CUSTOMS = 5
 			any_province_lord = { religion = bio_directionist }
 			any_neighbor_province = { religion = bio_directionist }
@@ -3961,6 +3967,29 @@ province_event = {
 		NOT = { religion = hiver }
 		NOT = { religion = adoptionist_cultist }
 		NOT = { religion_authority = 0.3 }
+
+		OR = {
+			AND = {
+				religion = colonial_separatist
+				OR = {
+					any_province_lord = { religion_group = religious_group }
+					any_neighbor_province = { religion_group = religious_group }
+					NOT = { has_global_flag = flag_pilgrim_reformation }
+				}
+			}
+			AND = {
+				religion_group = religious_group
+				NOT = { culture_group = terran_group }
+				OR = {
+					any_province_lord = { religion = colonial_separatist }
+					any_neighbor_province = { religion = colonial_separatist }
+					NOT = { has_global_flag = flag_pilgrim_reformation }
+				}
+			}
+			any_province_lord = { religion = machine_cultist }
+			any_neighbor_province = { religion = machine_cultist }
+		}
+		
 		OR = {
 			religion = adoptionist
 			any_province_lord = { religion = adoptionist_cultist }
@@ -4213,6 +4242,10 @@ province_event = {
 				count = 5
 			}
 		}
+		modifier = {
+			factor = 5
+			culture_group = terran_group
+		}		
 	}
 	
 	option = {
@@ -4502,7 +4535,7 @@ province_event = {
 			any_province_lord = { religion = imperial_cult }
 			any_neighbor_province = { religion = imperial_cult }
 		}
-		NOT = { revolt_risk = 0.1 }
+		#NOT = { revolt_risk = 0.1 }
 		owner = { top_liege = { is_elective_trigger = no } }
 	}
 	
@@ -4839,16 +4872,25 @@ province_event = {
 		NOT = { religion_authority = 0.4 }
 		OR = {
 			religion = pilgrim
-			any_province_lord = { religion = solar_cultist }
-			any_neighbor_province = { religion = solar_cultist }
+			religion = orthodox
+			culture_group = terran_group
 		}
-		NOT = { revolt_risk = 0.3 }
+		OR = {
+			religion_group = religious_group
+			location = { religion = solar_cultist }
+			liege = { religion = solar_cultist }
+		}
+		#NOT = { revolt_risk = 0.3 }
 		owner = { top_liege = { is_elective_trigger = no } }
 	}
 	
 	mean_time_to_happen = {
 		months = 600
-		
+		modifier = {
+			factor = 0.5
+			culture_group = terran_group
+			empire = { NOT = { title = e_terran_confederation } }
+		}		
 		# Religion Authority Effects
 		modifier = {
 			factor = 2
@@ -4967,12 +5009,6 @@ province_event = {
 			owner = { is_military_trigger = yes }
 		}
 		
-		
-		# Harder to take these people seriously as gods
-		modifier = {
-			factor = 20
-			owner = { top_liege = { is_elective_trigger = yes } }
-		}
 		# Neighboring Province Effects
 		modifier = {
 			factor = 2
@@ -5176,21 +5212,26 @@ province_event = {
 	trigger = {
 		NOT = { religion = solarian }
 		NOT = { religion = hiver }
+		NOT = { religion = xenoterran }
+		NOT = { religion = space_pirate }
 		NOT = { religion_authority = 0.4 }
 		OR = {
 			religion = pilgrim
-			religion = solar_cult
+			religion = solar_cultist
 			any_province_lord = { religion = solarian }
 			any_neighbor_province = { religion = solarian }
-			any_province_lord = { religion = solar_cult }
-			any_neighbor_province = { religion = solar_cult }			
+			any_province_lord = { religion = solar_cultist }
+			any_neighbor_province = { religion = solar_cultist }			
 		}
-		NOT = { revolt_risk = 0.2 }
+		#NOT = { revolt_risk = 0.2 }
 	}
 	
 	mean_time_to_happen = {
 		months = 600
-		
+		modifier = {
+			factor = 2
+			religion = pilgrim
+		}		
 		# Religion Authority Effects
 		modifier = {
 			factor = 2
@@ -5309,12 +5350,6 @@ province_event = {
 			owner = { is_military_trigger = yes }
 		}
 		
-		
-		# Harder to take these people seriously as gods
-		modifier = {
-			factor = 20
-			owner = { top_liege = { is_elective_trigger = yes } }
-		}
 		# Neighboring Province Effects
 		modifier = {
 			factor = 2
@@ -5507,4 +5542,385 @@ province_event = {
 		name = "EVTOPTCONFIRM"
 		religion = solarian
 	 }
+}
+
+# Xenoterran
+province_event = {
+	id = conversion.106
+	desc = "EVTDESCCONVERSION106"
+	picture = GFX_evt_speech
+	
+	trigger = {
+		NOT = { religion = xenoterran }
+		NOT = { religion = hiver }
+		NOT = { religion_authority = 0.2 }
+		NOT = { culture_group = terran_group }
+		OR = {
+			religion = adoptionist_cultist
+			any_province_lord = { religion = xenoterran }
+			any_neighbor_province = { religion = xenoterran }
+			revolt_risk = 0.8
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 600
+		
+		# Religion Authority Effects
+		modifier = {
+			factor = 2
+			religion_authority = 0.1
+		}
+		modifier = {
+			factor = 2
+			religion_authority = 0.2
+		}
+		modifier = {
+			factor = 2
+			religion_authority = 0.3
+		}
+		modifier = {
+			factor = 2
+			religion_authority = 0.4
+		}
+		modifier = {
+			factor = 0.5
+			any_province_lord = {
+				any_realm_character = {
+					religion = xenoterran
+					religion_authority = 0.1
+				}
+			}
+		}
+		modifier = {
+			factor = 0.5
+			any_province_lord = {
+				any_realm_character = {
+					religion = xenoterran
+					religion_authority = 0.2
+				}
+			}
+		}
+		modifier = {
+			factor = 0.5
+			any_province_lord = {
+				any_realm_character = {
+					religion = xenoterran
+					religion_authority = 0.3
+				}
+			}
+		}
+		modifier = {
+			factor = 0.5
+			any_province_lord = {
+				any_realm_character = {
+					religion = xenoterran
+					religion_authority = 0.4
+				}
+			}
+		}
+		modifier = {
+			factor = 0.5
+			any_province_lord = {
+				any_realm_character = {
+					religion = xenoterran
+					religion_authority = 0.5
+				}
+			}
+		}
+		modifier = {
+			factor = 0.5
+			any_province_lord = {
+				any_realm_character = {
+					religion = xenoterran
+					religion_authority = 0.6
+				}
+			}
+		}
+		modifier = {
+			factor = 0.5
+			any_province_lord = {
+				any_realm_character = {
+					religion = xenoterran
+					religion_authority = 0.7
+				}
+			}
+		}
+		modifier = {
+			factor = 0.5
+			any_province_lord = {
+				any_realm_character = {
+					religion = xenoterran
+					religion_authority = 0.8
+				}
+			}
+		}
+		modifier = {
+			factor = 0.5
+			any_province_lord = {
+				any_realm_character = {
+					religion = xenoterran
+					religion_authority = 0.9
+				}
+			}
+		}
+		modifier = {
+			factor = 0.5
+			any_province_lord = {
+				any_realm_character = {
+					religion = xenoterran
+					religion_authority = 1
+				}
+			}
+		}
+		# Existing ideological similarities/differences
+		modifier = {
+			factor = 0.25
+			OR = {
+				religion = astrist
+				religion = adoptionist_cultist
+			}
+		}
+		modifier = {
+			factor = 10
+			OR = {
+				religion = terran_federalist
+				religion = terran_republican
+				religion = terran_imperial
+			}
+		}
+		modifier = {
+			factor = 25
+			NOT = { religion = astrist }
+			NOT = { religion = adoptionist_cultist }
+			or = {
+				religion_group = political_group
+				religion_group = transhumanist_group
+				religion_group = religious_group
+			}
+		}
+		
+		# Unpopular near Earth
+		modifier = {
+			factor = 0.2
+			OR = {
+				religion = terran_federalist
+				religion = terran_republican
+				religion = terran_imperial
+			}
+			OR = {
+				culture_group = bianjiangese_group
+				culture_group = orion_group
+				culture_group = mukta_group
+				culture_group = tarkan_group
+				culture_group = avalonian_group
+				culture_group = tengoku_group
+				culture_group = strugatskite_group
+				culture_group = edemite_group
+			}
+		}
+		modifier = {
+			factor = 5
+			OR = {
+				religion = terran_imperial
+				religion = terran_republican
+				religion = terran_federalist
+			}
+			OR = {
+				culture_group = xingjie_group
+				culture_group = celestean_group
+				culture_group = sexto_solar_group
+				culture_group = samawati_group
+				culture_group = angani_group
+				culture_group = frontiersman_group
+				culture_group = centauri_group
+			}
+		}
+		
+		# Military provinces tend to favor military ideologies
+		modifier = {
+			factor = 0.25
+			NOT = { religion = terran_imperial }
+			NOT = { religion = neo_feudal }
+			NOT = { religion = imperial_cult }
+			owner = { is_military_trigger = yes }
+		}
+		
+		# Revolutionary fervor ALSO goes well with space fascism
+		modifier = {
+			factor = 0.8
+			owner = { NOT = { religion = xenoterran } }
+			revolt_risk = 0.1
+		}
+		modifier = {
+			factor = 0.8
+			owner = { NOT = { religion = xenoterran } }
+			revolt_risk = 0.2
+		}
+		modifier = {
+			factor = 0.8
+			owner = { NOT = { religion = xenoterran } }
+			revolt_risk = 0.3
+		}
+		modifier = {
+			factor = 0.8
+			owner = { NOT = { religion = xenoterran } }
+			revolt_risk = 0.4
+		}
+		modifier = {
+			factor = 0.8
+			owner = { NOT = { religion = xenoterran } }
+			revolt_risk = 0.5
+		}
+		modifier = {
+			factor = 0.8
+			owner = { NOT = { religion = xenoterran } }
+			revolt_risk = 0.6
+		}
+		modifier = {
+			factor = 0.8
+			owner = { NOT = { religion = xenoterran } }
+			revolt_risk = 0.7
+		}
+		modifier = {
+			factor = 0.8
+			owner = { NOT = { religion = xenoterran } }
+			revolt_risk = 0.8
+		}
+		modifier = {
+			factor = 0.8
+			owner = { NOT = { religion = xenoterran } }
+			revolt_risk = 0.9
+		}
+		modifier = {
+			factor = 0.8
+			owner = { NOT = { religion = xenoterran } }
+			revolt_risk = 1
+		}
+		
+		# Neighboring Province Effects
+		modifier = {
+			factor = 2
+			any_neighbor_province = { NOT = { religion = xenoterran } }
+		}
+		modifier = {
+			factor = 2
+			any_neighbor_province = {
+				NOT = { religion = xenoterran }
+				count = 2
+			}
+		}
+		modifier = {
+			factor = 2
+			any_neighbor_province = {
+				NOT = { religion = xenoterran }
+				count = 3
+			}
+		}
+		modifier = {
+			factor = 2
+			any_neighbor_province = {
+				NOT = { religion = xenoterran }
+				count = 4
+			}
+		}
+		modifier = {
+			factor = 2
+			any_neighbor_province = {
+				NOT = { religion = xenoterran }
+				count = 5
+			}
+		}
+		modifier = {
+			factor = 2
+			any_neighbor_province = {
+				culture_group = ROOT
+				religion = ROOT
+			}
+		}
+		modifier = {
+			factor = 2
+			any_neighbor_province = {
+				culture_group = ROOT
+				religion = ROOT
+				count = 2
+			}
+		}
+		modifier = {
+			factor = 2
+			any_neighbor_province = {
+				culture_group = ROOT
+				religion = ROOT
+				count = 3
+			}
+		}
+		modifier = {
+			factor = 2
+			any_neighbor_province = {
+				culture_group = ROOT
+				religion = ROOT
+				count = 4
+			}
+		}
+		modifier = {
+			factor = 2
+			any_neighbor_province = {
+				culture_group = ROOT
+				religion = ROOT
+				count = 5
+			}
+		}
+		modifier = {
+			factor = 0.5
+			any_neighbor_province = { religion = xenoterran }
+		}
+		modifier = {
+			factor = 0.5
+			any_neighbor_province = {
+				religion = xenoterran
+				count = 2
+			}
+		}
+		modifier = {
+			factor = 0.5
+			any_neighbor_province = {
+				religion = xenoterran
+				count = 3
+			}
+		}
+		modifier = {
+			factor = 0.5
+			any_neighbor_province = {
+				religion = xenoterran
+				count = 4
+			}
+		}
+		modifier = {
+			factor = 0.5
+			any_neighbor_province = {
+				religion = xenoterran
+				count = 5
+			}
+		}
+		
+		# Terran biases against it
+		modifier = {
+			factor = 5
+			culture_group = terran_group
+			OR = {
+				religion = terran_federalist
+				religion = terran_republican
+				religion = terran_imperial
+				religion = pilgrim
+				religion = orthodox
+				religion = solarian
+				religion = solar_cultist
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		religion = xenoterran
+	}
 }

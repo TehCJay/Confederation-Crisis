@@ -1959,3 +1959,256 @@ e_paraiso = {
 		}	
 	}		
 }			
+
+
+k_gagarin = {
+	color = { 0 64 128 }
+	color2 = { 192 192 192 }
+	allow = { always = no }
+
+	short_name = yes
+
+	capital = 206 # Gagarin
+}
+
+e_tengoku = {
+	color = { 0 64 128 }
+	color2 = { 192 192 192 }
+	allow = { always = no }
+
+	short_name = yes
+
+	capital = 210 # Tengoku
+}
+
+e_external_worlds = {
+	color = { 0 64 128 }
+	color2 = { 192 192 192 }
+	allow = { always = no }
+
+	short_name = yes
+
+	capital = 404 # Meissa
+}
+
+e_rebels = {
+	rebel = yes
+	landless = yes
+	primary = yes
+
+	culture = anglo_terran
+	tribe = yes
+
+	color={ 0 0 0 }
+	color2={ 0 0 0 }
+}
+
+e_pirates = {
+	pirate = yes
+	landless = yes
+	primary = yes
+
+	culture = anglo_terran
+	tribe = yes
+
+	color={ 0 0 0 }
+	color2={ 0 0 0 }
+}
+
+d_imperial_cult = {
+	color={ 60 59 110 }
+	color2={ 220 220 0 }
+
+	capital = 202
+	creation_requires_capital = no
+
+	dignity = -100
+
+	# title = "PRESIDENT"
+	# title_female = "PRESIDENT"
+	# foa = "PRESIDENT_FOA"
+
+	short_name = yes
+	# location_ruler_title = yes
+
+	is_autocratic_trigger = yes
+	is_hereditary_trigger = yes
+	# Controls a religion
+	controls_religion = imperial_cult
+
+	allow = {
+		tier = EMPEROR
+		in_revolt = no
+		OR = {
+			independent = yes
+			NOT = {
+				any_liege = {
+					OR = {
+						in_revolt = yes
+						NOT = { religion = imperial_cult }
+					}
+				}
+			}
+		}
+		piety = 1000
+		religion = imperial_cult
+	}
+	caliphate = yes
+	dynasty_title_names = no
+}
+
+d_machine_cultist = {
+	color={ 60 59 110 }
+	color2={ 220 220 0 }
+
+	capital = 202
+	creation_requires_capital = no
+
+	dignity = 1100
+
+	title = "FABRICATOR"
+	title_female = "FABRICATOR"
+	foa = "FABRICATORFOA"
+
+	short_name = yes
+	# location_ruler_title = yes
+
+	# Controls a religion
+	controls_religion = machine_cultist
+
+	allow = {
+		in_revolt = no
+		OR = {
+			independent = yes
+			NOT = {
+				any_liege = {
+					OR = {
+						in_revolt = yes
+						NOT = { religion = machine_cultist }
+					}
+				}
+			}
+		}
+		piety = 1000
+		religion = machine_cultist
+		any_realm_title = {
+			count = 3
+			is_holy_site = ROOT
+		}
+	}
+	caliphate = yes
+	dynasty_title_names = no
+}
+
+d_bio_directionist = {
+	color={ 60 59 110 }
+	color2={ 220 220 0 }
+
+	capital = 25
+	creation_requires_capital = no
+
+	dignity = 1100
+
+	title = "DARWIN"
+	title_female = "DARWIN"
+	foa = "DARWINFOA"
+
+	short_name = yes
+	# location_ruler_title = yes
+
+	# Controls a religion
+	controls_religion = bio_directionist
+	religion = bio_directionist
+	primary = no
+
+	allow = {
+		in_revolt = no
+		OR = {
+			independent = yes
+			NOT = {
+				any_liege = {
+					OR = {
+						in_revolt = yes
+						NOT = { religion = bio_directionist }
+					}
+				}
+			}
+		}
+		piety = 1000
+		religion = bio_directionist
+		any_realm_title = {
+			count = 1
+			is_holy_site = ROOT
+		}
+	}
+	caliphate = yes
+	dynasty_title_names = no
+}
+
+d_pilgrimage = {
+	color = { 0 255 128 }
+	color2 = { 192 192 0 }
+
+	capital = 202 # Sol
+
+	short_name = yes
+	landless = yes
+	#primary = yes
+
+	controls_religion = pilgrim
+
+	dynasty_title_names = no
+
+	title = "MASTER"
+	title_female = "MASTER_female"
+	foa = "MASTERFOA"
+	foa_female = "MASTERFOA_female"
+}
+d_orthodoxy = {
+	color = { 0 255 128 }
+	color2 = { 192 192 0 }
+
+	allow = {
+		religion = orthodox
+		is_administrative = yes
+	}
+
+	capital = 202 # Sol
+
+	short_name = yes
+	# landless = yes
+	#primary = yes
+
+	controls_religion = orthodox
+
+	dynasty_title_names = no
+
+	title = "PATRIARCH"
+	title_female = "PATRIARCH_female"
+	foa = "PATRIARCHFOA"
+	foa_female = "PATRIARCHFOA_female"
+}
+d_solarian = {
+	color = { 250 100 20 }
+	color2 = { 192 192 0 }
+
+	allow = {
+		religion = solarian
+		is_administrative = yes
+	}
+
+	capital = 202 # Sol
+
+	short_name = yes
+	# landless = yes
+	#primary = yes
+
+	controls_religion = solarian
+
+	dynasty_title_names = no
+
+	title = "PHAETHON"
+	title_female = "PHAETHON"
+	foa = "PHAETHONFOA"
+	foa_female = "PHAETHONFOA"
+}

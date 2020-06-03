@@ -1,5 +1,76 @@
 namespace = health
 
+
+# No longer relaxed
+character_event = {
+	id = health.50
+	desc = "EVTDESCHEALTH50"
+	picture = GFX_evt_ill
+	
+	min_age = 16
+	only_capable = yes
+	
+	trigger = {
+		trait = relaxed
+	}
+	
+	mean_time_to_happen = {
+		months = 30
+		modifier = {
+			factor = 0.5
+			trait = neurotic
+		}
+		modifier = {
+			factor = 2
+			trait = confident
+		}
+	}
+	
+	option = {
+		name = "EVTOPTAHEALTH50"
+		degrade_mood_effect = yes
+		log = "Relaxed expired for [This.GetBestName]"
+	}
+}
+
+# Mood notifications
+# Stress gained
+character_event = {
+	id = health.51
+	desc = "EVTDESCHEALTH51"
+	notification = yes
+	is_triggered_only = yes
+	
+	option = { }
+}
+# Stress lost
+character_event = {
+	id = health.52
+	desc = "EVTDESCHEALTH52"
+	notification = yes
+	is_triggered_only = yes
+	
+	option = { }
+}
+# Relax gained
+character_event = {
+	id = health.53
+	desc = "EVTDESCHEALTH53"
+	notification = yes
+	is_triggered_only = yes
+	
+	option = { }
+}
+# Relax lost
+character_event = {
+	id = health.54
+	desc = "EVTDESCHEALTH54"
+	notification = yes
+	is_triggered_only = yes
+	
+	option = { }
+}
+
 # Physically impossible diseases
 character_event = {
 	id = health.100

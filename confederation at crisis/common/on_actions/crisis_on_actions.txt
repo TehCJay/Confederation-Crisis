@@ -48,9 +48,52 @@ on_yearly_pulse = {
 		25 = Plus.1867 # Emperor/Regent is Depressed		
 		50 = Plus.1868 # Emperor is a prisoner		
 		50 = Plus.1869 # Emperor has a capable Steward		
-		50 = Plus.1870 # Emperor has a lousy Steward		
-	}			
-}				
+		50 = Plus.1870 # Emperor has a lousy Steward	
+		research_project_progress = {
+			100 = lifestyle.1011 # Minor breakthrough
+			10 = lifestyle.1411 # Moderate breakthrough
+			1 = lifestyle.1811 # Major breakthrough
+		}
+		research_progress_collaboration = {
+			10 = 0
+			1 = lifestyle.2211
+			1 = lifestyle.2411
+		}
+	}
+}
+on_bi_yearly_pulse = {
+	random_events = {
+		gain_lifestyle_trait = {
+			5000 = 0
+			10 = lifestyle.10 # Gardener
+			10 = lifestyle.11 # Intellectual
+			10 = lifestyle.12 # Athlete
+			10 = lifestyle.13 # Hunter
+			10 = lifestyle.14 # Falconer
+			10 = lifestyle.15 # Writer
+			10 = lifestyle.16 # Artist
+			10 = lifestyle.17 # Duelist
+			10 = lifestyle.18 # Mystic
+			10 = lifestyle.19 # Gamer
+			# Influence by friends
+			500 = lifestyle.110
+			500 = lifestyle.111
+			500 = lifestyle.112
+			500 = lifestyle.113
+			500 = lifestyle.114
+			500 = lifestyle.115
+			500 = lifestyle.116
+			500 = lifestyle.117
+			500 = lifestyle.118
+			500 = lifestyle.119
+		}
+	}
+}
+on_five_year_pulse = {
+	events = {
+		lifestyle.20010 # Kill off plants that aren't properly cared for.
+	}
+}
 # any leader in battle on winning side is ROOT - opponent army leader is FROM				
 on_major_battle_won = {				
 	events = {			
@@ -484,6 +527,7 @@ on_unlanded = {
 #character		
 on_startup = {		
 	events = {	
+		maintenance.17 # Surnames
 		parliaments.001
 	}	
 }		
@@ -783,5 +827,12 @@ on_society_created = {
 on_society_destroyed = {
 	events = {
 	}
+}
+
+#Give Spacer Physiology trait to newborn Astrists of the spacer caste
+on_birth = {
+　　events = {
+　　　　spacer_physiology.0 #
+　　}
 }
 

@@ -30,5 +30,65 @@ decisions = {
 			factor = 1
 		}
 	}
-	#To add: study the English Classics for Avalonian Kings
+	english_classics_decision = {
+		only_playable = yes
+		is_high_prio = yes
+		ai_check_interval = 400 #check only once every 400 months.
+		potential = {
+			is_adult = yes
+			religion = neo_feudal
+			is_heretic = no
+			culture_group = avalonian_group
+			k_avalon = {
+				holder_scope = {
+					religion = neo_feudal
+				}
+			}
+			OR = {
+				trait = scholar
+				trait = mystic
+				has_focus = focus_scholarship
+			}
+			NOR = {
+				is_theocracy = yes
+				#religion = neo_absolute
+				#religion = A surprise bonus
+				#secret_religion = neo_absolute
+				#secret_religion = A surprise bonus
+				has_character_modifier = shakespeares_insight #Diplomacy
+				has_character_modifier = noldors_insight #Learning
+				has_character_modifier = beowulfs_insight #Martial
+				has_character_flag = flag_delving_into_classics
+				#has_global_flag = avalonian_civil_war
+				#has_global_flag = see above
+			}
+			capital_scope = {
+				region = world_periphery_northwest_avalon
+			}
+		}
+		allow = {
+			prisoner = no
+			NOT = { trait = incapable }
+			learning = 6
+		}
+		effect = {
+			custom_tooltip = {
+				text = tooltip_delve_into_english_classics
+			}
+			hidden_tooltip = {
+				set_character_flag = flag_delving_into_classics
+				character_event = { id = neofeudal.9 }
+			}
+		}
+		revoke_allowed = {
+			always = no
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				independent = no
+			}
+		}
+	}
 }

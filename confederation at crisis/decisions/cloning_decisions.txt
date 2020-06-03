@@ -4,7 +4,7 @@ targetted_decisions = {
 		filter = self
 		ai_target_filter = self
 		ai_check_interval = 40 
- potential = {
+		potential = {
 			is_ruler = yes
 			is_landed = yes # Must actually have land somewhere
 			NOT = { has_character_flag = flag_cloning_decision_active }
@@ -24,25 +24,17 @@ targetted_decisions = {
 				}
 			}
 			OR = {
-				OR = {
-					AND = {
-						trait = ambitious
-						trait = open_minded
-						}
-					}
+				AND = {
+					trait = ambitious
+					trait = open_minded
+				}
 			    religion = bio_directionist
 			    trait = clone
 			    AND = { 
 				     NOT = { trait = heterosexual }
 					 is_married = no
 				}
-				AND = { 
-					 any_spouse = { same_sex = FROM }
-					 Or = {
-					     trait = bisexual
-						 trait = homosexual
-					}
-			    }
+				any_spouse = { same_sex = FROM }
 			}
 		}
 		effect = {
@@ -111,7 +103,7 @@ targetted_decisions = {
 			prisoner = no
 		}
 		ai_check_interval = 40 
- potential = {
+		potential = {
 			is_within_diplo_range = FROM
 			NOT = { trait = incapable }
 			NOT = { has_character_modifier = clone_cooldown }
@@ -135,19 +127,20 @@ targetted_decisions = {
 				}
 			}
 			ROOT = { 
-			    OR = { religion = bio_directionist
-			    trait = clone
-			    AND = { 
-				     NOT = { trait = heterosexual }
-					 is_married = no
-				}
-				AND = { 
-					 any_spouse = { same_sex = ROOT }
-					 Or = {
-					     trait = bisexual
-						 trait = homosexual
+			    OR = {
+					religion = bio_directionist
+					trait = clone
+					AND = { 
+						 NOT = { trait = heterosexual }
+						 is_married = no
 					}
-			    }
+					AND = { 
+						 any_spouse = { same_sex = ROOT }
+						 Or = {
+							trait = ambitious
+							trait = open_minded
+						}
+					}
 			  }
 			}
 		}
@@ -158,9 +151,11 @@ targetted_decisions = {
 			}
 			FROM = {
 				set_character_flag = flag_cloning_courtier
-				add_character_modifier = { name = clone_cooldown
-						duration = 60
-						hidden = yes } 
+				add_character_modifier = {
+					name = clone_cooldown
+					duration = 60
+					hidden = yes
+				} 
 				character_event = { id = clone.300 tooltip = "EVTOOLTIPCLONE300" }
 			}
 		}
@@ -171,10 +166,7 @@ targetted_decisions = {
 			}
 			modifier = {
 				factor = 5
-				FROM = {
-					religion_group = bio_directionist
-					NOT = { religion = transhumanist_group }
-				}
+				FROM = { religion = bio_directionist }
 			}
 			modifier = {
 				factor = 0.2

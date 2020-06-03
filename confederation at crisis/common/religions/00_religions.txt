@@ -125,7 +125,7 @@ political_group = {
 		crusade_name = "UNIFICATION"
 		
 		# Defaults to the Pilgrimage
-		scripture_name = THE_LAW
+		scripture_name = THE_THESIS
 		piety_name = LEGITIMACY
 		high_god_name = GOD_GOD
 		god_names = { GOD_GOD GOD_HOLY_TERRA GOD_THE_LORD }
@@ -173,7 +173,7 @@ political_group = {
 		color = { 0.2 0.8 0.2 }
 		
 		# Defaults to the Pilgrimage
-		scripture_name = THE_LAW
+		scripture_name = THE_ARTICLES
 		piety_name = CREDIBILITY
 		high_god_name = GOD_GOD
 		god_names = { GOD_GOD GOD_THE_LORD }
@@ -243,9 +243,7 @@ political_group = {
 		priests_can_marry = yes
 		female_temple_holders = yes
 		feminist = yes
-		
-		castes = yes
-		caste_opinions = yes
+		#Cut the caste tag since the only thing it adds is already done by the Clone trait
 		psc_marriage = no
 		intermarry = political_group
 		intermarry = religious_group
@@ -269,10 +267,7 @@ political_group = {
 			diplomacy = 2
 			learning = 2
 			intrigue = -1
-            
-            castle_vassal_min_levy = -0.05
-            castle_vassal_max_levy = -0.05
-            
+            castle_vassal_tax_modifier = -0.15
             vassal_opinion = 5
 		}
 		autocephaly = yes
@@ -285,7 +280,7 @@ political_group = {
 		color = { 0.8 0.2 0.2 }
 		
 		# Defaults to the Pilgrimage
-		scripture_name = THE_LAW
+		scripture_name = THE_MANIFESTOS
 		piety_name = CREDIBILITY
 		high_god_name = GOD_GOD
 		god_names = { GOD_THE_GREATER_GOOD GOD_THE_CAUSE }
@@ -334,7 +329,7 @@ political_group = {
 		color = { 0.2 0.2 0.2 }
 		
 		# Defaults to the Pilgrimage
-		scripture_name = THE_LAW
+		scripture_name = THE_DOCTRINE
 		piety_name = CREDIBILITY
 		high_god_name = GOD_GOD
 		god_names = { GOD_THE_GREATER_GOOD GOD_THE_CAUSE }
@@ -768,7 +763,7 @@ religious_group = {
 		crusade_name = "UNIFICATION"
 		
 		# Defaults to the Pilgrimage
-		scripture_name = THE_LAW
+		scripture_name = THE_THESIS
 		high_god_name = GOD_THE_EMPEROR
 		god_names = { GOD_THE_EMPEROR }
 		evil_god_names = {
@@ -867,7 +862,7 @@ transhumanist_group = {
 		
 		color = { 0.5 0.5 0.5 }
 		
-		scripture_name = THE_LAW
+		scripture_name = THE_LAWS
 		piety_name = ASPIRATION
 		high_god_name = THE_CAUSE
 		god_names = { THE_CAUSE }
@@ -1025,7 +1020,7 @@ transhumanist_group = {
 			OP_PROMETHAIOS OP_HOUJI OP_SEPPO_ILMARINEN OP_WIELAND OP_HEPHESTOS OP_IMHOTEP OP_UTNAPISHTIM
 		}
 		
-		scripture_name = THE_LAW
+		scripture_name = THE_PRINCIPLES
 		piety_name = ASPIRATION
 		high_god_name = THE_CAUSE
 		god_names = { THE_CAUSE }
@@ -1088,7 +1083,62 @@ outlaw_group = {
 		color = { 0.3 0.3 0.3 }
 		
 		# Default to the Pilgrimage
-		scripture_name = THE_SCRIPTURES
+		scripture_name = THE_CODE
+		piety_name = RESPECT
+		high_god_name = GOD_GOD
+		god_names = { GOD_GOD GOD_HOLY_TERRA GOD_THE_LORD }
+		evil_god_names = {
+			OP_ALACRITY OP_CHAPTER OP_CORKSCREW OP_DEADLIGHT OP_DERVISH OP_DYNAMO OP_MATADOR OP_MERIDIAN OP_OVERLORD OP_SABRE OP_VICTORY OP_INTREPID OP_ENDEAVOR OP_VALIANT OP_HEROIC OP_TRIUMPHANT # Generic operation names
+			OP_CERBERUS OP_CHIMERA OP_PEGASUS OP_DRAGON OP_WYVERN OP_MINOTAUR OP_SPHINX OP_DJINN OP_EFREET OP_SCARAB OP_YOKAI OP_DEVA OP_AHURA OP_OSIRIS # Classical mythology operation names
+			OP_HERACLES OP_GILGAMESH OP_BEOWULF OP_BELLEROPHON OP_AGAMEMMNON OP_ODYSSEUS OP_ACHILLES OP_GUAN_YU OP_LU_BU OP_SUSANOO OP_ROSTAM OP_RAMA OP_KRISHNA # Culture hero operation names
+			OP_MERCURY OP_VENUS OP_ARES OP_CERES OP_JUPITER OP_GANYMEDE OP_CALLISTO OP_EUROPA OP_IO OP_SATURN OP_TITAN OP_NEPTUNE OP_URANUS OP_PLUTO OP_CHARON # Solar system operation names
+			OP_ARIES OP_TAURUS OP_GEMINI OP_CANCER OP_LEO OP_VIRGO OP_LIBRA OP_SCORPIO OP_SAGITTARIUS OP_CAPRICORN OP_AQUARIUS OP_PISCES OP_ORION OP_WITCHHEAD OP_HORSEHEAD OP_VEIL OP_FLAME OP_HELIX # Constellation and nebula operation names
+		}
+		
+		allow_viking_invasion = yes # Allows the "Prepare Invasion" diplo action
+		
+		#can_hold_temples = yes
+		priests_can_marry = yes
+		female_temple_holders = yes
+		feminist = yes
+
+		intermarry = outlaw_group
+		
+		allow_looting = yes
+		allow_rivermovement = yes
+		
+		peace_prestige_loss = yes
+		short_reign_opinion_year_mult = 5
+		raised_vassal_opinion_loss = no
+		
+		psc_marriage = yes
+		pc_marriage = yes
+		bs_marriage = yes
+		max_consorts = 4
+		
+		aggression = 5
+		
+		unit_modifier = {
+			archers_offensive = 0.05
+			light_infantry_offensive = 0.25
+			heavy_infantry_offensive = 0.10
+			key = "OFF_RELIGION"
+		}
+		
+		character_modifier = {
+			intrigue = 1
+			martial = 3
+		}
+	}
+
+	mobster = {
+		graphical_culture = norsegfx
+		icon = 14
+		
+		color = { 0.3 0.3 0.3 }
+		
+		# Default to the Pilgrimage
+		scripture_name = THE_CODE
 		piety_name = RESPECT
 		high_god_name = GOD_GOD
 		god_names = { GOD_GOD GOD_HOLY_TERRA GOD_THE_LORD }
