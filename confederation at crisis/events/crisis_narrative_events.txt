@@ -1,14 +1,87 @@
 namespace = narrative
 
 #placeholder startup event
-long_character_event = {
+narrative_event = {
 	id = narrative.1
 	desc = "EVTDESCNARRATIVE1"
 	title = "EVTTITLENARRATIVE1"
 	picture = GFX_evt_city
+	ai = no
+	min_age = 16
+	capable_only = yes
+	prisoner = no
 	is_triggered_only = yes
 	
-	option = { name = "EVTOPTCONFIRM" }
+	trigger = {
+		NOT = { has_global_flag = crisis_startup_event }
+	}
+	
+	option = { name = "EVTOPTCONFIRM" 
+		set_global_flag = crisis_startup_event
+	}
+}
+
+character_event = { #AI-controlled Wei dies in the Orion League War, also serves as a fail-safe to make sure Tao inherits Confederate Space Command 
+	id = narrative.2
+	desc = "EVTDESCNARRATIVE2"
+	title = "You shouldn't be able to see this"
+	picture = GFX_evt_space_battle
+	ai = yes
+	only_rulers = yes
+	only_men = yes
+	hide_window = yes
+	
+	trigger = {
+		character = 11012833
+		has_landed_title = k_terran_navy
+		year = 2998
+		month = 10
+		NOT = {
+			has_global_flag = crisis_death_of_wei
+			has_global_flag = crisis_rebel_win
+			has_global_flag = crisis_draw
+			has_global_flag = crisis_confed_win
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 1
+	}
+	
+	immediate = {
+		c_korolev = {
+			holder_scope = {
+				save_global_event_target_as = successor_tao
+			}
+		}
+	}
+	
+	option = {
+		ai_chance = {
+			factor = 100
+		}
+		set_global_flag = crisis_death_of_wei
+		event_target:successor_tao = {
+			give_minor_title = title_expected_successor
+		}
+		death = { death_reason = death_battle killer = 1104683 }
+		e_terran_confederation = { #President notified of Wei's demise
+			holder_scope = {
+				narrative_event = { id = narrative.3 days = 1 }
+			}
+		}
+		name = "OK"
+	}
+}
+
+narrative_event = {
+	id = narrative.3
+	desc = "EVTDESCNARRATIVE3"
+	title = "EVTTITLENARRATIVE3"
+	picture = GFX_evt_office
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTANARRATIVE3" }
 }
 
 narrative_event = { #Crisis Ended: Confederation Surrender - Colonies gain full independence
@@ -130,7 +203,7 @@ narrative_event = { #Crisis Ended: Victory for the Confedercy - only furthest co
 		}
 	}
 	option = { #Hope they don't crack down now...
-		name = "EVTOPTBCARRATIVE102" 
+		name = "EVTOPTCNARRATIVE102" 
 		trigger = {
 			religion_group = outlaw_group
 		}
@@ -146,3 +219,629 @@ narrative_event = { #Crisis Ended: Victory for the Confedercy - only furthest co
 	}
 }
 
+########Anarchy buildup########
+
+narrative_event = { #leaked foreign office doissier on confederation corruption and the corporate backing - blamming the crisis on it
+	id = narrative.200
+	desc = "EVTDESCNARRATIVE200"
+	title = "EVTTITLENARRATIVE200"
+	picture = GFX_evt_protest
+	is_triggered_only = yes
+	
+	
+	option = { 
+		name = "EVTOPTANARRATIVE200" #No wonder the crisis started!
+		trigger = {
+			NOT = { primary_title = { title = e_terran_confederation } }
+		}
+	}
+	option = {
+		name = "EVTOPTBNARRATIVE200" #I want whoever leaked this to be fired immediatly!
+		trigger = {
+			primary_title = { title = e_terran_confederation }
+		}
+		add_character_modifier = { name = corruption_uncovered duration = -1 } #will be removed when anarchy starts if alive 
+		hidden_tooltip = {
+			any_realm_character = {
+				narrative_event = { id = narrative.201 days = 120 }
+			}
+			e_terran_confederation = {
+				holder_scope = {
+					narrative_event = { id = narrative.201 days = 120 }
+				}
+			}	
+		}
+	}
+}
+
+narrative_event = { #political fracturing/clique formation
+	id = narrative.201
+	desc = "EVTDESCNARRATIVE201"
+	title = "EVTTITLENARRATIVE201"
+	picture = GFX_evt_city
+	is_triggered_only = yes
+	
+	
+	option = { 
+		name = "EVTOPTANARRATIVE201" #my Allegiance is to the Confederation, to Democracy!
+		trigger = {
+			NOT = { primary_title = { title = e_terran_confederation } }
+			NOT = { primary_title = { title = k_terran_navy } }
+			OR = {
+				religion = terran_federalist
+				religion = terran_republican
+			}
+		}
+		ai_chance = {
+			factor = 70
+			modifier = { #military cliques
+				factor = 0
+				primary_title = { title = k_terran_navy }
+			}
+			modifier = { #Even the milquetoast Republicans are inclined to abandon ship
+				factor = 0.5
+				AND = {
+					religion = terran_republican
+					OR = {
+						has_trait = pragmatic
+						NOT = { has_trait = radical }
+					}
+				}
+			}
+		}
+	}
+	option = { 
+		name = "EVTOPTBNARRATIVE201" #Soon the Imperialists will arise from the shadows...
+		trigger = {
+			NOT = { primary_title = { title = e_terran_confederation } }
+			OR = {
+				AND = { #Many in the military convert.
+					is_military_trigger = yes
+					OR = {
+						any_liege = { primary_title = { title = k_terran_navy } }
+						primary_title = { title = k_terran_navy }
+					}
+				}
+				religion = terran_imperial
+				religion = terran_republican
+				religion = neo_feudal
+				AND = {
+					OR = {
+						religion_group = religious_group
+						religion_group = transhumanist_group
+						religion = terran_federalist
+					}
+					has_trait = pragmatic
+				}
+			}
+		}
+		ai_chance = {
+			factor = 50
+			modifier = { #military cliques
+				factor = 15
+				is_military_trigger = yes
+			}
+		}
+		religion = terran_imperial
+	}
+	option = {
+		name = "EVTOPTCNARRATIVE201" #Can we not fight?
+		trigger = {
+			NOT = { primary_title = { title = e_terran_confederation } }
+			NOT = {
+				religion = terran_federalist
+				religion = terran_republican
+				religion = terran_imperial
+			}
+		}
+		ai_chance = {
+			factor = 70
+		}
+	}
+	option = { 
+		name = "EVTOPTDNARRATIVE201" #Everybody just calm down!
+		trigger = {
+			primary_title = { title = e_terran_confederation }
+		}
+		add_character_modifier = { name = corruption_uncovered duration = -1 } #will be removed when anarchy starts if alive 
+		hidden_tooltip = {
+			any_realm_character = {
+				narrative_event = { id = narrative.202 days = 120 }
+			}
+			e_terran_confederation = {
+				holder_scope = {
+					narrative_event = { id = narrative.202 days = 120 }
+				}
+			}	
+		}
+	}
+}
+
+narrative_event = { #Failed Investments and Hoarding begins
+	id = narrative.202
+	desc = "EVTDESCNARRATIVE202"
+	title = "EVTTITLENARRATIVE202"
+	picture = GFX_evt_office
+	is_triggered_only = yes
+	
+	
+	option = {
+		name = "EVTOPTANARRATIVE202" #Hard times are coming
+		trigger = {
+			NOT = { primary_title = { title = e_terran_confederation } }
+		}
+		any_demesne_province = {
+			add_province_modifier = { name = early_anarchy_problems duration = 1825 }
+		}
+		custom_tooltip = { text = EARLY_ANARCHY_ECON_PROBLEMS }
+	}
+	option = { 
+		name = "EVTOPTBNARRATIVE202" #More issues pilling up...
+		trigger = {
+			primary_title = { title = e_terran_confederation }
+		}
+		any_demesne_province = {
+			add_province_modifier = { name = early_anarchy_problems duration = 1825 }
+		}
+		hidden_tooltip = {
+			capital_scope = { #Just in case the president or confed military leader dies, we have to pull some wacky stuff
+				province_event = { id = narrative.203 days = 120 } 
+			}
+		}
+	}
+}
+
+province_event = { #provinces are never removed so this'll call the assassination events
+	id = narrative.203
+	desc = "EVTDESCNARRATIVE202"
+	title = "EVTTITLENARRATIVE202"
+	hide_window = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		k_terran_navy = {
+			holder_scope = {
+				narrative_event = { id = narrative.204 days = 71 }
+				save_global_event_target_as = confed_military_assassin
+			}
+		}
+	}
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+narrative_event = { #Tao asks himself if he wants to kill the president or sabotage his the plot
+	id = narrative.204
+	desc = "EVTDESCNARRATIVE204"
+	title = "EVTTITLENARRATIVE204"
+	picture = GFX_evt_city
+	is_triggered_only = yes
+	
+	option = { 
+		name = "EVTOPTANARRATIVE204" #Kill the President
+		e_terran_confederation = {
+			holder_scope = {
+				narrative_event = { id = narrative.205 days = 1 }
+				save_global_event_target_as = confed_assassination_president
+			}
+		}
+		ai_chance = {
+			factor = 100
+		}
+	}
+	option = { 
+		name = "EVTOPTBNARRATIVE204" #Self-Sabotage - this will switch you to playing the current president
+		set_global_flag = assassination_failure
+		e_terran_confederation = {
+			holder_scope = {
+				narrative_event = { id = narrative.205 days = 1 }
+				save_global_event_target_as = confed_assassination_president
+			}
+		}
+		set_player_character = top_liege #sets player to president
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+narrative_event = { #President gets rumours, either listens or not
+	id = narrative.205
+	desc = "EVTDESCNARRATIVE205"
+	title = "EVTTITLENARRATIVE205"
+	picture = GFX_evt_city
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTANARRATIVE205" #President ignores rumours
+		if = {
+			limit = { ai = no }
+			set_player_character = event_target:confed_military_assassin
+		}
+		if = {
+			limit = { 
+				has_global_flag = assassination_failure 
+			}
+			narrative_event = { id = narrative.207 days = 1 } #give event to president of the failed coup if undermined by military leader
+		}
+		else = {
+			k_terran_navy = {
+				holder_scope = {
+					narrative_event = { id = narrative.206 days = 1 } #if 
+				}
+			}
+		}
+		custom_tooltip = { text = ASSINATION_ACCEPTING_DEATH }
+		ai_chance = {
+			factor = 100
+		}
+	}
+	option = { 
+		name = "EVTOPTBNARRATIVE205" #Listen and Prepare however you can
+		set_global_flag = assassination_failure
+		k_terran_navy = {
+			holder_scope = {
+				narrative_event = { id = narrative.207 days = 1 }
+			}
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+
+narrative_event = { #Assassination succeeded
+	id = narrative.206
+	desc = "EVTDESCNARRATIVE206"
+	title = "EVTTITLENARRATIVE206"
+	picture = GFX_evt_city
+	is_triggered_only = yes
+	
+	immediate = {
+		create_character = { #New CSC Admiral
+			random_traits = no
+			dynasty = actually_culture
+			culture = ROOT
+			religion = ROOT
+			female = no
+			age = 25
+			attributes = {
+				martial = 8
+				diplomacy = 4
+				stewardship = 5
+				intrigue = 4
+				learning = 3
+			}
+			health = 7
+			fertility = 0.8
+			add_trait = brilliant_strategist
+			trait = wroth
+			trait = cruel
+			trait = proud
+			trait = radical
+			trait = ambitious
+		}
+		new_character = {
+			if = {
+					limit = { location = { province_id = 202 } }
+					random = {
+						chance = 66
+						add_trait = born_in_the_purple
+					}					
+				}
+			save_event_target_as = confed_imperialist_admiral
+			set_dynasty_flag = flag_valid_surname
+		}
+	}
+	
+	option = {
+		name = "EVTOPTANARRATIVE206"
+		event_target:confed_assassination_president = {
+			death = { death_reason = death_execution killer = event_target:confed_military_assassin }
+		}
+		c_sol = {
+			capital = b_mars
+		}
+		event_target:confed_imperialist_admiral = {
+			grant_title = k_terran_navy
+			grant_title = c_alpha_centauri
+		}
+		set_government_type = military_directorate
+		e_terran_confederation = {
+			usurp_title = event_target:confed_military_assassin 
+		}
+		if = {
+			limit = {
+				NOT = { any_demesne_title = { title = b_mars } }
+			}
+			b_mars = { usurp_title = event_target:confed_military_assassin }
+		}
+		c_sol = { usurp_title = event_target:confed_military_assassin }
+		event_target:confed_military_assassin = {
+			capital = c_sol
+		}
+		any_realm_character = {
+			narrative_event = { id = narrative.208 days = 2 }
+		}
+		e_terran_confederation = {
+			holder_scope = {
+				narrative_event = { id = narrative.208 days = 2 }
+			}
+		}
+	}
+}
+
+narrative_event = { #Assassination failed
+	id = narrative.207
+	desc = "EVTDESCNARRATIVE207"
+	title = "EVTTITLENARRATIVE207"
+	picture = GFX_evt_city
+	is_triggered_only = yes
+	
+	option = { 
+		name = "EVTOPTANARRATIVE207"
+		imprison = event_target:confed_military_assassin
+		any_realm_character = {
+			narrative_event = { id = narrative.208 days = 2 }
+		}
+		e_terran_confederation = {
+			holder_scope = {
+				narrative_event = { id = narrative.208 days = 2 }
+			}
+		}
+	}
+}
+
+narrative_event = { #Skirmishes start up
+	id = narrative.208
+	desc = {
+		trigger = {
+			NOT = {
+				has_global_flag = assassination_failure
+			}
+		}
+		text ="EVTDESCNARRATIVE208A"
+	}
+	desc = {
+		trigger = {
+			has_global_flag = assassination_failure
+		}
+		text ="EVTDESCNARRATIVE208B"
+	}
+	title = "EVTTITLENARRATIVE208"
+	picture = GFX_evt_office
+	is_triggered_only = yes
+	
+	
+	option = {
+		name = "EVTOPTANARRATIVE208" #Oh fuck oh shit oh fuck
+		trigger = {
+			NOT = { primary_title = { title = e_terran_confederation } }
+		}
+		
+	}
+	option = {
+		name = "EVTOPTBNARRATIVE208" #Our rule is slipping
+		trigger = {
+			primary_title = { title = e_terran_confederation }
+			NOT = {
+				has_global_flag = assassination_failure
+			}
+		}
+		any_independent_ruler = {
+			narrative_event = { id = narrative.209 days = 7 }
+		}
+		e_terran_confederation = {
+			holder_scope = {
+				narrative_event = { id = narrative.209 days = 7 }
+			}
+		}
+		any_vassal = {
+			narrative_event = { id = narrative.210 days = 7 }
+		}
+	}
+	option = { 
+		name = "EVTOPTCNARRATIVE208" #And we thought this coup was over...
+		trigger = {
+			primary_title = { title = e_terran_confederation }
+			has_global_flag = assassination_failure
+		}
+		any_independent_ruler  = {
+			narrative_event = { id = narrative.209 days = 7 }
+		}
+		e_terran_confederation = {
+			holder_scope = {
+				narrative_event = { id = narrative.209 days = 7 }
+			}
+		}
+		any_vassal = {
+			narrative_event = { id = narrative.210 days = 7 }
+		}
+	}
+	option = { 
+		name = "EVTOPTDNARRATIVE208" #The idiot Bungled the whole thing! The Failure deserves this!
+		trigger = {
+			NOT = { primary_title = { title = e_terran_confederation } }
+			religion = terran_imperial
+		}
+	}
+}
+
+narrative_event = { #The Anarchy begins
+	id = narrative.209
+	desc = "EVTDESCNARRATIVE209"
+	title = "EVTTITLENARRATIVE209"
+	picture = GFX_evt_office
+	is_triggered_only = yes
+	
+	immediate = {
+		any_province = {
+			limit = {
+				region = world_core
+			}
+			add_province_modifier = { name = econ_anarchy_problems duration = 3650 }
+			remove_province_modifier = early_anarchy_problems
+		}
+	}
+	
+	option = {
+		name = "EVTOPTANARRATIVE209" #The central government has no control here anymore...
+		trigger = {
+			NOT = { primary_title = { title = e_terran_confederation } }
+			liege = { primary_title = { title = e_terran_confederation } }
+			NOT = {
+				primary_title = { de_jure_liege_or_above = k_terran_commonwealth }
+				primary_title = { de_jure_liege_or_above = k_centauri_reach }
+			}
+		}
+		any_demesne_province = {
+				add_province_modifier = { name = econ_anarchy_core duration = 3650 }
+				remove_province_modifier = econ_anarchy_problems
+			}
+	}
+	option = {
+		name = "EVTOPTBNARRATIVE209" #The Core is still held
+		trigger = {
+			NOT = { primary_title = { title = e_terran_confederation } }
+			liege = { primary_title = { title = e_terran_confederation } }
+			OR = {
+				primary_title = { de_jure_liege_or_above = k_terran_commonwealth }
+				primary_title = { de_jure_liege_or_above = k_centauri_reach }
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTCNARRATIVE209" #Hopefully our leader can survive this new situation 
+		trigger = {
+			NOT = { primary_title = { title = e_terran_confederation } }
+			NOT = { liege = { primary_title = { title = e_terran_confederation } } }
+			independent = no
+		}
+	}
+	option = {
+		name = "EVTOPTDNARRATIVE209" #The beast has fallen!
+		trigger = {
+			NOT = { primary_title = { title = e_terran_confederation } }
+			independent = yes
+		}
+		prestige = 50
+	}
+	option = { 
+		name = "EVTOPTENARRATIVE209" #And there goes our control
+		trigger = {
+			primary_title = { title = e_terran_confederation }
+		}
+		any_demesne_province = {
+			add_province_modifier = { name = econ_anarchy_core duration = 3650 }
+			remove_province_modifier = econ_anarchy_problems
+		}
+		set_global_flag = confed_anarchy_active
+	}
+}
+
+narrative_event = { #makes people indep due to anarchy starting
+	id = narrative.210
+	hide_window = yes
+	is_triggered_only = yes
+
+	
+	immediate = {
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						NOT = {
+							k_terran_commonwealth = {
+								de_jure_vassal_or_below = ROOT
+							}
+							k_centauri_reach = {
+								de_jure_vassal_or_below = ROOT
+							}
+							k_terran_navy = {
+								de_jure_vassal_or_below = ROOT
+							}
+							k_frontier = {
+								de_jure_vassal_or_below = ROOT
+							}
+							primary_title = { title = k_terran_navy }
+						}
+						has_global_flag = crisis_confed_win
+					}
+					AND = {
+						NOT = {
+							k_terran_commonwealth = {
+								de_jure_vassal_or_below = ROOT
+							}
+							k_centauri_reach = {
+								de_jure_vassal_or_below = ROOT
+							}
+							k_terran_navy = {
+								de_jure_vassal_or_below = ROOT
+							}
+							primary_title = { title = k_terran_navy }
+						}
+						has_global_flag = crisis_draw
+					}
+					AND = {
+						NOT = {
+							k_terran_commonwealth = {
+								de_jure_vassal_or_below = ROOT
+							}
+							k_terran_navy = {
+								de_jure_vassal_or_below = ROOT
+							}
+							primary_title = { title = k_terran_navy }
+						}
+						has_global_flag = crisis_rebel_win
+					}
+					AND = {
+						primary_title = { title = d_pilgrimage }
+						OR = {
+							has_global_flag = crisis_rebel_win
+							has_global_flag = crisis_draw
+							has_global_flag = crisis_confed_win
+						}
+					}
+				}
+			}
+			set_defacto_liege = THIS
+		}
+	}
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+
+narrative_event = { #Anarchy ended - restored
+	id = narrative.300
+	desc = "EVTDESCNARRATIVE300"
+	title = "EVTTITLENARRATIVE300"
+	picture = GFX_evt_city
+	is_triggered_only = yes
+	
+	option = {
+		trigger = {
+			primary_title = { title = e_terran_confederation }
+		}
+		name = "EVTOPTANARRATIVE300"
+		if = {
+			limit = {
+				NOT = { any_demesne_title = { title = C_sol } }
+			}
+			c_sol = { usurp_title = ROOT }
+		}
+		c_sol = { usurp_title = ROOT }
+		capital = c_sol
+		any_realm_character = {
+			narrative_event = { id = narrative.301 days = 2 }
+		}
+		e_terran_confederation = {
+			holder_scope = {
+				narrative_event = { id = narrative.301 days = 2 }
+			}
+		}
+	}
+	option = {
+		trigger = {
+			NOT = {primary_title = { title = e_terran_confederation } }
+		}
+		name = "EVTOPTBNARRATIVE300"
+	}
+}
