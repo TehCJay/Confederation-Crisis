@@ -1,0 +1,92 @@
+namespace = crisis_on_birth
+
+character_event = {
+	id = crisis_on_birth.0 #chance to give Spacer Physiology to Astrists on birth. Fires from crisis_on_actions
+	# desc = spacerphysiology
+	hide_window = yes
+	hide_from = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		OR = { 
+			religion = astrist
+			religion = space_pirate
+		}
+		#trait = astrist_spacefarer
+		NOT = { trait = heavy_worlder }	
+		NOT = { trait = spacer_physiology }
+		OR = {
+			AND = {
+				religion = astrist
+				OR = {
+					government = military_republic
+					government = military_monarchy
+					government = military_directorate
+				}
+			}
+			capital_holding = {
+				NOR = {
+					has_building = ct_environment_3
+					has_building = ct_environment_4
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		IF = {
+			limit = { religion = astrist} 
+			random_list = {
+				20 = { add_trait = spacer_physiology }
+				80 = {}
+			}
+		}
+		IF = {
+			limit = { religion = space_pirate} 
+			random_list = {
+				20 = { add_trait = spacer_physiology }
+				80 = {}
+			}
+		}
+		IF = {
+			limit = { 
+				NAND = {
+					religion = astrist
+					religion = space_pirate 
+				}
+			}
+			random_list = {
+				5 = { add_trait = spacer_physiology }
+				95 = {}
+			}
+		}
+	}
+}
+character_event = {
+	id = crisis_on_birth.1
+	# desc = bornnearsolcourtiers
+	hide_window = yes
+	hide_from = yes
+	
+	is_triggered_only = yes
+	
+	trigger = {
+		location = { province_id = 202 }
+		#de_jure_liege = { 
+		#	OR = {
+		#	has_landed_title = b_earth
+		#	has_landed_title = b_moon
+		#	has_landed_title = b_mars
+		#	has_landed_title = b_ceres
+		#	has_landed_title = b_europa
+		#	has_landed_title = b_ganymede
+		#	has_landed_title = b_titan
+		#	}
+		#}		
+	}
+	
+	immediate = {
+		add_trait = born_in_the_purple
+	}
+}

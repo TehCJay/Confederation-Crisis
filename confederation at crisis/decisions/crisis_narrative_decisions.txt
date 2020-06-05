@@ -1,0 +1,49 @@
+decisions = {
+	restore_confed_anarchy = {
+		only_independent = yes
+		is_high_prio = yes
+		ai_check_interval = 24
+		
+		potential = {
+			is_playable = yes
+			NOT = {
+				religion = astrist
+				religion = colonial_separatist
+				religion = neo_feudal
+				religion = hiver
+				religion = space_pirate
+				religion = xenoterran
+			}
+			is_adult = yes
+			prisoner = no
+			NOT = { trait = incapable }
+			NOT = { has_global_flag = rome_restored }
+			NOT = { has_global_flag = confed_anarchy_restored }
+			has_global_flag = confed_anarchy_active
+		}
+		allow = {
+			custom_tooltip = { text = CONFED_RESTORE_REQ }
+			prestige = 3000
+			owns = 202
+			realm_size = 250
+			calc_true_if = {
+				amount = 5
+				owns = 206
+				owns = 102
+				owns = 267
+				owns = 70
+				owns = 307
+				owns = 289
+				owns = 87
+			}
+		}
+		effect = {
+			set_global_flag = confed_anarchy_restored
+			narrative_event = { id = narrative.300 days = 2 }
+			e_terran_confederation = { usurp_title = ROOT }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+}
