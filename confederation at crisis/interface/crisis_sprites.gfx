@@ -820,4 +820,117 @@ spriteTypes = {
 		norefcount = yes
 		can_be_lowres = yes
 	}
+	### MAFIA ###
+	spriteType = {
+		name = "GFX_mafia_headgear"
+		texturefile = "gfx\\characters\\mafia_headgear.tga"
+		noOfFrames = 24
+		norefcount = yes
+		can_be_lowres = yes
+	}
+	portraitType = {
+		effectFile = "gfx/FX/portrait.lua"
+		name = "PORTRAIT_mafia_headgear"
+		
+		weight = {
+			additive_modifier = {
+				value = 10000
+				portrait_age > child
+				#portrait_is_female = no
+				portrait_clothing = yes
+				portrait_religion = mobster
+				#portrait_has_trait = mobster
+				#portrait_society = the_commission
+			}
+		}
+		
+		layer = { 
+			"GFX_mafia_headgear:c5"
+			"GFX_outlaw_clothes_infront:c3"
+			"GFX_empty:c1"
+			#"GFX_empty:c6"
+			#"GFX_empty:c7"
+		}
+		allow_property_values = {
+
+			5 = {
+				0 = {
+					portrait_in_command = no
+				}
+				1 = {
+					portrait_in_command = yes
+					#NOT = { portrait_tier = emperor }
+					#NOT = { portrait_tier = king }
+				}	
+				2 = {
+					portrait_in_command = yes
+					#NOT = { portrait_tier = count }
+					#NOT = { portrait_tier = duke }
+					#NOT = { portrait_tier = baron }
+				}
+			}
+			3 = {
+				0 = {
+					portrait_in_command = no
+				}
+				1 = {
+					portrait_in_command = yes
+				}	
+				2 = {
+					portrait_in_command = yes
+				}
+				3 = {
+					portrait_in_command = yes	
+				}
+			}
+		}		
+	}
+	### Outlaws ###
+	spriteType = {
+		name = "GFX_outlaw_clothes_infront"
+		texturefile = "gfx\\characters\\outlaw_clothes_infront.tga"
+		noOfFrames = 4
+		norefcount = yes
+		can_be_lowres = yes
+	}
+	portraitType = {
+		effectFile = "gfx/FX/portrait.lua"
+		name = "PORTRAIT_outlaw_clothes_infront"
+		
+		weight = {
+			additive_modifier = {
+				value = 10000
+				portrait_age > child
+				#portrait_is_female = no
+				portrait_clothing = yes
+				#portrait_religion = mobster
+				portrait_religion = space_pirate
+			}
+		}
+		
+		layer = { 
+			"GFX_outlaw_clothes_infront:c5"
+			"GFX_empty:c3"
+			"GFX_empty:c1"
+			#"GFX_empty:c6"
+			#"GFX_empty:c7"
+		}
+		allow_property_values = {
+
+			5 = {
+				0 = {
+					portrait_in_command = no
+				}
+				1 = {
+					portrait_in_command = yes
+				}	
+				2 = {
+					portrait_in_command = yes
+				}
+				3 = {
+					portrait_in_command = yes	
+				}
+			}
+		}		
+	}
 }

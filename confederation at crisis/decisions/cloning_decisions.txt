@@ -265,4 +265,105 @@ targetted_decisions = {
 			}
 		}
 	}
+    clone_all_spouses = {
+		filter = self
+		ai_target_filter = self
+		ai_check_interval = 40 
+		potential = {
+			is_ruler = yes
+			is_landed = yes # Must actually have land somewhere
+			NOT = { has_character_flag = flag_cloning_decision_active }
+			OR = { 
+				is_married = yes
+				is_married_matrilineally = yes
+			}
+		}
+		allow = {			
+			# Multi-donor cloens are more expensive than standard clones
+			wealth = 500
+			prisoner = no
+			location = {
+				any_province_lord = {
+					NOT = { war_with = ROOT }
+					any_demesne_title = {
+						tier = baron
+						location = { province_id = PREVPREVPREV }
+						has_building = tp_biogenetics_lab_q_1
+					}
+				}
+			}
+			OR = {
+				AND = {
+					trait = ambitious
+					trait = open_minded
+				}
+			    religion = bio_directionist
+				religion = xenoterran
+				religion = imperial_cult
+			    trait = clone
+				trait = vat_born
+			    AND = { 
+				     NOT = { trait = heterosexual }
+					 is_married = no
+				}
+				any_spouse = { same_sex = FROM }
+			}
+		}
+		effect = {
+			set_character_flag = flag_cloning_decision_active
+			character_event = { id = clone.110 tooltip = "EVTTOOLTIPCLONE0" }
+		}
+		ai_will_do = {
+			factor = 1
+			# Note: This ai_will_do block is actually an elaborate magic spell
+			# that keeps the game from being massively slowed down by population
+			# explosions. Probably. It might be something else doing that. Either
+			# way, best not to mess with it.
+			modifier = {
+				factor = 0
+				religion_group = religious_group
+				NOT = { trait = pragmatic }
+				OR = {
+					NOT = {
+						any_demesne_title = {
+							OR = {
+								has_law = succ_gavelkind
+								has_law = succ_primogeniture
+								has_law = succ_ultimogeniture
+								has_law = succ_seniority
+								has_law = succ_tanistry
+							}
+						}
+					}
+					any_demesne_title = { current_heir = { dynasty = ROOT } }
+					trait = humble
+				}
+			}
+			modifier = {
+				factor = 0
+				religion_group = religious_group
+				trait = radical
+			}
+			modifier = {
+				factor = 0
+				NOT = { age = 16 }
+			}
+			modifier = {
+				factor = 0
+				any_child = {
+					reverse_opinion = { who = ROOT value = -49 }
+					NOT = { trait = incapable }
+					NOT = { trait = bastard }
+				}
+			}
+			modifier = {
+				factor = 0
+				num_of_children = 5 # Oh just GIVE UP already
+			}
+			modifier = {
+				factor = 0
+				has_character_flag = flag_cloning_in_progress
+			}
+		}
+	}
 }
