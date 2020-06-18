@@ -102,7 +102,7 @@ targetted_decisions = {
 			NOT = { trait = incapable }
 			prisoner = no
 		}
-		ai_check_interval = 40 
+		ai_check_interval = 80 
 		potential = {
 			is_within_diplo_range = FROM
 			NOT = { trait = incapable }
@@ -174,6 +174,18 @@ targetted_decisions = {
 					religion_group = religious_group
 					NOT = { trait = pragmatic }
 				}
+			}
+			modifier = {
+				factor = 0
+				ROOT = { num_of_children = 3 # Oh just GIVE UP already }
+			}
+			modifier = {
+				factor = 0
+				has_character_flag = flag_cloning_courtier
+			}
+			modifier = {
+				factor = 0
+				ROOT = { NOT = { age = 16 } }
 			}
 			modifier = {
 				factor = 2
@@ -279,7 +291,7 @@ targetted_decisions = {
 			}
 		}
 		allow = {			
-			# Multi-donor cloens are more expensive than standard clones
+			# Multi-donor clones are more expensive than standard clones
 			wealth = 500
 			prisoner = no
 			location = {
