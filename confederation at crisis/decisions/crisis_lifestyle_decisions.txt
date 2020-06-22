@@ -125,3 +125,117 @@ decisions = {
 		}
 	}
 }
+
+settlement_decisions = {
+	go_hunting_decision = {
+		filter = realm_owned
+		ai_target_filter = realm_owned
+		ai_check_interval = 20
+		from_potential = {
+			OR = {
+				trait = hunter
+				trait = falconer
+				has_focus = focus_hunting
+			}
+			NOT = { trait = incapable }
+			prisoner = no
+			age = 16
+		}
+		potential = { owner = { same_realm = FROM } }
+		allow = {
+			FROM = {
+				OR = {
+					trait = hunter
+					has_focus = focus_hunting
+					AND = {
+						trait = falconer
+						any_artifact = {
+							custom_tooltip = {
+								text = "ISARAPTORTOOLTIP"
+								has_artifact_flag = raptor
+							}
+							custom_tooltip = {
+								text = "ISTRAINEDTOOLTIP"
+								has_artifact_flag = trained
+							}
+							custom_tooltip = {
+								text = "ISHEALTHYTOOLTIP"
+								NOT = { has_artifact_flag = injured }
+								NOT = { has_artifact_flag = sick }
+							}
+							is_artifact_equipped = yes
+						}
+					}
+				}
+				NOT = { trait = on_leave }
+				NOT = { trait = in_hiding }
+				NOT = { trait = maimed }
+				NOT = { trait = severely_injured }
+				scaled_wealth = 0.1
+				custom_tooltip = {
+					text = "ONEYEARCOOLDOWN"
+					OR = {
+						NOT = { has_character_flag = flag_hunting_trip }
+						had_character_flag = { flag = flag_hunting_trip days = 365 }
+					}
+				}
+				NOT = { has_character_flag = flag_busy }
+			}
+			OR = {
+				has_building = ca_environment_1
+				has_building = ct_environment_1
+				has_building = tp_environment_1
+			}
+			NOT = { has_building = ca_primary_q_5 }
+			NOT = { has_building = ct_primary_q_5 }
+			NOT = { has_building = tp_primary_q_5 }
+		}
+		effect = {
+			save_event_target_as = hunting_destination
+			FROM = {
+				set_character_flag = flag_busy
+				character_event = { id = lifestyle.1013 }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.1
+			}
+			modifier = {
+				factor = 5
+				OR = {
+					has_title_flag = flag_leviathan
+					has_title_flag = flag_ratatosuku
+					has_title_flag = flag_koloss
+					has_title_flag = flag_paraisan_wolf
+					has_title_flag = flag_chouten_oni
+					has_title_flag = flag_ghuul
+					has_title_flag = flag_mimic
+					has_title_flag = flag_warhound
+					has_title_flag = flag_ultravore
+					has_title_flag = flag_monoceros
+					has_title_flag = flag_lei_niao
+					has_title_flag = flag_tunnel_cat
+					has_title_flag = flag_bai_gui
+				}
+			}
+			modifier = {
+				factor = 4
+				FROM = { trait = stressed }
+			}
+			modifier = {
+				factor = 0.25
+				FROM = { trait = relaxed }
+			}
+			modifier = {
+				factor = 2
+				FROM = { trait = cold }
+			}
+			modifier = {
+				factor = 0.5
+				FROM = { trait = friendly }
+			}
+		}
+	}
+}

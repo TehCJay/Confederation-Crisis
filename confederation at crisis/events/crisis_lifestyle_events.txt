@@ -302,6 +302,7 @@ character_event = {
 			religion = neo_feudal
 			religion = terran_imperial
 			trait = open_minded
+			any_artifact = { has_artifact_flag = raptor }
 		}
 		# Must live somewhere where falconry is a plausible hobby
 		OR = {
@@ -7850,4 +7851,3050 @@ character_event = {
 	is_triggered_only = yes
 	
 	option = { name = "EVTOPTALIFESTYLE2911" }
+}
+
+# FALCONER EVENTS
+# Raptors dying of illness, wounds, and improper care
+character_event = {
+	id = lifestyle.1014
+	picture = GFX_evt_wounded
+	desc = "EVTDESCLIFESTYLE1014"
+	
+	trigger = {
+		any_artifact = {
+			has_artifact_flag = raptor
+			OR = {
+				ROOT = { NOT = { trait = falconer } }
+				has_artifact_flag = sick
+				has_artifact_flag = injured
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 60
+		modifier = {
+			factor = 0.5
+			NOT = { trait = falconer }
+		}
+		modifier = {
+			factor = 0.5
+			any_artifact = {
+				has_artifact_flag = raptor
+				has_artifact_flag = sick
+			}
+		}
+		modifier = {
+			factor = 0.5
+			any_artifact = {
+				has_artifact_flag = raptor
+				has_artifact_flag = injured
+			}
+		}
+	}
+	
+	immediate = {
+		random_artifact = {
+			limit = { has_artifact_flag = raptor }
+			preferred_limit = {
+				has_artifact_flag = sick
+				has_artifact_flag = injured
+			}
+			preferred_limit = {
+				OR = {
+					has_artifact_flag = sick
+					has_artifact_flag = injured
+				}
+			}
+			save_event_target_as = dying_raptor
+		}
+	}
+	
+	option = {
+		name = "EVTOPTALIFESTYLE1014"
+		event_target:dying_raptor = { destroy_artifact = yes }
+		if = {
+			limit = { trait = falconer }
+			random = {
+				chance = 25
+				decrease_mood_effect = yes
+			}
+		}
+	}
+}
+# Acquiring new raptors
+# Purchase Female Peregrine Falcon
+character_event = {
+	id = lifestyle.1114
+	picture = GFX_evt_falconer
+	desc = "EVTDESCLIFESTYLE1114"
+	is_triggered_only = yes
+	
+	trigger = {
+		trait = falconer
+		wealth = 100
+		age = 16
+		prisoner = no
+		NOT = { trait = incapable }
+		b_earth = { holder_scope = { is_within_diplo_range = ROOT } }
+	}
+	
+	weight_multiplier = {
+		factor = 1
+		modifier = {
+			factor = 10
+			NOT = { any_artifact = { has_artifact_flag = raptor } }
+		}
+		modifier = {
+			factor = 0.01
+			b_earth = { NOT = { has_building = ct_homeworld_1 } }
+		}
+		modifier = {
+			factor = 0.1
+			any_artifact = {
+				artifact_type = peregrine_falcon
+				has_artifact_flag = female
+			}
+		}
+		modifier = {
+			factor = 5
+			any_artifact = {
+				artifact_type = peregrine_falcon
+				has_artifact_flag = male
+				NOT = { has_artifact_flag = mated }
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTACCEPT"
+		wealth = -100
+		add_artifact = peregrine_falcon
+		new_artifact = {
+			set_artifact_flag = female
+			set_name = "[This.GetRandomRaptorName]"
+		}
+		ai_chance = {
+			factor = 75
+			modifier = {
+				factor = 2
+				any_artifact = {
+					artifact_type = peregrine_falcon
+					has_artifact_flag = male
+					NOT = { has_artifact_flag = mated }
+				}
+			}
+			modifier = {
+				factor = 0
+				any_artifact = {
+					artifact_type = peregrine_falcon
+					has_artifact_flag = female
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTREFUSE"
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 0
+				NOT = { any_artifact = { has_artifact_flag = raptor } }
+			}
+		}
+	}
+}
+# Purchase Male Peregrine Falcon
+character_event = {
+	id = lifestyle.1214
+	picture = GFX_evt_falconer
+	desc = "EVTDESCLIFESTYLE1214"
+	is_triggered_only = yes
+	
+	trigger = {
+		trait = falconer
+		wealth = 100
+		age = 16
+		prisoner = no
+		NOT = { trait = incapable }
+		b_earth = { holder_scope = { is_within_diplo_range = ROOT } }
+	}
+	
+	weight_multiplier = {
+		factor = 1
+		modifier = {
+			factor = 10
+			NOT = { any_artifact = { has_artifact_flag = raptor } }
+		}
+		modifier = {
+			factor = 0.01
+			b_earth = { NOT = { has_building = ct_homeworld_1 } }
+		}
+		modifier = {
+			factor = 0.1
+			any_artifact = {
+				artifact_type = peregrine_falcon
+				has_artifact_flag = male
+			}
+		}
+		modifier = {
+			factor = 5
+			any_artifact = {
+				artifact_type = peregrine_falcon
+				has_artifact_flag = female
+				NOT = { has_artifact_flag = mated }
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTACCEPT"
+		wealth = -100
+		add_artifact = peregrine_falcon
+		new_artifact = {
+			set_artifact_flag = male
+			set_name = "[This.GetRandomRaptorName]"
+		}
+		ai_chance = {
+			factor = 75
+			modifier = {
+				factor = 2
+				any_artifact = {
+					artifact_type = peregrine_falcon
+					has_artifact_flag = female
+				}
+			}
+			modifier = {
+				factor = 0
+				any_artifact = {
+					artifact_type = peregrine_falcon
+					has_artifact_flag = male
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTREFUSE"
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 0
+				NOT = { any_artifact = { has_artifact_flag = raptor } }
+			}
+		}
+	}
+}
+# Two peregrine falcons mate
+character_event = {
+	id = lifestyle.1314
+	desc = "EVTDESCLIFESTYLE1314"
+	picture = GFX_evt_falconer
+	is_triggered_only = yes
+	only_rulers = yes
+	
+	trigger = {
+		is_ruler = yes # Only rulers can afford to breed animals in captivity
+		any_artifact = {
+			artifact_type = peregrine_falcon
+			has_artifact_flag = male
+			artifact_age = 3
+			NOT = { has_artifact_flag = mated }
+		}
+		any_artifact = {
+			artifact_type = peregrine_falcon
+			has_artifact_flag = female
+			artifact_age = 3
+			NOT = { has_artifact_flag = mated }
+		}
+	}
+	
+	immediate = {
+		random_artifact = {
+			limit = {
+				artifact_type = peregrine_falcon
+				has_artifact_flag = male
+				artifact_age = 3
+				NOT = { has_artifact_flag = mated }
+			}
+			save_event_target_as = male_mate
+		}
+		random_artifact = {
+			limit = {
+				artifact_type = peregrine_falcon
+				has_artifact_flag = female
+				artifact_age = 3
+				NOT = { has_artifact_flag = mated }
+			}
+			save_event_target_as = female_mate
+		}
+	}
+	
+	option = {
+		# Allow the mating
+		name = "EVTOPTALIFESTYLE1314"
+		event_target:male_mate = { set_artifact_flag = mated }
+		event_target:female_mate = { set_artifact_flag = mated }
+		
+		# Trigger events for the holder of e_rebels to make sure these events fire consistently
+		# even if something unexpected happens to the falconer
+		hidden_tooltip = { e_rebels = { holder_scope = { character_event = { id = lifestyle.1414 days = 1095 random = 1460 } } } }
+		ai_chance = { factor = 1 }
+	}
+	
+	option = {
+		# Disallow the mating
+		name = "EVTOPTBLIFESTYLE1314"
+		ai_chance = { factor = 0 }
+	}
+}
+
+# Two mated peregrine falcons potentially breed
+character_event = {
+	id = lifestyle.1414
+	hide_window = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			# Both falcons must be in the same place and fit to breed
+			limit = {
+				event_target:male_mate = {
+					NOT = { has_artifact_flag = sick }
+					NOT = { has_artifact_flag = injured }
+					owner = {
+						event_target:female_mate = {
+							owner = { character = PREVPREV }
+							NOT = { has_artifact_flag = sick }
+							NOT = { has_artifact_flag = injured }
+						}
+					}
+				}
+			}
+			event_target:male_mate = { owner = { character_event = { id = lifestyle.1514 } } }
+		}
+		# Continue repeating the breeding event as long as both falcons are alive
+		if = {
+			limit = {
+				event_target:male_mate = { always = yes }
+				event_target:female_mate = { always = yes }
+			}
+			character_event = { id = lifestyle.1414 days = 1095 random = 1460 }
+		}
+	}
+}
+
+# Two mated peregrine falcons have bred a potential falconry raptor
+character_event = {
+	id = lifestyle.1514
+	desc = "EVTDESCLIFESTYLE1514"
+	picture = GFX_evt_falconer
+	is_triggered_only = yes
+	
+	# Keep it
+	option = {
+		trigger = { trait = falconer }
+		name = "EVTOPTALIFESTYLE1514"
+		add_artifact = peregrine_falcon
+		new_artifact = {
+			random_list = {
+				50 = { set_artifact_flag = female }
+				50 = { set_artifact_flag = male }
+			}
+			set_name = "[This.GetRandomRaptorName]"
+		}
+		ai_chance = { factor = 75 }
+	}
+	# Sell it
+	option = {
+		name = "EVTOPTBLIFESTYLE1514"
+		wealth = 100
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 5
+				any_artifact = {
+					count = 4
+					has_artifact_flag = raptor
+				}
+			}
+			modifier = {
+				factor = 5
+				any_artifact = {
+					count = 5
+					has_artifact_flag = raptor
+				}
+			}
+			modifier = {
+				factor = 5
+				any_artifact = {
+					count = 6
+					has_artifact_flag = raptor
+				}
+			}
+			modifier = {
+				factor = 9
+				OR = {
+					has_ambition = obj_amass_wealth
+					has_ambition = obj_amass_wealth_2
+					has_ambition = obj_amass_wealth_3
+					has_ambition = obj_amass_wealth_4
+					has_ambition = obj_build_a_war_chest
+				}
+			}
+		}
+	}
+}
+# Purchase Female Golden Eagle
+character_event = {
+	id = lifestyle.1614
+	picture = GFX_evt_falconer
+	desc = "EVTDESCLIFESTYLE1614"
+	is_triggered_only = yes
+	
+	trigger = {
+		trait = falconer
+		wealth = 200
+		age = 16
+		prisoner = no
+		NOT = { trait = incapable }
+		b_earth = { holder_scope = { is_within_diplo_range = ROOT } }
+	}
+	
+	weight_multiplier = {
+		factor = 1
+		modifier = {
+			factor = 10
+			NOT = { any_artifact = { has_artifact_flag = raptor } }
+		}
+		modifier = {
+			factor = 0.01
+			b_earth = { NOT = { has_building = ct_homeworld_1 } }
+		}
+		modifier = {
+			factor = 0.1
+			any_artifact = {
+				artifact_type = golden_eagle
+				has_artifact_flag = female
+			}
+		}
+		modifier = {
+			factor = 5
+			any_artifact = {
+				artifact_type = golden_eagle
+				has_artifact_flag = male
+				NOT = { has_artifact_flag = mated }
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTACCEPT"
+		wealth = -200
+		add_artifact = golden_eagle
+		new_artifact = {
+			set_artifact_flag = female
+			set_name = "[This.GetRandomRaptorName]"
+		}
+		ai_chance = {
+			factor = 75
+			modifier = {
+				factor = 2
+				any_artifact = {
+					artifact_type = golden_eagle
+					has_artifact_flag = male
+					NOT = { has_artifact_flag = mated }
+				}
+			}
+			modifier = {
+				factor = 0
+				any_artifact = {
+					artifact_type = golden_eagle
+					has_artifact_flag = female
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTREFUSE"
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 0
+				NOT = { any_artifact = { has_artifact_flag = raptor } }
+			}
+		}
+	}
+}
+# Purchase Male Golden Eagle
+character_event = {
+	id = lifestyle.1714
+	picture = GFX_evt_falconer
+	desc = "EVTDESCLIFESTYLE1714"
+	is_triggered_only = yes
+	
+	trigger = {
+		trait = falconer
+		wealth = 200
+		age = 16
+		prisoner = no
+		NOT = { trait = incapable }
+		b_earth = { holder_scope = { is_within_diplo_range = ROOT } }
+	}
+	
+	weight_multiplier = {
+		factor = 1
+		modifier = {
+			factor = 10
+			NOT = { any_artifact = { has_artifact_flag = raptor } }
+		}
+		modifier = {
+			factor = 0.01
+			b_earth = { NOT = { has_building = ct_homeworld_1 } }
+		}
+		modifier = {
+			factor = 0.1
+			any_artifact = {
+				artifact_type = golden_eagle
+				has_artifact_flag = male
+			}
+		}
+		modifier = {
+			factor = 5
+			any_artifact = {
+				artifact_type = golden_eagle
+				has_artifact_flag = female
+				NOT = { has_artifact_flag = mated }
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTACCEPT"
+		wealth = -200
+		add_artifact = golden_eagle
+		new_artifact = {
+			set_artifact_flag = male
+			set_name = "[This.GetRandomRaptorName]"
+		}
+		ai_chance = {
+			factor = 75
+			modifier = {
+				factor = 2
+				any_artifact = {
+					artifact_type = golden_eagle
+					has_artifact_flag = female
+				}
+			}
+			modifier = {
+				factor = 0
+				any_artifact = {
+					artifact_type = golden_eagle
+					has_artifact_flag = male
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTREFUSE"
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 0
+				NOT = { any_artifact = { has_artifact_flag = raptor } }
+			}
+		}
+	}
+}
+# Two golden eagles mate
+character_event = {
+	id = lifestyle.1814
+	desc = "EVTDESCLIFESTYLE1814"
+	picture = GFX_evt_falconer
+	is_triggered_only = yes
+	only_rulers = yes
+	
+	trigger = {
+		is_ruler = yes # Only rulers can afford to breed animals in captivity
+		any_artifact = {
+			artifact_type = golden_eagle
+			has_artifact_flag = male
+			artifact_age = 4
+			NOT = { has_artifact_flag = mated }
+		}
+		any_artifact = {
+			artifact_type = golden_eagle
+			has_artifact_flag = female
+			artifact_age = 4
+			NOT = { has_artifact_flag = mated }
+		}
+	}
+	
+	immediate = {
+		random_artifact = {
+			limit = {
+				artifact_type = golden_eagle
+				has_artifact_flag = male
+				artifact_age = 4
+				NOT = { has_artifact_flag = mated }
+			}
+			save_event_target_as = male_mate
+		}
+		random_artifact = {
+			limit = {
+				artifact_type = golden_eagle
+				has_artifact_flag = female
+				artifact_age = 4
+				NOT = { has_artifact_flag = mated }
+			}
+			save_event_target_as = female_mate
+		}
+	}
+	
+	option = {
+		# Allow the mating
+		name = "EVTOPTALIFESTYLE1314"
+		event_target:male_mate = { set_artifact_flag = mated }
+		event_target:female_mate = { set_artifact_flag = mated }
+		
+		# Trigger events for the holder of e_rebels to make sure these events fire consistently
+		# even if something unexpected happens to the falconer
+		hidden_tooltip = { e_rebels = { holder_scope = { character_event = { id = lifestyle.1914 days = 1095 random = 1460 } } } }
+		ai_chance = { factor = 1 }
+	}
+	
+	option = {
+		# Disallow the mating
+		name = "EVTOPTBLIFESTYLE1314"
+		ai_chance = { factor = 0 }
+	}
+}
+
+# Two mated golden eagles potentially breed
+character_event = {
+	id = lifestyle.1914
+	hide_window = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			# Both falcons must be in the same place and fit to breed
+			limit = {
+				event_target:male_mate = {
+					NOT = { has_artifact_flag = sick }
+					NOT = { has_artifact_flag = injured }
+					owner = {
+						event_target:female_mate = {
+							owner = { character = PREVPREV }
+							NOT = { has_artifact_flag = sick }
+							NOT = { has_artifact_flag = injured }
+						}
+					}
+				}
+			}
+			event_target:male_mate = { owner = { character_event = { id = lifestyle.2014 } } }
+		}
+		# Continue repeating the breeding event as long as both eagles are alive
+		if = {
+			limit = {
+				event_target:male_mate = { always = yes }
+				event_target:female_mate = { always = yes }
+			}
+			character_event = { id = lifestyle.1914 days = 1095 random = 1460 }
+		}
+	}
+}
+
+# Two mated golden eagles have bred a potential falconry raptor
+character_event = {
+	id = lifestyle.2014
+	desc = "EVTDESCLIFESTYLE2014"
+	picture = GFX_evt_falconer
+	is_triggered_only = yes
+	
+	# Keep it
+	option = {
+		trigger = { trait = falconer }
+		name = "EVTOPTALIFESTYLE1514"
+		add_artifact = golden_eagle
+		new_artifact = {
+			random_list = {
+				50 = { set_artifact_flag = female }
+				50 = { set_artifact_flag = male }
+			}
+			set_name = "[This.GetRandomRaptorName]"
+		}
+		ai_chance = { factor = 75 }
+	}
+	# Sell it
+	option = {
+		name = "EVTOPTBLIFESTYLE1514"
+		wealth = 200
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 5
+				any_artifact = {
+					count = 4
+					has_artifact_flag = raptor
+				}
+			}
+			modifier = {
+				factor = 5
+				any_artifact = {
+					count = 5
+					has_artifact_flag = raptor
+				}
+			}
+			modifier = {
+				factor = 5
+				any_artifact = {
+					count = 6
+					has_artifact_flag = raptor
+				}
+			}
+			modifier = {
+				factor = 9
+				OR = {
+					has_ambition = obj_amass_wealth
+					has_ambition = obj_amass_wealth_2
+					has_ambition = obj_amass_wealth_3
+					has_ambition = obj_amass_wealth_4
+					has_ambition = obj_build_a_war_chest
+				}
+			}
+		}
+	}
+}
+# Purchase Female red-tail
+character_event = {
+	id = lifestyle.2114
+	picture = GFX_evt_falconer
+	desc = "EVTDESCLIFESTYLE2114"
+	is_triggered_only = yes
+	
+	trigger = {
+		trait = falconer
+		wealth = 100
+		age = 16
+		prisoner = no
+		NOT = { trait = incapable }
+		b_earth = { holder_scope = { is_within_diplo_range = ROOT } }
+	}
+	
+	weight_multiplier = {
+		factor = 1
+		modifier = {
+			factor = 10
+			NOT = { any_artifact = { has_artifact_flag = raptor } }
+		}
+		modifier = {
+			factor = 0.01
+			b_earth = { NOT = { has_building = ct_homeworld_1 } }
+		}
+		modifier = {
+			factor = 0.1
+			any_artifact = {
+				artifact_type = red_tail
+				has_artifact_flag = female
+			}
+		}
+		modifier = {
+			factor = 5
+			any_artifact = {
+				artifact_type = red_tail
+				has_artifact_flag = male
+				NOT = { has_artifact_flag = mated }
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTACCEPT"
+		wealth = -100
+		add_artifact = red_tail
+		new_artifact = {
+			set_artifact_flag = female
+			set_name = "[This.GetRandomRaptorName]"
+		}
+		ai_chance = {
+			factor = 75
+			modifier = {
+				factor = 2
+				any_artifact = {
+					artifact_type = red_tail
+					has_artifact_flag = male
+					NOT = { has_artifact_flag = mated }
+				}
+			}
+			modifier = {
+				factor = 0
+				any_artifact = {
+					artifact_type = red_tail
+					has_artifact_flag = female
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTREFUSE"
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 0
+				NOT = { any_artifact = { has_artifact_flag = raptor } }
+			}
+		}
+	}
+}
+# Purchase Male red-tail
+character_event = {
+	id = lifestyle.2214
+	picture = GFX_evt_falconer
+	desc = "EVTDESCLIFESTYLE2214"
+	is_triggered_only = yes
+	
+	trigger = {
+		trait = falconer
+		wealth = 100
+		age = 16
+		prisoner = no
+		NOT = { trait = incapable }
+		b_earth = { holder_scope = { is_within_diplo_range = ROOT } }
+	}
+	
+	weight_multiplier = {
+		factor = 1
+		modifier = {
+			factor = 10
+			NOT = { any_artifact = { has_artifact_flag = raptor } }
+		}
+		modifier = {
+			factor = 0.01
+			b_earth = { NOT = { has_building = ct_homeworld_1 } }
+		}
+		modifier = {
+			factor = 0.1
+			any_artifact = {
+				artifact_type = red_tail
+				has_artifact_flag = male
+			}
+		}
+		modifier = {
+			factor = 5
+			any_artifact = {
+				artifact_type = red_tail
+				has_artifact_flag = female
+				NOT = { has_artifact_flag = mated }
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTACCEPT"
+		wealth = -100
+		add_artifact = red_tail
+		new_artifact = {
+			set_artifact_flag = male
+			set_name = "[This.GetRandomRaptorName]"
+		}
+		ai_chance = {
+			factor = 75
+			modifier = {
+				factor = 2
+				any_artifact = {
+					artifact_type = red_tail
+					has_artifact_flag = female
+				}
+			}
+			modifier = {
+				factor = 0
+				any_artifact = {
+					artifact_type = red_tail
+					has_artifact_flag = male
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTREFUSE"
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 0
+				NOT = { any_artifact = { has_artifact_flag = raptor } }
+			}
+		}
+	}
+}
+# Two red-tails mate
+character_event = {
+	id = lifestyle.2314
+	desc = "EVTDESCLIFESTYLE2314"
+	picture = GFX_evt_falconer
+	is_triggered_only = yes
+	only_rulers = yes
+	
+	trigger = {
+		is_ruler = yes # Only rulers can afford to breed animals in captivity
+		any_artifact = {
+			artifact_type = red_tail
+			has_artifact_flag = male
+			artifact_age = 3
+			NOT = { has_artifact_flag = mated }
+		}
+		any_artifact = {
+			artifact_type = red_tail
+			has_artifact_flag = female
+			artifact_age = 3
+			NOT = { has_artifact_flag = mated }
+		}
+	}
+	
+	immediate = {
+		random_artifact = {
+			limit = {
+				artifact_type = red_tail
+				has_artifact_flag = male
+				artifact_age = 3
+				NOT = { has_artifact_flag = mated }
+			}
+			save_event_target_as = male_mate
+		}
+		random_artifact = {
+			limit = {
+				artifact_type = red_tail
+				has_artifact_flag = female
+				artifact_age = 3
+				NOT = { has_artifact_flag = mated }
+			}
+			save_event_target_as = female_mate
+		}
+	}
+	
+	option = {
+		# Allow the mating
+		name = "EVTOPTALIFESTYLE1314"
+		event_target:male_mate = { set_artifact_flag = mated }
+		event_target:female_mate = { set_artifact_flag = mated }
+		
+		# Trigger events for the holder of e_rebels to make sure these events fire consistently
+		# even if something unexpected happens to the falconer
+		hidden_tooltip = { e_rebels = { holder_scope = { character_event = { id = lifestyle.2414 days = 1095 random = 1460 } } } }
+		ai_chance = { factor = 1 }
+	}
+	
+	option = {
+		# Disallow the mating
+		name = "EVTOPTBLIFESTYLE1314"
+		ai_chance = { factor = 0 }
+	}
+}
+
+# Two mated red-tails potentially breed
+character_event = {
+	id = lifestyle.2414
+	hide_window = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			# Both falcons must be in the same place and fit to breed
+			limit = {
+				event_target:male_mate = {
+					NOT = { has_artifact_flag = sick }
+					NOT = { has_artifact_flag = injured }
+					owner = {
+						event_target:female_mate = {
+							owner = { character = PREVPREV }
+							NOT = { has_artifact_flag = sick }
+							NOT = { has_artifact_flag = injured }
+						}
+					}
+				}
+			}
+			event_target:male_mate = { owner = { character_event = { id = lifestyle.2514 } } }
+		}
+		# Continue repeating the breeding event as long as both falcons are alive
+		if = {
+			limit = {
+				event_target:male_mate = { always = yes }
+				event_target:female_mate = { always = yes }
+			}
+			character_event = { id = lifestyle.2414 days = 1095 random = 1460 }
+		}
+	}
+}
+
+# Two mated red-tails have bred a potential falconry raptor
+character_event = {
+	id = lifestyle.2514
+	desc = "EVTDESCLIFESTYLE2514"
+	picture = GFX_evt_falconer
+	is_triggered_only = yes
+	
+	# Keep it
+	option = {
+		trigger = { trait = falconer }
+		name = "EVTOPTALIFESTYLE1514"
+		add_artifact = red_tail
+		new_artifact = {
+			random_list = {
+				50 = { set_artifact_flag = female }
+				50 = { set_artifact_flag = male }
+			}
+			set_name = "[This.GetRandomRaptorName]"
+		}
+		ai_chance = { factor = 75 }
+	}
+	# Sell it
+	option = {
+		name = "EVTOPTBLIFESTYLE1514"
+		wealth = 100
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 5
+				any_artifact = {
+					count = 4
+					has_artifact_flag = raptor
+				}
+			}
+			modifier = {
+				factor = 5
+				any_artifact = {
+					count = 5
+					has_artifact_flag = raptor
+				}
+			}
+			modifier = {
+				factor = 5
+				any_artifact = {
+					count = 6
+					has_artifact_flag = raptor
+				}
+			}
+			modifier = {
+				factor = 9
+				OR = {
+					has_ambition = obj_amass_wealth
+					has_ambition = obj_amass_wealth_2
+					has_ambition = obj_amass_wealth_3
+					has_ambition = obj_amass_wealth_4
+					has_ambition = obj_build_a_war_chest
+				}
+			}
+		}
+	}
+}
+# Purchase Lancelot Wyvern
+character_event = {
+	id = lifestyle.2614
+	picture = GFX_evt_falconer
+	desc = "EVTDESCLIFESTYLE2614"
+	is_triggered_only = yes
+	
+	trigger = {
+		trait = falconer
+		wealth = 300
+		age = 16
+		prisoner = no
+		NOT = { trait = incapable }
+		b_lancelot_iii = { holder_scope = { is_within_diplo_range = ROOT } }
+	}
+	
+	weight_multiplier = {
+		factor = 1
+		modifier = {
+			factor = 10
+			NOT = { any_artifact = { has_artifact_flag = raptor } }
+		}
+		modifier = {
+			factor = 0.1
+			any_artifact = { artifact_type = lancelot_wyvern }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTACCEPT"
+		wealth = -300
+		add_artifact = lancelot_wyvern
+		new_artifact = { set_name = "[This.GetRandomRaptorName]" }
+		ai_chance = {
+			factor = 75
+			modifier = {
+				factor = 0
+				any_artifact = { artifact_type = lancelot_wyvern }
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTREFUSE"
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 0
+				NOT = { any_artifact = { has_artifact_flag = raptor } }
+			}
+		}
+	}
+}
+
+# Lancelot Wyvern hatches a spawn suitable for falconry
+character_event = {
+	id = lifestyle.2714
+	picture = GFX_evt_falconer
+	desc = "EVTDESCLIFESTYLE2714"
+	is_triggered_only = yes
+	only_rulers = yes
+	
+	trigger = {
+		is_ruler = yes # Only rulers can afford to breed animals in captivity
+		any_artifact = {
+			artifact_type = lancelot_wyvern
+			artifact_age = 50
+			NOT = { has_artifact_flag = sick }
+			NOT = { has_artifact_flag = injured }
+		}
+	}
+	
+	weight_multiplier = { factor = 1 }
+	
+	immediate = {
+		random_artifact = {
+			limit = {
+				artifact_type = lancelot_wyvern
+				artifact_age = 50
+				NOT = { has_artifact_flag = sick }
+				NOT = { has_artifact_flag = injured }
+			}
+			save_event_target_as = spawning_wyvern
+		}
+	}
+	
+	# Keep it
+	option = {
+		trigger = { trait = falconer }
+		name = "EVTOPTALIFESTYLE1514"
+		add_artifact = lancelot_wyvern
+		new_artifact = { set_name = "[This.GetRandomRaptorName]" }
+		ai_chance = { factor = 75 }
+	}
+	# Sell it
+	option = {
+		name = "EVTOPTBLIFESTYLE1514"
+		wealth = 300
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 5
+				any_artifact = {
+					count = 4
+					has_artifact_flag = raptor
+				}
+			}
+			modifier = {
+				factor = 5
+				any_artifact = {
+					count = 5
+					has_artifact_flag = raptor
+				}
+			}
+			modifier = {
+				factor = 5
+				any_artifact = {
+					count = 6
+					has_artifact_flag = raptor
+				}
+			}
+			modifier = {
+				factor = 9
+				OR = {
+					has_ambition = obj_amass_wealth
+					has_ambition = obj_amass_wealth_2
+					has_ambition = obj_amass_wealth_3
+					has_ambition = obj_amass_wealth_4
+					has_ambition = obj_build_a_war_chest
+				}
+			}
+		}
+	}
+}
+# Purchase Female kitehawk
+character_event = {
+	id = lifestyle.3114
+	picture = GFX_evt_falconer
+	desc = "EVTDESCLIFESTYLE3114"
+	is_triggered_only = yes
+	
+	trigger = {
+		trait = falconer
+		wealth = 200
+		age = 16
+		prisoner = no
+		NOT = { trait = incapable }
+		b_tsim_sha_tsui_ii = { holder_scope = { is_within_diplo_range = ROOT } }
+	}
+	
+	weight_multiplier = {
+		factor = 1
+		modifier = {
+			factor = 10
+			NOT = { any_artifact = { has_artifact_flag = raptor } }
+		}
+		modifier = {
+			factor = 0.1
+			any_artifact = {
+				artifact_type = kitehawk
+				has_artifact_flag = female
+			}
+		}
+		modifier = {
+			factor = 5
+			any_artifact = {
+				artifact_type = kitehawk
+				has_artifact_flag = male
+				NOT = { has_artifact_flag = mated }
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTACCEPT"
+		wealth = -200
+		add_artifact = kitehawk
+		new_artifact = {
+			set_artifact_flag = female
+			set_name = "[This.GetRandomRaptorName]"
+		}
+		ai_chance = {
+			factor = 75
+			modifier = {
+				factor = 2
+				any_artifact = {
+					artifact_type = kitehawk
+					has_artifact_flag = male
+					NOT = { has_artifact_flag = mated }
+				}
+			}
+			modifier = {
+				factor = 0
+				any_artifact = {
+					artifact_type = kitehawk
+					has_artifact_flag = female
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTREFUSE"
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 0
+				NOT = { any_artifact = { has_artifact_flag = raptor } }
+			}
+		}
+	}
+}
+# Purchase Male kitehawk
+character_event = {
+	id = lifestyle.3214
+	picture = GFX_evt_falconer
+	desc = "EVTDESCLIFESTYLE3214"
+	is_triggered_only = yes
+	
+	trigger = {
+		trait = falconer
+		wealth = 200
+		age = 16
+		prisoner = no
+		NOT = { trait = incapable }
+		b_tsim_sha_tsui_ii = { holder_scope = { is_within_diplo_range = ROOT } }
+	}
+	
+	weight_multiplier = {
+		factor = 1
+		modifier = {
+			factor = 10
+			NOT = { any_artifact = { has_artifact_flag = raptor } }
+		}
+		modifier = {
+			factor = 0.1
+			any_artifact = {
+				artifact_type = kitehawk
+				has_artifact_flag = male
+			}
+		}
+		modifier = {
+			factor = 5
+			any_artifact = {
+				artifact_type = kitehawk
+				has_artifact_flag = female
+				NOT = { has_artifact_flag = mated }
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTACCEPT"
+		wealth = -200
+		add_artifact = kitehawk
+		new_artifact = {
+			set_artifact_flag = male
+			set_name = "[This.GetRandomRaptorName]"
+		}
+		ai_chance = {
+			factor = 75
+			modifier = {
+				factor = 2
+				any_artifact = {
+					artifact_type = kitehawk
+					has_artifact_flag = female
+				}
+			}
+			modifier = {
+				factor = 0
+				any_artifact = {
+					artifact_type = kitehawk
+					has_artifact_flag = male
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTREFUSE"
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 0
+				NOT = { any_artifact = { has_artifact_flag = raptor } }
+			}
+		}
+	}
+}
+# Two kitehawks mate
+character_event = {
+	id = lifestyle.3314
+	desc = "EVTDESCLIFESTYLE3314"
+	picture = GFX_evt_falconer
+	is_triggered_only = yes
+	only_rulers = yes
+	
+	trigger = {
+		is_ruler = yes # Only rulers can afford to breed animals in captivity
+		any_artifact = {
+			artifact_type = kitehawk
+			has_artifact_flag = male
+			artifact_age = 5
+			NOT = { has_artifact_flag = mated }
+		}
+		any_artifact = {
+			artifact_type = kitehawk
+			has_artifact_flag = female
+			artifact_age = 5
+			NOT = { has_artifact_flag = mated }
+		}
+	}
+	
+	immediate = {
+		random_artifact = {
+			limit = {
+				artifact_type = kitehawk
+				has_artifact_flag = male
+				artifact_age = 5
+				NOT = { has_artifact_flag = mated }
+			}
+			save_event_target_as = male_mate
+		}
+		random_artifact = {
+			limit = {
+				artifact_type = kitehawk
+				has_artifact_flag = female
+				artifact_age = 5
+				NOT = { has_artifact_flag = mated }
+			}
+			save_event_target_as = female_mate
+		}
+	}
+	
+	option = {
+		# Allow the mating
+		name = "EVTOPTALIFESTYLE1314"
+		event_target:male_mate = { set_artifact_flag = mated }
+		event_target:female_mate = { set_artifact_flag = mated }
+		
+		# Trigger events for the holder of e_rebels to make sure these events fire consistently
+		# even if something unexpected happens to the falconer
+		hidden_tooltip = { e_rebels = { holder_scope = { character_event = { id = lifestyle.3414 days = 1095 random = 1460 } } } }
+		ai_chance = { factor = 1 }
+	}
+	
+	option = {
+		# Disallow the mating
+		name = "EVTOPTBLIFESTYLE1314"
+		ai_chance = { factor = 0 }
+	}
+}
+
+# Two mated kitehawks potentially breed
+character_event = {
+	id = lifestyle.3414
+	hide_window = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			# Both falcons must be in the same place and fit to breed
+			limit = {
+				event_target:male_mate = {
+					NOT = { has_artifact_flag = sick }
+					NOT = { has_artifact_flag = injured }
+					owner = {
+						event_target:female_mate = {
+							owner = { character = PREVPREV }
+							NOT = { has_artifact_flag = sick }
+							NOT = { has_artifact_flag = injured }
+						}
+					}
+				}
+			}
+			event_target:male_mate = { owner = { character_event = { id = lifestyle.3514 } } }
+		}
+		# Continue repeating the breeding event as long as both falcons are alive
+		if = {
+			limit = {
+				event_target:male_mate = { always = yes }
+				event_target:female_mate = { always = yes }
+			}
+			character_event = { id = lifestyle.3414 days = 1095 random = 1460 }
+		}
+	}
+}
+
+# Two mated kitehawks have bred a potential falconry raptor
+character_event = {
+	id = lifestyle.3514
+	desc = "EVTDESCLIFESTYLE3514"
+	picture = GFX_evt_falconer
+	is_triggered_only = yes
+	
+	# Keep it
+	option = {
+		trigger = { trait = falconer }
+		name = "EVTOPTALIFESTYLE1514"
+		add_artifact = kitehawk
+		new_artifact = {
+			random_list = {
+				50 = { set_artifact_flag = female }
+				50 = { set_artifact_flag = male }
+			}
+			set_name = "[This.GetRandomRaptorName]"
+		}
+		ai_chance = { factor = 75 }
+	}
+	# Sell it
+	option = {
+		name = "EVTOPTBLIFESTYLE1514"
+		wealth = 200
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 5
+				any_artifact = {
+					count = 4
+					has_artifact_flag = raptor
+				}
+			}
+			modifier = {
+				factor = 5
+				any_artifact = {
+					count = 5
+					has_artifact_flag = raptor
+				}
+			}
+			modifier = {
+				factor = 5
+				any_artifact = {
+					count = 6
+					has_artifact_flag = raptor
+				}
+			}
+			modifier = {
+				factor = 9
+				OR = {
+					has_ambition = obj_amass_wealth
+					has_ambition = obj_amass_wealth_2
+					has_ambition = obj_amass_wealth_3
+					has_ambition = obj_amass_wealth_4
+					has_ambition = obj_build_a_war_chest
+				}
+			}
+		}
+	}
+}
+# Purchase Female nightwing
+character_event = {
+	id = lifestyle.3614
+	picture = GFX_evt_falconer
+	desc = "EVTDESCLIFESTYLE3614"
+	is_triggered_only = yes
+	
+	trigger = {
+		trait = falconer
+		wealth = 100
+		age = 16
+		prisoner = no
+		NOT = { trait = incapable }
+		b_pradana_iii = { holder_scope = { is_within_diplo_range = ROOT } }
+	}
+	
+	weight_multiplier = {
+		factor = 1
+		modifier = {
+			factor = 10
+			NOT = { any_artifact = { has_artifact_flag = raptor } }
+		}
+		modifier = {
+			factor = 0.1
+			any_artifact = {
+				artifact_type = nightwing
+				has_artifact_flag = female
+			}
+		}
+		modifier = {
+			factor = 5
+			any_artifact = {
+				artifact_type = nightwing
+				has_artifact_flag = male
+				NOT = { has_artifact_flag = mated }
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTACCEPT"
+		wealth = -100
+		add_artifact = nightwing
+		new_artifact = {
+			set_artifact_flag = female
+			set_name = "[This.GetRandomRaptorName]"
+		}
+		ai_chance = {
+			factor = 75
+			modifier = {
+				factor = 2
+				any_artifact = {
+					artifact_type = nightwing
+					has_artifact_flag = male
+					NOT = { has_artifact_flag = mated }
+				}
+			}
+			modifier = {
+				factor = 0
+				any_artifact = {
+					artifact_type = nightwing
+					has_artifact_flag = female
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTREFUSE"
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 0
+				NOT = { any_artifact = { has_artifact_flag = raptor } }
+			}
+		}
+	}
+}
+# Purchase Male nightwing
+character_event = {
+	id = lifestyle.3714
+	picture = GFX_evt_falconer
+	desc = "EVTDESCLIFESTYLE3714"
+	is_triggered_only = yes
+	
+	trigger = {
+		trait = falconer
+		wealth = 100
+		age = 16
+		prisoner = no
+		NOT = { trait = incapable }
+		b_pradana_iii = { holder_scope = { is_within_diplo_range = ROOT } }
+	}
+	
+	weight_multiplier = {
+		factor = 1
+		modifier = {
+			factor = 10
+			NOT = { any_artifact = { has_artifact_flag = raptor } }
+		}
+		modifier = {
+			factor = 0.1
+			any_artifact = {
+				artifact_type = nightwing
+				has_artifact_flag = male
+			}
+		}
+		modifier = {
+			factor = 5
+			any_artifact = {
+				artifact_type = nightwing
+				has_artifact_flag = female
+				NOT = { has_artifact_flag = mated }
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTACCEPT"
+		wealth = -100
+		add_artifact = nightwing
+		new_artifact = {
+			set_artifact_flag = male
+			set_name = "[This.GetRandomRaptorName]"
+		}
+		ai_chance = {
+			factor = 75
+			modifier = {
+				factor = 2
+				any_artifact = {
+					artifact_type = nightwing
+					has_artifact_flag = female
+				}
+			}
+			modifier = {
+				factor = 0
+				any_artifact = {
+					artifact_type = nightwing
+					has_artifact_flag = male
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTREFUSE"
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 0
+				NOT = { any_artifact = { has_artifact_flag = raptor } }
+			}
+		}
+	}
+}
+# Two nightwings mate
+character_event = {
+	id = lifestyle.3814
+	desc = "EVTDESCLIFESTYLE3814"
+	picture = GFX_evt_falconer
+	is_triggered_only = yes
+	only_rulers = yes
+	
+	trigger = {
+		is_ruler = yes # Only rulers can afford to breed animals in captivity
+		any_artifact = {
+			artifact_type = nightwing
+			has_artifact_flag = male
+			artifact_age = 5
+			NOT = { has_artifact_flag = mated }
+		}
+		any_artifact = {
+			artifact_type = nightwing
+			has_artifact_flag = female
+			artifact_age = 5
+			NOT = { has_artifact_flag = mated }
+		}
+	}
+	
+	immediate = {
+		random_artifact = {
+			limit = {
+				artifact_type = nightwing
+				has_artifact_flag = male
+				artifact_age = 5
+				NOT = { has_artifact_flag = mated }
+			}
+			save_event_target_as = male_mate
+		}
+		random_artifact = {
+			limit = {
+				artifact_type = nightwing
+				has_artifact_flag = female
+				artifact_age = 5
+				NOT = { has_artifact_flag = mated }
+			}
+			save_event_target_as = female_mate
+		}
+	}
+	
+	option = {
+		# Allow the mating
+		name = "EVTOPTALIFESTYLE1314"
+		event_target:male_mate = { set_artifact_flag = mated }
+		event_target:female_mate = { set_artifact_flag = mated }
+		
+		# Trigger events for the holder of e_rebels to make sure these events fire consistently
+		# even if something unexpected happens to the falconer
+		hidden_tooltip = { e_rebels = { holder_scope = { character_event = { id = lifestyle.3914 days = 1095 random = 1460 } } } }
+		ai_chance = { factor = 1 }
+	}
+	
+	option = {
+		# Disallow the mating
+		name = "EVTOPTBLIFESTYLE1314"
+		ai_chance = { factor = 0 }
+	}
+}
+
+# Two mated nightwings potentially breed
+character_event = {
+	id = lifestyle.3914
+	hide_window = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			# Both falcons must be in the same place and fit to breed
+			limit = {
+				event_target:male_mate = {
+					NOT = { has_artifact_flag = sick }
+					NOT = { has_artifact_flag = injured }
+					owner = {
+						event_target:female_mate = {
+							owner = { character = PREVPREV }
+							NOT = { has_artifact_flag = sick }
+							NOT = { has_artifact_flag = injured }
+						}
+					}
+				}
+			}
+			event_target:male_mate = { owner = { character_event = { id = lifestyle.4014 } } }
+		}
+		# Continue repeating the breeding event as long as both falcons are alive
+		if = {
+			limit = {
+				event_target:male_mate = { always = yes }
+				event_target:female_mate = { always = yes }
+			}
+			character_event = { id = lifestyle.3914 days = 1095 random = 1460 }
+		}
+	}
+}
+
+# Two mated nightwings have bred a potential falconry raptor
+character_event = {
+	id = lifestyle.4014
+	desc = "EVTDESCLIFESTYLE4014"
+	picture = GFX_evt_falconer
+	is_triggered_only = yes
+	
+	# Keep it
+	option = {
+		trigger = { trait = falconer }
+		name = "EVTOPTALIFESTYLE1514"
+		add_artifact = nightwing
+		new_artifact = {
+			random_list = {
+				50 = { set_artifact_flag = female }
+				50 = { set_artifact_flag = male }
+			}
+			set_name = "[This.GetRandomRaptorName]"
+		}
+		ai_chance = { factor = 75 }
+	}
+	# Sell it
+	option = {
+		name = "EVTOPTBLIFESTYLE1514"
+		wealth = 100
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 5
+				any_artifact = {
+					count = 4
+					has_artifact_flag = raptor
+				}
+			}
+			modifier = {
+				factor = 5
+				any_artifact = {
+					count = 5
+					has_artifact_flag = raptor
+				}
+			}
+			modifier = {
+				factor = 5
+				any_artifact = {
+					count = 6
+					has_artifact_flag = raptor
+				}
+			}
+			modifier = {
+				factor = 9
+				OR = {
+					has_ambition = obj_amass_wealth
+					has_ambition = obj_amass_wealth_2
+					has_ambition = obj_amass_wealth_3
+					has_ambition = obj_amass_wealth_4
+					has_ambition = obj_build_a_war_chest
+				}
+			}
+		}
+	}
+}
+# Purchase Female tindalos
+character_event = {
+	id = lifestyle.4114
+	picture = GFX_evt_falconer
+	desc = "EVTDESCLIFESTYLE4114"
+	is_triggered_only = yes
+	
+	trigger = {
+		trait = falconer
+		wealth = 100
+		age = 16
+		prisoner = no
+		NOT = { trait = incapable }
+		b_termino = { holder_scope = { is_within_diplo_range = ROOT } }
+	}
+	
+	weight_multiplier = {
+		factor = 1
+		modifier = {
+			factor = 10
+			NOT = { any_artifact = { has_artifact_flag = raptor } }
+		}
+		modifier = {
+			factor = 0.1
+			any_artifact = {
+				artifact_type = tindalos
+				has_artifact_flag = female
+			}
+		}
+		modifier = {
+			factor = 5
+			any_artifact = {
+				artifact_type = tindalos
+				has_artifact_flag = male
+				NOT = { has_artifact_flag = mated }
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTACCEPT"
+		wealth = -100
+		add_artifact = tindalos
+		new_artifact = {
+			set_artifact_flag = female
+			set_name = "[This.GetRandomRaptorName]"
+		}
+		ai_chance = {
+			factor = 75
+			modifier = {
+				factor = 2
+				any_artifact = {
+					artifact_type = tindalos
+					has_artifact_flag = male
+					NOT = { has_artifact_flag = mated }
+				}
+			}
+			modifier = {
+				factor = 0
+				any_artifact = {
+					artifact_type = tindalos
+					has_artifact_flag = female
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTREFUSE"
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 0
+				NOT = { any_artifact = { has_artifact_flag = raptor } }
+			}
+		}
+	}
+}
+# Purchase Male tindalos
+character_event = {
+	id = lifestyle.4214
+	picture = GFX_evt_falconer
+	desc = "EVTDESCLIFESTYLE4214"
+	is_triggered_only = yes
+	
+	trigger = {
+		trait = falconer
+		wealth = 100
+		age = 16
+		prisoner = no
+		NOT = { trait = incapable }
+		b_termino = { holder_scope = { is_within_diplo_range = ROOT } }
+	}
+	
+	weight_multiplier = {
+		factor = 1
+		modifier = {
+			factor = 10
+			NOT = { any_artifact = { has_artifact_flag = raptor } }
+		}
+		modifier = {
+			factor = 0.1
+			any_artifact = {
+				artifact_type = tindalos
+				has_artifact_flag = male
+			}
+		}
+		modifier = {
+			factor = 5
+			any_artifact = {
+				artifact_type = tindalos
+				has_artifact_flag = female
+				NOT = { has_artifact_flag = mated }
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTACCEPT"
+		wealth = -100
+		add_artifact = tindalos
+		new_artifact = {
+			set_artifact_flag = male
+			set_name = "[This.GetRandomRaptorName]"
+		}
+		ai_chance = {
+			factor = 75
+			modifier = {
+				factor = 2
+				any_artifact = {
+					artifact_type = tindalos
+					has_artifact_flag = female
+				}
+			}
+			modifier = {
+				factor = 0
+				any_artifact = {
+					artifact_type = tindalos
+					has_artifact_flag = male
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTREFUSE"
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 0
+				NOT = { any_artifact = { has_artifact_flag = raptor } }
+			}
+		}
+	}
+}
+# Two tindaloses mate
+character_event = {
+	id = lifestyle.4314
+	desc = "EVTDESCLIFESTYLE4314"
+	picture = GFX_evt_falconer
+	is_triggered_only = yes
+	only_rulers = yes
+	
+	trigger = {
+		is_ruler = yes # Only rulers can afford to breed animals in captivity
+		any_artifact = {
+			artifact_type = tindalos
+			has_artifact_flag = male
+			artifact_age = 4
+			NOT = { has_artifact_flag = mated }
+		}
+		any_artifact = {
+			artifact_type = tindalos
+			has_artifact_flag = female
+			artifact_age = 4
+			NOT = { has_artifact_flag = mated }
+		}
+	}
+	
+	immediate = {
+		random_artifact = {
+			limit = {
+				artifact_type = tindalos
+				has_artifact_flag = male
+				artifact_age = 4
+				NOT = { has_artifact_flag = mated }
+			}
+			save_event_target_as = male_mate
+		}
+		random_artifact = {
+			limit = {
+				artifact_type = tindalos
+				has_artifact_flag = female
+				artifact_age = 4
+				NOT = { has_artifact_flag = mated }
+			}
+			save_event_target_as = female_mate
+		}
+	}
+	
+	option = {
+		# Allow the mating
+		name = "EVTOPTALIFESTYLE1314"
+		event_target:male_mate = { set_artifact_flag = mated }
+		event_target:female_mate = { set_artifact_flag = mated }
+		
+		# Trigger events for the holder of e_rebels to make sure these events fire consistently
+		# even if something unexpected happens to the falconer
+		hidden_tooltip = { e_rebels = { holder_scope = { character_event = { id = lifestyle.4414 days = 1095 random = 1460 } } } }
+		ai_chance = { factor = 1 }
+	}
+	
+	option = {
+		# Disallow the mating
+		name = "EVTOPTBLIFESTYLE1314"
+		ai_chance = { factor = 0 }
+	}
+}
+
+# Two mated tindaloses potentially breed
+character_event = {
+	id = lifestyle.4414
+	hide_window = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			# Both falcons must be in the same place and fit to breed
+			limit = {
+				event_target:male_mate = {
+					NOT = { has_artifact_flag = sick }
+					NOT = { has_artifact_flag = injured }
+					owner = {
+						event_target:female_mate = {
+							owner = { character = PREVPREV }
+							NOT = { has_artifact_flag = sick }
+							NOT = { has_artifact_flag = injured }
+						}
+					}
+				}
+			}
+			event_target:male_mate = { owner = { character_event = { id = lifestyle.4514 } } }
+		}
+		# Continue repeating the breeding event as long as both falcons are alive
+		if = {
+			limit = {
+				event_target:male_mate = { always = yes }
+				event_target:female_mate = { always = yes }
+			}
+			character_event = { id = lifestyle.4414 days = 1095 random = 1460 }
+		}
+	}
+}
+
+# Two mated tindaloses have bred a potential falconry raptor
+character_event = {
+	id = lifestyle.4514
+	desc = "EVTDESCLIFESTYLE4514"
+	picture = GFX_evt_falconer
+	is_triggered_only = yes
+	
+	# Keep it
+	option = {
+		trigger = { trait = falconer }
+		name = "EVTOPTALIFESTYLE1514"
+		add_artifact = tindalos
+		new_artifact = {
+			random_list = {
+				50 = { set_artifact_flag = female }
+				50 = { set_artifact_flag = male }
+			}
+			set_name = "[This.GetRandomRaptorName]"
+		}
+		ai_chance = { factor = 75 }
+	}
+	# Sell it
+	option = {
+		name = "EVTOPTBLIFESTYLE1514"
+		wealth = 100
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 5
+				any_artifact = {
+					count = 4
+					has_artifact_flag = raptor
+				}
+			}
+			modifier = {
+				factor = 5
+				any_artifact = {
+					count = 5
+					has_artifact_flag = raptor
+				}
+			}
+			modifier = {
+				factor = 5
+				any_artifact = {
+					count = 6
+					has_artifact_flag = raptor
+				}
+			}
+			modifier = {
+				factor = 9
+				OR = {
+					has_ambition = obj_amass_wealth
+					has_ambition = obj_amass_wealth_2
+					has_ambition = obj_amass_wealth_3
+					has_ambition = obj_amass_wealth_4
+					has_ambition = obj_build_a_war_chest
+				}
+			}
+		}
+	}
+}
+# Purchase Female janus
+character_event = {
+	id = lifestyle.4614
+	picture = GFX_evt_falconer
+	desc = "EVTDESCLIFESTYLE4614"
+	is_triggered_only = yes
+	
+	trigger = {
+		trait = falconer
+		wealth = 200
+		age = 16
+		prisoner = no
+		NOT = { trait = incapable }
+		b_menelik_iii = { holder_scope = { is_within_diplo_range = ROOT } }
+	}
+	
+	weight_multiplier = {
+		factor = 1
+		modifier = {
+			factor = 10
+			NOT = { any_artifact = { has_artifact_flag = raptor } }
+		}
+		modifier = {
+			factor = 0.1
+			any_artifact = {
+				artifact_type = janus
+				has_artifact_flag = female
+			}
+		}
+		modifier = {
+			factor = 5
+			any_artifact = {
+				artifact_type = janus
+				has_artifact_flag = male
+				NOT = { has_artifact_flag = mated }
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTACCEPT"
+		wealth = -200
+		add_artifact = janus
+		new_artifact = {
+			set_artifact_flag = female
+			set_name = "[This.GetRandomRaptorName]"
+		}
+		ai_chance = {
+			factor = 75
+			modifier = {
+				factor = 2
+				any_artifact = {
+					artifact_type = janus
+					has_artifact_flag = male
+					NOT = { has_artifact_flag = mated }
+				}
+			}
+			modifier = {
+				factor = 0
+				any_artifact = {
+					artifact_type = janus
+					has_artifact_flag = female
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTREFUSE"
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 0
+				NOT = { any_artifact = { has_artifact_flag = raptor } }
+			}
+		}
+	}
+}
+# Purchase Male janus
+character_event = {
+	id = lifestyle.4714
+	picture = GFX_evt_falconer
+	desc = "EVTDESCLIFESTYLE4714"
+	is_triggered_only = yes
+	
+	trigger = {
+		trait = falconer
+		wealth = 200
+		age = 16
+		prisoner = no
+		NOT = { trait = incapable }
+		b_menelik_iii = { holder_scope = { is_within_diplo_range = ROOT } }
+	}
+	
+	weight_multiplier = {
+		factor = 1
+		modifier = {
+			factor = 10
+			NOT = { any_artifact = { has_artifact_flag = raptor } }
+		}
+		modifier = {
+			factor = 0.1
+			any_artifact = {
+				artifact_type = janus
+				has_artifact_flag = male
+			}
+		}
+		modifier = {
+			factor = 5
+			any_artifact = {
+				artifact_type = janus
+				has_artifact_flag = female
+				NOT = { has_artifact_flag = mated }
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTACCEPT"
+		wealth = -200
+		add_artifact = janus
+		new_artifact = {
+			set_artifact_flag = male
+			set_name = "[This.GetRandomRaptorName]"
+		}
+		ai_chance = {
+			factor = 75
+			modifier = {
+				factor = 2
+				any_artifact = {
+					artifact_type = janus
+					has_artifact_flag = female
+				}
+			}
+			modifier = {
+				factor = 0
+				any_artifact = {
+					artifact_type = janus
+					has_artifact_flag = male
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTREFUSE"
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 0
+				NOT = { any_artifact = { has_artifact_flag = raptor } }
+			}
+		}
+	}
+}
+# Two januses mate
+character_event = {
+	id = lifestyle.4814
+	desc = "EVTDESCLIFESTYLE4814"
+	picture = GFX_evt_falconer
+	is_triggered_only = yes
+	only_rulers = yes
+	
+	trigger = {
+		is_ruler = yes # Only rulers can afford to breed animals in captivity
+		any_artifact = {
+			artifact_type = janus
+			has_artifact_flag = male
+			artifact_age = 10
+			NOT = { has_artifact_flag = mated }
+		}
+		any_artifact = {
+			artifact_type = janus
+			has_artifact_flag = female
+			artifact_age = 10
+			NOT = { has_artifact_flag = mated }
+		}
+	}
+	
+	immediate = {
+		random_artifact = {
+			limit = {
+				artifact_type = janus
+				has_artifact_flag = male
+				artifact_age = 10
+				NOT = { has_artifact_flag = mated }
+			}
+			save_event_target_as = male_mate
+		}
+		random_artifact = {
+			limit = {
+				artifact_type = janus
+				has_artifact_flag = female
+				artifact_age = 10
+				NOT = { has_artifact_flag = mated }
+			}
+			save_event_target_as = female_mate
+		}
+	}
+	
+	option = {
+		# Allow the mating
+		name = "EVTOPTALIFESTYLE1314"
+		event_target:male_mate = { set_artifact_flag = mated }
+		event_target:female_mate = { set_artifact_flag = mated }
+		
+		# Trigger events for the holder of e_rebels to make sure these events fire consistently
+		# even if something unexpected happens to the falconer
+		hidden_tooltip = { e_rebels = { holder_scope = { character_event = { id = lifestyle.4914 days = 1095 random = 1460 } } } }
+		ai_chance = { factor = 1 }
+	}
+	
+	option = {
+		# Disallow the mating
+		name = "EVTOPTBLIFESTYLE1314"
+		ai_chance = { factor = 0 }
+	}
+}
+
+# Two mated januses potentially breed
+character_event = {
+	id = lifestyle.4914
+	hide_window = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			# Both falcons must be in the same place and fit to breed
+			limit = {
+				event_target:male_mate = {
+					NOT = { has_artifact_flag = sick }
+					NOT = { has_artifact_flag = injured }
+					owner = {
+						event_target:female_mate = {
+							owner = { character = PREVPREV }
+							NOT = { has_artifact_flag = sick }
+							NOT = { has_artifact_flag = injured }
+						}
+					}
+				}
+			}
+			event_target:male_mate = { owner = { character_event = { id = lifestyle.4014 } } }
+		}
+		# Continue repeating the breeding event as long as both falcons are alive
+		if = {
+			limit = {
+				event_target:male_mate = { always = yes }
+				event_target:female_mate = { always = yes }
+			}
+			character_event = { id = lifestyle.4914 days = 1095 random = 1460 }
+		}
+	}
+}
+
+# Two mated januses have bred a potential falconry raptor
+character_event = {
+	id = lifestyle.5014
+	desc = "EVTDESCLIFESTYLE5014"
+	picture = GFX_evt_falconer
+	is_triggered_only = yes
+	
+	# Keep it
+	option = {
+		trigger = { trait = falconer }
+		name = "EVTOPTALIFESTYLE1514"
+		add_artifact = janus
+		new_artifact = {
+			random_list = {
+				50 = { set_artifact_flag = female }
+				50 = { set_artifact_flag = male }
+			}
+			set_name = "[This.GetRandomRaptorName]"
+		}
+		ai_chance = { factor = 75 }
+	}
+	# Sell it
+	option = {
+		name = "EVTOPTBLIFESTYLE1514"
+		wealth = 200
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 5
+				any_artifact = {
+					count = 4
+					has_artifact_flag = raptor
+				}
+			}
+			modifier = {
+				factor = 5
+				any_artifact = {
+					count = 5
+					has_artifact_flag = raptor
+				}
+			}
+			modifier = {
+				factor = 5
+				any_artifact = {
+					count = 6
+					has_artifact_flag = raptor
+				}
+			}
+			modifier = {
+				factor = 9
+				OR = {
+					has_ambition = obj_amass_wealth
+					has_ambition = obj_amass_wealth_2
+					has_ambition = obj_amass_wealth_3
+					has_ambition = obj_amass_wealth_4
+					has_ambition = obj_build_a_war_chest
+				}
+			}
+		}
+	}
+}
+# Purchase Raptor Drone
+character_event = {
+	id = lifestyle.5114
+	picture = GFX_evt_falconer
+	desc = "EVTDESCLIFESTYLE5114"
+	is_triggered_only = yes
+	
+	trigger = {
+		trait = falconer
+		wealth = 50
+		age = 16
+		prisoner = no
+		NOT = { trait = incapable }
+	}
+	
+	weight_multiplier = {
+		factor = 1
+		modifier = {
+			factor = 10
+			NOT = { any_artifact = { has_artifact_flag = raptor } }
+		}
+		modifier = {
+			factor = 0
+			any_artifact = { artifact_type = raptor_drone }
+		}
+	}
+	
+	option = {
+		name = "EVTOPTACCEPT"
+		wealth = -50
+		add_artifact = raptor_drone
+		ai_chance = {
+			factor = 75
+			modifier = {
+				factor = 0
+				any_artifact = { artifact_type = raptor_drone }
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTREFUSE"
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 0
+				NOT = { any_artifact = { has_artifact_flag = raptor } }
+			}
+		}
+	}
+}
+
+# Raptors dying of old age
+# Peregrine Falcon
+character_event = {
+	id = lifestyle.10014
+	picture = GFX_evt_wounded
+	desc = "EVTDESCLIFESTYLE1014"
+	
+	trigger = {
+		any_artifact = {
+			artifact_type = peregrine_falcon
+			artifact_age >= 20
+		}
+	}
+	
+	mean_time_to_happen = { months = 24 }
+	
+	immediate = {
+		random_artifact = {
+			limit = {
+				artifact_type = peregrine_falcon
+				artifact_age >= 20
+			}
+			save_event_target_as = dying_raptor
+		}
+	}
+	
+	option = {
+		name = "EVTOPTALIFESTYLE1014"
+		event_target:dying_raptor = { destroy_artifact = yes }
+		if = {
+			limit = { trait = falconer }
+			random = {
+				chance = 10
+				decrease_mood_effect = yes
+			}
+		}
+	}
+}
+# Golden Eagle
+character_event = {
+	id = lifestyle.10114
+	picture = GFX_evt_wounded
+	desc = "EVTDESCLIFESTYLE1014"
+	
+	trigger = {
+		any_artifact = {
+			artifact_type = golden_eagle
+			artifact_age >= 35
+		}
+	}
+	
+	mean_time_to_happen = { months = 60 }
+	
+	immediate = {
+		random_artifact = {
+			limit = {
+				artifact_type = golden_eagle
+				artifact_age >= 35
+			}
+			save_event_target_as = dying_raptor
+		}
+	}
+	
+	option = {
+		name = "EVTOPTALIFESTYLE1014"
+		event_target:dying_raptor = { destroy_artifact = yes }
+		if = {
+			limit = { trait = falconer }
+			random = {
+				chance = 10
+				decrease_mood_effect = yes
+			}
+		}
+	}
+}
+# Red-tail
+character_event = {
+	id = lifestyle.10214
+	picture = GFX_evt_wounded
+	desc = "EVTDESCLIFESTYLE1014"
+	
+	trigger = {
+		any_artifact = {
+			artifact_type = red_tail
+			artifact_age >= 25
+		}
+	}
+	
+	mean_time_to_happen = { months = 24 }
+	
+	immediate = {
+		random_artifact = {
+			limit = {
+				artifact_type = red_tail
+				artifact_age >= 25
+			}
+			save_event_target_as = dying_raptor
+		}
+	}
+	
+	option = {
+		name = "EVTOPTALIFESTYLE1014"
+		event_target:dying_raptor = { destroy_artifact = yes }
+		if = {
+			limit = { trait = falconer }
+			random = {
+				chance = 10
+				decrease_mood_effect = yes
+			}
+		}
+	}
+}
+# Wyvern
+character_event = {
+	id = lifestyle.10314
+	picture = GFX_evt_wounded
+	desc = "EVTDESCLIFESTYLE1014"
+	
+	trigger = {
+		any_artifact = {
+			artifact_type = lancelot_wyvern
+			artifact_age >= 200
+		}
+	}
+	
+	mean_time_to_happen = { months = 240 }
+	
+	immediate = {
+		random_artifact = {
+			limit = {
+				artifact_type = lancelot_wyvern
+				artifact_age >= 200
+			}
+			save_event_target_as = dying_raptor
+		}
+	}
+	
+	option = {
+		name = "EVTOPTALIFESTYLE1014"
+		event_target:dying_raptor = { destroy_artifact = yes }
+		if = {
+			limit = { trait = falconer }
+			random = {
+				chance = 10
+				decrease_mood_effect = yes
+			}
+		}
+	}
+}
+# Kitehawk
+character_event = {
+	id = lifestyle.10414
+	picture = GFX_evt_wounded
+	desc = "EVTDESCLIFESTYLE1014"
+	
+	trigger = {
+		any_artifact = {
+			artifact_type = kitehawk
+			artifact_age >= 20
+		}
+	}
+	
+	mean_time_to_happen = { months = 24 }
+	
+	immediate = {
+		random_artifact = {
+			limit = {
+				artifact_type = kitehawk
+				artifact_age >= 20
+			}
+			save_event_target_as = dying_raptor
+		}
+	}
+	
+	option = {
+		name = "EVTOPTALIFESTYLE1014"
+		event_target:dying_raptor = { destroy_artifact = yes }
+		if = {
+			limit = { trait = falconer }
+			random = {
+				chance = 10
+				decrease_mood_effect = yes
+			}
+		}
+	}
+}
+# Nightwing
+character_event = {
+	id = lifestyle.10514
+	picture = GFX_evt_wounded
+	desc = "EVTDESCLIFESTYLE1014"
+	
+	trigger = {
+		any_artifact = {
+			artifact_type = nightwing
+			artifact_age >= 30
+		}
+	}
+	
+	mean_time_to_happen = { months = 30 }
+	
+	immediate = {
+		random_artifact = {
+			limit = {
+				artifact_type = nightwing
+				artifact_age >= 30
+			}
+			save_event_target_as = dying_raptor
+		}
+	}
+	
+	option = {
+		name = "EVTOPTALIFESTYLE1014"
+		event_target:dying_raptor = { destroy_artifact = yes }
+		if = {
+			limit = { trait = falconer }
+			random = {
+				chance = 10
+				decrease_mood_effect = yes
+			}
+		}
+	}
+}
+# Tindalos
+character_event = {
+	id = lifestyle.10614
+	picture = GFX_evt_wounded
+	desc = "EVTDESCLIFESTYLE1014"
+	
+	trigger = {
+		any_artifact = {
+			artifact_type = tindalos
+			artifact_age >= 60
+		}
+	}
+	
+	mean_time_to_happen = { months = 60 }
+	
+	immediate = {
+		random_artifact = {
+			limit = {
+				artifact_type = tindalos
+				artifact_age >= 60
+			}
+			save_event_target_as = dying_raptor
+		}
+	}
+	
+	option = {
+		name = "EVTOPTALIFESTYLE1014"
+		event_target:dying_raptor = { destroy_artifact = yes }
+		if = {
+			limit = { trait = falconer }
+			random = {
+				chance = 10
+				decrease_mood_effect = yes
+			}
+		}
+	}
+}
+# Janus
+character_event = {
+	id = lifestyle.10714
+	picture = GFX_evt_wounded
+	desc = "EVTDESCLIFESTYLE1014"
+	
+	trigger = {
+		any_artifact = {
+			artifact_type = janus
+			artifact_age >= 100
+		}
+	}
+	
+	mean_time_to_happen = { months = 120 }
+	
+	immediate = {
+		random_artifact = {
+			limit = {
+				artifact_type = janus
+				artifact_age >= 100
+			}
+			save_event_target_as = dying_raptor
+		}
+	}
+	
+	option = {
+		name = "EVTOPTALIFESTYLE1014"
+		event_target:dying_raptor = { destroy_artifact = yes }
+		if = {
+			limit = { trait = falconer }
+			random = {
+				chance = 10
+				decrease_mood_effect = yes
+			}
+		}
+	}
+}
+# Training Falcons
+character_event = {
+	id = lifestyle.15014
+	desc = "EVTDESCLIFESTYLE15014"
+	picture = GFX_evt_falconer
+	is_triggered_only = yes
+	
+	trigger = {
+		trait = falconer
+		prisoner = no
+		age = 12
+		NOT = { trait = incapable }
+		NOT = { trait = wounded }
+		any_artifact = {
+			has_artifact_flag = raptor
+			NOT = { artifact_type = raptor_drone }
+			NOT = { has_artifact_flag = trained }
+			NOT = { has_artifact_flag = sick }
+			NOT = { has_artifact_flag = injured }
+			artifact_age >= 1
+		}
+	}
+	
+	immediate = {
+		random_artifact = {
+			limit = {
+				has_artifact_flag = raptor
+				NOT = { artifact_type = raptor_drone }
+				NOT = { has_artifact_flag = trained }
+				NOT = { has_artifact_flag = sick }
+				NOT = { has_artifact_flag = injured }
+				artifact_age >= 1
+			}
+			save_event_target_as = training_raptor
+		}
+	}
+	
+	# Attempt to train the raptor
+	option = {
+		name = "EVTOPTALIFESTYLE15014"
+		random_list = {
+			40 = { # Successful training
+				modifier = {
+					factor = 3
+					event_target:training_raptor = { artifact_type = red_tail } # Easy to train
+				}
+				modifier = {
+					factor = 0.3
+					# Difficult to train
+					event_target:training_raptor = {
+						OR = {
+							artifact_type = golden_eagle
+							artifact_type = nightwing
+							artifact_type = janus
+						}
+					}
+				}
+				modifier = {
+					factor = 0.6
+					event_target:training_raptor = { artifact_age >= 2 }
+				}
+				modifier = {
+					factor = 0.6
+					event_target:training_raptor = { artifact_age >= 4 }
+				}
+				modifier = {
+					factor = 0.6
+					event_target:training_raptor = { artifact_age >= 8 }
+				}
+				modifier = {
+					factor = 0.6
+					event_target:training_raptor = { artifact_age >= 16 }
+				}
+				modifier = {
+					factor = 0.6
+					event_target:training_raptor = { artifact_age >= 32 }
+				}
+				modifier = {
+					factor = 0.6
+					event_target:training_raptor = { artifact_age >= 64 }
+				}
+				modifier = {
+					factor = 0.6
+					event_target:training_raptor = { artifact_age >= 128 }
+				}
+				modifier = {
+					factor = 1.25
+					diplomacy = 4
+				}
+				modifier = {
+					factor = 1.25
+					diplomacy = 8
+				}
+				modifier = {
+					factor = 1.25
+					diplomacy = 12
+				}
+				modifier = {
+					factor = 1.25
+					diplomacy = 16
+				}
+				modifier = {
+					factor = 1.25
+					diplomacy = 20
+				}
+				modifier = {
+					factor = 1.25
+					diplomacy = 24
+				}
+				modifier = {
+					factor = 1.25
+					diplomacy = 28
+				}
+				modifier = {
+					factor = 1.25
+					diplomacy = 32
+				}
+				modifier = {
+					factor = 1.25
+					diplomacy = 36
+				}
+				modifier = {
+					factor = 1.25
+					diplomacy = 40
+				}
+				character_event = { id = lifestyle.15114 tooltip = "EVTTOOLTIPLIFESTYLE15114" days = 30 random = 60 }
+			}
+			30 = { # Failed training
+				character_event = { id = lifestyle.15214 tooltip = "EVTTOOLTIPLIFESTYLE15214" days = 30 random = 60 }
+			}
+			20 = { # Injured by raptor
+				modifier = {
+					factor = 0
+					trait = full_cybernetic_conversion
+				}
+				modifier = {
+					factor = 2
+					# Aggressive raptors
+					event_target:training_raptor = {
+						OR = {
+							artifact_type = golden_eagle
+							artifact_type = lancelot_wyvern
+						}
+					}
+				}
+				modifier = {
+					factor = 0.5
+					# Docile raptors
+					event_target:training_raptor = {
+						OR = {
+							artifact_type = kitehawk
+							artifact_type = tindalos
+						}
+					}
+				}
+				modifier = {
+					factor = 0.8
+					martial = 4
+				}
+				modifier = {
+					factor = 0.8
+					martial = 8
+				}
+				modifier = {
+					factor = 0.8
+					martial = 12
+				}
+				modifier = {
+					factor = 0.8
+					martial = 16
+				}
+				modifier = {
+					factor = 0.8
+					martial = 20
+				}
+				modifier = {
+					factor = 0.8
+					martial = 24
+				}
+				modifier = {
+					factor = 0.8
+					martial = 28
+				}
+				modifier = {
+					factor = 0.8
+					martial = 32
+				}
+				modifier = {
+					factor = 0.8
+					martial = 36
+				}
+				modifier = {
+					factor = 0.8
+					martial = 40
+				}
+				character_event = { id = lifestyle.15314 tooltip = "EVTTOOLTIPLIFESTYLE15314" days = 15 random = 30 }
+			}
+		}
+		ai_chance = { factor = 1 }
+	}
+	
+	option = {
+		name = "EVTOPTBLIFESTYLE15014"
+		ai_chance = { factor = 0 }
+	}
+}
+
+# Training successful!
+character_event = {
+	id = lifestyle.15114
+	desc = "EVTDESCLIFESTYLE15114"
+	picture = GFX_evt_falconer
+	is_triggered_only = yes
+	
+	trigger = {
+		prisoner = no
+		NOT = { trait = incapable }
+		event_target:training_raptor = { always = yes }
+	}
+	
+	option = {
+		log = "[Root.GetCrisisFormalName] successfully trained [training_raptor.GetName] for falconry."
+		event_target:training_raptor = { set_artifact_flag = trained }
+		improve_mood_effect = yes
+		name = "EVTOPTALIFESTYLE15114"
+	}
+}
+# Training unsuccessful
+character_event = {
+	id = lifestyle.15214
+	desc = "EVTDESCLIFESTYLE15214"
+	picture = GFX_evt_falconer
+	is_triggered_only = yes
+	
+	trigger = {
+		prisoner = no
+		NOT = { trait = incapable }
+		event_target:training_raptor = { always = yes }
+	}
+	
+	option = {
+		log = "[Root.GetCrisisFormalName] failed to train [training_raptor.GetName] for falconry."
+		name = "EVTOPTALIFESTYLE15214"
+	}
+}
+# Training unsuccessful, and a potential injury!
+character_event = {
+	id = lifestyle.15314
+	desc = "EVTDESCLIFESTYLE15314"
+	picture = GFX_evt_wounded
+	is_triggered_only = yes
+	
+	trigger = {
+		prisoner = no
+		NOT = { trait = incapable }
+		event_target:training_raptor = { always = yes }
+	}
+	
+	option = {
+		trigger = {
+			NOT = { trait = wounded }
+			NOT = { trait = full_cybernetic_conversion }
+		}
+		log = "[Root.GetCrisisFormalName] was injured while training [training_raptor.GetName] for falconry."
+		name = "EVTOPTALIFESTYLE15314"
+		add_trait = wounded
+	}
+	
+	option = {
+		trigger = {
+			OR = {
+				trait = wounded
+				trait = full_cybernetic_conversion
+			}
+		}
+		log = "[Root.GetCrisisFormalName] avoided injury while training [training_raptor.GetName] for falconry."
+		name = "EVTOPTBLIFESTYLE15314"
+	}
 }

@@ -195,6 +195,25 @@ defined_text = {
 	text = { localisation_key = String_get_full_name }
 }
 defined_text = {
+	name = GetCrisisInformalName
+	use_first_valid = yes
+	# First name
+	text = {
+		trigger = {
+			OR = {
+				same_dynasty = ROOT
+				any_friend = { character = ROOT }
+				any_lover = { character = ROOT }
+				spouse = { character = ROOT }
+				is_close_relative = ROOT
+			}
+		}
+		localisation_key = String_get_first_name
+	}
+	# Last name
+	text = { localisation_key = String_get_last_name }
+}
+defined_text = {
 	name = GetManWomanCap
 	text = {
 		trigger = { is_female = no }
