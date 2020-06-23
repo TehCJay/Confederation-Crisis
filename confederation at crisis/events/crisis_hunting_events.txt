@@ -6314,6 +6314,7 @@ narrative_event = {
 	trigger = { has_character_flag = flag_on_the_hunt }
 	
 	immediate = {
+		log = "[Root.GetBestName][GetAndHuntingPartner] successfully hunted something."
 		if = {
 			limit = { has_character_flag = flag_encountered_old_one_eye }
 			event_target:hunting_destination = { set_title_flag = flag_old_one_eye_slain }
@@ -7391,6 +7392,7 @@ narrative_event = {
 	immediate = { death = { death_reason = death_accident_hunting } }
 	
 	option = {
+		log = "[Root.GetBestName] died in a hunting accident."
 		name = "EVTOPTALIFESTYLE51613"
 		hidden_tooltip = {
 			if = {
@@ -7449,7 +7451,11 @@ narrative_event = {
 	
 	option = {
 		name = "EVTOPTALIFESTYLE11713"
-		event_target:hunting_raptor = { set_artifact_flag = injured }
+		event_target:hunting_raptor = {
+			set_artifact_flag = injured
+			save_event_target_as = injured_raptor
+		}
+		hidden_tooltip = { character_event = { id = lifestyle.20014 days = 1 } } # Deal with injured raptor
 		if = {
 			limit = { has_character_flag = flag_hunting_with_partner }
 			hidden_tooltip = { persistent_event_target:hunting_partner = { narrative_event = { id = lifestyle.21713 } } }
@@ -7481,6 +7487,7 @@ narrative_event = {
 	is_triggered_only = yes
 	
 	option = {
+		log = "[hunting_raptor.GetName] the raptor died in a hunting accident."
 		name = "EVTOPTALIFESTYLE31713"
 		event_target:hunting_raptor = { destroy_artifact = yes }
 		degrade_mood_effect = yes
@@ -7629,6 +7636,7 @@ narrative_event = {
 	immediate = { death = { death_reason = death_accident_hunting } }
 	
 	option = {
+		log = "[Root.GetBestName] died in a hunting accident."
 		name = "EVTOPTALIFESTYLE51613"
 		hidden_tooltip = {
 			FROM = { FROM = { narrative_event = { id = lifestyle.71813 } } }
@@ -7703,7 +7711,11 @@ narrative_event = {
 	
 	option = {
 		name = "EVTOPTALIFESTYLE21913"
-		event_target:hunting_raptor_2 = { set_artifact_flag = injured }
+		event_target:hunting_raptor_2 = {
+			set_artifact_flag = injured
+			save_event_target_as = injured_raptor
+		}
+		hidden_tooltip = { character_event = { id = lifestyle.20014 days = 1 } } # Deal with injured raptor
 		hidden_tooltip = {
 			narrative_event = { id = lifestyle.2413 }
 			FROM = { narrative_event = { id = lifestyle.2213 } }
@@ -7737,6 +7749,7 @@ narrative_event = {
 	
 	option = {
 		name = "EVTOPTALIFESTYLE21913"
+		log = "[hunting_raptor_2.GetName] the raptor died in a hunting accident."
 		event_target:hunting_raptor_2 = { destroy_artifact = yes }
 		degrade_mood_effect = yes
 		hidden_tooltip = {

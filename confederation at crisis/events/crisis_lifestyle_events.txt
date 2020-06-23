@@ -10898,3 +10898,219 @@ character_event = {
 		name = "EVTOPTBLIFESTYLE15314"
 	}
 }
+
+# Healing an injured raptor
+# Should be called whenever a raptor is injured
+character_event = {
+	id = lifestyle.20014
+	desc = "EVTDESCLIFESTYLE20014"
+	picture = GFX_evt_falconer
+	is_triggered_only = yes
+	
+	# Just repair the drone
+	option = {
+		trigger = { event_target:injured_raptor = { is_artifact_type = raptor_drone } }
+		name = "EVTOPTALIFESTYLE20014"
+		wealth = -10
+		event_target:injured_raptor = { clr_artifact_flag = injured }
+	}
+	
+	# Spring for some awesome cybernetic enhancements!
+	option = {
+		trigger = {
+			NOT = { event_target:injured_raptor = { is_artifact_type = raptor_drone } }
+			OR = {
+				AND = {
+					wealth = 100
+					OR = {
+						location = { TECH_POPULAR_CUSTOMS = 1 }
+						capital_scope = { TECH_POPULAR_CUSTOMS = 1 }
+					}
+				}
+				AND = {
+					wealth = 50
+					OR = {
+						location = { TECH_POPULAR_CUSTOMS = 3 }
+						capital_scope = { TECH_POPULAR_CUSTOMS = 3 }
+					}
+				}
+				AND = {
+					wealth = 25
+					OR = {
+						location = { TECH_POPULAR_CUSTOMS = 5 }
+						capital_scope = { TECH_POPULAR_CUSTOMS = 5 }
+					}
+				}
+				AND = {
+					wealth = 10
+					OR = {
+						location = { TECH_POPULAR_CUSTOMS = 7 }
+						capital_scope = { TECH_POPULAR_CUSTOMS = 7 }
+					}
+				}
+			}
+		}
+		name = "EVTOPTBLIFESTYLE20014"
+		if = {
+			limit = {
+				OR = {
+					location = { TECH_POPULAR_CUSTOMS = 7 }
+					capital_scope = { TECH_POPULAR_CUSTOMS = 7 }
+				}
+			}
+			wealth = -10
+		}
+		else_if = {
+			limit = {
+				OR = {
+					location = { TECH_POPULAR_CUSTOMS = 5 }
+					capital_scope = { TECH_POPULAR_CUSTOMS = 5 }
+				}
+			}
+			wealth = -25
+		}
+		else_if = {
+			limit = {
+				OR = {
+					location = { TECH_POPULAR_CUSTOMS = 3 }
+					capital_scope = { TECH_POPULAR_CUSTOMS = 3 }
+				}
+			}
+			wealth = -50
+		}
+		else = { wealth = -100 }
+		character_event = { id = lifestyle.20214 days = 1 random = 4 tooltip = "EVTTOOLTIPRAPTORRECOVERY3DAYS" }
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				OR = {
+					religion = cyberneticist
+					religion = machine_cultist
+				}
+			}
+			modifier = {
+				factor = 0.5
+				religion_group = religious_group
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_ambition = obj_amass_wealth
+					has_ambition = obj_amass_wealth_2
+					has_ambition = obj_amass_wealth_3
+					has_ambition = obj_amass_wealth_4
+					has_ambition = obj_build_a_war_chest
+				}
+			}
+		}
+	}
+	# Just get regular medical attention
+	option = {
+		trigger = { NOT = { event_target:injured_raptor = { is_artifact_type = raptor_drone } } }
+		name = "EVTOPTCLIFESTYLE20014"
+		wealth = -5
+		# Time to recover depends on xenobiology level at current location and/or capital
+		if = {
+			limit = {
+				OR = {
+					location = { TECH_LEGALISM = 8 }
+					capital_scope = { TECH_LEGALISM = 8 }
+				}
+			}
+			character_event = { id = lifestyle.20114 days = 5 random = 10 tooltip = "EVTTOOLTIPRAPTORRECOVERY10DAYS" }
+		}
+		else_if = {
+			limit = {
+				OR = {
+					location = { TECH_LEGALISM = 7 }
+					capital_scope = { TECH_LEGALISM = 7 }
+				}
+			}
+			character_event = { id = lifestyle.20114 days = 20 random = 10 tooltip = "EVTTOOLTIPRAPTORRECOVERY25DAYS" }
+		}
+		else_if = {
+			limit = {
+				OR = {
+					location = { TECH_LEGALISM = 6 }
+					capital_scope = { TECH_LEGALISM = 6 }
+				}
+			}
+			character_event = { id = lifestyle.20114 days = 40 random = 20 tooltip = "EVTTOOLTIPRAPTORRECOVERY50DAYS" }
+		}
+		else_if = {
+			limit = {
+				OR = {
+					location = { TECH_LEGALISM = 5 }
+					capital_scope = { TECH_LEGALISM = 5 }
+				}
+			}
+			character_event = { id = lifestyle.20114 days = 80 random = 40 tooltip = "EVTTOOLTIPRAPTORRECOVERY100DAYS" }
+		}
+		else_if = {
+			limit = {
+				OR = {
+					location = { TECH_LEGALISM = 4 }
+					capital_scope = { TECH_LEGALISM = 4 }
+				}
+			}
+			character_event = { id = lifestyle.20114 days = 120 random = 60 tooltip = "EVTTOOLTIPRAPTORRECOVERY150DAYS" }
+		}
+		else_if = {
+			limit = {
+				OR = {
+					location = { TECH_LEGALISM = 3 }
+					capital_scope = { TECH_LEGALISM = 3 }
+				}
+			}
+			character_event = { id = lifestyle.20114 days = 160 random = 80 tooltip = "EVTTOOLTIPRAPTORRECOVERY200DAYS" }
+		}
+		else_if = {
+			limit = {
+				OR = {
+					location = { TECH_LEGALISM = 2 }
+					capital_scope = { TECH_LEGALISM = 2 }
+				}
+			}
+			character_event = { id = lifestyle.20114 days = 200 random = 100 tooltip = "EVTTOOLTIPRAPTORRECOVERY250DAYS" }
+		}
+		else_if = {
+			limit = {
+				OR = {
+					location = { TECH_LEGALISM = 1 }
+					capital_scope = { TECH_LEGALISM = 1 }
+				}
+			}
+			character_event = { id = lifestyle.20114 days = 240 random = 120 tooltip = "EVTTOOLTIPRAPTORRECOVERY300DAYS" }
+		}
+		else = { character_event = { id = lifestyle.20114 days = 280 random = 140 tooltip = "EVTTOOLTIPRAPTORRECOVERY350DAYS" } }
+		ai_chance = { factor = 50 }
+	}
+}
+# Injured raptor recovers
+character_event = {
+	id = lifestyle.20114
+	desc = "EVTDESCLIFESTYLE20114"
+	picture = GFX_evt_falconer
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTALIFESTYLE20114"
+		event_target:injured_raptor = { clr_artifact_flag = injured }
+	}
+}
+# Injured raptor recovers, has cybernetic implants
+character_event = {
+	id = lifestyle.20214
+	desc = "EVTDESCLIFESTYLE20214"
+	picture = GFX_evt_falconer
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTALIFESTYLE20214"
+		event_target:injured_raptor = {
+			set_artifact_flag = cybernetically_enhanced
+			clr_artifact_flag = injured
+		}
+	}
+}
