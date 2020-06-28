@@ -1,9 +1,14 @@
 decisions = {
 	# Commissioning New Ships
 	commission_a_corvette_decision = {
+		is_high_prio = yes
 		only_rulers = yes
 		ai_check_interval = 12
 		potential = {
+			OR = {
+				ai = yes
+				has_character_flag = flag_market_menu_open
+			}
 			# Must have a facility capable of producing this unit
 			capital_scope = {
 				any_province_lord = {
@@ -22,7 +27,7 @@ decisions = {
 					}
 				}
 			}
-			NOT = { has_character_flag = flag_buying_new_vehicle }
+			NOT = { has_character_flag = flag_busy }
 		}
 		allow = {
 			age = 16
@@ -34,15 +39,15 @@ decisions = {
 			}
 		}
 		effect = {
-			set_character_flag = flag_buying_new_vehicle
+			set_character_flag = flag_busy
 			character_event = { id = cotc_artifact.100 tooltip = "EVTTOOLTIPCOTCARTIFACT100" }
 		}
-		ai_will_do = { factor = 0
-			#factor = 1
+		ai_will_do = {
+			factor = 1
 			
 			# Random factor
 			modifier = {
-				factor = 0.1
+				factor = 0.5
 			}
 			
 			# Needs a positive reason to want a corvette
@@ -55,15 +60,12 @@ decisions = {
 			# Already have a ship
 			modifier = {
 				factor = 0
-				any_artifact = {
-					is_active = yes
-					has_artifact_flag = ship
-				}
+				any_artifact = { has_artifact_flag = ship }
 			}
 			
 			# Would prefer a different, more expensive ship
 			modifier = {
-				factor = 0.1
+				factor = 0.5
 				trait = proud
 				OR = {
 					wealth = 400
@@ -72,7 +74,7 @@ decisions = {
 				}
 			}
 			modifier = {
-				factor = 0.1
+				factor = 0.5
 				has_education_diplomacy_trigger = yes
 				OR = {
 					wealth = 400
@@ -86,15 +88,20 @@ decisions = {
 				trait = disciplined
 			}
 			modifier = {
-				factor = 0.1
+				factor = 0.5
 				trait = warship_captain
 			}
 		}
 	}
 	commission_a_freighter_decision = {
+		is_high_prio = yes
 		only_rulers = yes
 		ai_check_interval = 12
 		potential = {
+			OR = {
+				ai = yes
+				has_character_flag = flag_market_menu_open
+			}
 			# Must have a facility capable of producing this unit
 			capital_scope = {
 				any_province_lord = {
@@ -113,7 +120,7 @@ decisions = {
 					}
 				}
 			}
-			NOT = { has_character_flag = flag_buying_new_vehicle }
+			NOT = { has_character_flag = flag_busy }
 		}
 		allow = {
 			wealth = 100
@@ -125,15 +132,15 @@ decisions = {
 			}
 		}
 		effect = {
-			set_character_flag = flag_buying_new_vehicle
+			set_character_flag = flag_busy
 			character_event = { id = cotc_artifact.200 tooltip = "EVTTOOLTIPCOTCARTIFACT100" }
 		}
-		ai_will_do = { factor = 0
-			#factor = 1
+		ai_will_do = {
+			factor = 1
 			
 			# Random factor
 			modifier = {
-				factor = 0.1
+				factor = 0.5
 			}
 			
 			# Needs a positive reason to want a freighter
@@ -147,15 +154,12 @@ decisions = {
 			# Already have a ship
 			modifier = {
 				factor = 0
-				any_artifact = {
-					is_active = yes
-					has_artifact_flag = ship
-				}
+				any_artifact = { has_artifact_flag = ship }
 			}
 			
 			# Would prefer a different, more expensive ship
 			modifier = {
-				factor = 0.1
+				factor = 0.5
 				is_ruler = yes
 				OR = {
 					yearly_income = 10
@@ -163,7 +167,7 @@ decisions = {
 				}
 			}
 			modifier = {
-				factor = 0.1
+				factor = 0.5
 				has_education_stewardship_trigger = yes
 				OR = {
 					yearly_income = 10
@@ -171,7 +175,7 @@ decisions = {
 				}
 			}
 			modifier = {
-				factor = 0.1
+				factor = 0.5
 				trait = proud
 				OR = {
 					wealth = 400
@@ -180,7 +184,7 @@ decisions = {
 				}
 			}
 			modifier = {
-				factor = 0.1
+				factor = 0.5
 				has_education_diplomacy_trigger = yes
 				OR = {
 					wealth = 400
@@ -194,15 +198,20 @@ decisions = {
 				trait = disciplined
 			}
 			modifier = {
-				factor = 0.1
+				factor = 0.5
 				trait = warship_captain
 			}
 		}
 	}
 	commission_a_yacht_decision = {
+		is_high_prio = yes
 		only_rulers = yes
 		ai_check_interval = 12
 		potential = {
+			OR = {
+				ai = yes
+				has_character_flag = flag_market_menu_open
+			}
 			# Must have a facility capable of producing this unit
 			capital_scope = {
 				any_province_lord = {
@@ -218,7 +227,7 @@ decisions = {
 					}
 				}
 			}
-			NOT = { has_character_flag = flag_buying_new_vehicle }
+			NOT = { has_character_flag = flag_busy }
 		}
 		allow = {
 			wealth = 500
@@ -230,15 +239,15 @@ decisions = {
 			}
 		}
 		effect = {
-			set_character_flag = flag_buying_new_vehicle
+			set_character_flag = flag_busy
 			character_event = { id = cotc_artifact.300 tooltip = "EVTTOOLTIPCOTCARTIFACT100" }
 		}
-		ai_will_do = { factor = 0
-			#factor = 1
+		ai_will_do = {
+			factor = 1
 			
 			# Random factor
 			modifier = {
-				factor = 0.1
+				factor = 0.5
 			}
 			
 			# Needs a positive reason to want a yacht
@@ -252,10 +261,7 @@ decisions = {
 			# Already have a ship
 			modifier = {
 				factor = 0
-				any_artifact = {
-					is_active = yes
-					has_artifact_flag = ship
-				}
+				any_artifact = { has_artifact_flag = ship }
 			}
 			
 			modifier = {
@@ -274,7 +280,7 @@ decisions = {
 				religion = neo_socialist
 			}
 			modifier = {
-				factor = 0.1
+				factor = 0.5
 				NOT = { trait = pragmatic }
 				religion = neo_socialist
 			}
@@ -286,15 +292,20 @@ decisions = {
 				trait = disciplined
 			}
 			modifier = {
-				factor = 0.1
+				factor = 0.5
 				trait = warship_captain
 			}
 		}
 	}
 	commission_a_dreadnought_decision = {
+		is_high_prio = yes
 		only_rulers = yes
 		ai_check_interval = 12
 		potential = {
+			OR = {
+				ai = yes
+				has_character_flag = flag_market_menu_open
+			}
 			# Must have a facility capable of producing this unit
 			capital_scope = {
 				any_province_lord = {
@@ -309,7 +320,7 @@ decisions = {
 					}
 				}
 			}
-			NOT = { has_character_flag = flag_buying_new_vehicle }
+			NOT = { has_character_flag = flag_busy }
 		}
 		allow = {
 			wealth = 750
@@ -321,15 +332,15 @@ decisions = {
 			}
 		}
 		effect = {
-			set_character_flag = flag_buying_new_vehicle
+			set_character_flag = flag_busy
 			character_event = { id = cotc_artifact.400 tooltip = "EVTTOOLTIPCOTCARTIFACT100" }
 		}
-		ai_will_do = { factor = 0
-			#factor = 1
+		ai_will_do = {
+			factor = 1
 			
 			# Random factor
 			modifier = {
-				factor = 0.1
+				factor = 0.5
 			}
 			
 			# Needs a positive reason to want a dreadnought
@@ -341,17 +352,19 @@ decisions = {
 			# Already have a ship
 			modifier = {
 				factor = 0
-				any_artifact = {
-					is_active = yes
-					has_artifact_flag = ship
-				}
+				any_artifact = { has_artifact_flag = ship }
 			}
 		}
 	}
 	buy_a_fighter_decision = {
+		is_high_prio = yes
 		only_rulers = yes
 		ai_check_interval = 12
 		potential = {
+			OR = {
+				ai = yes
+				has_character_flag = flag_market_menu_open
+			}
 			# Must have a facility capable of producing this unit
 			capital_scope = {
 				any_province_lord = {
@@ -370,7 +383,7 @@ decisions = {
 					}
 				}
 			}
-			NOT = { has_character_flag = flag_buying_new_vehicle }
+			NOT = { has_character_flag = flag_busy }
 		}
 		allow = {
 			wealth = 100
@@ -378,15 +391,14 @@ decisions = {
 			NOT = { trait = incapable }
 		}
 		effect = {
-			set_character_flag = flag_buying_new_vehicle
+			set_character_flag = flag_busy
 			character_event = { id = cotc_artifact.500 tooltip = "EVTTOOLTIPCOTCARTIFACT100" }
 		}
-		ai_will_do = { factor = 0
-			#factor = 1
+		ai_will_do = {
+			factor = 1
 			
-			# Random factor
 			modifier = {
-				factor = 0.1
+				factor = 0.5
 			}
 			
 			# Needs a positive reason to want a fighter
@@ -398,17 +410,19 @@ decisions = {
 			# Already have a fighter
 			modifier = {
 				factor = 0
-				any_artifact = {
-					is_active = yes
-					has_artifact_flag = fighter
-				}
+				any_artifact = { has_artifact_flag = fighter }
 			}
 		}
 	}
 	buy_urban_assault_armor_decision = {
+		is_high_prio = yes
 		only_rulers = yes
 		ai_check_interval = 12
 		potential = {
+			OR = {
+				ai = yes
+				has_character_flag = flag_market_menu_open
+			}
 			# Must have a facility capable of producing this unit
 			capital_scope = {
 				any_province_lord = {
@@ -424,7 +438,7 @@ decisions = {
 					}
 				}
 			}
-			NOT = { has_character_flag = flag_buying_new_vehicle }
+			NOT = { has_character_flag = flag_busy }
 		}
 		allow = {
 			wealth = 100
@@ -432,15 +446,14 @@ decisions = {
 			NOT = { trait = incapable }
 		}
 		effect = {
-			set_character_flag = flag_buying_new_vehicle
+			set_character_flag = flag_busy
 			character_event = { id = cotc_artifact.600 tooltip = "EVTTOOLTIPCOTCARTIFACT100" }
 		}
-		ai_will_do = { factor = 0
-			#factor = 1
+		ai_will_do = {
+			factor = 1
 			
-			# Random factor
 			modifier = {
-				factor = 0.1
+				factor = 0.5
 			}
 			
 			# Needs a positive reason to want a fighter
@@ -452,10 +465,158 @@ decisions = {
 			# Already have a ground vehicle
 			modifier = {
 				factor = 0
-				any_artifact = {
-					is_active = yes
-					has_artifact_flag = ground
+				any_artifact = { has_artifact_flag = ground }
+			}
+		}
+	}
+	
+	# Buying new weapons
+	purchase_hunting_or_sniper_rifle_decision = {
+		is_high_prio = yes
+		only_rulers = yes
+		ai_check_interval = 24
+		
+		potential = {
+			OR = {
+				ai = yes
+				has_character_flag = flag_market_menu_open
+			}
+			NOT = { has_character_flag = flag_busy }
+		}
+		allow = {
+			wealth = 25
+			age = 16
+			NOT = { trait = incapable }
+		}
+		effect = {
+			set_character_flag = flag_busy
+			character_event = { id = cotc_artifact.2000 tooltip = "EVTTOOLTIPCOTCARTIFACT2000" }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.5
+			}
+			# Must need a positive reason to do this
+			modifier = {
+				factor = 0
+				NOT = { trait = hunter }
+				NOT = { has_focus = focus_hunting }
+				NOT = { has_education_martial_trigger = yes }
+			}
+			
+			# Not saving money
+			modifier = {
+				factor = 0
+				OR = {
+					has_ambition = obj_amass_wealth
+					has_ambition = obj_amass_wealth_2
+					has_ambition = obj_amass_wealth_3
+					has_ambition = obj_amass_wealth_4
+					has_ambition = obj_build_a_war_chest
 				}
+			}
+			
+			# Civilians should be satisfied with just a hunting rifle
+			modifier = {
+				factor = 0
+				NOT = {
+					AND = {
+						martial = 10
+						intrigue = 10
+					}
+				}
+				OR = {
+					has_artifact = tech_0_hunting_rifle
+					has_artifact = tech_4_hunting_rifle
+					has_artifact = tech_8_hunting_rifle
+				}
+			}
+			
+			# Non-civilians should save up for a military rifle
+			modifier = {
+				factor = 0
+				NOT = { wealth = 50 }
+				martial = 10
+				intrigue = 10
+			}
+			
+			# Must not already have a weapon that's up to date
+			modifier = {
+				factor = 0
+				any_artifact = {
+					has_artifact_flag = weapon
+					has_artifact_flag = tech_8
+				}
+			}
+			modifier = {
+				factor = 0
+				any_artifact = {
+					has_artifact_flag = weapon
+					has_artifact_flag = tech_7
+				}
+				NOT = { location = { TECH_CAVALRY = 8 } }
+				NOT = { capital_scope = { TECH_CAVALRY = 8 } }
+			}
+			modifier = {
+				factor = 0
+				any_artifact = {
+					has_artifact_flag = weapon
+					has_artifact_flag = tech_6
+				}
+				NOT = { location = { TECH_CAVALRY = 7 } }
+				NOT = { capital_scope = { TECH_CAVALRY = 7 } }
+			}
+			modifier = {
+				factor = 0
+				any_artifact = {
+					has_artifact_flag = weapon
+					has_artifact_flag = tech_5
+				}
+				NOT = { location = { TECH_CAVALRY = 6 } }
+				NOT = { capital_scope = { TECH_CAVALRY = 6 } }
+			}
+			modifier = {
+				factor = 0
+				any_artifact = {
+					has_artifact_flag = weapon
+					has_artifact_flag = tech_4
+				}
+				NOT = { location = { TECH_CAVALRY = 5 } }
+				NOT = { capital_scope = { TECH_CAVALRY = 5 } }
+			}
+			modifier = {
+				factor = 0
+				any_artifact = {
+					has_artifact_flag = weapon
+					has_artifact_flag = tech_3
+				}
+				NOT = { location = { TECH_CAVALRY = 4 } }
+				NOT = { capital_scope = { TECH_CAVALRY = 4 } }
+			}
+			modifier = {
+				factor = 0
+				any_artifact = {
+					has_artifact_flag = weapon
+					has_artifact_flag = tech_2
+				}
+				NOT = { location = { TECH_CAVALRY = 3 } }
+				NOT = { capital_scope = { TECH_CAVALRY = 3 } }
+			}
+			modifier = {
+				factor = 0
+				any_artifact = {
+					has_artifact_flag = weapon
+					has_artifact_flag = tech_1
+				}
+				NOT = { location = { TECH_CAVALRY = 2 } }
+				NOT = { capital_scope = { TECH_CAVALRY = 2 } }
+			}
+			modifier = {
+				factor = 0
+				any_artifact = { has_artifact_flag = weapon }
+				NOT = { location = { TECH_CAVALRY = 1 } }
+				NOT = { capital_scope = { TECH_CAVALRY = 1 } }
 			}
 		}
 	}
@@ -464,8 +625,8 @@ decisions = {
 targetted_decisions = {
 	# Buying exotic plants
 	purchase_onideguzu_specimen_decision = {
-		filter = realm_characters
-		ai_target_filter = realm_characters
+		filter = realm
+		ai_target_filter = realm
 		ai_check_interval = 12
 		
 		from_potential = {
@@ -523,8 +684,8 @@ targetted_decisions = {
 		}
 	}
 	purchase_omidi_giant_mangrove_specimen_decision = {
-		filter = realm_characters
-		ai_target_filter = realm_characters
+		filter = realm
+		ai_target_filter = realm
 		ai_check_interval = 12
 		
 		from_potential = {
@@ -582,8 +743,8 @@ targetted_decisions = {
 		}
 	}
 	purchase_steelwood_specimen_decision = {
-		filter = realm_characters
-		ai_target_filter = realm_characters
+		filter = realm
+		ai_target_filter = realm
 		ai_check_interval = 12
 		
 		from_potential = {
@@ -641,8 +802,8 @@ targetted_decisions = {
 		}
 	}
 	purchase_chengdu_coral_specimen_decision = {
-		filter = realm_characters
-		ai_target_filter = realm_characters
+		filter = realm
+		ai_target_filter = realm
 		ai_check_interval = 12
 		
 		from_potential = {
@@ -700,8 +861,8 @@ targetted_decisions = {
 		}
 	}
 	purchase_razorgrass_specimen_decision = {
-		filter = realm_characters
-		ai_target_filter = realm_characters
+		filter = realm
+		ai_target_filter = realm
 		ai_check_interval = 12
 		
 		from_potential = {
@@ -759,8 +920,8 @@ targetted_decisions = {
 		}
 	}
 	purchase_metagenic_wasp_specimen_decision = {
-		filter = realm_characters
-		ai_target_filter = realm_characters
+		filter = realm
+		ai_target_filter = realm
 		ai_check_interval = 12
 		
 		from_potential = {
@@ -818,8 +979,8 @@ targetted_decisions = {
 		}
 	}
 	purchase_world_tree_specimen_decision = {
-		filter = realm_characters
-		ai_target_filter = realm_characters
+		filter = realm
+		ai_target_filter = realm
 		ai_check_interval = 12
 		
 		from_potential = {
@@ -877,8 +1038,8 @@ targetted_decisions = {
 		}
 	}
 	purchase_rainbow_grass_specimen_decision = {
-		filter = realm_characters
-		ai_target_filter = realm_characters
+		filter = realm
+		ai_target_filter = realm
 		ai_check_interval = 12
 		
 		from_potential = {
@@ -936,8 +1097,8 @@ targetted_decisions = {
 		}
 	}
 	purchase_touchdown_tumbleweed_specimen_decision = {
-		filter = realm_characters
-		ai_target_filter = realm_characters
+		filter = realm
+		ai_target_filter = realm
 		ai_check_interval = 12
 		
 		from_potential = {

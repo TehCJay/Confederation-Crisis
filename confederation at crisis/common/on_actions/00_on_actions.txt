@@ -2790,3 +2790,598 @@ on_society_destroyed = {
 	events = {
 	}
 }
+
+# A character selects a focus
+# Root = Character
+on_focus_selected = {
+	events = {
+		# HF.25506
+		# HF.25507
+		# HF.25508
+		# HF.25509
+	}
+}
+
+# A character succeeds in a quest. This happens just before the quest disappears, so you can access the quest itself. Only invoked when a quest is cleared via script. E.G., does not happen on death
+# Root = Character
+on_quest_success = {
+	events = {
+		MNM.6666
+	}
+}
+
+# A character fails a quest. This happens just before the quest disappears, so you can access the quest itself. Only invoked when a quest is cleared via script. E.G., does not happen on death
+# Root = Character
+on_quest_failure = {
+	events = {
+		MNM.6667
+	}
+}
+
+# An indestructible society failed to find a new leader from existing characters
+# Root = Society
+# From = Previous leader
+on_society_failed_to_find_new_leader = {
+	events = {
+	}
+}
+
+
+# Root = New artifact owner
+# From = inherited artifact
+# FromFrom = Previous owner
+on_artifact_inheritance = {
+	random_events = {
+		# 5 = HFP.16005 # old destruction risk
+		# 95 = 0 # nothing happens
+	}
+	events = {
+		cotc_artifact.1 # Minor artifacts have maintenance fees, and can be handed out to courtiers.
+		cotc_artifact.3 # Ships have a larger maintenance fee, and can also be handed out to courtiers.
+		# MNM.5107 # for inheriting ingredients
+	}
+}
+
+# An offmap power changes its policy. Triggers for the governor
+# Root = Governor
+# From = Offmap
+on_offmap_policy_changed = {
+	events = {
+		# JD.30501 # Print policy update to logs
+		# JD.50020 # News from China about Policy Change
+		# JD.50400 # Update Silk Road values
+		# JD.32298 # Abandon kowtow when China goes Isolationist
+	}
+}
+
+# An offmap power changes its status. Triggers for the governor
+# Root = Governor
+# From = Offmap
+on_offmap_status_changed = {
+	events = {
+		# JD.30502 # Print status update to logs
+		# JD.50030 # News from China about Status Change
+		# JD.50400 # Update Silk Road values
+	}
+}
+
+
+# An offmap power changes its governor. Triggers for the new governor
+# Root = New governor
+# From = Old governor
+# FromFrom = Offmap
+on_offmap_governor_changed = {
+	events = {
+	}
+}
+
+# An offmap power changes its ruler. Triggers for the new ruler
+# Root = New ruler
+# From = Old ruler
+# FromFrom = Offmap
+on_offmap_ruler_changed = {
+	events = {
+		# JD.30503 # Logging new ruler data
+		# JD.10005 # In case of dynasty change...
+		# JD.10202 # Delayed cleanup event. Makes sure the new administration may also launch Chinese invasions.
+		# JD.50000 # Select a new Policy and send News Event
+		# JD.31000 # Logging for emperor statistics
+	}
+}
+
+# Happens once a month on a random day. Triggers for the governor
+# Root = Governor
+# From = Offmap
+on_offmap_monthly_pulse = {
+	events = {
+		# JD.10121 #Fallback event to make sure that Displaced Royals, Jurchen Invaders, and Rebel Generals actually appear (regardless of new administration in China or not)
+	}
+	random_events = {
+	}
+}
+
+# Happens once a year during a random monthly update. Triggers for the governor (once for each offmap governor, if there's more than one)
+# Root = Governor
+# From = Offmap
+on_offmap_yearly_pulse = {
+	events = {
+		# JD.10100 # Chinese Invasion tombola
+		# #JD.40000 # Chinese Trade Competition
+		# JD.30500 # China logging variable increment
+		# JD.10200 # Chinese Invasion clean-up event - REGULAR (tributary invasion + other flags)
+		# JD.10201 # Chinese Invasion clean-up event - MAJOR Invasion (rare)
+	}
+	
+	# random_events = {
+		# 10000 = 0
+		# 300 = JD.50100 # Status returns to 'Stable'
+		# 150 = JD.50120 # Status changes to 'Unrest'
+		# 50 = JD.50140 # Status changes to 'Mongol Invasion'
+		# 450 = JD.50160 # 'Mongol Invasion' Resolution
+		# 50 = JD.50180 # Status changes to 'Jurchen Invasion'
+		# 450 = JD.50200 # 'Jurchen Invasion' Resolution
+		# 100 = JD.50220 # Status changes to 'Great Famine'
+		# 100 = JD.50240 # Status changes to 'Devastating Plague'
+		# 100 = JD.50260 # Status changes to 'Golden Age'
+		# 350 = JD.50280 # Status changes to 'Civil War'
+		# 400 = JD.50300 # 'Civil War' Resolution
+	# }
+}
+
+# Happens just prior to the EU4 converter converting the game
+# Root = Player. Random character if in observe mode
+on_eu4_conversion_start = {
+	events = {
+		# JD.60205 # Prepare on map China for conversion
+	}
+}
+
+# Happens just after the EU4 converter is done converting the game
+# Root = Player. Random character if in observe mode
+on_eu4_conversion_done = {
+	events = {
+		# JD.60206 # Restore on map China after conversion
+	}
+}
+
+# Happens when tyranny is caused by the code rather than script. That is; won't trigger if you use "add_opinion_modifier" to add tyranny. Fires for every character that gets the "tyrant" opinion penalty towards the tyrant
+# Root = Upset character
+# From = Tyrant
+on_tyranny_gained = {
+	events = {
+	}
+}
+
+# Happens when tyranny is caused by the code rather than script. That is; won't trigger if you use "add_opinion_modifier" to add tyranny. Only happens for the tyrant themselves, rather than for each of their "victims", so happens exactly once per tyranny-giving action
+# Root = Tyrant
+on_tyranny_gained_tyrant_only = {
+	events = {
+	}
+}
+
+# Triggers if someone tries to revoke someone's title, and the person refuses and starts a war in response
+# Root = The person declaring war
+# From = The revoker
+# FromFrom = The title being revoked
+on_revoke_attempted_started_war = {
+	events = {
+		# 681
+ 	}
+}
+
+# Triggers if someone tries to retract someone's vassal, and the person refuses and starts a war in response
+# Root = The person declaring war
+# From = The revoker
+# FromFrom = The vassal title being retracted
+on_retract_vassal_attempted_started_war = {
+	events = {
+		# 682
+ 	}
+}
+
+# Triggers if someone tries to absorb a clan, and the person refuses and starts a war in response
+# Root = The person declaring war
+# From = The revoker
+on_absorb_clan_attempted_started_war = {
+	events = {
+		# 683
+ 	}
+}
+
+# Triggers if someone tries to split a clan, and the person refuses and starts a war in response
+# Root = The person declaring war
+# From = The revoker
+on_split_clan_attempted_started_war = {
+	events = {
+		# 684
+ 	}
+}
+
+# Triggers if the game is started with Random/Shattered World. Fires at the very end of game setup (just before the Welcome screen is shown)
+# Root = The very first character generated (events need a character to work)
+on_alternate_start = {
+	events = {
+	}
+}
+
+# Triggers when the society progress is decreased / set to the value 0
+# Root = The affected society grandmaster
+# From = The affected society
+on_society_progress_zero = {
+	events = {
+	}
+}
+
+# Triggers on a betrothal being agreed. Sent to employers of both parties
+# Root = Employer of the character getting betrothed
+# From = Character getting betrothed in the court of Root
+# new_character = The other character getting betrothed
+on_betrothal = {
+	events = {
+	}
+}
+
+# Triggers when the society progress is increased / set to the value 100
+# Root = The affected society grandmaster
+# From = The affected society
+on_society_progress_full = {
+	events = {
+		# HF.11999
+	}
+}
+
+# Triggers for all characters in a unit (leading a flank or subunit) when it enters a province
+# Root = the affected character
+on_unit_entering_province = {
+	events = {
+		# 8300
+		# 8301
+		# 8468
+		# 8469
+		# 8305
+		# HFP.42320
+		# HF.49121 # Northern Crusade flavor
+	}
+}
+
+# Triggers for character when they are put in command of a flank
+# Root = the affected character
+on_command_unit = {
+	events = {
+		# 8300
+		# 8301
+		# 8468
+		# 8469
+		# 8305
+	}
+}
+
+# Triggers for character when they are put in command of a subunit
+# Root = the affected character
+on_command_sub_unit = {
+	events = {
+		# 8300
+		# 8301
+		# 8468
+		# 8469
+		# 8305
+	}
+}
+
+# Triggers when Crusade preparation starts
+# Root = the religious head
+# Warning - This fires for all Crusades / Jihads / Great Holy Wars upon creation regardless if they have a preparation phase - Use "uses_new_crusade = yes" trigger to limit effects
+on_crusade_preparation_starts = {
+	events = {
+		# HFP.41000
+		# HFP.41003
+		# HFP.41005
+		# HFP.41021
+		# HFP.41070
+		# HFP.41080
+		# HFP.41081
+		# HF.49000
+	}
+}
+
+# Triggers when Crusade preparation ends
+# Root = the religious head
+on_crusade_launches = {
+	events = {
+		# HFP.41008
+		# HFP.41083
+		# HFP.41130
+		# HFP.41140
+		# HF.49006
+		# HFP.49122 # For dealing with pesky NAP breakers...
+	}
+}
+
+# Triggers when a Crusade is canceled
+# Root = the religious head
+on_crusade_canceled = {
+	events = {
+		# HFP.41010
+	}
+}
+
+# Triggers once a month while a Crusade is preparing or active
+# Root = the religious head
+on_crusade_monthly = {
+	events = {
+		# HFP.41006
+		# HFP.41012
+		# HFP.41020
+		# HFP.41050
+		# HFP.41052
+		# HFP.41055
+		# HFP.41073
+		# HFP.41074
+		# HFP.41086
+		# HFP.42200
+	}
+}
+
+# Triggers when the target of a crusade changes (either through script or invalidation, or the target's heir inheriting). Happens immediately after the crusade_target_char and crusade_target_title scopes are updated
+# Root = the religious head
+# From = the previous target character
+# FromFrom = the previous target title
+# FromFromFrom = the character who made the change, if via diplomatic action. Otherwise not defined
+on_crusade_target_changes = {
+	events = {
+		# HFP.41000
+		# HFP.41072
+	}
+}
+
+# Triggers when a character pledges their participation. Triggers even if the war has started. Does *not* trigger when the character is auto-pledged due to joining the war
+# Root = the character pledging
+on_pledge_crusade_participation = {
+	events = {
+		# HFP.41030
+	}
+}
+
+# Triggers when a character pledges their defense of the crusade target. Triggers even if the war has started. Does *not* trigger when the character is auto-pledged due to joining the war
+# Root = the character pledging
+on_pledge_crusade_defense = {
+	events = {
+	}
+}
+
+# Triggers when a character unpledges their participation, including the automatic unpledging on death and conversion
+# Root = the character unpledging
+on_unpledge_crusade_participation = {
+	events = {
+		# HFP.41040
+	}
+}
+
+# Triggers when a character unpledges their defense, including the automatic unpledging on death and conversion
+# Root = the character unpledging
+on_unpledge_crusade_defense = {
+	events = {
+	}
+}
+
+# Triggers when someone is excommunicated via the hardcoded diplomatic interaction
+# Root = Excommunicated person
+# From = Asker
+# FromFrom = Pope
+on_excommunicate_interaction = {
+	events = {
+		# HFP.23002 #Add opinion modifier to prevent excommunication spamming.
+	}
+}
+
+# Triggers when a player renames a character. Note that the player is not provided as a scope. This includes the "newborn" event
+# Root = The renamed character
+on_character_renamed = {
+	events = {
+	}
+}
+
+# Triggers when a player renames a title. Note that the player is not provided as a scope. This includes renaming via the title screen
+# Root = The renamed title
+on_title_renamed = {
+	events = {
+	}
+}
+
+# Triggers when a player renames a province. Note that the player is not provided as a scope. This includes renaming via the province view
+# Root = The renamed character
+on_province_renamed = {
+	events = {
+	}
+}
+
+# Triggers when a player renames a wonder.
+#ROOT = owner
+#FROM = upgrade
+#FROMFROM = The renamed wonder
+#FROMFROMFROM = province (location of wonder)
+on_wonder_renamed = {
+	events = {
+	}
+}
+
+# Triggers when a player renames an artifact. Note that the player is not provided as a scope
+# Root = The renamed artifact
+on_artifact_renamed = {
+	events = {
+	}
+}
+
+# Triggers when a player renames a bloodline. Note that the player is not provided as a scope
+# Root = The renamed bloodline
+on_bloodline_renamed = {
+	events = {
+	}
+}
+
+# Triggers when a change of employer has been detected. Note that the from scope is empty for newly created characters.
+# Root = character that got a new employer
+# From = previous employer
+# FromFrom = new employer
+on_employer_change = {
+	events = {
+		# HFP.19000 # For safety, to prevent everlasting food-shortage from Seclusion
+	}
+}
+
+# Triggers when a change of host has been detected. Note that the from scope is empty for newly created characters. "on_employer_change" is triggered first if a character has had both their employer and host changed since the last check was made.
+# Root = the character that got a new host
+# From = the previous host
+# FromFrom = new employer
+on_host_change = {
+	events = {
+		# HFP.19000 # For safety, to prevent everlasting food-shortage from Seclusion
+	}
+}
+
+# Triggers when a character becomes the owner of a wonder.
+# ROOT = new owner
+# FROM = wonder
+# FROMFROM = previous owner (this person might be dead or whatever, but still needed)
+# FROMFROMFROM = province wonder is in
+on_wonder_owner_change = {
+	events = {
+	}
+	# random_events = {
+		# 1000 = 0
+		# delayed_upgrade_finish_effects = {
+			# delay = 14
+			# 50 = LT.60401 #Traps kill courtiers from new court
+		# }
+	# }
+}
+
+# Triggers when a wonder begins construction of any stage.
+# ROOT = owner
+# FROM = wonder
+# FROMFROM = province (location of wonder)
+on_wonder_construction_start = {
+	events = {
+	}
+	# random_events = {
+		# 1000 = 0
+		# 100 = LT.20100 #Tomb is found during construction
+	# }
+}
+
+# Triggers when a wonder finishes building a stage.
+# ROOT = owner
+# FROM = wonder
+# FROMFROM = province (location of wonder)
+on_wonder_stage_finish = {
+	events = {
+		# LT.10000
+	}
+}
+
+# Triggers when a wonder is destroyed.
+# ROOT = owner
+# FROM = wonder
+# FROMFROM = province (location of wonder)
+on_wonder_destroyed = {
+	events = {
+
+	}
+}
+
+# Triggers when construction of an upgrade begins in a wonder.
+# ROOT = owner
+# FROM = upgrade
+# FROMFROM = wonder
+# FROMFROMFROM = province (location of wonder)
+on_wonder_upgrade_start = {
+	events = {
+	}
+}
+
+# Triggers when construction of an upgrade finishes in a wonder.
+# ROOT = owner
+# FROM = upgrade
+# FROMFROM = wonder
+# FROMFROMFROM = province (location of wonder)
+on_wonder_upgrade_finish = {
+	events = {
+		# LT.10001
+		# LT.20700 #upgrade_strategic_exclaves effect to build maximum fortification in province holdings
+		# LT.10003 # Handles setting desc of upgrades using dynamic loc keys
+	}
+	# random_events = {
+		# 1000 = 0
+		# delayed_upgrade_finish_effects = {
+			# delay = 50
+			# 100 = LT.60001 #Town springs up
+		# }
+	# }
+# }
+
+# Triggers when an upgrade is destroyed in a wonder.
+# ROOT = owner
+# FROM = upgrade
+# FROMFROM = wonder
+# FROMFROMFROM = province (location of wonder)
+on_wonder_upgrade_destroyed = {
+	events = {
+	}
+}
+
+# Triggers when looting of a wonder begins
+# ROOT = owner
+# FROM = wonder
+# FROMFROM = province (location of wonder)
+on_wonder_loot_start = {
+	events = {
+		# LT.20799 #Looting renaming prep-event
+		# LT.20800 #Artifact looting
+	}
+	# random_events = {
+		# 100 = 0
+		# delayed_upgrade_finish_effects = {
+			# delay = 2
+			# 100 = LT.20810
+		# }
+	# }
+}
+
+# Triggers when looting of a wonder stage is started
+# ROOT = owner
+# FROM = wonder
+# FROMFROM = province (location of wonder)
+on_wonder_stage_loot_start = {
+	events = {
+	}
+}
+
+# Triggers when looting of a wonder stage is completed
+# ROOT = owner
+# FROM = wonder
+# FROMFROM = province (location of wonder)
+on_wonder_stage_loot_finish = {
+	events = {
+		# LT.10002 # Renames wonders and sets desc for Ruined versions
+		# LT.20820 # Notification for the owner that looting stage finished
+	}
+}
+
+# Triggers when restoration of a wonder begins
+# ROOT = owner
+# FROM = wonder
+# FROMFROM = province (location of wonder)
+on_wonder_restore_start = {
+	events = {
+	}
+}
+
+# Triggers when restoration of a wonder completed
+# ROOT = owner
+# FROM = wonder
+# FROMFROM = province (location of wonder)
+on_wonder_restore_finish = {
+	events = {
+		#LT.20808 # clean up looted_artifact flag
+	}
+}

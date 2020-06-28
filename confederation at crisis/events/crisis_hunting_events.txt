@@ -5625,12 +5625,58 @@ narrative_event = {
 				
 				# Weapon anti-personnel bonus
 				modifier = {
-					factor = 4
+					factor = 3
 					event_target:hunting_weapon = { has_artifact_flag = anti_personnel_bonus }
+					NOT = { has_character_flag = flag_encountered_bara_la_kivita }
+					NOT = { has_character_flag = flag_encountered_chouten_oni }
+					NOT = { has_character_flag = flag_encountered_koloss }
+					NOT = { has_character_flag = flag_encountered_leviathan }
+					NOT = { has_character_flag = flag_encountered_old_one_eye }
 				}
 				modifier = {
-					factor = 4
+					factor = 3
 					event_target:hunting_weapon_2 = { has_artifact_flag = anti_personnel_bonus }
+					NOT = { has_character_flag = flag_encountered_bara_la_kivita }
+					NOT = { has_character_flag = flag_encountered_chouten_oni }
+					NOT = { has_character_flag = flag_encountered_koloss }
+					NOT = { has_character_flag = flag_encountered_leviathan }
+					NOT = { has_character_flag = flag_encountered_old_one_eye }
+				}
+				
+				# Weapon anti-vehicle bonus
+				modifier = {
+					factor = 3
+					event_target:hunting_weapon = { has_artifact_flag = anti_vehicle_bonus }
+					OR = {
+						has_character_flag = flag_encountered_bara_la_kivita
+						has_character_flag = flag_encountered_chouten_oni
+						has_character_flag = flag_encountered_koloss
+						has_character_flag = flag_encountered_leviathan
+						has_character_flag = flag_encountered_old_one_eye
+					}
+				}
+				modifier = {
+					factor = 3
+					event_target:hunting_weapon_2 = { has_artifact_flag = anti_vehicle_bonus }
+					OR = {
+						has_character_flag = flag_encountered_bara_la_kivita
+						has_character_flag = flag_encountered_chouten_oni
+						has_character_flag = flag_encountered_koloss
+						has_character_flag = flag_encountered_leviathan
+						has_character_flag = flag_encountered_old_one_eye
+					}
+				}
+				
+				# Weapon has a scope and target is not alerted
+				modifier = {
+					factor = 3
+					NOT = { has_character_flag = flag_game_alerted }
+					event_target:hunting_weapon = { has_artifact_flag = sniper_rifle }
+				}
+				modifier = {
+					factor = 3
+					NOT = { has_character_flag = flag_game_alerted }
+					event_target:hunting_weapon_2 = { has_artifact_flag = sniper_rifle }
 				}
 				
 				# Weapon tech level

@@ -1070,13 +1070,6 @@ character_event = {
 					factor = 0.9
 					FROM = {
 						NOT = { has_character_flag = flag_in_vehicle }
-						persistent_event_target:my_armor = { has_artifact_flag = tech_0 }
-					}
-				}
-				modifier = {
-					factor = 0.9
-					FROM = {
-						NOT = { has_character_flag = flag_in_vehicle }
 						persistent_event_target:my_armor = { has_artifact_flag = tech_1 }
 					}
 				}
@@ -1361,6 +1354,31 @@ character_event = {
 						OR = {
 							NOT = { has_character_flag = flag_in_vehicle }
 							persistent_event_target:my_vehicle = { has_artifact_flag = anti_personnel_vulnerable }
+						}
+					}
+				}
+				# Anti-personnel with a sniper rifle against infantry in cover
+				modifier = {
+					factor = 3
+					has_character_flag = flag_anti_personnel_tactics
+					NOT = { has_character_flag = flag_in_vehicle }
+					persistent_event_target:my_weapon = { has_artifact_flag = sniper_rifle }
+					FROM = {
+						NOT = { has_character_flag = flag_in_vehicle }
+						has_character_flag = flag_anti_personnel_tactics
+					}
+				}
+				# Anti-personnel with an assault rifle against infantry out of cover
+				modifier = {
+					factor = 3
+					has_character_flag = flag_anti_personnel_tactics
+					NOT = { has_character_flag = flag_in_vehicle }
+					persistent_event_target:my_weapon = { has_artifact_flag = assault_rifle }
+					FROM = {
+						NOT = { has_character_flag = flag_in_vehicle }
+						OR = {
+							has_character_flag = flag_melee_tactics
+							has_character_flag = flag_anti_vehicle_tactics
 						}
 					}
 				}
@@ -1956,6 +1974,31 @@ character_event = {
 								persistent_event_target:my_vehicle = { has_artifact_flag = anti_personnel_vulnerable }
 							}
 						}
+					}
+				}
+				# Anti-personnel with a sniper rifle against infantry in cover
+				modifier = {
+					factor = 3
+					FROM = {
+						has_character_flag = flag_anti_personnel_tactics
+						NOT = { has_character_flag = flag_in_vehicle }
+						persistent_event_target:my_weapon = { has_artifact_flag = sniper_rifle }
+					}
+					NOT = { has_character_flag = flag_in_vehicle }
+					has_character_flag = flag_anti_personnel_tactics
+				}
+				# Anti-personnel with an assault rifle against infantry out of cover
+				modifier = {
+					factor = 3
+					FROM = {
+						has_character_flag = flag_anti_personnel_tactics
+						NOT = { has_character_flag = flag_in_vehicle }
+						persistent_event_target:my_weapon = { has_artifact_flag = assault_rifle }
+					}
+					NOT = { has_character_flag = flag_in_vehicle }
+					OR = {
+						has_character_flag = flag_melee_tactics
+						has_character_flag = flag_anti_vehicle_tactics
 					}
 				}
 				

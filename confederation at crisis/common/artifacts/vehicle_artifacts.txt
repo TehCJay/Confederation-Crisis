@@ -1,6 +1,7 @@
 # Vehicles! Mostly generic for now, more interesting ones to come later
 
 # Flag Explanations:
+# named: Individual instances are significant enough to have names.
 # vehicle: self-explanatory
 # mechanical: This is a large complex machine and it could theoretically break and need repairs
 # networked: This machine relies on a network connection that could be hacked
@@ -19,7 +20,7 @@ hermes_class_corvette = {
 		speed = 0.1
 		retreat = 0.1
 	}
-	flags = { vehicle mechanical networked space ship }
+	flags = { named vehicle mechanical networked space ship }
 	quality = 2
 	slot = vehicle
 }
@@ -32,7 +33,7 @@ shangri_la_class_yacht = {
 	neo_socialist_opinion = -25 # EXTREMELY bourgeosie
 	colonial_separatist_opinion = -25 # A symbol of Confederate corruption
 	terran_imperial_opinion = -25 # A symbol of weakness and decadence
-	flags = { vehicle mechanical space ship }
+	flags = { named vehicle mechanical space ship }
 	quality = 2
 	slot = vehicle
 }
@@ -47,7 +48,7 @@ calico_class_heavy_freighter = {
 		speed = 0.5
 		retreat = 0.5
 	}
-	flags = { vehicle mechanical space ship }
+	flags = { named vehicle mechanical space ship }
 	quality = 2
 	slot = vehicle
 }
@@ -64,7 +65,8 @@ bishamonten_class_dreadnought = {
 		retreat = -0.1 # Quite slow.
 	}
 	active = { trait = warship_captain }
-	flags = { vehicle mechanical space ship military_vehicle }
+	allowed_gift = { trait = warship_captain }
+	flags = { named vehicle mechanical space ship military_vehicle }
 	quality = 2
 	slot = vehicle
 }
@@ -80,7 +82,8 @@ ssf_59_dao_starfighter = {
 		retreat = 0.1
 	}
 	active = { trait = fighter_pilot }
-	flags = { vehicle mechanical networked space ship military_vehicle }
+	allowed_gift = { trait = fighter_pilot }
+	flags = { vehicle mechanical networked space ship military_vehicle fighter }
 	quality = 2
 	slot = vehicle
 }

@@ -49,4 +49,24 @@ decisions = {
 		potential = { has_character_flag = flag_cybernetics_menu_open }
 		effect = { clr_character_flag = flag_cybernetics_menu_open }
 	}
+	# Market
+	open_market_menu_decision = {
+		potential = {
+			ai = no
+			NOT = { has_character_flag = flag_market_menu_open }
+		}
+		allow = { always = yes }
+		effect = { set_character_flag = flag_market_menu_open }
+		ai_will_do = { factor = 0 }
+	}
+	close_market_menu_decision = {
+		is_high_prio = yes
+		potential = {
+			ai = no
+			has_character_flag = flag_market_menu_open
+		}
+		allow = { always = yes }
+		effect = { clr_character_flag = flag_market_menu_open }
+		ai_will_do = { factor = 0 }
+	}
 }
