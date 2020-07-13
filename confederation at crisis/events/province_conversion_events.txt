@@ -10,7 +10,7 @@ province_event = {
 	id = conversion.100
 	desc = "EVTDESCCONVERSION100"
 	picture = GFX_evt_speech
-	
+
 	trigger = {
 		NOT = { religion = terran_federalist }
 		NOT = { religion_authority = 0.25 }
@@ -23,10 +23,10 @@ province_event = {
 			any_neighbor_province = { religion = terran_federalist }
 		}
 	}
-	
+
 	mean_time_to_happen = {
 		months = 600
-		
+
 		# Religion Authority Effects
 		modifier = {
 			factor = 2
@@ -137,28 +137,24 @@ province_event = {
 		# Existing ideological similarities/differences
 		modifier = {
 			factor = 0.25
-			OR = {
-				religion = terran_republican
-				religion = colonial_separatist
-				religion = terran_imperial
-			}
+			religion_group = political_terran_group
 		}
 		modifier = {
 			factor = 10
 			OR = {
-				religion = astrist
-				religion = neo_feudal
+				religion_group = political_group
+				religion_group = religious_terran_group
 			}
 		}
 		modifier = {
 			factor = 25
-			or = {
+			OR = {
 				religion_group = religious_group
 				religion_group = transhumanist_group
 				religion_group = outlaw_group
 			}
 		}
-		
+
 		# Proximity to Earth
 		# Terran Federalism tends to peak in the outer Core Worlds.
 		modifier = {
@@ -229,7 +225,7 @@ province_event = {
 			}
 			culture_group = terran_group
 		}
-		
+
 		# Democratic provinces tend to prefer democratic ideologies
 		modifier = {
 			factor = 0.25
@@ -238,7 +234,7 @@ province_event = {
 			NOT = { religion_group = outlaw_group }
 			owner = { is_corporate_trigger = yes }
 		}
-		
+
 		# Neighboring Province Effects
 		modifier = {
 			factor = 2
@@ -382,7 +378,7 @@ province_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		religion = terran_federalist
@@ -393,7 +389,7 @@ province_event = {
 	id = conversion.101
 	desc = "EVTDESCCONVERSION101"
 	picture = GFX_evt_speech
-	
+
 	trigger = {
 		NOT = { religion = terran_republican }
 		NOT = { religion = hiver }
@@ -406,10 +402,10 @@ province_event = {
 			any_neighbor_province = { religion = terran_republican }
 		}
 	}
-	
+
 	mean_time_to_happen = {
 		months = 600
-		
+
 		# Religion Authority Effects
 		modifier = {
 			factor = 2
@@ -541,7 +537,7 @@ province_event = {
 				religion_group = outlaw_group
 			}
 		}
-		
+
 		# Proximity to Earth
 		# Terran Republicanism tends to peak in the worlds closest to Earth.
 		modifier = {
@@ -598,7 +594,7 @@ province_event = {
 				culture_group = centauri_group
 			}
 		}
-		
+
 		# Democratic provinces tend to prefer democratic ideologies
 		modifier = {
 			factor = 0.25
@@ -607,7 +603,7 @@ province_event = {
 			NOT = { religion_group = outlaw_group }
 			owner = { is_corporate_trigger = yes }
 		}
-		
+
 		# Neighboring Province Effects
 		modifier = {
 			factor = 2
@@ -713,7 +709,7 @@ province_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		religion = terran_republican
@@ -724,7 +720,7 @@ province_event = {
 	id = conversion.102
 	desc = "EVTDESCCONVERSION102"
 	picture = GFX_evt_speech
-	
+
 	trigger = {
 		NOT = { religion = terran_imperial }
 		NOT = { religion = hiver }
@@ -736,10 +732,10 @@ province_event = {
 			any_neighbor_province = { religion = terran_imperial }
 		}
 	}
-	
+
 	mean_time_to_happen = {
 		months = 600
-		
+
 		# Religion Authority Effects
 		modifier = {
 			factor = 2
@@ -872,7 +868,7 @@ province_event = {
 				religion_group = outlaw_group
 			}
 		}
-		
+
 		# Proximity to Earth
 		# Terran Imperialism tends to peak in the worlds closest to Earth.
 		modifier = {
@@ -929,7 +925,7 @@ province_event = {
 				culture_group = centauri_group
 			}
 		}
-		
+
 		# Military provinces tend to prefer military ideologies
 		modifier = {
 			factor = 0.25
@@ -939,7 +935,7 @@ province_event = {
 			NOT = { religion_group = outlaw_group }
 			owner = { is_corporate_trigger = yes }
 		}
-		
+
 		# Neighboring Province Effects
 		modifier = {
 			factor = 2
@@ -1045,7 +1041,7 @@ province_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		religion = terran_imperial
@@ -1056,7 +1052,7 @@ province_event = {
 	id = conversion.103
 	desc = "EVTDESCCONVERSION103"
 	picture = GFX_evt_speech
-	
+
 	trigger = {
 		NOT = { religion = colonial_separatist }
 		NOT = { religion = hiver }
@@ -1072,10 +1068,10 @@ province_event = {
 			any_neighbor_province = { religion = colonial_separatist }
 		}
 	}
-	
+
 	mean_time_to_happen = {
 		months = 1200
-		
+
 		# Religion Authority Effects
 		modifier = {
 			factor = 2
@@ -1219,7 +1215,7 @@ province_event = {
 				culture_group = centauri_group
 			}
 		}
-		
+
 		# Proximity to Earth
 		# Colonial seperatism tends to peak on the worlds furthest from Earth.
 		modifier = {
@@ -1235,7 +1231,7 @@ province_event = {
 			factor = 4
 			empire = { title = e_terran_confederation }
 		}
-		
+
 		# Democratic provinces tend to prefer democratic ideologies
 		modifier = {
 			factor = 0.25
@@ -1243,7 +1239,7 @@ province_event = {
 			NOT = { religion = terran_republican }
 			owner = { is_corporate_trigger = yes }
 		}
-		
+
 		# Neighboring Province Effects
 		modifier = {
 			factor = 2
@@ -1310,7 +1306,7 @@ province_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		religion = colonial_separatist
@@ -1321,7 +1317,7 @@ province_event = {
 	id = conversion.104
 	desc = "EVTDESCCONVERSION104"
 	picture = GFX_evt_speech
-	
+
 	trigger = {
 		NOT = { religion = neo_feudal }
 		NOT = { religion = hiver }
@@ -1337,10 +1333,10 @@ province_event = {
 			any_neighbor_province = { religion = neo_feudal }
 		}
 	}
-	
+
 	mean_time_to_happen = {
 		months = 600
-		
+
 		# Religion Authority Effects
 		modifier = {
 			factor = 2
@@ -1475,7 +1471,7 @@ province_event = {
 				religion_group = outlaw_group
 			}
 		}
-		
+
 		# Unpopular near Earth
 		modifier = {
 			factor = 0.2
@@ -1513,7 +1509,7 @@ province_event = {
 				culture_group = centauri_group
 			}
 		}
-		
+
 		# Military provinces tend to prefer military ideologies
 		modifier = {
 			factor = 0.25
@@ -1522,7 +1518,7 @@ province_event = {
 			NOT = { religion = imperial_cult }
 			owner = { is_military_trigger = yes }
 		}
-		
+
 		# Neighboring Province Effects
 		modifier = {
 			factor = 2
@@ -1628,7 +1624,7 @@ province_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		religion = neo_feudal
@@ -1639,7 +1635,7 @@ province_event = {
 	id = conversion.105
 	desc = "EVTDESCCONVERSION105"
 	picture = GFX_evt_speech
-	
+
 	trigger = {
 		NOT = { religion = neo_socialist }
 		NOT = { religion = hiver }
@@ -1652,10 +1648,10 @@ province_event = {
 			revolt_risk = 0.5
 		}
 	}
-	
+
 	mean_time_to_happen = {
 		months = 600
-		
+
 		# Religion Authority Effects
 		modifier = {
 			factor = 2
@@ -1787,7 +1783,7 @@ province_event = {
 				religion_group = outlaw_group
 			}
 		}
-		
+
 		# Revolutionary fervor goes well with space communism
 		modifier = {
 			factor = 0.8
@@ -1839,7 +1835,7 @@ province_event = {
 			owner = { NOT = { religion = neo_socialist } }
 			revolt_risk = 1
 		}
-		
+
 		# Neighboring Province Effects
 		modifier = {
 			factor = 2
@@ -1945,7 +1941,7 @@ province_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		religion = neo_socialist
@@ -1956,7 +1952,7 @@ province_event = {
 	id = conversion.106
 	desc = "EVTDESCCONVERSION106"
 	picture = GFX_evt_speech
-	
+
 	trigger = {
 		NOT = { religion = astrist }
 		NOT = { religion = hiver }
@@ -1971,10 +1967,10 @@ province_event = {
 			revolt_risk = 0.5
 		}
 	}
-	
+
 	mean_time_to_happen = {
 		months = 600
-		
+
 		# Religion Authority Effects
 		modifier = {
 			factor = 2
@@ -2106,7 +2102,7 @@ province_event = {
 				religion_group = outlaw_group
 			}
 		}
-		
+
 		# Unpopular near Earth
 		modifier = {
 			factor = 0.2
@@ -2143,7 +2139,7 @@ province_event = {
 				culture_group = centauri_group
 			}
 		}
-		
+
 		# Military provinces tend to favor military ideologies
 		modifier = {
 			factor = 0.25
@@ -2152,7 +2148,7 @@ province_event = {
 			NOT = { religion = imperial_cult }
 			owner = { is_military_trigger = yes }
 		}
-		
+
 		# Revolutionary fervor ALSO goes well with space fascism
 		modifier = {
 			factor = 0.8
@@ -2204,7 +2200,7 @@ province_event = {
 			owner = { NOT = { religion = astrist } }
 			revolt_risk = 1
 		}
-		
+
 		# Neighboring Province Effects
 		modifier = {
 			factor = 2
@@ -2309,7 +2305,7 @@ province_event = {
 				count = 5
 			}
 		}
-		
+
 		# Terran biases against it
 		modifier = {
 			factor = 5
@@ -2325,7 +2321,7 @@ province_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		religion = astrist
@@ -2336,7 +2332,7 @@ province_event = {
 	id = conversion.107
 	desc = "EVTDESCCONVERSION107"
 	picture = GFX_evt_speech
-	
+
 	trigger = {
 		NOT = { religion = cyberneticist }
 		NOT = { religion = hiver }
@@ -2349,10 +2345,10 @@ province_event = {
 			any_neighbor_province = { religion = cyberneticist }
 		}
 	}
-	
+
 	mean_time_to_happen = {
 		months = 600
-		
+
 		# Religion Authority Effects
 		modifier = {
 			factor = 2
@@ -2470,16 +2466,24 @@ province_event = {
 		}
 		modifier = {
 			factor = 10
-			or = {
+			OR = {
 				religion_group = political_group
 				religion_group = outlaw_group
 			}
 		}
 		modifier = {
 			factor = 25
-			religion_group = religious_group
+			OR = {
+				religion_group = religious_group
+				religion_group = political_terran_group
+			}
 		}
-		
+
+		modifier = {
+			factor = 50
+			religion_group = religious_terran_group
+		}
+
 		# Transhumanist ideologies become more popular the more
 		# advanced the relevant technologies are
 		modifier = {
@@ -2518,7 +2522,7 @@ province_event = {
 			NOT = { religion = machine_cultist }
 			TECH_POPULAR_CUSTOMS = 8
 		}
-		
+
 		# Neighboring Province Effects
 		modifier = {
 			factor = 2
@@ -2624,7 +2628,7 @@ province_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		religion = cyberneticist
@@ -2635,7 +2639,7 @@ province_event = {
 	id = conversion.108
 	desc = "EVTDESCCONVERSION108"
 	picture = GFX_evt_speech
-	
+
 	# The Hivers are very, very scary. Willing conversion should happen only in extreme cases.
 	trigger = {
 		or = {
@@ -2647,10 +2651,10 @@ province_event = {
 			any_neighbor_province = { religion = hiver }
 		}
 	}
-	
+
 	mean_time_to_happen = {
 		months = 600
-		
+
 		# Religion Authority Effects
 		modifier = {
 			factor = 2
@@ -2782,7 +2786,7 @@ province_event = {
 				}
 			}
 		}
-		
+
 		# Neighboring Province Effects
 		modifier = {
 			factor = 2
@@ -2888,7 +2892,7 @@ province_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		religion = hiver
@@ -2899,7 +2903,7 @@ province_event = {
 	id = conversion.109
 	desc = "EVTDESCCONVERSION109"
 	picture = GFX_evt_speech
-	
+
 	trigger = {
 		NOT = { religion = machine_cultist }
 		NOT = { religion = hiver }
@@ -2923,10 +2927,10 @@ province_event = {
 			any_neighbor_province = { religion = machine_cultist }
 		}
 	}
-	
+
 	mean_time_to_happen = {
 		months = 600
-		
+
 		# Religion Authority Effects
 		modifier = {
 			factor = 2
@@ -3034,7 +3038,7 @@ province_event = {
 				}
 			}
 		}
-		
+
 		# Neighboring Province Effects
 		modifier = {
 			factor = 2
@@ -3140,7 +3144,7 @@ province_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		religion = machine_cultist
@@ -3151,7 +3155,7 @@ province_event = {
 	id = conversion.110
 	desc = "EVTDESCCONVERSION110"
 	picture = GFX_evt_speech
-	
+
 	trigger = {
 		NOT = { religion = hiver }
 		NOT = { religion = bio_directionist }
@@ -3165,10 +3169,10 @@ province_event = {
 			any_neighbor_province = { religion = bio_directionist }
 		}
 	}
-	
+
 	mean_time_to_happen = {
 		months = 600
-		
+
 		# Religion Authority Effects
 		modifier = {
 			factor = 2
@@ -3280,16 +3284,24 @@ province_event = {
 		modifier = {
 			factor = 10
 			NOT = { religion = neo_feudal }
-			or = {
+			OR = {
 				religion_group = political_group
 				religion_group = outlaw_group
 			}
 		}
 		modifier = {
 			factor = 25
-			religion_group = religious_group
+			OR = {
+				religion_group = religious_group
+				religion_group = political_terran_group
+			}
 		}
-		
+
+		modifier = {
+			factor = 50
+			religion_group = religious_terran_group
+		}
+
 		# Transhumanist ideologies become more popular the more
 		# advanced the relevant technologies are
 		# Biotechnology
@@ -3325,7 +3337,7 @@ province_event = {
 			factor = 0.8
 			TECH_RELIGIOUS_CUSTOMS = 8
 		}
-		
+
 		# Neighboring Province Effects
 		modifier = {
 			factor = 2
@@ -3431,7 +3443,7 @@ province_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		religion = bio_directionist
@@ -3443,7 +3455,7 @@ province_event = {
 	id = conversion.111
 	desc = "EVTDESCCONVERSION111"
 	picture = GFX_evt_speech
-	
+
 	trigger = {
 		NOT = { religion = hiver }
 		NOT = { religion = orthodox }
@@ -3456,10 +3468,10 @@ province_event = {
 			province_id = 202 # The pilgrimage and its derivatives are always available to Earth
 		}
 	}
-	
+
 	mean_time_to_happen = {
 		months = 600
-		
+
 		# Religion Authority Effects
 		modifier = {
 			factor = 2
@@ -3567,25 +3579,41 @@ province_event = {
 				}
 			}
 		}
-		
+
 		# Existing ideological similarities/differences
 		modifier = {
 			factor = 0.25
 			religion = pilgrim
 		}
 		modifier = {
+			factor = 0.9
+			NOT = { religion = pilgrim }
+			religion_group = religious_terran_group
+		}
+		modifier = {
+			factor = 3
+			religion_group = political_terran_group
+		}
+		modifier = {
+			factor = 8
+			NOT = { religion = xenoterran }
+			religion_group = religious_group
+		}
+		modifier = {
 			factor = 10
-			or = {
-				religion = xenoterran
+			OR = {
 				religion_group = political_group
 				religion_group = outlaw_group
 			}
 		}
 		modifier = {
 			factor = 25
-			religion_group = transhumanist_group
+			OR = {
+				religion = xenoterran
+				religion_group = transhumanist_group
+			}
 		}
-		
+
 		# Neighboring Province Effects
 		modifier = {
 			factor = 2
@@ -3691,7 +3719,7 @@ province_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		religion = orthodox
@@ -3702,7 +3730,7 @@ province_event = {
 	id = conversion.112
 	desc = "EVTDESCCONVERSION112"
 	picture = GFX_evt_speech
-	
+
 	trigger = {
 		NOT = { religion = hiver }
 		NOT = { religion = pilgrim }
@@ -3720,10 +3748,10 @@ province_event = {
 			province_id = 202 # The pilgrimage and its derivatives are always available to Earth
 		}
 	}
-	
+
 	mean_time_to_happen = {
 		months = 600
-		
+
 		# Religion Authority Effects
 		modifier = {
 			factor = 2
@@ -3831,21 +3859,38 @@ province_event = {
 				}
 			}
 		}
-		
+
 		# Existing ideological similarities/differences
 		modifier = {
+			factor = 0.9
+			NOT = { religion = orthodox }
+			NOT = { religion = pilgrim }
+			religion_group = religious_terran_group
+		}
+		modifier = {
+			factor = 3
+			religion_group = political_terran_group
+		}
+		modifier = {
+			factor = 8
+			NOT = { religion = xenoterran }
+			religion_group = religious_group
+		}
+		modifier = {
 			factor = 10
-			or = {
-				religion = xenoterran
+			OR = {
 				religion_group = political_group
 				religion_group = outlaw_group
 			}
 		}
 		modifier = {
 			factor = 25
-			religion_group = transhumanist_group
+			OR = {
+				religion = xenoterran
+				religion_group = transhumanist_group
+			}
 		}
-		
+
 		# Neighboring Province Effects
 		modifier = {
 			factor = 2
@@ -3951,7 +3996,7 @@ province_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		religion = pilgrim
@@ -3962,7 +4007,7 @@ province_event = {
 	id = conversion.113
 	desc = "EVTDESCCONVERSION113"
 	picture = GFX_evt_speech
-	
+
 	trigger = {
 		NOT = { religion = hiver }
 		NOT = { religion = adoptionist_cultist }
@@ -3989,7 +4034,7 @@ province_event = {
 			any_province_lord = { religion = machine_cultist }
 			any_neighbor_province = { religion = machine_cultist }
 		}
-		
+
 		OR = {
 			religion = adoptionist
 			any_province_lord = { religion = adoptionist_cultist }
@@ -4002,10 +4047,10 @@ province_event = {
 			any_neighbor_province = { religion = adoptionist_cultist }
 		}
 	}
-	
+
 	mean_time_to_happen = {
 		months = 600
-		
+
 		# Religion Authority Effects
 		modifier = {
 			factor = 2
@@ -4113,31 +4158,41 @@ province_event = {
 				}
 			}
 		}
-		
+
 		# Existing ideological similarities/differences
 		modifier = {
 			factor = 0.25
 			religion = adoptionist
 		}
 		modifier = {
+			factor = 0.9
+			NOT = { religion = adoptionist }
+			religion_group = religious_group
+		}
+		modifier = {
 			factor = 10
-			or = {
+			OR = {
 				religion_group = political_group
+				religion_group = religious_terran_group
 				religion_group = outlaw_group
 			}
 		}
 		modifier = {
 			factor = 25
-			religion_group = transhumanist_group
+			OR = {
+				religion_group = transhumanist_group
+				religion_group = political_terran_group
+			}
+
 		}
-		
+
 		# Traditional ideology of the Sexto Solar culture group
 		modifier = {
 			factor = 0.25
 			NOT = { religion = adoptionist }
 			culture_group = sexto_solar_group
 		}
-		
+
 		# Neighboring Province Effects
 		modifier = {
 			factor = 2
@@ -4245,9 +4300,9 @@ province_event = {
 		modifier = {
 			factor = 5
 			culture_group = terran_group
-		}		
+		}
 	}
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		religion = adoptionist_cultist
@@ -4258,7 +4313,7 @@ province_event = {
 	id = conversion.114
 	desc = "EVTDESCCONVERSION114"
 	picture = GFX_evt_speech
-	
+
 	trigger = {
 		NOT = { religion = hiver }
 		NOT = { religion = adoptionist }
@@ -4270,10 +4325,10 @@ province_event = {
 			any_neighbor_province = { religion = adoptionist }
 		}
 	}
-	
+
 	mean_time_to_happen = {
 		months = 600
-		
+
 		# Religion Authority Effects
 		modifier = {
 			factor = 2
@@ -4381,31 +4436,41 @@ province_event = {
 				}
 			}
 		}
-		
+
 		# Existing ideological similarities/differences
 		modifier = {
 			factor = 0.25
 			religion = adoptionist_cultist
 		}
 		modifier = {
+			factor = 0.9
+			NOT = { religion = adoptionist_cultist }
+			religion_group = religious_group
+		}
+		modifier = {
 			factor = 10
-			or = {
+			OR = {
 				religion_group = political_group
+				religion_group = religious_terran_group
 				religion_group = outlaw_group
 			}
 		}
 		modifier = {
 			factor = 25
-			religion_group = transhumanist_group
+			OR = {
+				religion_group = transhumanist_group
+				religion_group = political_terran_group
+			}
+
 		}
-		
+
 		# Traditional ideology of the Sexto Solar culture group
 		modifier = {
 			factor = 0.25
 			NOT = { religion = adoptionist_cultist }
 			culture_group = sexto_solar_group
 		}
-		
+
 		# Neighboring Province Effects
 		modifier = {
 			factor = 2
@@ -4511,7 +4576,7 @@ province_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		religion = adoptionist
@@ -4523,7 +4588,7 @@ province_event = {
 	id = conversion.115
 	desc = "EVTDESCCONVERSION115"
 	picture = GFX_evt_speech
-	
+
 	trigger = {
 		NOT = { religion = imperial_cult }
 		NOT = { religion = hiver }
@@ -4538,10 +4603,10 @@ province_event = {
 		#NOT = { revolt_risk = 0.1 }
 		owner = { top_liege = { is_elective_trigger = no } }
 	}
-	
+
 	mean_time_to_happen = {
 		months = 600
-		
+
 		# Religion Authority Effects
 		modifier = {
 			factor = 2
@@ -4649,7 +4714,7 @@ province_event = {
 				}
 			}
 		}
-		
+
 		# Military provinces tend to prefer military ideologies
 		modifier = {
 			factor = 0.25
@@ -4659,8 +4724,8 @@ province_event = {
 			NOT = { religion_group = outlaw_group }
 			owner = { is_military_trigger = yes }
 		}
-		
-		
+
+
 		# Harder to take these people seriously as gods
 		modifier = {
 			factor = 20
@@ -4770,7 +4835,7 @@ province_event = {
 				count = 5
 			}
 		}
-		
+
 		# Ruler Prestige Effect
 		modifier = {
 			factor = 0.9
@@ -4853,7 +4918,7 @@ province_event = {
 			owner = { top_liege = { prestige = 5000 } }
 		}
 	}
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		religion = imperial_cult
@@ -4865,7 +4930,7 @@ province_event = {
 	id = conversion.115
 	desc = "EVTDESCCONVERSION115"
 	picture = GFX_evt_speech
-	
+
 	trigger = {
 		NOT = { religion = solar_cultist }
 		NOT = { religion = hiver }
@@ -4883,14 +4948,14 @@ province_event = {
 		#NOT = { revolt_risk = 0.3 }
 		owner = { top_liege = { is_elective_trigger = no } }
 	}
-	
+
 	mean_time_to_happen = {
 		months = 600
 		modifier = {
 			factor = 0.5
 			culture_group = terran_group
 			empire = { NOT = { title = e_terran_confederation } }
-		}		
+		}
 		# Religion Authority Effects
 		modifier = {
 			factor = 2
@@ -4998,7 +5063,7 @@ province_event = {
 				}
 			}
 		}
-		
+
 		# Military provinces tend to prefer military ideologies
 		modifier = {
 			factor = 0.25
@@ -5008,7 +5073,7 @@ province_event = {
 			NOT = { religion_group = outlaw_group }
 			owner = { is_military_trigger = yes }
 		}
-		
+
 		# Neighboring Province Effects
 		modifier = {
 			factor = 2
@@ -5113,7 +5178,7 @@ province_event = {
 				count = 5
 			}
 		}
-		
+
 		# Ruler Prestige Effect
 		modifier = {
 			factor = 0.9
@@ -5196,7 +5261,7 @@ province_event = {
 			owner = { top_liege = { prestige = 5000 } }
 		}
 	}
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		religion = solar_cultist
@@ -5208,7 +5273,7 @@ province_event = {
 	id = conversion.115
 	desc = "EVTDESCCONVERSION115"
 	picture = GFX_evt_speech
-	
+
 	trigger = {
 		NOT = { religion = solarian }
 		NOT = { religion = hiver }
@@ -5221,17 +5286,17 @@ province_event = {
 			any_province_lord = { religion = solarian }
 			any_neighbor_province = { religion = solarian }
 			any_province_lord = { religion = solar_cultist }
-			any_neighbor_province = { religion = solar_cultist }			
+			any_neighbor_province = { religion = solar_cultist }
 		}
 		#NOT = { revolt_risk = 0.2 }
 	}
-	
+
 	mean_time_to_happen = {
 		months = 600
 		modifier = {
 			factor = 2
 			religion = pilgrim
-		}		
+		}
 		# Religion Authority Effects
 		modifier = {
 			factor = 2
@@ -5339,7 +5404,7 @@ province_event = {
 				}
 			}
 		}
-		
+
 		# Military provinces tend to prefer military ideologies
 		modifier = {
 			factor = 0.25
@@ -5349,7 +5414,7 @@ province_event = {
 			NOT = { religion_group = outlaw_group }
 			owner = { is_military_trigger = yes }
 		}
-		
+
 		# Neighboring Province Effects
 		modifier = {
 			factor = 2
@@ -5454,7 +5519,7 @@ province_event = {
 				count = 5
 			}
 		}
-		
+
 		# Ruler Prestige Effect
 		modifier = {
 			factor = 0.9
@@ -5537,7 +5602,7 @@ province_event = {
 			owner = { top_liege = { prestige = 5000 } }
 		}
 	}
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		religion = solarian
@@ -5549,7 +5614,7 @@ province_event = {
 	id = conversion.106
 	desc = "EVTDESCCONVERSION106"
 	picture = GFX_evt_speech
-	
+
 	trigger = {
 		NOT = { religion = xenoterran }
 		NOT = { religion = hiver }
@@ -5562,10 +5627,10 @@ province_event = {
 			revolt_risk = 0.8
 		}
 	}
-	
+
 	mean_time_to_happen = {
 		months = 600
-		
+
 		# Religion Authority Effects
 		modifier = {
 			factor = 2
@@ -5683,30 +5748,28 @@ province_event = {
 		}
 		modifier = {
 			factor = 10
+			NOT = { religion = astrist }
+			NOT = { religion = adoptionist_cultist }
 			OR = {
-				religion = terran_federalist
-				religion = terran_republican
-				religion = terran_imperial
+				religion_group = political_group
+				religion_group = religious_group
 			}
 		}
 		modifier = {
 			factor = 25
-			NOT = { religion = astrist }
-			NOT = { religion = adoptionist_cultist }
-			or = {
-				religion_group = political_group
+			OR = {
+				religion_group = political_terran_group
 				religion_group = transhumanist_group
-				religion_group = religious_group
+				religion_group = religious_terran_group
 			}
 		}
-		
+
 		# Unpopular near Earth
 		modifier = {
 			factor = 0.2
 			OR = {
-				religion = terran_federalist
-				religion = terran_republican
-				religion = terran_imperial
+				religion_group = political_terran_group
+				religion_group = religious_terran_group
 			}
 			OR = {
 				culture_group = bianjiangese_group
@@ -5722,9 +5785,8 @@ province_event = {
 		modifier = {
 			factor = 5
 			OR = {
-				religion = terran_imperial
-				religion = terran_republican
-				religion = terran_federalist
+				religion_group = political_terran_group
+				religion_group = religious_terran_group
 			}
 			OR = {
 				culture_group = xingjie_group
@@ -5736,7 +5798,7 @@ province_event = {
 				culture_group = centauri_group
 			}
 		}
-		
+
 		# Military provinces tend to favor military ideologies
 		modifier = {
 			factor = 0.25
@@ -5745,7 +5807,7 @@ province_event = {
 			NOT = { religion = imperial_cult }
 			owner = { is_military_trigger = yes }
 		}
-		
+
 		# Revolutionary fervor ALSO goes well with space fascism
 		modifier = {
 			factor = 0.8
@@ -5797,7 +5859,7 @@ province_event = {
 			owner = { NOT = { religion = xenoterran } }
 			revolt_risk = 1
 		}
-		
+
 		# Neighboring Province Effects
 		modifier = {
 			factor = 2
@@ -5902,23 +5964,18 @@ province_event = {
 				count = 5
 			}
 		}
-		
+
 		# Terran biases against it
 		modifier = {
 			factor = 5
 			culture_group = terran_group
 			OR = {
-				religion = terran_federalist
-				religion = terran_republican
-				religion = terran_imperial
-				religion = pilgrim
-				religion = orthodox
-				religion = solarian
-				religion = solar_cultist
+				religion_group = political_terran_group
+				religion_group = religious_terran_group
 			}
 		}
 	}
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		religion = xenoterran
