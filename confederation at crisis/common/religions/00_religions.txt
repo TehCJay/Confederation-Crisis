@@ -2,7 +2,7 @@ secret_religion_visibility_trigger = {
 	secret_religion = FROM
 }
 
-politcal_terran_group = {
+political_terran_group = {
 	has_coa_on_barony_only = yes
 	graphical_culture = westerngfx
 	playable = yes
@@ -62,8 +62,10 @@ politcal_terran_group = {
 		peace_piety_gain = 3.0
 		# can_have_antipopes = yes
 		intermarry = political_group
-		intermarry = religious_group
-		intermarry = transhumanist_group
+		intermarry = political_terran_group
+		#intermarry = religious_group
+		intermarry = religious_terran_group
+		#intermarry = transhumanist_group
 		#intermarry = outlaw_group
 	}
 	terran_republican = {
@@ -90,8 +92,10 @@ politcal_terran_group = {
 		female_temple_holders = yes
 		feminist = yes
 		intermarry = political_group
-		intermarry = religious_group
-		intermarry = transhumanist_group
+		intermarry = political_terran_group
+		#intermarry = religious_group
+		intermarry = religious_terran_group
+		#intermarry = transhumanist_group
 		#intermarry = outlaw_group
 
 		short_reign_opinion_year_mult = 0.5
@@ -158,8 +162,10 @@ politcal_terran_group = {
 		feminist = yes
 
 		intermarry = political_group
-		intermarry = religious_group
-		intermarry = transhumanist_group
+		intermarry = political_terran_group
+		#intermarry = religious_group
+		intermarry = religious_terran_group
+		#intermarry = transhumanist_group
 		#intermarry = outlaw_group
 		uses_decadence = yes
 		rel_head_defense = yes
@@ -225,9 +231,10 @@ political_group = {
 		}
 		autocephaly = yes
 		intermarry = political_group
+		intermarry = political_terran_group
 		intermarry = religious_group
-		intermarry = transhumanist_group
-		#intermarry = outlaw_group
+		#intermarry = transhumanist_group
+		intermarry = outlaw_group
 	}
 	neo_feudal = {
 		graphical_culture = westerngfx
@@ -259,9 +266,10 @@ political_group = {
 		#Cut the caste tag since the only thing it adds is already done by the Clone trait
 		psc_marriage = no
 		intermarry = political_group
+		intermarry = political_terran_group
 		intermarry = religious_group
-		intermarry = transhumanist_group
-		#intermarry = outlaw_group
+		#intermarry = transhumanist_group
+		intermarry = outlaw_group
 
 		unit_modifier = {
 			heavy_infantry_offensive = 0.05
@@ -309,9 +317,10 @@ political_group = {
 		female_temple_holders = yes
 		feminist = yes
 		intermarry = political_group
+		intermarry = political_terran_group
 		intermarry = religious_group
-		intermarry = transhumanist_group
-		#intermarry = outlaw_group
+		#intermarry = transhumanist_group
+		intermarry = outlaw_group
 
 		psc_marriage = no
 
@@ -364,9 +373,10 @@ political_group = {
 
 		psc_marriage = no
 		intermarry = political_group
+		intermarry = political_terran_group
 		intermarry = religious_group
 		intermarry = transhumanist_group
-		#intermarry = outlaw_group
+		intermarry = outlaw_group
 
 		unit_modifier = {
 			archers_offensive = 0.10
@@ -426,9 +436,11 @@ religious_terran_group = {
 		can_call_crusade = yes
 		can_retire_to_monastery = yes
 
-		intermarry = political_group
-		intermarry = religious_group
-		intermarry = transhumanist_group
+		intermarry = religious_terran_group
+		intermarry = political_terran_group
+		#intermarry = political_group
+		#intermarry = religious_group
+		#intermarry = transhumanist_group
 		#intermarry = outlaw_group
 		priests_can_inherit = no
 		priests_can_marry = no
@@ -451,48 +463,6 @@ religious_terran_group = {
 			learning = 2
 
             general_opinion = -5
-		}
-	}
-	solarian = {
-		graphical_culture = muslimgfx
-		icon = 21
-		color = { 0.8 0.8 0.2 }
-		crusade_name = CRUSADE
-		scripture_name = THE_SCRIPTURES
-		high_god_name = GOD_UNCONQUERED_SUN
-		god_names = { GOD_GOD GOD_SOL GOD_UNCONQUERED_SUN GOD_THE_LORD }
-		evil_god_names = {
-			OP_ALACRITY OP_CHAPTER OP_CORKSCREW OP_DEADLIGHT OP_DERVISH OP_DYNAMO OP_MATADOR OP_MERIDIAN OP_OVERLORD OP_SABRE OP_VICTORY OP_INTREPID OP_ENDEAVOR OP_VALIANT OP_HEROIC OP_TRIUMPHANT # Generic operation names
-			OP_MERCURY OP_VENUS OP_ARES OP_CERES OP_JUPITER OP_GANYMEDE OP_CALLISTO OP_EUROPA OP_IO OP_SATURN OP_TITAN OP_NEPTUNE OP_URANUS OP_PLUTO OP_CHARON # Solar system operation names
-			OP_HERACLES OP_GILGAMESH OP_BEOWULF OP_BELLEROPHON OP_AGAMEMMNON OP_ODYSSEUS OP_ACHILLES OP_GUAN_YU OP_LU_BU OP_SUSANOO OP_ROSTAM OP_RAMA OP_KRISHNA # Culture hero operation names
-			OP_ARCHANGEL OP_SERAPHIM OP_CHERUBIM OP_GOSPEL OP_TESTAMENT OP_FAITHFUL OP_AZRAEL OP_MICHAEL OP_GABRIEL OP_PROPHECY OP_ABRAHAM OP_ISAAC OP_JACOB OP_JOSHUA OP_DAVID OP_SOLOMON OP_MOHAMMED # Abrahamic operation names
-			OP_MITHRAS OP_MINOTAUR OP_TAURUS OP_SOL_INVICTUS # Solarian operatio names
-		}
-
-		priests_can_marry = no
-		female_temple_holders = yes
-		feminist = yes
-		rel_head_defense = yes
-		psc_marriage = no
-		can_call_crusade = yes
-		rel_head_defense = yes
-		uses_decadence = yes
-
-		intermarry = political_group
-		intermarry = religious_group
-		intermarry = transhumanist_group
-		#intermarry = outlaw_group
-
-		unit_home_modifier = {
-			pikemen_offensive = 0.50
-            pikemen_defensive = 0.25
-		}
-
-		character_modifier = {
-			martial = 2
-			intrigue = 2
-			diplomacy = 2
-            stewardship = -1
 		}
 	}
 	pilgrim = {
@@ -522,9 +492,11 @@ religious_terran_group = {
 		feminist = yes
 		rel_head_defense = yes
 		psc_marriage = no
-		intermarry = political_group
-		intermarry = religious_group
-		intermarry = transhumanist_group
+		intermarry = religious_terran_group
+		intermarry = political_terran_group
+		#intermarry = political_group
+		#intermarry = religious_group
+		#intermarry = transhumanist_group
 		#intermarry = outlaw_group
 
 		unit_modifier = {
@@ -538,6 +510,50 @@ religious_terran_group = {
 		character_modifier = {
 			diplomacy = 3
 			stewardship = 1
+		}
+	}
+	solarian = {
+		graphical_culture = muslimgfx
+		icon = 21
+		color = { 0.8 0.8 0.2 }
+		crusade_name = CRUSADE
+		scripture_name = THE_SCRIPTURES
+		high_god_name = GOD_UNCONQUERED_SUN
+		god_names = { GOD_GOD GOD_SOL GOD_UNCONQUERED_SUN GOD_THE_LORD }
+		evil_god_names = {
+			OP_ALACRITY OP_CHAPTER OP_CORKSCREW OP_DEADLIGHT OP_DERVISH OP_DYNAMO OP_MATADOR OP_MERIDIAN OP_OVERLORD OP_SABRE OP_VICTORY OP_INTREPID OP_ENDEAVOR OP_VALIANT OP_HEROIC OP_TRIUMPHANT # Generic operation names
+			OP_MERCURY OP_VENUS OP_ARES OP_CERES OP_JUPITER OP_GANYMEDE OP_CALLISTO OP_EUROPA OP_IO OP_SATURN OP_TITAN OP_NEPTUNE OP_URANUS OP_PLUTO OP_CHARON # Solar system operation names
+			OP_HERACLES OP_GILGAMESH OP_BEOWULF OP_BELLEROPHON OP_AGAMEMMNON OP_ODYSSEUS OP_ACHILLES OP_GUAN_YU OP_LU_BU OP_SUSANOO OP_ROSTAM OP_RAMA OP_KRISHNA # Culture hero operation names
+			OP_ARCHANGEL OP_SERAPHIM OP_CHERUBIM OP_GOSPEL OP_TESTAMENT OP_FAITHFUL OP_AZRAEL OP_MICHAEL OP_GABRIEL OP_PROPHECY OP_ABRAHAM OP_ISAAC OP_JACOB OP_JOSHUA OP_DAVID OP_SOLOMON OP_MOHAMMED # Abrahamic operation names
+			OP_MITHRAS OP_MINOTAUR OP_TAURUS OP_SOL_INVICTUS # Solarian operatio names
+		}
+
+		priests_can_marry = no
+		female_temple_holders = yes
+		feminist = yes
+		rel_head_defense = yes
+		psc_marriage = no
+		can_call_crusade = yes
+		rel_head_defense = yes
+		uses_decadence = yes
+
+		intermarry = religious_terran_group
+		intermarry = political_terran_group
+		#intermarry = political_group
+		#intermarry = religious_group
+		#intermarry = transhumanist_group
+		#intermarry = outlaw_group
+
+		unit_home_modifier = {
+			pikemen_offensive = 0.50
+            pikemen_defensive = 0.25
+		}
+
+		character_modifier = {
+			martial = 2
+			intrigue = 2
+			diplomacy = 2
+            stewardship = -1
 		}
 	}
 	solar_cultist = {
@@ -560,9 +576,11 @@ religious_terran_group = {
 		feminist = yes
 
 		psc_marriage = no
-		intermarry = political_group
-		intermarry = religious_group
-		intermarry = transhumanist_group
+		intermarry = religious_terran_group
+		intermarry = political_terran_group
+		#intermarry = political_group
+		#intermarry = religious_group
+		#intermarry = transhumanist_group
 		#intermarry = outlaw_group
 
 
@@ -577,45 +595,6 @@ religious_terran_group = {
 		character_modifier = {
 			diplomacy = 2
 			learning = 2
-		}
-	}
-	adoptionist_cultist = {
-		graphical_culture = muslimgfx
-		icon = 18
-
-		color = { 0.2 0.8 0.4 }
-		high_god_name = GOD_GOD
-		god_names = { GOD_GOD GOD_THE_HOMEWORLD GOD_THE_LORD }
-		evil_god_names = {
-			OP_ALACRITY OP_CHAPTER OP_CORKSCREW OP_DEADLIGHT OP_DERVISH OP_DYNAMO OP_MATADOR OP_MERIDIAN OP_OVERLORD OP_SABRE OP_VICTORY OP_INTREPID OP_ENDEAVOR OP_VALIANT OP_HEROIC OP_TRIUMPHANT # Generic operation names
-			OP_ARIES OP_TAURUS OP_GEMINI OP_CANCER OP_LEO OP_VIRGO OP_LIBRA OP_SCORPIO OP_SAGITTARIUS OP_CAPRICORN OP_AQUARIUS OP_PISCES OP_ORION OP_WITCHHEAD OP_HORSEHEAD OP_VEIL OP_FLAME OP_HELIX # Constellation and nebula operation names
-			OP_MERCURY OP_VENUS OP_ARES OP_CERES OP_JUPITER OP_GANYMEDE OP_CALLISTO OP_EUROPA OP_IO OP_SATURN OP_TITAN OP_NEPTUNE OP_URANUS OP_PLUTO OP_CHARON # Solar system operation names
-			OP_HERACLES OP_GILGAMESH OP_BEOWULF OP_BELLEROPHON OP_AGAMEMMNON OP_ODYSSEUS OP_ACHILLES OP_GUAN_YU OP_LU_BU OP_SUSANOO OP_ROSTAM OP_RAMA OP_KRISHNA # Culture hero operation names
-			OP_ARCHANGEL OP_SERAPHIM OP_CHERUBIM OP_GOSPEL OP_TESTAMENT OP_FAITHFUL OP_AZRAEL OP_MICHAEL OP_GABRIEL OP_PROPHECY OP_ABRAHAM OP_ISAAC OP_JACOB OP_JOSHUA OP_DAVID OP_SOLOMON OP_MOHAMMED # Abrahamic operation names
-		}
-
-		priests_can_marry = no
-		female_temple_holders = yes
-		feminist = yes
-
-		psc_marriage = no
-		intermarry = political_group
-		intermarry = religious_group
-		intermarry = transhumanist_group
-		#intermarry = outlaw_group
-
-		unit_modifier = {
-			knights_offensive = 0.10
-			knights_defensive = 0.05
-			heavy_infantry_offensive = 0.20
-			heavy_infantry_defensive = 0.15
-			key = "OFF_RELIGION"
-		}
-
-		character_modifier = {
-			learning = 2
-			martial = 3
-            diplomacy = -1
 		}
 	}
 }
@@ -661,12 +640,53 @@ religious_group = {
 
 		intermarry = political_group
 		intermarry = religious_group
-		intermarry = transhumanist_group
+		#intermarry = transhumanist_group
 		#intermarry = outlaw_group
+		intermarry = machine_cultist
 		character_modifier = {
 			stewardship = 3
 			diplomacy = 2
             martial = -1
+		}
+	}
+	adoptionist_cultist = {
+		graphical_culture = muslimgfx
+		icon = 18
+
+		color = { 0.2 0.8 0.4 }
+		high_god_name = GOD_GOD
+		god_names = { GOD_GOD GOD_THE_HOMEWORLD GOD_THE_LORD }
+		evil_god_names = {
+			OP_ALACRITY OP_CHAPTER OP_CORKSCREW OP_DEADLIGHT OP_DERVISH OP_DYNAMO OP_MATADOR OP_MERIDIAN OP_OVERLORD OP_SABRE OP_VICTORY OP_INTREPID OP_ENDEAVOR OP_VALIANT OP_HEROIC OP_TRIUMPHANT # Generic operation names
+			OP_ARIES OP_TAURUS OP_GEMINI OP_CANCER OP_LEO OP_VIRGO OP_LIBRA OP_SCORPIO OP_SAGITTARIUS OP_CAPRICORN OP_AQUARIUS OP_PISCES OP_ORION OP_WITCHHEAD OP_HORSEHEAD OP_VEIL OP_FLAME OP_HELIX # Constellation and nebula operation names
+			OP_MERCURY OP_VENUS OP_ARES OP_CERES OP_JUPITER OP_GANYMEDE OP_CALLISTO OP_EUROPA OP_IO OP_SATURN OP_TITAN OP_NEPTUNE OP_URANUS OP_PLUTO OP_CHARON # Solar system operation names
+			OP_HERACLES OP_GILGAMESH OP_BEOWULF OP_BELLEROPHON OP_AGAMEMMNON OP_ODYSSEUS OP_ACHILLES OP_GUAN_YU OP_LU_BU OP_SUSANOO OP_ROSTAM OP_RAMA OP_KRISHNA # Culture hero operation names
+			OP_ARCHANGEL OP_SERAPHIM OP_CHERUBIM OP_GOSPEL OP_TESTAMENT OP_FAITHFUL OP_AZRAEL OP_MICHAEL OP_GABRIEL OP_PROPHECY OP_ABRAHAM OP_ISAAC OP_JACOB OP_JOSHUA OP_DAVID OP_SOLOMON OP_MOHAMMED # Abrahamic operation names
+		}
+
+		priests_can_marry = no
+		female_temple_holders = yes
+		feminist = yes
+
+		psc_marriage = no
+		intermarry = political_group
+		intermarry = religious_group
+		#intermarry = transhumanist_group
+		#intermarry = outlaw_group
+		intermarry = machine_cultist
+
+		unit_modifier = {
+			knights_offensive = 0.10
+			knights_defensive = 0.05
+			heavy_infantry_offensive = 0.20
+			heavy_infantry_defensive = 0.15
+			key = "OFF_RELIGION"
+		}
+
+		character_modifier = {
+			learning = 2
+			martial = 3
+            diplomacy = -1
 		}
 	}
 	xenoterran = {
@@ -690,7 +710,7 @@ religious_group = {
 		intermarry = political_group
 		intermarry = religious_group
 		intermarry = transhumanist_group
-		#intermarry = outlaw_group
+		intermarry = outlaw_group
 		max_consorts = 4
 		women_can_take_consorts = yes
 
@@ -730,7 +750,7 @@ religious_group = {
 		feminist = yes
 		intermarry = political_group
 		intermarry = religious_group
-		intermarry = transhumanist_group
+		#intermarry = transhumanist_group
 		#intermarry = outlaw_group
 
 		psc_marriage = no
@@ -766,7 +786,7 @@ religious_group = {
 		feminist = no
 		intermarry = political_group
 		intermarry = religious_group
-		intermarry = transhumanist_group
+		#intermarry = transhumanist_group
 		#intermarry = outlaw_group
 
 		psc_marriage = no
@@ -826,8 +846,9 @@ religious_group = {
 
 		intermarry = political_group
 		intermarry = religious_group
-		intermarry = transhumanist_group
+		#intermarry = transhumanist_group
 		#intermarry = outlaw_group
+		intermarry = machine_cultist
 		psc_marriage = no
 		autocephaly = yes
 		# can_have_antipopes = yes
@@ -917,10 +938,12 @@ transhumanist_group = {
 		priests_can_marry = yes
 		female_temple_holders = yes
 		feminist = yes
-		intermarry = political_group
-		intermarry = religious_group
+		#intermarry = political_group
+		#intermarry = religious_group
 		intermarry = transhumanist_group
 		#intermarry = outlaw_group
+		intermarry = astrist
+		intermarry = xenoterran
 
 		unit_modifier = {
 			archers_offensive = 0.05
@@ -955,10 +978,12 @@ transhumanist_group = {
 			OP_ENLIGHTENMENT OP_TRANSCENDENCE OP_NIRVANA OP_ASCENSION OP_UTOPIA OP_SINGULARITY # Transhumanist operation names
 		}
 
-		intermarry = political_group
+		#intermarry = political_group
 		intermarry = religious_group
 		intermarry = transhumanist_group
 		#intermarry = outlaw_group
+		intermarry = astrist
+		intermarry = xenoterran
 		investiture = yes
 		autocephaly = no
 		can_excommunicate = yes
@@ -1056,10 +1081,12 @@ transhumanist_group = {
 		high_god_name = THE_CAUSE
 		god_names = { THE_CAUSE }
 
-		intermarry = political_group
-		intermarry = religious_group
+		#intermarry = political_group
+		#intermarry = religious_group
 		intermarry = transhumanist_group
 		#intermarry = outlaw_group
+		intermarry = astrist
+		intermarry = xenoterran
 		character_modifier = {
 			dynasty_opinion = 25
 		}
@@ -1134,6 +1161,8 @@ outlaw_group = {
 		feminist = yes
 
 		intermarry = outlaw_group
+		intermarry = xenoterran
+		intermarry = astrist
 
 		allow_looting = yes
 		allow_rivermovement = yes
@@ -1190,6 +1219,7 @@ outlaw_group = {
 		feminist = yes
 
 		intermarry = outlaw_group
+		intermarry = political_group
 
 		allow_looting = yes
 		allow_rivermovement = yes
