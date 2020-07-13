@@ -9,17 +9,17 @@ hermetics = {
 	non_interference = {
 		always = yes
 	}
-	
+
 	active = {
 		has_dlc = "Mystics"
 	}
 	indestructible = yes
-	
+
 	can_join_society = {
 		hidden_trigger = {
 			NAND = {
 				ai = yes
-				is_society_rank_full = { 
+				is_society_rank_full = {
 					society = hermetics
 					rank = 1
 				}
@@ -34,13 +34,15 @@ hermetics = {
 			has_religion_feature = religion_astrology
 			religion_group = political_group
 			religion_group = religious_group
+			religion_group = political_terran_group
+			religion_group = religious_terran_group
 			religion_group = transhumanist_group
 			religion_group = outlaw_group
 			custom_tooltip = {
 				text = zunist_hermetic_join_tooltip
 				hidden_trigger = {
 					OR = {
-						religion = solar_cultist					
+						religion = solar_cultist
 						religion = solarian
 					}
 				}
@@ -75,16 +77,18 @@ hermetics = {
 			has_religion_feature = religion_astrology
 			religion_group = political_group
 			religion_group = religious_group
+			religion_group = political_terran_group
+			religion_group = religious_terran_group
 			religion_group = transhumanist_group
 			religion_group = outlaw_group
 			society_member_of = hermetics
 		}
 	}
-	
+
 	potential = {
 		#If something is added here, it could break apprenticeship. Create an event if they can get kicked out. title_hermetics_apprentice
 	}
-	
+
 	society_rank = {
 		level = 1
 		limit = 200
@@ -97,12 +101,12 @@ hermetics = {
 			hermetics_write_theory_paper # Enables you to write a theorem paper that, if approved, gives you society power
 		}
 	}
-	
+
 	society_rank = {
 		level = 2
 		limit = 100
 		startup_limit = 6
-		modifier = { 
+		modifier = {
 			learning = 1
 		}
 		decisions = {
@@ -110,7 +114,7 @@ hermetics = {
 			brew_happiness_potion # Enables you to brew a potion
 		}
 	}
-	
+
 	society_rank = {
 		level = 3
 		limit = 50
@@ -129,7 +133,7 @@ hermetics = {
 		level = 4
 		limit = 20
 		startup_limit = 2
-		modifier = { 
+		modifier = {
 			learning = 3
 			church_opinion = +10
 			health = 5
@@ -139,13 +143,13 @@ hermetics = {
 			hermetics_write_magnum_opus # Write an enciphered book of lore (artifact)
 		}
 	}
-	
+
 	plots = {
 	}
-	
+
 	monthly_currency_gain = {
 		name = currency_name_hermetics
-		
+
 		per_attribute = {
     		name = learning
     		value = 0.5
@@ -239,7 +243,7 @@ hermetics = {
 			trait = just
 		}
 	}
-	
+
 	startup_populate = {
 	    trigger = {
 			ai = yes
@@ -258,7 +262,7 @@ hermetics = {
 			OR = {
 				AND = {
 					is_landed = yes
-					OR = { 
+					OR = {
 						learning = 14
 						trait = scholar
 						trait = faqih
@@ -282,6 +286,8 @@ hermetics = {
 			OR = {
 				religion_group = political_group
 				religion_group = religious_group
+				religion_group = political_terran_group
+				religion_group = religious_terran_group
 				religion_group = transhumanist_group
 				religion_group = outlaw_group
 			}
@@ -301,7 +307,7 @@ the_assassins = {
 	society_rank_up_decision = request_to_rank_up_within_society
 	sound = assassins_interface
 	society_influence = no
-	
+
 	active = {
 		has_dlc = "Mystics"
 	}
@@ -311,7 +317,7 @@ the_assassins = {
 		hidden_trigger = {
 			NAND = {
 				ai = yes
-				is_society_rank_full = { 
+				is_society_rank_full = {
 					society = the_assassins
 					rank = 1
 				}
@@ -382,7 +388,7 @@ the_assassins = {
 
 	society_rank = {
 		level = 1
-		limit = 20 
+		limit = 20
 		startup_limit = 10
 		modifier = {
 			is_visible = {
@@ -400,12 +406,12 @@ the_assassins = {
 			assassins_drug_effect
 		}
 	}
-	
+
 	society_rank = {
 		level = 2
 		limit = 15
 		startup_limit = 6
-		modifier = { 
+		modifier = {
 			is_visible = {
 				OR = {
 					society_member_of = the_assassins
@@ -414,20 +420,20 @@ the_assassins = {
 			}
 			murder_plot_power_modifier = 0.2 # further increased plotpower
 			defensive_plot_power_modifier = 0.1
-			intrigue = 1 
+			intrigue = 1
 			combat_rating = 10 # bonus to dueling
 		}
 		powers = {
 			warrior_lodge_duel #Passive Power: Unlocks Duel
-		}		
+		}
 		decisions = {
-			assassins_scare_ruler #Available (targeted) Power: Can scare rulers to get a Favor (leave a dagger on their pillow, etc. 
+			assassins_scare_ruler #Available (targeted) Power: Can scare rulers to get a Favor (leave a dagger on their pillow, etc.
 		}
 	}
-	
+
 	society_rank = {
 		level = 3
-		limit = 5 
+		limit = 5
 		startup_limit = 3
 		modifier = {
 			is_visible = {
@@ -444,7 +450,7 @@ the_assassins = {
 		}
 		powers = {
 			warrior_lodge_survivor #Passive Power: Survivor
-		}			
+		}
 		decisions = {
 			assassins_raise_ships #Available Power: Can raise special fleet of Ships
 		}
@@ -452,7 +458,7 @@ the_assassins = {
 
 	society_rank = {
 		level = 4
-		limit = 1 
+		limit = 1
 		startup_limit = 1
 		modifier = {
 			is_visible = {
@@ -471,7 +477,7 @@ the_assassins = {
 			assassins_raise_troops #Available Power: Can raise a special regiment
 			assassins_mark_for_death #Available (targeted) Power: Mark for death (+ assassins_clear_marked_for_death_target i.e. the clearing of the mark)
 		}
-		obedience_tooltip = obedience_tooltip #this can be unique per rank/society 
+		obedience_tooltip = obedience_tooltip #this can be unique per rank/society
 		obedient = {
 			ROOT = {
 				always = yes
@@ -481,9 +487,9 @@ the_assassins = {
 
 	monthly_currency_gain = {
 		name = currency_name_the_assassins
-    
+
 		per_attribute = {
-			name = intrigue 
+			name = intrigue
 			value = 0.5
 		}
 		has_trait = {
@@ -613,13 +619,13 @@ the_assassins = {
 		modifier = {
 			trait = charitable
 			factor = 1.1
-		}	
+		}
 	}
-	
+
 	startup_populate = {
 	    trigger = {
 			ai = yes
-	    	controls_religion = no 
+	    	controls_religion = no
 			religion = criminal_syndicate
 			age = 16
 			OR = {
@@ -633,7 +639,7 @@ the_assassins = {
 			OR = {
 				is_female = yes
 				NOT = {
-					has_religion_feature = religion_matriarchal	
+					has_religion_feature = religion_matriarchal
 				}
 			}
 			NOT = { trait = decadent }
@@ -667,7 +673,7 @@ monastic_order_stoics = {
 	non_interference = {
 		always = yes
 	}
-	
+
 	active = {
 		has_dlc = "Mystics"
 	}
@@ -677,7 +683,7 @@ monastic_order_stoics = {
 		hidden_trigger = {
 			NAND = {
 				ai = yes
-				is_society_rank_full = { 
+				is_society_rank_full = {
 					society = monastic_order_stoics
 					rank = 1
 				}
@@ -693,13 +699,15 @@ monastic_order_stoics = {
 			is_tribal = yes
 			is_nomadic = yes
 		}
-		OR = { 
+		OR = {
 			religion_group = political_group
 			religion_group = religious_group
+			religion_group = political_terran_group
+			religion_group = religious_terran_group
 			religion_group = transhumanist_group
 		}
 		NOT = { trait = excommunicated }
-		NOT = { trait = radical }	
+		NOT = { trait = radical }
 		NOT = { trait = warlord }
 		custom_tooltip = {
 			text = did_not_betray_society
@@ -724,44 +732,46 @@ monastic_order_stoics = {
 			is_tribal = yes
 			is_nomadic = yes
 		}
-		OR = { 
+		OR = {
 			religion_group = political_group
 			religion_group = religious_group
+			religion_group = political_terran_group
+			religion_group = religious_terran_group
 			religion_group = transhumanist_group
 			society_member_of = monastic_order_stoics
 		}
 	}
 
-	potential = { 
+	potential = {
 	}
 
 	society_rank = {
 		level = 1
-		limit = 60 
+		limit = 60
 		startup_limit = 10
 		modifier = {
 			monthly_character_piety = 0.05
 		}
 	}
-	
+
 	society_rank = {
 		level = 2
 		limit = 30
 		startup_limit = 6
-		modifier = { 
+		modifier = {
 			monthly_character_piety = 0.1
-			diplomacy = 1			
+			diplomacy = 1
 		}
 		decisions = {
 
 			monastic_orders_spiritual_guidance
 		}
-		custom_tooltip = monastic_order_education_power_tt		
+		custom_tooltip = monastic_order_education_power_tt
 	}
-	
+
 	society_rank = {
 		level = 3
-		limit = 25 
+		limit = 25
 		startup_limit = 4
 		modifier = {
 			monthly_character_piety = 0.2
@@ -780,12 +790,12 @@ monastic_order_stoics = {
 		level = 4
 		limit = 8
 		startup_limit = 2
-		modifier = { 
+		modifier = {
 			monthly_character_piety = 0.5
 			diplomacy = 2
 			stewardship = 1
 			build_cost_city_modifier = -0.5
-			global_revolt_risk = -0.06			
+			global_revolt_risk = -0.06
 		}
 		decisions = {
 			monastic_order_convert_county
@@ -795,7 +805,7 @@ monastic_order_stoics = {
 
 	monthly_currency_gain = {
 		name = currency_name_monastic_order_stoics
-    	
+
     	per_attribute = {
     		name = diplomacy
     		value = 0.5
@@ -807,7 +817,7 @@ monastic_order_stoics = {
 		has_trait = {
 			trait = disciplined
 			value = 4
-		}	
+		}
 		has_trait = {
 			trait = ambitious
 			value = 4
@@ -941,7 +951,7 @@ monastic_order_stoics = {
 			factor = 1.1
 		}
 	}
-	
+
 	startup_populate = {
 	    trigger = {
 			ai = yes
@@ -955,9 +965,11 @@ monastic_order_stoics = {
 			is_tribal = yes
 			is_nomadic = yes
 		}
-			OR = { 
+			OR = {
 				religion_group = political_group
 				religion_group = religious_group
+				religion_group = political_terran_group
+				religion_group = religious_terran_group
 				religion_group = transhumanist_group
 			}
 			age = 16
