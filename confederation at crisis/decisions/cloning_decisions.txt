@@ -1,15 +1,14 @@
-
 targetted_decisions = {
     clone_self_decision = {
 		filter = self
 		ai_target_filter = self
-		ai_check_interval = 40 
+		ai_check_interval = 40
 		potential = {
 			is_ruler = yes
 			is_landed = yes # Must actually have land somewhere
 			NOT = { has_character_flag = flag_cloning_decision_active }
 		}
-		allow = {			
+		allow = {
 			# Clones are expensive
 			wealth = 100
 			prisoner = no
@@ -30,7 +29,7 @@ targetted_decisions = {
 				}
 			    religion = bio_directionist
 			    trait = clone
-			    AND = { 
+			    AND = {
 				     NOT = { trait = heterosexual }
 					 is_married = no
 				}
@@ -94,6 +93,7 @@ targetted_decisions = {
 			}
 		}
 	}
+
 	# Clone Courtier
 	clone_courtier_decision = {
 		filter = court
@@ -102,7 +102,7 @@ targetted_decisions = {
 			NOT = { trait = incapable }
 			prisoner = no
 		}
-		ai_check_interval = 80 
+		ai_check_interval = 80
 		potential = {
 			is_within_diplo_range = FROM
 			NOT = { trait = incapable }
@@ -126,15 +126,15 @@ targetted_decisions = {
 					}
 				}
 			}
-			ROOT = { 
+			ROOT = {
 			    OR = {
 					religion = bio_directionist
 					trait = clone
-					AND = { 
+					AND = {
 						 NOT = { trait = heterosexual }
 						 is_married = no
 					}
-					AND = { 
+					AND = {
 						 any_spouse = { same_sex = ROOT }
 						 Or = {
 							trait = ambitious
@@ -155,7 +155,7 @@ targetted_decisions = {
 					name = clone_cooldown
 					duration = 60
 					hidden = yes
-				} 
+				}
 				character_event = { id = clone.300 tooltip = "EVTOOLTIPCLONE300" }
 			}
 		}
@@ -177,7 +177,7 @@ targetted_decisions = {
 			}
 			modifier = {
 				factor = 0
-				ROOT = { num_of_children = 3 # Oh just GIVE UP already }
+				ROOT = { num_of_children = 3 } # Oh just GIVE UP already
 			}
 			modifier = {
 				factor = 0
@@ -280,17 +280,17 @@ targetted_decisions = {
     clone_all_spouses = {
 		filter = self
 		ai_target_filter = self
-		ai_check_interval = 40 
+		ai_check_interval = 40
 		potential = {
 			is_ruler = yes
 			is_landed = yes # Must actually have land somewhere
 			NOT = { has_character_flag = flag_cloning_decision_active }
-			OR = { 
+			OR = {
 				is_married = yes
 				is_married_matrilineally = yes
 			}
 		}
-		allow = {			
+		allow = {
 			# Multi-donor clones are more expensive than standard clones
 			wealth = 500
 			prisoner = no
@@ -314,7 +314,7 @@ targetted_decisions = {
 				religion = imperial_cult
 			    trait = clone
 				trait = vat_born
-			    AND = { 
+			    AND = {
 				     NOT = { trait = heterosexual }
 					 is_married = no
 				}
