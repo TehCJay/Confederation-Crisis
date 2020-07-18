@@ -843,7 +843,6 @@ obj_amass_wealth = {
 		is_adult = yes
 		NOT = { wealth = 250 }
 		is_ruler = yes
-		NOT = { trait = charitable }
 		NOT = { trait = incapable }
 		NOT = { has_character_modifier = loan_timer }
 		NOT = { has_character_flag = loan_taken }
@@ -925,7 +924,8 @@ obj_become_paragon_of_virtue = {
 	type = character
 	
 	potential = {
-		NOT = { religion_group = indian_group }
+		NOT = { religion_group = outlaw_group }
+		NOT = { religion_group = transhumanist_group }
 		NOT = { trait = paragon }
 	}
 
@@ -934,10 +934,9 @@ obj_become_paragon_of_virtue = {
 		piety = 500
 		NOT = { piety = 1000 }
 		is_ruler = yes
-		NOT = { trait = cruel }
-		NOT = { trait = impaler }
+		NOT = { trait = cold }
+		NOT = { trait = pragmatic }
 		NOT = { trait = incapable }
-		NOT = { trait = decadent }
 	}
 	chance = {
 		factor = 50
@@ -957,12 +956,7 @@ obj_become_paragon_of_virtue = {
 		}
 		modifier = {
 			factor = 10.0
-			OR = {
-				trait = detached_priest
-				trait = martial_cleric
-				trait = scholarly_theologian
-				trait = mastermind_theologian
-			}
+			has_education_learning_trigger = yes
 		}
 		modifier = {
 			factor = 10.0
@@ -991,11 +985,11 @@ obj_become_paragon_of_virtue = {
 			is_ruler = no
 			NOT = { piety = 0 }
 			trait = incapable
-			trait = cruel
-			trait = impaler
+			trait = cold
+			trait = pragmatic
 			trait = paragon
-			trait = decadent
-			religion_group = indian_group
+			religion_group = outlaw_group
+			religion_group = transhumanist_group
 			AND = {
 				ai = yes
 				NOT = { has_character_modifier = ai_objective_timer }
@@ -1066,6 +1060,14 @@ obj_become_exalted = {
 		modifier = {
 			factor = 1.25
 			trait = disciplined
+		}
+		modifier = {
+			factor = 2
+			trait = extraverted
+		}
+		modifier = {
+			factor = 0.5
+			trait = introverted
 		}
 		modifier = {
 			factor = 0
@@ -1144,11 +1146,10 @@ obj_become_exalted = {
 	}
 }
 
-obj_get_married = {
+obj_marry_for_love = {
 	type = character
 	
 	potential = {
-		NOT = { has_landed_title = k_papal_state }
 		is_married = no
 		is_consort = no
 		can_marry = yes
@@ -1161,10 +1162,6 @@ obj_get_married = {
 		NOT = { trait = eunuch }
 		NOT = { trait = incapable }
 		NOT = { is_ascetic_trigger = yes }
-		OR = {
-			is_female = no
-			NOT = { age = 40 }
-		}
 		OR = {
 			is_ruler = no
 			is_feudal = yes
@@ -1181,23 +1178,27 @@ obj_get_married = {
 		factor = 100
 		modifier = {
 			factor = 0.1
-			trait = homosexual
-		}
-		modifier = {
-			factor = 0.1
 			trait = chaste
 		}
 		modifier = {
 			factor = 0.5
-			trait = shy
+			trait = introverted
 		}
 		modifier = {
 			factor = 2.0
-			trait = lustful
+			trait = extraverted
 		}
 		modifier = {
-			factor = 2.0
-			trait = ambitious
+			factor = 2
+			trait = open_minded
+		}
+		modifier = {
+			factor = 0.5
+			trait = close_minded
+		}
+		modifier = {
+			factor = 0.2
+			trait = cold
 		}
 		modifier = {
 			factor = 2.0
@@ -1210,10 +1211,6 @@ obj_get_married = {
 		modifier = {
 			factor = 10.0
 			age = 40
-		}
-		modifier = {
-			factor = 0.01
-			mercenary = yes
 		}
 	}
 	creation_effect = {
@@ -1228,18 +1225,18 @@ obj_get_married = {
 	}
 	success = {
 		is_married = yes
+		any_lover = { spouse = { character = ROOT } }
 	}
 	abort = {
 		OR = {
+			AND = {
+				is_married = yes
+				NOT = { any_lover = { spouse = { character = ROOT } } }
+			}
 			prisoner = yes
 			AND = {
 				can_marry = no
 				is_married = no
-			}
-			AND = {
-				is_female = yes
-				is_ruler = no
-				age = 40
 			}
 			is_consort = yes
 			trait = celibate
@@ -1305,14 +1302,13 @@ obj_get_married = {
 	}
 }
 
-obj_marry_ruler = {
+obj_marry_for_power = {
 	type = character
 
 	potential = {
 		is_married = no
 		is_consort = no
 		can_marry = yes
-		is_female = yes
 	}
 
 	allow = {
@@ -1322,22 +1318,13 @@ obj_marry_ruler = {
 		NOT = { trait = celibate }
 		NOT = { trait = incapable }
 		NOT = { age = 45 }
-		father = {
-			primary_title = {
-				higher_tier_than = COUNT
-			}
-		}
 		OR = {
 			ai = no
 			NOT = { has_character_flag = obj_get_married }
 		}
 	}
 	chance = {
-		factor = 100		
-		modifier = {
-			factor = 0.1
-			trait = chaste
-		}
+		factor = 100
 		modifier = {
 			factor = 1.5
 			trait = midas_touched
@@ -1348,11 +1335,19 @@ obj_marry_ruler = {
 		}
 		modifier = {
 			factor = 2.0
-			trait = greedy
+			trait = cold
+		}
+		modifier = {
+			factor = 0.5
+			trait = friendly
 		}
 		modifier = {
 			factor = 5.0
 			trait = ambitious
+		}
+		modifier = {
+			factor = 0
+			trait = content
 		}
 	}
 	creation_effect = {
@@ -1412,7 +1407,7 @@ obj_marry_ruler = {
 	}
 }
 
-obj_have_a_daughter = {
+obj_have_a_child = {
 	type = character
 
 	fertility = 0.1
@@ -1423,211 +1418,11 @@ obj_have_a_daughter = {
 			is_married = yes
 			is_consort = yes
 		}
-		NOT = {
-			any_child = {
-				is_female = yes
-			}
-		}
-		OR = {
-			ai = no
-			is_female = yes
-			num_of_children = 2
-		}
+		NOT = { num_of_children = 1 }
 	}
 
 	allow = {
 		prisoner = no
-		OR = {
-			NOT = { age = 45 }
-			is_female = no
-		}
-		NOT = { age = 75 }
-		NOT = { trait = celibate }
-		NOT = { trait = eunuch }
-		NOT = { trait = incapable }
-		OR = {
-			ai = no
-			NOT = { has_character_flag = obj_have_child_1 }
-		}
-	}
-	chance = {
-		factor = 50
-
-		modifier = {
-			factor = 0.1
-			is_female = no
-			NOT = {
-				any_child = {
-					is_female = no
-				}
-			}
-		}
-		modifier = {
-			factor = 2.0
-			is_female = yes
-		}
-		modifier = {
-			factor = 5.0
-			is_ruler = yes
-			higher_tier_than = BARON
-			OR = {
-				is_vice_royalty = yes
-				has_law = succ_gavelkind
-				has_law = succ_primogeniture
-				has_law = succ_feudal_elective
-				has_law = succ_turkish_succession
-				has_law = succ_nomad_succession
-			}
-			OR = {
-				has_law = enatic_cognatic_succession
-				has_law = enatic_succession
-			}
-			NOT = {
-				any_child = {
-					dynasty = ROOT
-					can_inherit_trigger = yes
-					NOR = {
-						trait = incapable
-						trait = celibate
-					}
-					OR = {
-						AND = {
-							ROOT = {
-								OR = {
-									has_law = succ_gavelkind
-									has_law = succ_primogeniture
-									has_law = succ_turkish_succession
-									has_law = succ_nomad_succession
-								}
-							}
-							is_primary_heir = ROOT
-						}
-						AND = {
-							ROOT = {
-								OR = {
-									is_vice_royalty = yes
-									has_law = succ_feudal_elective
-								}							
-							}
-							any_heir_title = {
-								tier = COUNT
-								holder = ROOT
-								location = { is_capital = yes }
-							}
-						}
-					}
-				}
-			}
-		}
-		modifier = {
-			factor = 1.5
-			num_of_children = 3
-		}
-		modifier = {
-			factor = 3.0
-			num_of_children = 4
-		}
-		modifier = {
-			factor = 10.0
-			num_of_children = 5
-		}
-	}
-	creation_effect = {
-		if = {
-			limit = { ai = yes }
-			add_character_modifier = {
-				name = "ai_objective_timer"
-				duration = 1825
-				hidden = yes
-			}
-		}
-	}
-	success = {
-		any_child = {
-			is_female = yes
-		}
-	}
-	abort = {
-		OR = {
-			prisoner = yes
-			AND = {
-				age = 45
-				is_female = yes
-			}
-			AND = {
-				age = 75
-				is_female = no
-			}
-			AND = {
-				is_married = no
-				is_consort = no
-			}
-			trait = celibate
-			trait = eunuch
-			trait = incapable
-			AND = {
-				ai = yes
-				NOT = { has_character_modifier = ai_objective_timer }
-			}
-		}
-	}
-	abort_effect = {
-		if = {
-			limit = { ai = yes }
-			remove_character_modifier = ai_objective_timer
-		}
-	}
-	effect = {
-		hidden_tooltip = {
-			if = {
-				limit = { ai = yes }
-				remove_character_modifier = ai_objective_timer
-			}
-		}
-		if = {
-			limit = { any_vassal = { leads_faction = faction_court } }
-			custom_tooltip = { text = COURTFACTIONMOODPLUS }
-			hidden_tooltip = {
-				random_vassal = { limit = { leads_faction = faction_court } set_variable = { which = "faction_mood_increase" value = 1 } }
-				character_event = { id = PlusFaction.200 days = 1 } #recalculate faction moods
-			}
-		}
-		if = {
-			limit = { NOT = { has_character_flag = obj_have_child_1 } }
-			piety = 25
-		}
-		if = {
-			limit = { has_character_flag = obj_have_child_1 }
-			piety = 10
-		}
-		set_character_flag = obj_have_child_1
-	}
-}
-
-obj_have_a_son = {
-	type = character
-
-	fertility = 0.1
-	
-	potential = {
-		is_adult = yes
-		OR = {
-			is_married = yes
-			is_consort = yes
-		}
-		NOT = {
-			any_child = {
-				is_female = no
-			}
-		}
-	}
-
-	allow = {
-		prisoner = no
-		OR = {
-			NOT = { age = 45 }
-			is_female = no
-		}
 		NOT = { age = 75 }
 		NOT = { trait = celibate }
 		NOT = { trait = eunuch }
@@ -1641,10 +1436,6 @@ obj_have_a_son = {
 		factor = 50
 
 		modifier = {
-			factor = 0.5
-			is_female = yes
-		}
-		modifier = {
 			factor = 5.0
 			is_ruler = yes
 			higher_tier_than = BARON
@@ -1655,10 +1446,6 @@ obj_have_a_son = {
 				has_law = succ_feudal_elective
 				has_law = succ_turkish_succession
 				has_law = succ_nomad_succession
-			}
-			NOR = {
-				has_law = enatic_cognatic_succession
-				has_law = enatic_succession
 			}
 			NOT = {
 				any_child = {
@@ -1695,14 +1482,6 @@ obj_have_a_son = {
 						}
 					}
 				}
-			}
-		}
-		modifier = {
-			factor = 5
-			is_ruler = yes
-			OR = {
-				religion_group = muslim
-				is_nomadic = yes
 			}
 		}
 		modifier = {
@@ -1725,18 +1504,6 @@ obj_have_a_son = {
 			factor = 2
 			trait = quick
 		}
-		modifier = {
-			factor = 1.5
-			num_of_children = 3
-		}
-		modifier = {
-			factor = 3.0
-			num_of_children = 4
-		}
-		modifier = {
-			factor = 10.0
-			num_of_children = 5
-		}
 	}
 	creation_effect = {
 		if = {
@@ -1748,25 +1515,14 @@ obj_have_a_son = {
 			}
 		}
 	}
-	success = {
-		any_child = {
-			is_female = no
-		}
-	}
+	success = { num_of_children = 1 }
 	abort = {
 		OR = {
 			prisoner = yes
 			trait = celibate
 			trait = eunuch
 			trait = incapable
-			AND = {
-				age = 45
-				is_female = yes
-			}
-			AND = {
-				age = 75
-				is_female = no
-			}
+			age = 75
 			AND = {
 				is_married = no
 				is_consort = no
@@ -2804,11 +2560,7 @@ obj_become_king = {
 			primary_title = { is_primary_type_title = no }
 			ai = no
 		}
-		NOT = {
-			any_heir_title = {
-				higher_tier_than = DUKE
-			}
-		}
+		NOT = { any_heir_title = { higher_tier_than = DUKE } }
 	}
 
 	allow = {
@@ -2824,19 +2576,11 @@ obj_become_king = {
 		}
 		modifier = {
 			factor = 3.0
-			capital_scope = {
-				kingdom = {
-					has_holder = no
-				}
-			}
+			capital_scope = { kingdom = { has_holder = no } }
 		}
 		modifier = {
 			factor = 0.3
-			capital_scope = {
-				kingdom = {
-					holder_scope = {  ROOT = { liege = { character = PREVPREV } } }
-				}
-			}
+			capital_scope = { kingdom = { holder_scope = { ROOT = { liege = { character = PREVPREV } } } } }
 		}
 		modifier = {
 			factor = 3.0
@@ -2845,16 +2589,6 @@ obj_become_king = {
 		modifier = {
 			factor = 2.0
 			trait = brave
-		}
-		modifier = {
-			factor = 3.0
-			OR = {
-				independent = yes
-				AND = {
-					religion_group = pagan_group
-					is_reformed_religion = no
-				}
-			}
 		}
 		modifier = {
 			factor = 3.0
@@ -2870,7 +2604,7 @@ obj_become_king = {
 		}
 		modifier = {
 			factor = 0.01
-			trait = slothful
+			trait = carefree
 		}
 		modifier = {
 			factor = 0.1
@@ -2878,10 +2612,7 @@ obj_become_king = {
 		}
 		modifier = {
 			factor = 0.01
-			OR = {
-				religion = finnish_pagan
-				religion = west_african_pagan
-			}
+			religion_group = outlaw_group
 		}
 	}
 	creation_effect = {
@@ -2899,11 +2630,7 @@ obj_become_king = {
 			text = obj_become_king_tip
 			hidden_tooltip = {
 				OR = {
-					capital_scope = {
-						kingdom = {
-							holder_scope = { character = ROOT }
-						}
-					}
+					capital_scope = { kingdom = { holder_scope = { character = ROOT } } }
 					AND = {
 						higher_tier_than = DUKE
 						primary_title = { temporary = no }
@@ -2958,823 +2685,823 @@ obj_become_king = {
 
 ### Buddhist ambitions ###
 
-obj_buddhist_stop_drinking = {
-	type = character
+# obj_buddhist_stop_drinking = {
+	# type = character
 	
-	potential = {
-		religion = buddhist
-		trait = drunkard
-	}
+	# potential = {
+		# religion = buddhist
+		# trait = drunkard
+	# }
 	
-	allow = {
-		is_adult = yes
-		NOT = { trait = incapable }
-		NOT = { trait = infirm }
-	}
-	chance = {
-		factor = 100
+	# allow = {
+		# is_adult = yes
+		# NOT = { trait = incapable }
+		# NOT = { trait = infirm }
+	# }
+	# chance = {
+		# factor = 100
 		
-		modifier = {
-			factor = 2
-			trait = radical
-		}
-		modifier = {
-			factor = 1.5
-			trait = ambitious
-		}
-		modifier = {
-			factor = 0.01
-			trait = slothful
-		}
-	}
-	creation_effect = {
-		if = {
-			limit = { ai = yes }
-			add_character_modifier = {
-				name = "ai_objective_timer"
-				duration = 1825
-				hidden = yes
-			}
-		}
-	}
-	success = {
-		NOT = { trait = drunkard }
-	}
-	abort = {
-		OR = {
-			NOT = { religion = buddhist }
-			AND = {
-				ai = yes
-				NOT = { has_character_modifier = ai_objective_timer }
-			}
-		}
-	}
-	abort_effect = {
-		if = {
-			limit = { ai = yes }
-			remove_character_modifier = ai_objective_timer
-		}
-		clr_character_flag = guru_helped_ambition
-	}
-	effect = {
-		hidden_tooltip = {
-			if = {
-				limit = { ai = yes }
-				remove_character_modifier = ai_objective_timer
-			}
-		}
-		piety = 100
-		clr_character_flag = guru_helped_ambition
-	}
-}
+		# modifier = {
+			# factor = 2
+			# trait = radical
+		# }
+		# modifier = {
+			# factor = 1.5
+			# trait = ambitious
+		# }
+		# modifier = {
+			# factor = 0.01
+			# trait = slothful
+		# }
+	# }
+	# creation_effect = {
+		# if = {
+			# limit = { ai = yes }
+			# add_character_modifier = {
+				# name = "ai_objective_timer"
+				# duration = 1825
+				# hidden = yes
+			# }
+		# }
+	# }
+	# success = {
+		# NOT = { trait = drunkard }
+	# }
+	# abort = {
+		# OR = {
+			# NOT = { religion = buddhist }
+			# AND = {
+				# ai = yes
+				# NOT = { has_character_modifier = ai_objective_timer }
+			# }
+		# }
+	# }
+	# abort_effect = {
+		# if = {
+			# limit = { ai = yes }
+			# remove_character_modifier = ai_objective_timer
+		# }
+		# clr_character_flag = guru_helped_ambition
+	# }
+	# effect = {
+		# hidden_tooltip = {
+			# if = {
+				# limit = { ai = yes }
+				# remove_character_modifier = ai_objective_timer
+			# }
+		# }
+		# piety = 100
+		# clr_character_flag = guru_helped_ambition
+	# }
+# }
 
-obj_buddhist_reject_empty_pleasures = {
-	type = character
+# obj_buddhist_reject_empty_pleasures = {
+	# type = character
 	
-	potential = {
-		religion = buddhist
-		trait = hedonist
-	}
+	# potential = {
+		# religion = buddhist
+		# trait = hedonist
+	# }
 	
-	allow = {
-		is_adult = yes
-		NOT = { trait = incapable }
-		NOT = { trait = infirm }
-	}
-	chance = {
-		factor = 100
+	# allow = {
+		# is_adult = yes
+		# NOT = { trait = incapable }
+		# NOT = { trait = infirm }
+	# }
+	# chance = {
+		# factor = 100
 		
-		modifier = {
-			factor = 2
-			trait = radical
-		}
-		modifier = {
-			factor = 1.5
-			trait = ambitious
-		}
-		modifier = {
-			factor = 0.01
-			trait = slothful
-		}
-	}
-	creation_effect = {
-		if = {
-			limit = { ai = yes }
-			add_character_modifier = {
-				name = "ai_objective_timer"
-				duration = 1825
-				hidden = yes
-			}
-		}
-	}
-	success = {
-		NOT = { trait = hedonist }
-	}
-	abort = {
-		OR = {
-			NOT = { religion = buddhist }
-			AND = {
-				ai = yes
-				NOT = { has_character_modifier = ai_objective_timer }
-			}
-		}
-	}
-	abort_effect = {
-		if = {
-			limit = { ai = yes }
-			remove_character_modifier = ai_objective_timer
-		}
-		clr_character_flag = guru_helped_ambition
-	}
-	effect = {
-		hidden_tooltip = {
-			if = {
-				limit = { ai = yes }
-				remove_character_modifier = ai_objective_timer
-			}
-		}
-		piety = 100
-		clr_character_flag = guru_helped_ambition
-	}
-}
+		# modifier = {
+			# factor = 2
+			# trait = radical
+		# }
+		# modifier = {
+			# factor = 1.5
+			# trait = ambitious
+		# }
+		# modifier = {
+			# factor = 0.01
+			# trait = slothful
+		# }
+	# }
+	# creation_effect = {
+		# if = {
+			# limit = { ai = yes }
+			# add_character_modifier = {
+				# name = "ai_objective_timer"
+				# duration = 1825
+				# hidden = yes
+			# }
+		# }
+	# }
+	# success = {
+		# NOT = { trait = hedonist }
+	# }
+	# abort = {
+		# OR = {
+			# NOT = { religion = buddhist }
+			# AND = {
+				# ai = yes
+				# NOT = { has_character_modifier = ai_objective_timer }
+			# }
+		# }
+	# }
+	# abort_effect = {
+		# if = {
+			# limit = { ai = yes }
+			# remove_character_modifier = ai_objective_timer
+		# }
+		# clr_character_flag = guru_helped_ambition
+	# }
+	# effect = {
+		# hidden_tooltip = {
+			# if = {
+				# limit = { ai = yes }
+				# remove_character_modifier = ai_objective_timer
+			# }
+		# }
+		# piety = 100
+		# clr_character_flag = guru_helped_ambition
+	# }
+# }
 
-obj_buddhist_abstain_sexual_excess = {
-	type = character
+# obj_buddhist_abstain_sexual_excess = {
+	# type = character
 	
-	potential = {
-		religion = buddhist
-		trait = lustful
-	}
+	# potential = {
+		# religion = buddhist
+		# trait = lustful
+	# }
 	
-	allow = {
-		is_adult = yes
-		NOT = { trait = incapable }
-		NOT = { trait = infirm }
-	}
-	chance = {
-		factor = 100
+	# allow = {
+		# is_adult = yes
+		# NOT = { trait = incapable }
+		# NOT = { trait = infirm }
+	# }
+	# chance = {
+		# factor = 100
 		
-		modifier = {
-			factor = 2
-			trait = radical
-		}
-		modifier = {
-			factor = 1.5
-			trait = ambitious
-		}
-		modifier = {
-			factor = 0.01
-			trait = slothful
-		}
-	}
-	creation_effect = {
-		if = {
-			limit = { ai = yes }
-			add_character_modifier = {
-				name = "ai_objective_timer"
-				duration = 1825
-				hidden = yes
-			}
-		}
-	}
-	success = {
-		NOT = { trait = lustful }
-	}
-	abort = {
-		OR = {
-			NOT = { religion = buddhist }
-			AND = {
-				ai = yes
-				NOT = { has_character_modifier = ai_objective_timer }
-			}
-		}
-	}
-	abort_effect = {
-		if = {
-			limit = { ai = yes }
-			remove_character_modifier = ai_objective_timer
-		}
-		clr_character_flag = guru_helped_ambition
-	}
-	effect = {
-		hidden_tooltip = {
-			if = {
-				limit = { ai = yes }
-				remove_character_modifier = ai_objective_timer
-			}
-		}
-		piety = 100
-		clr_character_flag = guru_helped_ambition
-	}
-}
+		# modifier = {
+			# factor = 2
+			# trait = radical
+		# }
+		# modifier = {
+			# factor = 1.5
+			# trait = ambitious
+		# }
+		# modifier = {
+			# factor = 0.01
+			# trait = slothful
+		# }
+	# }
+	# creation_effect = {
+		# if = {
+			# limit = { ai = yes }
+			# add_character_modifier = {
+				# name = "ai_objective_timer"
+				# duration = 1825
+				# hidden = yes
+			# }
+		# }
+	# }
+	# success = {
+		# NOT = { trait = lustful }
+	# }
+	# abort = {
+		# OR = {
+			# NOT = { religion = buddhist }
+			# AND = {
+				# ai = yes
+				# NOT = { has_character_modifier = ai_objective_timer }
+			# }
+		# }
+	# }
+	# abort_effect = {
+		# if = {
+			# limit = { ai = yes }
+			# remove_character_modifier = ai_objective_timer
+		# }
+		# clr_character_flag = guru_helped_ambition
+	# }
+	# effect = {
+		# hidden_tooltip = {
+			# if = {
+				# limit = { ai = yes }
+				# remove_character_modifier = ai_objective_timer
+			# }
+		# }
+		# piety = 100
+		# clr_character_flag = guru_helped_ambition
+	# }
+# }
 
-obj_buddhist_reject_cruelty = {
-	type = character
+# obj_buddhist_reject_cruelty = {
+	# type = character
 	
-	potential = {
-		religion = buddhist
-		OR = {
-			trait = impaler
-			trait = cruel
-		}
-	}
+	# potential = {
+		# religion = buddhist
+		# OR = {
+			# trait = impaler
+			# trait = cruel
+		# }
+	# }
 	
-	allow = {
-		is_adult = yes
-		NOT = { trait = incapable }
-		NOT = { trait = infirm }
-	}
-	chance = {
-		factor = 100
+	# allow = {
+		# is_adult = yes
+		# NOT = { trait = incapable }
+		# NOT = { trait = infirm }
+	# }
+	# chance = {
+		# factor = 100
 		
-		modifier = {
-			factor = 2
-			trait = radical
-		}
-		modifier = {
-			factor = 1.5
-			trait = ambitious
-		}
-		modifier = {
-			factor = 0.01
-			trait = slothful
-		}
-	}
-	creation_effect = {
-		if = {
-			limit = { ai = yes }
-			add_character_modifier = {
-				name = "ai_objective_timer"
-				duration = 1825
-				hidden = yes
-			}
-		}
-	}
-	success = {
-		NOT = { trait = impaler }
-		NOT = { trait = cruel }
-	}
-	abort = {
-		OR = {
-			NOT = { religion = buddhist }
-			AND = {
-				ai = yes
-				NOT = { has_character_modifier = ai_objective_timer }
-			}
-		}
-	}
-	abort_effect = {
-		if = {
-			limit = { ai = yes }
-			remove_character_modifier = ai_objective_timer
-		}
-		clr_character_flag = guru_helped_ambition
-	}
-	effect = {
-		hidden_tooltip = {
-			if = {
-				limit = { ai = yes }
-				remove_character_modifier = ai_objective_timer
-			}
-		}
-		piety = 100
-		clr_character_flag = guru_helped_ambition
-	}
-}
+		# modifier = {
+			# factor = 2
+			# trait = radical
+		# }
+		# modifier = {
+			# factor = 1.5
+			# trait = ambitious
+		# }
+		# modifier = {
+			# factor = 0.01
+			# trait = slothful
+		# }
+	# }
+	# creation_effect = {
+		# if = {
+			# limit = { ai = yes }
+			# add_character_modifier = {
+				# name = "ai_objective_timer"
+				# duration = 1825
+				# hidden = yes
+			# }
+		# }
+	# }
+	# success = {
+		# NOT = { trait = impaler }
+		# NOT = { trait = cruel }
+	# }
+	# abort = {
+		# OR = {
+			# NOT = { religion = buddhist }
+			# AND = {
+				# ai = yes
+				# NOT = { has_character_modifier = ai_objective_timer }
+			# }
+		# }
+	# }
+	# abort_effect = {
+		# if = {
+			# limit = { ai = yes }
+			# remove_character_modifier = ai_objective_timer
+		# }
+		# clr_character_flag = guru_helped_ambition
+	# }
+	# effect = {
+		# hidden_tooltip = {
+			# if = {
+				# limit = { ai = yes }
+				# remove_character_modifier = ai_objective_timer
+			# }
+		# }
+		# piety = 100
+		# clr_character_flag = guru_helped_ambition
+	# }
+# }
 
-obj_buddhist_temperance_food = {
-	type = character
+# obj_buddhist_temperance_food = {
+	# type = character
 	
-	potential = {
-		religion = buddhist
-		trait = gluttonous
-	}
+	# potential = {
+		# religion = buddhist
+		# trait = gluttonous
+	# }
 	
-	allow = {
-		is_adult = yes
-		NOT = { trait = incapable }
-		NOT = { trait = infirm }
-	}
-	chance = {
-		factor = 100
+	# allow = {
+		# is_adult = yes
+		# NOT = { trait = incapable }
+		# NOT = { trait = infirm }
+	# }
+	# chance = {
+		# factor = 100
 		
-		modifier = {
-			factor = 2
-			trait = radical
-		}
-		modifier = {
-			factor = 1.5
-			trait = ambitious
-		}
-		modifier = {
-			factor = 0.01
-			trait = slothful
-		}
-	}
-	creation_effect = {
-		if = {
-			limit = { ai = yes }
-			add_character_modifier = {
-				name = "ai_objective_timer"
-				duration = 1825
-				hidden = yes
-			}
-		}
-	}
-	success = {
-		NOT = { trait = gluttonous }
-	}
-	abort = {
-		OR = {
-			NOT = { religion = buddhist }
-			AND = {
-				ai = yes
-				NOT = { has_character_modifier = ai_objective_timer }
-			}
-		}
-	}
-	abort_effect = {
-		if = {
-			limit = { ai = yes }
-			remove_character_modifier = ai_objective_timer
-		}
-		clr_character_flag = guru_helped_ambition
-	}
-	effect = {
-		hidden_tooltip = {
-			if = {
-				limit = { ai = yes }
-				remove_character_modifier = ai_objective_timer
-			}
-		}
-		piety = 100
-		clr_character_flag = guru_helped_ambition
-	}
-}
+		# modifier = {
+			# factor = 2
+			# trait = radical
+		# }
+		# modifier = {
+			# factor = 1.5
+			# trait = ambitious
+		# }
+		# modifier = {
+			# factor = 0.01
+			# trait = slothful
+		# }
+	# }
+	# creation_effect = {
+		# if = {
+			# limit = { ai = yes }
+			# add_character_modifier = {
+				# name = "ai_objective_timer"
+				# duration = 1825
+				# hidden = yes
+			# }
+		# }
+	# }
+	# success = {
+		# NOT = { trait = gluttonous }
+	# }
+	# abort = {
+		# OR = {
+			# NOT = { religion = buddhist }
+			# AND = {
+				# ai = yes
+				# NOT = { has_character_modifier = ai_objective_timer }
+			# }
+		# }
+	# }
+	# abort_effect = {
+		# if = {
+			# limit = { ai = yes }
+			# remove_character_modifier = ai_objective_timer
+		# }
+		# clr_character_flag = guru_helped_ambition
+	# }
+	# effect = {
+		# hidden_tooltip = {
+			# if = {
+				# limit = { ai = yes }
+				# remove_character_modifier = ai_objective_timer
+			# }
+		# }
+		# piety = 100
+		# clr_character_flag = guru_helped_ambition
+	# }
+# }
 
-obj_buddhist_reject_greed = {
-	type = character
+# obj_buddhist_reject_greed = {
+	# type = character
 	
-	potential = {
-		religion = buddhist
-		trait = greedy
-	}
+	# potential = {
+		# religion = buddhist
+		# trait = greedy
+	# }
 	
-	allow = {
-		is_adult = yes
-		NOT = { trait = incapable }
-		NOT = { trait = infirm }
-	}
-	chance = {
-		factor = 100
+	# allow = {
+		# is_adult = yes
+		# NOT = { trait = incapable }
+		# NOT = { trait = infirm }
+	# }
+	# chance = {
+		# factor = 100
 		
-		modifier = {
-			factor = 2
-			trait = radical
-		}
-		modifier = {
-			factor = 1.5
-			trait = ambitious
-		}
-		modifier = {
-			factor = 0.01
-			trait = slothful
-		}
-	}
-	creation_effect = {
-		if = {
-			limit = { ai = yes }
-			add_character_modifier = {
-				name = "ai_objective_timer"
-				duration = 1825
-				hidden = yes
-			}
-		}
-	}
-	success = {
-		NOT = { trait = greedy }
-	}
-	abort = {
-		OR = {
-			NOT = { religion = buddhist }
-			AND = {
-				ai = yes
-				NOT = { has_character_modifier = ai_objective_timer }
-			}
-		}
-	}
-	abort_effect = {
-		if = {
-			limit = { ai = yes }
-			remove_character_modifier = ai_objective_timer
-		}
-		clr_character_flag = guru_helped_ambition
-	}
-	effect = {
-		hidden_tooltip = {
-			if = {
-				limit = { ai = yes }
-				remove_character_modifier = ai_objective_timer
-			}
-		}
-		piety = 100
-		clr_character_flag = guru_helped_ambition
-	}
-}
+		# modifier = {
+			# factor = 2
+			# trait = radical
+		# }
+		# modifier = {
+			# factor = 1.5
+			# trait = ambitious
+		# }
+		# modifier = {
+			# factor = 0.01
+			# trait = slothful
+		# }
+	# }
+	# creation_effect = {
+		# if = {
+			# limit = { ai = yes }
+			# add_character_modifier = {
+				# name = "ai_objective_timer"
+				# duration = 1825
+				# hidden = yes
+			# }
+		# }
+	# }
+	# success = {
+		# NOT = { trait = greedy }
+	# }
+	# abort = {
+		# OR = {
+			# NOT = { religion = buddhist }
+			# AND = {
+				# ai = yes
+				# NOT = { has_character_modifier = ai_objective_timer }
+			# }
+		# }
+	# }
+	# abort_effect = {
+		# if = {
+			# limit = { ai = yes }
+			# remove_character_modifier = ai_objective_timer
+		# }
+		# clr_character_flag = guru_helped_ambition
+	# }
+	# effect = {
+		# hidden_tooltip = {
+			# if = {
+				# limit = { ai = yes }
+				# remove_character_modifier = ai_objective_timer
+			# }
+		# }
+		# piety = 100
+		# clr_character_flag = guru_helped_ambition
+	# }
+# }
 
-obj_buddhist_reject_envy = {
-	type = character
+# obj_buddhist_reject_envy = {
+	# type = character
 	
-	potential = {
-		religion = buddhist
-		trait = envious
-	}
+	# potential = {
+		# religion = buddhist
+		# trait = envious
+	# }
 	
-	allow = {
-		is_adult = yes
-		NOT = { trait = incapable }
-		NOT = { trait = infirm }
-	}
-	chance = {
-		factor = 100
+	# allow = {
+		# is_adult = yes
+		# NOT = { trait = incapable }
+		# NOT = { trait = infirm }
+	# }
+	# chance = {
+		# factor = 100
 		
-		modifier = {
-			factor = 2
-			trait = radical
-		}
-		modifier = {
-			factor = 1.5
-			trait = ambitious
-		}
-		modifier = {
-			factor = 0.01
-			trait = slothful
-		}
-	}
-	creation_effect = {
-		if = {
-			limit = { ai = yes }
-			add_character_modifier = {
-				name = "ai_objective_timer"
-				duration = 1825
-				hidden = yes
-			}
-		}
-	}
-	success = {
-		NOT = { trait = envious }
-	}
-	abort = {
-		OR = {
-			NOT = { religion = buddhist }
-			AND = {
-				ai = yes
-				NOT = { has_character_modifier = ai_objective_timer }
-			}
-		}
-	}
-	abort_effect = {
-		if = {
-			limit = { ai = yes }
-			remove_character_modifier = ai_objective_timer
-		}
-		clr_character_flag = guru_helped_ambition
-	}
-	effect = {
-		hidden_tooltip = {
-			if = {
-				limit = { ai = yes }
-				remove_character_modifier = ai_objective_timer
-			}
-		}
-		piety = 100
-		clr_character_flag = guru_helped_ambition
-	}
-}
+		# modifier = {
+			# factor = 2
+			# trait = radical
+		# }
+		# modifier = {
+			# factor = 1.5
+			# trait = ambitious
+		# }
+		# modifier = {
+			# factor = 0.01
+			# trait = slothful
+		# }
+	# }
+	# creation_effect = {
+		# if = {
+			# limit = { ai = yes }
+			# add_character_modifier = {
+				# name = "ai_objective_timer"
+				# duration = 1825
+				# hidden = yes
+			# }
+		# }
+	# }
+	# success = {
+		# NOT = { trait = envious }
+	# }
+	# abort = {
+		# OR = {
+			# NOT = { religion = buddhist }
+			# AND = {
+				# ai = yes
+				# NOT = { has_character_modifier = ai_objective_timer }
+			# }
+		# }
+	# }
+	# abort_effect = {
+		# if = {
+			# limit = { ai = yes }
+			# remove_character_modifier = ai_objective_timer
+		# }
+		# clr_character_flag = guru_helped_ambition
+	# }
+	# effect = {
+		# hidden_tooltip = {
+			# if = {
+				# limit = { ai = yes }
+				# remove_character_modifier = ai_objective_timer
+			# }
+		# }
+		# piety = 100
+		# clr_character_flag = guru_helped_ambition
+	# }
+# }
 
-obj_buddhist_reject_hate = {
-	type = character
+# obj_buddhist_reject_hate = {
+	# type = character
 	
-	potential = {
-		religion = buddhist
-		trait = wroth
-	}
+	# potential = {
+		# religion = buddhist
+		# trait = wroth
+	# }
 	
-	allow = {
-		is_adult = yes
-		NOT = { trait = incapable }
-		NOT = { trait = infirm }
-	}
-	chance = {
-		factor = 100
+	# allow = {
+		# is_adult = yes
+		# NOT = { trait = incapable }
+		# NOT = { trait = infirm }
+	# }
+	# chance = {
+		# factor = 100
 		
-		modifier = {
-			factor = 2
-			trait = radical
-		}
-		modifier = {
-			factor = 1.5
-			trait = ambitious
-		}
-		modifier = {
-			factor = 0.01
-			trait = slothful
-		}
-	}
-	creation_effect = {
-		if = {
-			limit = { ai = yes }
-			add_character_modifier = {
-				name = "ai_objective_timer"
-				duration = 1825
-				hidden = yes
-			}
-		}
-	}
-	success = {
-		NOT = { trait = wroth }
-	}
-	abort = {
-		OR = {
-			NOT = { religion = buddhist }
-			AND = {
-				ai = yes
-				NOT = { has_character_modifier = ai_objective_timer }
-			}
-		}
-	}
-	abort_effect = {
-		if = {
-			limit = { ai = yes }
-			remove_character_modifier = ai_objective_timer
-		}
-		clr_character_flag = guru_helped_ambition
-	}
-	effect = {
-		hidden_tooltip = {
-			if = {
-				limit = { ai = yes }
-				remove_character_modifier = ai_objective_timer
-			}
-		}
-		piety = 100
-		clr_character_flag = guru_helped_ambition
-	}
-}
+		# modifier = {
+			# factor = 2
+			# trait = radical
+		# }
+		# modifier = {
+			# factor = 1.5
+			# trait = ambitious
+		# }
+		# modifier = {
+			# factor = 0.01
+			# trait = slothful
+		# }
+	# }
+	# creation_effect = {
+		# if = {
+			# limit = { ai = yes }
+			# add_character_modifier = {
+				# name = "ai_objective_timer"
+				# duration = 1825
+				# hidden = yes
+			# }
+		# }
+	# }
+	# success = {
+		# NOT = { trait = wroth }
+	# }
+	# abort = {
+		# OR = {
+			# NOT = { religion = buddhist }
+			# AND = {
+				# ai = yes
+				# NOT = { has_character_modifier = ai_objective_timer }
+			# }
+		# }
+	# }
+	# abort_effect = {
+		# if = {
+			# limit = { ai = yes }
+			# remove_character_modifier = ai_objective_timer
+		# }
+		# clr_character_flag = guru_helped_ambition
+	# }
+	# effect = {
+		# hidden_tooltip = {
+			# if = {
+				# limit = { ai = yes }
+				# remove_character_modifier = ai_objective_timer
+			# }
+		# }
+		# piety = 100
+		# clr_character_flag = guru_helped_ambition
+	# }
+# }
 
-obj_buddhist_reject_pride = {
-	type = character
+# obj_buddhist_reject_pride = {
+	# type = character
 	
-	potential = {
-		religion = buddhist
-		trait = proud
-	}
+	# potential = {
+		# religion = buddhist
+		# trait = proud
+	# }
 	
-	allow = {
-		is_adult = yes
-		NOT = { trait = incapable }
-		NOT = { trait = infirm }
-	}
-	chance = {
-		factor = 100
+	# allow = {
+		# is_adult = yes
+		# NOT = { trait = incapable }
+		# NOT = { trait = infirm }
+	# }
+	# chance = {
+		# factor = 100
 		
-		modifier = {
-			factor = 2
-			trait = radical
-		}
-		modifier = {
-			factor = 1.5
-			trait = ambitious
-		}
-		modifier = {
-			factor = 0.01
-			trait = slothful
-		}
-	}
-	creation_effect = {
-		if = {
-			limit = { ai = yes }
-			add_character_modifier = {
-				name = "ai_objective_timer"
-				duration = 1825
-				hidden = yes
-			}
-		}
-	}
-	success = {
-		NOT = { trait = proud }
-	}
-	abort = {
-		OR = {
-			NOT = { religion = buddhist }
-			AND = {
-				ai = yes
-				NOT = { has_character_modifier = ai_objective_timer }
-			}
-		}
-	}
-	abort_effect = {
-		if = {
-			limit = { ai = yes }
-			remove_character_modifier = ai_objective_timer
-		}
-		clr_character_flag = guru_helped_ambition
-	}
-	effect = {
-		hidden_tooltip = {
-			if = {
-				limit = { ai = yes }
-				remove_character_modifier = ai_objective_timer
-			}
-		}
-		piety = 100
-		clr_character_flag = guru_helped_ambition
-	}
-}
+		# modifier = {
+			# factor = 2
+			# trait = radical
+		# }
+		# modifier = {
+			# factor = 1.5
+			# trait = ambitious
+		# }
+		# modifier = {
+			# factor = 0.01
+			# trait = slothful
+		# }
+	# }
+	# creation_effect = {
+		# if = {
+			# limit = { ai = yes }
+			# add_character_modifier = {
+				# name = "ai_objective_timer"
+				# duration = 1825
+				# hidden = yes
+			# }
+		# }
+	# }
+	# success = {
+		# NOT = { trait = proud }
+	# }
+	# abort = {
+		# OR = {
+			# NOT = { religion = buddhist }
+			# AND = {
+				# ai = yes
+				# NOT = { has_character_modifier = ai_objective_timer }
+			# }
+		# }
+	# }
+	# abort_effect = {
+		# if = {
+			# limit = { ai = yes }
+			# remove_character_modifier = ai_objective_timer
+		# }
+		# clr_character_flag = guru_helped_ambition
+	# }
+	# effect = {
+		# hidden_tooltip = {
+			# if = {
+				# limit = { ai = yes }
+				# remove_character_modifier = ai_objective_timer
+			# }
+		# }
+		# piety = 100
+		# clr_character_flag = guru_helped_ambition
+	# }
+# }
 
-obj_buddhist_defeat_fear = {
-	type = character
+# obj_buddhist_defeat_fear = {
+	# type = character
 	
-	potential = {
-		religion = buddhist
-		OR = {
-			trait = paranoid
-			trait = craven
-		}
-	}
+	# potential = {
+		# religion = buddhist
+		# OR = {
+			# trait = paranoid
+			# trait = craven
+		# }
+	# }
 	
-	allow = {
-		is_adult = yes
-		NOT = { trait = incapable }
-		NOT = { trait = infirm }
-	}
-	chance = {
-		factor = 100
+	# allow = {
+		# is_adult = yes
+		# NOT = { trait = incapable }
+		# NOT = { trait = infirm }
+	# }
+	# chance = {
+		# factor = 100
 		
-		modifier = {
-			factor = 2
-			trait = radical
-		}
-		modifier = {
-			factor = 1.5
-			trait = ambitious
-		}
-		modifier = {
-			factor = 0.01
-			trait = slothful
-		}
-	}
-	creation_effect = {
-		if = {
-			limit = { ai = yes }
-			add_character_modifier = {
-				name = "ai_objective_timer"
-				duration = 1825
-				hidden = yes
-			}
-		}
-	}
-	success = {
-		NOT = { trait = paranoid }
-		NOT = { trait = craven }
-	}
-	abort = {
-		OR = {
-			NOT = { religion = buddhist }
-			AND = {
-				ai = yes
-				NOT = { has_character_modifier = ai_objective_timer }
-			}
-		}
-	}
-	abort_effect = {
-		if = {
-			limit = { ai = yes }
-			remove_character_modifier = ai_objective_timer
-		}
-		clr_character_flag = guru_helped_ambition
-	}
-	effect = {
-		hidden_tooltip = {
-			if = {
-				limit = { ai = yes }
-				remove_character_modifier = ai_objective_timer
-			}
-		}
-		piety = 100
-		clr_character_flag = guru_helped_ambition
-	}
-}
+		# modifier = {
+			# factor = 2
+			# trait = radical
+		# }
+		# modifier = {
+			# factor = 1.5
+			# trait = ambitious
+		# }
+		# modifier = {
+			# factor = 0.01
+			# trait = slothful
+		# }
+	# }
+	# creation_effect = {
+		# if = {
+			# limit = { ai = yes }
+			# add_character_modifier = {
+				# name = "ai_objective_timer"
+				# duration = 1825
+				# hidden = yes
+			# }
+		# }
+	# }
+	# success = {
+		# NOT = { trait = paranoid }
+		# NOT = { trait = craven }
+	# }
+	# abort = {
+		# OR = {
+			# NOT = { religion = buddhist }
+			# AND = {
+				# ai = yes
+				# NOT = { has_character_modifier = ai_objective_timer }
+			# }
+		# }
+	# }
+	# abort_effect = {
+		# if = {
+			# limit = { ai = yes }
+			# remove_character_modifier = ai_objective_timer
+		# }
+		# clr_character_flag = guru_helped_ambition
+	# }
+	# effect = {
+		# hidden_tooltip = {
+			# if = {
+				# limit = { ai = yes }
+				# remove_character_modifier = ai_objective_timer
+			# }
+		# }
+		# piety = 100
+		# clr_character_flag = guru_helped_ambition
+	# }
+# }
 
-obj_become_paragon_of_enlightenment = {
-	type = character
+# obj_become_paragon_of_enlightenment = {
+	# type = character
 	
-	potential = {
-		religion_group = indian_group
-		is_ruler = yes
-	}
+	# potential = {
+		# religion_group = indian_group
+		# is_ruler = yes
+	# }
 	
-	allow = {
-		is_adult = yes
-		NOT = { piety = 100 }
-		is_dumb_trigger = no
-		NOT = { trait = inbred }
-		NOT = { trait = lunatic }
-		NOT = { trait = incapable }
-	}
-	chance = {
-		factor = 50
+	# allow = {
+		# is_adult = yes
+		# NOT = { piety = 100 }
+		# is_dumb_trigger = no
+		# NOT = { trait = inbred }
+		# NOT = { trait = lunatic }
+		# NOT = { trait = incapable }
+	# }
+	# chance = {
+		# factor = 50
 		
-		modifier = {
-			factor = 1.25
-			trait = patient
-		}
-		modifier = {
-			factor = 0.01
-			NOT = { tier = king }
-			NOT = { tier = emperor }
-		}
-		modifier = {
-			factor = 10.0
-			OR = {
-				trait = detached_priest
-				trait = martial_cleric
-				trait = scholarly_theologian
-				trait = mastermind_theologian
-			}
-		}
-		modifier = {
-			factor = 10.0
-			trait = radical
-		}
-		modifier = {
-			factor = 0.01
-			trait = pragmatic
-		}
-	}
-	creation_effect = {
-		if = {
-			limit = { ai = yes }
-			add_character_modifier = {
-				name = "ai_objective_timer"
-				duration = 1825
-				hidden = yes
-			}
-		}
-	}
-	success = {
-		piety = 500
-	}
-	abort = {
-		OR = {
-			trait = incapable
-			trait = lunatic
-			is_ruler = no
-			NOT = { religion_group = indian_group }
-			AND = {
-				ai = yes
-				NOT = { has_character_modifier = ai_objective_timer }
-			}
-		}
-	}
-	abort_effect = {
-		if = {
-			limit = { ai = yes }
-			remove_character_modifier = ai_objective_timer
-		}
-	}
-	effect = {
-		hidden_tooltip = {
-			if = {
-				limit = { ai = yes }
-				remove_character_modifier = ai_objective_timer
-			}
-		}
-		change_learning = 1
-		piety = 100
-		if = {
-			limit = {
-				has_nickname = no
-			}
-			give_nickname = nick_the_wise
-		}
-		religion_authority = {
-			modifier = paragon_of_enlightenment
-			years = 20
-		}
-		any_vassal = {
-			limit = {
-				is_theocracy = yes
-				religion = ROOT
-			}
-			opinion = {
-				who = ROOT
-				modifier = opinion_enlightened
-				months = 1200
-			}
-		}
-	}
-}
+		# modifier = {
+			# factor = 1.25
+			# trait = patient
+		# }
+		# modifier = {
+			# factor = 0.01
+			# NOT = { tier = king }
+			# NOT = { tier = emperor }
+		# }
+		# modifier = {
+			# factor = 10.0
+			# OR = {
+				# trait = detached_priest
+				# trait = martial_cleric
+				# trait = scholarly_theologian
+				# trait = mastermind_theologian
+			# }
+		# }
+		# modifier = {
+			# factor = 10.0
+			# trait = radical
+		# }
+		# modifier = {
+			# factor = 0.01
+			# trait = pragmatic
+		# }
+	# }
+	# creation_effect = {
+		# if = {
+			# limit = { ai = yes }
+			# add_character_modifier = {
+				# name = "ai_objective_timer"
+				# duration = 1825
+				# hidden = yes
+			# }
+		# }
+	# }
+	# success = {
+		# piety = 500
+	# }
+	# abort = {
+		# OR = {
+			# trait = incapable
+			# trait = lunatic
+			# is_ruler = no
+			# NOT = { religion_group = indian_group }
+			# AND = {
+				# ai = yes
+				# NOT = { has_character_modifier = ai_objective_timer }
+			# }
+		# }
+	# }
+	# abort_effect = {
+		# if = {
+			# limit = { ai = yes }
+			# remove_character_modifier = ai_objective_timer
+		# }
+	# }
+	# effect = {
+		# hidden_tooltip = {
+			# if = {
+				# limit = { ai = yes }
+				# remove_character_modifier = ai_objective_timer
+			# }
+		# }
+		# change_learning = 1
+		# piety = 100
+		# if = {
+			# limit = {
+				# has_nickname = no
+			# }
+			# give_nickname = nick_the_wise
+		# }
+		# religion_authority = {
+			# modifier = paragon_of_enlightenment
+			# years = 20
+		# }
+		# any_vassal = {
+			# limit = {
+				# is_theocracy = yes
+				# religion = ROOT
+			# }
+			# opinion = {
+				# who = ROOT
+				# modifier = opinion_enlightened
+				# months = 1200
+			# }
+		# }
+	# }
+# }
 
 # See the realm prosper
 obj_see_the_realm_prosper = {
@@ -3830,31 +3557,22 @@ obj_see_the_realm_prosper = {
 		
 		modifier = {
 			factor = 0.1
-			OR = {
-				trait = wroth
-				trait = cruel
-				trait = impaler
-				trait = arbitrary
-				trait = slothful
-			}
+			trait = cold # Doesn't care about the realm
 		}
+		modifier = {
+			factor = 0.5
+			trait = carefree # Too lazy to bother
+		}
+		# Positive reasons to do this
 		modifier = {
 			factor = 0.2
 			NOR = {
-				trait = architect
-				trait = administrator
 				trait = gardener
-				trait = charitable
-				trait = diligent
-				trait = patient
+				trait = pragmatic
+				trait = disciplined
 				trait = content
-				trait = just
 				has_focus = focus_rulership
 			}
-		}
-		modifier = {
-			factor = 1.5
-			trait = charitable
 		}
 		modifier = {
 			factor = 1.5
@@ -3862,12 +3580,7 @@ obj_see_the_realm_prosper = {
 		}
 		modifier = {
 			factor = 3.0
-			OR = {
-				trait = indulgent_wastrel
-				trait = thrifty_clerk
-				trait = fortune_builder
-				trait = midas_touched
-			}
+			has_education_stewardship_trigger = yes
 		}
 	}
 	

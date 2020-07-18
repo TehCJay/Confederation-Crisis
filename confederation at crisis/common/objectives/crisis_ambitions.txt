@@ -1,4 +1,4 @@
-obj_expand_realm = { #Expand Realm via invasion
+obj_expand_realm = { # Expand Realm via invasion
 	type = character
 	
 	aggression = 4.0
@@ -17,7 +17,6 @@ obj_expand_realm = { #Expand Realm via invasion
 				}
 			}
 		}
-		NOT_mythical_creature_trigger = yes
 	}
 	allow = {
 		#ai = no
@@ -28,34 +27,21 @@ obj_expand_realm = { #Expand Realm via invasion
 		num_of_count_titles = 1
 		custom_tooltip = {
 			text = TOOLTIPINDEPENDENTCONDITION
-			hidden_tooltip = {
-				independent = yes
-			}
+			hidden_tooltip = { independent = yes }
 		}
-		OR = {
-			trait = ambitious
-			trait = ruthless
-			trait = greedy
-		}
+		trait = ambitious
 		is_incapable = no
 		NOT = { trait = content }
-		NOT = { trait = honorable }
 		can_press_claims_trigger = yes		
 		is_nomadic = no	
-		NOT = { trait = pirate }
 	}
 	chance = {
 		factor = 50
 		
 		modifier = {
 			factor = 0
-			religion = nath_pagan
-			NOT = { trait = pragmatic }
-		}
-		modifier = {
-			factor = 0
 			NOT = { prestige = 1000 }
-		}	
+		}
 		modifier = {
 			factor = 0.1
 			tier = COUNT
@@ -63,18 +49,18 @@ obj_expand_realm = { #Expand Realm via invasion
 		modifier = {
 			factor = 0.2
 			tier = DUKE
-		}			
+		}
 		modifier = {
-			factor = 1.5
-			trait = envious
+			factor = 0.5
+			trait = craven
+		}
+		modifier = {
+			factor = 2
+			trait = brave
 		}
 		modifier = {
 			factor = 0.1
 			trait = humble
-		}
-		modifier = {
-			factor = 0.1
-			trait = just
 		}
 		modifier = {
 			factor = 10.0
@@ -82,15 +68,7 @@ obj_expand_realm = { #Expand Realm via invasion
 		}
 		modifier = {
 			factor = 2.0
-			trait = greedy
-		}
-		modifier = {
-			factor = 2.0
-			trait = tiger
-		}
-		modifier = {
-			factor = 2.0
-			trait = ruthless
+			trait = cold
 		}
 		modifier = {
 			factor = 2.0
@@ -796,20 +774,14 @@ obj_find_lover = {
 	potential = {
 		has_lover = no
 		OR = {
-			is_ruler = no
-			demesne_size = 1
-		}
-		OR = {
 			ai = no
 			NOT = { has_character_flag = obj_find_lover }
 		}
-		NOT = { has_landed_title = k_papal_state }
 	}
 
 	allow = {
 		prisoner = no
 		is_adult = yes
-		is_priest = no
 		NOT = { trait = celibate }
 		NOT = { trait = eunuch }
 		NOT = { trait = incapable }
@@ -818,64 +790,77 @@ obj_find_lover = {
 		factor = 100
 		modifier = {
 			factor = 0.5
-			is_ruler = no
-		}
-		modifier = {
-			factor = 2.0
-			spouse = { age = 40 }
+			spouse = { always = yes }
 		}
 		modifier = {
 			factor = 0.5
-			spouse = {
-				NOT = { age = 30 }
-			}
+			spouse = { always = yes }
+			NOT = { trait = disciplined }
 		}
 		modifier = {
 			factor = 0.5
-			spouse = {
-				reverse_opinion = {
-					who = ROOT
-					value = 25
-				}
-			}
+			spouse = { always = yes }
+			trait = carefree
+		}
+		modifier = {
+			factor = 0.8
+			spouse = { reverse_opinion = { who = ROOT value = 10 } }
+		}
+		modifier = {
+			factor = 0.8
+			spouse = { reverse_opinion = { who = ROOT value = 20 } }
+		}
+		modifier = {
+			factor = 0.8
+			spouse = { reverse_opinion = { who = ROOT value = 30 } }
+		}
+		modifier = {
+			factor = 0.8
+			spouse = { reverse_opinion = { who = ROOT value = 40 } }
+		}
+		modifier = {
+			factor = 0.8
+			spouse = { reverse_opinion = { who = ROOT value = 50 } }
+		}
+		modifier = {
+			factor = 0.8
+			spouse = { reverse_opinion = { who = ROOT value = 60 } }
+		}
+		modifier = {
+			factor = 0.8
+			spouse = { reverse_opinion = { who = ROOT value = 70 } }
+		}
+		modifier = {
+			factor = 0.8
+			spouse = { reverse_opinion = { who = ROOT value = 80 } }
+		}
+		modifier = {
+			factor = 0.8
+			spouse = { reverse_opinion = { who = ROOT value = 90 } }
+		}
+		modifier = {
+			factor = 0.8
+			spouse = { reverse_opinion = { who = ROOT value = 100 } }
 		}
 		modifier = {
 			factor = 0.5
-			spouse = {
-				reverse_opinion = {
-					who = ROOT
-					value = 50
-				}
-			}
+			trait = introverted
+		}
+		modifier = {
+			factor = 2
+			trait = extraverted
+		}
+		modifier = {
+			factor = 2
+			trait = carefree
+		}
+		modifier = {
+			factor = 2
+			trait = open_minded
 		}
 		modifier = {
 			factor = 0.5
-			spouse = {
-				reverse_opinion = {
-					who = ROOT
-					value = 75
-				}
-			}
-		}
-		modifier = {
-			factor = 0.1
-			trait = chaste
-		}
-		modifier = {
-			factor = 0.5
-			trait = shy
-		}
-		modifier = {
-			factor = 2.0
-			trait = lustful
-		}
-		modifier = {
-			factor = 2.0
-			trait = hedonist
-		}
-		modifier = {
-			factor = 2.0
-			trait = decadent
+			trait = close_minded
 		}
 	}
 	creation_effect = {
@@ -894,7 +879,6 @@ obj_find_lover = {
 	abort = {
 		OR = {
 			prisoner = yes
-			is_priest = yes
 			trait = celibate
 			trait = eunuch
 			trait = incapable
@@ -4521,12 +4505,12 @@ obj_adopt_a_lifestyle = {
 		factor = 50
 
 		modifier = {
-			factor = 1.5
-			trait = diligent
+			factor = 2
+			trait = carefree
 		}
 		modifier = {
 			factor = 0.5
-			trait = slothful
+			trait = disciplined
 		}
 		modifier = {
 			factor = 0.5
