@@ -1,12 +1,12 @@
 targetted_decisions = {
-	
+
 	convert_to_liege_religion = {
 		only_playable = yes
-		
+
 		filter = self
 		ai_target_filter = self
 		ai = no
-		
+
 		potential = {
 			is_playable = yes
 			liege = {
@@ -65,14 +65,14 @@ targetted_decisions = {
 			factor = 0
 		}
 	}
-	
+
 	convert_to_liege_religion_on_liege = {
 		only_playable = yes
-		
+
 		filter = liege
 		ai_target_filter = liege
 		ai_check_interval = 240
-		
+
 		from_potential = {
 			ai = no
 			is_playable = yes
@@ -83,11 +83,11 @@ targetted_decisions = {
 			NOT = { religion = FROM }
 			religion_group = FROM
 		}
-		
+
 		allow = {
 			FROM = { NOT = { trait = radical } }
 		}
-		
+
 		effect = {
 			FROM = {
 				prestige = -500
@@ -132,18 +132,18 @@ targetted_decisions = {
 			factor = 0
 		}
 	}
-	
+
 	convert_to_liege_culture_on_liege = {
 		only_playable = yes
-		
+
 		filter = liege
 		ai_target_filter = liege
 		ai_check_interval = 360
-		
+
 		from_potential = {
 			is_playable = yes
 		}
-		
+
 		potential = {
 			NOT = { character = FROM }
 			NOT = { culture = FROM }
@@ -164,14 +164,14 @@ targetted_decisions = {
 			factor = 0
 		}
 	}
-	
+
 	convert_to_liege_culture = {
 		only_playable = yes
-		
+
 		filter = self
 		ai_target_filter = self
 		ai_check_interval = 360
-		
+
 		potential = {
 			is_playable = yes
 			liege = {
@@ -195,14 +195,14 @@ targetted_decisions = {
 			factor = 0
 		}
 	}
-	
+
 	convert_to_local_culture = {
 		only_playable = yes
 		ai_check_interval = 120
-		
+
 		filter = self
 		ai_target_filter = self
-		
+
 		potential = {
 			is_playable = yes
 			is_nomadic = no
@@ -268,14 +268,14 @@ targetted_decisions = {
 			}
 		}
 	}
-	
+
 	convert_to_local_religion = {
 		only_playable = yes
-		
+
 		filter = self
 		ai_target_filter = self
 		ai = no
-		
+
 		potential = {
 			is_playable = yes
 			is_nomadic = no
@@ -288,12 +288,12 @@ targetted_decisions = {
 					NOT = { religion = ROOT }
 				}
 			}
-			
+
 			controls_religion = no
 			holy_order = no
-			
+
 			has_dlc = "Rajas of India"
-			
+
 		}
 		allow = {
 			NOT = { trait = radical }
@@ -353,14 +353,14 @@ targetted_decisions = {
 			factor = 0
 		}
 	}
-	
+
 	convert_to_parent_religion = {
 		only_playable = yes
-		
+
 		filter = self
 		ai_target_filter = self
 		ai = no
-		
+
 		potential = {
 			is_playable = yes
 			independent = yes
@@ -380,9 +380,9 @@ targetted_decisions = {
 					modifier = ruler_converted_from
 				}
 			}
-			
+
 			abandon_heresy = yes
-			
+
 			if = {
 				limit = { higher_tier_than = BARON }
 				hidden_tooltip = {
@@ -399,14 +399,14 @@ targetted_decisions = {
 			factor = 0
 		}
 	}
-	
+
 	convert_to_reformed = {
 		only_playable = yes
-		
+
 		filter = self
 		ai_target_filter = self
 		ai_check_interval = 60
-		
+
 		potential = {
 			is_playable = yes
 			is_heretic = yes
@@ -465,7 +465,7 @@ targetted_decisions = {
 				limit = { religion = hellenic_pagan }
 				religion = hellenic_pagan_reformed
 			}
-			
+
 			hidden_tooltip = {
 				any_courtier = {
 					limit = {
@@ -586,13 +586,15 @@ targetted_decisions = {
 		filter = home_court
 		ai_target_filter = home_court
 		ai_check_interval = 60
-	
+
 		from_potential = {
 			ai = no
 			is_playable = yes
 			OR = {
 				religion_group = political_group
+				religion_group = political_terran_group
 				religion_group = religious_group
+				religion_group = religious_terran_group
 				religion_group = transhumanist_group
 				religion_group = outlaw_group
 			controls_religion = no
@@ -609,17 +611,19 @@ targetted_decisions = {
 			}
 			OR = {
 				religion_group = political_group
+				religion_group = political_terran_group
 				religion_group = religious_group
+				religion_group = religious_terran_group
 				religion_group = transhumanist_group
 			}
 			is_alive = yes
 		}
-		
+
 		allow = {
 			FROM = { NOT = { trait = radical } }
 			FROMs_religion_is_playable_trigger = yes
 		}
-		
+
 		effect = {
 			FROM = {
 				prestige = -500
@@ -628,9 +632,9 @@ targetted_decisions = {
 				}
 				religion = ROOT
 				abdicate_holy_order_if_religion_changes_effect = yes
-				
 
-				
+
+
 				hidden_tooltip = {
 					religion_authority = {
 						modifier = ruler_converted_to
@@ -639,27 +643,27 @@ targetted_decisions = {
 				piety = 200
 			}
 		}
-		
+
 		revoke_allowed = {
 			always = no
 		}
-		
+
 		ai_will_do = {
 			factor = 0.001
 		}
 	}
 }
 
-decisions = {	
+decisions = {
 	#Terran Emperor may restore Terran Culture
 	terran_renaissance = {
 		ai_check_interval = 120 #check only once every 120 months.
 		only_playable = yes
 		is_high_prio = yes
-		
+
 		potential = {
 			is_playable = yes
-			OR = { 
+			OR = {
 				culture_group = terran_group
 				culture = greek
 			}
@@ -680,10 +684,10 @@ decisions = {
 		}
 		allow = {
 			show_only_failed_conditions = yes
-			OR = { 
-				religion_group = political_group 
-				religion = religious_group
-				religion = transhumanist_group
+			OR = {
+				religion_group = political_terran_group
+				religion_group = religious_terran_group
+				religion_group = transhumanist_group
 			}
 			capital_scope = { province = 202 }
 			ruled_years = 10
@@ -693,7 +697,7 @@ decisions = {
 			set_global_flag = flag_started_roman_renaissance
 			culture = terran
 			hidden_tooltip = {
-				any_courtier_or_vassal = { 
+				any_courtier_or_vassal = {
 					limit = { lower_tier_than = COUNT }
 					culture = terran
 				}
@@ -708,33 +712,33 @@ decisions = {
 							culture = terran
 						}
 						if = {
-							limit = { 
+							limit = {
 								culture_group = terran_group
-								NOT = { distance = { where = 202 distance = 100 } } 
+								NOT = { distance = { where = 202 distance = 100 } }
 							}
-							random = { 
-								chance = 40 
-								culture = terran 
+							random = {
+								chance = 40
+								culture = terran
 							}
 						}
 						if = {
-							limit = { 
+							limit = {
 								culture_group = terran_group
-								NOT = { distance = { where = 202 distance = 200 } } 
+								NOT = { distance = { where = 202 distance = 200 } }
 							}
-							random = { 
-								chance = 20 
-								culture = terran 
+							random = {
+								chance = 20
+								culture = terran
 							}
 						}
 						if = {
-							limit = { 
+							limit = {
 								culture_group = terran_group
-								NOT = { distance = { where = 202 distance = 400 } } 
+								NOT = { distance = { where = 202 distance = 400 } }
 							}
-							random = { 
+							random = {
 								chance = 5
-								culture = terran 
+								culture = terran
 							}
 						}
 					}
@@ -749,35 +753,35 @@ decisions = {
 							religion = ROOT
 						}
 						if = {
-							limit = { 
+							limit = {
 								culture = terran
-								NOT = { distance = { where = 202 distance = 100 } } 
+								NOT = { distance = { where = 202 distance = 100 } }
 							}
-							random = { 
-								chance = 10 
+							random = {
+								chance = 10
 								religion = ROOT
 							}
 						}
 						if = {
-							limit = { 
+							limit = {
 								culture = terran
-								NOT = { distance = { where = 202 distance = 200 } } 
+								NOT = { distance = { where = 202 distance = 200 } }
 							}
-							random = { 
-								chance = 5 
+							random = {
+								chance = 5
 								religion = ROOT
 							}
 						}
 					}
 				}
 			}
-			hidden_tooltip = { #Special event if there are still enough political_group provinces around (which is very likely)
+			hidden_tooltip = { #Special event if there are still enough political_terran_group provinces around (which is very likely)
 				if = {
-					limit = { 
-						any_realm_province = { 
-							religion_group = political_group
+					limit = {
+						any_realm_province = {
+							religion_group = political_terran_group
 							count = 10
-						} 
+						}
 					}
 					character_event = { id = HF.23119 days = 150 random = 50 }
 				}
@@ -791,10 +795,12 @@ decisions = {
 			modifier = {
 				factor = 3
 				OR = {
-					religion = imperial_cult
+					#religion = imperial_cult
 					religion = solarian
-					religion = neo_socialist
-					religion = neo_feudal
+					religion = orthodox
+					religion = pilgrim
+					#religion = neo_socialist
+					#religion = neo_feudal
 				}
 			}
 			modifier = {
@@ -810,12 +816,12 @@ decisions = {
 	embrace_terran_culture = {
 		ai_check_interval = 120 #check only once every 120 months.
 		only_playable = yes
-		
+
 		potential = {
 			is_playable = yes
 			NOT = { culture = terran }
-			OR = { 
-				culture_group = terran_group 
+			OR = {
+				culture_group = terran_group
 				religion = terran_imperial
 			}
 			has_dlc = "Holy Fury"
@@ -828,15 +834,15 @@ decisions = {
 		}
 		allow = {
 			show_only_failed_conditions = yes
-			OR = { 
-				culture_group = terran_group 
+			OR = {
+				culture_group = terran_group
 				religion = terran_imperial
 			}
 		}
 		effect = {
 			culture = terran
 			hidden_tooltip = {
-				any_courtier_or_vassal = { 
+				any_courtier_or_vassal = {
 					limit = { lower_tier_than = COUNT }
 					culture = terran
 				}
@@ -851,33 +857,33 @@ decisions = {
 							culture = terran
 						}
 						if = {
-							limit = { 
+							limit = {
 								culture_group = terran_group
-								capital_scope = { NOT = { distance = { where = PREV distance = 100 } } } 
+								capital_scope = { NOT = { distance = { where = PREV distance = 100 } } }
 							}
-							random = { 
-								chance = 40 
-								culture = terran 
+							random = {
+								chance = 40
+								culture = terran
 							}
 						}
 						if = {
-							limit = { 
+							limit = {
 								culture_group = terran_group
-								capital_scope = { NOT = { distance = { where = PREV distance = 200 } } } 
+								capital_scope = { NOT = { distance = { where = PREV distance = 200 } } }
 							}
-							random = { 
-								chance = 20 
-								culture = terran 
+							random = {
+								chance = 20
+								culture = terran
 							}
 						}
 						if = {
-							limit = { 
+							limit = {
 								culture_group = terran_group
-								capital_scope = { NOT = { distance = { where = PREV distance = 400 } } } 
+								capital_scope = { NOT = { distance = { where = PREV distance = 400 } } }
 							}
-							random = { 
+							random = {
 								chance = 5
-								culture = terran 
+								culture = terran
 							}
 						}
 					}
@@ -892,22 +898,22 @@ decisions = {
 							religion = ROOT
 						}
 						if = {
-							limit = { 
+							limit = {
 								culture = terran
-								capital_scope = { NOT = { distance = { where = PREV distance = 100 } } } 
+								capital_scope = { NOT = { distance = { where = PREV distance = 100 } } }
 							}
-							random = { 
-								chance = 10 
+							random = {
+								chance = 10
 								religion = ROOT
 							}
 						}
 						if = {
-							limit = { 
+							limit = {
 								culture = terran
-								capital_scope = { NOT = { distance = { where = PREV distance = 200 } } } 
+								capital_scope = { NOT = { distance = { where = PREV distance = 200 } } }
 							}
-							random = { 
-								chance = 5 
+							random = {
+								chance = 5
 								religion = ROOT
 							}
 						}
@@ -931,7 +937,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 3
-				capital_scope = { culture = terran } 
+				capital_scope = { culture = terran }
 			}
 			modifier = {
 				factor = 0.01 #Would consider it a step down.
