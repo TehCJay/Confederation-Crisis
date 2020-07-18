@@ -356,7 +356,18 @@ title_expected_successor = {
 		NOT = { trait = incapable }
 	}
 	
-	gain_effect = { clr_character_flag = flag_expected_successor }
+	gain_effect = {
+		clr_character_flag = flag_expected_successor
+		any_realm_character = {
+			limit = {
+				NOT = { character = ROOT }
+				same_liege = ROOT
+				trait = ambitious
+			}
+			opinion = { who = ROOT modifier = opinion_promised_appointment_i_want }
+			opinion = { who = liege modifier = opinion_promised_someone_else_appointment }
+		}
+	}
 	lose_effect = { }
 }
 

@@ -12,54 +12,23 @@
 
 # Get a character killed
 plot_kill_character = {
-	type = realm_characters_plus # All characters in the same realm, plus rivals and relatives of self, parents, children and spouse, and quest target
+	type = realm_characters_plus
 	intrigue_plot = yes
 	murder_plot = yes
-	society_plot = {
-		ROOT = {
-			society_member_of = the_assassins
-			society_rank >= 2
-		}
-		OR = {
-			FROM = { 
-				NOR = {
-					religion = shiite
-					secret_religion = shiite
-				}
-			}
-			ROOT = {
-				has_quest = quest_the_assassins_assassination
-				quest_target = { character = FROM }
-			}
-		}
-	}
 	
-	# Plotter scope
 	potential = {
 		prisoner = no
 		is_adult = yes
 		NOT = { trait = incapable }
-		hidden_tooltip = {
-			OR = {
-				ai = no
-				has_character_flag = allow_plotting
-			}
-		}
 	}
 	
-	target_potential = {
-		NOT = { any_spouse = { character = FROM } } # This case is covered by another plot
-	}
-	
-	# Target allow trigger for when players target a specific character in the GUI
 	player_allow = {
-		#NOT = { has_opinion_modifier = { who = FROM modifier = opinion_recent_plot } }
+		NOT = { is_child_of = FROM }
 		is_within_diplo_range = FROM
 	}
 	
 	# Target character scope
 	allow = {
-		NOT = { any_spouse = { character = FROM } } # This case is covered by another plot
 		NOT = { is_child_of = FROM } # Not my own children
 		NOT = { father = { is_child_of = FROM } } # Not my own grandchildren
 		NOT = { mother = { is_child_of = FROM } } # Not my own grandchildren
@@ -74,185 +43,208 @@ plot_kill_character = {
 			FROM = { trait = lunatic }
 		}
 
-		# Not against children unless they're your liege or you're ambitious/cruel
+		# Not against children unless they're your liege or you're cold (and never if you're friendly)
 		OR = {
 			is_adult = yes
-			is_liege_or_above = FROM
-			FROM = { trait = ambitious }
-			FROM = { trait = cruel }
+			AND = {
+				is_liege_or_above = FROM
+				NOT = { FROM = { trait = friendly } }
+			}
+			FROM = { trait = cold }
 		}
 		
-		# Only against targets that one dislikes sufficiently
+		# Only against targets that one dislikes
 		OR = {
-			AND = {
-				is_close_relative = FROM
-				NOT = { reverse_opinion = { who = FROM value = 0 } }
-				FROM = {
-					OR = {
-						trait = deceitful
-						trait = ambitious
-						trait = cruel
-					}
-				}
-			}
-			AND = {
-				is_close_relative = FROM
-				NOT = { reverse_opinion = { who = FROM value = -25 } }
-				FROM = {
-					OR = {
-						trait = arbitrary
-						trait = pragmatic
-						trait = proud
-					}
-				}
-			}
-			AND = {
-				is_close_relative = FROM
-				NOT = { reverse_opinion = { who = FROM value = -50 } }
-			}
-			AND = {
-				NOT = { is_close_relative = FROM }
-				NOT = { reverse_opinion = { who = FROM value = 50 } }
-				FROM = {
-					OR = {
-						trait = deceitful
-						trait = ambitious
-						trait = cruel
-					}
-				}
-			}
-			AND = {
-				NOT = { is_close_relative = FROM }
-				NOT = { reverse_opinion = { who = FROM value = 25 } }
-				FROM = {
-					OR = {
-						trait = arbitrary
-						trait = pragmatic
-						trait = proud
-					}
-				}
-			}
-			AND = {
-				NOT = { is_close_relative = FROM }
-				NOT = { reverse_opinion = { who = FROM value = 0 } }
-			}
+			FROM = { trait = radical } # Will kill people they like if it's for the cause
+			FROM = { trait = cold } # Will kill people they like because they don't value human life
 			AND = {
 				NOT = { reverse_opinion = { who = FROM value = 0 } }
-				FROM = {
-					OR = {
-						trait = lunatic
-						trait = possessed
-					}
-				}
+				NOT = { FROM = { trait = friendly } } # Very reluctant to kill people
 			}
+			NOT = { reverse_opinion = { who = FROM value = -49 } }
 		}
 		
+		# Motives
 		FROM = {
 			OR = {
-				# An adventurer targeting me
-				has_opinion_modifier = { who = ROOT modifier = opinion_claimant_adventure_target }
-			
-				# Get rid of the current heir if I'm a pretender
-				any_pretender_title = {
-					current_heir = { character = ROOT }
-				}
-				
-				# Kill a ruler if I'm the heir
-				any_heir_title = {
-					holder = ROOT
-				}
-				
-				# Gets rid of obstacles in the way of a child's succession
+				# Power
 				AND = {
-					NOT = { is_close_relative = ROOT }
-					any_child = {
-						OR = {
-							any_pretender_title = {
-								current_heir = { character = ROOT }
+					NOT = { trait = content }
+					NOT = { trait = radical }
+					OR = {
+						# Heir to a title I'm a pretender to
+						any_pretender_title = {
+							NOT = { has_law = succ_appointment }
+							current_heir = { character = ROOT }
+						}
+						# Holder of a title I'm heir to
+						any_heir_title = {
+							NOT = { has_law = succ_appointment }
+							holder = ROOT
+						}
+						# Expected successor to my liege's title
+						AND = {
+							same_liege = ROOT
+							ROOT = { has_minor_title = title_expected_successor }
+						}
+						# Holder of a title I'm expected successor to
+						AND = {
+							has_minor_title = title_expected_successor
+							liege = { character = ROOT }
+						}
+						# Obstacle to a child's succession
+						AND = {
+							NOT = { is_close_relative = ROOT }
+							any_child = {
+								OR = {
+									any_pretender_title = {
+										NOT = { has_law = succ_appointment }
+										current_heir = { character = ROOT }
+									}
+									any_heir_title = {
+										NOT = { has_law = succ_appointment }
+										holder = ROOT
+									}
+									AND = {
+										same_liege = ROOT
+										ROOT = { has_minor_title = title_expected_successor }
+									}
+									AND = {
+										has_minor_title = title_expected_successor
+										liege = { character = ROOT }
+									}
+								}
 							}
-							any_heir_title = {
-								holder = ROOT
+						}
+						# Obstacle to a spouse's succession
+						AND = {
+							NOT = { is_close_relative = ROOT }
+							spouse = {
+								OR = {
+									any_pretender_title = {
+										NOT = { has_law = succ_appointment }
+										current_heir = { character = ROOT }
+									}
+									any_heir_title = {
+										NOT = { has_law = succ_appointment }
+										holder = ROOT
+									}
+									AND = {
+										same_liege = ROOT
+										ROOT = { has_minor_title = title_expected_successor }
+									}
+									AND = {
+										has_minor_title = title_expected_successor
+										liege = { character = ROOT }
+									}
+								}
 							}
+						}
+						# Holder of a job I want
+						AND = {
+							has_ambition = obj_become_chancellor
+							liege = { job_chancellor = { character = ROOT } }
+						}
+						AND = {
+							has_ambition = obj_become_marshal
+							liege = { job_marshal = { character = ROOT } }
+						}
+						AND = {
+							has_ambition = obj_become_treasurer
+							liege = { job_treasurer = { character = ROOT } }
+						}
+						AND = {
+							has_ambition = obj_become_spymaster
+							liege = { job_spymaster = { character = ROOT } }
+						}
+						AND = {
+							has_ambition = obj_become_spiritual
+							liege = { job_spiritual = { character = ROOT } }
 						}
 					}
 				}
-				
-				# Gets rid of obstacles in the way of a spouse's succession
+				# Political
 				AND = {
-					NOT = { is_close_relative = ROOT }
-					spouse = {
-						OR = {
-							any_pretender_title = {
-								current_heir = { character = ROOT }
-							}
-							any_heir_title = {
-								holder = ROOT
+					NOT = { trait = pragmatic }
+					NOT = { trait = open_minded }
+					NOT = { religion = ROOT }
+					OR = {
+						# This would have some strategic political effect
+						ROOT = {
+							any_demesne_title = {
+								NOT = { has_law = succ_appointment }
+								current_heir = { religion = FROM }
 							}
 						}
-					}
-				}
-
-				# A lover of spouse...
-				AND = {
-					NOT = { trait = homosexual }
-					spouse = {
-						any_lover = {
-							character = ROOT
+						ROOT = {
+							any_heir_title = {
+								NOT = { has_law = succ_appointment }
+								any_pretender = { religion = FROM }
+							}
+						}
+						ROOT = {
+							any_vassal = {
+								has_minor_title = title_expected_successor
+								religion = FROM
+							}
+						}
+						ROOT = {
+							any_courtier = {
+								has_minor_title = title_expected_successor
+								religion = FROM
+							}
+						}
+						# I don't care about strategy
+						AND = {
+							liege = { character = ROOT }
 							OR = {
-								reverse_has_opinion_modifier = { who = FROM modifier = slut_seductress }
-								reverse_has_opinion_modifier = { who = FROM modifier = opinion_cuckolded }
+								trait = radical
+								trait = carefree
 							}
+							NOT = { trait = disciplined }
+							NOT = { trait = close_minded }
 						}
 					}
 				}
-				
-				# Go nuts...
-				AND = {
-					same_liege = ROOT
-					trait = lunatic
-				}
-				
-				# Rivals
-				any_rival = {
+				# Practical
+				has_opinion_modifier = { who = ROOT modifier = opinion_claimant_adventure_target } # An adventurer targetting me
+				any_current_enemy = {
 					character = ROOT
+					current_heir = { NOT = { attribute_diff = { character = PREV attribute = martial value = 0 } } }
 				}
-				
-				ROOT = { is_murder_quest_target_of_prev_trigger = yes }
-
-				#Spymaster that dislikes liege
-				AND = {
-					ROOT = { job_spymaster = { character = FROM } }
-					NOT = { opinion = { who = ROOT value = 0 } }
-				}
-				
-				# Avenge my family
-				reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_father }
-				reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_mother }
-				reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_brother }
-				reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_sister }
-				reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_son }
-				reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_daughter }
-				reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_wife }
-				reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_husband }
-				reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_lover }
-				reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_friend }
+				# Personal
+				any_rival = { character = ROOT }
+				is_former_lover = ROOT
+				ROOT = { any_lover = { is_former_lover = FROM } }
+				has_opinion_modifier = { who = ROOT modifier = opinion_killed_my_father }
+				has_opinion_modifier = { who = ROOT modifier = opinion_killed_my_mother }
+				has_opinion_modifier = { who = ROOT modifier = opinion_killed_my_brother }
+				has_opinion_modifier = { who = ROOT modifier = opinion_killed_my_sister }
+				has_opinion_modifier = { who = ROOT modifier = opinion_killed_my_son }
+				has_opinion_modifier = { who = ROOT modifier = opinion_killed_my_daughter }
+				has_opinion_modifier = { who = ROOT modifier = opinion_killed_my_wife }
+				has_opinion_modifier = { who = ROOT modifier = opinion_killed_my_husband }
+				has_opinion_modifier = { who = ROOT modifier = opinion_killed_my_lover }
+				has_opinion_modifier = { who = ROOT modifier = opinion_killed_my_friend }
 				
 				# Really thoroughly avenge my family
 				AND = {
-					FROM = { trait = cold }
-					any_dynasty_member = {
-						is_close_relative = ROOT
-						OR = {
-							reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_father }
-							reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_mother }
-							reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_brother }
-							reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_sister }
-							reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_son }
-							reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_daughter }
-							reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_wife }
-							reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_husband }
-							reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_lover }
-							reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_friend }
+					trait = cold
+					ROOT = {
+						any_dynasty_member = {
+							is_close_relative = ROOT
+							OR = {
+								reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_father }
+								reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_mother }
+								reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_brother }
+								reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_sister }
+								reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_son }
+								reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_daughter }
+								reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_wife }
+								reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_husband }
+								reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_lover }
+								reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_friend }
+							}
 						}
 					}
 				}
@@ -268,255 +260,463 @@ plot_kill_character = {
 	}
 	
 	chance = {
-		factor = 2
+		factor = 10
+		
+		# Personality effects
 		modifier = {
-			factor = 5
-			has_opinion_modifier = { who = ROOT modifier = opinion_claimant_adventure_target }
-		}
-		modifier = {
-			factor = 50
-			FROM = { has_quest = quest_the_assassins_assassination }
-			is_quest_target_of = FROM
+			factor = 0.1
+			FROM = { trait = friendly }
 		}
 		modifier = {
 			factor = 0.5
-			FROM = { trait = dishonorable1 }
-		}
-		modifier = {
-			factor = 0.4
-			FROM = { trait = dishonorable2 }
-		}
-		modifier = {
-			factor = 0.3
-			FROM = { trait = dishonorable3 }
+			FROM = { NOT = { trait = cold } }
 		}
 		modifier = {
 			factor = 0.2
-			FROM = { trait = dishonorable4 }
-		}
-		modifier = {
-			factor = 0.1
-			FROM = { trait = dishonorable5 }
-		}
-		modifier = {
-			factor = 0
 			FROM = {
-				ai = yes
-				OR = {
-					trait = dishonorable6
-					trait = dishonorable7
-					trait = dishonorable8
-					trait = dishonorable9
-					trait = dishonorable10
-				}
+				trait = disciplined
+				NOT = { religion_group = outlaw_group }
+			}
+			NOT = { religion_group = outlaw_group }
+		}
+		
+		# Rule of Law effects
+		modifier = {
+			factor = 0.5
+			FROM = {
+				top_liege = { religion_authority = 0.5 }
+				NOT = { religion_group = outlaw_group }
+				NOT = { trait = cold }
+				NOT = { trait = radical }
 			}
 		}
 		modifier = {
-			factor = 0
-			NOT = { has_opinion_modifier = { who = ROOT modifier = opinion_claimant_adventure_target } }
+			factor = 0.5
 			FROM = {
-				OR = {
-					trait = content
-					trait = honest
-					trait = kind
-					trait = just
-				}
-				NOT = { trait = lunatic } 
-				NOT = { trait = possessed }
+				top_liege = { religion_authority = 0.6 }
+				NOT = { religion_group = outlaw_group }
+				NOT = { trait = cold }
+				NOT = { trait = radical }
 			}
-		}		
-		modifier = {
-			factor = 0.01
-			NOT = { has_opinion_modifier = { who = ROOT modifier = opinion_claimant_adventure_target } }
-			FROM = {
-				trait = charitable
-				NOT = { trait = lunatic } 
-				NOT = { trait = possessed }
-			}
-		}	
-		modifier = {
-			factor = 0.2
-			FROM = { pacifist = yes }
 		}
 		modifier = {
-			factor = 2.0
+			factor = 0.5
 			FROM = {
-				trait = envious
+				top_liege = { religion_authority = 0.7 }
+				NOT = { religion_group = outlaw_group }
+				NOT = { trait = cold }
+				NOT = { trait = radical }
+			}
+		}
+		modifier = {
+			factor = 0.5
+			FROM = {
+				top_liege = { religion_authority = 0.8 }
+				NOT = { religion_group = outlaw_group }
+				NOT = { trait = cold }
+				NOT = { trait = radical }
+			}
+		}
+		modifier = {
+			factor = 0.5
+			FROM = {
+				top_liege = { religion_authority = 0.9 }
+				NOT = { religion_group = outlaw_group }
+				NOT = { trait = cold }
+				NOT = { trait = radical }
+			}
+		}
+		modifier = {
+			factor = 0.5
+			FROM = {
+				top_liege = { religion_authority = 1.0 }
+				NOT = { religion_group = outlaw_group }
+				NOT = { trait = cold }
+				NOT = { trait = radical }
+			}
+		}
+		
+		# Opinion of target effects
+		modifier = {
+			factor = 1.25
+			NOT = { reverse_opinion = { who = FROM value = -99 } }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { reverse_opinion = { who = FROM value = -89 } }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { reverse_opinion = { who = FROM value = -79 } }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { reverse_opinion = { who = FROM value = -69 } }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { reverse_opinion = { who = FROM value = -59 } }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { reverse_opinion = { who = FROM value = -49 } }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { reverse_opinion = { who = FROM value = -39 } }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { reverse_opinion = { who = FROM value = -29 } }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { reverse_opinion = { who = FROM value = -19 } }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { reverse_opinion = { who = FROM value = -9 } }
+		}
+		modifier = {
+			factor = 0.8
+			reverse_opinion = { who = FROM value = 10 }
+		}
+		modifier = {
+			factor = 0.8
+			reverse_opinion = { who = FROM value = 20 }
+		}
+		modifier = {
+			factor = 0.8
+			reverse_opinion = { who = FROM value = 30 }
+		}
+		modifier = {
+			factor = 0.8
+			reverse_opinion = { who = FROM value = 40 }
+		}
+		modifier = {
+			factor = 0.8
+			reverse_opinion = { who = FROM value = 50 }
+		}
+		modifier = {
+			factor = 0.8
+			reverse_opinion = { who = FROM value = 60 }
+		}
+		modifier = {
+			factor = 0.8
+			reverse_opinion = { who = FROM value = 70 }
+		}
+		modifier = {
+			factor = 0.8
+			reverse_opinion = { who = FROM value = 80 }
+		}
+		modifier = {
+			factor = 0.8
+			reverse_opinion = { who = FROM value = 90 }
+		}
+		modifier = {
+			factor = 0.8
+			reverse_opinion = { who = FROM value = 100 }
+		}
+		
+		# Motive and personality effects
+		modifier = {
+			factor = 3
+			FROM = {
+				trait = ambitious
+				NOT = { trait = content }
+				NOT = { trait = radical }
 				OR = {
+					# Heir to a title I'm a pretender to
 					any_pretender_title = {
+						NOT = { has_law = succ_appointment }
 						current_heir = { character = ROOT }
 					}
+					# Holder of a title I'm heir to
 					any_heir_title = {
+						NOT = { has_law = succ_appointment }
 						holder = ROOT
 					}
+					# Expected successor to my liege's title
+					AND = {
+						same_liege = ROOT
+						ROOT = { has_minor_title = title_expected_successor }
+					}
+					# Holder of a title I'm expected successor to
+					AND = {
+						has_minor_title = title_expected_successor
+						liege = { character = ROOT }
+					}
+					# Obstacle to a child's succession
+					AND = {
+						NOT = { is_close_relative = ROOT }
+						any_child = {
+							OR = {
+								any_pretender_title = {
+									NOT = { has_law = succ_appointment }
+									current_heir = { character = ROOT }
+								}
+								any_heir_title = {
+									NOT = { has_law = succ_appointment }
+									holder = ROOT
+								}
+								AND = {
+									same_liege = ROOT
+									ROOT = { has_minor_title = title_expected_successor }
+								}
+								AND = {
+									has_minor_title = title_expected_successor
+									liege = { character = ROOT }
+								}
+							}
+						}
+					}
+					# Obstacle to a spouse's succession
+					AND = {
+						NOT = { is_close_relative = ROOT }
+						spouse = {
+							OR = {
+								any_pretender_title = {
+									NOT = { has_law = succ_appointment }
+									current_heir = { character = ROOT }
+								}
+								any_heir_title = {
+									NOT = { has_law = succ_appointment }
+									holder = ROOT
+								}
+								AND = {
+									same_liege = ROOT
+									ROOT = { has_minor_title = title_expected_successor }
+								}
+								AND = {
+									has_minor_title = title_expected_successor
+									liege = { character = ROOT }
+								}
+							}
+						}
+					}
+					# Holder of a job I want
+					AND = {
+						has_ambition = obj_become_chancellor
+						liege = { job_chancellor = { character = ROOT } }
+					}
+					AND = {
+						has_ambition = obj_become_marshal
+						liege = { job_marshal = { character = ROOT } }
+					}
+					AND = {
+						has_ambition = obj_become_treasurer
+						liege = { job_treasurer = { character = ROOT } }
+					}
+					AND = {
+						has_ambition = obj_become_spymaster
+						liege = { job_spymaster = { character = ROOT } }
+					}
+					AND = {
+						has_ambition = obj_become_spiritual
+						liege = { job_spiritual = { character = ROOT } }
+					}
 				}
 			}
 		}
-		modifier = {
-			factor = 1.5
-			FROM = { trait = arbitrary }
-		}
-		modifier = {
-			factor = 2.0
-			FROM = { trait = cruel }
-		}
-		modifier = {
-			factor = 2.0
-			FROM = { trait = deceitful }
-		}
-		modifier = {
-			factor = 3.0
-			FROM = { trait = ambitious }
-		}
-		modifier = {
-			factor = 5.0
-			FROM = { trait = decadent }
-		}
-		modifier = {
-			factor = 10
-			FROM = { trait = possessed }
-		}
-		modifier = {
-			factor = 0.1
-			their_opinion = { who = FROM value = 25 }
-			NOT = {
-				FROM = { ROOT = { is_murder_quest_target_of_prev_trigger = yes } } #MNM murder missions
-			}
-		}
-		modifier = {
-			factor = 0.5
-			their_opinion = { who = FROM value = 0 }
-			NOT = {
-				OR = {
-					FROM = { trait = envious }
-					FROM = { trait = deceitful }
-					FROM = { trait = ambitious }
-					FROM = { trait = cruel }
-					FROM = { trait = arbitrary }
-					FROM = { trait = lunatic }
-					FROM = { trait = possessed }
-					FROM = { ROOT = { is_murder_quest_target_of_prev_trigger = yes } } #MNM murder missions
-				}
-			}
-		}
-		modifier = {
-			factor = 1.5
-			NOT = { their_opinion = { who = FROM value = -25 } }
-		}
-		modifier = {
-			factor = 2.0
-			NOT = { their_opinion = { who = FROM value = -50 } }
-		}
-		modifier = {
-			factor = 2.0
-			NOT = { their_opinion = { who = FROM value = -75 } }
-		}
-		modifier = {
-			# Subtle balance against nepotism: Kill off members of powerful dynasties
-			factor = 2.0
-			top_liege = {
-				higher_tier_than = COUNT
-				dynasty = ROOT
-				dynasty_realm_power = 0.25
-			}
-		}
-		modifier = {
-			# Subtle balance against nepotism: Kill off members of powerful dynasties
-			factor = 2.0
-			top_liege = {
-				higher_tier_than = COUNT
-				dynasty = ROOT
-				dynasty_realm_power = 0.4
-			}
-		}
-		modifier = {
-			# Subtle balance against nepotism: Kill off members of powerful dynasties
-			factor = 2.0
-			top_liege = {
-				higher_tier_than = COUNT
-				dynasty = ROOT
-				dynasty_realm_power = 0.6
-			}
-		}
 		
+		# Motive and personality effects
 		modifier = {
-			factor = 4.0
-			plot_target_char = {
-				sibling = FROM
-				ai = yes
-				top_liege = { character = father }
-			}
+			factor = 3
 			FROM = {
-				religion_group = muslim
-				top_liege = { character = father }
-			}
-		}
-		modifier = {
-			factor = 2.0
-			plot_target_char = {
-				sibling = FROM
-				ai = yes
-				top_liege = { character = father }
-				is_landed = no
-			}
-			FROM = {
-				religion_group = muslim
-				top_liege = { character = father }
-			}
-		}
-		modifier = {
-			factor = 0.25
-			FROM = { NOT = { intrigue = 8 } }
-		}
-		modifier = {
-			factor = 2
-			FROM = { intrigue = 15 }
-		}
-		modifier = {
-			factor = 2
-			FROM = { intrigue = 20 }
-		}
-		
-		# Very powerful motive
-		modifier = {
-			factor = 10
-			OR = {
-				reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_father }
-				reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_mother }
-				reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_brother }
-				reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_sister }
-				reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_son }
-				reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_daughter }
-				reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_wife }
-				reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_husband }
-				reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_lover }
-				reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_friend }
-			}
-		}
-		
-		# Very specific motive
-		modifier = {
-			factor = 20
-			FROM = {
-				trait = cold
-				trait = ambitious
 				trait = proud
-			}
-			any_dynasty_member = {
-				is_close_relative = ROOT
+				NOT = { trait = content }
+				NOT = { trait = radical }
 				OR = {
-					reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_father }
-					reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_mother }
-					reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_brother }
-					reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_sister }
-					reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_son }
-					reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_daughter }
-					reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_wife }
-					reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_husband }
-					reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_lover }
-					reverse_has_opinion_modifier = { who = FROM modifier = opinion_killed_my_friend }
+					# Heir to a title I'm a pretender to
+					any_pretender_title = {
+						NOT = { has_law = succ_appointment }
+						current_heir = { character = ROOT }
+					}
+					# Holder of a title I'm heir to
+					any_heir_title = {
+						NOT = { has_law = succ_appointment }
+						holder = ROOT
+					}
+					# Expected successor to my liege's title
+					AND = {
+						same_liege = ROOT
+						ROOT = { has_minor_title = title_expected_successor }
+					}
+					# Holder of a title I'm expected successor to
+					AND = {
+						has_minor_title = title_expected_successor
+						liege = { character = ROOT }
+					}
+					# Obstacle to a child's succession
+					AND = {
+						NOT = { is_close_relative = ROOT }
+						any_child = {
+							OR = {
+								any_pretender_title = {
+									NOT = { has_law = succ_appointment }
+									current_heir = { character = ROOT }
+								}
+								any_heir_title = {
+									NOT = { has_law = succ_appointment }
+									holder = ROOT
+								}
+								AND = {
+									same_liege = ROOT
+									ROOT = { has_minor_title = title_expected_successor }
+								}
+								AND = {
+									has_minor_title = title_expected_successor
+									liege = { character = ROOT }
+								}
+							}
+						}
+					}
+					# Obstacle to a spouse's succession
+					AND = {
+						NOT = { is_close_relative = ROOT }
+						spouse = {
+							OR = {
+								any_pretender_title = {
+									NOT = { has_law = succ_appointment }
+									current_heir = { character = ROOT }
+								}
+								any_heir_title = {
+									NOT = { has_law = succ_appointment }
+									holder = ROOT
+								}
+								AND = {
+									same_liege = ROOT
+									ROOT = { has_minor_title = title_expected_successor }
+								}
+								AND = {
+									has_minor_title = title_expected_successor
+									liege = { character = ROOT }
+								}
+							}
+						}
+					}
+					# Holder of a job I want
+					AND = {
+						has_ambition = obj_become_chancellor
+						liege = { job_chancellor = { character = ROOT } }
+					}
+					AND = {
+						has_ambition = obj_become_marshal
+						liege = { job_marshal = { character = ROOT } }
+					}
+					AND = {
+						has_ambition = obj_become_treasurer
+						liege = { job_treasurer = { character = ROOT } }
+					}
+					AND = {
+						has_ambition = obj_become_spymaster
+						liege = { job_spymaster = { character = ROOT } }
+					}
+					AND = {
+						has_ambition = obj_become_spiritual
+						liege = { job_spiritual = { character = ROOT } }
+					}
 				}
 			}
+		}
+		modifier = {
+			factor = 3
+			FROM = {
+				trait = radical
+				NOT = { trait = pragmatic }
+				NOT = { trait = open_minded }
+				NOT = { religion = ROOT }
+				OR = {
+					# This would have some strategic political effect
+					ROOT = {
+						any_demesne_title = {
+							NOT = { has_law = succ_appointment }
+							current_heir = { religion = FROM }
+						}
+					}
+					ROOT = {
+						any_heir_title = {
+							NOT = { has_law = succ_appointment }
+							any_pretender = { religion = FROM }
+						}
+					}
+					ROOT = {
+						any_vassal = {
+							has_minor_title = title_expected_successor
+							religion = FROM
+						}
+					}
+					ROOT = {
+						any_courtier = {
+							has_minor_title = title_expected_successor
+							religion = FROM
+						}
+					}
+					# I don't care about strategy
+					AND = {
+						liege = { character = ROOT }
+						OR = {
+							trait = radical
+							trait = carefree
+						}
+						NOT = { trait = disciplined }
+						NOT = { trait = close_minded }
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 3
+			FROM = {
+				trait = close_minded
+				NOT = { trait = pragmatic }
+				NOT = { trait = open_minded }
+				NOT = { religion = ROOT }
+				OR = {
+					# This would have some strategic political effect
+					ROOT = {
+						any_demesne_title = {
+							NOT = { has_law = succ_appointment }
+							current_heir = { religion = FROM }
+						}
+					}
+					ROOT = {
+						any_heir_title = {
+							NOT = { has_law = succ_appointment }
+							any_pretender = { religion = FROM }
+						}
+					}
+					ROOT = {
+						any_vassal = {
+							has_minor_title = title_expected_successor
+							religion = FROM
+						}
+					}
+					ROOT = {
+						any_courtier = {
+							has_minor_title = title_expected_successor
+							religion = FROM
+						}
+					}
+					# I don't care about strategy
+					AND = {
+						liege = { character = ROOT }
+						OR = {
+							trait = radical
+							trait = carefree
+						}
+						NOT = { trait = disciplined }
+						NOT = { trait = close_minded }
+					}
+				}
+			}
+		}
+	}
+	
+	creation_effect = {
+		FROM = {
+			clr_character_flag = flag_plot_timer
+			set_character_flag = flag_plot_timer
 		}
 	}
 	
@@ -534,439 +734,22 @@ plot_kill_character = {
 	
 	abort = {
 		OR = {
-			FROM = { has_character_flag = abort_plot }
-			FROM = { prisoner = yes }
-			FROM = { trait = incapable }
-			AND = {
-				is_alive = no
-				NOR = {
-					FROM = { has_character_flag = murder_in_motion }
-					FROM = { has_character_flag = hiding_murder_in_motion }
-				}
-			}
+			# The AI should abort plots that are clearly going nowhere
 			FROM = {
 				ai = yes
-				NOT = {
-					OR = {
-						has_opinion_modifier = { who = ROOT modifier = opinion_claimant_adventure_target }
-						any_pretender_title = {
-							current_heir = { character = ROOT }
-						}
-						any_heir_title = {
-							holder = ROOT
-						}
-						AND = {
-							NOT = { is_close_relative = ROOT }
-							any_child = {
-								OR = {
-									any_pretender_title = {
-										current_heir = { character = ROOT }
-									}
-									any_heir_title = {
-										holder = ROOT
-									}
-								}
-							}
-						}
-						AND = {
-							NOT = { is_close_relative = ROOT }
-							spouse = {
-								OR = {
-									any_pretender_title = {
-										current_heir = { character = ROOT }
-									}
-									any_heir_title = {
-										holder = ROOT
-									}
-								}
-							}
-						}
-						AND = {
-							NOT = { trait = homosexual }
-							spouse = {
-								any_lover = {
-									character = ROOT
-									OR = {
-										reverse_has_opinion_modifier = { who = FROM modifier = slut_seductress }
-										reverse_has_opinion_modifier = { who = FROM modifier = opinion_cuckolded }
-									}
-								}
-							}
-						}
-						AND = {
-							same_liege = ROOT
-							OR = {
-								trait = lunatic
-								trait = possessed
-							}
-						}
-						any_rival = {
-							character = ROOT
-						}
-						AND = {
-							ROOT = { job_spymaster = { character = FROM } }
-							NOT = { opinion = { who = ROOT value = 0 } }
-						}
-					}
-				}
-			}
-		}
-	}
-	
-	abort_effect = {
-		FROM = {
-			# Clear flags
-			hidden_tooltip = {
-				clr_character_flag = event7040
-				clr_character_flag = event1007003
-				clr_character_flag = murder_in_motion
-				clr_character_flag = hiding_murder_in_motion
-				clr_character_flag = plot_check
-				clr_character_flag = allow_plotting
-				clr_character_flag = plot_in_action
-				clr_character_flag = abort_plot
-				reverse_opinion = { who = ROOT modifier = opinion_recent_plot months = 60 }
-			}
-			if = {
-				limit = { has_character_modifier = plot_assisted_spying }
-				remove_character_modifier = plot_assisted_spying
-			}
-		}
-	}
-	
-	effect = {
-		FROM = {
-			any_plot_backer = {
-				reverse_opinion = {
-					modifier = opinion_grateful
-					who = FROM
-					years = 5
-				}
-			}
-			if = {
-				limit = { has_character_modifier = plot_assisted_spying }
-				remove_character_modifier = plot_assisted_spying
-			}
-			# Clear flags
-			hidden_tooltip = {
-				clr_character_flag = event7040
-				clr_character_flag = event1007003
-				clr_character_flag = murder_in_motion
-				clr_character_flag = hiding_murder_in_motion
-				clr_character_flag = plot_check
-				clr_character_flag = allow_plotting
-				clr_character_flag = plot_in_action
-				clr_character_flag = abort_plot
-				reverse_opinion = { who = ROOT modifier = opinion_recent_plot months = 60 }
-				change_variable = { which = "lifestyle_intrigue" value = 1 }
-			}
-		}
-	}
-}
-
-# Get a spouse killed
-plot_kill_spouse = {
-	type = spouse
-	intrigue_plot = yes
-	murder_plot = yes
-	society_plot = {
-		ROOT = {
-			society_member_of = the_assassins
-			society_rank >= 2
-		}
-		OR = {
-			FROM = { 
-				NOR = {
-					religion = shiite
-					secret_religion = shiite
-				}
-			}
-			ROOT = {
-				has_quest = quest_the_assassins_assassination
-				quest_target = { character = FROM }
-			}
-		}
-	}
-	
-	# Plotter scope
-	potential = {
-		prisoner = no
-		is_adult = yes
-		is_married = yes
-		NOT = { trait = incapable }
-		hidden_tooltip = {
-			OR = {
-				ai = no
-				has_character_flag = allow_plotting
-			}
-		}
-	}
-	
-	# Target allow trigger for when players target a specific character in the GUI
-	player_allow = {
-		always = yes
-	}
-	
-	# Target character scope
-	allow = {
-		NOT = { is_lover = FROM }
-		OR = {
-			# Human
-			FROM = { ai = no }
-			
-			# Male plotter without heirs wanting to kill an old/barren wife
-			AND = {
-				age = 40
-				FROM = {
-					is_female = no
-					OR = {
-						is_ruler = yes
-						any_heir_title = { always = yes }
-						any_pretender_title = { always = yes }
-					}
-					# No sons
-					NOT = {
-						any_child = {
-							is_alive = yes
-							NOT = { trait = bastard }
-							is_female = no
-						}
-					}
-					# No female heirs
-					NOT = {
-						any_child = {
-							OR = {
-								any_heir_title = { always = yes }
-								any_pretender_title = { always = yes }
-							}
-							is_alive = yes
-							is_female = yes
-						}
-					}
-					# Dislikes her enough to kill her
-					OR = {
-						AND = {
-							OR = {
-								trait = ambitious
-								trait = paranoid
-								trait = cruel
-							}
-							NOT = { opinion = { who = ROOT value = 50 } }
-						}
-						AND = {
-							OR = {
-								trait = arbitrary
-								trait = pragmatic
-								trait = deceitful
-							}
-							NOT = { opinion = { who = ROOT value = 25 } }
-						}
-						NOT = { opinion = { who = ROOT value = 0 } }
-					}
-				}
-			}
-			
-			# Female plotter taking revenge on husband for usurping her
-			FROM = {
-				is_female = yes
-				has_opinion_modifier = { who = ROOT modifier = husband_usurped_me }
-			}
-			
-			# Female plotter disliking her husband but loving her child - the legal heir
-			FROM = {
-				is_female = yes
-				num_of_children = 1
-				NOT = { opinion = { who = ROOT value = 0 } }
-				any_child = {
-					is_alive = yes
-					any_heir_title = { holder = ROOT }
-					NOT = { trait = incapable }
-					reverse_opinion = { who = FROM value = 75 }
-				}
-			}
-			
-			# Disliked spouse has a lover...
-			AND = {
-				has_lover = yes
-				FROM = { NOT = { opinion = { who = ROOT value = 0 } } }
-				any_lover = { NOT = { character = FROM } }
-			}
-
-			# Insane plotter...
-			FROM = {
-				NOT = { opinion = { who = ROOT value = 50 } }
-				trait = lunatic
-			}
-			
-			# Really just don't like them
-			FROM = { NOT = { opinion = { who = ROOT value = -75 } } }
-		}
-	}
-	
-	chance = {
-		factor = 10
-		modifier = {
-			factor = 0.5
-			FROM = { trait = dishonorable1 }
-		}
-		modifier = {
-			factor = 0.4
-			FROM = { trait = dishonorable2 }
-		}
-		modifier = {
-			factor = 0.3
-			FROM = { trait = dishonorable3 }
-		}
-		modifier = {
-			factor = 0.2
-			FROM = { trait = dishonorable4 }
-		}
-		modifier = {
-			factor = 0.1
-			FROM = { trait = dishonorable5 }
-		}
-		modifier = {
-			factor = 0
-			FROM = {
+				NOT = { plot_power = 1.0 }
 				OR = {
-					trait = dishonorable6
-					trait = dishonorable7
-					trait = dishonorable8
-					trait = dishonorable9
-					trait = dishonorable10
-				}
-			}
-		}
-		modifier = {
-			factor = 0
-			FROM = {
-				OR = {
-					trait = content
-					trait = honest
-					trait = kind
-					trait = just
-					trait = charitable
-				}
-				NOT = { trait = lunatic } 
-				NOT = { trait = possessed }
-			}
-		}
-		modifier = {
-			factor = 0.2
-			FROM = { pacifist = yes }
-		}		
-		modifier = {
-			factor = 0.1
-			their_opinion = { who = FROM value = 25 }
-		}
-		modifier = {
-			factor = 0.5
-			their_opinion = { who = FROM value = 0 }
-			NOT = {
-				OR = {
-					FROM = { trait = deceitful }
-					FROM = { trait = cruel }
-					FROM = { trait = paranoid }
-					FROM = { trait = lunatic }
-					FROM = { trait = possessed }
-				}
-			}
-		}
-		modifier = {
-			factor = 0.5
-			FROM = { opinion = { who = ROOT value = 0 } }
-		}
-		modifier = {
-			factor = 0.1
-			FROM = { opinion = { who = ROOT value = 25 } }
-		}
-		modifier = {
-			factor = 1.5
-			NOT = { their_opinion = { who = FROM value = -25 } }
-		}
-		modifier = {
-			factor = 1.5
-			NOT = { their_opinion = { who = FROM value = -50 } }
-		}
-		modifier = {
-			factor = 2.0
-			NOT = { their_opinion = { who = FROM value = -75 } }
-		}
-		modifier = {
-			factor = 2.0
-			FROM = { trait = deceitful }
-		}
-		modifier = {
-			factor = 2.0
-			FROM = { trait = cruel }
-		}
-		modifier = {
-			factor = 1.5
-			FROM = { trait = paranoid }
-		}
-		modifier = {
-			factor = 1.25
-			FROM = { trait = lunatic }
-		}
-		modifier = {
-			factor = 10
-			FROM = { trait = possessed }
-		}
-		modifier = {
-			factor = 1.25
-			FROM = { trait = intricate_webweaver }
-		}
-		modifier = {
-			factor = 1.5
-			FROM = { trait = elusive_shadow }
-		}
-		modifier = {
-			factor = 2.0
-			age = 40
-			FROM = {
-				is_female = no
-				NOT = {
-					any_child = {
-						NOT = { trait = bastard }
-						is_alive = yes
-						is_female = no
+					AND = {
+						had_character_flag = { flag = flag_plot_timer years = 1 }
+						trait = carefree
 					}
+					AND = {
+						had_character_flag = { flag = flag_plot_timer years = 2 }
+						NOT = { trait = proud }
+					}
+					had_character_flag = { flag = flag_plot_timer years = 3 }
 				}
 			}
-		}
-		modifier = {
-			factor = 0.25
-			FROM = { NOT = { intrigue = 8 } }
-		}
-		modifier = {
-			factor = 2
-			FROM = { intrigue = 15 }
-		}
-		modifier = {
-			factor = 2
-			FROM = { intrigue = 20 }
-		}
-		modifier = {
-			factor = 50
-			FROM = { has_quest = quest_the_assassins_assassination }
-			is_quest_target_of = FROM
-		}
-	}
-	
-	success = {
-		is_alive = no
-		hidden_tooltip = {
-			FROM = {
-				OR = {
-					has_character_flag = murder_in_motion
-					has_character_flag = hiding_murder_in_motion
-				}
-			}
-		}
-	}
-	
-	abort = {
-		OR = {
 			FROM = { has_character_flag = abort_plot }
 			FROM = { prisoner = yes }
 			FROM = { trait = incapable }
@@ -992,6 +775,7 @@ plot_kill_spouse = {
 				clr_character_flag = allow_plotting
 				clr_character_flag = plot_in_action
 				clr_character_flag = abort_plot
+				clr_character_flag = flag_plot_timer
 				reverse_opinion = { who = ROOT modifier = opinion_recent_plot months = 60 }
 			}
 			if = {
@@ -1024,6 +808,7 @@ plot_kill_spouse = {
 				clr_character_flag = allow_plotting
 				clr_character_flag = plot_in_action
 				clr_character_flag = abort_plot
+				clr_character_flag = flag_plot_timer
 				reverse_opinion = { who = ROOT modifier = opinion_recent_plot months = 60 }
 				change_variable = { which = "lifestyle_intrigue" value = 1 }
 			}
@@ -1089,9 +874,7 @@ plot_weaken_fellow_vassal = {
 		is_primary_holder_title = no
 		
 		# Not the current heir to their titles
-		current_heir = {
-			NOT = { character = FROM }
-		}
+		current_heir = { NOT = { character = FROM } }
 		
 		holder_scope = {
 			#NOT = { has_opinion_modifier = { who = FROM modifier = opinion_recent_plot } }
@@ -1140,9 +923,7 @@ plot_weaken_fellow_vassal = {
 			FROM = {
 				OR = {
 					trait = content
-					trait = honest
-					trait = kind
-					trait = just
+					trait = friendly
 				}
 				NOT = { trait = lunatic } 
 				NOT = { trait = possessed }
@@ -1161,80 +942,89 @@ plot_weaken_fellow_vassal = {
 			FROM = {
 				OR = {
 					trait = slow
-					trait = dull
+					trait = imbecile
 				}
 			}
 		}
 		modifier = {
-			factor = 0
-			ROOT = {
-				holder_scope ={
-					reverse_opinion = { who = FROM value = 50 }
-				}
-			}
+			factor = 0.8
+			ROOT = { holder_scope = { reverse_opinion = { who = FROM value = 100 } } }
 		}
 		modifier = {
-			factor = 0
-			ROOT = {
-				holder_scope ={
-					reverse_opinion = { who = FROM value = 25 }
-				}
-			}
-			NOT = {
-				OR = {
-					FROM = { trait = envious }
-					FROM = { trait = deceitful }
-					FROM = { trait = ambitious }
-				}
-			}
+			factor = 0.8
+			ROOT = { holder_scope = { reverse_opinion = { who = FROM value = 90 } } }
 		}
 		modifier = {
-			factor = 0.2
-			ROOT = {
-				holder_scope = {
-					reverse_opinion = { who = FROM value = 0 }
-				}
-			}
-			NOT = {
-				OR = {
-					FROM = { trait = envious }
-					FROM = { trait = deceitful }
-					FROM = { trait = ambitious }
-				}
-			}
-		}		
+			factor = 0.8
+			ROOT = { holder_scope = { reverse_opinion = { who = FROM value = 80 } } }
+		}
 		modifier = {
-			factor = 0.2
-			ROOT = {
-				holder_scope = {
-					reverse_opinion = { who = FROM value = 25 }
-				}
-			}
-			OR = {
-				FROM = { trait = envious }
-				FROM = { trait = deceitful }
-				FROM = { trait = ambitious }
-			}
+			factor = 0.8
+			ROOT = { holder_scope = { reverse_opinion = { who = FROM value = 70 } } }
+		}
+		modifier = {
+			factor = 0.8
+			ROOT = { holder_scope = { reverse_opinion = { who = FROM value = 60 } } }
+		}
+		modifier = {
+			factor = 0.8
+			ROOT = { holder_scope = { reverse_opinion = { who = FROM value = 50 } } }
+		}
+		modifier = {
+			factor = 0.8
+			ROOT = { holder_scope = { reverse_opinion = { who = FROM value = 40 } } }
+		}
+		modifier = {
+			factor = 0.8
+			ROOT = { holder_scope = { reverse_opinion = { who = FROM value = 30 } } }
+		}
+		modifier = {
+			factor = 0.8
+			ROOT = { holder_scope = { reverse_opinion = { who = FROM value = 20 } } }
+		}
+		modifier = {
+			factor = 0.8
+			ROOT = { holder_scope = { reverse_opinion = { who = FROM value = 10 } } }
 		}
 		modifier = {
 			factor = 1.25
-			NOT = { 
-				ROOT = {
-					holder_scope = {
-						reverse_opinion = { who = FROM value = 0 }
-					}
-				}
-			}
+			NOT = { ROOT = { holder_scope = { reverse_opinion = { who = FROM value = -9 } } } }
 		}
 		modifier = {
-			factor = 1.5
-			NOT = { 
-				ROOT = {
-					holder_scope = {
-						reverse_opinion = { who = FROM value = -25 }
-					}
-				}
-			}
+			factor = 1.25
+			NOT = { ROOT = { holder_scope = { reverse_opinion = { who = FROM value = -19 } } } }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { ROOT = { holder_scope = { reverse_opinion = { who = FROM value = -29 } } } }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { ROOT = { holder_scope = { reverse_opinion = { who = FROM value = -39 } } } }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { ROOT = { holder_scope = { reverse_opinion = { who = FROM value = -49 } } } }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { ROOT = { holder_scope = { reverse_opinion = { who = FROM value = -59 } } } }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { ROOT = { holder_scope = { reverse_opinion = { who = FROM value = -69 } } } }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { ROOT = { holder_scope = { reverse_opinion = { who = FROM value = -79 } } } }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { ROOT = { holder_scope = { reverse_opinion = { who = FROM value = -89 } } } }
+		}
+		modifier = {
+			factor = 1.25
+			NOT = { ROOT = { holder_scope = { reverse_opinion = { who = FROM value = -99 } } } }
 		}
 		
 		modifier = {
@@ -1281,11 +1071,7 @@ plot_weaken_fellow_vassal = {
 		}
 		modifier = {
 			factor = 2.0
-			FROM = { trait = envious }
-		}
-		modifier = {
-			factor = 2.0
-			FROM = { trait = deceitful }
+			FROM = { trait = cold }
 		}
 		modifier = {
 			factor = 4.0

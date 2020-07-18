@@ -9,7 +9,7 @@ namespace = duel
 # both duelists with the appropriate flags:
 # flag_infantry_duel: Both duelists will be treated as if they were not in vehicles (although this does not affect vehicle combat rating modifiers)
 # flag_walker_duel: Same as infantry duel, except walkers are permitted.
-# flag_friendly_duel: Surrenderers cannot be captured or killed, and death and severe injury are far less likely.
+# flag_friendly_duel: Surrenderers cannot be captured or killed, and death and severe injury are far less likely. DO NOT USE WITH flag_no_quarter
 # flag_battlefield: The duel takes place during actual combat. Killing someone who tries to surrender will be considered a war crime.
 # flag_open_field: The duel takes place on an open field, where both combatants can see each other clearly and there are few obstructions.
 # flag_interior: The duel takes place in an interior area, with tight corridors. Non-walker vehicles are ignored.
@@ -18,6 +18,7 @@ namespace = duel
 # flag_no_guns
 # flag_no_retreat
 # flag_no_surrender
+# flag_no_quarter (DO NOT USE WITH flag_friendly_duel)
 
 # The following weapon flags are supported:
 # melee
@@ -30,6 +31,7 @@ namespace = duel
 # anti_personnel_resistance
 # power_armor
 # casualty_prevention
+# jetpack
 
 # The following vehicle flags are supported:
 # melee_bonus
@@ -117,6 +119,17 @@ character_event = {
 				}
 				NOT = { persistent_event_target:my_weapon = { has_artifact_flag = anti_vehicle_melee } }
 				NOT = { trait = brave }
+			}
+			# Also don't do this if you can see they have a jetpack
+			modifier = {
+				factor = 0.1
+				has_character_flag = flag_enemy_analyzed
+				NOT = { has_character_flag = flag_interior }
+				FROM = {
+					NOT = { has_character_flag = flag_in_vehicle }
+					persistent_event_target:my_armor = { has_artifact_flag = jetpack }
+					NOT = { persistent_event_target:my_weapon = { has_artifact_flag = melee } }
+				}
 			}
 			modifier = {
 				factor = 0.1
@@ -516,6 +529,17 @@ character_event = {
 				}
 				NOT = { persistent_event_target:my_weapon = { has_artifact_flag = anti_vehicle_melee } }
 				NOT = { trait = brave }
+			}
+			# Also don't do this if you can see they have a jetpack
+			modifier = {
+				factor = 0.1
+				has_character_flag = flag_enemy_analyzed
+				NOT = { has_character_flag = flag_interior }
+				FROM = {
+					NOT = { has_character_flag = flag_in_vehicle }
+					persistent_event_target:my_armor = { has_artifact_flag = jetpack }
+					NOT = { persistent_event_target:my_weapon = { has_artifact_flag = melee } }
+				}
 			}
 			modifier = {
 				factor = 0.1
@@ -1339,9 +1363,9 @@ character_event = {
 				# Anti-personnel with anti-personnel bonus
 				modifier = {
 					factor = 5
-					has_character_flag = flag_anti_personnel_tactics
 					OR = {
 						AND = {
+							has_character_flag = flag_anti_personnel_tactics
 							has_character_flag = flag_in_vehicle
 							persistent_event_target:my_vehicle = { has_artifact_flag = anti_personnel_bonus }
 						}
@@ -1409,9 +1433,9 @@ character_event = {
 				# Anti-vehicle with anti-vehicle bonus
 				modifier = {
 					factor = 5
-					has_character_flag = flag_anti_vehicle_tactics
 					OR = {
 						AND = {
+							has_character_flag = flag_anti_vehicle_tactics
 							has_character_flag = flag_in_vehicle
 							persistent_event_target:my_vehicle = { has_artifact_flag = anti_vehicle_bonus }
 						}
@@ -1441,6 +1465,34 @@ character_event = {
 					has_character_flag = flag_melee_tactics
 					trait = weak
 					NOT = { persistent_event_target:my_armor = { has_artifact_flag = power_armor } }
+				}
+				
+				# Flight is a perfect defense against melee
+				modifier = {
+					factor = 0
+					OR = {
+						has_character_flag = flag_melee_tactics
+						has_character_flag = flag_melee_vehicle_tactics
+					}
+					NOT = { has_character_flag = flag_interior }
+					FROM = {
+						NOT = { has_character_flag = flag_in_vehicle }
+						NOT = { has_character_flag = flag_melee_tactics }
+						persistent_event_target:my_armor = { has_artifact_flag = jetpack }
+					}
+				}
+				# And a not-so-perfect defense against all ranged weapons except assault rifles
+				modifier = {
+					factor = 0.25
+					has_character_flag = flag_anti_personnel_tactics
+					NOT = { has_character_flag = flag_in_vehicle }
+					NOT = { persistent_event_target:my_weapon = { has_artifact_flag = assault_rifle } }
+					NOT = { has_character_flag = flag_interior }
+					FROM = {
+						NOT = { has_character_flag = flag_in_vehicle }
+						NOT = { has_character_flag = flag_melee_tactics }
+						persistent_event_target:my_armor = { has_artifact_flag = jetpack }
+					}
 				}
 				log = "[Root.GetBestName] won the round, trigger duel.4 for [From.GetBestName]."
 				FROM = { character_event = { id = duel.4 } }
@@ -1957,9 +2009,9 @@ character_event = {
 				modifier = {
 					factor = 5
 					FROM = {
-						has_character_flag = flag_anti_personnel_tactics
 						OR = {
 							AND = {
+								has_character_flag = flag_anti_personnel_tactics
 								has_character_flag = flag_in_vehicle
 								persistent_event_target:my_vehicle = { has_artifact_flag = anti_personnel_bonus }
 							}
@@ -2031,13 +2083,13 @@ character_event = {
 						}
 					}
 				}
-				# Anti-vehicle with anti-vehicle bonus
+				# Anti-vehicle bonus
 				modifier = {
 					factor = 5
 					FROM = {
-						has_character_flag = flag_anti_vehicle_tactics
 						OR = {
 							AND = {
+								has_character_flag = flag_anti_vehicle_tactics
 								has_character_flag = flag_in_vehicle
 								persistent_event_target:my_vehicle = { has_artifact_flag = anti_vehicle_bonus }
 							}
@@ -2072,6 +2124,34 @@ character_event = {
 						trait = weak
 						NOT = { persistent_event_target:my_armor = { has_artifact_flag = power_armor } }
 					}
+				}
+				
+				# Flight is a perfect defense against melee
+				modifier = {
+					factor = 0
+					FROM = {
+						OR = {
+							has_character_flag = flag_melee_tactics
+							has_character_flag = flag_melee_vehicle_tactics
+						}
+						NOT = { has_character_flag = flag_interior }
+					}
+					NOT = { has_character_flag = flag_in_vehicle }
+					NOT = { has_character_flag = flag_melee_tactics }
+					persistent_event_target:my_armor = { has_artifact_flag = jetpack }
+				}
+				# And a not-so-perfect defense against all ranged weapons except assault rifles
+				modifier = {
+					factor = 0.25
+					FROM = {
+						has_character_flag = flag_anti_personnel_tactics
+						NOT = { has_character_flag = flag_in_vehicle }
+						NOT = { persistent_event_target:my_weapon = { has_artifact_flag = assault_rifle } }
+						NOT = { has_character_flag = flag_interior }
+					}
+					NOT = { has_character_flag = flag_in_vehicle }
+					NOT = { has_character_flag = flag_melee_tactics }
+					persistent_event_target:my_armor = { has_artifact_flag = jetpack }
 				}
 				log = "[Root.GetBestName] lost the round, trigger duel.3 for [From.GetBestName]."
 				FROM = { character_event = { id = duel.3 } }
@@ -2937,6 +3017,7 @@ character_event = {
 		clr_character_flag = flag_enemy_analyzed
 		clr_character_flag = flag_in_vehicle
 		clr_character_flag = flag_friendly_duel
+		clr_character_flag = flag_no_quarter
 		clr_character_flag = flag_infantry_duel
 		clr_character_flag = flag_walker_duel
 		clr_character_flag = flag_open_field
@@ -3212,6 +3293,7 @@ character_event = {
 	
 	# Let them go.
 	option = {
+		trigger = { NOT = { has_character_flag = flag_no_quarter } }
 		name = "EVTOPTANEWDUEL30"
 		set_character_flag = flag_victory
 		if = {
@@ -3344,11 +3426,26 @@ character_event = {
 				factor = 0.8
 				NOT = { opinion = { who = FROM value = -99 } }
 			}
+			modifier = {
+				factor = 0
+				has_plot = plot_kill_character
+				plot_target_char = { character = FROM }
+			}
+			modifier = {
+				factor = 0
+				any_backed_character = {
+					has_plot = plot_kill_character
+					plot_target_char = { character = FROM }
+				}
+			}
 		}
 	}
 	# Take them prisoner
 	option = {
-		trigger = { NOT = { has_character_flag = flag_friendly_duel } }
+		trigger = {
+			NOT = { has_character_flag = flag_friendly_duel }
+			NOT = { has_character_flag = flag_no_quarter }
+		}
 		name = "EVTOPTBNEWDUEL30"
 		set_character_flag = flag_victory
 		if = {
@@ -3373,6 +3470,18 @@ character_event = {
 			modifier = {
 				factor = 10
 				liege = { any_current_enemy = { character = FROM } }
+			}
+			modifier = {
+				factor = 0
+				has_plot = plot_kill_character
+				plot_target_char = { character = FROM }
+			}
+			modifier = {
+				factor = 0
+				any_backed_character = {
+					has_plot = plot_kill_character
+					plot_target_char = { character = FROM }
+				}
 			}
 		}
 	}
@@ -3402,18 +3511,6 @@ character_event = {
 			modifier = {
 				factor = 4
 				trait = cold
-			}
-			modifier = {
-				factor = 20
-				has_plot = plot_kill_character
-				plot_target_char = { character = FROM }
-			}
-			modifier = {
-				factor = 20
-				any_backed_character = {
-					has_plot = plot_kill_character
-					plot_target_char = { character = FROM }
-				}
 			}
 			modifier = {
 				factor = 1.25
@@ -3519,6 +3616,7 @@ character_event = {
 		clr_character_flag = flag_enemy_analyzed
 		clr_character_flag = flag_in_vehicle
 		clr_character_flag = flag_friendly_duel
+		clr_character_flag = flag_no_quarter
 		clr_character_flag = flag_infantry_duel
 		clr_character_flag = flag_walker_duel
 		clr_character_flag = flag_open_field
@@ -3558,6 +3656,7 @@ character_event = {
 		clr_character_flag = flag_enemy_analyzed
 		clr_character_flag = flag_in_vehicle
 		clr_character_flag = flag_friendly_duel
+		clr_character_flag = flag_no_quarter
 		clr_character_flag = flag_infantry_duel
 		clr_character_flag = flag_walker_duel
 		clr_character_flag = flag_open_field
@@ -3706,6 +3805,7 @@ character_event = {
 		clr_character_flag = flag_enemy_analyzed
 		clr_character_flag = flag_in_vehicle
 		clr_character_flag = flag_friendly_duel
+		clr_character_flag = flag_no_quarter
 		clr_character_flag = flag_infantry_duel
 		clr_character_flag = flag_walker_duel
 		clr_character_flag = flag_open_field
@@ -3765,6 +3865,7 @@ character_event = {
 		clr_character_flag = flag_enemy_analyzed
 		clr_character_flag = flag_in_vehicle
 		clr_character_flag = flag_friendly_duel
+		clr_character_flag = flag_no_quarter
 		clr_character_flag = flag_infantry_duel
 		clr_character_flag = flag_walker_duel
 		clr_character_flag = flag_open_field
@@ -3974,6 +4075,7 @@ character_event = {
 		clr_character_flag = flag_enemy_analyzed
 		clr_character_flag = flag_in_vehicle
 		clr_character_flag = flag_friendly_duel
+		clr_character_flag = flag_no_quarter
 		clr_character_flag = flag_infantry_duel
 		clr_character_flag = flag_walker_duel
 		clr_character_flag = flag_open_field
@@ -3991,10 +4093,56 @@ character_event = {
 		clr_character_flag = flag_first_round
 		
 		# COLLECT YOUR OUTPUTS
+		# Duels during sieges
 		if = {
 			limit = { has_character_flag = flag_siege_duel_chain }
 			clr_character_flag = flag_siege_duel_chain
+			FROMFROM = { clr_character_flag = flag_siege_duel_chain }
 			character_event = { id = cotc_siege.2 }
+		}
+		# Duels from attempted hunting assassinations
+		if = {
+			limit = { has_character_flag = flag_duel_hunt_assassin }
+			if = {
+				limit = { FROMFROM = { is_alive = no } }
+				clr_character_flag = flag_duel_hunt_assassin
+				FROMFROM = { clr_character_flag = flag_duel_hunt_victim }
+				character_event = { id = lifestyle.222913 }
+			}
+			else = {
+				clr_character_flag = flag_duel_hunt_assassin
+				FROMFROM = {
+					clr_character_flag = flag_duel_hunt_victim
+					character_event = { id = lifestyle.622913 }
+				}
+				character_event = { id = lifestyle.422913 }
+			}
+		}
+		if = {
+			limit = { has_character_flag = flag_duel_hunt_victim }
+			if = {
+				limit = { FROMFROM = { is_alive = no } }
+				clr_character_flag = flag_duel_hunt_victim
+				FROMFROM = { clr_character_flag = flag_duel_hunt_assassin }
+				character_event = { id = lifestyle.922913 }
+			}
+			else_if = {
+				limit = { FROMFROM = { prisoner = yes } }
+				clr_character_flag = flag_duel_hunt_victim
+				FROMFROM = {
+					clr_character_flag = flag_duel_hunt_assassin
+					character_event = { id = lifestyle.822913 }
+				}
+				character_event = { id = lifestyle.722913 }
+			}
+			else = {
+				clr_character_flag = flag_duel_hunt_victim
+				FROMFROM = {
+					clr_character_flag = flag_duel_hunt_assassin
+					character_event = { id = lifestyle.422913 }
+				}
+				character_event = { id = lifestyle.622913 }
+			}
 		}
 	}
 }

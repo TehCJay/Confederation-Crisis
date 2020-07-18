@@ -126,6 +126,657 @@ decisions = {
 	}
 }
 
+targetted_decisions = {
+	# General decision, for the player and for the AI to use within the realm
+	invite_hunting_decision = {
+		ai_target_filter = realm
+		ai_check_interval = 20
+		from_potential = {
+			OR = {
+				trait = hunter
+				trait = falconer
+				has_focus = focus_hunting
+			}
+			NOT = { trait = incapable }
+			prisoner = no
+			age = 16
+			NOT = { persistent_event_target:hunting_partner = { always = yes } }
+			any_realm_title = {
+				OR = {
+					has_building = ca_environment_1
+					has_building = ct_environment_1
+					has_building = tp_environment_1
+				}
+			}
+		}
+		potential = {
+			is_within_diplo_range = FROM
+			OR = {
+				trait = hunter
+				trait = falconer
+				has_focus = focus_hunting
+			}
+			NOT = { trait = incapable }
+			prisoner = no
+			age = 16
+		}
+		allow = {
+			FROM = {
+				OR = {
+					trait = hunter
+					has_focus = focus_hunting
+					AND = {
+						trait = falconer
+						any_artifact = {
+							custom_tooltip = {
+								text = "ISARAPTORTOOLTIP"
+								has_artifact_flag = raptor
+							}
+							custom_tooltip = {
+								text = "ISTRAINEDTOOLTIP"
+								has_artifact_flag = trained
+							}
+							custom_tooltip = {
+								text = "ISHEALTHYTOOLTIP"
+								NOT = { has_artifact_flag = injured }
+								NOT = { has_artifact_flag = sick }
+							}
+							is_artifact_equipped = yes
+						}
+					}
+				}
+				NOT = { trait = on_leave }
+				NOT = { trait = in_hiding }
+				NOT = { trait = maimed }
+				NOT = { trait = severely_injured }
+				custom_tooltip = {
+					text = "ONEYEARCOOLDOWN"
+					OR = {
+						NOT = { has_character_flag = flag_hunting_trip }
+						had_character_flag = { flag = flag_hunting_trip days = 365 }
+					}
+				}
+				NOT = { has_character_flag = flag_busy }
+			}
+			OR = {
+				trait = hunter
+				has_focus = focus_hunting
+				AND = {
+					trait = falconer
+					any_artifact = {
+						custom_tooltip = {
+							text = "ISARAPTORTOOLTIP"
+							has_artifact_flag = raptor
+						}
+						custom_tooltip = {
+							text = "ISTRAINEDTOOLTIP"
+							has_artifact_flag = trained
+						}
+						custom_tooltip = {
+							text = "ISHEALTHYTOOLTIP"
+							NOT = { has_artifact_flag = injured }
+							NOT = { has_artifact_flag = sick }
+						}
+						is_artifact_equipped = yes
+					}
+				}
+			}
+			NOT = { trait = on_leave }
+			NOT = { trait = in_hiding }
+			NOT = { trait = maimed }
+			NOT = { trait = severely_injured }
+			custom_tooltip = {
+				text = "ONEYEARCOOLDOWN"
+				hidden_tooltip = { NOT = { has_opinion_modifier = { who = FROM modifier = opinion_very_recent_request } } }
+			}
+			hidden_tooltip = { NOT = { persistent_event_target:hunting_partner = { always = yes } } }
+		}
+		effect = {
+			hidden_tooltip = { opinion = { who = FROM modifier = opinion_very_recent_request } }
+			letter_event = { id = lifestyle.2813 tooltip = "EVTTOOLTIPLIFESTYLE2813" }
+		}
+		ai_will_do = {
+			factor = 1
+			# Random factor
+			modifier = {
+				factor = 0.1
+			}
+			modifier = {
+				factor = 0.5
+				FROM = { trait = introverted }
+			}
+			modifier = {
+				factor = 2
+				FROM = { trait = extraverted }
+			}
+			
+			# Needs a positive reason to care about this person in particular
+			modifier = {
+				factor = 0
+				NOT = { is_close_relative = FROM }
+				NOT = { liege = { character = FROM } }
+				NOT = { FROM = { liege = { character = ROOT } } }
+				NOT = { same_liege = FROM }
+				NOT = { is_friend = FROM }
+				NOT = { FROM = { plot_target_char = { character = ROOT } } }
+				NOT = { FROM = { any_backed_character = { plot_target_char = { character = ROOT } } } }
+				NOT = { FROM = { plot_target_char = { liege = { character = ROOT } } } }
+				NOT = { FROM = { plot_target_char = { ROOT = { liege = { character = PREVPREV } } } } }
+				NOT = { FROM = { plot_target_char = { same_liege = ROOT } } }
+			}
+			
+			# reverse_opinion
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -99 } }
+			}
+			
+			# Political concerns
+			modifier = {
+				factor = 2
+				relative_power = { who = FROM power = 1.0 }
+				FROM = {
+					OR = {
+						trait = pragmatic
+						trait = ambitious
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				relative_power = { who = FROM power = 1.5 }
+				FROM = {
+					OR = {
+						trait = pragmatic
+						trait = ambitious
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				relative_power = { who = FROM power = 2.0 }
+				FROM = {
+					OR = {
+						trait = pragmatic
+						trait = ambitious
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				relative_power = { who = FROM power = 2.5 }
+				FROM = {
+					OR = {
+						trait = pragmatic
+						trait = ambitious
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				relative_power = { who = FROM power = 3.0 }
+				FROM = {
+					OR = {
+						trait = pragmatic
+						trait = ambitious
+					}
+				}
+			}
+			modifier = {
+				factor = 4
+				FROM = { is_liege_or_above = ROOT }
+				FROM = {
+					OR = {
+						trait = pragmatic
+						trait = ambitious
+					}
+				}
+			}
+			
+			# Get a plot target alone with a deadly weapon
+			modifier = {
+				factor = 5
+				FROM = { plot_target_char = { any_vassal = { character = ROOT } } }
+			}
+			modifier = {
+				factor = 5
+				FROM = { plot_target_char = { any_courtier = { character = ROOT } } }
+			}
+			modifier = {
+				factor = 20
+				FROM = {
+					plot_target_char = { character = ROOT }
+					has_plot = plot_kill_character
+				}
+			}
+			modifier = {
+				factor = 20
+				FROM = {
+					any_backed_character = {
+						plot_target_char = { character = ROOT }
+						has_plot = plot_kill_character
+					}
+				}
+			}
+			
+			# Don't invite people who want you dead on a hunting expedition
+			modifier = {
+				factor = 0
+				plot_target_char = { character = FROM }
+				has_plot = plot_kill_character
+				plot_is_known_by = FROM
+			}
+			modifier = {
+				factor = 0
+				any_backed_character = {
+					plot_target_char = { character = FROM }
+					has_plot = plot_kill_character
+					plot_is_known_by = FROM
+				}
+			}
+		}
+	}
+	# Special decision so AI independent rulers will invite fellow independent rulers hunting
+	invite_fellow_ruler_hunting_decision = {
+		only_rulers = yes
+		ai_target_filter = independent_rulers
+		ai_check_interval = 20
+		from_potential = {
+			ai = yes
+			independent = yes
+			OR = {
+				trait = hunter
+				trait = falconer
+				has_focus = focus_hunting
+			}
+			NOT = { trait = incapable }
+			prisoner = no
+			age = 16
+			NOT = { persistent_event_target:hunting_partner = { always = yes } }
+			any_realm_title = {
+				OR = {
+					has_building = ca_environment_1
+					has_building = ct_environment_1
+					has_building = tp_environment_1
+				}
+			}
+		}
+		potential = {
+			is_within_diplo_range = FROM
+			OR = {
+				trait = hunter
+				trait = falconer
+				has_focus = focus_hunting
+			}
+			NOT = { trait = incapable }
+			prisoner = no
+			age = 16
+		}
+		allow = {
+			FROM = {
+				OR = {
+					trait = hunter
+					has_focus = focus_hunting
+					AND = {
+						trait = falconer
+						any_artifact = {
+							custom_tooltip = {
+								text = "ISARAPTORTOOLTIP"
+								has_artifact_flag = raptor
+							}
+							custom_tooltip = {
+								text = "ISTRAINEDTOOLTIP"
+								has_artifact_flag = trained
+							}
+							custom_tooltip = {
+								text = "ISHEALTHYTOOLTIP"
+								NOT = { has_artifact_flag = injured }
+								NOT = { has_artifact_flag = sick }
+							}
+							is_artifact_equipped = yes
+						}
+					}
+				}
+				NOT = { trait = on_leave }
+				NOT = { trait = in_hiding }
+				NOT = { trait = maimed }
+				NOT = { trait = severely_injured }
+				custom_tooltip = {
+					text = "ONEYEARCOOLDOWN"
+					OR = {
+						NOT = { has_character_flag = flag_hunting_trip }
+						had_character_flag = { flag = flag_hunting_trip days = 365 }
+					}
+				}
+				NOT = { has_character_flag = flag_busy }
+			}
+			OR = {
+				trait = hunter
+				has_focus = focus_hunting
+				AND = {
+					trait = falconer
+					any_artifact = {
+						custom_tooltip = {
+							text = "ISARAPTORTOOLTIP"
+							has_artifact_flag = raptor
+						}
+						custom_tooltip = {
+							text = "ISTRAINEDTOOLTIP"
+							has_artifact_flag = trained
+						}
+						custom_tooltip = {
+							text = "ISHEALTHYTOOLTIP"
+							NOT = { has_artifact_flag = injured }
+							NOT = { has_artifact_flag = sick }
+						}
+						is_artifact_equipped = yes
+					}
+				}
+			}
+			NOT = { trait = on_leave }
+			NOT = { trait = in_hiding }
+			NOT = { trait = maimed }
+			NOT = { trait = severely_injured }
+			custom_tooltip = {
+				text = "ONEYEARCOOLDOWN"
+				hidden_tooltip = { NOT = { has_opinion_modifier = { who = FROM modifier = opinion_very_recent_request } } }
+			}
+			hidden_tooltip = { NOT = { persistent_event_target:hunting_partner = { always = yes } } }
+		}
+		effect = {
+			hidden_tooltip = { opinion = { who = FROM modifier = opinion_very_recent_request } }
+			letter_event = { id = lifestyle.2813 tooltip = "EVTTOOLTIPLIFESTYLE2813" }
+		}
+		ai_will_do = {
+			factor = 1
+			# Random factor
+			modifier = {
+				factor = 0.1
+			}
+			modifier = {
+				factor = 0.5
+				FROM = { trait = introverted }
+			}
+			modifier = {
+				factor = 2
+				FROM = { trait = extraverted }
+			}
+			
+			# Needs a positive reason to care about this person in particular
+			modifier = {
+				factor = 0
+				NOT = { is_close_relative = FROM }
+				NOT = { any_realm_province = { any_neighbor_province = { owner = { same_realm = FROM } } } }
+				NOT = { is_friend = FROM }
+				NOT = { FROM = { plot_target_char = { character = ROOT } } }
+				NOT = { FROM = { any_backed_character = { plot_target_char = { character = ROOT } } } }
+			}
+			
+			# reverse_opinion
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				reverse_opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { reverse_opinion = { who = FROM value = -99 } }
+			}
+			
+			# Political concerns
+			modifier = {
+				factor = 2
+				relative_power = { who = FROM power = 1.0 }
+				FROM = {
+					OR = {
+						trait = pragmatic
+						trait = ambitious
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				relative_power = { who = FROM power = 1.5 }
+				FROM = {
+					OR = {
+						trait = pragmatic
+						trait = ambitious
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				relative_power = { who = FROM power = 2.0 }
+				FROM = {
+					OR = {
+						trait = pragmatic
+						trait = ambitious
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				relative_power = { who = FROM power = 2.5 }
+				FROM = {
+					OR = {
+						trait = pragmatic
+						trait = ambitious
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				relative_power = { who = FROM power = 3.0 }
+				FROM = {
+					OR = {
+						trait = pragmatic
+						trait = ambitious
+					}
+				}
+			}
+			modifier = {
+				factor = 4
+				FROM = { is_liege_or_above = ROOT }
+				FROM = {
+					OR = {
+						trait = pragmatic
+						trait = ambitious
+					}
+				}
+			}
+			modifier = {
+				factor = 5
+				FROM = { plot_target_char = { any_vassal = { character = ROOT } } }
+			}
+			modifier = {
+				factor = 5
+				FROM = { plot_target_char = { any_courtier = { character = ROOT } } }
+			}
+			modifier = {
+				factor = 20
+				FROM = {
+					plot_target_char = { character = ROOT }
+					has_plot = plot_kill_character
+				}
+			}
+			modifier = {
+				factor = 20
+				FROM = {
+					any_backed_character = {
+						plot_target_char = { character = ROOT }
+						has_plot = plot_kill_character
+					}
+				}
+			}
+			
+			# Don't go hunting with people you know want to kill you
+			modifier = {
+				factor = 0
+				plot_target_char = { character = FROM }
+				has_plot = plot_kill_character
+				plot_is_known_by = FROM
+				FROM = { NOT = { trait = imbecile } }
+			}
+			modifier = {
+				factor = 0
+				any_backed_character = {
+					plot_target_char = { character = FROM }
+					has_plot = plot_kill_character
+					plot_is_known_by = FROM
+				}
+				FROM = { NOT = { trait = imbecile } }
+			}
+		}
+	}
+}
+
 settlement_decisions = {
 	go_hunting_decision = {
 		filter = realm_owned
@@ -171,7 +822,6 @@ settlement_decisions = {
 				NOT = { trait = in_hiding }
 				NOT = { trait = maimed }
 				NOT = { trait = severely_injured }
-				scaled_wealth = 0.1
 				custom_tooltip = {
 					text = "ONEYEARCOOLDOWN"
 					OR = {
@@ -186,9 +836,6 @@ settlement_decisions = {
 				has_building = ct_environment_1
 				has_building = tp_environment_1
 			}
-			NOT = { has_building = ca_primary_q_5 }
-			NOT = { has_building = ct_primary_q_5 }
-			NOT = { has_building = tp_primary_q_5 }
 		}
 		effect = {
 			save_event_target_as = hunting_destination
@@ -218,6 +865,7 @@ settlement_decisions = {
 					has_title_flag = flag_lei_niao
 					has_title_flag = flag_tunnel_cat
 					has_title_flag = flag_bai_gui
+					has_title_flag = flag_roykrysas
 				}
 			}
 			modifier = {

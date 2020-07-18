@@ -57,6 +57,12 @@ narrative_event = {
 				save_event_target_as = hunting_weapon_2
 			}
 		}
+		# Check if you're hunting with a partner
+		clr_character_flag = flag_hunting_with_partner
+		if = {
+			limit = { persistent_event_target:hunting_partner = { always = yes } }
+			set_character_flag = flag_hunting_with_partner
+		}
 	}
 	
 	# Go for a standard hunt
@@ -70,7 +76,12 @@ narrative_event = {
 		clear_event_target = hunting_raptor
 		add_trait = on_leave
 		if = {
-			limit = { event_target:planetary_governor = { character = ROOT } }
+			limit = {
+				OR = {
+					event_target:planetary_governor = { character = ROOT }
+					persistent_event_target:hunting_partner = { character = event_target:planetary_governor }
+				}
+			}
 			narrative_event = { id = lifestyle.1213 days = 5 random = 5 tooltip = "EVTTOOLTIPLIFESTYLE1213" }
 			hidden_tooltip = { narrative_event = { id = lifestyle.2313 days = 15 random = 30 } }
 		}
@@ -107,7 +118,12 @@ narrative_event = {
 		clear_event_target = hunting_weapon
 		add_trait = on_leave
 		if = {
-			limit = { event_target:planetary_governor = { character = ROOT } }
+			limit = {
+				OR = {
+					event_target:planetary_governor = { character = ROOT }
+					persistent_event_target:hunting_partner = { character = event_target:planetary_governor }
+				}
+			}
 			narrative_event = { id = lifestyle.1213 days = 5 random = 5 tooltip = "EVTTOOLTIPLIFESTYLE1213" }
 			hidden_tooltip = { narrative_event = { id = lifestyle.2313 days = 15 random = 30 } }
 		}
@@ -280,6 +296,28 @@ narrative_event = {
 			modifier = {
 				factor = 20
 				any_backed_character = { plot_target_char = { character = FROM } }
+			}
+			
+			# Don't go hunting with people you know want to kill you
+			modifier = {
+				factor = 0
+				FROM = {
+					has_plot = plot_kill_character
+					plot_target_char = { character = ROOT }
+					plot_is_known_by = ROOT
+				}
+				NOT = { trait = imbecile }
+			}
+			modifier = {
+				factor = 0
+				FROM = {
+					any_backed_character = {
+						has_plot = plot_kill_character
+						plot_target_char = { character = ROOT }
+						plot_is_known_by = ROOT
+					}
+				}
+				NOT = { trait = imbecile }
 			}
 		}
 	}
@@ -964,6 +1002,28 @@ narrative_event = {
 				factor = 20
 				any_backed_character = { plot_target_char = { character = FROM } }
 			}
+			
+			# Don't go hunting with people you know want to kill you
+			modifier = {
+				factor = 0
+				FROM = {
+					has_plot = plot_kill_character
+					plot_target_char = { character = ROOT }
+					plot_is_known_by = ROOT
+				}
+				NOT = { trait = imbecile }
+			}
+			modifier = {
+				factor = 0
+				FROM = {
+					any_backed_character = {
+						has_plot = plot_kill_character
+						plot_target_char = { character = ROOT }
+						plot_is_known_by = ROOT
+					}
+				}
+				NOT = { trait = imbecile }
+			}
 		}
 	}
 	option = {
@@ -1040,6 +1100,10 @@ narrative_event = {
 		clr_character_flag = flag_hunting_ultravore
 		clr_character_flag = flag_hunting_warhound
 		clr_character_flag = flag_hunting_roykrysa
+		
+		# Random hunting assassination chance
+		character_event = { id = lifestyle.2913 days = 1 random = 5 }
+		persistent_event_target:hunting_partner = { character_event = { id = lifestyle.2913 days = 1 random = 5 } }
 	}
 	
 	# Hunt small game
@@ -1466,6 +1530,7 @@ narrative_event = {
 	}
 	# Hunt roykrysas
 	option = {
+		trigger = { event_target:hunting_destination = { has_title_flag = flag_roykrysa } }
 		name = "EVTOPTQLIFESTYLE1213"
 		set_character_flag = flag_hunting_roykrysa
 		hidden_tooltip = {
@@ -6629,7 +6694,7 @@ narrative_event = {
 	# Split the credit and rewards evenly
 	option = {
 		trigger = { has_character_flag = flag_hunting_with_partner }
-		name = "EVTOPTALIFESTYLE1413"
+		name = "EVTOPTBLIFESTYLE1413"
 		opinion = { who = persistent_event_target:hunting_partner modifier = opinion_successful_hunt }
 		reverse_opinion = { who = persistent_event_target:hunting_partner modifier = opinion_successful_hunt }
 		hidden_tooltip = { persistent_event_target:hunting_partner = { narrative_event = { id = lifestyle.21413 } } }
@@ -6766,7 +6831,7 @@ narrative_event = {
 	# Give full credit to your partner
 	option = {
 		trigger = { has_character_flag = flag_hunting_with_partner }
-		name = "EVTOPTALIFESTYLE1413"
+		name = "EVTOPTCLIFESTYLE1413"
 		opinion = { who = persistent_event_target:hunting_partner modifier = opinion_successful_hunt }
 		opinion = { who = persistent_event_target:hunting_partner modifier = opinion_gave_full_credit }
 		reverse_opinion = { who = persistent_event_target:hunting_partner modifier = opinion_successful_hunt }
@@ -8191,7 +8256,7 @@ narrative_event = {
 	}
 }
 
-# ADDITIONAL RANDOM EVENTS
+# ADDITIONAL EVENTS
 # Hunting trip ends because of unrelated injury or imprisonment
 character_event = {
 	id = lifestyle.2613
@@ -8225,4 +8290,777 @@ character_event = {
 	}
 	
 	immediate = { narrative_event = { id = lifestyle.2413 } }
+}
+# Invitation to a hunting trip
+letter_event = {
+	id = lifestyle.2813
+	desc = "EVTDESCLIFESTYLE2813"
+	show_from_from = yes
+	is_triggered_only = yes
+	
+	trigger = { NOT = { persistent_event_target:hunting_partner = { always = yes } } }
+	
+	option = {
+		name = "EVTOPTACCEPT"
+		if = {
+			limit = {
+				OR = {
+					FROMFROM = {
+						has_plot = plot_kill_character
+						plot_target_char = { character = ROOT }
+					}
+					FROMFROM = {
+						any_backed_character = {
+							has_plot = plot_kill_character
+							plot_target_char = { character = ROOT }
+						}
+					}
+				}
+			}
+			log = "[FromFrom.GetBestName] invited [Root.GetBestName], who [FromFrom.GetSheHe] plans to assassinate, on a hunting expedition."
+		}
+		else = { log = "[FromFrom.GetBestName] invited [Root.GetBestName] on a hunting expedition." }
+		save_persistent_event_target = { name = hunting_partner scope = FROMFROM }
+		FROMFROM = {
+			save_persistent_event_target = { name = hunting_partner scope = ROOT }
+			hidden_tooltip = { letter_event = { id = lifestyle.12813 } } # Inform the hunter that they have a partner
+			hidden_tooltip = { letter_event = { id = lifestyle.32813 days = 90 } } # Time limit to take the hunting trip
+		}
+		ai_chance = {
+			factor = 50
+			
+			# Personality
+			modifier = {
+				factor = 4
+				trait = hunter
+			}
+			modifier = {
+				factor = 4
+				trait = falconer
+			}
+			modifier = {
+				factor = 4
+				has_focus = focus_hunting
+			}
+			modifier = {
+				factor = 0.5
+				trait = introverted
+			}
+			modifier = {
+				factor = 2
+				trait = extraverted
+			}
+			modifier = {
+				factor = 2
+				trait = brave
+			}
+			modifier = {
+				factor = 0.5
+				trait = craven
+			}
+			modifier = {
+				factor = 2
+				trait = cold
+			}
+			modifier = {
+				factor = 0.5
+				trait = friendly
+			}
+			
+			# Opinion
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -99 } }
+			}
+			
+			# Political concerns
+			modifier = {
+				factor = 2
+				FROMFROM = { relative_power = { who = ROOT power = 1.0 } }
+				OR = {
+					trait = pragmatic
+					trait = ambitious
+				}
+			}
+			modifier = {
+				factor = 2
+				FROMFROM = { relative_power = { who = ROOT power = 1.5 } }
+				OR = {
+					trait = pragmatic
+					trait = ambitious
+				}
+			}
+			modifier = {
+				factor = 2
+				FROMFROM = { relative_power = { who = ROOT power = 2.0 } }
+				OR = {
+					trait = pragmatic
+					trait = ambitious
+				}
+			}
+			modifier = {
+				factor = 2
+				FROMFROM = { relative_power = { who = ROOT power = 2.5 } }
+				OR = {
+					trait = pragmatic
+					trait = ambitious
+				}
+			}
+			modifier = {
+				factor = 2
+				FROMFROM = { relative_power = { who = ROOT power = 3.0 } }
+				OR = {
+					trait = pragmatic
+					trait = ambitious
+				}
+			}
+			modifier = {
+				factor = 4
+				is_liege_or_above = FROMFROM
+				OR = {
+					trait = pragmatic
+					trait = ambitious
+				}
+			}
+			modifier = {
+				factor = 5
+				plot_target_char = { any_vassal = { character = FROMFROM } }
+			}
+			modifier = {
+				factor = 5
+				plot_target_char = { any_courtier = { character = FROMFROM } }
+			}
+			modifier = {
+				factor = 20
+				plot_target_char = { character = FROMFROM }
+			}
+			modifier = {
+				factor = 20
+				any_backed_character = { plot_target_char = { character = FROMFROM } }
+			}
+			
+			# Don't go hunting with people you know want to kill you
+			modifier = {
+				factor = 0
+				FROMFROM = {
+					has_plot = plot_kill_character
+					plot_target_char = { character = ROOT }
+					plot_is_known_by = ROOT
+				}
+				NOT = { trait = imbecile }
+			}
+			modifier = {
+				factor = 0
+				FROMFROM = {
+					any_backed_character = {
+						has_plot = plot_kill_character
+						plot_target_char = { character = ROOT }
+						plot_is_known_by = ROOT
+					}
+				}
+				NOT = { trait = imbecile }
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTDECLINE"
+		hidden_tooltip = { FROMFROM = { letter_event = { id = lifestyle.22813 } } } # Inform the hunter that they do not have a partner
+		ai_chance = { factor = 50 }
+	}
+}
+letter_event = {
+	id = lifestyle.12813
+	desc = "EVTDESCLIFESTYLE12813"
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		reverse_opinion = { who = FROM modifier = opinion_invited_on_hunting_trip }
+		# For the AI, immediately pick a planet to go hunting on
+		if = {
+			limit = { ai = yes }
+			random_realm_title = {
+				limit = {
+					OR = {
+						has_building = ca_environment_1
+						has_building = ct_environment_1
+						has_building = tp_environment_1
+					}
+				}
+				preferred_limit = {
+					OR = {
+						has_title_flag = flag_leviathan
+						has_title_flag = flag_ratatosuku
+						has_title_flag = flag_koloss
+						has_title_flag = flag_paraisan_wolf
+						has_title_flag = flag_chouten_oni
+						has_title_flag = flag_ghuul
+						has_title_flag = flag_mimic
+						has_title_flag = flag_warhound
+						has_title_flag = flag_ultravore
+						has_title_flag = flag_monoceros
+						has_title_flag = flag_lei_niao
+						has_title_flag = flag_tunnel_cat
+						has_title_flag = flag_bai_gui
+						has_title_flag = flag_roykrysas
+					}
+				}
+				save_event_target_as = hunting_destination
+			}
+			set_character_flag = flag_busy
+			character_event = { id = lifestyle.1013 }
+		}
+	}
+}
+letter_event = {
+	id = lifestyle.22813
+	desc = "EVTDESCLIFESTYLE22813"
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+letter_event = {
+	id = lifestyle.32813
+	desc = "EVTDESCLIFESTYLE32813"
+	is_triggered_only = yes
+	
+	trigger = {
+		persistent_event_target:hunting_partner = { character = FROM }
+		NOT = { has_character_flag = flag_on_the_hunt }
+	}
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		clear_persistent_event_target = hunting_partner
+		FROM = {
+			clear_persistent_event_target = FROM
+			opinion = { who = ROOT modifier = opinion_disinvited_from_hunting_trip }
+		}
+	}
+}
+
+### Assassinating your partner while hunting
+character_event = {
+	id = lifestyle.2913
+	desc = "EVTDESCLIFESTYLE2913"
+	picture = GFX_evt_hunting_party
+	border = GFX_event_normal_frame_intrigue
+	is_triggered_only = yes
+	
+	trigger = {
+		# Must want to kill your partner
+		OR = {
+			AND = {
+				has_plot = plot_kill_character
+				plot_target_char = { ROOT = { persistent_event_target:hunting_partner = { character = PREVPREV } } }
+			}
+			any_backed_character = {
+				has_plot = plot_kill_character
+				plot_target_char = { ROOT = { persistent_event_target:hunting_partner = { character = PREVPREV } } }
+			}
+		}
+	}
+	
+	immediate = {
+		log = "[Root.GetBestName] got the opportunity to assasinate [persistent_event_target:hunting_partner.GetBestName] on a hunting expedition."
+		if = {
+			limit = {
+				NOT = {
+					AND = {
+						has_plot = plot_kill_character
+						plot_target_char = { ROOT = { persistent_event_target:hunting_partner = { character = PREVPREV } } }
+					}
+				}
+			}
+			random_backed_character = {
+				limit = {
+					has_plot = plot_kill_character
+					plot_target_char = { ROOT = { persistent_event_target:hunting_partner = { character = PREVPREV } } }
+				}
+				save_event_target_as = main_plotter
+			}
+		}
+	}
+	
+	# Go for it
+	option = {
+		name = "EVTOPTALIFESTYLE2913"
+		clr_character_flag = flag_on_the_hunt
+		clr_character_flag = flag_falconry_hunter
+		clr_character_flag = flag_hunting_with_partner
+		random_list = {
+			# A clean kill
+			33 = {
+				persistent_event_target:hunting_partner = { character_event = { id = lifestyle.12913 tooltip = "EVTTOOLTIPLIFESTYLE12913" } }
+				# Known plot
+				modifier = {
+					factor = 0.2
+					plot_is_known_by = persistent_event_target:hunting_partner
+				}
+				# Combat rating effects - can you hit the target?
+				modifier = {
+					factor = 1.1
+					combat_rating = 3
+				}
+				modifier = {
+					factor = 1.1
+					combat_rating = 6
+				}
+				modifier = {
+					factor = 1.1
+					combat_rating = 9
+				}
+				modifier = {
+					factor = 1.1
+					combat_rating = 12
+				}
+				modifier = {
+					factor = 1.1
+					combat_rating = 15
+				}
+				modifier = {
+					factor = 1.1
+					combat_rating = 18
+				}
+				modifier = {
+					factor = 1.1
+					combat_rating = 21
+				}
+				modifier = {
+					factor = 1.1
+					combat_rating = 24
+				}
+				modifier = {
+					factor = 1.1
+					combat_rating = 27
+				}
+				modifier = {
+					factor = 1.1
+					combat_rating = 30
+				}
+				# Intrigue effects - can you get the drop on the target?
+				modifier = {
+					factor = 0.8
+					persistent_event_target:hunting_partner = { attribute_diff = { character = ROOT attribute = intrigue value = 10 } }
+				}
+				modifier = {
+					factor = 0.8
+					persistent_event_target:hunting_partner = { attribute_diff = { character = ROOT attribute = intrigue value = 9 } }
+				}
+				modifier = {
+					factor = 0.8
+					persistent_event_target:hunting_partner = { attribute_diff = { character = ROOT attribute = intrigue value = 8 } }
+				}
+				modifier = {
+					factor = 0.8
+					persistent_event_target:hunting_partner = { attribute_diff = { character = ROOT attribute = intrigue value = 7 } }
+				}
+				modifier = {
+					factor = 0.8
+					persistent_event_target:hunting_partner = { attribute_diff = { character = ROOT attribute = intrigue value = 6 } }
+				}
+				modifier = {
+					factor = 0.8
+					persistent_event_target:hunting_partner = { attribute_diff = { character = ROOT attribute = intrigue value = 5 } }
+				}
+				modifier = {
+					factor = 0.8
+					persistent_event_target:hunting_partner = { attribute_diff = { character = ROOT attribute = intrigue value = 4 } }
+				}
+				modifier = {
+					factor = 0.8
+					persistent_event_target:hunting_partner = { attribute_diff = { character = ROOT attribute = intrigue value = 3 } }
+				}
+				modifier = {
+					factor = 0.8
+					persistent_event_target:hunting_partner = { attribute_diff = { character = ROOT attribute = intrigue value = 2 } }
+				}
+				modifier = {
+					factor = 0.8
+					persistent_event_target:hunting_partner = { attribute_diff = { character = ROOT attribute = intrigue value = 1 } }
+				}
+				modifier = {
+					factor = 1.25
+					attribute_diff = { character = persistent_event_target:hunting_partner attribute = intrigue value = 1 }
+				}
+				modifier = {
+					factor = 1.25
+					attribute_diff = { character = persistent_event_target:hunting_partner attribute = intrigue value = 2 }
+				}
+				modifier = {
+					factor = 1.25
+					attribute_diff = { character = persistent_event_target:hunting_partner attribute = intrigue value = 3 }
+				}
+				modifier = {
+					factor = 1.25
+					attribute_diff = { character = persistent_event_target:hunting_partner attribute = intrigue value = 4 }
+				}
+				modifier = {
+					factor = 1.25
+					attribute_diff = { character = persistent_event_target:hunting_partner attribute = intrigue value = 5 }
+				}
+				modifier = {
+					factor = 1.25
+					attribute_diff = { character = persistent_event_target:hunting_partner attribute = intrigue value = 6 }
+				}
+				modifier = {
+					factor = 1.25
+					attribute_diff = { character = persistent_event_target:hunting_partner attribute = intrigue value = 7 }
+				}
+				modifier = {
+					factor = 1.25
+					attribute_diff = { character = persistent_event_target:hunting_partner attribute = intrigue value = 8 }
+				}
+				modifier = {
+					factor = 1.25
+					attribute_diff = { character = persistent_event_target:hunting_partner attribute = intrigue value = 9 }
+				}
+				modifier = {
+					factor = 1.25
+					attribute_diff = { character = persistent_event_target:hunting_partner attribute = intrigue value = 10 }
+				}
+			}
+			# Botched kill
+			66 = { persistent_event_target:hunting_partner = { character_event = { id = lifestyle.22913 tooltip = "EVTTOOLTIPLIFESTYLE22913" } } }
+		}
+		ai_chance = {
+			factor = 66
+			modifier = {
+				factor = 2
+				trait = brave
+			}
+			modifier = {
+				factor = 0.5
+				trait = craven
+			}
+		}
+	}
+	# Let the opportunity pass by
+	option = {
+		name = "EVTOPTALIFESTYLE2913"
+		ai_chance = { factor = 33 }
+	}
+}
+
+# You were assassinated while hunting
+character_event = {
+	id = lifestyle.12913
+	desc = "EVTDESCLIFESTYLE12913"
+	picture = GFX_evt_hunting_party
+	border = GFX_event_normal_frame_intrigue
+	is_triggered_only = yes
+	
+	immediate = {
+		log = "[From.GetBestName] assassinated [Root.GetBestName] while hunting."
+		clr_character_flag = flag_on_the_hunt
+		clr_character_flag = flag_falconry_hunter
+		clr_character_flag = flag_hunting_with_partner
+		clear_persistent_event_target = hunting_partner
+		remove_trait = on_leave
+		FROM = {
+			clear_persistent_event_target = hunting_partner
+			remove_trait = on_leave
+		}
+	}
+	
+	# FROM was the main plotter
+	option = {
+		trigger = { NOT = { main_plotter = { always = yes } } }
+		name = "EVTOPTALIFESTYLE12913"
+		if = {
+			limit = { FROM = { plot_is_known_by = ROOT } }
+			death = { death_reason = death_murder_hunting killer = FROM }
+		}
+		else = { death = { death_reason = death_murder_unknown_hunting killer = FROM } }
+		hidden_tooltip = { FROM = { character_event = { id = lifestyle.112913 } } }
+	}
+	
+	# FROM was not the main plotter
+	option = {
+		trigger = { main_plotter = { always = yes } }
+		name = "EVTOPTALIFESTYLE12913"
+		if = {
+			limit = { main_plotter = { plot_is_known_by = ROOT } }
+			death = { death_reason = death_murder_hunting killer = main_plotter }
+		}
+		else = { death = { death_reason = death_murder_unknown_hunting killer = main_plotter } }
+		hidden_tooltip = { FROM = { character_event = { id = lifestyle.112913 } } }
+	}
+}
+
+# Your assassination attempt succeeded
+character_event = {
+	id = lifestyle.112913
+	desc = "EVTDESCLIFESTYLE112913"
+	picture = GFX_evt_hunting_party
+	border = GFX_event_normal_frame_intrigue
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTALIFESTYLE112913"
+		hidden_tooltip = { event_target:main_plotter = { letter_event = { id = lifestyle.212913 } } }
+	}
+}
+
+# Your plot target was killed in a hunting "accident"
+letter_event = {
+	id = lifestyle.212913
+	desc = "EVTDESCLIFESTYLE212913"
+	picture = GFX_evt_murder
+	border = GFX_event_normal_frame_intrigue
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTALIFESTYLE212913"
+		clear_event_target = main_plotter
+	}
+}
+
+# Your hunting partner has opened fire on you!
+character_event = {
+	id = lifestyle.22913
+	desc = "EVTDESCLIFESTYLE22913"
+	picture = GFX_evt_hunting_party
+	border = GFX_event_normal_frame_intrigue
+	is_triggered_only = yes
+	
+	immediate = {
+		log = "[From.GetBestName] botched an assassination attempt against [Root.GetBestName] during a hunting expedition."
+		clr_character_flag = flag_on_the_hunt
+		clr_character_flag = flag_falconry_hunter
+		clr_character_flag = flag_hunting_with_partner
+		clear_persistent_event_target = hunting_partner
+		remove_trait = on_leave
+		FROM = {
+			clear_persistent_event_target = hunting_partner
+			remove_trait = on_leave
+		}
+	}
+	
+	option = {
+		name = "EVTOPTALIFESTYLE22913"
+		opinion = { who = FROM modifier = opinion_murder_attempt }
+		FROM = { character_event = { id = lifestyle.122913 tooltip = "EVTTOOLTIPLIFESTYLE122913" } }
+	}
+}
+
+# You missed. Now it's a duel.
+character_event = {
+	id = lifestyle.122913
+	desc = "EVTDESCLIFESTYLE122913"
+	picture = GFX_evt_hunting_party
+	border = GFX_event_normal_frame_intrigue
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTALIFESTYLE122913"
+		if = {
+			limit = {
+				has_plot = plot_kill_character
+				plot_target_char = { character = FROM }
+			}
+			reveal_plot = FROM
+		}
+		event_target:hunting_destination = { save_event_target_as = duel_location }
+		save_event_target_as = target_assassin
+		set_character_flag = flag_duel_hunt_assassin
+		set_character_flag = flag_infantry_duel
+		set_character_flag = flag_no_quarter
+		set_character_flag = flag_open_field
+		FROM = {
+			save_event_target_as = target_victim
+			set_character_flag = flag_duel_hunt_victim
+			set_character_flag = flag_infantry_duel
+			set_character_flag = flag_open_field
+			hidden_tooltip = { character_event = { id = duel.50 } }
+		}
+	}
+}
+
+# You successfully finished the job. Eventually.
+character_event = {
+	id = lifestyle.222913
+	desc = "EVTDESCLIFESTYLE222913"
+	picture = GFX_evt_hunting_party
+	border = GFX_event_normal_frame_intrigue
+	show_from_from = yes
+	is_triggered_only = yes
+	
+	option = {
+		log = "[Root.GetBestName] successfully assassinated [target_assassin.GetBestName] in a duel while hunting."
+		name = "EVTOPTALIFESTYLE222913"
+		hidden_tooltip = { event_target:main_plotter = { letter_event = { id = lifestyle.322913 } } }
+		clear_event_target = target_assassin
+	}
+}
+letter_event = {
+	id = lifestyle.322913
+	desc = "EVTDESCLIFESTYLE322913"
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		clear_event_target = main_plotter
+		clear_event_target = target_victim
+	}
+}
+
+# Your victim escaped
+character_event = {
+	id = lifestyle.422913
+	desc = "EVTDESCLIFESTYLE422913"
+	picture = GFX_evt_hunting_party
+	border = GFX_event_normal_frame_intrigue
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTALIFESTYLE422913"
+		hidden_tooltip = { event_target:main_plotter = { letter_event = { id = lifestyle.522913 } } }
+	}
+}
+# Failed assassination attempt
+letter_event = {
+	id = lifestyle.522913
+	desc = "EVTDESCLIFESTYLE522913"
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		clear_event_target = main_plotter
+		clear_event_target = target_victim
+	}
+}
+# You successfully escaped
+character_event = {
+	id = lifestyle.622913
+	desc = "EVTDESCLIFESTYLE622913"
+	picture = GFX_evt_hunting_party
+	border = GFX_event_normal_frame_intrigue
+	is_triggered_only = yes
+	
+	option = {
+		log = "[Root.GetBestName] successfully escaped from [target_assassin.GetBestName] in a duel while hunting."
+		name = "EVTOPTCONFIRM"
+		clear_event_target = target_assassin
+	}
+}
+# You captured the person trying to kill you
+character_event = {
+	id = lifestyle.722913
+	desc = "EVTDESCLIFESTYLE722913"
+	picture = GFX_evt_hunting_party
+	border = GFX_event_normal_frame_intrigue
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		clear_event_target = target_assassin
+	}
+}
+# You were captured during your assassination attempt
+character_event = {
+	id = lifestyle.822913
+	desc = "EVTDESCLIFESTYLE822913"
+	picture = GFX_evt_hunting_party
+	border = GFX_event_normal_frame_intrigue
+	is_triggered_only = yes
+	
+	option = {
+		log = "[Root.GetBestName] was captured by [target_assassin.GetBestName] in a duel while hunting."
+		name = "EVTOPTCONFIRM"
+		clear_event_target = main_plotter
+		clear_event_target = target_victim
+	}
+}
+# You killed the person trying to kill you
+character_event = {
+	id = lifestyle.922913
+	desc = "EVTDESCLIFESTYLE922913"
+	picture = GFX_evt_hunting_party
+	border = GFX_event_normal_frame_intrigue
+	is_triggered_only = yes
+	
+	option = {
+		log = "[Root.GetBestName] killed [target_assassin.GetBestName] in self-defense while hunting."
+		name = "EVTOPTCONFIRM"
+		clear_event_target = main_plotter
+		clear_event_target = target_victim
+		clear_event_target = target_assassin
+	}
 }

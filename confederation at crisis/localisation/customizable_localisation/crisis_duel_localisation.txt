@@ -1157,6 +1157,30 @@ defined_text = {
 	}
 }
 defined_text = {
+	name = GetArmorJetpackAdvice
+	
+	text = {
+		localisation_key = String_blank
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				persistent_event_target:my_armor = { has_artifact_flag = jetpack }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_describe_armor_jetpack_advice
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { persistent_event_target:my_armor = { has_artifact_flag = jetpack } }
+			}
+		}
+	}
+}
+defined_text = {
 	name = GetVehicleAntiVehicleBonusAdvice
 	
 	text = {
@@ -1640,6 +1664,10 @@ defined_text = {
 				factor = 0
 				NOT = { has_character_flag = flag_battlefield }
 			}
+			modifier = {
+				factor = 0
+				event_target:duel_location = { title = b_takagi_iii } # The world tree has its own descriptions
+			}
 		}
 	}
 	text = {
@@ -1653,6 +1681,10 @@ defined_text = {
 			modifier = {
 				factor = 0
 				has_character_flag = flag_duel_friendly
+			}
+			modifier = {
+				factor = 0
+				event_target:duel_location = { title = b_takagi_iii } # The world tree has its own descriptions
 			}
 		}
 	}
@@ -1668,6 +1700,10 @@ defined_text = {
 				factor = 0
 				has_character_flag = flag_duel_friendly
 			}
+			modifier = {
+				factor = 0
+				event_target:duel_location = { title = b_takagi_iii } # The world tree has its own descriptions
+			}
 		}
 	}
 	text = {
@@ -1681,6 +1717,10 @@ defined_text = {
 			modifier = {
 				factor = 0
 				has_character_flag = flag_open_field
+			}
+			modifier = {
+				factor = 0
+				event_target:duel_location = { title = b_takagi_iii } # The world tree has its own descriptions
 			}
 		}
 	}
@@ -1696,6 +1736,10 @@ defined_text = {
 				factor = 0
 				has_character_flag = flag_open_field
 				NOT = { has_character_flag = flag_duel_friendly } # Arenas have low walls built into them.
+			}
+			modifier = {
+				factor = 0
+				event_target:duel_location = { title = b_takagi_iii } # The world tree has its own descriptions
 			}
 		}
 	}
@@ -1728,6 +1772,10 @@ defined_text = {
 				factor = 0
 				NOT = { has_character_flag = flag_battlefield }
 			}
+			modifier = {
+				factor = 0
+				event_target:duel_location = { title = b_takagi_iii } # The world tree has its own descriptions
+			}
 		}
 	}
 	text = {
@@ -1741,6 +1789,10 @@ defined_text = {
 			modifier = {
 				factor = 0
 				event_target:duel_location = { is_pressurized_trigger = yes }
+			}
+			modifier = {
+				factor = 0
+				event_target:duel_location = { title = b_takagi_iii } # The world tree has its own descriptions
 			}
 		}
 	}
@@ -1769,6 +1821,38 @@ defined_text = {
 			modifier = {
 				factor = 0
 				event_target:duel_location = { is_pressurized_trigger = yes }
+			}
+			modifier = {
+				factor = 0
+				event_target:duel_location = { title = b_takagi_iii } # The world tree has its own descriptions
+			}
+		}
+	}
+	text = {
+		localisation_key = String_tree_trunk
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_character_flag = flag_interior
+			}
+			modifier = {
+				factor = 0
+				NOT = { event_target:duel_location = { title = b_takagi_iii } }
+			}
+		}
+	}
+	text = {
+		localisation_key = String_large_branch
+		weight_multiplier = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_character_flag = flag_interior
+			}
+			modifier = {
+				factor = 0
+				NOT = { event_target:duel_location = { title = b_takagi_iii } }
 			}
 		}
 	}

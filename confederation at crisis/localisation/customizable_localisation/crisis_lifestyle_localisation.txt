@@ -3588,3 +3588,133 @@ defined_text = {
 	}
 	text = { localisation_key = String_lifestyle_20014_desc_organic }
 }
+defined_text = {
+	name = GetHuntAcceptanceDesc
+	text = {
+		trigger = { opinion = { who = ROOT value = 50 } }
+		localisation_key = String_hunt_acceptance_desc_like_you
+	}
+	text = {
+		trigger = {
+			trait = hunter
+			opinion = { who = ROOT value = 0 }
+		}
+		localisation_key = String_hunt_acceptance_desc_like_hunting
+	}
+	text = {
+		trigger = {
+			trait = extraverted
+			opinion = { who = ROOT value = 0 }
+		}
+		localisation_key = String_hunt_acceptance_desc_extrovert
+	}
+	text = {
+		trigger = {
+			OR = {
+				AND = {
+					has_plot = plot_kill_character
+					plot_target_char = { character = ROOT }
+				}
+				any_backed_character = {
+					has_plot = plot_kill_character
+					plot_target_char = { character = ROOT }
+				}
+			}
+		}
+		localisation_key = String_hunt_acceptance_desc_sinister
+	}
+	text = {
+		trigger = {
+			is_liege_or_above = ROOT
+			OR = {
+				trait = pragmatic
+				trait = ambitious
+			}
+			NOT = { trait = proud }
+		}
+		localisation_key = String_hunt_acceptance_desc_suckup
+	}
+	text = {
+		trigger = { NOT = { opinion = { who = ROOT value = 0 } } }
+		localisation_key = String_hunt_acceptance_desc_grudging
+	}
+	text = {
+		trigger = { opinion = { who = ROOT value = 0 } }
+		localisation_key = String_hunt_acceptance_desc_generic
+	}
+}
+defined_text = {
+	name = GetHuntRejectionDesc
+	use_first_valid = yes
+	text = {
+		trigger = {
+			OR = {
+				ROOT = {
+					has_plot = plot_kill_character
+					plot_target_char = { character = FROM }
+					plot_is_known_by = FROM
+				}
+				ROOT = {
+					any_backed_character = {
+						has_plot = plot_kill_character
+						plot_target_char = { character = FROM }
+						plot_is_known_by = FROM
+					}
+				}
+			}
+			NOT = { trait = imbecile }
+		}
+		localisation_key = String_hunt_rejection_desc_known_plot
+	}
+	text = {
+		trigger = {
+			is_liege_or_above = ROOT
+			OR = {
+				trait = pragmatic
+				trait = ambitious
+			}
+			NOT = { trait = proud }
+		}
+		localisation_key = String_hunt_rejection_desc_suckup
+	}
+	text = {
+		trigger = { NOT = { opinion = { who = ROOT value = 0 } } }
+		localisation_key = String_hunt_rejection_desc_dont_like_you
+	}
+	text = {
+		trigger = { trait = introverted }
+		localisation_key = String_hunt_rejection_desc_introverted
+	}
+	text = { localisation_key = String_hunt_rejection_desc_generic }
+}
+defined_text = {
+	name = GetHuntAssassinationMysteryDesc
+	use_first_valid = yes
+	
+	text = {
+		trigger = {
+			event_target:target_assassin = {
+				is_alive = yes
+				has_plot = plot_kill_character
+				plot_target_char = { character = ROOT }
+				plot_is_known_by = ROOT
+			}
+		}
+		localisation_key = String_hunt_assassination_no_mystery_assassin
+	}
+	text = {
+		trigger = {
+			event_target:target_assassin = {
+				has_plot = plot_kill_character
+				plot_target_char = { character = ROOT }
+				plot_is_known_by = ROOT
+			}
+		}
+		localisation_key = String_hunt_assassination_no_mystery_assassin_dead
+	}
+	text = {
+		trigger = { event_target:main_plotter = { plot_is_known_by = ROOT } }
+		localisation_key = String_hunt_assassination_no_mystery_accomplice
+	}
+	text = { localisation_key = String_hunt_assassination_mystery }
+}
