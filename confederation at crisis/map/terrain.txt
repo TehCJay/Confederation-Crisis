@@ -17,56 +17,56 @@ categories =  {
 		is_water = yes
 		color = { 0 0 200 }
 	}
-	
+
 	main_sequence = {
 		movement_cost = 1.0
 		color = { 255 201 14 }
 	}
-	
+
 	debris_disk = {
 		movement_cost = 1.0
 		bottleneck_chance = 25
 		color = { 245 245 0 }
 	}
-	
+
 	subgiant = {
 		movement_cost = 1.1
 		bottleneck_chance = 10
 		color = { 200 100 0 }
 	}
-	
+
 	red_giant = {
 		movement_cost = 1.25
 		bottleneck_chance = 20
 		color = { 128 0 0 }
 	}
-	
+
 	white_dwarf = {
 		movement_cost = 0.8
 		color = { 240 240 240 }
 	}
-	
+
 	neutron_star = {
 		movement_cost = 1.5
 		color = { 200 200 200 }
 	}
-	
+
 	black_hole = {
 		movement_cost = 3.0
 		bottleneck_chance = 40
 		color = { 10 10 10 }
 	}
-	
+
 	pulsar = {
 		movement_cost = 1.5
 		color = { 64 255 64 }
 	}
-	
+
 	nebula = {
 		movement_cost = 0.8
 		color = { 255 128 255 }
 	}
-	
+
 	protostar = {
 		movement_cost = 0.8
 		color = { 125 64 125 }
@@ -81,12 +81,12 @@ categories =  {
 		movement_cost = 1.0
 		color = { 137 104 165  }
 	}
-	
+
 	forest = {
 		movement_cost = 1.0
 		color = { 91 123 45 }
 	}
-	
+
 	hills = {
 		movement_cost = 1.0
 		color = { 135 70 0 }
@@ -96,7 +96,7 @@ categories =  {
 		movement_cost = 1.0
 		color = { 165 205 108 }
 	}
-	
+
 	mountain = {
 		movement_cost = 1.0
 		color = { 117 108 119 }
@@ -107,12 +107,16 @@ categories =  {
 		movement_cost = 2.0
 	}
 
-	steppe = {
-		movement_cost = 1.0
+	goldilocks_star = {
+		movement_cost = 3.0
+		defence = 4 # AI-force strength evaluation | 40% stronger
+		max_attrition = -0.2
+		supply_limit = 2
+		bottleneck_chance = 90
 		color = { 211 201 184 }
 	}
-	
-	plains = {
+
+	plains = { #completely impassable
 		movement_cost = 1.0
 		color = { 241 221 184 }
 	}
@@ -120,43 +124,40 @@ categories =  {
 	jungle = {
 		movement_cost = 1.0
 		color = { 40 180 149 }
-	}	
-	
+	}
+
 	marsh = {
 		movement_cost = 1.0
 		color = { 76 112 105 }
 	}
-	
+
 	desert = {
 		movement_cost = 1.0
 		color = { 220 210 0 }
 	}
-	
+
 	coastal_desert = {
 		movement_cost = 1.0
 		color = { 200 128 0 }
-	}	
+	}
 }
 
-text_0	= { type = main_sequence    color = { 	 0	 } priority = 	0	 } # Light Green
-text_1	= { type = red_giant color = { 	1	 } priority = 	1	 } # Red
-text_2	= { type = plains    color = { 	2	 } priority = 	2	 }
-text_3	= { type = nebula    color = { 	3	 } priority = 	3	 } # Sandy
-
-text_4	= { type = neutron_star color = { 	4	 } priority = 	4	 } # Light Brown
-text_5	= { type = steppe   color = { 	5	 } priority = 	5	 }
-text_6	= { type = protostar   color = { 	6	 } priority = 	6	 } # Blue-Green
-text_7	= { type = pulsar color = { 	7	 } priority = 	7	 } # Medium Brown
-
-text_8	= { type = debris_disk    color = { 	8	 } priority = 	8	 } # Dark Green
-text_9	= { type = black_hole color = { 	9	 } priority = 	9	 } # Dark Brown
-text_10	= { type = white_dwarf color = { 	10	 } priority = 	10	 } # Grey
-text_11	= { type = mountain color = { 	11	 } priority = 	11	 }
-
-text_12	= { type = jungle color = { 	12	 } priority = 	12	 }
-text_13	= { type = subgiant color = { 	13	 } priority = 	13	 } # Pink
-text_14	= { type = coastal_desert color = { 	14	 } priority = 	14	 } # Magenta
-text_15	= { type = coastal_desert color = { 	15	 } priority = 	15	 }
+text_0	= { type = main_sequence    color = {  0 } priority = 	0	 }
+text_1	= { type = red_giant 		color = {  1 } priority = 	1	 }
+text_2	= { type = plains    		color = {  2 } priority = 	2	 } # impassable
+text_3	= { type = nebula    		color = {  3 } priority = 	3	 }
+text_4	= { type = neutron_star 	color = {  4 } priority = 	4	 }
+text_5	= { type = goldilocks_star	color =	{  5 } priority = 	5	 }
+text_6	= { type = protostar   		color = {  6 } priority = 	6	 }
+text_7	= { type = pulsar 			color = {  7 } priority = 	7	 }
+text_8	= { type = debris_disk    	color = {  8 } priority = 	8	 }
+text_9	= { type = black_hole 		color = {  9 } priority = 	9	 }
+text_10	= { type = white_dwarf 		color = { 10 } priority = 	10	 }
+text_11	= { type = mountain 		color = { 11 } priority = 	11	 }
+text_12	= { type = jungle 			color = { 12 } priority = 	12	 }
+text_13	= { type = subgiant 		color = { 13 } priority = 	13	 }
+text_14	= { type = coastal_desert 	color = { 14 } priority = 	14	 }
+text_15	= { type = coastal_desert 	color = { 15 } priority = 	15	 }
 
 # Need to be here to identify forest
 text_16	= { type = forest color = { 	16	 } priority = 	16	 }
