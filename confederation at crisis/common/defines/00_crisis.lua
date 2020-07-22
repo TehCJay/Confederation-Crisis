@@ -68,95 +68,151 @@ NDefines.NTitle.EMPIRE_DEJURE_COUNTY_LIMIT_TO_USURP = 0.51
 
 NDefines.NEconomy.HOLDING_SLOT_BUILD_COST_MOD = 3
 
-NDefines.NMilitary.MERCENARY_MAINTENANCE_FACTOR = 8.0			-- Maintenance factor for NORMAL mercenary units
-NDefines.NMilitary.MERCENARY_VASSAL_MAINTENANCE_FACTOR = 3		-- Maintenance factor for VASSALIZED mercenary units
-NDefines.NMilitary.MERCENARY_HIRE_COST_FACTOR = 1				-- Hire cost factor for mercenary units
-NDefines.NMilitary.HOLY_ORDER_HIRE_COST_FACTOR = 1				-- Conversion of nominal gold cost to piety cost when hiring Holy Orders
-NDefines.NMilitary.HOLY_ORDER_DYNASTY_HIRE_COST_FACTOR = 1		-- Reduction of cost if the Holy Order is controlled by a dynasty member
-NDefines.NMilitary.VASSAL_MERC_HIRE_COST_FACTOR = 0.3			-- Fraction of nominal hire cost when hiring vassal mercenaries OR Holy Orders
+NDefines.NMilitary.MERCENARY_MAINTENANCE_FACTOR = 4	    		-- Maintenance factor for NORMAL mercenary units
+NDefines.NMilitary.MERCENARY_VASSAL_MAINTENANCE_FACTOR = 1		-- Maintenance factor for VASSALIZED mercenary units
+NDefines.NMilitary.MERCENARY_HIRE_COST_FACTOR = 0.2   			-- Hire cost factor for mercenary units
+NDefines.NMilitary.HOLY_ORDER_HIRE_COST_FACTOR = 0.2				-- Conversion of nominal gold cost to piety cost when hiring Holy Orders
+NDefines.NMilitary.HOLY_ORDER_DYNASTY_HIRE_COST_FACTOR = 0.1		-- Reduction of cost if the Holy Order is controlled by a dynasty member
+NDefines.NMilitary.VASSAL_MERC_HIRE_COST_FACTOR = 0.1			-- Fraction of nominal hire cost when hiring vassal mercenaries OR Holy Orders
 NDefines.NMilitary.MERCENARY_HIRE_DISTANCE_THRESHOLD = 800
-NDefines.NMilitary.PERCENT_OF_GARRISON_DETACHED = 0
-NDefines.NMilitary.ATTRITION_LEVEL_FACTOR = 0
-NDefines.NMilitary.ATTRITION_LEVEL_FACTOR_50_OVER = 0
-NDefines.NMilitary.ATTRITION_LEVEL_FACTOR_100_OVER = 0
-NDefines.NMilitary.RETINUE_FROM_REALMSIZE = 0
-NDefines.NMilitary.RETINUE_HIRE_COST_MULTIPLIER = 1
-NDefines.NMilitary.RETINUE_REINFORCE_COST = 1
-NDefines.NMilitary.RETINUE_CONSTANT_COST = 0
-NDefines.NMilitary.MIN_RETINUE = 0.05
-NDefines.NMilitary.RETINUE_INCREASE_PER_TECH = 3.0
+NDefines.NMilitary.REINFORCE_RATE = 0.2                          -- Reinforce rate per year, it is increased compared to vanilla because building ships is easier than making people reproduce
 
-NDefines.NMilitary.MAX_COMMANDERS_BARON = 1
-NDefines.NMilitary.MAX_COMMANDERS_COUNT = 3
-NDefines.NMilitary.MAX_COMMANDERS_DUKE = 6
-NDefines.NMilitary.MAX_COMMANDERS_KING = 8
-NDefines.NMilitary.MAX_COMMANDERS_EMPEROR = 12
+-- retinue stuff
+NDefines.NMilitary.RETINUE_FROM_REALMSIZE = 10
+NDefines.NMilitary.RETINUE_HIRE_COST_MULTIPLIER = 0
+NDefines.NMilitary.RETINUE_REINFORCE_COST = 1
+NDefines.NMilitary.RETINUE_CONSTANT_COST = 1
+NDefines.NMilitary.MIN_RETINUE = 0
+NDefines.NMilitary.RETINUE_INCREASE_PER_TECH = 0
+NDefines.NMilitary.RETINUE_REINFORCE_RATE = 0.025
+
+NDefines.NMilitary.OTHER_TERRITORY_LEVY_RETURN_PERCENT = 0.3 -- Harsher than vanilla. Being stranded in space is terrible.
+
+NDefines.NMilitary.MORALE_COLLAPSE_THRESHOLD = 0.35               -- Ships are expensive thus retreating easlier is more common
+NDefines.NMilitary.ATTACK_TO_DAMAGE_MULT = 0.004                   -- Attack value of troops is multiplied by this when doing damage
+NDefines.NMilitary.BATTLE_MINIMUM_WARSCORE = 0 --all battles count on warscore, to enable  attrition warfare and hit and run tactics
+
+-- siege related stuff
+NDefines.NMilitary.ATTACKER_SIEGE_DAMAGE = 0.1                      -- Skirmish damage done by defenders on attackers
+NDefines.NMilitary.DEFENDER_SIEGE_DAMAGE = 0.1                      -- Skirmish damage done by attackers on defenders
+NDefines.NMilitary.PERCENT_OF_GARRISON_DETACHED = 0.1               -- How many people of your forces become the new garrison
+NDefines.NMilitary.NUM_DAYS_BETWEEN_SIEGE_MORALE_LOSS = 6        -- Number of days between morale loss for defender in a siege
+NDefines.NMilitary.SIEGE_MORALE_LOSS = 0.15                                        -- Base monthly morale loss in a siege
+NDefines.NMilitary.FORT_LEVEL_MORALE_LOSS_REDUCTION_MULT = 4.0    -- Fort Level effect on morale loss (a higher value slows down morale loss)
+NDefines.NMilitary.DAYS_BEFORE_DEFENDER_SALLY = 2                 -- Number of days before defenders sally in a siege where they have superior numbers
+NDefines.NMilitary.ATTACKER_ASSULT_DAMAGE_FACTOR = 1.5             -- How much damage attackers take when assaulting
+NDefines.NMilitary.DEFENDER_ASSULT_DAMAGE_FACTOR = 0.5            -- How much damage defenders take when assaulting
+NDefines.NMilitary.DAYS_PER_FORTLEVEL_BEFORE_ASSAULT = 5         -- Number of days until attacker can assault
+
+
+-- atrrition related stuff
+NDefines.NMilitary.ATTRITION_LEVEL_FACTOR = 0.5
+NDefines.NMilitary.ATTRITION_LEVEL_FACTOR_50_OVER = 1
+NDefines.NMilitary.ATTRITION_LEVEL_FACTOR_100_OVER = 2
+NDefines.NMilitary.OWN_SETTLEMENT_SUPPLY_BONUS = 0.26          --for some reason this is multiplied by 3 in-game, thus actual number is 0.78 O.o
+NDefines.NMilitary.NEUTRAL_SETTLEMENT_SUPPLY_BONUS = 0.25
+NDefines.NMilitary.CONTROL_SETTLEMENT_SUPPLY_BONUS = 0.25
+NDefines.NMilitary.ENEMY_SETTLEMENT_SUPPLY_BONUS = 0
+NDefines.NMilitary.HOSTILE_RELIGION_SUPPLY_MOD = 0
+NDefines.NMilitary.NEARBY_SETTLEMENT_SINGLE_SUPPLY_BONUS = 0.75
+NDefines.NMilitary.MAX_ATTRITION_LEADER_REDUCTION = -0.1
+NDefines.NMilitary.COASTAL_SUPPLY_BONUS = 0
+NDefines.NMilitary.PAGAN_HOME_SUPPLY_MOD = 1
+NDefines.NMilitary.NAVAL_ATTRITION = 0.0
+NDefines.NMilitary.DIFFERENT_RELIGIONGROUP_SUPPLY_PENALTY = 0
+NDefines.NMilitary.SUPPLY_CAPACITY = 31                       -- Amount of days of worth supply that a unit can hold.
+NDefines.NMilitary.OUT_OF_SUPPLY_ATTRITION_BASE = 0.05       -- The attrition a unit that is out of supply takes.
+NDefines.NMilitary.OUT_OF_SUPPLY_ATTRITION_INCREASE = 0.01  -- The increase per tick of attrition a unit that is out of supply takes.
+NDefines.NMilitary.OUT_OF_SUPPLY_ATTRITION_TICK = 1           -- The amount of days per tick for increase of attrition.
+NDefines.NMilitary.FORAGING_PILLAGE_MODIFIER = 0.15           -- Modifies how much loot the army takes when re-supplying itself in enemy territory},
+--some attrition supplies are in the file static_modifiers.txt, see that file.
+
+
+NDefines.NMilitary.MAX_COMMANDERS_BARON = 3
+NDefines.NMilitary.MAX_COMMANDERS_COUNT = 6
+NDefines.NMilitary.MAX_COMMANDERS_DUKE = 9
+NDefines.NMilitary.MAX_COMMANDERS_KING = 12
+NDefines.NMilitary.MAX_COMMANDERS_EMPEROR = 15
 
 -- Ship Combat Stats
-NDefines.NMilitary.LIGHT_INFANTRY_MORALE = 10
-NDefines.NMilitary.LIGHT_INFANTRY_MAINTENANCE = .2
-NDefines.NMilitary.LIGHT_INFANTRY_PHASE_SKIRMISH_ATTACK = 5
-NDefines.NMilitary.LIGHT_INFANTRY_PHASE_MELEE_ATTACK = 0.2
-NDefines.NMilitary.LIGHT_INFANTRY_PHASE_PURSUE_ATTACK = 1
-NDefines.NMilitary.LIGHT_INFANTRY_PHASE_SKIRMISH_DEFENSE = 3
-NDefines.NMilitary.LIGHT_INFANTRY_PHASE_MELEE_DEFENSE = 50
+-- Gunships, they are agile, can improve turrets point defense by turning and shooting with main guns.
+-- They can also spin themselves to protect against lasers. They are fragile overall though.
+-- Also ammo is not cheap, so they cost a little more than normal to maintain.
+-- Utterly useless in skirmish phase because slight thrust in any direction is enough to dodge their attacks.
+NDefines.NMilitary.LIGHT_INFANTRY_MORALE = 1
+NDefines.NMilitary.LIGHT_INFANTRY_MAINTENANCE = 1.2
+NDefines.NMilitary.LIGHT_INFANTRY_PHASE_SKIRMISH_ATTACK = 0
+NDefines.NMilitary.LIGHT_INFANTRY_PHASE_SKIRMISH_DEFENSE = 5
+NDefines.NMilitary.LIGHT_INFANTRY_PHASE_MELEE_ATTACK = 4
+NDefines.NMilitary.LIGHT_INFANTRY_PHASE_MELEE_DEFENSE = 5
+NDefines.NMilitary.LIGHT_INFANTRY_PHASE_PURSUE_ATTACK = 0
 NDefines.NMilitary.LIGHT_INFANTRY_PHASE_PURSUE_DEFENSE = 1
-NDefines.NMilitary.LIGHT_INFANTRY_GRAPHICAL_FACTOR = 10
+NDefines.NMilitary.LIGHT_INFANTRY_GRAPHICAL_FACTOR = 1
 
-NDefines.NMilitary.HEAVY_INFANTRY_MORALE = 10
-NDefines.NMilitary.HEAVY_INFANTRY_MAINTENANCE = 0.4
-NDefines.NMilitary.HEAVY_INFANTRY_PHASE_SKIRMISH_ATTACK = 1
+-- Laserships, they pack a big laser and can hit stuff long range, they also can easily hit fast ships in melee.
+-- they are fragile though, their systems being rather delicate.
+NDefines.NMilitary.HEAVY_INFANTRY_MORALE = 1
+NDefines.NMilitary.HEAVY_INFANTRY_MAINTENANCE = 1
+NDefines.NMilitary.HEAVY_INFANTRY_PHASE_SKIRMISH_ATTACK = 2
+NDefines.NMilitary.HEAVY_INFANTRY_PHASE_SKIRMISH_DEFENSE = 2
 NDefines.NMilitary.HEAVY_INFANTRY_PHASE_MELEE_ATTACK = 5
-NDefines.NMilitary.HEAVY_INFANTRY_PHASE_PURSUE_ATTACK = 1
-NDefines.NMilitary.HEAVY_INFANTRY_PHASE_SKIRMISH_DEFENSE = 4
-NDefines.NMilitary.HEAVY_INFANTRY_PHASE_MELEE_DEFENSE = 100
+NDefines.NMilitary.HEAVY_INFANTRY_PHASE_MELEE_DEFENSE = 2
+NDefines.NMilitary.HEAVY_INFANTRY_PHASE_PURSUE_ATTACK = 0
 NDefines.NMilitary.HEAVY_INFANTRY_PHASE_PURSUE_DEFENSE = 1
-NDefines.NMilitary.HEAVY_INFANTRY_GRAPHICAL_FACTOR = 10
+NDefines.NMilitary.HEAVY_INFANTRY_GRAPHICAL_FACTOR = 1
 
-NDefines.NMilitary.PIKEMEN_MORALE = 100
-NDefines.NMilitary.PIKEMEN_MAINTENANCE = .134
-NDefines.NMilitary.PIKEMEN_PHASE_SKIRMISH_ATTACK = 3
-NDefines.NMilitary.PIKEMEN_PHASE_MELEE_ATTACK = 0
-NDefines.NMilitary.PIKEMEN_PHASE_PURSUE_ATTACK = 1
-NDefines.NMilitary.PIKEMEN_PHASE_SKIRMISH_DEFENSE = 2
-NDefines.NMilitary.PIKEMEN_PHASE_MELEE_DEFENSE = 50
+-- Missile ships, their purpose is to stand back firing missile volleys, at skirmish their damage is not impressive because
+-- it is rather easy to defend against missiles at large distances. Ammo is not free, so they also have more maintenance.
+NDefines.NMilitary.PIKEMEN_MORALE = 1
+NDefines.NMilitary.PIKEMEN_MAINTENANCE = 1.2
+NDefines.NMilitary.PIKEMEN_PHASE_SKIRMISH_ATTACK = 1
+NDefines.NMilitary.PIKEMEN_PHASE_SKIRMISH_DEFENSE = 4
+NDefines.NMilitary.PIKEMEN_PHASE_MELEE_ATTACK = 3
+NDefines.NMilitary.PIKEMEN_PHASE_MELEE_DEFENSE = 4
+NDefines.NMilitary.PIKEMEN_PHASE_PURSUE_ATTACK = 0
 NDefines.NMilitary.PIKEMEN_PHASE_PURSUE_DEFENSE = 1
-NDefines.NMilitary.PIKEMEN_GRAPHICAL_FACTOR = 10
+NDefines.NMilitary.PIKEMEN_GRAPHICAL_FACTOR = 1
 
-NDefines.NMilitary.LIGHT_CAVALRY_MORALE = 100
-NDefines.NMilitary.LIGHT_CAVALRY_MAINTENANCE = 10
-NDefines.NMilitary.LIGHT_CAVALRY_PHASE_SKIRMISH_ATTACK = 25
-NDefines.NMilitary.LIGHT_CAVALRY_PHASE_MELEE_ATTACK = 0
-NDefines.NMilitary.LIGHT_CAVALRY_PHASE_PURSUE_ATTACK = 10
-NDefines.NMilitary.LIGHT_CAVALRY_PHASE_SKIRMISH_DEFENSE = 100
-NDefines.NMilitary.LIGHT_CAVALRY_PHASE_MELEE_DEFENSE = 10
-NDefines.NMilitary.LIGHT_CAVALRY_PHASE_PURSUE_DEFENSE = 10
-NDefines.NMilitary.LIGHT_CAVALRY_GRAPHICAL_FACTOR = 1
+-- Destroyers. They have all weapons, and are medium-sized, we can use them as "reference" ship, other ships having their stats based off them.
+-- Because they have all weapons they are more expensive to maintain.
+NDefines.NMilitary.LIGHT_CAVALRY_MORALE = 2
+NDefines.NMilitary.LIGHT_CAVALRY_MAINTENANCE = 2
+NDefines.NMilitary.LIGHT_CAVALRY_PHASE_SKIRMISH_ATTACK = 1
+NDefines.NMilitary.LIGHT_CAVALRY_PHASE_SKIRMISH_DEFENSE = 4
+NDefines.NMilitary.LIGHT_CAVALRY_PHASE_MELEE_ATTACK = 6
+NDefines.NMilitary.LIGHT_CAVALRY_PHASE_MELEE_DEFENSE = 4
+NDefines.NMilitary.LIGHT_CAVALRY_PHASE_PURSUE_ATTACK = 0
+NDefines.NMilitary.LIGHT_CAVALRY_PHASE_PURSUE_DEFENSE = 1
+NDefines.NMilitary.LIGHT_CAVALRY_GRAPHICAL_FACTOR = 2
 
-NDefines.NMilitary.KNIGHTS_MORALE = 100
-NDefines.NMilitary.KNIGHTS_MAINTENANCE = 20
-NDefines.NMilitary.KNIGHTS_PHASE_SKIRMISH_ATTACK = 10
-NDefines.NMilitary.KNIGHTS_PHASE_MELEE_ATTACK = 25
-NDefines.NMilitary.KNIGHTS_PHASE_PURSUE_ATTACK = 25
-NDefines.NMilitary.KNIGHTS_PHASE_SKIRMISH_DEFENSE = 200
-NDefines.NMilitary.KNIGHTS_PHASE_MELEE_DEFENSE = 25
-NDefines.NMilitary.KNIGHTS_PHASE_PURSUE_DEFENSE = 25
-NDefines.NMilitary.KNIGHTS_GRAPHICAL_FACTOR = 1
+-- Battleships. They are big, heavily armed, have a powerful laser to use in skirmishing, but are expensive to maintain and slow.
+-- They also have some marines, thus can land them on planets or board ships, or defend against boarding.
+NDefines.NMilitary.KNIGHTS_MORALE = 4
+NDefines.NMilitary.KNIGHTS_MAINTENANCE = 5
+NDefines.NMilitary.KNIGHTS_PHASE_SKIRMISH_ATTACK = 3
+NDefines.NMilitary.KNIGHTS_PHASE_SKIRMISH_DEFENSE = 8
+NDefines.NMilitary.KNIGHTS_PHASE_MELEE_ATTACK = 8
+NDefines.NMilitary.KNIGHTS_PHASE_MELEE_DEFENSE = 8
+NDefines.NMilitary.KNIGHTS_PHASE_PURSUE_ATTACK = 0
+NDefines.NMilitary.KNIGHTS_PHASE_PURSUE_DEFENSE = 1
+NDefines.NMilitary.KNIGHTS_GRAPHICAL_FACTOR = 5
 
-NDefines.NMilitary.ARCHERS_MORALE = 10
-NDefines.NMilitary.ARCHERS_MAINTENANCE = 2
-NDefines.NMilitary.ARCHERS_PHASE_SKIRMISH_ATTACK = 0
-NDefines.NMilitary.ARCHERS_PHASE_MELEE_ATTACK = 0
-NDefines.NMilitary.ARCHERS_PHASE_PURSUE_ATTACK = 50
-NDefines.NMilitary.ARCHERS_PHASE_SKIRMISH_DEFENSE = 100
-NDefines.NMilitary.ARCHERS_PHASE_MELEE_DEFENSE = 10
-NDefines.NMilitary.ARCHERS_PHASE_PURSUE_DEFENSE = 50
-NDefines.NMilitary.ARCHERS_GRAPHICAL_FACTOR = 1
+-- Troop transports, they have small lasers for self defense, but otherwise the only way they can attack are boarding ships.
+-- They are essential in sieges.
+-- Also because of how the game rules work in non-assault sieges they need big numbers, thus numbers here are divided by their multiplier.
+local transportMultiplier = 4
+NDefines.NMilitary.ARCHERS_MORALE = 5/transportMultiplier
+NDefines.NMilitary.ARCHERS_MAINTENANCE = 5/transportMultiplier
+NDefines.NMilitary.ARCHERS_PHASE_SKIRMISH_ATTACK = 0/transportMultiplier
+NDefines.NMilitary.ARCHERS_PHASE_SKIRMISH_DEFENSE = 6/transportMultiplier
+NDefines.NMilitary.ARCHERS_PHASE_MELEE_ATTACK = 5/transportMultiplier
+NDefines.NMilitary.ARCHERS_PHASE_MELEE_DEFENSE = 6/transportMultiplier
+NDefines.NMilitary.ARCHERS_PHASE_PURSUE_ATTACK = 0/transportMultiplier
+NDefines.NMilitary.ARCHERS_PHASE_PURSUE_DEFENSE = 1/transportMultiplier
+NDefines.NMilitary.ARCHERS_GRAPHICAL_FACTOR = 1/transportMultiplier
 
 NDefines.NTechnology.DONT_EXECUTE_TECH_BEFORE = 2000
-NDefines.NTechnology.IDEAL_YEAR_LEVEL_0 = 2000
 NDefines.NTechnology.IDEAL_YEAR_LEVEL_0 = 2998
-NDefines.NTechnology.IDEAL_YEAR_LEVEL_0 = 3000
 NDefines.NTechnology.IDEAL_YEAR_LEVEL_8 = 4000
 
 NDefines.NAI.MAX_EMPIRE_TITLES_TO_CREATE = 1
@@ -295,7 +351,7 @@ NDefines.NDiplomacy.REVOKE_TITLE_INTERACTION_PRESTIGE = 10
 NDefines.NDiplomacy.REVOKE_TITLE_INTERACTION_THRESHOLD_FOR_NO = 25
 NDefines.NDiplomacy.REVOKE_TITLE_INTERACTION_THRESHOLD_FOR_YES = 75
 NDefines.NDiplomacy.REVOKE_TITLE_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
-NDefines.NDiplomacy.REVOKE_TITLE_INTERACTION_ENABLED = 1						-- Should this action be used at all?	
+NDefines.NDiplomacy.REVOKE_TITLE_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.AWARD_HONORARY_TITLE_INTERACTION_MONEY = 0
 NDefines.NDiplomacy.AWARD_HONORARY_TITLE_INTERACTION_PIETY = 20
@@ -311,7 +367,7 @@ NDefines.NDiplomacy.REVOKE_HONORARY_TITLE_INTERACTION_PRESTIGE = 0
 NDefines.NDiplomacy.REVOKE_HONORARY_TITLE_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.REVOKE_HONORARY_TITLE_INTERACTION_THRESHOLD_FOR_YES = 0
 NDefines.NDiplomacy.REVOKE_HONORARY_TITLE_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
-NDefines.NDiplomacy.REVOKE_HONORARY_TITLE_INTERACTION_ENABLED = 1						-- Should this action be used at all?	
+NDefines.NDiplomacy.REVOKE_HONORARY_TITLE_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.SEND_ASSASSIN_INTERACTION_MONEY = 50
 NDefines.NDiplomacy.SEND_ASSASSIN_INTERACTION_PIETY = 0
@@ -423,7 +479,7 @@ NDefines.NDiplomacy.STOP_BACKING_AMBITION_INTERACTION_PRESTIGE = 0
 NDefines.NDiplomacy.STOP_BACKING_AMBITION_INTERACTION_THRESHOLD_FOR_NO = 25
 NDefines.NDiplomacy.STOP_BACKING_AMBITION_INTERACTION_THRESHOLD_FOR_YES = 75
 NDefines.NDiplomacy.STOP_BACKING_AMBITION_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
-NDefines.NDiplomacy.STOP_BACKING_AMBITION_INTERACTION_ENABLED = 1						-- Should this action be used at all?	
+NDefines.NDiplomacy.STOP_BACKING_AMBITION_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.JOIN_AMBITION_INTERACTION_MONEY = 0
 NDefines.NDiplomacy.JOIN_AMBITION_INTERACTION_PIETY = 15
@@ -487,7 +543,7 @@ NDefines.NDiplomacy.ASK_FOR_INVASION_INTERACTION_PRESTIGE = 100
 NDefines.NDiplomacy.ASK_FOR_INVASION_INTERACTION_THRESHOLD_FOR_NO = 50
 NDefines.NDiplomacy.ASK_FOR_INVASION_INTERACTION_THRESHOLD_FOR_YES = 150
 NDefines.NDiplomacy.ASK_FOR_INVASION_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
-NDefines.NDiplomacy.ASK_FOR_INVASION_INTERACTION_ENABLED = 1						-- Should this action be used at all?	
+NDefines.NDiplomacy.ASK_FOR_INVASION_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.ASK_FOR_DIVORCE_INTERACTION_MONEY = 0
 NDefines.NDiplomacy.ASK_FOR_DIVORCE_INTERACTION_PIETY = 25
@@ -495,7 +551,7 @@ NDefines.NDiplomacy.ASK_FOR_DIVORCE_INTERACTION_PRESTIGE = 0
 NDefines.NDiplomacy.ASK_FOR_DIVORCE_INTERACTION_THRESHOLD_FOR_NO = 35
 NDefines.NDiplomacy.ASK_FOR_DIVORCE_INTERACTION_THRESHOLD_FOR_YES = 75
 NDefines.NDiplomacy.ASK_FOR_DIVORCE_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
-NDefines.NDiplomacy.ASK_FOR_DIVORCE_INTERACTION_ENABLED = 1						-- Should this action be used at all?	
+NDefines.NDiplomacy.ASK_FOR_DIVORCE_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.DIVORCE_INTERACTION_MONEY = 1.0 										-- Multiplier of yearly income
 NDefines.NDiplomacy.DIVORCE_INTERACTION_PIETY = 15
@@ -511,7 +567,7 @@ NDefines.NDiplomacy.ASK_FOR_EXCOMMUNICATION_INTERACTION_PRESTIGE = 0
 NDefines.NDiplomacy.ASK_FOR_EXCOMMUNICATION_INTERACTION_THRESHOLD_FOR_NO = 60
 NDefines.NDiplomacy.ASK_FOR_EXCOMMUNICATION_INTERACTION_THRESHOLD_FOR_YES = 150
 NDefines.NDiplomacy.ASK_FOR_EXCOMMUNICATION_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
-NDefines.NDiplomacy.ASK_FOR_EXCOMMUNICATION_INTERACTION_ENABLED = 1						-- Should this action be used at all?		
+NDefines.NDiplomacy.ASK_FOR_EXCOMMUNICATION_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.CALL_ALLY_INTERACTION_MONEY = 0
 NDefines.NDiplomacy.CALL_ALLY_INTERACTION_PIETY = 0
@@ -519,7 +575,7 @@ NDefines.NDiplomacy.CALL_ALLY_INTERACTION_PRESTIGE = 60
 NDefines.NDiplomacy.CALL_ALLY_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.CALL_ALLY_INTERACTION_THRESHOLD_FOR_YES = 75
 NDefines.NDiplomacy.CALL_ALLY_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
-NDefines.NDiplomacy.CALL_ALLY_INTERACTION_ENABLED = 1						-- Should this action be used at all?		
+NDefines.NDiplomacy.CALL_ALLY_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.ASK_TO_LIFT_EXCOMMUNICATION_INTERACTION_MONEY = 0
 NDefines.NDiplomacy.ASK_TO_LIFT_EXCOMMUNICATION_INTERACTION_PIETY = 25
@@ -527,7 +583,7 @@ NDefines.NDiplomacy.ASK_TO_LIFT_EXCOMMUNICATION_INTERACTION_PRESTIGE = 0
 NDefines.NDiplomacy.ASK_TO_LIFT_EXCOMMUNICATION_INTERACTION_THRESHOLD_FOR_NO = 50
 NDefines.NDiplomacy.ASK_TO_LIFT_EXCOMMUNICATION_INTERACTION_THRESHOLD_FOR_YES = 150
 NDefines.NDiplomacy.ASK_TO_LIFT_EXCOMMUNICATION_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
-NDefines.NDiplomacy.ASK_TO_LIFT_EXCOMMUNICATION_INTERACTION_ENABLED = 1						-- Should this action be used at all?		
+NDefines.NDiplomacy.ASK_TO_LIFT_EXCOMMUNICATION_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.ASK_TO_RANSOM_CHARACTER_INTERACTION_MONEY = 0
 NDefines.NDiplomacy.ASK_TO_RANSOM_CHARACTER_INTERACTION_PIETY = 0
@@ -535,7 +591,7 @@ NDefines.NDiplomacy.ASK_TO_RANSOM_CHARACTER_INTERACTION_PRESTIGE = 30
 NDefines.NDiplomacy.ASK_TO_RANSOM_CHARACTER_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.ASK_TO_RANSOM_CHARACTER_INTERACTION_THRESHOLD_FOR_YES = 0
 NDefines.NDiplomacy.ASK_TO_RANSOM_CHARACTER_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
-NDefines.NDiplomacy.ASK_TO_RANSOM_CHARACTER_INTERACTION_ENABLED = 1						-- Should this action be used at all?		
+NDefines.NDiplomacy.ASK_TO_RANSOM_CHARACTER_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.ASK_TO_JOIN_WAR_INTERACTION_MONEY = 0
 NDefines.NDiplomacy.ASK_TO_JOIN_WAR_INTERACTION_PIETY = 0
@@ -543,7 +599,7 @@ NDefines.NDiplomacy.ASK_TO_JOIN_WAR_INTERACTION_PRESTIGE = 40
 NDefines.NDiplomacy.ASK_TO_JOIN_WAR_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.ASK_TO_JOIN_WAR_INTERACTION_THRESHOLD_FOR_YES = 0
 NDefines.NDiplomacy.ASK_TO_JOIN_WAR_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
-NDefines.NDiplomacy.ASK_TO_JOIN_WAR_INTERACTION_ENABLED = 1						-- Should this action be used at all?		
+NDefines.NDiplomacy.ASK_TO_JOIN_WAR_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.RELEASE_VASSAL_INTERACTION_MONEY = 0
 NDefines.NDiplomacy.RELEASE_VASSAL_INTERACTION_PIETY = 20
@@ -551,7 +607,7 @@ NDefines.NDiplomacy.RELEASE_VASSAL_INTERACTION_PRESTIGE = 40
 NDefines.NDiplomacy.RELEASE_VASSAL_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.RELEASE_VASSAL_INTERACTION_THRESHOLD_FOR_YES = 0
 NDefines.NDiplomacy.RELEASE_VASSAL_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
-NDefines.NDiplomacy.RELEASE_VASSAL_INTERACTION_ENABLED = 1						-- Should this action be used at all?		
+NDefines.NDiplomacy.RELEASE_VASSAL_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.ASK_TO_EMBARGO_INTERACTION_MONEY = 0
 NDefines.NDiplomacy.ASK_TO_EMBARGO_INTERACTION_PIETY = 0
@@ -559,7 +615,7 @@ NDefines.NDiplomacy.ASK_TO_EMBARGO_INTERACTION_PRESTIGE = 40
 NDefines.NDiplomacy.ASK_TO_EMBARGO_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.ASK_TO_EMBARGO_INTERACTION_THRESHOLD_FOR_YES = 0
 NDefines.NDiplomacy.ASK_TO_EMBARGO_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
-NDefines.NDiplomacy.ASK_TO_EMBARGO_INTERACTION_ENABLED = 1						-- Should this action be used at all?		
+NDefines.NDiplomacy.ASK_TO_EMBARGO_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.PREPARE_INVASION_INTERACTION_MONEY = 0
 NDefines.NDiplomacy.PREPARE_INVASION_INTERACTION_PIETY = 0
@@ -567,7 +623,7 @@ NDefines.NDiplomacy.PREPARE_INVASION_INTERACTION_PRESTIGE = 500
 NDefines.NDiplomacy.PREPARE_INVASION_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.PREPARE_INVASION_INTERACTION_THRESHOLD_FOR_YES = 0
 NDefines.NDiplomacy.PREPARE_INVASION_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
-NDefines.NDiplomacy.PREPARE_INVASION_INTERACTION_ENABLED = 1						-- Should this action be used at all?		
+NDefines.NDiplomacy.PREPARE_INVASION_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.MAKE_CONSORT_INTERACTION_MONEY = 0
 NDefines.NDiplomacy.MAKE_CONSORT_INTERACTION_PIETY = 10
@@ -575,7 +631,7 @@ NDefines.NDiplomacy.MAKE_CONSORT_INTERACTION_PRESTIGE = 20
 NDefines.NDiplomacy.MAKE_CONSORT_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.MAKE_CONSORT_INTERACTION_THRESHOLD_FOR_YES = 0
 NDefines.NDiplomacy.MAKE_CONSORT_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
-NDefines.NDiplomacy.MAKE_CONSORT_INTERACTION_ENABLED = 1						-- Should this action be used at all?		
+NDefines.NDiplomacy.MAKE_CONSORT_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.DISMISS_CONSORT_INTERACTION_MONEY = 0
 NDefines.NDiplomacy.DISMISS_CONSORT_INTERACTION_PIETY = 15
@@ -583,7 +639,7 @@ NDefines.NDiplomacy.DISMISS_CONSORT_INTERACTION_PRESTIGE = 0
 NDefines.NDiplomacy.DISMISS_CONSORT_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.DISMISS_CONSORT_INTERACTION_THRESHOLD_FOR_YES = 0
 NDefines.NDiplomacy.DISMISS_CONSORT_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
-NDefines.NDiplomacy.DISMISS_CONSORT_INTERACTION_ENABLED = 1						-- Should this action be used at all?		
+NDefines.NDiplomacy.DISMISS_CONSORT_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.RETRACT_VASSAL_INTERACTION_MONEY = 0
 NDefines.NDiplomacy.RETRACT_VASSAL_INTERACTION_PIETY = 25
@@ -591,7 +647,7 @@ NDefines.NDiplomacy.RETRACT_VASSAL_INTERACTION_PRESTIGE = 100
 NDefines.NDiplomacy.RETRACT_VASSAL_INTERACTION_THRESHOLD_FOR_NO = 25
 NDefines.NDiplomacy.RETRACT_VASSAL_INTERACTION_THRESHOLD_FOR_YES = 75
 NDefines.NDiplomacy.RETRACT_VASSAL_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
-NDefines.NDiplomacy.RETRACT_VASSAL_INTERACTION_ENABLED = 1						-- Should this action be used at all?		
+NDefines.NDiplomacy.RETRACT_VASSAL_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.ASK_FOR_MONEY_INTERACTION_MONEY = 0
 NDefines.NDiplomacy.ASK_FOR_MONEY_INTERACTION_PIETY = 25
@@ -599,7 +655,7 @@ NDefines.NDiplomacy.ASK_FOR_MONEY_INTERACTION_PRESTIGE = 0
 NDefines.NDiplomacy.ASK_FOR_MONEY_INTERACTION_THRESHOLD_FOR_NO = 50
 NDefines.NDiplomacy.ASK_FOR_MONEY_INTERACTION_THRESHOLD_FOR_YES = 150
 NDefines.NDiplomacy.ASK_FOR_MONEY_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
-NDefines.NDiplomacy.ASK_FOR_MONEY_INTERACTION_ENABLED = 1						-- Should this action be used at all?		
+NDefines.NDiplomacy.ASK_FOR_MONEY_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.ASK_FOR_CLAIM_INTERACTION_MONEY = 0
 NDefines.NDiplomacy.ASK_FOR_CLAIM_INTERACTION_PIETY = 25
@@ -607,7 +663,7 @@ NDefines.NDiplomacy.ASK_FOR_CLAIM_INTERACTION_PRESTIGE = 0
 NDefines.NDiplomacy.ASK_FOR_CLAIM_INTERACTION_THRESHOLD_FOR_NO = 50
 NDefines.NDiplomacy.ASK_FOR_CLAIM_INTERACTION_THRESHOLD_FOR_YES = 150
 NDefines.NDiplomacy.ASK_FOR_CLAIM_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
-NDefines.NDiplomacy.ASK_FOR_CLAIM_INTERACTION_ENABLED = 1						-- Should this action be used at all?		
+NDefines.NDiplomacy.ASK_FOR_CLAIM_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.ASK_FOR_CRUSADE_INTERACTION_MONEY = 0
 NDefines.NDiplomacy.ASK_FOR_CRUSADE_INTERACTION_PIETY = 100
@@ -615,7 +671,7 @@ NDefines.NDiplomacy.ASK_FOR_CRUSADE_INTERACTION_PRESTIGE = 200
 NDefines.NDiplomacy.ASK_FOR_CRUSADE_INTERACTION_THRESHOLD_FOR_NO = 50
 NDefines.NDiplomacy.ASK_FOR_CRUSADE_INTERACTION_THRESHOLD_FOR_YES = 150
 NDefines.NDiplomacy.ASK_FOR_CRUSADE_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
-NDefines.NDiplomacy.ASK_FOR_CRUSADE_INTERACTION_ENABLED = 1						-- Should this action be used at all?		
+NDefines.NDiplomacy.ASK_FOR_CRUSADE_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.NOMINATE_BISHOP_TO_POPE_INTERACTION_MONEY = 50
 NDefines.NDiplomacy.NOMINATE_BISHOP_TO_POPE_INTERACTION_PIETY = 15
@@ -631,7 +687,7 @@ NDefines.NDiplomacy.ABSORB_CLAN_INTERACTION_PRESTIGE = 0
 NDefines.NDiplomacy.ABSORB_CLAN_INTERACTION_THRESHOLD_FOR_NO = 50
 NDefines.NDiplomacy.ABSORB_CLAN_INTERACTION_THRESHOLD_FOR_YES = 150
 NDefines.NDiplomacy.ABSORB_CLAN_INTERACTION_MUST_HAVE_COST = 1					-- Is having prestige/piety >= cost required for this action?
-NDefines.NDiplomacy.ABSORB_CLAN_INTERACTION_ENABLED = 1						-- Should this action be used at all?	
+NDefines.NDiplomacy.ABSORB_CLAN_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.SPLIT_CLAN_INTERACTION_MONEY = 0
 NDefines.NDiplomacy.SPLIT_CLAN_INTERACTION_PIETY = 25
@@ -639,7 +695,7 @@ NDefines.NDiplomacy.SPLIT_CLAN_INTERACTION_PRESTIGE = 0
 NDefines.NDiplomacy.SPLIT_CLAN_INTERACTION_THRESHOLD_FOR_NO = 50
 NDefines.NDiplomacy.SPLIT_CLAN_INTERACTION_THRESHOLD_FOR_YES = 125
 NDefines.NDiplomacy.SPLIT_CLAN_INTERACTION_MUST_HAVE_COST = 1					-- Is having prestige/piety >= cost required for this action?
-NDefines.NDiplomacy.SPLIT_CLAN_INTERACTION_ENABLED = 1							-- Should this action be used at all?	
+NDefines.NDiplomacy.SPLIT_CLAN_INTERACTION_ENABLED = 1							-- Should this action be used at all?
 
 NDefines.NDiplomacy.FORM_BLOOD_OATH_INTERACTION_MONEY = 0
 NDefines.NDiplomacy.FORM_BLOOD_OATH_INTERACTION_PIETY = 15
@@ -647,7 +703,7 @@ NDefines.NDiplomacy.FORM_BLOOD_OATH_INTERACTION_PRESTIGE = 0
 NDefines.NDiplomacy.FORM_BLOOD_OATH_INTERACTION_THRESHOLD_FOR_NO = 25
 NDefines.NDiplomacy.FORM_BLOOD_OATH_INTERACTION_THRESHOLD_FOR_YES = 50
 NDefines.NDiplomacy.FORM_BLOOD_OATH_INTERACTION_MUST_HAVE_COST = 1					-- Is having prestige/piety >= cost required for this action?
-NDefines.NDiplomacy.FORM_BLOOD_OATH_INTERACTION_ENABLED = 1						-- Should this action be used at all?	
+NDefines.NDiplomacy.FORM_BLOOD_OATH_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.SETTLE_FEUD_INTERACTION_MONEY = 0
 NDefines.NDiplomacy.SETTLE_FEUD_INTERACTION_PIETY = 15
@@ -655,7 +711,7 @@ NDefines.NDiplomacy.SETTLE_FEUD_INTERACTION_PRESTIGE = 50
 NDefines.NDiplomacy.SETTLE_FEUD_INTERACTION_THRESHOLD_FOR_NO = 25
 NDefines.NDiplomacy.SETTLE_FEUD_INTERACTION_THRESHOLD_FOR_YES = 50
 NDefines.NDiplomacy.SETTLE_FEUD_INTERACTION_MUST_HAVE_COST = 1					-- Is having prestige/piety >= cost required for this action?
-NDefines.NDiplomacy.SETTLE_FEUD_INTERACTION_ENABLED = 1						-- Should this action be used at all?	
+NDefines.NDiplomacy.SETTLE_FEUD_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.FORM_ALLIANCE_INTERACTION_MONEY = 0
 NDefines.NDiplomacy.FORM_ALLIANCE_INTERACTION_PIETY = 10
@@ -663,7 +719,7 @@ NDefines.NDiplomacy.FORM_ALLIANCE_INTERACTION_PRESTIGE = 20
 NDefines.NDiplomacy.FORM_ALLIANCE_INTERACTION_THRESHOLD_FOR_NO = 25
 NDefines.NDiplomacy.FORM_ALLIANCE_INTERACTION_THRESHOLD_FOR_YES = 25
 NDefines.NDiplomacy.FORM_ALLIANCE_INTERACTION_MUST_HAVE_COST = 1					-- Is having prestige/piety >= cost required for this action?
-NDefines.NDiplomacy.FORM_ALLIANCE_INTERACTION_ENABLED = 1						-- Should this action be used at all?	
+NDefines.NDiplomacy.FORM_ALLIANCE_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.DISSOLVE_ALLIANCE_INTERACTION_MONEY = 0
 NDefines.NDiplomacy.DISSOLVE_ALLIANCE_INTERACTION_PIETY = 1
@@ -671,7 +727,7 @@ NDefines.NDiplomacy.DISSOLVE_ALLIANCE_INTERACTION_PRESTIGE = 20
 NDefines.NDiplomacy.DISSOLVE_ALLIANCE_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.DISSOLVE_ALLIANCE_INTERACTION_THRESHOLD_FOR_YES = 0
 NDefines.NDiplomacy.DISSOLVE_ALLIANCE_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
-NDefines.NDiplomacy.DISSOLVE_ALLIANCE_INTERACTION_ENABLED = 1						-- Should this action be used at all?	
+NDefines.NDiplomacy.DISSOLVE_ALLIANCE_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.START_COALITION_INTERACTION_MONEY = 0
 NDefines.NDiplomacy.START_COALITION_INTERACTION_PIETY = 0
@@ -679,7 +735,7 @@ NDefines.NDiplomacy.START_COALITION_INTERACTION_PRESTIGE = 50
 NDefines.NDiplomacy.START_COALITION_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.START_COALITION_INTERACTION_THRESHOLD_FOR_YES = 0
 NDefines.NDiplomacy.START_COALITION_INTERACTION_MUST_HAVE_COST = 0					-- Is having prestige/piety >= cost required for this action?
-NDefines.NDiplomacy.START_COALITION_INTERACTION_ENABLED = 1						-- Should this action be used at all?	
+NDefines.NDiplomacy.START_COALITION_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.LEAVE_COALITION_INTERACTION_MONEY = 0
 NDefines.NDiplomacy.LEAVE_COALITION_INTERACTION_PIETY = 0
@@ -687,7 +743,7 @@ NDefines.NDiplomacy.LEAVE_COALITION_INTERACTION_PRESTIGE = 50
 NDefines.NDiplomacy.LEAVE_COALITION_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.LEAVE_COALITION_INTERACTION_THRESHOLD_FOR_YES = 0
 NDefines.NDiplomacy.LEAVE_COALITION_INTERACTION_MUST_HAVE_COST = 0					-- Is having prestige/piety >= cost required for this action?
-NDefines.NDiplomacy.LEAVE_COALITION_INTERACTION_ENABLED = 1						-- Should this action be used at all?	
+NDefines.NDiplomacy.LEAVE_COALITION_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.BUY_FAVOR_INTERACTION_MONEY = 0
 NDefines.NDiplomacy.BUY_FAVOR_INTERACTION_PIETY = 25
@@ -695,7 +751,7 @@ NDefines.NDiplomacy.BUY_FAVOR_INTERACTION_PRESTIGE = 0
 NDefines.NDiplomacy.BUY_FAVOR_INTERACTION_THRESHOLD_FOR_NO = 25
 NDefines.NDiplomacy.BUY_FAVOR_INTERACTION_THRESHOLD_FOR_YES = 25
 NDefines.NDiplomacy.BUY_FAVOR_INTERACTION_MUST_HAVE_COST = 0					-- Is having prestige/piety >= cost required for this action?
-NDefines.NDiplomacy.BUY_FAVOR_INTERACTION_ENABLED = 1						-- Should this action be used at all?	
+NDefines.NDiplomacy.BUY_FAVOR_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.REQUEST_SUPPORT_INTERACTION_MONEY = 0
 NDefines.NDiplomacy.REQUEST_SUPPORT_INTERACTION_PIETY = 25
@@ -703,7 +759,7 @@ NDefines.NDiplomacy.REQUEST_SUPPORT_INTERACTION_PRESTIGE = 0
 NDefines.NDiplomacy.REQUEST_SUPPORT_INTERACTION_THRESHOLD_FOR_NO = 25
 NDefines.NDiplomacy.REQUEST_SUPPORT_INTERACTION_THRESHOLD_FOR_YES = 25
 NDefines.NDiplomacy.REQUEST_SUPPORT_INTERACTION_MUST_HAVE_COST = 0					-- Is having prestige/piety >= cost required for this action?
-NDefines.NDiplomacy.REQUEST_SUPPORT_INTERACTION_ENABLED = 1						-- Should this action be used at all?	
+NDefines.NDiplomacy.REQUEST_SUPPORT_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.CALL_IN_FAVOR_INTERACTION_MONEY = 0
 NDefines.NDiplomacy.CALL_IN_FAVOR_INTERACTION_PIETY = 25
@@ -711,7 +767,7 @@ NDefines.NDiplomacy.CALL_IN_FAVOR_INTERACTION_PRESTIGE = 0
 NDefines.NDiplomacy.CALL_IN_FAVOR_INTERACTION_THRESHOLD_FOR_NO = 25
 NDefines.NDiplomacy.CALL_IN_FAVOR_INTERACTION_THRESHOLD_FOR_YES = 25
 NDefines.NDiplomacy.CALL_IN_FAVOR_INTERACTION_MUST_HAVE_COST = 0					-- Is having prestige/piety >= cost required for this action?
-NDefines.NDiplomacy.CALL_IN_FAVOR_INTERACTION_ENABLED = 1						-- Should this action be used at all?	
+NDefines.NDiplomacy.CALL_IN_FAVOR_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.FORM_NON_AGGRESSION_PACT_INTERACTION_MONEY = 0
 NDefines.NDiplomacy.FORM_NON_AGGRESSION_PACT_INTERACTION_PIETY = 10
@@ -719,8 +775,8 @@ NDefines.NDiplomacy.FORM_NON_AGGRESSION_PACT_INTERACTION_PRESTIGE = 20
 NDefines.NDiplomacy.FORM_NON_AGGRESSION_PACT_INTERACTION_THRESHOLD_FOR_NO = 25
 NDefines.NDiplomacy.FORM_NON_AGGRESSION_PACT_INTERACTION_THRESHOLD_FOR_YES = 25
 NDefines.NDiplomacy.FORM_NON_AGGRESSION_PACT_INTERACTION_MUST_HAVE_COST = 0		-- Is having prestige/piety >= cost required for this action?
-NDefines.NDiplomacy.FORM_NON_AGGRESSION_PACT_INTERACTION_ENABLED = 1				-- Should this action be used at all?	
-	
+NDefines.NDiplomacy.FORM_NON_AGGRESSION_PACT_INTERACTION_ENABLED = 1				-- Should this action be used at all?
+
 NDefines.NDiplomacy.FORCE_JOIN_FACTION_INTERACTION_MONEY = 0
 NDefines.NDiplomacy.FORCE_JOIN_FACTION_INTERACTION_PIETY = 20
 NDefines.NDiplomacy.FORCE_JOIN_FACTION_INTERACTION_PRESTIGE = 0

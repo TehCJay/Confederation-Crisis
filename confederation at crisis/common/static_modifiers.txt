@@ -55,7 +55,7 @@ very_hard_ai = {
 ##########################################################################
 
 province_base_values = {
-	supply_limit = 5 # 5K troops
+	supply_limit = 1 # 5K troops
 }
 
 coastal = {
@@ -68,34 +68,35 @@ coastal_sea = {
 }
 
 sea_zone = {
-	max_attrition = 0.05
+	max_attrition = 0.5
 }
 
 land_province = {
-	max_attrition = 0.05
+	max_attrition = 0.5
 }
 
 mild_winter = {
-	supply_limit = -2
-	max_attrition = 0.1
+	supply_limit = 0
+	max_attrition = 1
 }
 
 normal_winter = {
-	supply_limit = -3
-	max_attrition = 0.15
+	supply_limit = 0
+	max_attrition = 1
 }
 
 severe_winter = {
-	supply_limit = -5
-	max_attrition = 0.2
+	supply_limit = 0
+	max_attrition = 1
 }
 
-out_of_supply = 
+out_of_supply =
 {
-	max_attrition = 0.1
+	max_attrition = 1
 }
 
 no_adjacent_controlled = {
+	supply_limit = -2
 }
 
 # Another culture in the same culture group
@@ -187,7 +188,7 @@ occupied_different_religiongroup = {
 
 looted_modifier = {
 	local_tax_modifier = -0.25
-	
+
 	icon = 24
 }
 
@@ -282,7 +283,7 @@ settled_adventurer = {
 # Combat Static Modifiers
 ##########################################################################
 
-river_crossing = {	
+river_crossing = {
 	icon = 2
 	archers_defensive = -0.1
 	light_infantry_defensive = -0.1
@@ -301,7 +302,7 @@ river_crossing = {
 	horse_archers_offensive = -0.075
 }
 
-major_river_crossing = {	
+major_river_crossing = {
 	icon = 2
 	archers_defensive = -0.2
 	light_infantry_defensive = -0.2
@@ -396,6 +397,20 @@ defenderbonus_jungle = {
 	horse_archers_offensive = -0.15
 }
 
+defenderbonus_main_sequence = {
+	icon = 1
+	archers_defensive = 0.3
+	light_infantry_defensive = 0.1
+	pikemen_defensive = 0.2
+	heavy_infantry_defensive = 0.1
+	horse_archers_defensive = -0.25
+
+	light_infantry_offensive = 0.1
+	heavy_infantry_offensive = 0.1
+	pikemen_offensive = 0.1
+	horse_archers_offensive = -0.15
+}
+
 ##########################################################################
 # Attribute Mods: Multiplied by the value (including councillor and spouse additions)
 ##########################################################################
@@ -456,18 +471,24 @@ castle = {
 	fort_level = 3
 	build_cost_modifier = 500
 	build_time_modifier = 730
-	light_infantry = 60
-	heavy_infantry = 150
-	light_cavalry = 15
-	levy_reinforce_rate = 1.25
+	light_infantry = 10
+	heavy_infantry = 10
+	pikemen = 20
+	light_cavalry = 1
+	knights = 10
+	archers = 50
 	land_organisation = 0.2
 }
 
 city = {
 	tax_income = 12
 	fort_level = 0
-	light_infantry = 75
-	archers = 40
+	light_infantry = 20
+	heavy_infantry = 5
+	pikemen = 5
+	light_cavalry = 5
+	knights = 0
+	archers = 150
 	build_cost_modifier = 500
 	build_time_modifier = 730
 	land_organisation = 0.2
@@ -475,9 +496,13 @@ city = {
 
 temple = {
 	tax_income = 8
-	heavy_infantry = 45
-	light_infantry = 45
-	archers = 40
+	fort_level = 1
+	light_infantry = 5
+	heavy_infantry = 20
+	pikemen = 5
+	light_cavalry = 5
+	knights = 0
+	archers = 50
 	build_cost_modifier = 500
 	build_time_modifier = 730
 	levy_reinforce_rate = 0.25
@@ -488,8 +513,8 @@ trade_post = {
 	tax_income = 6
 	fort_level = 0
 	levy_size = 0
-	light_infantry = 50
-	archers = 50
+	#light_infantry = 50
+	#archers = 50
 	build_cost_modifier = 150
 	build_time_modifier = 365
 	land_organisation = 0.2
@@ -498,9 +523,9 @@ trade_post = {
 family_palace = {
 	tax_income = 10
 	fort_level = 0
-	light_infantry = 40
-	archers = 10
-	galleys = 25
+	#light_infantry = 40
+	#archers = 10
+	#galleys = 25
 	levy_reinforce_rate = 1.25
 	land_organisation = 0.2
 }
@@ -508,9 +533,9 @@ family_palace = {
 tribal = {
 	tax_income = 0.5
 	fort_level = 1
-	light_infantry = 100
-	heavy_infantry = 5
-	archers = 20
+	#light_infantry = 100
+	#heavy_infantry = 5
+	#archers = 20
 	levy_reinforce_rate = 1.5
 	land_organisation = 0.2
 	build_cost_modifier = 25 # cost per empty holding slot
@@ -521,8 +546,8 @@ nomad = {
 	tax_income = 0
 	fort_level = 1
 	levy_size = -3
-	light_infantry = 160
-	heavy_infantry = 40
+	#light_infantry = 160
+	#heavy_infantry = 40
 	levy_reinforce_rate = 0
 	land_organisation = 0
 }
@@ -533,9 +558,9 @@ fort = {
 	levy_size = 0
 	build_cost_modifier = 20
 	build_time_modifier = 20
-	light_infantry = 30
-	heavy_infantry = 75
-	light_cavalry = 7
+	#light_infantry = 30
+	#heavy_infantry = 75
+	#light_cavalry = 7
 	levy_reinforce_rate = 2
 	land_organisation = 0.2
 }
@@ -683,7 +708,7 @@ capital_county_independent_holder = {
 
 # Applied to your holdings in your capital province if you're a count and a vassal
 capital_county_vassal_count = {
-	
+
 }
 
 # Applied to your holdings in your capital province if you're above count level and a vassal

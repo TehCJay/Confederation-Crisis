@@ -2,7 +2,7 @@ decisions = {
 	# Occupation of rebel territory
 	authorize_occupation_decision = {
 		is_high_prio = yes
-		ai_check_interval = 40 
+		ai_check_interval = 40
 		potential = {
 			war = yes
 			any_current_enemy = {
@@ -52,13 +52,13 @@ decisions = {
 					}
 				}
 			}
-			
+
 			# Conserve prestige if going for an ambition
 			modifier = {
 				factor = 0
 				has_ambition = obj_become_exalted
 			}
-			
+
 			# Strongly ideologically opposed
 			modifier = {
 				factor = 0
@@ -77,7 +77,7 @@ decisions = {
 				religion_authority = 0.5
 				NOT = { trait = pragmatic }
 			}
-			
+
 			# Strongly ideologically opposed (unless they're separatists)
 			modifier = {
 				factor = 0
@@ -108,7 +108,7 @@ decisions = {
 				religion_authority = 0.5
 				NOT = { trait = pragmatic }
 			}
-			
+
 			# Strongly ideologically opposed (unless they're traitors)
 			modifier = {
 				factor = 0
@@ -138,7 +138,7 @@ decisions = {
 	# Orbital Bombardment
 	authorize_bombardment_decision = {
 		is_high_prio = yes
-		ai_check_interval = 40 
+		ai_check_interval = 40
  potential = {
 			demesne_size = 1
 			top_liege = { character = ROOT } # You are the highest authority
@@ -191,7 +191,7 @@ decisions = {
 	}
 	order_bombardment_decision = {
 		is_high_prio = yes
-		ai_check_interval = 40 
+		ai_check_interval = 40
  potential = {
 			in_command = yes
 			is_landed = yes
@@ -239,7 +239,7 @@ decisions = {
 					NOT = { trait = radical }
 				}
 			}
-			
+
 			# Moral issues
 			modifier = {
 				factor = 0
@@ -255,14 +255,14 @@ decisions = {
 				NOT = { piety = 100 }
 				NOT = { trait = pragmatic }
 			}
-			
+
 			# Avoiding bombing your own planets
 			modifier = {
 				factor = 0
 				location = { owner = { same_realm = ROOT } }
 				NOT = { trait = cold }
 			}
-			
+
 			# Try to avoid bombing Earth if at all humanly possible
 			modifier = {
 				factor = 0
@@ -282,7 +282,7 @@ decisions = {
 	}
 	order_unauthorized_bombardment_decision = {
 		is_high_prio = yes
-		ai_check_interval = 40 
+		ai_check_interval = 40
  potential = {
 			in_command = yes
 			is_landed = yes
@@ -341,7 +341,7 @@ decisions = {
 					NOT = { trait = radical }
 				}
 			}
-			
+
 			# Moral issues
 			modifier = {
 				factor = 0
@@ -357,14 +357,14 @@ decisions = {
 				NOT = { piety = 100 }
 				NOT = { trait = pragmatic }
 			}
-			
+
 			# Avoiding bombing your own planets
 			modifier = {
 				factor = 0
 				location = { owner = { same_realm = ROOT } }
 				NOT = { trait = cold }
 			}
-			
+
 			# Try to avoid bombing Earth if at all humanly possible
 			modifier = {
 				factor = 0
@@ -384,7 +384,7 @@ decisions = {
 	}
 	seek_political_marriage = {
 		is_high_prio = yes
-		ai_check_interval = 40 
+		ai_check_interval = 40
  potential = {
 			prisoner = no
 			age = 18
@@ -435,7 +435,7 @@ decisions = {
 	}
 	marry_your_lover_same_sex = {
 		is_high_prio = yes
-		ai_check_interval = 40 
+		ai_check_interval = 40
  potential = {
 			NOT = { has_character_flag = flag_marry_your_lover }
 			age = 18
@@ -521,7 +521,7 @@ decisions = {
 	}
 	marry_your_lover_male = {
 		is_high_prio = yes
-		ai_check_interval = 40 
+		ai_check_interval = 40
  potential = {
 			ai = no
 			NOT = { has_character_flag = flag_marry_your_lover }
@@ -550,7 +550,7 @@ decisions = {
 	}
 	marry_your_lover_female = {
 		is_high_prio = yes
-		ai_check_interval = 40 
+		ai_check_interval = 40
  potential = {
 			ai = no
 			NOT = { has_character_flag = flag_marry_your_lover }
@@ -577,9 +577,9 @@ decisions = {
 			character_event = { id = marriage.300 tooltip = "EVTTOOLTIPMARRIAGE300" }
 		}
 	}
-	
+
 	commit_suicide = {
-		ai_check_interval = 40 
+		ai_check_interval = 40
  potential = {
 			age = 16
 			trait = depressed
@@ -596,6 +596,273 @@ decisions = {
 		}
 		ai_will_do = {
 			factor = 0
+		}
+	}
+}
+
+settlement_decisions = {
+	scorch_settlement = {
+		filter = realm_owned
+		ai_target_filter = realm_owned
+		is_high_prio = yes
+		ai_check_interval = 3
+
+		from_potential = {
+			is_playable = yes
+		}
+
+		potential = {
+			OR = {
+				owner = { character = FROM }
+				owner = { is_vassal_or_below_of = FROM }
+			}
+		}
+
+		allow = {
+			OR = {
+				has_building = ca_fleet_support_q_1
+				has_building = ca_fleet_support_q_2
+				has_building = ca_fleet_support_q_3
+				has_building = ca_fleet_support_q_4
+				has_building = ca_fleet_support_q_5
+				has_building = ca_fleet_support_q_6
+				has_building = ca_fleet_support_q_7
+				has_building = ca_fleet_support_q_8
+
+				has_building = ct_agriculture_q_1
+				has_building = ct_agriculture_q_2
+				has_building = ct_agriculture_q_3
+				has_building = ct_agriculture_q_4
+				has_building = ct_agriculture_q_5
+
+				has_building = ct_trade_center_q_1
+				has_building = ct_trade_center_q_2
+				has_building = ct_trade_center_q_3
+				has_building = ct_trade_center_q_4
+				has_building = ct_trade_center_q_5
+			}
+		}
+
+		effect = {
+
+			hidden_tooltip = {
+				location = { save_event_target_as = nickname_target }
+				FROM = { save_event_target_as = nickname_receiver }
+				if = {
+					limit = {
+						owner = {
+							has_nickname = no
+							is_adult = yes
+							NOT = { trait = incapable }
+						}
+					}
+					random_list = {
+						5 = {
+							owner = { give_nickname = nick_the_destroyer }
+						}
+						95 = {}
+					}
+				}
+			}
+
+			custom_tooltip = {
+				text = "PILLAGE_DESTROY_BUILDINGS"
+				hidden_tooltip = {
+					set_variable = { which = "local_destroyed_buildings" value = 0 }
+					if = {
+						limit = {
+							has_building = ca_fleet_support_q_1
+						}
+						remove_building = ca_fleet_support_q_1
+						change_variable = { which = "local_destroyed_buildings" value = 1 }
+					}
+					if = {
+						limit = {
+							has_building = ca_fleet_support_q_2
+						}
+						remove_building = ca_fleet_support_q_2
+						change_variable = { which = "local_destroyed_buildings" value = 1 }
+					}
+					if = {
+						limit = {
+							has_building = ca_fleet_support_q_3
+						}
+						remove_building = ca_fleet_support_q_3
+						change_variable = { which = "local_destroyed_buildings" value = 1 }
+					}
+					if = {
+						limit = {
+							has_building = ca_fleet_support_q_4
+						}
+						remove_building = ca_fleet_support_q_4
+						change_variable = { which = "local_destroyed_buildings" value = 1 }
+					}
+					if = {
+						limit = {
+							has_building = ca_fleet_support_q_5
+						}
+						remove_building = ca_fleet_support_q_5
+						change_variable = { which = "local_destroyed_buildings" value = 1 }
+					}
+					if = {
+						limit = {
+							has_building = ca_fleet_support_q_6
+						}
+						remove_building = ca_fleet_support_q_6
+						change_variable = { which = "local_destroyed_buildings" value = 1 }
+					}
+					if = {
+						limit = {
+							has_building = ca_fleet_support_q_7
+						}
+						remove_building = ca_fleet_support_q_7
+						change_variable = { which = "local_destroyed_buildings" value = 1 }
+					}
+					if = {
+						limit = {
+							has_building = ca_fleet_support_q_8
+						}
+						remove_building = ca_fleet_support_q_8
+						change_variable = { which = "local_destroyed_buildings" value = 1 }
+					}
+
+					if = {
+						limit = {
+							has_building = ct_agriculture_q_1
+						}
+						remove_building = ct_agriculture_q_1
+						change_variable = { which = "local_destroyed_buildings" value = 1 }
+					}
+					if = {
+						limit = {
+							has_building = ct_agriculture_q_2
+						}
+						remove_building = ct_agriculture_q_2
+						change_variable = { which = "local_destroyed_buildings" value = 1 }
+					}
+					if = {
+						limit = {
+							has_building = ct_agriculture_q_3
+						}
+						remove_building = ct_agriculture_q_3
+						change_variable = { which = "local_destroyed_buildings" value = 1 }
+					}
+					if = {
+						limit = {
+							has_building = ct_agriculture_q_4
+						}
+						remove_building = ct_agriculture_q_4
+						change_variable = { which = "local_destroyed_buildings" value = 1 }
+					}
+					if = {
+						limit = {
+							has_building = ct_agriculture_q_5
+						}
+						remove_building = ct_agriculture_q_5
+						change_variable = { which = "local_destroyed_buildings" value = 1 }
+					}
+
+					if = {
+						limit = {
+							has_building = ct_trade_center_q_1
+						}
+						remove_building = ct_trade_center_q_1
+						change_variable = { which = "local_destroyed_buildings" value = 1 }
+					}
+					if = {
+						limit = {
+							has_building = ct_trade_center_q_2
+						}
+						remove_building = ct_trade_center_q_2
+						change_variable = { which = "local_destroyed_buildings" value = 1 }
+					}
+					if = {
+						limit = {
+							has_building = ct_trade_center_q_3
+						}
+						remove_building = ct_trade_center_q_3
+						change_variable = { which = "local_destroyed_buildings" value = 1 }
+					}
+					if = {
+						limit = {
+							has_building = ct_trade_center_q_4
+						}
+						remove_building = ct_trade_center_q_4
+						change_variable = { which = "local_destroyed_buildings" value = 1 }
+					}
+					if = {
+						limit = {
+							has_building = ct_trade_center_q_5
+						}
+						remove_building = ct_trade_center_q_5
+						change_variable = { which = "local_destroyed_buildings" value = 1 }
+					}
+
+
+					if = {
+						limit = {
+							NOT = { holder_scope = { character = FROM } }
+						}
+						while = {
+						    limit = {
+								check_variable = {
+								    which = "local_destroyed_buildings"
+								    value > 0
+								}
+						    }
+						    subtract_variable = {
+								which = "local_destroyed_buildings"
+								value = 1
+						    }
+						    holder_scope = {
+								opinion = {
+									who = FROM
+									modifier = opinion_scorched_my_building
+									years = 5
+								}
+							}
+						}
+					}
+				}
+			}
+
+			hidden_tooltip = {
+				location = {
+					add_province_modifier = {
+						modifier = burnt_the_land
+						years = 5
+					}
+					fn_crisis_recalcsupply_in_province = yes
+				}
+			}
+
+
+		}
+		revoke_allowed = {
+			always = no
+		}
+
+		#AI will use only this on last resort:
+		ai_will_do = {
+			factor = 1
+
+			trigger = {
+				FROM = {
+					any_war = {
+						defender = {
+							character = PREVPREV
+							war_score = 50
+						}
+					}
+					any_current_enemy = {
+					    any_unit = {
+					        location = {
+					            province = ROOT
+					        }
+					    }
+					}
+				}
+			}
 		}
 	}
 }

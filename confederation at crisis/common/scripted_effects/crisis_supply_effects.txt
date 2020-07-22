@@ -1,0 +1,187 @@
+
+fn_crisis_recalcsupply_in_province = {
+#this function is called from different places, and as thus FROM and ROOT are NOT trustworthy.
+#what is ensured, is that the "main scope" is a location scope that resolves to a province
+
+    set_variable = { which = "supply_value" value = 0 }
+
+    #castles
+    any_province_holding = {
+        limit = {
+            has_building = ca_fleet_support_q_1
+        }
+        PREV = {
+            change_variable = { which = "supply_value" value = 3.75 }
+        }
+    }
+
+    any_province_holding = {
+        limit = {
+            has_building = ca_fleet_support_q_2
+        }
+        PREV = {
+            change_variable = { which = "supply_value" value = 3.75 }
+        }
+    }
+
+    any_province_holding = {
+        limit = {
+            has_building = ca_fleet_support_q_3
+        }
+        PREV = {
+            change_variable = { which = "supply_value" value = 3.75 }
+        }
+    }
+
+    any_province_holding = {
+        limit = {
+            has_building = ca_fleet_support_q_4
+        }
+        PREV = {
+            change_variable = { which = "supply_value" value = 3.75 }
+        }
+    }
+
+    any_province_holding = {
+        limit = {
+            has_building = ca_fleet_support_q_5
+        }
+        PREV = {
+            change_variable = { which = "supply_value" value = 3.75 }
+        }
+    }
+
+    any_province_holding = {
+        limit = {
+            has_building = ca_fleet_support_q_6
+        }
+        PREV = {
+            change_variable = { which = "supply_value" value = 3.75 }
+        }
+    }
+
+    any_province_holding = {
+        limit = {
+            has_building = ca_fleet_support_q_7
+        }
+        PREV = {
+            change_variable = { which = "supply_value" value = 3.75 }
+        }
+    }
+
+    any_province_holding = {
+        limit = {
+            has_building = ca_fleet_support_q_8
+        }
+        PREV = {
+            change_variable = { which = "supply_value" value = 3.75 }
+        }
+    }
+
+    #cities
+    any_province_holding = {
+        limit = {
+            has_building = ct_agriculture_q_1
+        }
+        PREV = {
+            change_variable = { which = "supply_value" value = 1 }
+        }
+    }
+    any_province_holding = {
+        limit = {
+            has_building = ct_agriculture_q_2
+        }
+        PREV = {
+            change_variable = { which = "supply_value" value = 1 }
+        }
+    }
+    any_province_holding = {
+        limit = {
+            has_building = ct_agriculture_q_3
+        }
+        PREV = {
+            change_variable = { which = "supply_value" value = 1 }
+        }
+    }
+    any_province_holding = {
+        limit = {
+            has_building = ct_agriculture_q_4
+        }
+        PREV = {
+            change_variable = { which = "supply_value" value = 1 }
+        }
+    }
+    any_province_holding = {
+        limit = {
+            has_building = ct_agriculture_q_5
+        }
+        PREV = {
+            change_variable = { which = "supply_value" value = 1 }
+        }
+    }
+    any_province_holding = {
+        limit = {
+            has_building = ct_trade_center_q_1
+        }
+        PREV = {
+            change_variable = { which = "supply_value" value = 1 }
+        }
+    }
+    any_province_holding = {
+        limit = {
+            has_building = ct_trade_center_q_2
+        }
+        PREV = {
+            change_variable = { which = "supply_value" value = 1 }
+        }
+    }
+    any_province_holding = {
+        limit = {
+            has_building = ct_trade_center_q_3
+        }
+        PREV = {
+            change_variable = { which = "supply_value" value = 1 }
+        }
+    }
+    any_province_holding = {
+        limit = {
+            has_building = ct_trade_center_q_4
+        }
+        PREV = {
+            change_variable = { which = "supply_value" value = 1 }
+        }
+    }
+    any_province_holding = {
+        limit = {
+            has_building = ct_trade_center_q_5
+        }
+        PREV = {
+            change_variable = { which = "supply_value" value = 1 }
+        }
+    }
+
+    #temples
+
+    remove_province_modifiers = {
+        name = province_supply_from_building
+        amount = 10000
+    }
+
+    while = {
+        limit = {
+            check_variable = {
+                which = "supply_value"
+                value > 0
+            }
+        }
+        subtract_variable = {
+            which = "supply_value"
+            value = 1
+        }
+        add_province_modifier = {
+            name = province_supply_from_building
+            duration = -1
+            stacking = yes
+        }
+    }
+}
