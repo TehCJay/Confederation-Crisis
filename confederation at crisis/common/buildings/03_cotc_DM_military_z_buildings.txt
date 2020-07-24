@@ -9,11 +9,13 @@ castle = {
 		desc = ca_primary_q_0_desc
 		trigger = { TECH_LEGALISM = 0 }
 		potential = {  }
-		
-		build_cost = 0
+
+		gold_cost = 0
 		build_time = 0
 		ai_creation_factor = 200
-		
+
+		retinuesize = 5 #5
+
 		extra_tech_building_start = 0
 	}
 	ca_primary_q_1 = {
@@ -24,15 +26,15 @@ castle = {
 		potential = { }
 		prerequisites = { ca_environment_0 }
 		upgrades_from = ca_primary_q_0
-		retinuesize = 50
+		retinuesize = 15 #20
 		garrison_size = 0.3
 		tax_income = 2
-		build_cost = 1000
+		gold_cost = 1000
 		build_time = 365
 		ai_creation_factor = 50
 		extra_tech_building_start = 10.0
 	}
-	
+
 	ca_primary_q_2 = {
 		desc = ca_primary_q_2_desc
 		trigger = {
@@ -40,11 +42,11 @@ castle = {
 		}
 		potential = { }
 		prerequisites = { ca_environment_1 }
-		upgrades_from = ca_primary_q_1	#Make sure all planets upgrade from each other in order
-		retinuesize = 100
+		upgrades_from = ca_primary_q_1
+		retinuesize = 25 #45
 		garrison_size = 0.6
 		tax_income = 4
-		build_cost = 2000
+		gold_cost = 2000
 		build_time = 730
 		ai_creation_factor = 49
 		extra_tech_building_start = 10.0
@@ -57,10 +59,10 @@ castle = {
 		potential = { }
 		prerequisites = { ca_environment_2 }
 		upgrades_from = ca_primary_q_2
-		retinuesize = 150
+		retinuesize = 35 #80
 		garrison_size = 1.25
 		tax_income = 6
-		build_cost = 3000
+		gold_cost = 3000
 		build_time = 1460
 		ai_creation_factor = 48
 		extra_tech_building_start = 10.0
@@ -73,10 +75,10 @@ castle = {
 		potential = { }
 		prerequisites = { ca_environment_3 }
 		upgrades_from = ca_primary_q_3
-		retinuesize = 200
+		retinuesize = 45 #125
 		garrison_size = 2.5
 		tax_income = 10
-		build_cost = 4000
+		gold_cost = 4000
 		build_time = 2920
 		ai_creation_factor = 47
 		extra_tech_building_start = 10.0
@@ -89,22 +91,235 @@ castle = {
 		potential = { }
 		prerequisites = { ca_environment_4 }
 		upgrades_from = ca_primary_q_4
-		retinuesize = 250
+		retinuesize = 60 #185
 		garrison_size = 5.0
 		tax_income = 12
-		build_cost = 5000
+		gold_cost = 5000
 		build_time = 5840
 		ai_creation_factor = 46
 		extra_tech_building_start = 10.0
+	}
+	ca_space_dock_q_1 = {
+		desc = ca_space_dock_q_1_desc
+		trigger = {
+			TECH_NAVAL = 1
+			FROMFROM = {
+				OR = {
+					has_building = ca_energy_1
+					has_building = ca_materials_1
+				}
+			}
+		}
+
+		gold_cost = 300
+		build_time = 1500
+
+		retinuesize = 5
+		levy_size = 0.05
+		levy_reinforce_rate = 0.05
+		tax_income = 0.5
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 1
+	}
+	ca_space_dock_q_2 = {
+		desc = ca_space_dock_q_2_desc
+		trigger = {
+			TECH_NAVAL = 2
+			FROMFROM = {
+				OR = {
+					has_building = ca_energy_2
+					has_building = ca_materials_2
+				}
+			}
+		}
+		upgrades_from = ca_space_dock_q_1
+		gold_cost = 600
+		build_time = 1750
+
+		retinuesize = 5
+		levy_size = 0.05
+		levy_reinforce_rate = 0.05
+		tax_income = 0.5
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 1
+	}
+	ca_space_dock_q_3 = {
+		desc = ca_space_dock_q_3_desc
+		trigger = {
+			TECH_NAVAL = 3
+			FROMFROM = {
+				OR = {
+					has_building = ca_energy_3
+					has_building = ca_materials_3
+				}
+			}
+		}
+		upgrades_from = ca_space_dock_q_2
+		gold_cost = 900
+		build_time = 2000
+
+		retinuesize = 5
+		levy_size = 0.05
+		levy_reinforce_rate = 0.05
+		tax_income = 0.5
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 1
+	}
+	ca_space_dock_q_4 = {
+		desc = ca_space_dock_q_4_desc
+		trigger = {
+			TECH_NAVAL = 4
+			FROMFROM = {
+				OR = {
+					has_building = ca_energy_4
+					has_building = ca_materials_4
+				}
+			}
+		}
+		upgrades_from = ca_space_dock_q_3
+		gold_cost = 1200
+		build_time = 2250
+
+		retinuesize = 5
+		levy_size = 0.05
+		levy_reinforce_rate = 0.05
+		tax_income = 0.5
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 1
+	}
+	ca_space_dock_q_5 = {
+		desc = ca_space_dock_q_5_desc
+		trigger = {
+			TECH_NAVAL = 5
+		}
+		prerequisites = {
+			ca_energy_3
+			ca_materials_3
+		}
+		upgrades_from = ca_space_dock_q_4
+		gold_cost = 1600
+		build_time = 2500
+
+		retinuesize = 5
+		levy_size = 0.05
+		levy_reinforce_rate = 0.05
+		tax_income = 0.5
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 1
+	}
+	ca_space_station_q_1 = {
+		desc = ca_space_station_q_1
+		trigger = {
+			TECH_NAVAL = 0
+		}
+		prerequisites = {
+			ca_space_dock_q_1
+		}
+
+		gold_cost = 2000
+		build_time = 1000
+
+		fort_level = -0.1
+		retinuesize = 10
+		garrison_size = 0.1
+		tax_income = 1
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 1
+	}
+	ca_space_station_q_2 = {
+		desc = ca_space_station_q_2
+		trigger = {
+			TECH_NAVAL = 0
+		}
+		prerequisites = {
+			ca_space_dock_q_2
+		}
+		upgrades_from = ca_space_station_q_1
+		gold_cost = 3000
+		build_time = 2000
+
+		fort_level = -0.1
+		retinuesize = 20
+		garrison_size = 0.3
+		tax_income = 2
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 1
+	}
+	ca_space_station_q_3 = {
+		desc = ca_space_station_q_3
+		trigger = {
+			TECH_NAVAL = 0
+		}
+		prerequisites = {
+			ca_space_dock_q_3
+		}
+		upgrades_from = ca_space_station_q_2
+		gold_cost = 4000
+		build_time = 3500
+
+		fort_level = -0.1
+		retinuesize = 30
+		garrison_size = 0.6
+		tax_income = 4
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 1
+	}
+	ca_space_station_q_4 = {
+		desc = ca_space_station_q_4
+		trigger = {
+			TECH_NAVAL = 0
+		}
+		prerequisites = {
+			ca_space_dock_q_4
+		}
+		upgrades_from = ca_space_station_q_3
+		gold_cost = 5000
+		build_time = 5500
+
+		fort_level = -0.1
+		retinuesize = 40
+		garrison_size = 1.5
+		tax_income = 5
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 1
+	}
+	ca_space_station_q_5 = {
+		desc = ca_space_station_q_5
+		trigger = {
+			TECH_NAVAL = 0
+		}
+		prerequisites = {
+			ca_space_dock_q_5
+		}
+		upgrades_from = ca_space_station_q_4
+		gold_cost = 6000
+		build_time = 8000
+
+		fort_level = -0.1
+		retinuesize = 50
+		garrison_size = 3
+		tax_income = 7
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 1
 	}
 	ca_fighter_hanger_q_1 = {
 		desc = ca_fighter_hanger_q_1_desc
 		trigger = {
 			TECH_NAVAL = 0
 		}
-		build_cost = 100
+		gold_cost = 100
 		build_time = 365
-		light_infantry = 25
+		light_infantry = 30
 		ai_creation_factor = 100
 		extra_tech_building_start = 0.5
 	}
@@ -112,276 +327,421 @@ castle = {
 		desc = ca_fighter_hanger_q_2_desc
 		trigger = {
 			TECH_NAVAL = 0
+			FROMFROM = {
+				has_building = ca_materials_1
+				OR = {
+					has_building = ca_space_station_q_1
+					has_building = ca_primary_q_1
+				}
+			}
 		}
 		upgrades_from = ca_fighter_hanger_q_1
-		prerequisites = {
-			ca_primary_q_1
-			ca_materials_1
-		}
-		build_cost = 150
+		gold_cost = 150
 		build_time = 548
-		light_infantry = 30
-		ai_creation_factor = 100
+		light_infantry = 45
+		ai_creation_factor = 99
 		extra_tech_building_start = 0.8
 	}
 	ca_fighter_hanger_q_3 = {
 		desc = ca_fighter_hanger_q_3_desc
 		trigger = {
 			TECH_NAVAL = 2
+			FROMFROM = {
+				has_building = ca_materials_2
+				OR = {
+					has_building = ca_space_station_q_2
+					has_building = ca_primary_q_2
+				}
+			}
 		}
 		upgrades_from = ca_fighter_hanger_q_2
-		prerequisites = {
-			ca_primary_q_1
-			ca_materials_1
-		}
-		build_cost = 200
+		gold_cost = 200
 		build_time = 730
-		light_infantry = 35
-		ai_creation_factor = 100
+		light_infantry = 60
+		ai_creation_factor = 98
 		extra_tech_building_start = 0.8
 	}
 	ca_fighter_hanger_q_4 = {
 		desc = ca_fighter_hanger_q_4_desc
 		trigger = {
 			TECH_NAVAL = 4
+			FROMFROM = {
+				has_building = ca_materials_3
+				OR = {
+					has_building = ca_space_station_q_3
+					has_building = ca_primary_q_3
+				}
+			}
 		}
 		upgrades_from = ca_fighter_hanger_q_3
-		prerequisites = {
-			ca_primary_q_2
-			ca_materials_1
-		}
-		build_cost = 250
+		gold_cost = 250
 		build_time = 913
-		light_infantry = 40
-		ai_creation_factor = 100
+		light_infantry = 75
+		ai_creation_factor = 97
 		extra_tech_building_start = 0.8
 	}
 	ca_fighter_hanger_q_5 = {
 		desc = ca_fighter_hanger_q_5_desc
 		trigger = {
 			TECH_NAVAL = 6
+			FROMFROM = {
+				has_building = ca_materials_4
+				OR = {
+					has_building = ca_space_station_q_4
+					has_building = ca_primary_q_4
+				}
+			}
 		}
-		build_cost = 300
+		gold_cost = 300
 		build_time = 1095
-		light_infantry = 45
+		light_infantry = 90
 		upgrades_from = ca_fighter_hanger_q_4
-		prerequisites = {
-			ca_primary_q_2
-			ca_materials_2
-		}
-		ai_creation_factor = 100
+
+		ai_creation_factor = 96
 		extra_tech_building_start = 0.8
 	}
 	ca_fighter_hanger_q_6 = {
 		desc = ca_fighter_hanger_q_6_desc
 		trigger = {
 			TECH_NAVAL = 8
+			FROMFROM = {
+				has_building = ca_materials_4
+				OR = {
+					has_building = ca_space_station_q_5
+					has_building = ca_primary_q_5
+				}
+			}
 		}
-		build_cost = 350
+		gold_cost = 350
 		build_time = 1278
-		light_infantry = 50
+		light_infantry = 105
 		upgrades_from = ca_fighter_hanger_q_5
-		prerequisites = {
-			ca_primary_q_3
-			ca_materials_2
-		}
-		ai_creation_factor = 100
+
+		ai_creation_factor = 95
 		extra_tech_building_start = 0.8
 	}
 	ca_bomber_hanger_q_1 = {
 		desc = ca_bomber_hanger_q_1_desc
 		trigger = {
 			TECH_NAVAL = 0
+			FROMFROM = {
+				OR = {
+					has_building = ca_space_station_q_1
+					has_building = ca_primary_q_1
+				}
+			}
 		}
-		prerequisites = { ca_primary_q_1 }
-		build_cost = 120
+		gold_cost = 120
 		build_time = 365
-		heavy_infantry = 10
+		heavy_infantry = 20
 		ai_creation_factor = 100
 		extra_tech_building_start = 0.8
 	}
 	ca_bomber_hanger_q_2 = {
 		desc = ca_bomber_hanger_q_2_desc
+
 		trigger = {
 			TECH_NAVAL = 1
+			FROMFROM = {
+				has_building = ca_materials_1
+				OR = {
+					has_building = ca_space_station_q_2
+					has_building = ca_primary_q_2
+				}
+			}
 		}
 		upgrades_from = ca_bomber_hanger_q_1
-		prerequisites = {
-			ca_primary_q_1
-			ca_materials_1
-		}
-		build_cost = 200
+		gold_cost = 190
 		build_time = 720
-		heavy_infantry = 15
-		ai_creation_factor = 100
+		heavy_infantry = 27
+
+		ai_creation_factor = 99
 		extra_tech_building_start = 0.8
 	}
 	ca_bomber_hanger_q_3 = {
 		desc = ca_bomber_hanger_q_3_desc
+
 		trigger = {
 			TECH_NAVAL = 3
+			FROMFROM = {
+				has_building = ca_materials_2
+				OR = {
+					has_building = ca_space_station_q_3
+					has_building = ca_primary_q_3
+				}
+			}
 		}
 		upgrades_from = ca_bomber_hanger_q_2
-		prerequisites = {
-			ca_primary_q_2
-			ca_materials_2
-		}
-		build_cost = 280
+
+		gold_cost = 250
 		build_time = 1095
-		heavy_infantry = 20
-		ai_creation_factor = 100
+		heavy_infantry = 34
+
+		ai_creation_factor = 98
 		extra_tech_building_start = 0.8
 	}
 	ca_bomber_hanger_q_4 = {
 		desc = ca_bomber_hanger_q_4_desc
+
 		trigger = {
 			TECH_NAVAL = 5
+			FROMFROM = {
+				has_building = ca_materials_3
+				OR = {
+					has_building = ca_space_station_q_4
+					has_building = ca_primary_q_4
+				}
+			}
 		}
 		upgrades_from = ca_bomber_hanger_q_3
-		prerequisites = {
-			ca_primary_q_2
-			ca_materials_3
-		}
-		build_cost = 360
+
+		gold_cost = 310
 		build_time = 1460
-		heavy_infantry = 25
-		ai_creation_factor = 100
+		heavy_infantry = 41
+		ai_creation_factor = 97
 		extra_tech_building_start = 0.8
 	}
 	ca_bomber_hanger_q_5 = {
 		desc = ca_bomber_hanger_q_5_desc
+
 		trigger = {
 			TECH_NAVAL = 7
+			FROMFROM = {
+				has_building = ca_materials_4
+				OR = {
+					has_building = ca_space_station_q_5
+					has_building = ca_primary_q_5
+				}
+			}
 		}
 		upgrades_from = ca_bomber_hanger_q_4
-		prerequisites = {
-			ca_primary_q_3
-			ca_materials_4
-		}
-		build_cost = 440
+
+		gold_cost = 370
 		build_time = 1825
-		heavy_infantry = 30
-		ai_creation_factor = 100
+		heavy_infantry = 48
+		ai_creation_factor = 96
 		extra_tech_building_start = 0.8
 	}
 	ca_destroyer_hanger_q_1 = {
 		desc = ca_destroyer_hanger_q_1_desc
+
 		trigger = {
 			TECH_NAVAL = 0
+			FROMFROM = {
+				OR = {
+					has_building = ca_space_station_q_1
+					has_building = ca_primary_q_1
+				}
+			}
 		}
-		prerequisites = {
-			ca_primary_q_2
-		}
-		build_cost = 150
+
+		gold_cost = 150
 		build_time = 548
-		light_cavalry = 2
+		light_cavalry = 5
 		ai_creation_factor = 100
 		extra_tech_building_start = 0.8
 	}
 	ca_destroyer_hanger_q_2 = {
 		desc = ca_destroyer_hanger_q_2_desc
+
 		trigger = {
 			TECH_NAVAL = 1
+			FROMFROM = {
+				has_building = ca_materials_1
+				OR = {
+					has_building = ca_space_station_q_2
+					has_building = ca_primary_q_2
+				}
+			}
 		}
 		upgrades_from = ca_destroyer_hanger_q_1
-		prerequisites = {
-			ca_primary_q_2
-			ca_materials_1
-		}
-		build_cost = 300
+
+		gold_cost = 300
 		build_time = 1096
-		light_cavalry = 3
-		ai_creation_factor = 100
+		light_cavalry = 8
+		ai_creation_factor = 99
 		extra_tech_building_start = 0.8
 	}
 	ca_destroyer_hanger_q_3 = {
 		desc = ca_destroyer_hanger_q_3_desc
 		trigger = {
 			TECH_NAVAL = 3
+			FROMFROM = {
+				has_building = ca_materials_2
+				OR = {
+					has_building = ca_space_station_q_3
+					has_building = ca_primary_q_3
+				}
+			}
 		}
 		upgrades_from = ca_destroyer_hanger_q_2
-		prerequisites = {
-			ca_primary_q_2
-			ca_materials_2
-		}
-		build_cost = 450
+
+		gold_cost = 450
 		build_time = 1644
-		light_cavalry = 4
-		ai_creation_factor = 100
+		light_cavalry = 11
+		ai_creation_factor = 98
 		extra_tech_building_start = 0.8
 	}
 	ca_destroyer_hanger_q_4 = {
 		desc = ca_destroyer_hanger_q_4_desc
+
 		trigger = {
 			TECH_NAVAL = 5
+			FROMFROM = {
+				has_building = ca_materials_3
+				OR = {
+					has_building = ca_space_station_q_4
+					has_building = ca_primary_q_4
+				}
+			}
 		}
 		upgrades_from = ca_destroyer_hanger_q_3
-		prerequisites = {
-			ca_primary_q_3
-			ca_materials_3
-		}
-		build_cost = 600
+
+		gold_cost = 600
 		build_time = 2192
-		light_cavalry = 5
-		ai_creation_factor = 100
+		light_cavalry = 14
+		ai_creation_factor = 97
 		extra_tech_building_start = 0.8
 	}
 	ca_destroyer_hanger_q_5 = {
 		desc = ca_destroyer_hanger_q_5_desc
+
 		trigger = {
 			TECH_NAVAL = 7
+			FROMFROM = {
+				has_building = ca_materials_4
+				OR = {
+					has_building = ca_space_station_q_5
+					has_building = ca_primary_q_5
+				}
+			}
 		}
 		upgrades_from = ca_destroyer_hanger_q_4
-		prerequisites = {
-			ca_primary_q_3
-			ca_materials_4
-		}
-		build_cost = 750
+
+		gold_cost = 750
 		build_time = 2740
-		light_cavalry = 6
-		ai_creation_factor = 100
+		light_cavalry = 17
+		ai_creation_factor = 96
 		extra_tech_building_start = 0.8
 	}
 	ca_capital_factory_q_1 = {
 		desc = ca_capital_factory_q_1_desc
 		trigger = {
 			TECH_NAVAL = 1
+			FROMFROM = {
+				has_building = ca_materials_1
+				OR = {
+					has_building = ca_space_station_q_1
+					has_building = ca_primary_q_1
+				}
+			}
 		}
-		prerequisites = {
-			ca_primary_q_2
-			ca_materials_2
-		}
-		build_cost = 400
-		build_time = 1278
-		retinuesize = 50
-		ai_creation_factor = 100
+
+		gold_cost = 300
+		build_time = 1200
+		retinuesize = 10 #10
+		knights = 2
+		ai_creation_factor = 150
 		extra_tech_building_start = 0.8
 	}
 	ca_capital_factory_q_2 = {
 		desc = ca_capital_factory_q_2_desc
 		trigger = {
-			TECH_NAVAL = 4
+			TECH_NAVAL = 3
+			FROMFROM = {
+				has_building = ca_materials_2
+				OR = {
+					has_building = ca_space_station_q_2
+					has_building = ca_primary_q_2
+				}
+			}
 		}
 		upgrades_from = ca_capital_factory_q_1
-		prerequisites = {
-			ca_primary_q_4
-			ca_materials_4
+
+		gold_cost = 600
+		build_time = 1500
+		retinuesize = 15 #25
+		knights = 3
+		ai_creation_factor = 99
+		extra_tech_building_start = 0.8
+	}
+	ca_capital_factory_q_3 = {
+		desc = ca_capital_factory_q_3_desc
+		trigger = {
+			TECH_NAVAL = 4
+			FROMFROM = {
+				has_building = ca_materials_3
+				OR = {
+					has_building = ca_space_station_q_3
+					has_building = ca_primary_q_3
+				}
+			}
 		}
-		build_cost = 800
-		build_time = 2556
-		retinuesize = 50
-		ai_creation_factor = 100
+		upgrades_from = ca_capital_factory_q_2
+
+		gold_cost = 900
+		build_time = 1800
+		retinuesize = 20 #45
+		knights = 4
+		dreadnoughts = 1
+		ai_creation_factor = 98
+		extra_tech_building_start = 0.8
+	}
+	ca_capital_factory_q_4 = {
+		desc = ca_capital_factory_q_4_desc
+		trigger = {
+			TECH_NAVAL = 5
+			FROMFROM = {
+				has_building = ca_materials_4
+				OR = {
+					has_building = ca_space_station_q_4
+					has_building = ca_primary_q_4
+				}
+			}
+		}
+		upgrades_from = ca_capital_factory_q_3
+
+		gold_cost = 1200
+		build_time = 2100
+		retinuesize = 25 #70
+		knights = 5
+		dreadnoughts = 1
+		ai_creation_factor = 97
+		extra_tech_building_start = 0.8
+	}
+	ca_capital_factory_q_5 = {
+		desc = ca_capital_factory_q_5_desc
+
+		trigger = {
+			TECH_NAVAL = 6
+			FROMFROM = {
+				has_building = ca_materials_4
+				OR = {
+					has_building = ca_space_station_q_5
+					has_building = ca_primary_q_5
+				}
+			}
+		}
+		upgrades_from = ca_capital_factory_q_4
+
+		gold_cost = 1500
+		build_time = 2100
+		retinuesize = 25 #70
+		knights = 7
+		dreadnoughts = 2
+		ai_creation_factor = 96
 		extra_tech_building_start = 0.8
 	}
 	ca_mining_drones_q_1 = {
 		desc = ca_mining_drones_q_1_desc
+
 		trigger = {
 			TECH_MAJESTY = 0
 		}
 		prerequisites = { ca_energy_1 }
-		build_cost = 100
+		gold_cost = 100
 		build_time = 365
-		pikemen = 10
+		pikemen = 30
 		tax_income = 1
 		ai_creation_factor = 100
 		extra_tech_building_start = 0.5
@@ -393,11 +753,11 @@ castle = {
 		}
 		upgrades_from = ca_mining_drones_q_1
 		prerequisites = { ca_energy_2 }
-		build_cost = 120
+		gold_cost = 120
 		build_time = 365
-		pikemen = 12
+		pikemen = 38
 		tax_income = 1
-		ai_creation_factor = 100
+		ai_creation_factor = 99
 		extra_tech_building_start = 0.8
 	}
 	ca_mining_drones_q_3 = {
@@ -407,11 +767,11 @@ castle = {
 		}
 		upgrades_from = ca_mining_drones_q_2
 		prerequisites = { ca_energy_2 }
-		build_cost = 150
+		gold_cost = 150
 		build_time = 548
-		pikemen = 14
+		pikemen = 46
 		tax_income = 1
-		ai_creation_factor = 100
+		ai_creation_factor = 98
 		extra_tech_building_start = 0.8
 	}
 	ca_mining_drones_q_4 = {
@@ -421,11 +781,11 @@ castle = {
 		}
 		upgrades_from = ca_mining_drones_q_3
 		prerequisites = { ca_energy_3 }
-		build_cost = 200
+		gold_cost = 200
 		build_time = 548
-		pikemen = 16
+		pikemen = 54
 		tax_income = 1
-		ai_creation_factor = 100
+		ai_creation_factor = 97
 		extra_tech_building_start = 0.8
 	}
 	ca_mining_drones_q_5 = {
@@ -435,11 +795,11 @@ castle = {
 		}
 		upgrades_from = ca_mining_drones_q_4
 		prerequisites = { ca_energy_3 }
-		build_cost = 280
+		gold_cost = 250
 		build_time = 730
-		pikemen = 18
+		pikemen = 62
 		tax_income = 1
-		ai_creation_factor = 100
+		ai_creation_factor = 96
 		extra_tech_building_start = 0.8
 	}
 	ca_mining_drones_q_6 = {
@@ -449,11 +809,11 @@ castle = {
 		}
 		upgrades_from = ca_mining_drones_q_5
 		prerequisites = { ca_energy_4 }
-		build_cost = 400
+		gold_cost = 300
 		build_time = 730
-		pikemen = 20
+		pikemen = 70
 		tax_income = 1
-		ai_creation_factor = 100
+		ai_creation_factor = 95
 		extra_tech_building_start = 0.8
 	}
 	ca_turrets_q_1 = {
@@ -461,7 +821,7 @@ castle = {
 		trigger = {
 			TECH_CASTLE_CONSTRUCTION = 0
 		}
-		build_cost = 75
+		gold_cost = 75
 		build_time = 183
 		fort_level = 1.0
 		ai_creation_factor = 100
@@ -474,10 +834,10 @@ castle = {
 		}
 		upgrades_from = ca_turrets_q_1
 		prerequisites = { ca_materials_1 }
-		build_cost = 90
+		gold_cost = 90
 		build_time = 183
 		fort_level = 1.0
-		ai_creation_factor = 100
+		ai_creation_factor = 99
 		extra_tech_building_start = 0.8
 	}
 	ca_turrets_q_3 = {
@@ -487,10 +847,10 @@ castle = {
 		}
 		upgrades_from = ca_turrets_q_2
 		prerequisites = { ca_materials_2 }
-		build_cost = 110
+		gold_cost = 110
 		build_time = 365
 		fort_level = 1.0
-		ai_creation_factor = 100
+		ai_creation_factor = 98
 		extra_tech_building_start = 0.8
 	}
 	ca_turrets_q_4 = {
@@ -500,10 +860,10 @@ castle = {
 		}
 		upgrades_from = ca_turrets_q_3
 		prerequisites = { ca_materials_3 }
-		build_cost = 140
+		gold_cost = 140
 		build_time = 365
 		fort_level = 1.0
-		ai_creation_factor = 100
+		ai_creation_factor = 97
 		extra_tech_building_start = 0.8
 	}
 	ca_turrets_q_5 = {
@@ -513,18 +873,19 @@ castle = {
 		}
 		upgrades_from = ca_turrets_q_4
 		prerequisites = { ca_materials_4 }
-		build_cost = 180
+		gold_cost = 180
 		build_time = 548
 		fort_level = 1.0
-		ai_creation_factor = 100
+		ai_creation_factor = 96
 		extra_tech_building_start = 0.8
 	}
 	ca_scout_patrols_q_1 = {
 		desc = ca_scout_patrols_q_1_desc
+
 		trigger = {
 			TECH_CASTLE_CONSTRUCTION = 0
 		}
-		build_cost = 75
+		gold_cost = 75
 		build_time = 183
 		fort_level = 0.5
 		tax_income = 0.5
@@ -533,140 +894,204 @@ castle = {
 	}
 	ca_scout_patrols_q_2 = {
 		desc = ca_scout_patrols_q_2_desc
+
 		trigger = {
 			TECH_CASTLE_CONSTRUCTION = 2
+			FROMFROM = {
+				OR = {
+					has_building = ca_space_station_q_1
+					has_building = ca_primary_q_1
+				}
+			}
 		}
 		upgrades_from = ca_scout_patrols_q_1
-		prerequisites = { ca_primary_q_1 }
-		build_cost = 90
+
+		gold_cost = 90
 		build_time = 183
 		fort_level = 0.5
 		tax_income = 0.5
-		ai_creation_factor = 100
+		ai_creation_factor = 99
 		extra_tech_building_start = 0.8
 	}
 	ca_scout_patrols_q_3 = {
 		desc = ca_scout_patrols_q_3_desc
+
 		trigger = {
 			TECH_CASTLE_CONSTRUCTION = 4
+			FROMFROM = {
+				OR = {
+					has_building = ca_space_station_q_2
+					has_building = ca_primary_q_2
+				}
+			}
 		}
 		upgrades_from = ca_scout_patrols_q_2
-		prerequisites = { ca_primary_q_2 }
-		build_cost = 110
+
+		gold_cost = 110
 		build_time = 365
 		fort_level = 0.5
 		tax_income = 0.5
-		ai_creation_factor = 100
+		ai_creation_factor = 98
 		extra_tech_building_start = 0.8
 	}
 	ca_scout_patrols_q_4 = {
 		desc = ca_scout_patrols_q_4_desc
+
 		trigger = {
 			TECH_CASTLE_CONSTRUCTION = 6
+			FROMFROM = {
+				OR = {
+					has_building = ca_space_station_q_2
+					has_building = ca_primary_q_2
+				}
+			}
 		}
 		upgrades_from = ca_scout_patrols_q_3
-		prerequisites = { ca_primary_q_2 }
-		build_cost = 140
+
+		gold_cost = 140
 		build_time = 365
 		fort_level = 0.5
 		tax_income = 0.5
-		ai_creation_factor = 100
+		ai_creation_factor = 97
 		extra_tech_building_start = 0.8
 	}
 	ca_scout_patrols_q_5 = {
 		desc = ca_scout_patrols_q_5_desc
+
 		trigger = {
 			TECH_CASTLE_CONSTRUCTION = 8
+			FROMFROM = {
+				OR = {
+					has_building = ca_space_station_q_3
+					has_building = ca_primary_q_3
+				}
+			}
 		}
 		upgrades_from = ca_scout_patrols_q_4
-		prerequisites = { ca_primary_q_3 }
-		build_cost = 180
+
+		gold_cost = 180
 		build_time = 548
 		fort_level = 0.5
 		tax_income = 0.5
-		ai_creation_factor = 100
+		ai_creation_factor = 96
 		extra_tech_building_start = 0.8
 	}
 	ca_marine_quarters_q_1 = {
 		desc = ca_marine_quarters_q_1_desc
+
 		trigger = {
 			TECH_NAVAL = 0
 		}
-		build_cost = 120
+		gold_cost = 120
 		build_time = 365
 		garrison_size = 0.2
-		archers = 40
+		archers = 50
 		ai_creation_factor = 100
 		extra_tech_building_start = 0.5
 	}
 	ca_marine_quarters_q_2 = {
 		desc = ca_marine_quarters_q_2_desc
+
 		trigger = {
 			TECH_NAVAL = 1
+			FROMFROM = {
+				OR = {
+					has_building = ca_space_station_q_1
+					has_building = ca_primary_q_1
+				}
+			}
 		}
 		upgrades_from = ca_marine_quarters_q_1
-		prerequisites = { ca_primary_q_1 }
-		build_cost = 150
+
+		gold_cost = 150
 		build_time = 365
 		garrison_size = 0.2
-		archers = 50
-		ai_creation_factor = 100
+		archers = 65
+		ai_creation_factor = 99
 		extra_tech_building_start = 0.8
 	}
 	ca_marine_quarters_q_3 = {
 		desc = ca_marine_quarters_q_3_desc
+
 		trigger = {
 			TECH_NAVAL = 1
+			FROMFROM = {
+				OR = {
+					has_building = ca_space_station_q_2
+					has_building = ca_primary_q_2
+				}
+			}
 		}
 		upgrades_from = ca_marine_quarters_q_2
-		prerequisites = { ca_primary_q_2 }
-		build_cost = 200
+
+		gold_cost = 200
 		build_time = 548
 		garrison_size = 0.2
-		archers = 60
-		ai_creation_factor = 100
+		archers = 80
+		ai_creation_factor = 98
 		extra_tech_building_start = 0.8
 	}
 	ca_marine_quarters_q_4 = {
 		desc = ca_marine_quarters_q_4_desc
+
 		trigger = {
 			TECH_NAVAL = 2
+			FROMFROM = {
+				OR = {
+					has_building = ca_space_station_q_3
+					has_building = ca_primary_q_3
+				}
+			}
 		}
 		upgrades_from = ca_marine_quarters_q_3
-		prerequisites = { ca_primary_q_3 }
-		build_cost = 280
+
+		gold_cost = 280
 		build_time = 730
 		garrison_size = 0.2
-		archers = 70
-		ai_creation_factor = 100
+		archers = 95
+		ai_creation_factor = 97
 		extra_tech_building_start = 0.8
 	}
 	ca_marine_quarters_q_5 = {
 		desc = ca_marine_quarters_q_5_desc
+
 		trigger = {
 			TECH_NAVAL = 2
+			FROMFROM = {
+				OR = {
+					has_building = ca_space_station_q_4
+					has_building = ca_primary_q_4
+				}
+			}
 		}
 		upgrades_from = ca_marine_quarters_q_4
-		prerequisites = { ca_primary_q_4 }
-		build_cost = 400
+
+		gold_cost = 400
 		build_time = 913
 		garrison_size = 0.2
-		archers = 80
-		ai_creation_factor = 100
+		archers = 110
+		ai_creation_factor = 96
 		extra_tech_building_start = 0.8
 	}
 	ca_marine_quarters_q_6 = {
 		desc = ca_marine_quarters_q_6_desc
+
 		trigger = {
 			TECH_NAVAL = 3
+			FROMFROM = {
+				OR = {
+					has_building = ca_space_station_q_5
+					has_building = ca_primary_q_5
+				}
+			}
 		}
 		upgrades_from = ca_marine_quarters_q_5
-		prerequisites = { ca_primary_q_5 }
-		build_cost = 600
+
+		gold_cost = 600
 		build_time = 1096
 		garrison_size = 0.2
-		archers = 90
-		ai_creation_factor = 100
+		archers = 125
+		ai_creation_factor = 95
 		extra_tech_building_start = 0.8
 	}
 	ca_tunneler_factory_q_1 = {
@@ -677,9 +1102,9 @@ castle = {
 		prerequisites = {
 			ca_energy_1
 		}
-		build_cost = 150
+		gold_cost = 150
 		build_time = 183
-		galleys = 6
+		galleys = 8
 		ai_creation_factor = 100
 		extra_tech_building_start = 0.8
 	}
@@ -693,10 +1118,10 @@ castle = {
 			ca_energy_1
 			ca_materials_1
 		}
-		build_cost = 200
+		gold_cost = 200
 		build_time = 365
-		galleys = 8
-		ai_creation_factor = 100
+		galleys = 10
+		ai_creation_factor = 99
 		extra_tech_building_start = 0.8
 	}
 	ca_tunneler_factory_q_3 = {
@@ -709,10 +1134,10 @@ castle = {
 			ca_energy_2
 			ca_materials_1
 		}
-		build_cost = 250
+		gold_cost = 250
 		build_time = 548
-		galleys = 10
-		ai_creation_factor = 100
+		galleys = 13
+		ai_creation_factor = 98
 		extra_tech_building_start = 0.8
 	}
 	ca_tunneler_factory_q_4 = {
@@ -725,10 +1150,10 @@ castle = {
 			ca_energy_2
 			ca_materials_2
 		}
-		build_cost = 300
+		gold_cost = 300
 		build_time = 730
-		galleys = 12
-		ai_creation_factor = 100
+		galleys = 16
+		ai_creation_factor = 97
 		extra_tech_building_start = 0.8
 	}
 	ca_tunneler_factory_q_5 = {
@@ -741,10 +1166,10 @@ castle = {
 			ca_energy_3
 			ca_materials_2
 		}
-		build_cost = 350
+		gold_cost = 350
 		build_time = 913
-		galleys = 14
-		ai_creation_factor = 100
+		galleys = 19
+		ai_creation_factor = 96
 		extra_tech_building_start = 0.8
 	}
 	ca_tunneler_factory_q_6 = {
@@ -757,10 +1182,10 @@ castle = {
 			ca_energy_3
 			ca_materials_3
 		}
-		build_cost = 400
+		gold_cost = 400
 		build_time = 1096
-		galleys = 16
-		ai_creation_factor = 100
+		galleys = 22
+		ai_creation_factor = 95
 		extra_tech_building_start = 0.8
 	}
 	ca_tunneler_factory_q_7 = {
@@ -773,10 +1198,10 @@ castle = {
 			ca_energy_4
 			ca_materials_3
 		}
-		build_cost = 450
+		gold_cost = 450
 		build_time = 1278
-		galleys = 18
-		ai_creation_factor = 100
+		galleys = 25
+		ai_creation_factor = 94
 		extra_tech_building_start = 0.8
 	}
 	ca_tunneler_factory_q_8 = {
@@ -789,168 +1214,260 @@ castle = {
 			ca_energy_4
 			ca_materials_4
 		}
-		build_cost = 500
+		gold_cost = 500
 		build_time = 1460
-		galleys = 20
-		ai_creation_factor = 100
+		galleys = 28
+		ai_creation_factor = 93
 		extra_tech_building_start = 0.8
 	}
 	ca_spaceyard_q_1 = {
 		desc = ca_spaceyard_q_1_desc
+
 		trigger = {
-			TECH_CASTLE_CONSTRUCTION = 0
+			TECH_CASTLE_CONSTRUCTION = 1
+			FROMFROM = {
+				OR = {
+					has_building = ca_space_station_q_1
+					has_building = ca_primary_q_1
+				}
+			}
 		}
-		prerequisites = { ca_primary_q_1 }
-		build_cost = 200
+
+		gold_cost = 200
 		build_time = 730
+		retinuesize = 10
 		levy_size = 0.1
 		levy_reinforce_rate = 0.1
+
 		ai_creation_factor = 100
 		extra_tech_building_start = 0.8
 	}
 	ca_spaceyard_q_2 = {
 		desc = ca_spaceyard_q_2_desc
+
 		trigger = {
-			TECH_CASTLE_CONSTRUCTION = 0
+			TECH_CASTLE_CONSTRUCTION = 2
+			FROMFROM = {
+				OR = {
+					has_building = ca_space_station_q_2
+					has_building = ca_primary_q_2
+				}
+			}
 		}
 		upgrades_from = ca_spaceyard_q_1
-		prerequisites = { ca_primary_q_2 }
-		build_cost = 280
+
+		gold_cost = 280
 		build_time = 913
-		levy_size = 0.1
-		levy_reinforce_rate = 0.1
-		ai_creation_factor = 100
+		retinuesize = 15
+		levy_size = 0.15
+		levy_reinforce_rate = 0.15
+
+		ai_creation_factor = 99
 		extra_tech_building_start = 0.8
 	}
 	ca_spaceyard_q_3 = {
 		desc = ca_spaceyard_q_3_desc
 		trigger = {
 			TECH_CASTLE_CONSTRUCTION = 3
+			FROMFROM = {
+				OR = {
+					has_building = ca_space_station_q_3
+					has_building = ca_primary_q_3
+				}
+			}
 		}
 		upgrades_from = ca_spaceyard_q_2
-		prerequisites = { ca_primary_q_3 }
-		build_cost = 400
+
+		gold_cost = 400
 		build_time = 1096
-		levy_size = 0.1
-		levy_reinforce_rate = 0.1
-		ai_creation_factor = 100
+		retinuesize = 20
+		levy_size = 0.2
+		levy_reinforce_rate = 0.2
+		ai_creation_factor = 98
 		extra_tech_building_start = 0.8
 	}
 	ca_spaceyard_q_4 = {
 		desc = ca_spaceyard_q_4_desc
 		trigger = {
 			TECH_CASTLE_CONSTRUCTION = 5
+			FROMFROM = {
+				OR = {
+					has_building = ca_space_station_q_4
+					has_building = ca_primary_q_4
+				}
+			}
 		}
 		upgrades_from = ca_spaceyard_q_3
-		prerequisites = { ca_primary_q_4 }
-		build_cost = 560
+
+		gold_cost = 560
 		build_time = 1278
-		levy_size = 0.1
-		levy_reinforce_rate = 0.1
-		ai_creation_factor = 100
+		retinuesize = 25
+		levy_size = 0.25
+		levy_reinforce_rate = 0.25
+
+		ai_creation_factor = 97
 		extra_tech_building_start = 0.8
 	}
 	ca_spaceyard_q_5 = {
 		desc = ca_spaceyard_q_5_desc
+
 		trigger = {
 			TECH_CASTLE_CONSTRUCTION = 7
+			FROMFROM = {
+				OR = {
+					has_building = ca_space_station_q_5
+					has_building = ca_primary_q_5
+				}
+			}
 		}
 		upgrades_from = ca_spaceyard_q_4
-		prerequisites = { ca_primary_q_5 }
-		build_cost = 760
+
+		gold_cost = 760
 		build_time = 1460
-		levy_size = 0.1
-		levy_reinforce_rate = 0.1
+		retinuesize = 30
+		levy_size = 0.3
+		levy_reinforce_rate = 0.3
+
 		ai_creation_factor = 100
 		extra_tech_building_start = 0.8
 	}
 	ca_command_center_q_1 = {
 		desc = ca_command_center_q_1_desc
+
 		trigger = {
 			TECH_CASTLE_CONSTRUCTION = 0
+			FROMFROM = {
+				has_building = ca_energy_1
+				OR = {
+					has_building = ca_space_station_q_1
+					has_building = ca_primary_q_1
+				}
+			}
 		}
-		prerequisites = {
-			ca_primary_q_1
-			ca_energy_1
-		}
-		build_cost = 200
+
+		gold_cost = 200
 		build_time = 730
-		light_cavalry_defensive = 0.10
-		light_cavalry_offensive = 0.10
+		light_cavalry_defensive = 0.05
+		light_cavalry_offensive = 0.05
+		knights_offensive = 0.1
+		knights_defensive = 0.1
+		dreadnoughts_offensive = 0.15
+		dreadnoughts_defensive = 0.15
 		land_morale = 0.1
+
 		ai_creation_factor = 100
 		extra_tech_building_start = 0.8
 	}
 	ca_command_center_q_2 = {
 		desc = ca_command_center_q_2_desc
+
 		trigger = {
 			TECH_CASTLE_CONSTRUCTION = 2
+			FROMFROM = {
+				has_building = ca_energy_1
+				OR = {
+					has_building = ca_space_station_q_2
+					has_building = ca_primary_q_2
+				}
+			}
 		}
 		upgrades_from = ca_command_center_q_1
-		prerequisites = {
-			ca_primary_q_2
-			ca_energy_1
-		}
-		build_cost = 280
+
+		gold_cost = 280
 		build_time = 913
-		light_cavalry_defensive = 0.10
-		light_cavalry_offensive = 0.10
+		light_cavalry_defensive = 0.05
+		light_cavalry_offensive = 0.05
+		knights_offensive = 0.1
+		knights_defensive = 0.1
+		dreadnoughts_offensive = 0.15
+		dreadnoughts_defensive = 0.15
 		land_morale = 0.1
-		ai_creation_factor = 100
+
+		ai_creation_factor = 99
 		extra_tech_building_start = 0.8
 	}
 	ca_command_center_q_3 = {
 		desc = ca_command_center_q_3_desc
+
 		trigger = {
 			TECH_CASTLE_CONSTRUCTION = 4
+			FROMFROM = {
+				has_building = ca_energy_2
+				OR = {
+					has_building = ca_space_station_q_3
+					has_building = ca_primary_q_3
+				}
+			}
 		}
 		upgrades_from = ca_command_center_q_2
-		prerequisites = {
-			ca_primary_q_3
-			ca_energy_2
-		}
-		build_cost = 400
+
+		gold_cost = 400
 		build_time = 1096
-		light_cavalry_defensive = 0.10
-		light_cavalry_offensive = 0.10
+		light_cavalry_defensive = 0.05
+		light_cavalry_offensive = 0.05
+		knights_offensive = 0.1
+		knights_defensive = 0.1
+		dreadnoughts_offensive = 0.15
+		dreadnoughts_defensive = 0.15
 		land_morale = 0.15
-		ai_creation_factor = 100
+
+		ai_creation_factor = 98
 		extra_tech_building_start = 0.8
 	}
 	ca_command_center_q_4 = {
 		desc = ca_command_center_q_4_desc
+
 		trigger = {
 			TECH_CASTLE_CONSTRUCTION = 6
+			FROMFROM = {
+				has_building = ca_energy_2
+				OR = {
+					has_building = ca_space_station_q_4
+					has_building = ca_primary_q_4
+				}
+			}
 		}
 		upgrades_from = ca_command_center_q_3
-		prerequisites = {
-			ca_primary_q_4
-			ca_energy_2
-		}
-		build_cost = 560
+
+		gold_cost = 560
 		build_time = 1278
-		light_cavalry_defensive = 0.10
-		light_cavalry_offensive = 0.10
+		light_cavalry_defensive = 0.05
+		light_cavalry_offensive = 0.05
+		knights_offensive = 0.1
+		knights_defensive = 0.1
+		dreadnoughts_offensive = 0.15
+		dreadnoughts_defensive = 0.15
 		land_morale = 0.15
-		ai_creation_factor = 100
+
+		ai_creation_factor = 97
 		extra_tech_building_start = 0.8
 	}
 	ca_command_center_q_5 = {
 		desc = ca_command_center_q_5_desc
+
 		trigger = {
 			TECH_CASTLE_CONSTRUCTION = 8
+			FROMFROM = {
+				has_building = ca_energy_3
+				OR = {
+					has_building = ca_space_station_q_5
+					has_building = ca_primary_q_5
+				}
+			}
 		}
 		upgrades_from = ca_command_center_q_4
-		prerequisites = {
-			ca_primary_q_5
-			ca_energy_3
-		}
-		build_cost = 760
+
+		gold_cost = 760
 		build_time = 1460
-		light_cavalry_defensive = 0.10
-		light_cavalry_offensive = 0.10
+		light_cavalry_defensive = 0.05
+		light_cavalry_offensive = 0.05
+		knights_offensive = 0.1
+		knights_defensive = 0.1
+		dreadnoughts_offensive = 0.15
+		dreadnoughts_defensive = 0.15
 		land_morale = 0.2
-		ai_creation_factor = 100
+
+		ai_creation_factor = 96
 		extra_tech_building_start = 0.8
 	}
 	ca_ai_core_q_1 = {
@@ -959,11 +1476,11 @@ castle = {
 			TECH_MAJESTY = 0
 		}
 		prerequisites = { ca_energy_1 }
-		build_cost = 200
+		gold_cost = 200
 		build_time = 730
 		pikemen_defensive = 0.10
 		pikemen_offensive = 0.10
-		pikemen = 10
+		pikemen = 25
 		ai_creation_factor = 100
 		extra_tech_building_start = 0.8
 	}
@@ -974,12 +1491,12 @@ castle = {
 		}
 		upgrades_from = ca_ai_core_q_1
 		prerequisites = { ca_energy_2 }
-		build_cost = 280
+		gold_cost = 280
 		build_time = 913
 		pikemen_defensive = 0.10
 		pikemen_offensive = 0.10
-		pikemen = 12
-		ai_creation_factor = 100
+		pikemen = 30
+		ai_creation_factor = 99
 		extra_tech_building_start = 0.8
 	}
 	ca_ai_core_q_3 = {
@@ -989,12 +1506,12 @@ castle = {
 		}
 		upgrades_from = ca_ai_core_q_2
 		prerequisites = { ca_energy_3 }
-		build_cost = 400
+		gold_cost = 400
 		build_time = 1096
 		pikemen_defensive = 0.10
 		pikemen_offensive = 0.10
-		pikemen = 14
-		ai_creation_factor = 100
+		pikemen = 35
+		ai_creation_factor = 98
 		extra_tech_building_start = 0.8
 	}
 	ca_ai_core_q_4 = {
@@ -1004,12 +1521,12 @@ castle = {
 		}
 		upgrades_from = ca_ai_core_q_3
 		prerequisites = { ca_energy_4 }
-		build_cost = 560
+		gold_cost = 560
 		build_time = 1278
 		pikemen_defensive = 0.10
 		pikemen_offensive = 0.10
-		pikemen = 16
-		ai_creation_factor = 100
+		pikemen = 40
+		ai_creation_factor = 97
 		extra_tech_building_start = 0.8
 	}
 	ca_ai_core_q_5 = {
@@ -1019,216 +1536,328 @@ castle = {
 		}
 		upgrades_from = ca_ai_core_q_4
 		prerequisites = { ca_energy_4 }
-		build_cost = 760
+		gold_cost = 760
 		build_time = 1460
 		pikemen_defensive = 0.10
 		pikemen_offensive = 0.10
-		pikemen = 18
-		ai_creation_factor = 100
+		pikemen = 45
+		ai_creation_factor = 96
 		extra_tech_building_start = 0.8
 	}
 	ca_fleet_support_q_1 = {
 		desc = ca_fleet_support_q_1_desc
+
 		trigger = {
 			TECH_CONSTRUCTION = 1
 		}
-		prerequisites = { ca_primary_q_1 }
-		build_cost = 150
+		gold_cost = 150
 		build_time = 183
-		retinuesize = 50
+		retinuesize = 20 #20
+
 		ai_creation_factor = 100
 		extra_tech_building_start = 0.8
 	}
 	ca_fleet_support_q_2 = {
 		desc = ca_fleet_support_q_2_desc
+
 		trigger = {
 			TECH_CONSTRUCTION = 2
+			FROMFROM = {
+				OR = {
+					has_building = ca_space_station_q_1
+					has_building = ca_primary_q_1
+				}
+			}
 		}
 		upgrades_from = ca_fleet_support_q_1
-		prerequisites = { ca_primary_q_1 }
-		build_cost = 200
+
+		gold_cost = 200
 		build_time = 365
-		retinuesize = 50
-		ai_creation_factor = 100
+		retinuesize = 20 #40
+
+		ai_creation_factor = 99
 		extra_tech_building_start = 0.8
 	}
 	ca_fleet_support_q_3 = {
 		desc = ca_fleet_support_q_3_desc
+
 		trigger = {
 			TECH_CONSTRUCTION = 3
+			FROMFROM = {
+				OR = {
+					has_building = ca_space_station_q_2
+					has_building = ca_primary_q_2
+				}
+			}
 		}
 		upgrades_from = ca_fleet_support_q_2
-		prerequisites = { ca_primary_q_2 }
-		build_cost = 250
+
+		gold_cost = 250
 		build_time = 548
-		retinuesize = 50
-		ai_creation_factor = 100
+		retinuesize = 20 #65
+
+		ai_creation_factor = 98
 		extra_tech_building_start = 0.8
 	}
 	ca_fleet_support_q_4 = {
 		desc = ca_fleet_support_q_4_desc
+
 		trigger = {
 			TECH_CONSTRUCTION = 4
+			FROMFROM = {
+				OR = {
+					has_building = ca_space_station_q_2
+					has_building = ca_primary_q_2
+				}
+			}
 		}
 		upgrades_from = ca_fleet_support_q_3
-		prerequisites = { ca_primary_q_2 }
-		build_cost = 300
+
+		gold_cost = 300
 		build_time = 730
-		retinuesize = 50
-		ai_creation_factor = 100
+		retinuesize = 20 #90
+
+		ai_creation_factor = 97
 		extra_tech_building_start = 0.8
 	}
 	ca_fleet_support_q_5 = {
 		desc = ca_fleet_support_q_5_desc
+
 		trigger = {
 			TECH_CONSTRUCTION = 5
+			FROMFROM = {
+				OR = {
+					has_building = ca_space_station_q_3
+					has_building = ca_primary_q_3
+				}
+			}
 		}
 		upgrades_from = ca_fleet_support_q_4
-		prerequisites = { ca_primary_q_3 }
-		build_cost = 350
+
+		gold_cost = 350
 		build_time = 913
-		retinuesize = 50
-		ai_creation_factor = 100
+		retinuesize = 20 #120
+		ai_creation_factor = 96
 		extra_tech_building_start = 0.8
 	}
 	ca_fleet_support_q_6 = {
 		desc = ca_fleet_support_q_6_desc
+
 		trigger = {
 			TECH_CONSTRUCTION = 6
+			FROMFROM = {
+				OR = {
+					has_building = ca_space_station_q_3
+					has_building = ca_primary_q_3
+				}
+			}
 		}
 		upgrades_from = ca_fleet_support_q_5
-		prerequisites = { ca_primary_q_3 }
-		build_cost = 400
+
+		gold_cost = 400
 		build_time = 1096
-		retinuesize = 50
-		ai_creation_factor = 100
+		retinuesize = 20 #150
+		ai_creation_factor = 95
 		extra_tech_building_start = 0.8
 	}
 	ca_fleet_support_q_7 = {
 		desc = ca_fleet_support_q_7_desc
+
 		trigger = {
 			TECH_CONSTRUCTION = 7
+			FROMFROM = {
+				OR = {
+					has_building = ca_space_station_q_4
+					has_building = ca_primary_q_4
+				}
+			}
 		}
 		upgrades_from = ca_fleet_support_q_6
-		prerequisites = { ca_primary_q_4 }
-		build_cost = 450
+
+		gold_cost = 450
 		build_time = 1278
-		retinuesize = 50
-		ai_creation_factor = 100
+		retinuesize = 20 #185
+		ai_creation_factor = 94
 		extra_tech_building_start = 0.8
 	}
 	ca_fleet_support_q_8 = {
 		desc = ca_fleet_support_q_8_desc
+
 		trigger = {
 			TECH_CONSTRUCTION = 8
+			FROMFROM = {
+				OR = {
+					has_building = ca_space_station_q_5
+					has_building = ca_primary_q_5
+				}
+			}
 		}
 		upgrades_from = ca_fleet_support_q_7
-		prerequisites = { ca_primary_q_4 }
-		build_cost = 500
+
+		gold_cost = 500
 		build_time = 1460
-		retinuesize = 50
-		ai_creation_factor = 100
+		retinuesize = 20 #225
+		ai_creation_factor = 93
 		extra_tech_building_start = 0.8
 	}
 	ca_pilot_academy_q_1 = {
 		desc = ca_pilot_academy_q_1_desc
+
 		trigger = {
-			TECH_NAVAL = 0
+			TECH_NAVAL = 1
+			FROMFROM = {
+				OR = {
+					has_building = ca_space_station_q_1
+					has_building = ca_primary_q_1
+				}
+			}
 		}
-		prerequisites = { ca_primary_q_1 }
-		build_cost = 200
+
+		gold_cost = 200
 		build_time = 730
 		light_infantry_defensive = 0.10
 		light_infantry_offensive = 0.10
 		heavy_infantry_defensive = 0.10
 		heavy_infantry_offensive = 0.10
-		light_infantry = 10
-		heavy_infantry = 5
+		light_infantry = 20
+		heavy_infantry = 10
+
 		ai_creation_factor = 100
 		extra_tech_building_start = 0.8
 	}
 	ca_pilot_academy_q_2 = {
 		desc = ca_pilot_academy_q_2_desc
+
 		trigger = {
-			TECH_NAVAL = 0
+			TECH_NAVAL = 2
+			FROMFROM = {
+				has_building = ca_energy_1
+				OR = {
+					has_building = ca_space_station_q_1
+					has_building = ca_primary_q_1
+				}
+			}
 		}
 		upgrades_from = ca_pilot_academy_q_1
-		prerequisites = {
-			ca_primary_q_1
-			ca_energy_1
-		}
-		build_cost = 280
+
+		gold_cost = 280
 		build_time = 913
 		light_infantry_defensive = 0.10
 		light_infantry_offensive = 0.10
 		heavy_infantry_defensive = 0.10
 		heavy_infantry_offensive = 0.10
-		light_infantry = 10
-		heavy_infantry = 5
-		ai_creation_factor = 100
+		light_infantry = 25
+		heavy_infantry = 15
+
+		ai_creation_factor = 99
 		extra_tech_building_start = 1.0
 	}
 	ca_pilot_academy_q_3 = {
 		desc = ca_pilot_academy_q_3_desc
+
 		trigger = {
-			TECH_NAVAL = 0
+			TECH_NAVAL = 3
+			FROMFROM = {
+				has_building = ca_energy_2
+				OR = {
+					has_building = ca_space_station_q_2
+					has_building = ca_primary_q_2
+				}
+			}
 		}
 		upgrades_from = ca_pilot_academy_q_2
-		prerequisites = {
-			ca_primary_q_2
-			ca_energy_2
-		}
-		build_cost = 400
+
+		gold_cost = 400
 		build_time = 1096
 		light_infantry_defensive = 0.10
 		light_infantry_offensive = 0.10
 		heavy_infantry_defensive = 0.10
 		heavy_infantry_offensive = 0.10
-		light_infantry = 10
-		heavy_infantry = 5
-		ai_creation_factor = 100
+		light_infantry = 30
+		heavy_infantry = 20
+
+		ai_creation_factor = 98
 		extra_tech_building_start = 2.0
 	}
 	ca_pilot_academy_q_4 = {
 		desc = ca_pilot_academy_q_4_desc
+
 		trigger = {
-			TECH_NAVAL = 0
+			TECH_NAVAL = 4
+			FROMFROM = {
+				has_building = ca_energy_3
+				OR = {
+					has_building = ca_space_station_q_2
+					has_building = ca_primary_q_2
+				}
+			}
 		}
 		upgrades_from = ca_pilot_academy_q_3
-		prerequisites = {
-			ca_primary_q_2
-			ca_energy_3
-		}
-		build_cost = 560
+
+		gold_cost = 560
 		build_time = 1278
 		light_infantry_defensive = 0.10
 		light_infantry_offensive = 0.10
 		heavy_infantry_defensive = 0.10
 		heavy_infantry_offensive = 0.10
-		light_infantry = 10
-		heavy_infantry = 5
-		ai_creation_factor = 100
+		light_infantry = 35
+		heavy_infantry = 20
+
+		ai_creation_factor = 97
 		extra_tech_building_start = 3.0
 	}
 	ca_pilot_academy_q_5 = {
 		desc = ca_pilot_academy_q_5_desc
+
 		trigger = {
-			TECH_NAVAL = 0
+			TECH_NAVAL = 5
+			FROMFROM = {
+				has_building = ca_energy_4
+				OR = {
+					has_building = ca_space_station_q_4
+					has_building = ca_primary_q_4
+				}
+			}
 		}
 		upgrades_from = ca_pilot_academy_q_4
-		prerequisites = {
-			ca_primary_q_4
-			ca_energy_4
-		}
-		build_cost = 760
+
+		gold_cost = 760
 		build_time = 1460
 		light_infantry_defensive = 0.10
 		light_infantry_offensive = 0.10
 		heavy_infantry_defensive = 0.10
 		heavy_infantry_offensive = 0.10
-		light_infantry = 10
-		heavy_infantry = 5
-		ai_creation_factor = 100
+		light_infantry = 40
+		heavy_infantry = 20
+
+		ai_creation_factor = 96
+		extra_tech_building_start = 4.0
+	}
+	ca_pilot_academy_q_6 = {
+		desc = ca_pilot_academy_q_6_desc
+
+		trigger = {
+			TECH_NAVAL = 6
+			FROMFROM = {
+				has_building = ca_energy_4
+				OR = {
+					has_building = ca_space_station_q_5
+					has_building = ca_primary_q_5
+				}
+			}
+		}
+		upgrades_from = ca_pilot_academy_q_5
+
+		gold_cost = 1000
+		build_time = 2000
+		light_infantry_defensive = 0.10
+		light_infantry_offensive = 0.10
+		heavy_infantry_defensive = 0.10
+		heavy_infantry_offensive = 0.10
+		light_infantry = 45
+		heavy_infantry = 25
+
+		ai_creation_factor = 95
 		extra_tech_building_start = 4.0
 	}
 }
