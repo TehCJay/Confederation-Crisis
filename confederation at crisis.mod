@@ -22,3 +22,5 @@ replace_path="common/dynasties"
 replace_path="common/religions"
 replace_path="common/religious_titles"
 
+#disable DLC stuff we won't use
+replace_path="common/offmap_powers"

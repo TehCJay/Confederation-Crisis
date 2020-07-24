@@ -1,48 +1,4 @@
 targetted_decisions = {
-	make_colonial = {
-		filter = vassals #Filter characters targetted by the player
-		ai_target_filter = vassals #Filter for characters targetted by the AI
-		
-		from_potential = {	
-			higher_tier_than = duke
-		}
-		
-		ai_check_interval = 40 
- potential = {
-			same_realm = from
-			is_landed = yes
-			tier = count
-			ai = no
-		}
-		
-		allow = {
-			from = {
-				independent = yes
-				higher_tier_than = duke
-				prestige = 5000			
-			}
-			root = {
-				same_realm = from
-				is_landed = yes
-				tier = count
-			}
-		}
-		
-		effect = {
-			root = {
-				set_government_type = colonial_government
-				any_demesne_title = { add_law = succ_appointment }
-			}
-		}
-		
-		revoke_allowed = {
-			always = no #Not used in vanilla
-		}
-		
-		ai_will_do = {
-			factor = 1
-		}
-	}
 	enforce_monarchy = {
 		filter = vassals #Filter characters targetted by the player
 		ai_target_filter = vassals #Filter for characters targetted by the AI
