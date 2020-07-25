@@ -17,6 +17,7 @@ replace_path = "dlc_metadata/dlc_characters"
 
 replace_path="common/landed_titles"
 replace_path="common/bookmarks"
+replace_path="common/bloodlines"
 replace_path="common/dynasties"
 #replace_path="common/cultures"
 replace_path="common/religions"
