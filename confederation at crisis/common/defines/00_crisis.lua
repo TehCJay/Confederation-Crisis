@@ -134,13 +134,15 @@ NDefines.NMilitary.MAX_COMMANDERS_DUKE = 9
 NDefines.NMilitary.MAX_COMMANDERS_KING = 12
 NDefines.NMilitary.MAX_COMMANDERS_EMPEROR = 15
 
+local militaryMaintenanceAdjustement = 10
+
 -- Ship Combat Stats
 -- Gunships, they are agile, can improve turrets point defense by turning and shooting with main guns.
 -- They can also spin themselves to protect against lasers. They are fragile overall though.
 -- Also ammo is not cheap, so they cost a little more than normal to maintain.
 -- Utterly useless in skirmish phase because slight thrust in any direction is enough to dodge their attacks.
 NDefines.NMilitary.LIGHT_INFANTRY_MORALE = 1
-NDefines.NMilitary.LIGHT_INFANTRY_MAINTENANCE = 1.2
+NDefines.NMilitary.LIGHT_INFANTRY_MAINTENANCE = 1.2*militaryMaintenanceAdjustement
 NDefines.NMilitary.LIGHT_INFANTRY_PHASE_SKIRMISH_ATTACK = 0
 NDefines.NMilitary.LIGHT_INFANTRY_PHASE_SKIRMISH_DEFENSE = 5
 NDefines.NMilitary.LIGHT_INFANTRY_PHASE_MELEE_ATTACK = 4
@@ -152,7 +154,7 @@ NDefines.NMilitary.LIGHT_INFANTRY_GRAPHICAL_FACTOR = 1
 -- Laserships, they pack a big laser and can hit stuff long range, they also can easily hit fast ships in melee.
 -- they are fragile though, their systems being rather delicate.
 NDefines.NMilitary.HEAVY_INFANTRY_MORALE = 1
-NDefines.NMilitary.HEAVY_INFANTRY_MAINTENANCE = 1
+NDefines.NMilitary.HEAVY_INFANTRY_MAINTENANCE = 1*militaryMaintenanceAdjustement
 NDefines.NMilitary.HEAVY_INFANTRY_PHASE_SKIRMISH_ATTACK = 2
 NDefines.NMilitary.HEAVY_INFANTRY_PHASE_SKIRMISH_DEFENSE = 2
 NDefines.NMilitary.HEAVY_INFANTRY_PHASE_MELEE_ATTACK = 5
@@ -164,7 +166,7 @@ NDefines.NMilitary.HEAVY_INFANTRY_GRAPHICAL_FACTOR = 1
 -- Missile ships, their purpose is to stand back firing missile volleys, at skirmish their damage is not impressive because
 -- it is rather easy to defend against missiles at large distances. Ammo is not free, so they also have more maintenance.
 NDefines.NMilitary.PIKEMEN_MORALE = 1
-NDefines.NMilitary.PIKEMEN_MAINTENANCE = 1.2
+NDefines.NMilitary.PIKEMEN_MAINTENANCE = 1.2*militaryMaintenanceAdjustement
 NDefines.NMilitary.PIKEMEN_PHASE_SKIRMISH_ATTACK = 1
 NDefines.NMilitary.PIKEMEN_PHASE_SKIRMISH_DEFENSE = 4
 NDefines.NMilitary.PIKEMEN_PHASE_MELEE_ATTACK = 3
@@ -176,7 +178,7 @@ NDefines.NMilitary.PIKEMEN_GRAPHICAL_FACTOR = 1
 -- Destroyers. They have all weapons, and are medium-sized, we can use them as "reference" ship, other ships having their stats based off them.
 -- Because they have all weapons they are more expensive to maintain.
 NDefines.NMilitary.LIGHT_CAVALRY_MORALE = 2
-NDefines.NMilitary.LIGHT_CAVALRY_MAINTENANCE = 2
+NDefines.NMilitary.LIGHT_CAVALRY_MAINTENANCE = 2*militaryMaintenanceAdjustement
 NDefines.NMilitary.LIGHT_CAVALRY_PHASE_SKIRMISH_ATTACK = 1
 NDefines.NMilitary.LIGHT_CAVALRY_PHASE_SKIRMISH_DEFENSE = 4
 NDefines.NMilitary.LIGHT_CAVALRY_PHASE_MELEE_ATTACK = 6
@@ -188,7 +190,7 @@ NDefines.NMilitary.LIGHT_CAVALRY_GRAPHICAL_FACTOR = 2
 -- Battleships. They are big, heavily armed, have a powerful laser to use in skirmishing, but are expensive to maintain and slow.
 -- They also have some marines, thus can land them on planets or board ships, or defend against boarding.
 NDefines.NMilitary.KNIGHTS_MORALE = 4
-NDefines.NMilitary.KNIGHTS_MAINTENANCE = 5
+NDefines.NMilitary.KNIGHTS_MAINTENANCE = 5*militaryMaintenanceAdjustement
 NDefines.NMilitary.KNIGHTS_PHASE_SKIRMISH_ATTACK = 3
 NDefines.NMilitary.KNIGHTS_PHASE_SKIRMISH_DEFENSE = 8
 NDefines.NMilitary.KNIGHTS_PHASE_MELEE_ATTACK = 8
@@ -202,7 +204,7 @@ NDefines.NMilitary.KNIGHTS_GRAPHICAL_FACTOR = 5
 -- Also because of how the game rules work in non-assault sieges they need big numbers, thus numbers here are divided by their multiplier.
 local transportMultiplier = 4
 NDefines.NMilitary.ARCHERS_MORALE = 5/transportMultiplier
-NDefines.NMilitary.ARCHERS_MAINTENANCE = 5/transportMultiplier
+NDefines.NMilitary.ARCHERS_MAINTENANCE = (5/transportMultiplier)*militaryMaintenanceAdjustement
 NDefines.NMilitary.ARCHERS_PHASE_SKIRMISH_ATTACK = 0/transportMultiplier
 NDefines.NMilitary.ARCHERS_PHASE_SKIRMISH_DEFENSE = 6/transportMultiplier
 NDefines.NMilitary.ARCHERS_PHASE_MELEE_ATTACK = 5/transportMultiplier
