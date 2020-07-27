@@ -5,274 +5,515 @@ namespace = planet_survey
 #initialize military settlements
 character_event = {
 	id = planet_survey.1
-	
+
 	only_rulers = yes
 	hide_window = yes # This is a background event
-	
+
 	trigger = {
 		any_demesne_title = {
 			tier = baron
-			holding_type = castle
-			NOT = { has_building = ca_environment_0 }
-		}
-	}
-	
-	mean_time_to_happen = {
-		days = 1
-	}
-	
-	immediate = {
-		any_demesne_title = {
-			limit = {
-				tier = baron
-				holding_type = castle
-				NOT = { has_building = ca_environment_0 }
-			}
-			
-			# Initialize Environment
-			add_building = ca_environment_0
-			random_list = {
-				80 = { }
-				40 = {
-					add_building = ca_environment_1
+			OR = {
+				AND = {
+					holding_type = castle
+					NOT = { has_building = ca_environment_0 }
 				}
-				20 = {
-					add_building = ca_environment_1
-					add_building = ca_environment_2
+				AND = {
+					holding_type = city
+					NOT = { has_building = ct_environment_0 }
 				}
-				10 = {
-					add_building = ca_environment_1
-					add_building = ca_environment_2
-					add_building = ca_environment_3
-				}
-			}
-			
-			# Initialize Energy
-			add_building = ca_energy_0
-			add_building = ca_energy_1
-			random_list = {
-				40 = {
-				}
-				30 = {
-					add_building = ca_energy_2
-				}
-				20 = {
-					add_building = ca_energy_2
-					add_building = ca_energy_3
-				}
-				10 = {
-					add_building = ca_energy_2
-					add_building = ca_energy_3
-					add_building = ca_energy_4
-				}
-			}
-			
-			# Initialize Materials
-			add_building = ca_materials_0
-			add_building = ca_materials_1
-			random_list = {
-				10 = {
-				}
-				10 = {
-					add_building = ca_materials_2
-				}
-				10 = {
-					add_building = ca_materials_2
-					add_building = ca_materials_3
-				}
-				10 = {
-					add_building = ca_materials_2
-					add_building = ca_materials_3
-					add_building = ca_materials_4
+				AND = {
+					holding_type = temple
+					NOT = { has_building = tp_environment_0 }
 				}
 			}
 		}
 	}
-	
-	option = {
-		name = "OK"
-	}
-}
 
-#initialize economic settlements
-character_event = {
-	id = planet_survey.2
-	
-	hide_window = yes # This is a background event
-	
-	trigger = {
-		any_demesne_title = {
-			is_patrician = no
-			tier = baron
-			holding_type = city
-			NOT = { has_building = ct_environment_0 }
-		}
-	}
-	
 	mean_time_to_happen = {
 		days = 1
 	}
-	
-	immediate = {
-		any_demesne_title = {
-			limit = {
-				tier = baron
-				holding_type = city
-				NOT = { has_building = ct_environment_0 }
-			}
-			
-			# Initialize Environment
-			add_building = ct_environment_0
-			random_list = {
-				50 = { }
-				40 = {
-					add_building = ct_environment_1
-				}
-				30 = {
-					add_building = ct_environment_1
-					add_building = ct_environment_2
-				}
-				20 = {
-					add_building = ct_environment_1
-					add_building = ct_environment_2
-					add_building = ct_environment_3
-				}
-			}
-			
-			# Initialize Energy
-			add_building = ct_energy_0
-			add_building = ct_energy_1
-			random_list = {
-				40 = {
-				}
-				30 = {
-					add_building = ct_energy_2
-				}
-				20 = {
-					add_building = ct_energy_2
-					add_building = ct_energy_3
-				}
-				10 = {
-					add_building = ct_energy_2
-					add_building = ct_energy_3
-					add_building = ct_energy_4
-				}
-			}
-			
-			# Initialize Materials
-			add_building = ct_materials_0
-			add_building = ct_materials_1
-			random_list = {
-				40 = {
-				}
-				30 = {
-					add_building = ct_materials_2
-				}
-				20 = {
-					add_building = ct_materials_2
-					add_building = ct_materials_3
-				}
-				10 = {
-					add_building = ct_materials_2
-					add_building = ct_materials_3
-					add_building = ct_materials_4
-				}
-			}
-		}
-	}
-	
-	option = {
-		name = "OK"
-	}
-}
 
-#initialize scientific settlements
-character_event = {
-	id = planet_survey.3
-	
-	hide_window = yes # This is a background event
-	
-	trigger = {
-		any_demesne_title = {
-			is_patrician = no
-			holding_type = temple
-			NOT = { has_building = tp_environment_0 }
-		}
-	}
-	
-	mean_time_to_happen = {
-		days = 1
-	}
-	
 	immediate = {
 		any_demesne_title = {
 			limit = {
 				tier = baron
-				holding_type = temple
-				NOT = { has_building = tp_environment_0 }
+				OR = {
+					AND = {
+						holding_type = castle
+						NOT = { has_building = ca_environment_0 }
+					}
+					AND = {
+						holding_type = city
+						NOT = { has_building = ct_environment_0 }
+					}
+					AND = {
+						holding_type = temple
+						NOT = { has_building = tp_environment_0 }
+					}
+				}
 			}
-			
-			# Initialize Environment
-			add_building = tp_environment_0
+
+			# Calculate Environment
 			random_list = {
-				80 = { }
+				80 = {
+					set_variable = { which = "local_envirolevel" value = 0 }
+				}
 				40 = {
-					add_building = tp_environment_1
+					mult_modifier = {
+						#supergiants do not allow planet formation, at all.
+						location = { terrain = supergiant }
+						factor = 0
+					}
+					additive_modifier = {
+						#hostile stars make planets hard to live in
+						location = { is_hostile_star = yes }
+						value = -10
+					}
+					additive_modifier = {
+						#planets in nebulas, proto-stars, etc... are slightly harder to live in
+						location = { is_nebulous_star = yes }
+						value = -5
+					}
+					additive_modifier = {
+						#goldilocks stars have a big goldilocks zone, allowing a lot of good planets
+						location = { terrain = goldilocks_star }
+						value = 20
+					}
+					set_variable = { which = "local_envirolevel" value = 1 }
 				}
 				20 = {
-					add_building = tp_environment_1
-					add_building = tp_environment_2
+					mult_modifier = {
+						#supergiants do not allow planet formation, at all.
+						location = { terrain = supergiant }
+						factor = 0
+					}
+					additive_modifier = {
+						#hostile stars make planets hard to live in
+						location = { is_hostile_star = yes }
+						value = -10
+					}
+					additive_modifier = {
+						#planets in nebulas, proto-stars, etc... are slightly harder to live in
+						location = { is_nebulous_star = yes }
+						value = -5
+					}
+					additive_modifier = {
+						#goldilocks stars have a big goldilocks zone, allowing a lot of good planets
+						location = { terrain = goldilocks_star }
+						value = 20
+					}
+					set_variable = { which = "local_envirolevel" value = 2 }
 				}
 				10 = {
-					add_building = tp_environment_1
-					add_building = tp_environment_2
-					add_building = tp_environment_3
+					mult_modifier = {
+						#supergiants do not allow planet formation, at all.
+						location = { terrain = supergiant }
+						factor = 0
+					}
+					additive_modifier = {
+						#hostile stars make planets hard to live in
+						location = { is_hostile_star = yes }
+						value = -10
+					}
+					additive_modifier = {
+						#planets in nebulas, proto-stars, etc... are slightly harder to live in
+						location = { is_nebulous_star = yes }
+						value = -5
+					}
+					additive_modifier = {
+						#goldilocks stars have a big goldilocks zone, allowing a lot of good planets
+						location = { terrain = goldilocks_star }
+						value = 20
+					}
+					set_variable = { which = "local_envirolevel" value = 3 }
+				}
+				5 = {
+					mult_modifier = {
+						#supergiants do not allow planet formation, at all.
+						location = { terrain = supergiant }
+						factor = 0
+					}
+					additive_modifier = {
+						#hostile stars make planets hard to live in
+						location = { is_hostile_star = yes }
+						value = -10
+					}
+					additive_modifier = {
+						#planets in nebulas, proto-stars, etc... are slightly harder to live in
+						location = { is_nebulous_star = yes }
+						value = -5
+					}
+					additive_modifier = {
+						#goldilocks stars have a big goldilocks zone, allowing a lot of good planets
+						location = { terrain = goldilocks_star }
+						value = 20
+					}
+					set_variable = { which = "local_envirolevel" value = 4 }
 				}
 			}
-			
-			# Initialize Energy
-			add_building = tp_energy_0
-			add_building = tp_energy_1
+
+
+			# Calculate Energy
 			random_list = {
-				10 = {
+				80 = {
+					set_variable = { which = "local_energylevel" value = 0 }
 				}
-				10 = {
-					add_building = tp_energy_2
-				}
-				10 = {
-					add_building = tp_energy_2
-					add_building = tp_energy_3
-				}
-				10 = {
-					add_building = tp_energy_2
-					add_building = tp_energy_3
-					add_building = tp_energy_4
-				}
-			}
-			
-			# Initialize Materials
-			add_building = tp_materials_0
-			add_building = tp_materials_1
-			random_list = {
 				40 = {
-				}
-				30 = {
-					add_building = tp_materials_2
+					additive_modifier = {
+						#supergiants do not allow planet formation, at all, but output crazy amounts of energy and materials
+						location = { terrain = supergiant }
+						value = 15
+					}
+					additive_modifier = {
+						#hostile stars can spawn some cool planets, like a ball made of diamond that was a star core in the past
+						location = { is_hostile_star = yes }
+						value = 10
+					}
+					additive_modifier = {
+						#planets in nebulas, proto-stars, etc... often have exposed cores, easy to get energy
+						location = { is_nebulous_star = yes }
+						value = 5
+					}
+					additive_modifier = {
+						#goldilocks stars have a big goldilocks zone, but are boring energywise
+						location = { terrain = goldilocks_star }
+						value = -1
+					}
+					set_variable = { which = "local_energylevel" value = 1 }
 				}
 				20 = {
-					add_building = tp_materials_2
-					add_building = tp_materials_3
+					additive_modifier = {
+						#supergiants do not allow planet formation, at all, but output crazy amounts of energy and materials
+						location = { terrain = supergiant }
+						value = 15
+					}
+					additive_modifier = {
+						#hostile stars can spawn some cool planets, like a ball made of diamond that was a star core in the past
+						location = { is_hostile_star = yes }
+						value = 10
+					}
+					additive_modifier = {
+						#planets in nebulas, proto-stars, etc... often have exposed cores, easy to get energy
+						location = { is_nebulous_star = yes }
+						value = 5
+					}
+					additive_modifier = {
+						#goldilocks stars have a big goldilocks zone, but are boring energywise
+						location = { terrain = goldilocks_star }
+						value = -1
+					}
+					set_variable = { which = "local_energylevel" value = 2 }
 				}
 				10 = {
-					add_building = tp_materials_2
-					add_building = tp_materials_3
-					add_building = tp_materials_4
+					additive_modifier = {
+						#supergiants do not allow planet formation, at all, but output crazy amounts of energy and materials
+						location = { terrain = supergiant }
+						value = 15
+					}
+					additive_modifier = {
+						#hostile stars can spawn some cool planets, like a ball made of diamond that was a star core in the past
+						location = { is_hostile_star = yes }
+						value = 10
+					}
+					additive_modifier = {
+						#planets in nebulas, proto-stars, etc... often have exposed cores, easy to get energy
+						location = { is_nebulous_star = yes }
+						value = 5
+					}
+					additive_modifier = {
+						#goldilocks stars have a big goldilocks zone, but are boring energywise
+						location = { terrain = goldilocks_star }
+						value = -1
+					}
+					set_variable = { which = "local_energylevel" value = 3 }
+				}
+				5 = {
+					additive_modifier = {
+						#supergiants do not allow planet formation, at all, but output crazy amounts of energy and materials
+						location = { terrain = supergiant }
+						value = 15
+					}
+					additive_modifier = {
+						#hostile stars can spawn some cool planets, like a ball made of diamond that was a star core in the past
+						location = { is_hostile_star = yes }
+						value = 10
+					}
+					additive_modifier = {
+						#planets in nebulas, proto-stars, etc... often have exposed cores, easy to get energy
+						location = { is_nebulous_star = yes }
+						value = 5
+					}
+					additive_modifier = {
+						#goldilocks stars have a big goldilocks zone, but are boring energywise
+						location = { terrain = goldilocks_star }
+						value = -1
+					}
+					set_variable = { which = "local_energylevel" value = 4 }
+				}
+			}
+
+			# Calculate Materials
+			random_list = {
+				80 = {
+					set_variable = { which = "local_materialslevel" value = 0 }
+				}
+				40 = {
+					additive_modifier = {
+						#supergiants do not allow planet formation, at all, but output crazy amounts of energy and materials
+						location = { terrain = supergiant }
+						value = 15
+					}
+					additive_modifier = {
+						#hostile stars can spawn some cool planets, like a ball made of diamond that was a star core in the past
+						location = { is_hostile_star = yes }
+						value = 10
+					}
+					additive_modifier = {
+						#planets in nebulas, proto-stars, etc... often have exposed cores, easy to get materials
+						location = { is_nebulous_star = yes }
+						value = 5
+					}
+					additive_modifier = {
+						#goldilocks stars have a big goldilocks zone, but are boring energywise
+						location = { terrain = goldilocks_star }
+						value = -1
+					}
+					set_variable = { which = "local_materialslevel" value = 1 }
+				}
+				20 = {
+					additive_modifier = {
+						#supergiants do not allow planet formation, at all, but output crazy amounts of energy and materials
+						location = { terrain = supergiant }
+						value = 15
+					}
+					additive_modifier = {
+						#hostile stars can spawn some cool planets, like a ball made of diamond that was a star core in the past
+						location = { is_hostile_star = yes }
+						value = 10
+					}
+					additive_modifier = {
+						#planets in nebulas, proto-stars, etc... often have exposed cores, easy to get materials
+						location = { is_nebulous_star = yes }
+						value = 5
+					}
+					additive_modifier = {
+						#goldilocks stars have a big goldilocks zone, but are boring energywise
+						location = { terrain = goldilocks_star }
+						value = -1
+					}
+					set_variable = { which = "local_materialslevel" value = 2 }
+				}
+				10 = {
+					additive_modifier = {
+						#supergiants do not allow planet formation, at all, but output crazy amounts of energy and materials
+						location = { terrain = supergiant }
+						value = 15
+					}
+					additive_modifier = {
+						#hostile stars can spawn some cool planets, like a ball made of diamond that was a star core in the past
+						location = { is_hostile_star = yes }
+						value = 10
+					}
+					additive_modifier = {
+						#planets in nebulas, proto-stars, etc... often have exposed cores, easy to get materials
+						location = { is_nebulous_star = yes }
+						value = 5
+					}
+					additive_modifier = {
+						#goldilocks stars have a big goldilocks zone, but are boring energywise
+						location = { terrain = goldilocks_star }
+						value = -1
+					}
+					set_variable = { which = "local_materialslevel" value = 3 }
+				}
+				5 = {
+					additive_modifier = {
+						#supergiants do not allow planet formation, at all, but output crazy amounts of energy and materials
+						location = { terrain = supergiant }
+						value = 15
+					}
+					additive_modifier = {
+						#hostile stars can spawn some cool planets, like a ball made of diamond that was a star core in the past
+						location = { is_hostile_star = yes }
+						value = 10
+					}
+					additive_modifier = {
+						#planets in nebulas, proto-stars, etc... often have exposed cores, easy to get materials
+						location = { is_nebulous_star = yes }
+						value = 5
+					}
+					additive_modifier = {
+						#goldilocks stars have a big goldilocks zone, but are boring energywise
+						location = { terrain = goldilocks_star }
+						value = -1
+					}
+					set_variable = { which = "local_materialslevel" value = 4 }
+				}
+			}
+
+			#now we actually apply the stuff to the planets
+			trigger_switch = {
+				on_trigger = holding_type
+				castle = {
+					add_building = ca_environment_0
+					add_building = ca_energy_0
+					add_building = ca_materials_0
+				}
+				city = {
+					add_building = ct_environment_0
+					add_building = ct_energy_0
+					add_building = ct_materials_0
+				}
+				temple = {
+					add_building = tp_environment_0
+					add_building = tp_energy_0
+					add_building = tp_materials_0
+				}
+			}
+
+			if = {
+			    limit = {
+					check_variable = { which = "local_envirolevel" value >= 1 }
+			    }
+			    trigger_switch = {
+					on_trigger = holding_type
+					castle = { add_building = ca_environment_1 }
+					city = { add_building = ct_environment_1 }
+					temple = { add_building = tp_environment_1 }
+				}
+			}
+
+			if = {
+			    limit = {
+					check_variable = { which = "local_envirolevel" value >= 2 }
+			    }
+			    trigger_switch = {
+					on_trigger = holding_type
+					castle = { add_building = ca_environment_2 }
+					city = { add_building = ct_environment_2 }
+					temple = { add_building = tp_environment_2 }
+				}
+			}
+
+			if = {
+			    limit = {
+					check_variable = { which = "local_envirolevel" value >= 3 }
+			    }
+			    trigger_switch = {
+					on_trigger = holding_type
+					castle = { add_building = ca_environment_3 }
+					city = { add_building = ct_environment_3 }
+					temple = { add_building = tp_environment_3 }
+				}
+			}
+
+			if = {
+			    limit = {
+					check_variable = { which = "local_envirolevel" value >= 4 }
+			    }
+			    trigger_switch = {
+					on_trigger = holding_type
+					castle = { add_building = ca_environment_4 }
+					city = { add_building = ct_environment_4 }
+					temple = { add_building = tp_environment_4 }
+				}
+			}
+
+			if = {
+			    limit = {
+					check_variable = { which = "local_energylevel" value >= 1 }
+			    }
+			    trigger_switch = {
+					on_trigger = holding_type
+					castle = { add_building = ca_energy_1 }
+					city = { add_building = ct_energy_1 }
+					temple = { add_building = tp_energy_1 }
+				}
+			}
+
+			if = {
+			    limit = {
+					check_variable = { which = "local_energylevel" value >= 2 }
+			    }
+			    trigger_switch = {
+					on_trigger = holding_type
+					castle = { add_building = ca_energy_2 }
+					city = { add_building = ct_energy_2 }
+					temple = { add_building = tp_energy_2 }
+				}
+			}
+
+			if = {
+			    limit = {
+					check_variable = { which = "local_energylevel" value >= 3 }
+			    }
+			    trigger_switch = {
+					on_trigger = holding_type
+					castle = { add_building = ca_energy_3 }
+					city = { add_building = ct_energy_3 }
+					temple = { add_building = tp_energy_3 }
+				}
+			}
+
+			if = {
+			    limit = {
+					check_variable = { which = "local_energylevel" value >= 4 }
+			    }
+			    trigger_switch = {
+					on_trigger = holding_type
+					castle = { add_building = ca_energy_4 }
+					city = { add_building = ct_energy_4 }
+					temple = { add_building = tp_energy_4 }
+				}
+			}
+
+			if = {
+			    limit = {
+					check_variable = { which = "local_materialslevel" value >= 1 }
+			    }
+			    trigger_switch = {
+					on_trigger = holding_type
+					castle = { add_building = ca_materials_1 }
+					city = { add_building = ct_materials_1 }
+					temple = { add_building = tp_materials_1 }
+				}
+			}
+
+			if = {
+			    limit = {
+					check_variable = { which = "local_materialslevel" value >= 2 }
+			    }
+			    trigger_switch = {
+					on_trigger = holding_type
+					castle = { add_building = ca_materials_2 }
+					city = { add_building = ct_materials_2 }
+					temple = { add_building = tp_materials_2 }
+				}
+			}
+
+			if = {
+			    limit = {
+					check_variable = { which = "local_materialslevel" value >= 3 }
+			    }
+			    trigger_switch = {
+					on_trigger = holding_type
+					castle = { add_building = ca_materials_3 }
+					city = { add_building = ct_materials_3 }
+					temple = { add_building = tp_materials_3 }
+				}
+			}
+
+			if = {
+			    limit = {
+					check_variable = { which = "local_materialslevel" value >= 4 }
+			    }
+			    trigger_switch = {
+					on_trigger = holding_type
+					castle = { add_building = ca_materials_4 }
+					city = { add_building = ct_materials_4 }
+					temple = { add_building = tp_materials_4 }
 				}
 			}
 		}
-	}
-	
-	option = {
-		name = "OK"
 	}
 }
