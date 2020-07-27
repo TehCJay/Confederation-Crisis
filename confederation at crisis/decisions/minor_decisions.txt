@@ -604,7 +604,7 @@ settlement_decisions = {
 	scorch_settlement = {
 		filter = realm_owned
 		ai_target_filter = realm_owned
-		is_high_prio = yes
+		is_high_prio = no
 		ai_check_interval = 3
 
 		from_potential = {
@@ -640,6 +640,22 @@ settlement_decisions = {
 				has_building = ct_trade_center_q_3
 				has_building = ct_trade_center_q_4
 				has_building = ct_trade_center_q_5
+
+				has_building = ct_factories_q_1
+				has_building = ct_factories_q_2
+				has_building = ct_factories_q_3
+				has_building = ct_factories_q_4
+				has_building = ct_factories_q_5
+				has_building = ct_factories_q_6
+				has_building = ct_factories_q_7
+				has_building = ct_factories_q_8
+
+				has_building = tp_military_mathematics_q_1
+				has_building = tp_military_mathematics_q_2
+				has_building = tp_military_mathematics_q_3
+				has_building = tp_military_mathematics_q_4
+				has_building = tp_military_mathematics_q_5
+				has_building = tp_military_mathematics_q_6
 			}
 		}
 
@@ -798,6 +814,106 @@ settlement_decisions = {
 						change_variable = { which = "local_destroyed_buildings" value = 1 }
 					}
 
+					if = {
+						limit = {
+							has_building = ct_factories_q_1
+						}
+						remove_building = ct_factories_q_1
+						change_variable = { which = "local_destroyed_buildings" value = 1 }
+					}
+					if = {
+						limit = {
+							has_building = ct_factories_q_2
+						}
+						remove_building = ct_factories_q_2
+						change_variable = { which = "local_destroyed_buildings" value = 1 }
+					}
+					if = {
+						limit = {
+							has_building = ct_factories_q_3
+						}
+						remove_building = ct_factories_q_3
+						change_variable = { which = "local_destroyed_buildings" value = 1 }
+					}
+					if = {
+						limit = {
+							has_building = ct_factories_q_4
+						}
+						remove_building = ct_factories_q_4
+						change_variable = { which = "local_destroyed_buildings" value = 1 }
+					}
+					if = {
+						limit = {
+							has_building = ct_factories_q_5
+						}
+						remove_building = ct_factories_q_5
+						change_variable = { which = "local_destroyed_buildings" value = 1 }
+					}
+					if = {
+						limit = {
+							has_building = ct_factories_q_6
+						}
+						remove_building = ct_factories_q_6
+						change_variable = { which = "local_destroyed_buildings" value = 1 }
+					}
+					if = {
+						limit = {
+							has_building = ct_factories_q_7
+						}
+						remove_building = ct_factories_q_7
+						change_variable = { which = "local_destroyed_buildings" value = 1 }
+					}
+					if = {
+						limit = {
+							has_building = ct_factories_q_8
+						}
+						remove_building = ct_factories_q_8
+						change_variable = { which = "local_destroyed_buildings" value = 1 }
+					}
+
+					if = {
+						limit = {
+							has_building = tp_military_mathematics_q_1
+						}
+						remove_building = tp_military_mathematics_q_1
+						change_variable = { which = "local_destroyed_buildings" value = 1 }
+					}
+					if = {
+						limit = {
+							has_building = tp_military_mathematics_q_2
+						}
+						remove_building = tp_military_mathematics_q_2
+						change_variable = { which = "local_destroyed_buildings" value = 1 }
+					}
+					if = {
+						limit = {
+							has_building = tp_military_mathematics_q_3
+						}
+						remove_building = tp_military_mathematics_q_3
+						change_variable = { which = "local_destroyed_buildings" value = 1 }
+					}
+					if = {
+						limit = {
+							has_building = tp_military_mathematics_q_4
+						}
+						remove_building = tp_military_mathematics_q_4
+						change_variable = { which = "local_destroyed_buildings" value = 1 }
+					}
+					if = {
+						limit = {
+							has_building = tp_military_mathematics_q_5
+						}
+						remove_building = tp_military_mathematics_q_5
+						change_variable = { which = "local_destroyed_buildings" value = 1 }
+					}
+					if = {
+						limit = {
+							has_building = tp_military_mathematics_q_6
+						}
+						remove_building = tp_military_mathematics_q_6
+						change_variable = { which = "local_destroyed_buildings" value = 1 }
+					}
+
 
 					if = {
 						limit = {
@@ -844,7 +960,7 @@ settlement_decisions = {
 
 		#AI will use only this on last resort:
 		ai_will_do = {
-			factor = 1
+			factor = 0.1
 
 			trigger = {
 				FROM = {

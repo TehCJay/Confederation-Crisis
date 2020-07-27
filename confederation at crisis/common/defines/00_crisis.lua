@@ -68,7 +68,7 @@ NDefines.NTitle.EMPIRE_DEJURE_COUNTY_LIMIT_TO_USURP = 0.51
 
 NDefines.NEconomy.HOLDING_SLOT_BUILD_COST_MOD = 3
 
-NDefines.NMilitary.MERCENARY_MAINTENANCE_FACTOR = 4	    		-- Maintenance factor for NORMAL mercenary units
+NDefines.NMilitary.MERCENARY_MAINTENANCE_FACTOR = 3	    		-- Maintenance factor for NORMAL mercenary units
 NDefines.NMilitary.MERCENARY_VASSAL_MAINTENANCE_FACTOR = 1		-- Maintenance factor for VASSALIZED mercenary units
 NDefines.NMilitary.MERCENARY_HIRE_COST_FACTOR = 0.2   			-- Hire cost factor for mercenary units
 NDefines.NMilitary.HOLY_ORDER_HIRE_COST_FACTOR = 0.2				-- Conversion of nominal gold cost to piety cost when hiring Holy Orders
