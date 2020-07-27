@@ -3,7 +3,7 @@ targetted_decisions = {
 	nominate_self_for_appointment = {
 		filter = self
 		ai_target_filter = self
-		ai_check_interval = 10 
+		ai_check_interval = 10
 		potential = {
 			is_ruler = yes
 			liege = {
@@ -34,7 +34,7 @@ targetted_decisions = {
 		}
 		allow = {
 			has_regent = no
-			
+
 			# Must not already be the expected successor
 			custom_tooltip = {
 				text = "ALREADYSUCCESSOR"
@@ -61,7 +61,7 @@ targetted_decisions = {
 				factor = 0.25
 				trait = content
 			}
-			
+
 			# Do not make requests that have very little chance of being granted
 			modifier = {
 				factor = 0
@@ -81,7 +81,7 @@ targetted_decisions = {
 					}
 				}
 			}
-			
+
 			modifier = {
 				factor = 3
 				has_ambition = obj_become_king
@@ -102,7 +102,7 @@ targetted_decisions = {
 					}
 				}
 			}
-			
+
 			# There is no expected successor AT ALL
 			# Extra important if liegeliege is wrong type!
 			modifier = {
@@ -131,7 +131,7 @@ targetted_decisions = {
 					}
 				}
 			}
-			
+
 			# Opinion of current expected sucessor
 			modifier = {
 				factor = 0.8
@@ -433,7 +433,7 @@ targetted_decisions = {
 					}
 				}
 			}
-			
+
 			# Cooldown timer - avoid spamming requests for a particular appointment
 			modifier = {
 				factor = 0.5
@@ -609,7 +609,7 @@ targetted_decisions = {
 					}
 				}
 			}
-			
+
 			# Bonus cooldowns for recent successful appointments
 			modifier = {
 				factor = 0
@@ -680,8 +680,9 @@ targetted_decisions = {
 		from_potential = {
 			is_ruler = yes
 		}
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
+ 			age = 18 #do not attempt to appoint minors
 			NOT = { character = FROM }
 			#NOT = { dynasty = FROM }
 			liege = {
@@ -718,7 +719,7 @@ targetted_decisions = {
 			}
 			OR = {
 				has_regent = no
-				NOT = {age = 16}
+				NOT = {age = 18}
 			}
 			# Must not replace self
 			NOT = {
@@ -727,7 +728,7 @@ targetted_decisions = {
 					same_liege = ROOT
 				}
 			}
-			
+
 			OR = {NOT = { has_character_flag = flag_making_appointment_nomination }	# Try to limit simultaneous nominations
 				had_character_flag = { flag = flag_making_appointment_nomination days = 21 }}
 			OR = {NOT = { FROM = { has_character_flag = flag_making_appointment_nomination } }
@@ -754,7 +755,7 @@ targetted_decisions = {
 			modifier = {
 				factor = 0.1
 			}
-			
+
 			# Do not make requests that have very little chance of being granted
 			modifier = {
 				factor = 0
@@ -792,7 +793,7 @@ targetted_decisions = {
 					}
 				}
 			}
-			
+
 			# There is no expected successor AT ALL
 			# Extra important if liegeliege is wrong type!
 			modifier = {
@@ -821,7 +822,7 @@ targetted_decisions = {
 					}
 				}
 			}
-			
+
 			modifier = {
 				factor = 3
 				liege = {
@@ -887,7 +888,7 @@ targetted_decisions = {
 					}
 				}
 			}
-			
+
 			# Ideological opposition to nepotism
 			modifier = {
 				factor = 0.5
@@ -909,7 +910,7 @@ targetted_decisions = {
 				}
 				trait = radical
 			}
-			
+
 			# Opinion of nominee
 			modifier = {
 				factor = 1.25
@@ -991,7 +992,7 @@ targetted_decisions = {
 				factor = 1.25
 				NOT = { reverse_opinion = { who = FROM value = -99 } }
 			}
-			
+
 			# Opinion of current expected sucessor
 			modifier = {
 				factor = 0.8
@@ -1293,7 +1294,7 @@ targetted_decisions = {
 					}
 				}
 			}
-			
+
 			# Cooldown timer - avoid spamming requests for a particular appointment
 			modifier = {
 				factor = 0.5
@@ -1469,7 +1470,7 @@ targetted_decisions = {
 					}
 				}
 			}
-			
+
 			# Bonus cooldowns for recent successful appointments
 			modifier = {
 				factor = 0
@@ -1540,7 +1541,7 @@ targetted_decisions = {
 			is_ruler = yes
 			ai = no
 		}
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			NOT = { character = FROM }
 			NOT = { dynasty = FROM }
@@ -1584,7 +1585,7 @@ targetted_decisions = {
 					same_liege = ROOT
 				}
 			}
-			
+
 			OR = {NOT = { has_character_flag = flag_making_appointment_nomination }	# Try to limit simultaneous nominations
 				had_character_flag = { flag = flag_making_appointment_nomination days = 21 }}
 			OR = {NOT = { FROM = { has_character_flag = flag_making_appointment_nomination } }
@@ -1605,7 +1606,7 @@ targetted_decisions = {
 			modifier = {
 				factor = 0.1
 			}
-			
+
 			# Do not make requests that have very little chance of being granted
 			modifier = {
 				factor = 0
@@ -1643,7 +1644,7 @@ targetted_decisions = {
 					}
 				}
 			}
-			
+
 			# There is no expected successor AT ALL
 			# Extra important if liegeliege is wrong type!
 			modifier = {
@@ -1672,7 +1673,7 @@ targetted_decisions = {
 					}
 				}
 			}
-			
+
 			modifier = {
 				factor = 3
 				liege = {
@@ -1738,7 +1739,7 @@ targetted_decisions = {
 					}
 				}
 			}
-			
+
 			# Ideological opposition to nepotism
 			modifier = {
 				factor = 0.5
@@ -1760,7 +1761,7 @@ targetted_decisions = {
 				}
 				trait = radical
 			}
-			
+
 			# Opinion of nominee
 			modifier = {
 				factor = 1.25
@@ -1842,7 +1843,7 @@ targetted_decisions = {
 				factor = 1.25
 				NOT = { reverse_opinion = { who = FROM value = -99 } }
 			}
-			
+
 			# Opinion of current expected sucessor
 			modifier = {
 				factor = 0.8
@@ -2144,7 +2145,7 @@ targetted_decisions = {
 					}
 				}
 			}
-			
+
 			# Cooldown timer - avoid spamming requests for a particular appointment
 			modifier = {
 				factor = 0.5
@@ -2320,7 +2321,7 @@ targetted_decisions = {
 					}
 				}
 			}
-			
+
 			# Bonus cooldowns for recent successful appointments
 			modifier = {
 				factor = 0
@@ -2391,8 +2392,9 @@ targetted_decisions = {
 			is_ruler = yes
 			ai = no
 		}
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
+ 			age = 18 #do not attempt to appoint minors
 			NOT = { character = FROM }
 			NOT = { dynasty = FROM }
 			liege = {
@@ -2435,7 +2437,7 @@ targetted_decisions = {
 					same_liege = ROOT
 				}
 			}
-			
+
 			OR = {NOT = { has_character_flag = flag_making_appointment_nomination }	# Try to limit simultaneous nominations
 				had_character_flag = { flag = flag_making_appointment_nomination days = 21 }}
 			OR = {NOT = { FROM = { has_character_flag = flag_making_appointment_nomination } }
@@ -2462,7 +2464,7 @@ targetted_decisions = {
 			modifier = {
 				factor = 0.1
 			}
-			
+
 			# Do not make requests that have very little chance of being granted
 			modifier = {
 				factor = 0
@@ -2500,7 +2502,7 @@ targetted_decisions = {
 					}
 				}
 			}
-			
+
 			# There is no expected successor AT ALL
 			# Extra important if liegeliege is wrong type!
 			modifier = {
@@ -2529,7 +2531,7 @@ targetted_decisions = {
 					}
 				}
 			}
-			
+
 			modifier = {
 				factor = 3
 				liege = {
@@ -2595,7 +2597,7 @@ targetted_decisions = {
 					}
 				}
 			}
-			
+
 			# Ideological opposition to nepotism
 			modifier = {
 				factor = 0.5
@@ -2617,7 +2619,7 @@ targetted_decisions = {
 				}
 				trait = radical
 			}
-			
+
 			# Opinion of nominee
 			modifier = {
 				factor = 1.25
@@ -2699,7 +2701,7 @@ targetted_decisions = {
 				factor = 1.25
 				NOT = { reverse_opinion = { who = FROM value = -99 } }
 			}
-			
+
 			# Opinion of current expected sucessor
 			modifier = {
 				factor = 0.8
@@ -3001,7 +3003,7 @@ targetted_decisions = {
 					}
 				}
 			}
-			
+
 			# Cooldown timer - avoid spamming requests for a particular appointment
 			modifier = {
 				factor = 0.5
@@ -3177,7 +3179,7 @@ targetted_decisions = {
 					}
 				}
 			}
-			
+
 			# Bonus cooldowns for recent successful appointments
 			modifier = {
 				factor = 0
@@ -3248,7 +3250,7 @@ targetted_decisions = {
 			is_ruler = yes
 			has_regent = no
 		}
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			NOT = { character = FROM }
 			liege = { character = FROM }
@@ -3299,7 +3301,7 @@ targetted_decisions = {
 		}
 		ai_will_do = {
 			factor = 1
-			
+
 			# Needs a positive reason to do this
 			modifier = {
 				factor = 0
@@ -3315,7 +3317,7 @@ targetted_decisions = {
 				NOT = { has_character_modifier = disastrous_campaign }
 				reverse_opinion = { who = FROM value = -25 }
 			}
-			
+
 			# Don't replace an officer with someone even worse
 			modifier = {
 				factor = 0
@@ -3324,7 +3326,7 @@ targetted_decisions = {
 					FROM = { likes_better_than = { who = ROOT than = PREV } }
 				}
 			}
-			
+
 			# Nepotism!
 			modifier = {
 				factor = 0
@@ -3356,7 +3358,7 @@ targetted_decisions = {
 					}
 				}
 			}
-			
+
 			# Give officers you like a pass
 			modifier = {
 				factor = 0
@@ -3376,7 +3378,7 @@ targetted_decisions = {
 				factor = 0
 				FROM = { opinion = { who = ROOT value = 75 } }
 			}
-			
+
 			# Don't antagonize powerful warlords
 			modifier = {
 				factor = 0
