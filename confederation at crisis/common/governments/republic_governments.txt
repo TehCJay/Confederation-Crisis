@@ -23,35 +23,43 @@ republic_governments = {
 		}
 		frame_suffix = "_merchantrepublic"
 		potential = {
-			NOT = { trait = hiver_implant }
-			NOT = { religion_group = outlaw_group }
-			NOT = { government = corporate_republic }
+			NOR = {
+				is_government_potential = hivemind_government
+				is_government_potential = pirate_republic
+			}
+
 			OR = {
+				# Does not require being a patrician, to allow creation of new Merchant Republics
 				AND = {
-					is_patrician = yes
-					OR = {
+					# Require at least one province and be Duke tier or higher
+					higher_real_tier_than = COUNT
+					num_of_count_titles >= 1
+
+					# MR can't be under MR
+					trigger_if = {
+						limit = { independent = no }
+
 						liege_before_war = {
-							NOT = { character = PREV }
-							is_merchant_republic = yes
-							NOT = {
-								liege_before_war = {
-									NOT = { character = PREV }
-									is_merchant_republic = yes
-								}
-							}
+							is_merchant_republic = no
 						}
-						has_game_started = no
 					}
 				}
+
+				# Patrician requirements
 				AND = {
-					higher_real_tier_than = count
-					any_demesne_province = {
-						always = yes
-					}
-					NOT = {
-						liege_before_war = {
-							NOT = { character = PREV }
-							is_merchant_republic = yes
+					is_patrician = yes
+
+					# Liege must be MR
+					liege_before_war = {
+						is_merchant_republic = yes
+
+						# MR can't be under MR
+						trigger_if = {
+							limit = { independent = no }
+
+							liege_before_war = {
+								is_merchant_republic = no
+							}
 						}
 					}
 				}
@@ -127,34 +135,41 @@ republic_governments = {
 		frame_suffix = "_merchantrepublic"
 		title_prefix = "pirate_republic_"
 		potential = {
-			NOT = { trait = hiver_implant }
+			NOT = { is_government_potential = hivemind_government }
 			religion_group = outlaw_group
+
 			OR = {
+				# Does not require being a patrician, to allow creation of new Merchant Republics
 				AND = {
-					is_patrician = yes
-					OR = {
+					# Require at least one province and be Duke tier or higher
+					higher_real_tier_than = COUNT
+					num_of_count_titles >= 1
+
+					# MR can't be under MR
+					trigger_if = {
+						limit = { independent = no }
+
 						liege_before_war = {
-							NOT = { character = PREV }
-							is_merchant_republic = yes
-							NOT = {
-								liege_before_war = {
-									NOT = { character = PREV }
-									is_merchant_republic = yes
-								}
-							}
+							is_merchant_republic = no
 						}
-						has_game_started = no
 					}
 				}
+
+				# Patrician requirements
 				AND = {
-					higher_real_tier_than = count
-					any_demesne_province = {
-						always = yes
-					}
-					NOT = {
-						liege_before_war = {
-							NOT = { character = PREV }
-							is_merchant_republic = yes
+					is_patrician = yes
+
+					# Liege must be MR
+					liege_before_war = {
+						is_merchant_republic = yes
+
+						# MR can't be under MR
+						trigger_if = {
+							limit = { independent = no }
+
+							liege_before_war = {
+								is_merchant_republic = no
+							}
 						}
 					}
 				}
