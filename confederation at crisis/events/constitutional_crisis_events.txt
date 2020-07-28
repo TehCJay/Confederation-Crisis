@@ -5,7 +5,7 @@ character_event = {
 	id = laws.0
 	desc = "EVTDESCLAWS0"
 	picture = GFX_evt_scandal
-	
+
 	trigger = {
 		OR = {
 			has_character_modifier = constitutional_crisis
@@ -47,7 +47,7 @@ character_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		remove_character_modifier = constitutional_crisis
@@ -71,7 +71,7 @@ character_event = {
 	desc = "EVTDESCLAWS1"
 	picture = GFX_evt_scandal
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -81,14 +81,14 @@ province_event = {
 	id = laws.200
 	desc = "EVTDESCLAWS200"
 	picture = GFX_evt_rebels
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	notification = yes
 	is_triggered_only = yes
 	trigger = { NOT = { has_province_modifier = civil_unrest_9 } }
-	
+
 	mean_time_to_happen = {
 		months = 60
-		
+
 		# Constitutional Crisis Effects
 		modifier = {
 			factor = 0.025
@@ -228,7 +228,7 @@ province_event = {
 			factor = 0.25
 			has_province_modifier = public_against_count
 		}
-		
+
 		# Moral Authority Factors
 		modifier = {
 			factor = 0.8
@@ -262,7 +262,7 @@ province_event = {
 			factor = 1.25
 			religion_authority = 0.9
 		}
-		
+
 		# Natural resistance
 		modifier = {
 			factor = 1.25
@@ -352,7 +352,7 @@ province_event = {
 			factor = 1.25
 			has_province_modifier = civil_unrest_8
 		}
-		
+
 		# We want democracy!
 		modifier = {
 			factor = 0.5
@@ -500,7 +500,7 @@ province_event = {
 				}
 			}
 		}
-		
+
 		# Law Enforcement Spending
 		modifier = {
 			factor = 2
@@ -514,7 +514,7 @@ province_event = {
 			factor = 8
 			has_province_modifier = police_budget_mod_3
 		}
-		
+
 		# Other Factors
 		modifier = {
 			factor = 0.5
@@ -538,7 +538,7 @@ province_event = {
 			has_province_modifier = successful_revolt
 		}
 	}
-	
+
 	immediate = {
 		if = {
 			limit = { has_province_modifier = civil_unrest_8 }
@@ -601,7 +601,7 @@ province_event = {
 			add_province_modifier = { name = civil_unrest_0 duration = -1 }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -609,12 +609,12 @@ province_event = {
 province_event = {
 	id = laws.201
 	picture = GFX_evt_rebels
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	desc = "EVTDESCLAWS201"
 	notification = yes
-	
+
 	is_triggered_only = yes
-	
+
 	trigger = {
 		OR = {
 			has_province_modifier = civil_unrest_0
@@ -629,7 +629,7 @@ province_event = {
 			has_province_modifier = civil_unrest_9
 		}
 	}
-	
+
 	mean_time_to_happen = {
 		months = 6
 		# Major Effects
@@ -796,7 +796,7 @@ province_event = {
 			factor = 4
 			has_province_modifier = public_against_count
 		}
-		
+
 		# Moral Authority Factors
 		modifier = {
 			factor = 1.25
@@ -830,7 +830,7 @@ province_event = {
 			factor = 0.8
 			religion_authority = 0.9
 		}
-		
+
 		# Law Enforcement Spending
 		modifier = {
 			factor = 0.5
@@ -844,7 +844,7 @@ province_event = {
 			factor = 0.125
 			has_province_modifier = police_budget_mod_3
 		}
-		
+
 		# Other factors
 		modifier = {
 			factor = 5
@@ -871,7 +871,7 @@ province_event = {
 			NOT = { owner = { culture_group = ROOT } }
 		}
 	}
-	
+
 	immediate = {
 		if = {
 			limit = { has_province_modifier = civil_unrest_0 }
@@ -923,7 +923,7 @@ province_event = {
 			add_province_modifier = { name = civil_unrest_8 duration = -1 }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -931,9 +931,9 @@ province_event = {
 character_event = {
 	id = laws.300
 	desc = "EVTDESCLAWS300"
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -944,12 +944,12 @@ character_event = {
 	picture = GFX_evt_speech
 	is_triggered_only = yes
 	only_rulers = yes
-	
+
 	immediate = {
 		any_vassal = { character_event = { id = laws.1001 } }
 		log = "laws.900 fired for [This.GetFullName] of [This.PrimaryTitle.GetFullName]"
 	}
-	
+
 	option = {
 		trigger = { has_character_modifier = crisis_term_limit_defied }
 		log = "laws.900 - Term Limit Defied option chosen for [This.GetFullName] of [This.PrimaryTitle.GetFullName]"
@@ -982,7 +982,7 @@ character_event = {
 		clr_character_flag = flag_crisis_duke
 		clr_character_flag = flag_crisis_count
 	}
-	
+
 	option = {
 		trigger = { has_character_modifier = crisis_dissolved_legislature }
 		log = "laws.1000 - Dissolved Legislature option chosen for [This.GetFullName] of [This.PrimaryTitle.GetFullName]"
@@ -1018,7 +1018,7 @@ character_event = {
 		clr_character_flag = flag_crisis_duke
 		clr_character_flag = flag_crisis_count
 	}
-	
+
 	option = {
 		trigger = { has_character_modifier = crisis_refused_democratic_legislature_demand }
 		log = "laws.1000 - Refused Democratic Legislature option chosen for [This.GetFullName] of [This.PrimaryTitle.GetFullName]"
@@ -1054,20 +1054,20 @@ character_event = {
 	id = laws.1000
 	desc = "EVTDESCLAWS1000"
 	picture = GFX_evt_speech
-	
+
 	only_rulers = yes
-	
+
 	trigger = {
 		had_character_flag = { flag = flag_crisis_timer days = 30 } # Minimum resolution time of one month
 		has_character_modifier = constitutional_crisis
 		NOT = { any_vassal = { in_faction = faction_anti_ruler } }
 	}
-	
+
 	immediate = {
 		any_vassal = { character_event = { id = laws.1001 } }
 		log = "laws.1000 fired for [This.GetFullName] of [This.PrimaryTitle.GetFullName]"
 	}
-	
+
 	option = {
 		trigger = { has_character_modifier = crisis_term_limit_defied }
 		log = "laws.1000 - Term Limit Defied option chosen for [This.GetFullName] of [This.PrimaryTitle.GetFullName]"
@@ -1100,7 +1100,7 @@ character_event = {
 		clr_character_flag = flag_crisis_duke
 		clr_character_flag = flag_crisis_count
 	}
-	
+
 	option = {
 		trigger = { has_character_modifier = crisis_dissolved_legislature }
 		log = "laws.1000 - Dissolved Legislature option chosen for [This.GetFullName] of [This.PrimaryTitle.GetFullName]"
@@ -1136,7 +1136,7 @@ character_event = {
 		clr_character_flag = flag_crisis_duke
 		clr_character_flag = flag_crisis_count
 	}
-	
+
 	option = {
 		trigger = { has_character_modifier = crisis_refused_democratic_legislature_demand }
 		log = "laws.1000 - Refused Democratic Legislature option chosen for [This.GetFullName] of [This.PrimaryTitle.GetFullName]"
@@ -1171,7 +1171,7 @@ character_event = {
 	desc = "EVTDESCLAWS1001"
 	picture = GFX_evt_scandal
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 # Ruler backs down!
@@ -1180,11 +1180,11 @@ character_event = {
 	desc = "EVTDESCLAWS1010"
 	picture = GFX_evt_speech
 	is_triggered_only = yes
-	
+
 	immediate = {
 		log = "laws.1010 fired for [This.GetFullName] of [This.PrimaryTitle.GetFullName]"
 	}
-	
+
 	option = {
 		trigger = { has_character_modifier = crisis_term_limit_defied }
 		log = "laws.1010 - Term Limit Defied option chosen for [This.GetFullName] of [This.PrimaryTitle.GetFullName]"
@@ -1248,7 +1248,7 @@ character_event = {
 		}
 		character_event = { id = laws.5000 }
 	}
-	
+
 	option = {
 		trigger = { has_character_modifier = crisis_dissolved_legislature }
 		log = "laws.1010 - Dissolved Legislature option chosen for [This.GetFullName] of [This.PrimaryTitle.GetFullName]"
@@ -1295,7 +1295,7 @@ character_event = {
 		clr_character_flag = flag_crisis_count
 		clr_character_flag = flag_making_crisis_decision
 	}
-	
+
 	option = {
 		trigger = { has_character_modifier = crisis_refused_democratic_legislature_demand }
 		log = "laws.1000 - Refused Democratic Legislature option chosen for [This.GetFullName] of [This.PrimaryTitle.GetFullName]"
@@ -1360,7 +1360,7 @@ character_event = {
 	desc = "EVTDESCLAWS1011"
 	picture = GFX_evt_scandal
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -1370,6 +1370,6 @@ character_event = {
 	desc = "EVTDESCLAWS20000"
 	picture = GFX_evt_scandal
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }

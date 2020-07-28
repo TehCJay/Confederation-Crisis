@@ -8,16 +8,16 @@ character_event = {
 	id = assassination.0
 	desc = "EVTDESCASSASSINATION0"
 	picture = GFX_evt_assassins
-	
+
 	prisoner = no
-	
+
 	trigger = {
 		check_variable = { which = "bounty" value = 1 } # Must have a bounty
 	}
-	
+
 	mean_time_to_happen = {
 		months = 240
-		
+
 		# Target's rank (and therefore security arrangements)
 		modifier = {
 			factor = 4
@@ -67,7 +67,7 @@ character_event = {
 			factor = 2
 			any_pretender_title = { higher_tier_than = king }
 		}
-		
+
 		# Target's intrigue
 		modifier = {
 			factor = 1.25
@@ -129,7 +129,7 @@ character_event = {
 			factor = 1.25
 			intrigue = 30
 		}
-		
+
 		# Target's spymaster's intrigue
 		modifier = {
 			factor = 1.25
@@ -251,7 +251,7 @@ character_event = {
 				intrigue = 30
 			}
 		}
-		
+
 		# Size of bounty
 		# Success chance scales linearly to bounty size for now
 		modifier = {
@@ -311,7 +311,7 @@ character_event = {
 			check_variable = { which = "bounty" value = 16384 }
 		}
 	}
-	
+
 	option = {
 		name = "EVTOPTAASSASSINATION0"
 		death = { death_reason = death_murder } # Killer unknown
@@ -351,7 +351,7 @@ character_event = {
 	desc = "EVTDESCASSASSINATION1"
 	picture = GFX_evt_assassins
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -360,7 +360,7 @@ character_event = {
 	desc = "EVTDESCASSASSINATION2"
 	picture = GFX_evt_assassins
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -369,17 +369,17 @@ character_event = {
 	id = assassination.5
 	desc = "EVTDESCASSASSINATION5"
 	picture = GFX_evt_assassins
-	
+
 	prisoner = no
-	
+
 	trigger = {
 		check_variable = { which = "bounty" value = 1 } # Must have a bounty
 		NOT = { has_character_modifier = failed_assassination_attempt }
 	}
-	
+
 	mean_time_to_happen = {
 		months = 240
-		
+
 		# Target's rank (and therefore security arrangements)
 		modifier = {
 			factor = 2
@@ -413,7 +413,7 @@ character_event = {
 			factor = 2
 			any_heir_title = { higher_tier_than = king }
 		}
-		
+
 		# Size of bounty
 		# Success chance scales linearly to bounty size for now
 		modifier = {
@@ -473,7 +473,7 @@ character_event = {
 			check_variable = { which = "bounty" value = 16384 }
 		}
 	}
-	
+
 	option = {
 		name = "EVTOPTAASSASSINATION0"
 		add_character_modifier = { name = "failed_assassination_attempt" months = 1825 }
@@ -486,7 +486,7 @@ character_event = {
 	desc = "EVTDESCASSASSINATION10"
 	picture = GFX_evt_assassins
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTAASSASSINATION10" # 10 credits
 		wealth = -10
@@ -507,7 +507,7 @@ character_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		trigger = { wealth = 100 }
 		name = "EVTOPTBASSASSINATION10" # 100 credits
@@ -533,7 +533,7 @@ character_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		trigger = { wealth = 500 }
 		name = "EVTOPTCASSASSINATION10" # 500 credits
@@ -558,7 +558,7 @@ character_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		name = "EVTOPTDASSASSINATION10"
 		clr_character_flag = flag_placing_bounty
@@ -569,7 +569,7 @@ character_event = {
 	id = assassination.20
 	hide_window = yes
 	is_triggered_only = yes
-	
+
 	immediate = {
 		plot_target_char = {
 			father = { character_event = { id = assassination.21 } }
@@ -589,9 +589,9 @@ character_event = {
 	id = assassination.21
 	desc = "EVTDESCASSASSINATION22"
 	picture = GFX_evt_spymaster
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		FROM = {
 			plot_is_known_by = ROOT
@@ -599,7 +599,7 @@ character_event = {
 			NOT = { any_plot_backer = { character = ROOT } }
 		}
 	}
-	
+
 	option = {
 		name = "EVTOPTAASSASSINATION22"
 		opinion = { who = FROM modifier = suspect_of_murder months = 120 }
@@ -666,7 +666,7 @@ character_event = {
 	id = assassination.100
 	hide_window = yes
 	is_triggered_only = yes
-	
+
 	immediate = {
 		log = "[Root.PlotTarget.GetBestName] was assassinated by [Root.GetBestName]."
 		if = {
@@ -735,12 +735,12 @@ character_event = {
 	id = assassination.110
 	desc = "EVTDESCASSASSINATION110"
 	picture = GFX_evt_child
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	hide_from = yes
 	is_triggered_only = yes
-	
+
 	immediate = { save_event_target_as = target_victim }
-	
+
 	# Involvement unknown
 	option = {
 		trigger = {
@@ -765,7 +765,7 @@ character_event = {
 			clear_event_target = target_victim
 		}
 	}
-	
+
 	# Involvement discovered
 	option = {
 		trigger = {
@@ -790,9 +790,9 @@ character_event = {
 	id = assassination.111
 	desc = "EVTDESCASSASSINATION111"
 	picture = GFX_evt_child
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTAASSASSINATION111"
 		clr_character_flag = murder_in_motion
@@ -802,9 +802,9 @@ character_event = {
 	id = assassination.112
 	desc = "EVTDESCASSASSINATION112"
 	picture = GFX_evt_child
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { character = FROM }
 		NOT = { character = FROMFROM }
@@ -820,16 +820,16 @@ character_event = {
 			spouse = { character = FROM }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 character_event = {
 	id = assassination.113
 	desc = "EVTDESCASSASSINATION113"
 	picture = GFX_evt_child
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTAASSASSINATION113"
 		hidden_tooltip = { character_event = { id = 10 } }
@@ -840,9 +840,9 @@ character_event = {
 	id = assassination.114
 	desc = "EVTDESCASSASSINATION114"
 	picture = GFX_evt_child
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { character = FROM }
 		NOT = { character = FROMFROM }
@@ -858,7 +858,7 @@ character_event = {
 			spouse = { character = FROM }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 # Schoolchild shot
@@ -866,12 +866,12 @@ character_event = {
 	id = assassination.120
 	desc = "EVTDESCASSASSINATION120"
 	picture = GFX_evt_child
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	hide_from = yes
 	is_triggered_only = yes
-	
+
 	immediate = { save_event_target_as = target_victim }
-	
+
 	# Involvement unknown
 	option = {
 		trigger = {
@@ -896,7 +896,7 @@ character_event = {
 			clear_event_target = target_victim
 		}
 	}
-	
+
 	# Involvement discovered
 	option = {
 		trigger = {
@@ -921,9 +921,9 @@ character_event = {
 	id = assassination.121
 	desc = "EVTDESCASSASSINATION121"
 	picture = GFX_evt_child
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTAASSASSINATION121"
 		clr_character_flag = murder_in_motion
@@ -933,9 +933,9 @@ character_event = {
 	id = assassination.122
 	desc = "EVTDESCASSASSINATION122"
 	picture = GFX_evt_child
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { character = FROM }
 		NOT = { character = FROMFROM }
@@ -951,16 +951,16 @@ character_event = {
 			spouse = { character = FROM }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 character_event = {
 	id = assassination.123
 	desc = "EVTDESCASSASSINATION123"
 	picture = GFX_evt_child
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTAASSASSINATION123"
 		hidden_tooltip = { character_event = { id = 10 } }
@@ -971,9 +971,9 @@ character_event = {
 	id = assassination.124
 	desc = "EVTDESCASSASSINATION124"
 	picture = GFX_evt_child
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { character = FROM }
 		NOT = { character = FROMFROM }
@@ -989,7 +989,7 @@ character_event = {
 			spouse = { character = FROM }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 # Midnight break-in and stabbing
@@ -997,12 +997,12 @@ character_event = {
 	id = assassination.130
 	desc = "EVTDESCASSASSINATION130"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	hide_from = yes
 	is_triggered_only = yes
-	
+
 	immediate = { save_event_target_as = target_victim }
-	
+
 	# Involvement unknown
 	option = {
 		trigger = {
@@ -1026,7 +1026,7 @@ character_event = {
 			any_realm_character = { character_event = { id = assassination.132 } }
 		}
 	}
-	
+
 	# Involvement discovered
 	option = {
 		trigger = {
@@ -1052,9 +1052,9 @@ character_event = {
 	id = assassination.131
 	desc = "EVTDESCASSASSINATION131"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTAASSASSINATION131"
 		clr_character_flag = murder_in_motion
@@ -1064,9 +1064,9 @@ character_event = {
 	id = assassination.132
 	desc = "EVTDESCASSASSINATION132"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { character = FROM }
 		NOT = { character = FROMFROM }
@@ -1082,16 +1082,16 @@ character_event = {
 			spouse = { character = FROM }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 character_event = {
 	id = assassination.133
 	desc = "EVTDESCASSASSINATION133"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTAASSASSINATION133"
 		hidden_tooltip = { character_event = { id = 10 } }
@@ -1102,9 +1102,9 @@ character_event = {
 	id = assassination.134
 	desc = "EVTDESCASSASSINATION134"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { character = FROM }
 		NOT = { character = FROMFROM }
@@ -1120,7 +1120,7 @@ character_event = {
 			spouse = { character = FROM }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 # Shot in traffic
@@ -1128,12 +1128,12 @@ character_event = {
 	id = assassination.140
 	desc = "EVTDESCASSASSINATION140"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	hide_from = yes
 	is_triggered_only = yes
-	
+
 	immediate = { save_event_target_as = target_victim }
-	
+
 	# Involvement unknown
 	option = {
 		trigger = {
@@ -1158,7 +1158,7 @@ character_event = {
 			clear_event_target = target_victim
 		}
 	}
-	
+
 	# Involvement discovered
 	option = {
 		trigger = {
@@ -1183,9 +1183,9 @@ character_event = {
 	id = assassination.141
 	desc = "EVTDESCASSASSINATION141"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTAASSASSINATION141"
 		clr_character_flag = murder_in_motion
@@ -1195,9 +1195,9 @@ character_event = {
 	id = assassination.142
 	desc = "EVTDESCASSASSINATION142"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { character = FROM }
 		NOT = { character = FROMFROM }
@@ -1213,16 +1213,16 @@ character_event = {
 			spouse = { character = FROM }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 character_event = {
 	id = assassination.143
 	desc = "EVTDESCASSASSINATION143"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTAASSASSINATION143"
 		hidden_tooltip = { character_event = { id = 10 } }
@@ -1233,9 +1233,9 @@ character_event = {
 	id = assassination.144
 	desc = "EVTDESCASSASSINATION144"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { character = FROM }
 		NOT = { character = FROMFROM }
@@ -1251,7 +1251,7 @@ character_event = {
 			spouse = { character = FROM }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 # Shot at speech
@@ -1259,12 +1259,12 @@ character_event = {
 	id = assassination.150
 	desc = "EVTDESCASSASSINATION150"
 	picture = GFX_evt_speech
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	hide_from = yes
 	is_triggered_only = yes
-	
+
 	immediate = { save_event_target_as = target_victim }
-	
+
 	# Involvement unknown
 	option = {
 		trigger = {
@@ -1289,7 +1289,7 @@ character_event = {
 			clear_event_target = target_victim
 		}
 	}
-	
+
 	# Involvement discovered
 	option = {
 		trigger = {
@@ -1314,9 +1314,9 @@ character_event = {
 	id = assassination.151
 	desc = "EVTDESCASSASSINATION151"
 	picture = GFX_evt_speech
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTAASSASSINATION151"
 		clr_character_flag = murder_in_motion
@@ -1326,9 +1326,9 @@ character_event = {
 	id = assassination.152
 	desc = "EVTDESCASSASSINATION152"
 	picture = GFX_evt_speech
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { character = FROM }
 		NOT = { character = FROMFROM }
@@ -1344,16 +1344,16 @@ character_event = {
 			spouse = { character = FROM }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 character_event = {
 	id = assassination.153
 	desc = "EVTDESCASSASSINATION153"
 	picture = GFX_evt_speech
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTAASSASSINATION153"
 		hidden_tooltip = { character_event = { id = 10 } }
@@ -1364,9 +1364,9 @@ character_event = {
 	id = assassination.154
 	desc = "EVTDESCASSASSINATION154"
 	picture = GFX_evt_speech
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { character = FROM }
 		NOT = { character = FROMFROM }
@@ -1382,7 +1382,7 @@ character_event = {
 			spouse = { character = FROM }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 # Office Bomb
@@ -1390,12 +1390,12 @@ character_event = {
 	id = assassination.160
 	desc = "EVTDESCASSASSINATION160"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	hide_from = yes
 	is_triggered_only = yes
-	
+
 	immediate = { save_event_target_as = target_victim }
-	
+
 	# Involvement unknown
 	option = {
 		trigger = {
@@ -1420,7 +1420,7 @@ character_event = {
 			clear_event_target = target_victim
 		}
 	}
-	
+
 	# Involvement discovered
 	option = {
 		trigger = {
@@ -1445,9 +1445,9 @@ character_event = {
 	id = assassination.161
 	desc = "EVTDESCASSASSINATION161"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTAASSASSINATION161"
 		clr_character_flag = murder_in_motion
@@ -1457,9 +1457,9 @@ character_event = {
 	id = assassination.162
 	desc = "EVTDESCASSASSINATION162"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { character = FROM }
 		NOT = { character = FROMFROM }
@@ -1475,16 +1475,16 @@ character_event = {
 			spouse = { character = FROM }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 character_event = {
 	id = assassination.163
 	desc = "EVTDESCASSASSINATION163"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTAASSASSINATION163"
 		hidden_tooltip = { character_event = { id = 10 } }
@@ -1495,9 +1495,9 @@ character_event = {
 	id = assassination.164
 	desc = "EVTDESCASSASSINATION164"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { character = FROM }
 		NOT = { character = FROMFROM }
@@ -1513,7 +1513,7 @@ character_event = {
 			spouse = { character = FROM }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 # 200 - Hired Assassin Fails
@@ -1521,7 +1521,7 @@ character_event = {
 	id = assassination.200
 	hide_window = yes
 	is_triggered_only = yes
-	
+
 	immediate = {
 		if = {
 			limit = {
@@ -1589,12 +1589,12 @@ character_event = {
 	id = assassination.210
 	desc = "EVTDESCASSASSINATION210"
 	picture = GFX_evt_child
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	hide_from = yes
 	is_triggered_only = yes
-	
+
 	immediate = { save_event_target_as = target_victim }
-	
+
 	# Not discovered
 	option = {
 		trigger = { NOT = { random = 25 } }
@@ -1605,7 +1605,7 @@ character_event = {
 			clear_event_target = target_victim
 		}
 	}
-	
+
 	# Discovered
 	option = {
 		trigger = { random = 25 }
@@ -1617,9 +1617,9 @@ character_event = {
 	id = assassination.211
 	desc = "EVTDESCASSASSINATION211"
 	picture = GFX_evt_child
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTAASSASSINATION211"
 		clr_character_flag = murder_in_motion
@@ -1629,9 +1629,9 @@ character_event = {
 	id = assassination.212
 	desc = "EVTDESCASSASSINATION212"
 	picture = GFX_evt_child
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { character = FROM }
 		NOT = { character = FROMFROM }
@@ -1647,16 +1647,16 @@ character_event = {
 			spouse = { character = FROM }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 character_event = {
 	id = assassination.213
 	desc = "EVTDESCASSASSINATION213"
 	picture = GFX_evt_child
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTAASSASSINATION213"
 		reveal_plot = yes
@@ -1671,9 +1671,9 @@ character_event = {
 	id = assassination.214
 	desc = "EVTDESCASSASSINATION214"
 	picture = GFX_evt_child
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { character = FROM }
 		NOT = { character = FROMFROM }
@@ -1689,7 +1689,7 @@ character_event = {
 			spouse = { character = FROMFROM }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 # Schoolchild shot on way to school
@@ -1697,12 +1697,12 @@ character_event = {
 	id = assassination.220
 	desc = "EVTDESCASSASSINATION220"
 	picture = GFX_evt_child
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	hide_from = yes
 	is_triggered_only = yes
-	
+
 	immediate = { save_event_target_as = target_victim }
-	
+
 	# Not discovered
 	option = {
 		trigger = { NOT = { random = 25 } }
@@ -1728,7 +1728,7 @@ character_event = {
 			}
 		}
 	}
-	
+
 	# Discovered
 	option = {
 		trigger = { random = 25 }
@@ -1755,9 +1755,9 @@ character_event = {
 	id = assassination.221
 	desc = "EVTDESCASSASSINATION221"
 	picture = GFX_evt_child
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		trigger = {
 			FROM = {
@@ -1768,13 +1768,13 @@ character_event = {
 		name = "EVTOPTAASSASSINATION211"
 		clr_character_flag = murder_in_motion
 	}
-	
+
 	option = {
 		trigger = { FROM = { has_character_flag = flag_plot_wounded } }
 		name = "EVTOPTBASSASSINATION211"
 		clr_character_flag = murder_in_motion
 	}
-	
+
 	option = {
 		trigger = { FROM = { has_character_flag = flag_plot_maimed } }
 		name = "EVTOPTCASSASSINATION211"
@@ -1785,9 +1785,9 @@ character_event = {
 	id = assassination.222
 	desc = "EVTDESCASSASSINATION222"
 	picture = GFX_evt_child
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { character = FROM }
 		NOT = { character = FROMFROM }
@@ -1803,19 +1803,19 @@ character_event = {
 			spouse = { character = FROM }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 character_event = {
 	id = assassination.223
 	desc = "EVTDESCASSASSINATION223"
 	picture = GFX_evt_child
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		trigger = {
-			FROM = {	
+			FROM = {
 				NOT = { has_character_flag = flag_plot_wounded }
 				NOT = { has_character_flag = flag_plot_maimed }
 			}
@@ -1828,7 +1828,7 @@ character_event = {
 		}
 		clr_character_flag = murder_in_motion
 	}
-	
+
 	option = {
 		trigger = {
 			FROM = { has_character_flag = flag_plot_wounded }
@@ -1844,7 +1844,7 @@ character_event = {
 		}
 		clr_character_flag = murder_in_motion
 	}
-	
+
 	option = {
 		trigger = {
 			FROM = { has_character_flag = flag_plot_maimed }
@@ -1865,9 +1865,9 @@ character_event = {
 	id = assassination.224
 	desc = "EVTDESCASSASSINATION224"
 	picture = GFX_evt_child
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { character = FROM }
 		NOT = { character = FROMFROM }
@@ -1883,7 +1883,7 @@ character_event = {
 			spouse = { character = FROMFROM }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 # Midnight break-in
@@ -1891,12 +1891,12 @@ character_event = {
 	id = assassination.230
 	desc = "EVTDESCASSASSINATION230"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	hide_from = yes
 	is_triggered_only = yes
-	
+
 	immediate = { save_event_target_as = target_victim }
-	
+
 	# Not discovered
 	option = {
 		trigger = { NOT = { random = 25 } }
@@ -1922,7 +1922,7 @@ character_event = {
 			}
 		}
 	}
-	
+
 	# Discovered
 	option = {
 		trigger = { random = 25 }
@@ -1949,9 +1949,9 @@ character_event = {
 	id = assassination.231
 	desc = "EVTDESCASSASSINATION231"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		trigger = {
 			FROM = {
@@ -1962,7 +1962,7 @@ character_event = {
 		name = "EVTOPTAASSASSINATION211"
 		clr_character_flag = murder_in_motion
 	}
-	
+
 	option = {
 		trigger = { FROM = { has_character_flag = flag_plot_wounded } }
 		name = "EVTOPTBASSASSINATION211"
@@ -1971,7 +1971,7 @@ character_event = {
 		}
 		clr_character_flag = murder_in_motion
 	}
-	
+
 	option = {
 		trigger = { FROM = { has_character_flag = flag_plot_maimed } }
 		name = "EVTOPTCASSASSINATION211"
@@ -1985,9 +1985,9 @@ character_event = {
 	id = assassination.232
 	desc = "EVTDESCASSASSINATION232"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { character = FROM }
 		NOT = { character = FROMFROM }
@@ -2003,19 +2003,19 @@ character_event = {
 			spouse = { character = FROM }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 character_event = {
 	id = assassination.233
 	desc = "EVTDESCASSASSINATION233"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		trigger = {
-			FROM = {	
+			FROM = {
 				NOT = { has_character_flag = flag_plot_wounded }
 				NOT = { has_character_flag = flag_plot_maimed }
 			}
@@ -2028,7 +2028,7 @@ character_event = {
 		}
 		clr_character_flag = murder_in_motion
 	}
-	
+
 	option = {
 		trigger = {
 			FROM = { has_character_flag = flag_plot_wounded }
@@ -2044,7 +2044,7 @@ character_event = {
 		}
 		clr_character_flag = murder_in_motion
 	}
-	
+
 	option = {
 		trigger = {
 			FROM = { has_character_flag = flag_plot_maimed }
@@ -2065,9 +2065,9 @@ character_event = {
 	id = assassination.234
 	desc = "EVTDESCASSASSINATION234"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { character = FROM }
 		NOT = { character = FROMFROM }
@@ -2083,7 +2083,7 @@ character_event = {
 			spouse = { character = FROMFROM }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 # Shot in traffic
@@ -2091,12 +2091,12 @@ character_event = {
 	id = assassination.240
 	desc = "EVTDESCASSASSINATION240"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	hide_from = yes
 	is_triggered_only = yes
-	
+
 	immediate = { save_event_target_as = target_victim }
-	
+
 	# Not discovered
 	option = {
 		trigger = { NOT = { random = 25 } }
@@ -2122,7 +2122,7 @@ character_event = {
 			}
 		}
 	}
-	
+
 	# Discovered
 	option = {
 		trigger = { random = 25 }
@@ -2149,9 +2149,9 @@ character_event = {
 	id = assassination.241
 	desc = "EVTDESCASSASSINATION241"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		trigger = {
 			FROM = {
@@ -2162,7 +2162,7 @@ character_event = {
 		name = "EVTOPTAASSASSINATION211"
 		clr_character_flag = murder_in_motion
 	}
-	
+
 	option = {
 		trigger = { FROM = { has_character_flag = flag_plot_wounded } }
 		name = "EVTOPTBASSASSINATION211"
@@ -2171,7 +2171,7 @@ character_event = {
 		}
 		clr_character_flag = murder_in_motion
 	}
-	
+
 	option = {
 		trigger = { FROM = { has_character_flag = flag_plot_maimed } }
 		name = "EVTOPTCASSASSINATION211"
@@ -2185,9 +2185,9 @@ character_event = {
 	id = assassination.242
 	desc = "EVTDESCASSASSINATION242"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { character = FROM }
 		NOT = { character = FROMFROM }
@@ -2203,19 +2203,19 @@ character_event = {
 			spouse = { character = FROM }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 character_event = {
 	id = assassination.243
 	desc = "EVTDESCASSASSINATION243"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		trigger = {
-			FROM = {	
+			FROM = {
 				NOT = { has_character_flag = flag_plot_wounded }
 				NOT = { has_character_flag = flag_plot_maimed }
 			}
@@ -2228,7 +2228,7 @@ character_event = {
 		}
 		clr_character_flag = murder_in_motion
 	}
-	
+
 	option = {
 		trigger = {
 			FROM = { has_character_flag = flag_plot_wounded }
@@ -2244,7 +2244,7 @@ character_event = {
 		}
 		clr_character_flag = murder_in_motion
 	}
-	
+
 	option = {
 		trigger = {
 			FROM = { has_character_flag = flag_plot_maimed }
@@ -2265,9 +2265,9 @@ character_event = {
 	id = assassination.244
 	desc = "EVTDESCASSASSINATION244"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { character = FROM }
 		NOT = { character = FROMFROM }
@@ -2283,7 +2283,7 @@ character_event = {
 			spouse = { character = FROMFROM }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 # Shot at speech
@@ -2291,12 +2291,12 @@ character_event = {
 	id = assassination.250
 	desc = "EVTDESCASSASSINATION250"
 	picture = GFX_evt_speech
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	hide_from = yes
 	is_triggered_only = yes
-	
+
 	immediate = { save_event_target_as = target_victim }
-	
+
 	# Not discovered
 	option = {
 		trigger = { NOT = { random = 25 } }
@@ -2322,7 +2322,7 @@ character_event = {
 			}
 		}
 	}
-	
+
 	# Discovered
 	option = {
 		trigger = { random = 25 }
@@ -2349,9 +2349,9 @@ character_event = {
 	id = assassination.251
 	desc = "EVTDESCASSASSINATION251"
 	picture = GFX_evt_speech
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		trigger = {
 			FROM = {
@@ -2362,7 +2362,7 @@ character_event = {
 		name = "EVTOPTAASSASSINATION211"
 		clr_character_flag = murder_in_motion
 	}
-	
+
 	option = {
 		trigger = { FROM = { has_character_flag = flag_plot_wounded } }
 		name = "EVTOPTBASSASSINATION211"
@@ -2371,7 +2371,7 @@ character_event = {
 		}
 		clr_character_flag = murder_in_motion
 	}
-	
+
 	option = {
 		trigger = { FROM = { has_character_flag = flag_plot_maimed } }
 		name = "EVTOPTCASSASSINATION211"
@@ -2385,9 +2385,9 @@ character_event = {
 	id = assassination.252
 	desc = "EVTDESCASSASSINATION252"
 	picture = GFX_evt_speech
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { character = FROM }
 		NOT = { character = FROMFROM }
@@ -2403,19 +2403,19 @@ character_event = {
 			spouse = { character = FROM }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 character_event = {
 	id = assassination.253
 	desc = "EVTDESCASSASSINATION253"
 	picture = GFX_evt_speech
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		trigger = {
-			FROM = {	
+			FROM = {
 				NOT = { has_character_flag = flag_plot_wounded }
 				NOT = { has_character_flag = flag_plot_maimed }
 			}
@@ -2428,7 +2428,7 @@ character_event = {
 		}
 		clr_character_flag = murder_in_motion
 	}
-	
+
 	option = {
 		trigger = {
 			FROM = { has_character_flag = flag_plot_wounded }
@@ -2444,7 +2444,7 @@ character_event = {
 		}
 		clr_character_flag = murder_in_motion
 	}
-	
+
 	option = {
 		trigger = {
 			FROM = { has_character_flag = flag_plot_maimed }
@@ -2465,9 +2465,9 @@ character_event = {
 	id = assassination.254
 	desc = "EVTDESCASSASSINATION254"
 	picture = GFX_evt_speech
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { character = FROM }
 		NOT = { character = FROMFROM }
@@ -2483,7 +2483,7 @@ character_event = {
 			spouse = { character = FROMFROM }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 # Office bomb
@@ -2491,12 +2491,12 @@ character_event = {
 	id = assassination.260
 	desc = "EVTDESCASSASSINATION260"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	hide_from = yes
 	is_triggered_only = yes
-	
+
 	immediate = { save_event_target_as = target_victim }
-	
+
 	# Not discovered
 	option = {
 		trigger = { NOT = { random = 25 } }
@@ -2522,7 +2522,7 @@ character_event = {
 			}
 		}
 	}
-	
+
 	# Discovered
 	option = {
 		trigger = { random = 25 }
@@ -2549,9 +2549,9 @@ character_event = {
 	id = assassination.261
 	desc = "EVTDESCASSASSINATION261"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		trigger = {
 			FROM = {
@@ -2562,7 +2562,7 @@ character_event = {
 		name = "EVTOPTAASSASSINATION211"
 		clr_character_flag = murder_in_motion
 	}
-	
+
 	option = {
 		trigger = { FROM = { has_character_flag = flag_plot_wounded } }
 		name = "EVTOPTBASSASSINATION211"
@@ -2571,7 +2571,7 @@ character_event = {
 		}
 		clr_character_flag = murder_in_motion
 	}
-	
+
 	option = {
 		trigger = { FROM = { has_character_flag = flag_plot_maimed } }
 		name = "EVTOPTCASSASSINATION211"
@@ -2585,9 +2585,9 @@ character_event = {
 	id = assassination.262
 	desc = "EVTDESCASSASSINATION262"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { character = FROM }
 		NOT = { character = FROMFROM }
@@ -2603,19 +2603,19 @@ character_event = {
 			spouse = { character = FROM }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 character_event = {
 	id = assassination.263
 	desc = "EVTDESCASSASSINATION263"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		trigger = {
-			FROM = {	
+			FROM = {
 				NOT = { has_character_flag = flag_plot_wounded }
 				NOT = { has_character_flag = flag_plot_maimed }
 			}
@@ -2628,7 +2628,7 @@ character_event = {
 		}
 		clr_character_flag = murder_in_motion
 	}
-	
+
 	option = {
 		trigger = {
 			FROM = { has_character_flag = flag_plot_wounded }
@@ -2644,7 +2644,7 @@ character_event = {
 		}
 		clr_character_flag = murder_in_motion
 	}
-	
+
 	option = {
 		trigger = {
 			FROM = { has_character_flag = flag_plot_maimed }
@@ -2665,9 +2665,9 @@ character_event = {
 	id = assassination.264
 	desc = "EVTDESCASSASSINATION264"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { character = FROM }
 		NOT = { character = FROMFROM }
@@ -2683,7 +2683,7 @@ character_event = {
 			spouse = { character = FROMFROM }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -2693,13 +2693,13 @@ character_event = {
 	id = assassination.300
 	desc = "EVTDESCASSASSINATION300"
 	picture = GFX_evt_battle
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes # Battle trigger
-	
+
 	min_age = 18
 	capable_only = yes
 	prisoner = no
-	
+
 	trigger = {
 		in_battle = yes
 		OR = {
@@ -2713,7 +2713,7 @@ character_event = {
 			NOT = { martial = ROOT }
 		}
 	}
-	
+
 	option = {
 		name = "EVTOPTAASSASSINATION300"
 		set_character_flag = murder_in_motion
@@ -2783,15 +2783,15 @@ character_event = {
 	id = assassination.301
 	desc = "EVTDESCASSASSINATION301"
 	picture = GFX_evt_battle
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	hide_from = yes
 	is_triggered_only = yes
-	
+
 	immediate = {
 		save_event_target_as = target_victim
 		log = "[From.GetBestName] Garma'd [Root.GetBestName]"
 	}
-	
+
 	# Origin of enemy fire unknown
 	option = {
 		trigger = { FROM = { NOT = { plot_is_known_by = ROOT } } }
@@ -2803,7 +2803,7 @@ character_event = {
 			clear_event_target = target_victim
 		}
 	}
-	
+
 	# Origin of enemy fire known
 	option = {
 		trigger = { FROM = { plot_is_known_by = ROOT } }
@@ -2819,9 +2819,9 @@ character_event = {
 	id = assassination.302
 	desc = "EVTDESCASSASSINATION301"
 	picture = GFX_evt_battle
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTBASSASSINATION301" # Traitorous snake!
 		FROM = { reveal_plot = yes }
@@ -2836,9 +2836,9 @@ character_event = {
 	id = assassination.303
 	desc = "EVTDESCASSASSINATION303"
 	picture = GFX_evt_battle
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTAASSASSINATION303" # Blame the misfortune of your birth!
 		clr_character_flag = murder_in_motion
@@ -2848,9 +2848,9 @@ character_event = {
 	id = assassination.304
 	desc = "EVTDESCASSASSINATION304"
 	picture = GFX_evt_battle
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { character = FROM }
 		NOT = { character = FROMFROM }
@@ -2867,7 +2867,7 @@ character_event = {
 			spouse = { character = FROM }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -2875,9 +2875,9 @@ character_event = {
 	id = assassination.305
 	desc = "EVTDESCASSASSINATION305"
 	picture = GFX_evt_battle
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTAASSASSINATION305" # Blame the misfortune of your birth!
 		clr_character_flag = murder_in_motion
@@ -2889,9 +2889,9 @@ character_event = {
 	id = assassination.306
 	desc = "EVTDESCASSASSINATION306"
 	picture = GFX_evt_battle
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { character = FROM }
 		NOT = { character = FROMFROM }
@@ -2908,7 +2908,7 @@ character_event = {
 			spouse = { character = FROM }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -2916,9 +2916,9 @@ character_event = {
 	id = assassination.307
 	desc = "EVTDESCASSASSINATION307"
 	picture = GFX_evt_battle
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTAASSASSINATION307"
 		reveal_plot = yes
@@ -2929,9 +2929,9 @@ character_event = {
 	id = assassination.308
 	desc = "EVTDESCASSASSINATION308"
 	picture = GFX_evt_battle
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { character = FROM }
 		NOT = { character = FROMFROM }
@@ -2948,7 +2948,7 @@ character_event = {
 			spouse = { character = FROM }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -2957,13 +2957,13 @@ character_event = {
 	id = assassination.350
 	desc = "EVTDESCASSASSINATION350"
 	picture = GFX_evt_battle
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes # Battle trigger
-	
+
 	min_age = 18
 	capable_only = yes
 	prisoner = no
-	
+
 	trigger = {
 		in_battle = yes
 		any_backed_character = {
@@ -2979,7 +2979,7 @@ character_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		name = "EVTOPTAASSASSINATION350"
 		random_backed_character = {
@@ -3062,16 +3062,16 @@ character_event = {
 	id = assassination.351
 	desc = "EVTDESCASSASSINATION301"
 	picture = GFX_evt_battle
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	hide_from = yes
 	is_triggered_only = yes
-	
-	
+
+
 	immediate = {
 		save_event_target_as = target_victim
 		log = "[From.GetBestName] Garma'd [Root.GetBestName]"
 	}
-	
+
 	option = {
 		trigger = {
 			FROM = {
@@ -3092,7 +3092,7 @@ character_event = {
 			any_realm_character = { character_event = { id = assassination.354 } }
 		}
 	}
-	
+
 	option = {
 		trigger = {
 			NOT = {
@@ -3123,11 +3123,11 @@ character_event = {
 	id = assassination.352
 	desc = "EVTDESCASSASSINATION301"
 	picture = GFX_evt_battle
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	immediate = { save_event_target_as = target_victim }
-	
+
 	option = {
 		name = "EVTOPTBASSASSINATION301"
 		hidden_tooltip = {
@@ -3144,9 +3144,9 @@ character_event = {
 	id = assassination.353
 	desc = "EVTDESCASSASSINATION303"
 	picture = GFX_evt_battle
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTAASSASSINATION303"
 		any_backed_character = {
@@ -3167,9 +3167,9 @@ character_event = {
 	id = assassination.354
 	desc = "EVTDESCASSASSINATION304"
 	picture = GFX_evt_battle
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { character = FROM }
 		NOT = { character = FROMFROM }
@@ -3186,7 +3186,7 @@ character_event = {
 			spouse = { character = FROM }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -3195,9 +3195,9 @@ character_event = {
 	id = assassination.355
 	desc = "EVTDESCASSASSINATION305"
 	picture = GFX_evt_battle
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTAASSASSINATION305"
 		any_backed_character = {
@@ -3217,9 +3217,9 @@ character_event = {
 	id = assassination.356
 	desc = "EVTDESCASSASSINATION306"
 	picture = GFX_evt_battle
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { character = FROM }
 		NOT = { character = FROMFROM }
@@ -3236,7 +3236,7 @@ character_event = {
 			spouse = { character = FROM }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 # Failed Assassination
@@ -3244,9 +3244,9 @@ character_event = {
 	id = assassination.357
 	desc = "EVTDESCASSASSINATION307"
 	picture = GFX_evt_battle
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		hidden_tooltip = { character_event = { id = 11 } }
 		name = "EVTOPTAASSASSINATION307"
@@ -3256,9 +3256,9 @@ character_event = {
 	id = assassination.358
 	desc = "EVTDESCASSASSINATION308"
 	picture = GFX_evt_battle
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { character = FROM }
 		NOT = { character = FROMFROM }
@@ -3275,7 +3275,7 @@ character_event = {
 			spouse = { character = FROM }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -3283,9 +3283,9 @@ character_event = {
 letter_event = {
 	id = assassination.359
 	desc = "EVTDESCASSASSINATION359"
-	border = GFX_evt_letter_frame_intrigue
+	border = GFX_event_letter_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -3294,12 +3294,12 @@ character_event = {
 	id = assassination.400
 	desc = "EVTDESCASSASSINATION400"
 	picture = GFX_evt_cabal
-	border = GFX_evt_normal_frame_intrigue
-	
+	border = GFX_event_normal_frame_intrigue
+
 	min_age = 18
 	prisoner = no
 	only_capable = yes
-	
+
 	trigger = {
 		NOT = { has_character_flag = murder_in_motion }
 		OR = {
@@ -3323,15 +3323,15 @@ character_event = {
 			any_plot_backer = { trait = dni }
 		}
 	}
-	
+
 	mean_time_to_happen = {
 		months = 30
 	}
-	
+
 	immediate = {
 		any_plot_backer = { add_trait = target } # So that one can be selected at random later
 	}
-	
+
 	option = {
 		trigger = { trait = dni }
 		name = "EVTOPTAASSASSINATION400" # Handle it yourself
@@ -3475,10 +3475,10 @@ character_event = {
 	id = assassination.401
 	desc = "EVTDESCASSASSINATION401"
 	picture = GFX_evt_cybernetics
-	border = GFX_evt_normal_border_intrigue
+	border = GFX_event_normal_border_intrigue
 	hide_from = yes
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTAASSASSINATION401"
 		hidden_tooltip = { e_rebels = { holder_scope = { character_event = { id = assassination.402 } } } }
@@ -3490,7 +3490,7 @@ character_event = {
 	id = assassination.402
 	hide_window = yes
 	is_triggered_only = yes
-	
+
 	# Successful
 	option = {
 		FROM = { FROM = { character_event = { id = assassination.410 } } }
@@ -3737,10 +3737,10 @@ character_event = {
 	id = assassination.410
 	desc = "EVTDESCASSASSINATION410"
 	picture = GFX_evt_cybernetics
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	show_from_from = yes
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTAASSASSINATION410"
 		FROM = { FROM = { character_event = { id = assassination.411 tooltip = "EVTTOOLTIPASSASSINATION411" } } }
@@ -3760,10 +3760,10 @@ character_event = {
 	id = assassination.411
 	desc = "EVTDESCASSASSINATION411"
 	picture = GFX_evt_cybernetics
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	hide_from = yes
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTAASSASSINATION411"
 		death = { death_reason = death_murder_unknown killer = FROM }
@@ -3774,9 +3774,9 @@ character_event = {
 	id = assassination.412
 	desc = "EVTDESCASSASSINATION412"
 	picture = GFX_cybernetics
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { character = FROM }
 		NOT = { character = FROMFROM }
@@ -3792,14 +3792,14 @@ character_event = {
 			spouse = { character = FROM }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 letter_event = {
 	id = assassination.413
 	desc = "EVTDESCASSASSINATION413"
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		hidden_tooltip = {
@@ -3814,10 +3814,10 @@ character_event = {
 	id = assassination.420
 	desc = "EVTDESCASSASSINATION420"
 	picture = GFX_evt_cybernetics
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	show_from_from = yes
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTAASSASSINATION420"
 		FROM = { FROM = { character_event = { id = assassination.421 tooltip = "EVTTOOLTIPASSASSINATION421" } } }
@@ -3840,10 +3840,10 @@ character_event = {
 	id = assassination.421
 	desc = "EVTDESCASSASSINATION421"
 	picture = GFX_evt_cybernetics
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	hide_from = yes
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTAASSASSINATION421"
 	}
@@ -3852,7 +3852,7 @@ letter_event = {
 	id = assassination.422
 	desc = "EVTDESCASSASSINATION422"
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		hidden_tooltip = {
@@ -3867,10 +3867,10 @@ character_event = {
 	id = assassination.430
 	desc = "EVTDESCASSASSINATION430"
 	picture = GFX_evt_cybernetics
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	show_from_from = yes
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTAASSASSINATION430"
 		FROM = { FROM = { character_event = { id = assassination.431 tooltip = "EVTTOOLTIPASSASSINATION431" } } }
@@ -3908,10 +3908,10 @@ character_event = {
 	id = assassination.431
 	desc = "EVTDESCASSASSINATION431"
 	picture = GFX_evt_cybernetics
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	hide_from = yes
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTAASSASSINATION431"
 	}
@@ -3920,9 +3920,9 @@ character_event = {
 	id = assassination.432
 	desc = "EVTDESCASSASSINATION432"
 	picture = GFX_evt_cybernetics
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		hidden_tooltip = {
@@ -3935,9 +3935,9 @@ character_event = {
 letter_event = {
 	id = assassination.450
 	desc = "EVTDESCASSASSINATION450"
-	border = GFX_evt_letter_frame_intrigue
+	border = GFX_event_letter_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTACCEPT"
 		set_character_flag = flag_brainjacking_middleman
@@ -4004,9 +4004,9 @@ letter_event = {
 letter_event = {
 	id = assassination.455
 	desc = "EVTDESCASSASSINATION455"
-	border = GFX_evt_letter_frame_intrigue
+	border = GFX_event_letter_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		clr_character_flag = murder_in_motion
@@ -4019,12 +4019,12 @@ character_event = {
 	id = assassination.500
 	desc = "EVTDESCASSASSINATION500"
 	picture = GFX_evt_cabal
-	border = GFX_evt_normal_frame_intrigue
-	
+	border = GFX_event_normal_frame_intrigue
+
 	min_age = 18
 	prisoner = no
 	only_capable = yes
-	
+
 	trigger = {
 		OR = {
 			has_plot = plot_kill_character
@@ -4036,7 +4036,7 @@ character_event = {
 			any_plot_backer = { ROOT = { plot_target_char = { at_location = PREVPREV } } }
 		}
 	}
-	
+
 	mean_time_to_happen = {
 		months = 120
 		modifier = {
@@ -4055,11 +4055,11 @@ character_event = {
 			}
 		}
 	}
-	
+
 	immediate = {
 		any_plot_backer = { add_trait = target } # So that one can be selected at random later
 	}
-	
+
 	# Do it yourself
 	option = {
 		trigger = { plot_target_char = { at_location = ROOT } }
@@ -4224,10 +4224,10 @@ character_event = {
 	id = assassination.510
 	desc = "EVTDESCASSASSINATION510"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_intrigue
+	border = GFX_event_normal_intrigue
 	hide_from = yes
 	is_triggered_only = yes
-	
+
 	immediate = {
 		# Chance plotter successful escapes determined by relative intrigue
 		if = {
@@ -4418,7 +4418,7 @@ character_event = {
 			}
 		}
 	}
-	
+
 	# Killer exposed!
 	option = {
 		trigger = { has_character_flag = flag_killer_exposed }
@@ -4431,7 +4431,7 @@ character_event = {
 		}
 		hidden_tooltip = { log = "[From.GetBestName] shot [Root.GetBestName]." }
 	}
-	
+
 	# Killer escapes!
 	option = {
 		trigger = { NOT = { has_character_flag = flag_killer_exposed } }
@@ -4448,9 +4448,9 @@ character_event = {
 	id = assassination.511
 	desc = "EVTDESCASSASSINATION511"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTAASSASSINATION511"
 		clr_character_flag = murder_in_motion
@@ -4461,9 +4461,9 @@ character_event = {
 	id = assassination.512
 	desc = "EVTDESCASSASSINATION512"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { character = FROM }
 		NOT = { character = FROMFROM }
@@ -4479,16 +4479,16 @@ character_event = {
 			spouse = { character = FROM }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 character_event = {
 	id = assassination.513
 	desc = "EVTDESCASSASSINATION513"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTAASSASSINATION513"
 		clr_character_flag = murder_in_motion
@@ -4498,9 +4498,9 @@ character_event = {
 	id = assassination.514
 	desc = "EVTDESCASSASSINATION514"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { character = FROM }
 		NOT = { character = FROMFROM }
@@ -4516,7 +4516,7 @@ character_event = {
 			spouse = { character = FROM }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 # Failed shooting attempt
@@ -4524,10 +4524,10 @@ character_event = {
 	id = assassination.520
 	desc = "EVTDESCASSASSINATION520"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_intrigue
+	border = GFX_event_normal_intrigue
 	hide_from = yes
 	is_triggered_only = yes
-	
+
 	immediate = {
 		# Chance plotter successful escapes determined by relative intrigue
 		if = {
@@ -4718,7 +4718,7 @@ character_event = {
 			}
 		}
 	}
-	
+
 	# Attempted murder exposed
 	option = {
 		trigger = { has_character_flag = flag_killer_exposed }
@@ -4754,7 +4754,7 @@ character_event = {
 		}
 		hidden_tooltip = { log = "[From.GetBestName] failed to kill [Root.GetBestName] and was captured." }
 	}
-	
+
 	# Killer escapes!
 	option = {
 		trigger = { NOT = { has_character_flag = flag_killer_exposed } }
@@ -4786,9 +4786,9 @@ character_event = {
 	id = assassination.521
 	desc = "EVTDESCASSASSINATION521"
 	picture = GFX_evt_thrown_in_the_dungeon
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		if = {
@@ -4808,9 +4808,9 @@ character_event = {
 	id = assassination.522
 	desc = "EVTDESCASSASSINATION522"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { character = FROM }
 		NOT = { character = FROMFROM }
@@ -4826,7 +4826,7 @@ character_event = {
 			spouse = { character = FROM }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 # You failed to kill your target but managed to escape
@@ -4834,9 +4834,9 @@ character_event = {
 	id = assassination.523
 	desc = "EVTDESCASSASSINATION523"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		clr_character_flag = murder_in_motion
@@ -4846,9 +4846,9 @@ character_event = {
 	id = assassination.524
 	desc = "EVTDESCASSASSINATION524"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { character = FROM }
 		NOT = { character = FROMFROM }
@@ -4864,7 +4864,7 @@ character_event = {
 			spouse = { character = FROM }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -4872,9 +4872,9 @@ character_event = {
 letter_event = {
 	id = assassination.550
 	desc = "EVTDESCASSASSINATION550"
-	border = GFX_evt_letter_frame_intrigue
+	border = GFX_event_letter_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTACCEPT"
 		if = {
@@ -5005,9 +5005,9 @@ letter_event = {
 letter_event = {
 	id = assassination.555
 	desc = "EVTDESCASSASSINATION555"
-	border = GFX_evt_letter_frame_intrigue
+	border = GFX_event_letter_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		clr_character_flag = murder_in_motion
@@ -5019,10 +5019,10 @@ character_event = {
 	id = assassination.560
 	desc = "EVTDESCASSASSINATION510"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_intrigue
+	border = GFX_event_normal_intrigue
 	hide_from = yes
 	is_triggered_only = yes
-	
+
 	immediate = {
 		# Chance plotter successful escapes determined by relative intrigue
 		if = {
@@ -5213,7 +5213,7 @@ character_event = {
 			}
 		}
 	}
-	
+
 	# Killer exposed!
 	option = {
 		trigger = { has_character_flag = flag_killer_exposed }
@@ -5227,7 +5227,7 @@ character_event = {
 		}
 		hidden_tooltip = { log = "[From.GetBestName] shot [Root.GetBestName] for [FromFrom.GetBestName]." }
 	}
-	
+
 	# Killer escapes!
 	option = {
 		trigger = { NOT = { has_character_flag = flag_killer_exposed } }
@@ -5245,9 +5245,9 @@ character_event = {
 	id = assassination.561
 	desc = "EVTDESCASSASSINATION511"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTAASSASSINATION511"
 		hidden_tooltip = { character_event = { id = 10 } }
@@ -5257,9 +5257,9 @@ character_event = {
 	id = assassination.562
 	desc = "EVTDESCASSASSINATION512"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { character = FROM }
 		NOT = { character = FROMFROM }
@@ -5275,16 +5275,16 @@ character_event = {
 			spouse = { character = FROM }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 letter_event = {
 	id = assassination.563
 	desc = "EVTDESCASSASSINATION563"
-	border = GFX_evt_letter_frame_intrigue
+	border = GFX_event_letter_frame_intrigue
 	show_from_from = yes
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		opinion = { who = FROMFROM modifier = opinion_accomplice }
@@ -5295,9 +5295,9 @@ character_event = {
 	id = assassination.564
 	desc = "EVTDESCASSASSINATION513"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTAASSASSINATION513"
 	}
@@ -5306,9 +5306,9 @@ character_event = {
 	id = assassination.565
 	desc = "EVTDESCASSASSINATION514"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { character = FROM }
 		NOT = { character = FROMFROM }
@@ -5324,16 +5324,16 @@ character_event = {
 			spouse = { character = FROM }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 letter_event = {
 	id = assassination.566
 	desc = "EVTDESCASSASSINATION566"
-	border = GFX_evt_letter_frame_intrigue
+	border = GFX_event_letter_frame_intrigue
 	show_from_from = yes
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		opinion = { who = FROMFROM modifier = opinion_accomplice }
@@ -5345,10 +5345,10 @@ character_event = {
 	id = assassination.570
 	desc = "EVTDESCASSASSINATION520"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_intrigue
+	border = GFX_event_normal_intrigue
 	hide_from = yes
 	is_triggered_only = yes
-	
+
 	immediate = {
 		# Chance plotter successful escapes determined by relative intrigue
 		if = {
@@ -5539,7 +5539,7 @@ character_event = {
 			}
 		}
 	}
-	
+
 	# Attempted murder exposed
 	option = {
 		trigger = { has_character_flag = flag_killer_exposed }
@@ -5563,7 +5563,7 @@ character_event = {
 		}
 		hidden_tooltip = { FROM = { FROM = { character_event = { id = assassination.571 } } } }
 	}
-	
+
 	# Killer escapes!
 	option = {
 		trigger = { NOT = { has_character_flag = flag_killer_exposed } }
@@ -5597,7 +5597,7 @@ character_event = {
 	id = assassination.571
 	hide_window = yes
 	is_triggered_only = yes
-	
+
 	immediate = { FROM = { FROM = { character_event = { id = assassination.572 } } } }
 }
 # Plot backer captured during murder attempt
@@ -5605,10 +5605,10 @@ character_event = {
 	id = assassination.572
 	desc = "EVTDESCASSASSINATION572"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	show_from_from = yes
 	is_triggered_only = yes
-	
+
 	option = {
 		# Take full responsibility
 		name = "EVTOPTAASSASSINATION572"
@@ -5743,9 +5743,9 @@ character_event = {
 	id = assassination.573
 	desc = "EVTDESCASSASSINATION573"
 	picture = GFX_evt_thrown_into_the_dungeon
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		clr_character_flag = murder_in_motion
@@ -5755,9 +5755,9 @@ character_event = {
 	id = assassination.574
 	desc = "EVTDESCASSASSINATION574"
 	picture = GFX_evt_thronw_into_the_dungeon
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		hidden_tooltip = { any_realm_character = { character_event = { id = assassination.575 } } }
@@ -5767,9 +5767,9 @@ character_event = {
 	id = assassination.575
 	desc = "EVTDESCASSASSINATION524"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { character = FROM }
 		NOT = { character = FROMFROM }
@@ -5785,7 +5785,7 @@ character_event = {
 			spouse = { character = FROM }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 # Plot backer reveals the plot
@@ -5793,9 +5793,9 @@ character_event = {
 	id = assassination.576
 	desc = "EVTDESCASSASSINATION576"
 	picture = GFX_evt_scandal
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		reveal_plot = yes
@@ -5810,18 +5810,18 @@ character_event = {
 	id = assassination.577
 	desc = "EVTDESCASSASSINATION577"
 	picture = GFX_evt_scandal
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 character_event = {
 	id = assassination.578
 	desc = "EVTDESCASSASSINATION578"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { FROM = { character = ROOT } }
 		NOT = { FROM = { FROM = { character = ROOT } } }
@@ -5842,7 +5842,7 @@ character_event = {
 			}
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -5852,9 +5852,9 @@ character_event = {
 	id = assassination.580
 	desc = "EVTDESCASSASSINATION523"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 	}
@@ -5862,19 +5862,19 @@ character_event = {
 letter_event = {
 	id = assassination.581
 	desc = "EVTDESCASSASSINATION581"
-	border = GFX_evt_letter_frame_intrigue
+	border = GFX_event_letter_frame_intrigue
 	show_from_from = yes
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 character_event = {
 	id = assassination.582
 	desc = "EVTDESCASSASSINATION524"
 	picture = GFX_evt_murder
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { character = FROM }
 		NOT = { character = FROMFROM }
@@ -5890,6 +5890,6 @@ character_event = {
 			spouse = { character = FROM }
 		}
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
