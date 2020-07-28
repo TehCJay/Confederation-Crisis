@@ -76,6 +76,9 @@ NDefines.NMilitary.HOLY_ORDER_DYNASTY_HIRE_COST_FACTOR = 0.1		-- Reduction of co
 NDefines.NMilitary.VASSAL_MERC_HIRE_COST_FACTOR = 0.1			-- Fraction of nominal hire cost when hiring vassal mercenaries OR Holy Orders
 NDefines.NMilitary.MERCENARY_HIRE_DISTANCE_THRESHOLD = 800
 NDefines.NMilitary.REINFORCE_RATE = 0.2                          -- Reinforce rate per year, it is increased compared to vanilla because building ships is easier than making people reproduce
+NDefines.NMilitary.DAYS_BETWEEN_COMBAT_EVENTS = 3                -- Combat events will happen every this many days
+NDefines.NMilitary.DAYS_BEFORE_FIRST_COMBAT_EVENT = 2             -- First combat event can't fire before this many days
+
 
 -- retinue stuff
 NDefines.NMilitary.RETINUE_FROM_REALMSIZE = 10
@@ -90,7 +93,7 @@ NDefines.NMilitary.OTHER_TERRITORY_LEVY_RETURN_PERCENT = 0.3 -- Harsher than van
 
 NDefines.NMilitary.MORALE_COLLAPSE_THRESHOLD = 0.35               -- Ships are expensive thus retreating easlier is more common
 NDefines.NMilitary.ATTACK_TO_DAMAGE_MULT = 0.004                   -- Attack value of troops is multiplied by this when doing damage
-NDefines.NMilitary.BATTLE_MINIMUM_WARSCORE = 0 --all battles count on warscore, to enable  attrition warfare and hit and run tactics
+NDefines.NMilitary.BATTLE_MINIMUM_WARSCORE = 0.01
 
 -- siege related stuff
 NDefines.NMilitary.ATTACKER_SIEGE_DAMAGE = 0.1                      -- Skirmish damage done by defenders on attackers

@@ -2685,3 +2685,237 @@ plot_gain_vassal_title = {
 		}
 	}
 }
+
+# Get a spouse killed
+plot_kill_spouse = {
+	type = spouse
+	intrigue_plot = yes
+	murder_plot = yes
+	society_plot = {
+		ROOT = {
+			society_member_of = the_assassins
+			society_rank >= 2
+		}
+		OR = {
+			FROM = { 
+				NOR = {
+					religion = shiite
+					secret_religion = shiite
+				}
+			}
+			ROOT = {
+				has_quest = quest_the_assassins_assassination
+				quest_target = { character = FROM }
+			}
+		}
+	}
+	
+	# Plotter scope
+	potential = {
+		prisoner = no
+		age = 16
+		is_married = yes
+		NOT = { trait = incapable }
+		NOT = {
+			AND = {
+				ai = yes
+				trait = honest
+			}
+		}
+		NOT = {
+			AND = {
+				ai = yes
+				trait = kind
+			}
+		}
+	}
+	
+	# Target allow trigger for when players target a specific character in the GUI
+	player_allow = {
+		NOT = { is_lover = FROM }
+		assassination_interaction_trigger = yes
+	}
+	
+	# Target character scope
+	allow = {
+		NOT = { is_lover = FROM }
+		
+		OR = {
+			# Human
+			FROM = { ai = no }
+			
+			# Male plotter without sons wanting to kill an old/barren wife
+			AND = {
+				age = 40
+				FROM = {
+					is_female = no
+					OR = {
+						is_ruler = yes
+						is_primary_heir = yes
+					}
+					# No sons
+					NOT = {
+						any_child = {
+							is_alive = yes
+							is_female = no
+						}
+					}
+					NOT = { opinion = { who = ROOT value = 50 } }
+				}
+			}
+			
+			# Female plotter disliking her husband but loving her child - the legal heir
+			FROM = {
+				is_female = yes
+				num_of_children = 1
+				any_child = {
+					is_alive = yes
+					any_heir_title = {
+						holder = ROOT
+					}
+					NOT = { trait = incapable }
+					their_opinion = { who = FROM value = 75 }
+				}
+			}
+			
+			# Spouse has a lover...
+			AND = {
+				has_lover = yes
+				any_lover = {
+					NOT = { character = FROM }
+				}
+			}
+
+			# Insane plotter...
+			FROM = { 
+				OR = {
+					trait = lunatic 
+					trait = possessed
+				}
+			}
+		}
+
+		OR = {
+			FROM = { ai = no }
+			FROM = { NOT = { opinion = { who = ROOT value = -25 } } }
+		}
+	}
+	
+	chance = {
+		factor = 10
+		
+		modifier = {
+			factor = 0.01
+			FROM = { trait = content }
+		}
+		modifier = {
+			factor = 0.2
+			FROM = { pacifist = yes }
+		}		
+		modifier = {
+			factor = 0
+			their_opinion = { who = FROM value = 25 }
+		}
+		modifier = {
+			factor = 0
+			their_opinion = { who = FROM value = 0 }
+			NOT = {
+				OR = {
+					FROM = { trait = envious }
+					FROM = { trait = deceitful }
+					FROM = { trait = ambitious }
+				}
+			}		
+		}
+		modifier = {
+			factor = 0
+			ROOT = {
+				is_pilgrim = yes
+			}
+		}
+		modifier = {
+			factor = 1.5
+			NOT = { their_opinion = { who = FROM value = -25 } }
+		}
+		modifier = {
+			factor = 1.5
+			NOT = { their_opinion = { who = FROM value = -50 } }
+		}
+		modifier = {
+			factor = 2.0
+			NOT = { their_opinion = { who = FROM value = -75 } }
+		}
+		modifier = {
+			factor = 2.0
+			FROM = { trait = deceitful }
+		}
+		modifier = {
+			factor = 1.5
+			FROM = { trait = paranoid }
+		}
+		modifier = {
+			factor = 1.25
+			FROM = { trait = lunatic }
+		}
+		modifier = {
+			factor = 1.25
+			FROM = { trait = possessed }
+		}
+		modifier = {
+			factor = 1.25
+			FROM = { trait = intricate_webweaver }
+		}
+		modifier = {
+			factor = 1.5
+			FROM = { trait = elusive_shadow }
+		}
+		modifier = {
+			factor = 2.0
+			age = 40
+			FROM = {
+				is_female = no
+				NOT = {
+					any_child = {
+						is_alive = yes
+						is_female = no
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 50
+			FROM = { has_quest = quest_the_assassins_assassination }
+			is_quest_target_of = FROM
+		}
+	}
+	
+	success = {
+		is_alive = no
+		hidden_tooltip = {
+			FROM = { has_character_flag = murder_in_motion }
+		}
+	}
+	abort = {
+		is_alive = no
+		FROM = {
+			trait = incapable
+		}
+	}
+	abort_effect = {
+		FROM = { clr_character_flag = murder_in_motion }
+	}
+	effect = {
+		FROM = {
+			clr_character_flag = murder_in_motion
+			# Achievement
+			hidden_tooltip = {
+				if = {
+					limit = {
+						ai = no
+					}
+					set_character_flag = achievement_spouse_killer
+				}
+			}
+		}
+	}
+}
