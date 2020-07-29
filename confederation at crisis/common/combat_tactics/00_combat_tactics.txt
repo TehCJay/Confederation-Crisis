@@ -23,34 +23,34 @@ generic_skirmish_tactic = {
 	trigger = { phase = skirmish }
 
 	mean_time_to_happen = { days = 3 }
-	
-	
+
+	change_phase_to = melee
 }
 
-generic_skirmish_tactic_f_mel = {
-	days = 5
-	sprite = 4
-	group = skirmish
-
-	trigger = { phase = melee }
-	
-	change_phase_to = skirmish
-
-	mean_time_to_happen = { days = 1 }
-}
+#generic_skirmish_tactic_f_mel = {
+#	days = 5
+#	sprite = 4
+#	group = skirmish
+#
+#	trigger = { phase = melee }
+#
+#	change_phase_to = skirmish
+#
+#	mean_time_to_happen = { days = 1 }
+#}
 
 dogfighting_tactic = {
 	days = 5
 	sprite = 1
 	group = skirmish
-	
+
 	light_infantry_offensive = 2
-	
+
 	trigger = {
 		phase = skirmish
 		light_infantry = 0.01
 	}
-	
+
 	mean_time_to_happen = {
 		days = 3
 		modifier = {
@@ -59,18 +59,18 @@ dogfighting_tactic = {
 			leader = { trait = fighter_pilot }
 		}
 	}
-	
-	
+
+	change_phase_to = melee
 }
 
 evasive_action_tactic = {
 	days = 5
 	sprite = 1
 	group = skirmish
-	
+
 	light_infantry_defensive = 2
 	heavy_infantry_defensive = 2
-	
+
 	trigger = {
 		phase = skirmish
 		OR = {
@@ -78,7 +78,7 @@ evasive_action_tactic = {
 			heavy_infantry = 0.01
 		}
 	}
-	
+
 	mean_time_to_happen = {
 		days = 3
 		modifier = {
@@ -87,22 +87,22 @@ evasive_action_tactic = {
 			leader = { trait = fighter_pilot }
 		}
 	}
-	
-	
+
+	change_phase_to = melee
 }
 
 destroyer_screen_tactic = {
 	days = 5
 	sprite = 1
 	group = skirmish
-	
+
 	light_cavalry_offensive = 2
-	
+
 	trigger = {
 		phase = skirmish
 		light_cavalry = 0.01
 	}
-	
+
 	mean_time_to_happen = {
 		days = 3
 		modifier = {
@@ -111,8 +111,8 @@ destroyer_screen_tactic = {
 			leader = { trait = warship_captain }
 		}
 	}
-	
-	
+
+	change_phase_to = melee
 }
 
 # Melee Tactics
@@ -121,31 +121,31 @@ generic_melee_tactic = {
 	days = 3 # tactic lasts one day
 	sprite = 4 # index of icon
 	group = stand_fast
-	
+
 	trigger = {
 		phase = melee
 	}
-	
+
 	mean_time_to_happen = { days = 3 }
-	
-	
+
+
 }
 
 bombing_run_tactic = {
 	days = 3
 	sprite = 2
 	group = swarm
-	
+
 	heavy_infantry_offensive = 5
 	light_cavalry_offensive = -2
 	knights_offensive = -2
 	dreadnoughts_offensive = -10
-	
+
 	trigger = {
 		phase = melee
 		heavy_infantry = 0.01
 	}
-	
+
 	mean_time_to_happen = {
 		days = 3
 		modifier = {
@@ -154,24 +154,24 @@ bombing_run_tactic = {
 			leader = { trait = fighter_pilot }
 		}
 	}
-	
-	
+
+
 }
 
 cruiser_raid_tactic = {
 	days = 3
 	sprite = 5
 	group = harass
-	
+
 	knights_offensive = 4
 	knights_defensive = 4
 	dreadnoughts_offensive = -3
-	
+
 	trigger = {
 		phase = melee
 		knights = 0.01
 	}
-	
+
 	mean_time_to_happen = {
 		days = 3
 		modifier = {
@@ -180,23 +180,23 @@ cruiser_raid_tactic = {
 			leader = { trait = warship_captain }
 		}
 	}
-	
-	
+
+
 }
 
 wall_of_battle_tactic = {
 	days = 3
 	sprite = 6
 	group = defensive
-	
+
 	dreadnoughts_offensive = 3
 	dreadnoughts_defensive = 5
-	
+
 	trigger = {
 		phase = melee
 		dreadnoughts = 0.01
 	}
-	
+
 	mean_time_to_happen = {
 		days = 3
 		modifier = {
@@ -205,8 +205,8 @@ wall_of_battle_tactic = {
 			leader = { trait = warship_captain }
 		}
 	}
-	
-	
+
+
 }
 
 # Pursuit Tactic
@@ -214,7 +214,7 @@ pursue_tactic = {
 	days = 15
 	sprite = 4
 	group = charge
-	
+
 	trigger = {
 		phase = pursue
 	}
@@ -232,13 +232,13 @@ pursue_tactic = {
 no_siege_offense_tactic = {
 	days = 1 # tactic lasts one day
 	sprite = 1 # index of icon
-	
-	siege = attacker	
-	
+
+	siege = attacker
+
 	trigger = {
 		always = no # never use unless set explicitly by code
 	}
-	
+
 	light_infantry_offensive = -1000
 	light_infantry_morale = -1000
 	heavy_infantry_offensive = -100
@@ -257,7 +257,7 @@ default_siege_offense_tactic = {
 	days = 5
 	sprite = 1
 
-	siege = attacker	
+	siege = attacker
 
 	trigger = {
 		always = yes
@@ -266,7 +266,7 @@ default_siege_offense_tactic = {
 	mean_time_to_happen = {
 		days = 10
 	}
-	
+
 	light_infantry_offensive = -1000
 	light_infantry_morale = -1000
 	heavy_infantry_offensive = -100
@@ -290,11 +290,11 @@ default_siege_offense_tactic = {
 no_siege_defense_tactic = {
 	days = 1 # tactic lasts one day
 	sprite = 1 # index of icon
-	siege = defender	
+	siege = defender
 	trigger = {
 		always = no # never use unless set explicitly by code
 	}
-	
+
 	light_infantry_offensive = -1000
 	heavy_infantry_offensive = -1000
 	pikemen_offensive = -1000
@@ -308,7 +308,7 @@ default_siege_defense_tactic = {
 	sprite = 1
 
 	siege = defender
-	
+
 	trigger = {
 		always = yes
 	}
@@ -316,7 +316,7 @@ default_siege_defense_tactic = {
 	mean_time_to_happen = {
 		days = 10
 	}
-	
+
 	light_infantry_offensive = -1000
 	heavy_infantry_offensive = -1000
 	pikemen_offensive = -1000
