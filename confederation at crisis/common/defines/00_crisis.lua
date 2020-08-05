@@ -5,6 +5,7 @@ NDefines.NCouncil.COUNCIL_REJECTED_LAW_TIMEOUT = 5
 NDefines.NCouncil.COUNCIL_REJECTED_CROWN_LAW_TIMEOUT = 3
 NDefines.NCouncil.COUNCIL_REJECTION_ALL_LAWS_TIMEOUT = 0.5
 NDefines.NCouncil.COUNCIL_REJECTION_ALL_CROWN_LAWS_TIMEOUT = 0.5
+NDefines.NCouncil.CHANGE_POSITION_COOLDOWN = 2000
 
 NDefines.NDiplomacy.DEMESNE_MAX_SIZE_KING_MULT = 1.5			-- Extra Max Demesne Size from the ruler's rank
 NDefines.NDiplomacy.DEMESNE_MAX_SIZE_EMPEROR_MULT = 2		-- Extra Max Demesne Size from the ruler's rank
@@ -151,19 +152,19 @@ NDefines.NMilitary.LIGHT_INFANTRY_PHASE_SKIRMISH_DEFENSE = 5
 NDefines.NMilitary.LIGHT_INFANTRY_PHASE_MELEE_ATTACK = 4
 NDefines.NMilitary.LIGHT_INFANTRY_PHASE_MELEE_DEFENSE = 5
 NDefines.NMilitary.LIGHT_INFANTRY_PHASE_PURSUE_ATTACK = 0
-NDefines.NMilitary.LIGHT_INFANTRY_PHASE_PURSUE_DEFENSE = 1
+NDefines.NMilitary.LIGHT_INFANTRY_PHASE_PURSUE_DEFENSE = 10
 NDefines.NMilitary.LIGHT_INFANTRY_GRAPHICAL_FACTOR = 1
 
 -- Laserships, they pack a big laser and can hit stuff long range, they also can easily hit fast ships in melee.
 -- they are fragile though, their systems being rather delicate.
-NDefines.NMilitary.HEAVY_INFANTRY_MORALE = 1
+NDefines.NMilitary.HEAVY_INFANTRY_MORALE = 2 --they have more morable because they don't need to deal with depleting ammo.
 NDefines.NMilitary.HEAVY_INFANTRY_MAINTENANCE = 1*militaryMaintenanceAdjustement
 NDefines.NMilitary.HEAVY_INFANTRY_PHASE_SKIRMISH_ATTACK = 2
 NDefines.NMilitary.HEAVY_INFANTRY_PHASE_SKIRMISH_DEFENSE = 2
 NDefines.NMilitary.HEAVY_INFANTRY_PHASE_MELEE_ATTACK = 5
 NDefines.NMilitary.HEAVY_INFANTRY_PHASE_MELEE_DEFENSE = 2
-NDefines.NMilitary.HEAVY_INFANTRY_PHASE_PURSUE_ATTACK = 0
-NDefines.NMilitary.HEAVY_INFANTRY_PHASE_PURSUE_DEFENSE = 1
+NDefines.NMilitary.HEAVY_INFANTRY_PHASE_PURSUE_ATTACK = 2
+NDefines.NMilitary.HEAVY_INFANTRY_PHASE_PURSUE_DEFENSE = 3
 NDefines.NMilitary.HEAVY_INFANTRY_GRAPHICAL_FACTOR = 1
 
 -- Missile ships, their purpose is to stand back firing missile volleys, at skirmish their damage is not impressive because
@@ -174,8 +175,8 @@ NDefines.NMilitary.PIKEMEN_PHASE_SKIRMISH_ATTACK = 1
 NDefines.NMilitary.PIKEMEN_PHASE_SKIRMISH_DEFENSE = 4
 NDefines.NMilitary.PIKEMEN_PHASE_MELEE_ATTACK = 3
 NDefines.NMilitary.PIKEMEN_PHASE_MELEE_DEFENSE = 4
-NDefines.NMilitary.PIKEMEN_PHASE_PURSUE_ATTACK = 0
-NDefines.NMilitary.PIKEMEN_PHASE_PURSUE_DEFENSE = 1
+NDefines.NMilitary.PIKEMEN_PHASE_PURSUE_ATTACK = 3
+NDefines.NMilitary.PIKEMEN_PHASE_PURSUE_DEFENSE = 4
 NDefines.NMilitary.PIKEMEN_GRAPHICAL_FACTOR = 1
 
 -- Destroyers. They have all weapons, and are medium-sized, we can use them as "reference" ship, other ships having their stats based off them.
@@ -186,8 +187,8 @@ NDefines.NMilitary.LIGHT_CAVALRY_PHASE_SKIRMISH_ATTACK = 1
 NDefines.NMilitary.LIGHT_CAVALRY_PHASE_SKIRMISH_DEFENSE = 4
 NDefines.NMilitary.LIGHT_CAVALRY_PHASE_MELEE_ATTACK = 6
 NDefines.NMilitary.LIGHT_CAVALRY_PHASE_MELEE_DEFENSE = 4
-NDefines.NMilitary.LIGHT_CAVALRY_PHASE_PURSUE_ATTACK = 0
-NDefines.NMilitary.LIGHT_CAVALRY_PHASE_PURSUE_DEFENSE = 1
+NDefines.NMilitary.LIGHT_CAVALRY_PHASE_PURSUE_ATTACK = 1
+NDefines.NMilitary.LIGHT_CAVALRY_PHASE_PURSUE_DEFENSE = 6
 NDefines.NMilitary.LIGHT_CAVALRY_GRAPHICAL_FACTOR = 2
 
 -- Battleships. They are big, heavily armed, have a powerful laser to use in skirmishing, but are expensive to maintain and slow.
@@ -198,8 +199,8 @@ NDefines.NMilitary.KNIGHTS_PHASE_SKIRMISH_ATTACK = 3
 NDefines.NMilitary.KNIGHTS_PHASE_SKIRMISH_DEFENSE = 8
 NDefines.NMilitary.KNIGHTS_PHASE_MELEE_ATTACK = 8
 NDefines.NMilitary.KNIGHTS_PHASE_MELEE_DEFENSE = 8
-NDefines.NMilitary.KNIGHTS_PHASE_PURSUE_ATTACK = 0
-NDefines.NMilitary.KNIGHTS_PHASE_PURSUE_DEFENSE = 1
+NDefines.NMilitary.KNIGHTS_PHASE_PURSUE_ATTACK = 3
+NDefines.NMilitary.KNIGHTS_PHASE_PURSUE_DEFENSE = 6
 NDefines.NMilitary.KNIGHTS_GRAPHICAL_FACTOR = 5
 
 -- Troop transports, they have small lasers for self defense, but otherwise the only way they can attack are boarding ships.
@@ -213,7 +214,7 @@ NDefines.NMilitary.ARCHERS_PHASE_SKIRMISH_DEFENSE = 6/transportMultiplier
 NDefines.NMilitary.ARCHERS_PHASE_MELEE_ATTACK = 5/transportMultiplier
 NDefines.NMilitary.ARCHERS_PHASE_MELEE_DEFENSE = 6/transportMultiplier
 NDefines.NMilitary.ARCHERS_PHASE_PURSUE_ATTACK = 0/transportMultiplier
-NDefines.NMilitary.ARCHERS_PHASE_PURSUE_DEFENSE = 1/transportMultiplier
+NDefines.NMilitary.ARCHERS_PHASE_PURSUE_DEFENSE = 5/transportMultiplier
 NDefines.NMilitary.ARCHERS_GRAPHICAL_FACTOR = 1/transportMultiplier
 
 NDefines.NTechnology.DONT_EXECUTE_TECH_BEFORE = 2000
