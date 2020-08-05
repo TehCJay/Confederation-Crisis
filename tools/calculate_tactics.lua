@@ -264,13 +264,13 @@ local function printTactic(phase, tacticName, hasBadVariation, hasGoodVariation)
         if tacticData.martialMininum then line("martial >= " .. tacticData.martialMininum, 3) end
         line("}", 2)
     end
-    --[[if tacticData.previousTactics then
+    if tacticData.previousTactics then
         line("OR = {", 2)
         for tKey, tName in pairs(tacticData.previousTactics) do
             line("flank_has_tactic = " .. tName, 3)
         end
         line("}", 2)
-    end]]
+    end
     line("}", 1)
     line("", 0)
     line("mean_time_to_happen = {", 1)
@@ -405,7 +405,7 @@ local function calculateTactics(phase)
             length = 1,
             change_phase_to = targetName,
             previousTactics = sourceTactics,
-            days = 5,
+            days = 20, --work around CK2 bug :( goal is have this set to a low value
             chance = 1000000
         }
         --[[for k2, v2 in pairs(v) do
