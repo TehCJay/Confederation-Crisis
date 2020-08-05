@@ -1534,7 +1534,6 @@ gardener = {
 lustful = {
 	random = no
 	customizer = no
-	personality = yes
 	opposites =  {
 		chaste
 		celibate
@@ -1567,7 +1566,6 @@ lustful = {
 chaste = {
 	random = no
 	customizer = no
-	personality = yes
 	
 	potential = {
 		NOT = { religion_group = muslim }
@@ -1603,7 +1601,6 @@ chaste = {
 gluttonous = {
 	random = no
 	customizer = no
-	personality = yes
 	opposites =  {
 		temperate
 		perfecti
@@ -1631,7 +1628,6 @@ gluttonous = {
 temperate = {
 	random = no
 	customizer = no
-	personality = yes
 	opposites =  {
 		gluttonous
 	}
@@ -1661,7 +1657,6 @@ temperate = {
 greedy = {
 	random = no
 	customizer = no
-	personality = yes
 	opposites =  {
 		charitable
 		content
@@ -1689,7 +1684,6 @@ greedy = {
 charitable = {
 	random = no
 	customizer = no
-	personality = yes
 	opposites =  {
 		greedy
 		cruel
@@ -1720,7 +1714,6 @@ charitable = {
 slothful = {
 	random = no
 	customizer = no
-	personality = yes
 	opposites =  {
 		diligent
 	}
@@ -1752,7 +1745,6 @@ slothful = {
 diligent = {
 	random = no
 	customizer = no
-	personality = yes
 	opposites =  {
 		slothful
 	}
@@ -1781,7 +1773,6 @@ diligent = {
 envious = {
 	random = no
 	customizer = no
-	personality = yes
 	opposites =  {
 		kind
 		content
@@ -1809,7 +1800,6 @@ envious = {
 kind = {
 	random = no
 	customizer = no
-	personality = yes
 	opposites =  {
 		envious
 		cruel
@@ -1842,7 +1832,6 @@ kind = {
 wroth = {
 	random = no
 	customizer = no
-	personality = yes
 	opposites =  {
 		patient
 	}
@@ -1871,7 +1860,6 @@ wroth = {
 patient = {
 	random = no
 	customizer = no
-	personality = yes
 	opposites =  {
 		wroth
 	}
@@ -1897,50 +1885,9 @@ patient = {
 
 # OTHER
 
-deceitful = {
-	random = no
-	customizer = no
-	personality = yes
-	opposites =  {
-		honest
-	}
-
-	intrigue = 2
-	learning = -2
-
-	opposite_opinion = -5
-	
-	ai_honor = -25
-	
-	male_insult_adj = INSULT_DECEITFUL
-	female_insult_adj = INSULT_DECEITFUL
-	child_insult_adj = INSULT_WICKED
-}
-honest = {
-	random = no
-	customizer = no
-	personality = yes
-	opposites =  {
-		deceitful
-	}
-
-	intrigue = -1
-	diplomacy = 1
-	learning = 1
-
-	opposite_opinion = -5
-	same_opinion = 5
-	
-	ai_honor = 25
-	
-	male_compliment_adj = COMPL_SINCERE
-	female_compliment_adj = COMPL_FORTHRIGHT
-	child_compliment_adj = COMPL_GOOD
-}
 shy = {
 	random = no
 	customizer = no
-	personality = yes
 	opposites =  {
 		gregarious
 	}
@@ -1958,7 +1905,6 @@ shy = {
 gregarious = {
 	random = no
 	customizer = no
-	personality = yes
 	opposites =  {
 		shy
 	}
@@ -1979,7 +1925,6 @@ gregarious = {
 arbitrary = {
 	random = no
 	customizer = no
-	personality = yes
 	opposites =  {
 		just
 	}
@@ -2007,7 +1952,6 @@ arbitrary = {
 just = {
 	random = no
 	customizer = no
-	personality = yes
 	opposites =  {
 		arbitrary
 	}
@@ -2031,7 +1975,6 @@ just = {
 paranoid = {
 	random = no
 	customizer = no
-	personality = yes
 	opposites =  {
 		trusting
 	}
@@ -2053,7 +1996,6 @@ paranoid = {
 trusting = {
 	random = no
 	customizer = no
-	personality = yes
 	opposites =  {
 		paranoid
 	}
@@ -2076,7 +2018,6 @@ trusting = {
 cruel = {
 	random = no
 	customizer = no
-	personality = yes
 	opposites =  {
 		kind
 		charitable
@@ -2237,9 +2178,57 @@ mystic = {
 # PERSONALITY - Events, should happen more often during childhood
 #################################################################
 
-# BIG FIVE PERSONALITY TRAITS
+# HEXACO PERSONALITY TRAITS
+deceitful = {
+	personality = yes
+	childhood = yes
+	
+	opposites =  {
+		honest
+	}
+
+	intrigue = 2
+	learning = -2
+
+	monthly_character_prestige = 0.25
+	monthly_character_piety = -0.1
+
+	opposite_opinion = -5
+	
+	ai_honor = -25
+	
+	male_insult_adj = INSULT_DECEITFUL
+	female_insult_adj = INSULT_DECEITFUL
+	child_insult_adj = INSULT_WICKED
+}
+honest = {
+	personality = yes
+	childhood = yes
+	
+	opposites =  {
+		deceitful
+	}
+
+	intrigue = -1
+	diplomacy = 1
+	learning = 1
+	
+	monthly_character_prestige = -0.05
+	monthly_character_piety = 0.1
+
+	opposite_opinion = -5
+	same_opinion = 5
+	
+	ai_honor = 25
+	
+	male_compliment_adj = COMPL_SINCERE
+	female_compliment_adj = COMPL_FORTHRIGHT
+	child_compliment_adj = COMPL_GOOD
+}
 open_minded = {
 	personality = yes
+	childhood = yes
+	
 	opposites = { close_minded }
 	
 	intrigue = -2
@@ -2250,6 +2239,8 @@ open_minded = {
 }
 close_minded = {
 	personality = yes
+	childhood = yes
+	
 	opposites = { open_minded }
 	
 	intrigue = 2
@@ -2262,6 +2253,8 @@ close_minded = {
 }
 disciplined = {
 	personality = yes
+	childhood = yes
+	
 	opposites = { carefree }
 	
 	stewardship = 2
@@ -2273,6 +2266,8 @@ disciplined = {
 }
 carefree = {
 	personality = yes
+	childhood = yes
+	
 	opposites = { disciplined }
 	
 	stewardship = -2
@@ -2286,6 +2281,8 @@ carefree = {
 }
 extraverted = {
 	personality = yes
+	childhood = yes
+	
 	opposites =  { introverted }
 	
 	diplomacy = 2
@@ -2298,6 +2295,8 @@ extraverted = {
 }
 introverted = {
 	personality = yes
+	childhood = yes
+	
 	opposites =  { extraverted }
 	
 	diplomacy = -2
@@ -2310,6 +2309,8 @@ introverted = {
 }
 friendly = {
 	personality = yes
+	childhood = yes
+	
 	opposites = { cold }
 	
 	diplomacy = 2
@@ -2324,6 +2325,8 @@ friendly = {
 }
 cold = {
 	personality = yes
+	childhood = yes
+	
 	opposites = { friendly }
 	
 	diplomacy = -2
@@ -2337,6 +2340,8 @@ cold = {
 }
 neurotic = {
 	personality = yes
+	childhood = yes
+	
 	opposites = { confident }
 	
 	diplomacy = -1
@@ -2351,6 +2356,8 @@ neurotic = {
 }
 confident = {
 	personality = yes
+	childhood = yes
+	
 	opposites = { neurotic }
 	
 	diplomacy = 1
@@ -2389,7 +2396,10 @@ skeptical = {
 }
 radical = {
 	personality = yes
-	opposites = { pragmatic }
+	opposites = {
+		pragmatic
+		amoral
+	}
 	
 	monthly_character_piety = 1
 	
@@ -2414,20 +2424,20 @@ radical = {
 }
 pragmatic = {
 	personality = yes
-	opposites = { radical }
+	opposites = {
+		radical
+		amoral
+	}
 	
-	intrigue = 3
+	learning = 3
 	monthly_character_piety = -1
 	
 	church_opinion = -10
-	general_opinion = -10
 	same_opinion = 10
 	opposite_opinion = -20
 	
-	ai_ambition = 20
-	ai_greed = 20
-	ai_zeal = -20
-	ai_honor = -30
+	ai_zeal = -30
+	ai_rationality = 10
 	
 	male_compliment_adj = COMPL_WRY
 	female_compliment_adj = COMPL_WRY
@@ -2435,6 +2445,24 @@ pragmatic = {
 	male_insult = INSULT_UNBELIEVER
 	female_insult = INSULT_UNBELIEVER
 	child_insult = INSULT_DEVIL
+}
+amoral = {
+	personality = yes
+	opposites = {
+		radical
+		pragmatic
+	}
+	
+	intrigue = 3
+	monthly_character_piety = -1
+	
+	general_opinion = -10
+	opposite_opinion = -20
+	ambition_opinion = -20
+	
+	ai_honor = -20
+	ai_greed = 20
+	ai_ambition = 10
 }
 craven = {
 	personality = yes
@@ -2485,6 +2513,8 @@ brave = {
 	female_compliment_adj = COMPL_BRAVE
 }
 proud = {
+	random = no
+	customizer = no
 	personality = yes
 	opposites =  {
 		humble
@@ -2503,6 +2533,8 @@ proud = {
 	female_compliment_adj = COMPL_PROUD
 }
 humble = {
+	random = no
+	customizer = no
 	personality = yes
 	opposites = { proud }
 	
