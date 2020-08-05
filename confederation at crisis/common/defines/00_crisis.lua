@@ -5,7 +5,7 @@ NDefines.NCouncil.COUNCIL_REJECTED_LAW_TIMEOUT = 5
 NDefines.NCouncil.COUNCIL_REJECTED_CROWN_LAW_TIMEOUT = 3
 NDefines.NCouncil.COUNCIL_REJECTION_ALL_LAWS_TIMEOUT = 0.5
 NDefines.NCouncil.COUNCIL_REJECTION_ALL_CROWN_LAWS_TIMEOUT = 0.5
-NDefines.NCouncil.CHANGE_POSITION_COOLDOWN = 2000
+NDefines.NCouncil.CHANGE_POSITION_COOLDOWN = 4 --default is 1, but seemly was causing performance issues. Not sure of that though.
 
 NDefines.NDiplomacy.DEMESNE_MAX_SIZE_KING_MULT = 1.5			-- Extra Max Demesne Size from the ruler's rank
 NDefines.NDiplomacy.DEMESNE_MAX_SIZE_EMPEROR_MULT = 2		-- Extra Max Demesne Size from the ruler's rank
@@ -38,8 +38,12 @@ NDefines.NCharacter.NATURAL_DEATH_CHANCE_AGE_80 = 2000
 NDefines.NCharacter.NATURAL_DEATH_CHANCE_AGE_90 = 4000
 NDefines.NCharacter.NATURAL_DEATH_CHANCE_AGE_100 = 8000
 NDefines.NCharacter.FERTILITY_BASE_MULT = 0.25
+NDefines.NCharacter.SECONDARY_SPOUSE_FERTILITY_MULT = 0.25         -- Applied to fertility of secondary spouses and concubines
+NDefines.NCharacter.NOT_SPOUSE_FERTILITY_MULT = 0.25               -- Applied to fertility when two lovers are not married
+NDefines.NCharacter.MARRIED_LOVERS_FERTILITY_MULT = 1            -- Applied to fertility when lovers are married
 NDefines.NCharacter.INFANT_DEATH_CHANCE = 0
 NDefines.NCharacter.FEMALE_ATTRACTION_CUTOFF = 65
+NDefines.NCharacter.COURT_SIZE_CHILD_PENALTY_THRESHOLD = 10 -- courts bigger than this reduce fertility
 
 NDefines.NDiplomacy.DEMAND_RELIGIOUS_CONVERSION_INTERACTION_THRESHOLD_FOR_NO = 75
 NDefines.NDiplomacy.DEMAND_RELIGIOUS_CONVERSION_INTERACTION_THRESHOLD_FOR_YES = 75
@@ -801,15 +805,17 @@ NDefines.NDiplomacy.CROWN_LAW_CHANGE_PIETY_COST = 250							-- Piety cost for Iq
 NDefines.NDiplomacy.LAW_CHANGE_PRESTIGE_COST = 125								-- Prestige cost for Nomadic government when changing normal demesne laws
 NDefines.NDiplomacy.CROWN_LAW_CHANGE_PRESTIGE_COST = 250						-- Prestige cost for Nomadic government when changing Crown laws
 
-NDefines.NEngine.EVENT_PROCESS_OFFSET = 40
-NDefines.NEngine.COURTIER_EVENT_PROCESS_OFFSET = 200
-NDefines.NEngine.COURTIERS_MTTTH_EVENTS = 1
 NDefines.NEngine.MISSING_SCRIPTED_SUCCESSOR_ERROR_CUTOFF_YEAR = 1066
 NDefines.NEngine.MISSING_SCRIPTED_SUCCESSOR_ERROR_CUTOFF_MONTH = 8
 NDefines.NEngine.MISSING_SCRIPTED_SUCCESSOR_ERROR_CUTOFF_DAY = 16
+
+-- performance stuff
+NDefines.NEngine.EVENT_PROCESS_OFFSET = 100
+NDefines.NEngine.COURTIER_EVENT_PROCESS_OFFSET = 200
+NDefines.NEngine.COURTIERS_MTTTH_EVENTS = 1
 NDefines.NEngine.COURT_PRUNE_SIZE = 1
 NDefines.NEngine.PRUNE_MINIMAL_AGE = 1
-NDefines.NEngine.HEALTH_IMMUNITY_TO_PRUNING = 5
+NDefines.NEngine.HEALTH_IMMUNITY_TO_PRUNING = 10
 
 NDefines.NNomad.PROVINCES_PER_CLAN = 1							-- Used to calculate if you have too many clans
 NDefines.NNomad.MIN_CLAN_LAND_PROPORTION = 0.8				-- Used to calculate when the clans get angry over you holding too much land

@@ -1,59 +1,6 @@
 # DO NOT ALTER THE NAME OR NUMBER OF THESE!
 
 succession_laws = {
-	succ_byzantine_elective = { #Pirate Elective
-		oldest_child_opinion = -5
-		child_opinion = -5
-		dynasty_opinion = -5
-		feudal_opinion = +5
-		potential = {
-			holder_scope = {
-				is_merchant_republic = no
-				is_patrician = no
-			}
-			OR = {
-				is_landless_type_title = no
-				is_tribal_type_title = yes
-				temporary = yes
-			}
-			holder_scope = {
-				OR = {
-					government = pirate_kingdom
-					OR = {
-						AND = {
-							independent = yes
-							government = military_command
-						}
-						AND = {
-							independent = yes
-							government = military_republic
-						}
-						AND = {
-							independent = yes
-							government = military_directorate
-						}
-					}
-				}
-			}
-		}
-		allow = {
-			custom_tooltip = {
-				text = not_forced_tt
-				hidden_tooltip = {
-					holder_scope = { NOT = { has_character_flag = liege_forced_succ_law } }
-				}
-			}
-		}
-		effect = {
-			succession = {
-				base_type = feudal_elective
-				voting_rules = byzantine_elective
-			}
-		}
-		revoke_allowed = {
-			always = yes
-		}
-	}
 
 	succ_gavelkind = {
 		oldest_child_opinion = -10
@@ -461,6 +408,61 @@ succession_laws = {
 		}
 	}
 
+	#succ_hre_elective was removed? renamed?
+
+	succ_byzantine_elective = { #Pirate Elective
+		oldest_child_opinion = -5
+		child_opinion = -5
+		dynasty_opinion = -5
+		feudal_opinion = +5
+		potential = {
+			holder_scope = {
+				is_merchant_republic = no
+				is_patrician = no
+			}
+			OR = {
+				is_landless_type_title = no
+				is_tribal_type_title = yes
+				temporary = yes
+			}
+			holder_scope = {
+				OR = {
+					government = pirate_kingdom
+					OR = {
+						AND = {
+							independent = yes
+							government = military_command
+						}
+						AND = {
+							independent = yes
+							government = military_republic
+						}
+						AND = {
+							independent = yes
+							government = military_directorate
+						}
+					}
+				}
+			}
+		}
+		allow = {
+			custom_tooltip = {
+				text = not_forced_tt
+				hidden_tooltip = {
+					holder_scope = { NOT = { has_character_flag = liege_forced_succ_law } }
+				}
+			}
+		}
+		effect = {
+			succession = {
+				base_type = feudal_elective
+				voting_rules = byzantine_elective
+			}
+		}
+		revoke_allowed = {
+			always = yes
+		}
+	}
 
 	succ_tanistry = {
 		oldest_child_opinion = -40
@@ -580,8 +582,8 @@ succession_laws = {
 
 	succ_turkish_succession = { 	#Pirate Open (at request of community, not sure if makes sense with pirate lore)
 		oldest_child_opinion = -10
-#		child_opinion = 30
-#		dynasty_opinion = 10
+		#child_opinion = 30
+		3dynasty_opinion = 10
 		potential = {
 			holder_scope = {
 				is_merchant_republic = no
@@ -769,6 +771,58 @@ succession_laws = {
 		}
 	}
 
+	succ_nomad_succession = {
+		potential = {
+			has_dlc = "Horse Lords"
+			holder_scope = {
+				is_nomadic = yes
+			}
+			holder_scope = {
+				NOT = {
+					government = pirate_kingdom
+				}
+			}
+		}
+		allow = {
+			OR = {
+				is_nomadic = yes
+				holder_scope = {
+					independent = yes
+				}
+				crownlaw_title = {
+					NOT = {
+						has_law = dote_autonomy_0
+					}
+				}
+			}
+			has_law = succession_voting_power_0
+		}
+		effect = {
+			succession = nomad_succession
+		}
+		revoke_allowed = {
+			always = no
+		}
+	}
+
+	succ_offmap_succession = {
+		potential = {
+			holder_scope = {
+				top_liege = { is_offmap_governor = yes }
+				government = confucian_bureaucracy # To use this with future offmap powers, use an OR clause here with the new government types
+			}
+		}
+		effect = {
+			succession = offmap_succession
+			# This succession type generates a character of China's culture and religion
+			# They have decent (4-10) stats, and good (7-11) stewardship, and will always have a Stewardship education
+			# The offmap power defined in the top liege's government is used to determine the culture and religion. Will not function if this isn't defined
+		}
+		revoke_allowed = {
+			always = no
+		}
+	}
+
 	succ_open_elective_crisis = {
 		potential = {
 			temporary = no
@@ -809,40 +863,6 @@ succession_laws = {
 				voting_rules = crisis_democratic_elective
 			}
 			elective_voting_rules = crisis_democratic_elective
-		}
-		revoke_allowed = {
-			always = no
-		}
-	}
-
-	succ_nomad_succession = {
-		potential = {
-			has_dlc = "Horse Lords"
-			holder_scope = {
-				is_nomadic = yes
-			}
-			holder_scope = {
-				NOT = {
-					government = pirate_kingdom
-				}
-			}
-		}
-		allow = {
-			OR = {
-				is_nomadic = yes
-				holder_scope = {
-					independent = yes
-				}
-				crownlaw_title = {
-					NOT = {
-						has_law = dote_autonomy_0
-					}
-				}
-			}
-			has_law = succession_voting_power_0
-		}
-		effect = {
-			succession = nomad_succession
 		}
 		revoke_allowed = {
 			always = no
