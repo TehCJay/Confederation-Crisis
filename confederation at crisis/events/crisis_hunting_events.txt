@@ -1,11 +1,11 @@
-namespace = lifestyle
+namespace = hunting
 
 # MAIN EVENT CHAIN
 # Hunting Trip Begins
 narrative_event = {
-	id = lifestyle.1013
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE1013"
+	id = hunting.0
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING0"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
@@ -67,7 +67,7 @@ narrative_event = {
 	
 	# Go for a standard hunt
 	option = {
-		name = "EVTOPTALIFESTYLE1013"
+		name = "EVTOPTAHUNTING0"
 		clr_character_flag = flag_hunting_cooldown
 		set_character_flag = flag_hunting_cooldown
 		clr_character_flag = flag_busy
@@ -82,11 +82,11 @@ narrative_event = {
 					persistent_event_target:hunting_partner = { character = event_target:planetary_governor }
 				}
 			}
-			narrative_event = { id = lifestyle.1213 days = 5 random = 5 tooltip = "EVTTOOLTIPLIFESTYLE1213" }
-			hidden_tooltip = { narrative_event = { id = lifestyle.2313 days = 15 random = 30 } }
+			narrative_event = { id = hunting.9 days = 5 random = 5 tooltip = "EVTTOOLTIPHUNTING9" }
+			hidden_tooltip = { narrative_event = { id = hunting.53 days = 15 random = 30 } }
 		}
-		else = { event_target:planetary_governor = { narrative_event = { id = lifestyle.1113 tooltip = "EVTTOOLTIPLIFESTYLE1113" days = 3 random = 2 } } }
-		persistent_event_target:hunting_partner = { narrative_event = { id = lifestyle.11013 tooltip = "EVTTOOLTIPLIFESTYLE11013" } }
+		else = { event_target:planetary_governor = { narrative_event = { id = hunting.2 tooltip = "EVTTOOLTIPHUNTING2" days = 3 random = 2 } } }
+		persistent_event_target:hunting_partner = { narrative_event = { id = hunting.1 tooltip = "EVTTOOLTIPHUNTING1" } }
 		ai_chance = {
 			factor = 1
 			modifier = {
@@ -109,7 +109,7 @@ narrative_event = {
 				event_target:hunting_raptor_2 = { always = yes }
 			}
 		}
-		name = "EVTOPTBLIFESTYLE1013"
+		name = "EVTOPTBHUNTING0"
 		clr_character_flag = flag_hunting_cooldown
 		set_character_flag = flag_hunting_cooldown
 		clr_character_flag = flag_busy
@@ -124,16 +124,16 @@ narrative_event = {
 					persistent_event_target:hunting_partner = { character = event_target:planetary_governor }
 				}
 			}
-			narrative_event = { id = lifestyle.1213 days = 5 random = 5 tooltip = "EVTTOOLTIPLIFESTYLE1213" }
-			hidden_tooltip = { narrative_event = { id = lifestyle.2313 days = 15 random = 30 } }
+			narrative_event = { id = hunting.9 days = 5 random = 5 tooltip = "EVTTOOLTIPHUNTING9" }
+			hidden_tooltip = { narrative_event = { id = hunting.53 days = 15 random = 30 } }
 		}
-		else = { event_target:planetary_governor = { narrative_event = { id = lifestyle.1113 tooltip = "EVTTOOLTIPLIFESTYLE1113" days = 3 random = 2 } } }
-		persistent_event_target:hunting_partner = { narrative_event = { id = lifestyle.11013 tooltip = "EVTTOOLTIPLIFESTYLE11013" } }
+		else = { event_target:planetary_governor = { narrative_event = { id = hunting.2 tooltip = "EVTTOOLTIPHUNTING2" days = 3 random = 2 } } }
+		persistent_event_target:hunting_partner = { narrative_event = { id = hunting.1 tooltip = "EVTTOOLTIPHUNTING1" } }
 	}
 	
 	# Nevermind
 	option = {
-		name = "EVTOPTCLIFESTYLE1013"
+		name = "EVTOPTCHUNTING0"
 		clr_character_flag = flag_busy
 		ai_chance = { factor = 0 }
 	}
@@ -141,9 +141,9 @@ narrative_event = {
 
 # The hunting expedition begins
 narrative_event = {
-	id = lifestyle.11013
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE11013"
+	id = hunting.1
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING1"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
@@ -158,20 +158,20 @@ narrative_event = {
 
 # Request hunting permit from planetary governor
 narrative_event = {
-	id = lifestyle.1113
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE1113"
+	id = hunting.2
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING2"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
 	
 	# Grant permit
 	option = {
-		name = "EVTOPTALIFESTYLE1113"
+		name = "EVTOPTAHUNTING2"
 		FROM = {
 			opinion = { who = ROOT modifier = opinion_allowed_hunting_trip }
-			hidden_tooltip = { narrative_event = { id = lifestyle.1213 days = 2 random = 3 } }
-			hidden_tooltip = { narrative_event = { id = lifestyle.2313 days = 10 random = 30 } }
+			hidden_tooltip = { narrative_event = { id = hunting.9 days = 2 random = 3 } }
+			hidden_tooltip = { narrative_event = { id = hunting.53 days = 10 random = 30 } }
 		}
 		ai_chance = { factor = 40 }
 	}
@@ -194,10 +194,10 @@ narrative_event = {
 				}
 			}
 		}
-		name = "EVTOPTBLIFESTYLE1113"
+		name = "EVTOPTBHUNTING2"
 		FROM = {
 			opinion = { who = ROOT modifier = opinion_allowed_hunting_trip }
-			hidden_tooltip = { narrative_event = { id = lifestyle.41113 } }
+			hidden_tooltip = { narrative_event = { id = hunting.6 } }
 		}
 		ai_chance = {
 			factor = 40
@@ -324,10 +324,10 @@ narrative_event = {
 	
 	# Deny permit
 	option = {
-		name = "EVTOPTCLIFESTYLE1113"
+		name = "EVTOPTCHUNTING2"
 		FROM = {
 			opinion = { who = ROOT modifier = opinion_disallowed_hunting_trip }
-			hidden_tooltip = { narrative_event = { id = lifestyle.11113 } }
+			hidden_tooltip = { narrative_event = { id = hunting.3 } }
 		}
 		ai_chance = {
 			factor = 20
@@ -418,22 +418,22 @@ narrative_event = {
 			modifier = {
 				factor = 0.5
 				FROM = { relative_power = { who = ROOT power = 0.5 } }
-				NOT = { trait = proud }
+				NOT = { trait = deceitful }
 			}
 			modifier = {
 				factor = 0.5
 				FROM = { relative_power = { who = ROOT power = 1.0 } }
-				NOT = { trait = proud }
+				NOT = { trait = deceitful }
 			}
 			modifier = {
 				factor = 0.5
 				FROM = { relative_power = { who = ROOT power = 1.5 } }
-				NOT = { trait = proud }
+				NOT = { trait = deceitful }
 			}
 			modifier = {
 				factor = 0.5
 				FROM = { relative_power = { who = ROOT power = 2.0 } }
-				NOT = { trait = proud }
+				NOT = { trait = deceitful }
 			}
 		}
 	}
@@ -441,9 +441,9 @@ narrative_event = {
 
 # Permit denied
 narrative_event = {
-	id = lifestyle.11113
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE11113"
+	id = hunting.3
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING3"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
@@ -452,8 +452,8 @@ narrative_event = {
 	
 	# Cancel the hunting trip
 	option = {
-		name = "EVTOPTALIFESTYLE11113"
-		narrative_event = { id = lifestyle.2313 tooltip = "EVTTOOLTIPLIFESTYLE2313" }
+		name = "EVTOPTAHUNTING3"
+		narrative_event = { id = hunting.53 tooltip = "EVTTOOLTIPHUNTING53" }
 		ai_chance = {
 			factor = 50
 			modifier = {
@@ -485,15 +485,15 @@ narrative_event = {
 	
 	# How 'bout I do anyway?
 	option = {
-		name = "EVTOPTBLIFESTYLE11113"
+		name = "EVTOPTBHUNTING3"
 		set_character_flag = flag_poacher
 		if = {
 			limit = { has_character_flag = flag_hunting_with_partner }
-			persistent_event_target:hunting_partner = { narrative_event = { id = lifestyle.21113 tooltip = "EVTTOOLTIPLIFESTYLE21113" } }
+			persistent_event_target:hunting_partner = { narrative_event = { id = hunting.4 tooltip = "EVTTOOLTIPHUNTING4" } }
 		}
 		else = {
-			narrative_event = { id = lifestyle.1213 tooltip = "EVTTOOLTIPLIFESTYLE1213" days = 2 random = 3 }
-			hidden_tooltip = { narrative_event = { id = lifestyle.2313 days = 10 random = 30 } }
+			narrative_event = { id = hunting.9 tooltip = "EVTTOOLTIPHUNTING9" days = 2 random = 3 }
+			hidden_tooltip = { narrative_event = { id = hunting.53 days = 10 random = 30 } }
 		}
 		ai_chance = {
 			factor = 50
@@ -508,17 +508,17 @@ narrative_event = {
 
 # Your partner wants to go poaching
 narrative_event = {
-	id = lifestyle.21113
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE21113"
+	id = hunting.4
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING4"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
 	
 	# Agree
 	option = {
-		name = "EVTOPTALIFESTYLE21113"
-		hidden_tooltip = { FROM = { narrative_event = { id = lifestyle.1213 days = 2 random = 3 } } }
+		name = "EVTOPTAHUNTING4"
+		hidden_tooltip = { FROM = { narrative_event = { id = hunting.9 days = 2 random = 3 } } }
 		ai_chance = {
 			factor = 50
 			modifier = {
@@ -532,9 +532,9 @@ narrative_event = {
 	
 	# Refuse
 	option = {
-		name = "EVTOPTBLIFESTYLE21113"
+		name = "EVTOPTBHUNTING4"
 		reverse_opinion = { who = FROM modifier = opinion_coward years = 5 }
-		hidden_tooltip = { FROM = { narrative_event = { id = lifestyle.31113 } } }
+		hidden_tooltip = { FROM = { narrative_event = { id = hunting.5 } } }
 		ai_chance = {
 			factor = 50
 			modifier = {
@@ -657,34 +657,34 @@ narrative_event = {
 
 # Your partner refuses to go poaching with you
 narrative_event = {
-	id = lifestyle.31113
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE31113"
+	id = hunting.5
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING5"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
 	
 	# Go poaching anyway
 	option = {
-		name = "EVTOPTALIFESTYLE31113"
-		narrative_event = { id = lifestyle.1213 days = 2 random = 3 tooltip = "EVTTOOLTIPLIFESTYLE1213" }
-		hidden_tooltip = { narrative_event = { id = lifestyle.2313 days = 10 random = 30 } }
+		name = "EVTOPTAHUNTING5"
+		narrative_event = { id = hunting.9 days = 2 random = 3 tooltip = "EVTTOOLTIPHUNTING9" }
+		hidden_tooltip = { narrative_event = { id = hunting.53 days = 10 random = 30 } }
 		ai_chance = { factor = 50 }
 	}
 	
 	# Cancel the trip
 	option = {
-		name = "EVTOPTBLIFESTYLE31113"
-		narrative_event = { id = lifestyle.2313 tooltip = "EVTTOOLTIPLIFESTYLE2313" }
+		name = "EVTOPTBHUNTING5"
+		narrative_event = { id = hunting.53 tooltip = "EVTTOOLTIPHUNTING53" }
 		ai_chance = {
 			factor = 50
 			modifier = {
 				factor = 2
-				trait = humble
+				trait = honest
 			}
 			modifier = {
 				factor = 0.5
-				trait = proud
+				trait = deceitful
 			}
 			modifier = {
 				factor = 2
@@ -800,20 +800,20 @@ narrative_event = {
 
 # The planetary governor wants to join your hunting expedition
 narrative_event = {
-	id = lifestyle.41113
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE41113"
+	id = hunting.6
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING6"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
 	
 	# Agree
 	option = {
-		name = "EVTOPTALIFESTYLE41113"
+		name = "EVTOPTAHUNTING6"
 		save_persistent_event_target = { name = hunting_partner scope = FROM }
 		set_character_flag = flag_hunting_with_partner
 		FROM = {
-			narrative_event = { id = lifestyle.51113 tooltip = "EVTTOOLTIPLIFESTYLE11013" }
+			narrative_event = { id = hunting.7 tooltip = "EVTTOOLTIPLIFESTYLE11013" }
 			opinion = { who = ROOT modifier = opinion_invited_on_hunting_trip }
 			add_trait = on_leave
 			save_persistent_event_target = { name = hunting_partner scope = ROOT }
@@ -1027,21 +1027,21 @@ narrative_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTBLIFESTYLE41113"
+		name = "EVTOPTBHUNTING6"
 		FROM = {
-			hidden_tooltip = { narrative_event = { id = lifestyle.61113 } }
+			hidden_tooltip = { narrative_event = { id = hunting.8 } }
 			opinion = { who = ROOT modifier = opinion_disinvited_from_hunting_trip }
 		}
-		hidden_tooltip = { narrative_event = { id = lifestyle.1213 days = 2 random = 3 } }
-		hidden_tooltip = { narrative_event = { id = lifestyle.2313 days = 10 random = 30 } }
+		hidden_tooltip = { narrative_event = { id = hunting.9 days = 2 random = 3 } }
+		hidden_tooltip = { narrative_event = { id = hunting.53 days = 10 random = 30 } }
 	}
 }
 
 # The hunter has agreed to let you join their hunting expedition
 narrative_event = {
-	id = lifestyle.51113
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE51113"
+	id = hunting.7
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING7"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
@@ -1051,8 +1051,8 @@ narrative_event = {
 		tooltip = { add_trait = on_leave }
 		hidden_tooltip = {
 			FROM = {
-				narrative_event = { id = lifestyle.1213 days = 2 random = 3 }
-				narrative_event = { id = lifestyle.2313 days = 10 random = 30 }
+				narrative_event = { id = hunting.9 days = 2 random = 3 }
+				narrative_event = { id = hunting.53 days = 10 random = 30 }
 			}
 		}
 	}
@@ -1060,21 +1060,21 @@ narrative_event = {
 
 # The hunter has refused to let you join their hunting expedition
 narrative_event = {
-	id = lifestyle.61113
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE61113"
+	id = hunting.8
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING8"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
 	
-	option = { name = "EVTOPTALIFESTYLE61113" }
+	option = { name = "EVTOPTAHUNTING8" }
 }
 
 # Select game to hunt
 narrative_event = {
-	id = lifestyle.1213
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE1213"
+	id = hunting.9
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING9"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
@@ -1102,20 +1102,20 @@ narrative_event = {
 		clr_character_flag = flag_hunting_roykrysa
 		
 		# Random hunting assassination chance
-		character_event = { id = lifestyle.2913 days = 1 random = 5 }
-		persistent_event_target:hunting_partner = { character_event = { id = lifestyle.2913 days = 1 random = 5 } }
+		character_event = { id = hunting.61 days = 1 random = 5 }
+		persistent_event_target:hunting_partner = { character_event = { id = hunting.61 days = 1 random = 5 } }
 	}
 	
 	# Hunt small game
 	option = {
-		name = "EVTOPTALIFESTYLE1213"
+		name = "EVTOPTAHUNTING9"
 		set_character_flag = flag_hunting_small_game
 		hidden_tooltip = {
 			if = {
 				limit = { has_character_flag = flag_hunting_with_partner }
-				persistent_event_target:hunting_partner = { narrative_event = { id = lifestyle.11213 } }
+				persistent_event_target:hunting_partner = { narrative_event = { id = hunting.10 } }
 			}
-			else = { narrative_event = { id = lifestyle.1313 days = 5 random = 5 } }
+			else = { narrative_event = { id = hunting.12 days = 5 random = 5 } }
 		}
 		ai_chance = {
 			factor = 20
@@ -1125,7 +1125,7 @@ narrative_event = {
 			}
 			modifier = {
 				factor = 0.5
-				trait = proud
+				trait = deceitful
 			}
 		}
 	}
@@ -1142,14 +1142,14 @@ narrative_event = {
 				}
 			}
 		}
-		name = "EVTOPTBLIFESTYLE1213"
+		name = "EVTOPTBHUNTING9"
 		set_character_flag = flag_hunting_large_game
 		hidden_tooltip = {
 			if = {
 				limit = { has_character_flag = flag_hunting_with_partner }
-				persistent_event_target:hunting_partner = { narrative_event = { id = lifestyle.11213 } }
+				persistent_event_target:hunting_partner = { narrative_event = { id = hunting.10 } }
 			}
-			else = { narrative_event = { id = lifestyle.1313 days = 5 random = 5 } }
+			else = { narrative_event = { id = hunting.12 days = 5 random = 5 } }
 		}
 		ai_chance = { factor = 40 }
 	}
@@ -1166,14 +1166,14 @@ narrative_event = {
 				}
 			}
 		}
-		name = "EVTOPTCLIFESTYLE1213"
+		name = "EVTOPTCHUNTING9"
 		set_character_flag = flag_hunting_predators
 		hidden_tooltip = {
 			if = {
 				limit = { has_character_flag = flag_hunting_with_partner }
-				persistent_event_target:hunting_partner = { narrative_event = { id = lifestyle.11213 } }
+				persistent_event_target:hunting_partner = { narrative_event = { id = hunting.10 } }
 			}
-			else = { narrative_event = { id = lifestyle.1313 days = 5 random = 5 } }
+			else = { narrative_event = { id = hunting.12 days = 5 random = 5 } }
 		}
 		ai_chance = {
 			factor = 20
@@ -1187,7 +1187,7 @@ narrative_event = {
 			}
 			modifier = {
 				factor = 2
-				trait = proud
+				trait = deceitful
 			}
 		}
 	}
@@ -1205,14 +1205,14 @@ narrative_event = {
 				}
 			}
 		}
-		name = "EVTOPTDLIFESTYLE1213"
+		name = "EVTOPTDHUNTING9"
 		set_character_flag = flag_hunting_bai_gui
 		hidden_tooltip = {
 			if = {
 				limit = { has_character_flag = flag_hunting_with_partner }
-				persistent_event_target:hunting_partner = { narrative_event = { id = lifestyle.11213 } }
+				persistent_event_target:hunting_partner = { narrative_event = { id = hunting.10 } }
 			}
-			else = { narrative_event = { id = lifestyle.1313 days = 5 random = 5 } }
+			else = { narrative_event = { id = hunting.12 days = 5 random = 5 } }
 		}
 		ai_chance = {
 			factor = 20
@@ -1226,7 +1226,7 @@ narrative_event = {
 			}
 			modifier = {
 				factor = 2
-				trait = proud
+				trait = deceitful
 			}
 		}
 	}
@@ -1236,26 +1236,26 @@ narrative_event = {
 			event_target:hunting_destination = { has_title_flag = flag_chouten_oni }
 			NOT = { has_character_flag = flag_falconry_hunter }
 		}
-		name = "EVTOPTELIFESTYLE1213"
+		name = "EVTOPTEHUNTING9"
 		set_character_flag = flag_hunting_chouten_oni
 		hidden_tooltip = {
 			if = {
 				limit = { has_character_flag = flag_hunting_with_partner }
-				persistent_event_target:hunting_partner = { narrative_event = { id = lifestyle.11213 } }
+				persistent_event_target:hunting_partner = { narrative_event = { id = hunting.10 } }
 			}
-			else = { narrative_event = { id = lifestyle.1313 days = 5 random = 5 } }
+			else = { narrative_event = { id = hunting.12 days = 5 random = 5 } }
 		}
 		ai_chance = {
 			factor = 20
 			modifier = {
 				factor = 0
-				NOT = { trait = proud }
+				NOT = { trait = deceitful }
 				NOT = { trait = brave }
 				NOT = { trait = ambitious }
 			}
 			modifier = {
 				factor = 2
-				trait = proud
+				trait = deceitful
 			}
 			modifier = {
 				factor = 2
@@ -1270,14 +1270,14 @@ narrative_event = {
 	# Hunt ghuuls
 	option = {
 		trigger = { event_target:hunting_destination = { has_title_flag = flag_ghuul } }
-		name = "EVTOPTFLIFESTYLE1213"
+		name = "EVTOPTFHUNTING9"
 		set_character_flag = flag_hunting_ghuul
 		hidden_tooltip = {
 			if = {
 				limit = { has_character_flag = flag_hunting_with_partner }
-				persistent_event_target:hunting_partner = { narrative_event = { id = lifestyle.11213 } }
+				persistent_event_target:hunting_partner = { narrative_event = { id = hunting.10 } }
 			}
-			else = { narrative_event = { id = lifestyle.1313 days = 5 random = 5 } }
+			else = { narrative_event = { id = hunting.12 days = 5 random = 5 } }
 		}
 		ai_chance = { factor = 20 }
 	}
@@ -1287,26 +1287,26 @@ narrative_event = {
 			event_target:hunting_destination = { has_title_flag = flag_koloss }
 			NOT = { has_character_flag = flag_falconry_hunter }
 		}
-		name = "EVTOPTGLIFESTYLE1213"
+		name = "EVTOPTGHUNTING9"
 		set_character_flag = flag_hunting_koloss
 		hidden_tooltip = {
 			if = {
 				limit = { has_character_flag = flag_hunting_with_partner }
-				persistent_event_target:hunting_partner = { narrative_event = { id = lifestyle.11213 } }
+				persistent_event_target:hunting_partner = { narrative_event = { id = hunting.10 } }
 			}
-			else = { narrative_event = { id = lifestyle.1313 days = 5 random = 5 } }
+			else = { narrative_event = { id = hunting.12 days = 5 random = 5 } }
 		}
 		ai_chance = {
 			factor = 20
 			modifier = {
 				factor = 0
-				NOT = { trait = proud }
+				NOT = { trait = deceitful }
 				NOT = { trait = brave }
 				NOT = { trait = ambitious }
 			}
 			modifier = {
 				factor = 2
-				trait = proud
+				trait = deceitful
 			}
 			modifier = {
 				factor = 2
@@ -1324,14 +1324,14 @@ narrative_event = {
 			event_target:hunting_destination = { has_title_flag = flag_lei_niao }
 			NOT = { has_character_flag = flag_falconry_hunter }
 		}
-		name = "EVTOPTHLIFESTYLE1213"
+		name = "EVTOPTHHUNTING9"
 		set_character_flag = flag_hunting_lei_niao
 		hidden_tooltip = {
 			if = {
 				limit = { has_character_flag = flag_hunting_with_partner }
-				persistent_event_target:hunting_partner = { narrative_event = { id = lifestyle.11213 } }
+				persistent_event_target:hunting_partner = { narrative_event = { id = hunting.10 } }
 			}
-			else = { narrative_event = { id = lifestyle.1313 days = 5 random = 5 } }
+			else = { narrative_event = { id = hunting.12 days = 5 random = 5 } }
 		}
 		ai_chance = { factor = 20 }
 	}
@@ -1341,34 +1341,34 @@ narrative_event = {
 			event_target:hunting_destination = { has_title_flag = flag_leviathan }
 			NOT = { has_character_flag = flag_falconry_hunter }
 		}
-		name = "EVTOPTILIFESTYLE1213"
+		name = "EVTOPTIHUNTING9"
 		set_character_flag = flag_hunting_leviathan
 		hidden_tooltip = {
 			if = {
 				limit = { has_character_flag = flag_hunting_with_partner }
-				persistent_event_target:hunting_partner = { narrative_event = { id = lifestyle.11213 } }
+				persistent_event_target:hunting_partner = { narrative_event = { id = hunting.10 } }
 			}
-			else = { narrative_event = { id = lifestyle.1313 days = 5 random = 5 } }
+			else = { narrative_event = { id = hunting.12 days = 5 random = 5 } }
 		}
 		ai_chance = {
 			factor = 20
 			modifier = {
 				factor = 2
-				trait = proud
+				trait = deceitful
 			}
 		}
 	}
 	# Hunt mimic
 	option = {
 		trigger = { event_target:hunting_destination = { has_title_flag = flag_mimic } }
-		name = "EVTOPTJLIFESTYLE1213"
+		name = "EVTOPTJHUNTING9"
 		set_character_flag = flag_hunting_mimic
 		hidden_tooltip = {
 			if = {
 				limit = { has_character_flag = flag_hunting_with_partner }
-				persistent_event_target:hunting_partner = { narrative_event = { id = lifestyle.11213 } }
+				persistent_event_target:hunting_partner = { narrative_event = { id = hunting.10 } }
 			}
-			else = { narrative_event = { id = lifestyle.1313 days = 5 random = 5 } }
+			else = { narrative_event = { id = hunting.12 days = 5 random = 5 } }
 		}
 		ai_chance = { factor = 20 }
 	}
@@ -1386,14 +1386,14 @@ narrative_event = {
 				}
 			}
 		}
-		name = "EVTOPTKLIFESTYLE1213"
+		name = "EVTOPTKHUNTING9"
 		set_character_flag = flag_hunting_monoceros
 		hidden_tooltip = {
 			if = {
 				limit = { has_character_flag = flag_hunting_with_partner }
-				persistent_event_target:hunting_partner = { narrative_event = { id = lifestyle.11213 } }
+				persistent_event_target:hunting_partner = { narrative_event = { id = hunting.10 } }
 			}
-			else = { narrative_event = { id = lifestyle.1313 days = 5 random = 5 } }
+			else = { narrative_event = { id = hunting.12 days = 5 random = 5 } }
 		}
 		ai_chance = { factor = 20 }
 	}
@@ -1411,14 +1411,14 @@ narrative_event = {
 				}
 			}
 		}
-		name = "EVTOPTLLIFESTYLE1213"
+		name = "EVTOPTLHUNTING9"
 		set_character_flag = flag_hunting_paraisan_wolf
 		hidden_tooltip = {
 			if = {
 				limit = { has_character_flag = flag_hunting_with_partner }
-				persistent_event_target:hunting_partner = { narrative_event = { id = lifestyle.11213 } }
+				persistent_event_target:hunting_partner = { narrative_event = { id = hunting.10 } }
 			}
-			else = { narrative_event = { id = lifestyle.1313 days = 5 random = 5 } }
+			else = { narrative_event = { id = hunting.12 days = 5 random = 5 } }
 		}
 		ai_chance = {
 			factor = 20
@@ -1432,35 +1432,35 @@ narrative_event = {
 			}
 			modifier = {
 				factor = 2
-				trait = proud
+				trait = deceitful
 			}
 		}
 	}
 	# Hunt ratatosuku
 	option = {
 		trigger = { event_target:hunting_destination = { has_title_flag = flag_ratatosuku } }
-		name = "EVTOPTMLIFESTYLE1213"
+		name = "EVTOPTMHUNTING9"
 		set_character_flag = flag_hunting_ratatosuku
 		hidden_tooltip = {
 			if = {
 				limit = { has_character_flag = flag_hunting_with_partner }
-				persistent_event_target:hunting_partner = { narrative_event = { id = lifestyle.11213 } }
+				persistent_event_target:hunting_partner = { narrative_event = { id = hunting.10 } }
 			}
-			else = { narrative_event = { id = lifestyle.1313 days = 5 random = 5 } }
+			else = { narrative_event = { id = hunting.12 days = 5 random = 5 } }
 		}
 		ai_chance = { factor = 20 }
 	}
 	# Hunt tunnel cats
 	option = {
 		trigger = { event_target:hunting_destination = { has_title_flag = flag_tunnel_cat } }
-		name = "EVTOPTNLIFESTYLE1213"
+		name = "EVTOPTNHUNTING9"
 		set_character_flag = flag_hunting_tunnel_cat
 		hidden_tooltip = {
 			if = {
 				limit = { has_character_flag = flag_hunting_with_partner }
-				persistent_event_target:hunting_partner = { narrative_event = { id = lifestyle.11213 } }
+				persistent_event_target:hunting_partner = { narrative_event = { id = hunting.10 } }
 			}
-			else = { narrative_event = { id = lifestyle.1313 days = 5 random = 5 } }
+			else = { narrative_event = { id = hunting.12 days = 5 random = 5 } }
 		}
 		ai_chance = { factor = 20 }
 	}
@@ -1478,14 +1478,14 @@ narrative_event = {
 				}
 			}
 		}
-		name = "EVTOPTOLIFESTYLE1213"
+		name = "EVTOPTOHUNTING9"
 		set_character_flag = flag_hunting_ultravore
 		hidden_tooltip = {
 			if = {
 				limit = { has_character_flag = flag_hunting_with_partner }
-				persistent_event_target:hunting_partner = { narrative_event = { id = lifestyle.11213 } }
+				persistent_event_target:hunting_partner = { narrative_event = { id = hunting.10 } }
 			}
-			else = { narrative_event = { id = lifestyle.1313 days = 5 random = 5 } }
+			else = { narrative_event = { id = hunting.12 days = 5 random = 5 } }
 		}
 		ai_chance = { factor = 20 }
 	}
@@ -1503,14 +1503,14 @@ narrative_event = {
 				}
 			}
 		}
-		name = "EVTOPTPLIFESTYLE1213"
+		name = "EVTOPTPHUNTING9"
 		set_character_flag = flag_hunting_warhound
 		hidden_tooltip = {
 			if = {
 				limit = { has_character_flag = flag_hunting_with_partner }
-				persistent_event_target:hunting_partner = { narrative_event = { id = lifestyle.11213 } }
+				persistent_event_target:hunting_partner = { narrative_event = { id = hunting.10 } }
 			}
-			else = { narrative_event = { id = lifestyle.1313 days = 5 random = 5 } }
+			else = { narrative_event = { id = hunting.12 days = 5 random = 5 } }
 		}
 		ai_chance = {
 			factor = 20
@@ -1524,21 +1524,21 @@ narrative_event = {
 			}
 			modifier = {
 				factor = 2
-				trait = proud
+				trait = deceitful
 			}
 		}
 	}
 	# Hunt roykrysas
 	option = {
 		trigger = { event_target:hunting_destination = { has_title_flag = flag_roykrysa } }
-		name = "EVTOPTQLIFESTYLE1213"
+		name = "EVTOPTQHUNTING9"
 		set_character_flag = flag_hunting_roykrysa
 		hidden_tooltip = {
 			if = {
 				limit = { has_character_flag = flag_hunting_with_partner }
-				persistent_event_target:hunting_partner = { narrative_event = { id = lifestyle.11213 } }
+				persistent_event_target:hunting_partner = { narrative_event = { id = hunting.10 } }
 			}
-			else = { narrative_event = { id = lifestyle.1313 days = 5 random = 5 } }
+			else = { narrative_event = { id = hunting.12 days = 5 random = 5 } }
 		}
 		ai_chance = {
 			factor = 20
@@ -1548,7 +1548,7 @@ narrative_event = {
 			}
 			modifier = {
 				factor = 0.5
-				trait = proud
+				trait = deceitful
 			}
 		}
 	}
@@ -1556,17 +1556,17 @@ narrative_event = {
 
 # Your partner has selected game to hunt
 narrative_event = {
-	id = lifestyle.11213
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE11213"
+	id = hunting.10
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING10"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
 	
 	# Agree
 	option = {
-		name = "EVTOPTALIFESTYLE11213"
-		hidden_tooltip = { FROM = { narrative_event = { id = lifestyle.1313 days = 5 random = 5 } } }
+		name = "EVTOPTAHUNTING10"
+		hidden_tooltip = { FROM = { narrative_event = { id = hunting.12 days = 5 random = 5 } } }
 		ai_chance = {
 			factor = 80
 			
@@ -1609,7 +1609,7 @@ narrative_event = {
 			}
 			modifier = {
 				factor = 0.5
-				trait = proud
+				trait = deceitful
 				FROM = {
 					OR = {
 						has_character_flag = flag_hunting_small_game
@@ -1619,7 +1619,7 @@ narrative_event = {
 			}
 			modifier = {
 				factor = 5
-				trait = proud
+				trait = deceitful
 				FROM = {
 					OR = {
 						has_character_flag = flag_hunting_bai_gui
@@ -1718,10 +1718,10 @@ narrative_event = {
 	
 	# Refuse
 	option = {
-		name = "EVTOPTBLIFESTYLE11213"
+		name = "EVTOPTBHUNTING10"
 		hidden_tooltip = {
-			FROM = { narrative_event = { id = lifestyle.21213 } }
-			narrative_event = { id = lifestyle.2413 }
+			FROM = { narrative_event = { id = hunting.11 } }
+			narrative_event = { id = hunting.54 }
 		}
 		ai_chance = { factor = 20 }
 	}
@@ -1729,33 +1729,33 @@ narrative_event = {
 
 # Your partner has opted out of the hunt
 narrative_event = {
-	id = lifestyle.21213
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE21213"
+	id = hunting.11
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING11"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
 	
 	# Continue the hunt anyway
 	option = {
-		name = "EVTOPTALIFESTYLE21213"
-		hidden_tooltip = { narrative_event = { id = lifestyle.1313 days = 5 random = 5 } }
+		name = "EVTOPTAHUNTING11"
+		hidden_tooltip = { narrative_event = { id = hunting.12 days = 5 random = 5 } }
 		ai_chance = { factor = 50 }
 	}
 	
 	# Rethink your game selection
 	option = {
-		name = "EVTOPTBLIFESTYLE21213"
-		hidden_tooltip = { narrative_event = { id = lifestyle.1213 } }
+		name = "EVTOPTBHUNTING11"
+		hidden_tooltip = { narrative_event = { id = hunting.9 } }
 		ai_chance = { factor = 0 }
 	}
 }
 
 # Encountering wildlife!
 narrative_event = {
-	id = lifestyle.1313
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE1313"
+	id = hunting.12
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING12"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
@@ -5596,11 +5596,11 @@ narrative_event = {
 			NOT = { has_character_flag = flag_encountered_nothing }
 			NOT = { has_character_flag = flag_caught_poaching }
 		}
-		name = "EVTOPTALIFESTYLE1313"
+		name = "EVTOPTAHUNTING12"
 		random_list = {
 			# You bring it down
 			20 = {
-				narrative_event = { id = lifestyle.1413 tooltip = "EVTTOOLTIPLIFESTYLE1413" }
+				narrative_event = { id = hunting.15 tooltip = "EVTTOOLTIPHUNTING15" }
 				# Game alerted
 				modifier = {
 					factor = 0.25
@@ -5886,7 +5886,7 @@ narrative_event = {
 			}
 			# It escapes
 			20 = {
-				narrative_event = { id = lifestyle.1513 tooltip = "EVTTOOLTIPLIFESTYLE1513" }
+				narrative_event = { id = hunting.19 tooltip = "EVTTOOLTIPHUNTING19" }
 				modifier = {
 					factor = 50
 					has_character_flag = flag_encountered_bara_la_kivita
@@ -5914,7 +5914,7 @@ narrative_event = {
 			}
 			# It attacks you
 			5 = {
-				narrative_event = { id = lifestyle.1613 tooltip = "EVTTOOLTIPLIFESTYLE1613" }
+				narrative_event = { id = hunting.21 tooltip = "EVTTOOLTIPHUNTING21" }
 				modifier = {
 					factor = 2
 					NOT = { has_character_flag = flag_falconry_hunter }
@@ -5974,7 +5974,7 @@ narrative_event = {
 			}
 			# It attacks your hunting partner
 			5 = {
-				narrative_event = { id = lifestyle.1813 tooltip = "EVTTOOLTIPLIFESTYLE1813" }
+				narrative_event = { id = hunting.33 tooltip = "EVTTOOLTIPHUNTING33" }
 				modifier = {
 					factor = 2
 					NOT = { has_character_flag = flag_falconry_hunter }
@@ -6034,7 +6034,7 @@ narrative_event = {
 			}
 			# It attacks your raptor
 			5 = {
-				narrative_event = { id = lifestyle.1713 tooltip = "EVTTOOLTIPLIFESTYLE1713" }
+				narrative_event = { id = hunting.28 tooltip = "EVTTOOLTIPHUNTING28" }
 				modifier = {
 					factor = 0
 					NOT = { has_character_flag = flag_falconry_hunter }
@@ -6094,7 +6094,7 @@ narrative_event = {
 			}
 			# It attacks your hunting partner's raptor
 			5 = {
-				narrative_event = { id = lifestyle.1913 tooltip = "EVTTOOLTIPLIFESTYLE1913" }
+				narrative_event = { id = hunting.41 tooltip = "EVTTOOLTIPHUNTING41" }
 				modifier = {
 					factor = 0
 					NOT = { has_character_flag = flag_falconry_hunter }
@@ -6172,20 +6172,20 @@ narrative_event = {
 			NOT = { has_character_flag = flag_encountered_nothing }
 			NOT = { has_character_flag = flag_caught_poaching }
 		}
-		name = "EVTOPTBLIFESTYLE1313"
+		name = "EVTOPTBHUNTING12"
 		set_character_flag = flag_withdrawing_from_hunting_encounter
 		random_list = {
 			60 = {
 				if = {
 					limit = { has_character_flag = flag_hunting_with_partner }
-					tooltip = { narrative_event = { id = lifestyle.2213 tooltip = "EVTTOOLTIPLIFESTYLE2213" } }
-					hidden_tooltip = { persistent_event_target:hunting_partner = { narrative_event = { id = lifestyle.11313 } } }
+					tooltip = { narrative_event = { id = hunting.52 tooltip = "EVTTOOLTIPHUNTING52" } }
+					hidden_tooltip = { persistent_event_target:hunting_partner = { narrative_event = { id = hunting.13 } } }
 				}
-				else = { narrative_event = { id = lifestyle.2213 tooltip = "EVTTOOLTIPLIFESTYLE2213" } }
+				else = { narrative_event = { id = hunting.52 tooltip = "EVTTOOLTIPHUNTING52" } }
 			}
 			# It attacks you
 			5 = {
-				narrative_event = { id = lifestyle.1613 tooltip = "EVTTOOLTIPLIFESTYLE1613" }
+				narrative_event = { id = hunting.21 tooltip = "EVTTOOLTIPHUNTING21" }
 				modifier = {
 					factor = 0
 					NOT = { has_character_flag = flag_game_alerted }
@@ -6229,7 +6229,7 @@ narrative_event = {
 			}
 			# It attacks your hunting partner
 			5 = {
-				narrative_event = { id = lifestyle.1813 tooltip = "EVTTOOLTIPLIFESTYLE1813" }
+				narrative_event = { id = hunting.33 tooltip = "EVTTOOLTIPHUNTING33" }
 				modifier = {
 					factor = 0
 					NOT = { has_character_flag = flag_game_alerted }
@@ -6289,21 +6289,21 @@ narrative_event = {
 		name = "EVTOPTCONFIRM"
 		if = {
 			limit = { has_character_flag = flag_hunting_with_partner }
-			tooltip = { narrative_event = { id = lifestyle.2213 tooltip = "EVTTOOLTIPLIFESTYLE2213" } }
-			hidden_tooltip = { persistent_event_target:hunting_partner = { narrative_event = { id = lifestyle.21313 } } }
+			tooltip = { narrative_event = { id = hunting.52 tooltip = "EVTTOOLTIPHUNTING52" } }
+			hidden_tooltip = { persistent_event_target:hunting_partner = { narrative_event = { id = hunting.14 } } }
 		}
-		else = { narrative_event = { id = lifestyle.2213 tooltip = "EVTTOOLTIPLIFESTYLE2213" } }
+		else = { narrative_event = { id = hunting.52 tooltip = "EVTTOOLTIPHUNTING52" } }
 	}
 	
 	# Try to escape
 	option = {
 		trigger = { has_character_flag = flag_caught_poaching }
-		name = "EVTOPTCLIFESTYLE1313"
+		name = "EVTOPTCHUNTING12"
 		event_target:planetary_governor = { opinion = { who = ROOT modifier = opinion_poacher } }
 		random_list = {
 			20 = {
 				# Success!
-				narrative_event = { id = lifestyle.2013 tooltip = "EVTTOOLTIPLIFESTYLE2013" }
+				narrative_event = { id = hunting.46 tooltip = "EVTTOOLTIPHUNTING46" }
 				modifier = {
 					factor = 1.25
 					combat_rating = 3
@@ -6378,46 +6378,46 @@ narrative_event = {
 				}
 			}
 			# Failure!
-			80 = { narrative_event = { id = lifestyle.2113 tooltip = "EVTTOOLTIPLIFESTYLE2113" } }
+			80 = { narrative_event = { id = hunting.51 tooltip = "EVTTOOLTIPHUNTING51" } }
 		}
 	}
 }
 
 # Inform partner of successful withdrawal
 narrative_event = {
-	id = lifestyle.11313
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE11313"
+	id = hunting.13
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING13"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTALIFESTYLE11313"
-		hidden_tooltip = { FROM = { narrative_event = { id = lifestyle.2213 } } }
+		name = "EVTOPTAHUNTING13"
+		hidden_tooltip = { FROM = { narrative_event = { id = hunting.52 } } }
 	}
 }
 
 # Inform partner of failed hunt
 narrative_event = {
-	id = lifestyle.21313
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE21313"
+	id = hunting.14
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING14"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTALIFESTYLE21313"
-		hidden_tooltip = { FROM = { narrative_event = { id = lifestyle.2213 } } }
+		name = "EVTOPTAHUNTING14"
+		hidden_tooltip = { FROM = { narrative_event = { id = hunting.52 } } }
 	}
 }
 
 # Successful encounter
 narrative_event = {
-	id = lifestyle.1413
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE1413"
+	id = hunting.15
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING15"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
@@ -6438,14 +6438,14 @@ narrative_event = {
 	
 	# Take full credit and the full spoils
 	option = {
-		name = "EVTOPTALIFESTYLE1413"
+		name = "EVTOPTAHUNTING15"
 		if = {
 			limit = { has_character_flag = flag_hunting_with_partner }
 			opinion = { who = persistent_event_target:hunting_partner modifier = opinion_stole_credit }
 			reverse_opinion = { who = persistent_event_target:hunting_partner modifier = opinion_successful_hunt }
-			hidden_tooltip = { persistent_event_target:hunting_partner = { narrative_event = { id = lifestyle.11413 } } }
+			hidden_tooltip = { persistent_event_target:hunting_partner = { narrative_event = { id = hunting.16 } } }
 		}
-		else = { hidden_tooltip = { narrative_event = { id = lifestyle.2213 } } }
+		else = { hidden_tooltip = { narrative_event = { id = hunting.52 } } }
 		
 		# Successful hunt rewards
 		if = {
@@ -6580,11 +6580,11 @@ narrative_event = {
 			# Personality
 			modifier = {
 				factor = 2
-				trait = proud
+				trait = deceitful
 			}
 			modifier = {
 				factor = 0.5
-				trait = humble
+				trait = honest
 			}
 			
 			# Opinion of hunting partner
@@ -6694,10 +6694,10 @@ narrative_event = {
 	# Split the credit and rewards evenly
 	option = {
 		trigger = { has_character_flag = flag_hunting_with_partner }
-		name = "EVTOPTBLIFESTYLE1413"
+		name = "EVTOPTBHUNTING15"
 		opinion = { who = persistent_event_target:hunting_partner modifier = opinion_successful_hunt }
 		reverse_opinion = { who = persistent_event_target:hunting_partner modifier = opinion_successful_hunt }
-		hidden_tooltip = { persistent_event_target:hunting_partner = { narrative_event = { id = lifestyle.21413 } } }
+		hidden_tooltip = { persistent_event_target:hunting_partner = { narrative_event = { id = hunting.17 } } }
 		
 		# Successful hunt rewards
 		if = {
@@ -6831,11 +6831,11 @@ narrative_event = {
 	# Give full credit to your partner
 	option = {
 		trigger = { has_character_flag = flag_hunting_with_partner }
-		name = "EVTOPTCLIFESTYLE1413"
+		name = "EVTOPTCHUNTING15"
 		opinion = { who = persistent_event_target:hunting_partner modifier = opinion_successful_hunt }
 		opinion = { who = persistent_event_target:hunting_partner modifier = opinion_gave_full_credit }
 		reverse_opinion = { who = persistent_event_target:hunting_partner modifier = opinion_successful_hunt }
-		hidden_tooltip = { persistent_event_target:hunting_partner = { narrative_event = { id = lifestyle.31413 } } }
+		hidden_tooltip = { persistent_event_target:hunting_partner = { narrative_event = { id = hunting.18 } } }
 		
 		# Successful hunt rewards
 		if = {
@@ -6995,7 +6995,7 @@ narrative_event = {
 					has_character_flag = flag_encountered_old_one_eye
 					has_character_flag = flag_encountered_bara_la_kivita
 				}
-				trait = proud
+				trait = deceitful
 			}
 		}
 	}
@@ -7003,16 +7003,16 @@ narrative_event = {
 
 # Your partner took all the credit for your successful encounter
 narrative_event = {
-	id = lifestyle.11413
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE11413"
+	id = hunting.16
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING16"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTALIFESTYLE11413"
-		hidden_tooltip = { FROM = { narrative_event = { id = lifestyle.2213 } } }
+		name = "EVTOPTAHUNTING16"
+		hidden_tooltip = { FROM = { narrative_event = { id = hunting.52 } } }
 		
 		# Successful hunt rewards
 		if = {
@@ -7030,16 +7030,16 @@ narrative_event = {
 
 # You and your partner had a successful encounter
 narrative_event = {
-	id = lifestyle.21413
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE21413"
+	id = hunting.17
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING17"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTALIFESTYLE21413"
-		hidden_tooltip = { FROM = { narrative_event = { id = lifestyle.2213 } } }
+		name = "EVTOPTAHUNTING17"
+		hidden_tooltip = { FROM = { narrative_event = { id = hunting.52 } } }
 		
 		# Successful hunt rewards
 		if = {
@@ -7192,16 +7192,16 @@ narrative_event = {
 
 # Your partner gave you full credit for your successful hunt
 narrative_event = {
-	id = lifestyle.31413
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE31413"
+	id = hunting.18
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING18"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTALIFESTYLE31413"
-		hidden_tooltip = { FROM = { narrative_event = { id = lifestyle.2213 } } }
+		name = "EVTOPTAHUNTING18"
+		hidden_tooltip = { FROM = { narrative_event = { id = hunting.52 } } }
 		
 		# Successful hunt rewards
 		if = {
@@ -7354,9 +7354,9 @@ narrative_event = {
 
 # The game escaped
 narrative_event = {
-	id = lifestyle.1513
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE1513"
+	id = hunting.19
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING19"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
@@ -7364,37 +7364,37 @@ narrative_event = {
 	trigger = { has_character_flag = flag_on_the_hunt }
 	
 	option = {
-		name = "EVTOPTALIFESTYLE1513"
+		name = "EVTOPTAHUNTING19"
 		hidden_tooltip = {
 			if = {
 				limit = { has_character_flag = flag_hunting_with_partner }
-				persistent_event_target:hunting_partner = { narrative_event = { id = lifestyle.11513 } }
+				persistent_event_target:hunting_partner = { narrative_event = { id = hunting.20 } }
 			}
-			else = { narrative_event = { id = lifestyle.2213 } }
+			else = { narrative_event = { id = hunting.52 } }
 		}
 	}
 }
 
 # Inform partner that game escaped
 narrative_event = {
-	id = lifestyle.11513
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE11513"
+	id = hunting.20
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING20"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTALIFESTYLE1513"
-		hidden_tooltip = { FROM = { narrative_event = { id = lifestyle.2213 } } }
+		name = "EVTOPTAHUNTING19"
+		hidden_tooltip = { FROM = { narrative_event = { id = hunting.52 } } }
 	}
 }
 
 # Hunter attacked
 narrative_event = {
-	id = lifestyle.1613
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE1613"
+	id = hunting.21
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING21"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
@@ -7402,100 +7402,100 @@ narrative_event = {
 	trigger = { has_character_flag = flag_on_the_hunt }
 	
 	option = {
-		name = "EVTOPTALIFESTYLE1613"
+		name = "EVTOPTAHUNTING21"
 		random_list = {
 			40 = {
 				inflict_minor_injury_effect = yes
-				hidden_tooltip = { narrative_event = { id = lifestyle.11613 } }
+				hidden_tooltip = { narrative_event = { id = hunting.22 } }
 			}
 			20 = {
 				inflict_moderate_injury_effect = yes
-				hidden_tooltip = { narrative_event = { id = lifestyle.31613 } }
+				hidden_tooltip = { narrative_event = { id = hunting.24 } }
 			}
 			10 = {
 				inflict_major_injury_effect = yes
-				hidden_tooltip = { narrative_event = { id = lifestyle.31613 } }
+				hidden_tooltip = { narrative_event = { id = hunting.24 } }
 			}
 			5 = {
 				tooltip = { death = { death_reason = death_accident_hunting } }
-				hidden_tooltip = { narrative_event = { id = lifestyle.51613 } }
+				hidden_tooltip = { narrative_event = { id = hunting.26 } }
 			}
 		}
 	}
 }
 # Minor Injury
 narrative_event = {
-	id = lifestyle.11613
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE11613"
+	id = hunting.22
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING22"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTALIFESTYLE11613"
+		name = "EVTOPTAHUNTING22"
 		hidden_tooltip = {
 			if = {
 				limit = { has_character_flag = flag_hunting_with_partner }
-				persistent_event_target:hunting_partner = { narrative_event = { id = lifestyle.21613 } }
+				persistent_event_target:hunting_partner = { narrative_event = { id = hunting.23 } }
 			}
-			else = { narrative_event = { id = lifestyle.2213 } }
+			else = { narrative_event = { id = hunting.52 } }
 		}
 	}
 }
 # Inform partner of minor injury
 narrative_event = {
-	id = lifestyle.21613
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE21613"
+	id = hunting.23
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING23"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTALIFESTYLE21613"
-		hidden_tooltip = { FROM = { narrative_event = { id = lifestyle.2213 } } }
+		name = "EVTOPTAHUNTING23"
+		hidden_tooltip = { FROM = { narrative_event = { id = hunting.52 } } }
 	}
 }
 # Major injury
 narrative_event = {
-	id = lifestyle.31613
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE31613"
+	id = hunting.24
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING24"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTALIFESTYLE11613"
+		name = "EVTOPTAHUNTING22"
 		hidden_tooltip = {
 			if = {
 				limit = { has_character_flag = flag_hunting_with_partner }
-				persistent_event_target:hunting_partner = { narrative_event = { id = lifestyle.41613 } }
+				persistent_event_target:hunting_partner = { narrative_event = { id = hunting.25 } }
 			}
-			else = { narrative_event = { id = lifestyle.2313 } }
+			else = { narrative_event = { id = hunting.53 } }
 		}
 	}
 }
 # Inform partner of major injury
 narrative_event = {
-	id = lifestyle.41613
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE41613"
+	id = hunting.25
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING25"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTALIFESTYLE21613"
-		hidden_tooltip = { FROM = { narrative_event = { id = lifestyle.2313 } } }
+		name = "EVTOPTAHUNTING23"
+		hidden_tooltip = { FROM = { narrative_event = { id = hunting.53 } } }
 	}
 }
 # Death
 narrative_event = {
-	id = lifestyle.51613
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE51613"
+	id = hunting.26
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING26"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
@@ -7504,36 +7504,36 @@ narrative_event = {
 	
 	option = {
 		log = "[Root.GetBestName] died in a hunting accident."
-		name = "EVTOPTALIFESTYLE51613"
+		name = "EVTOPTAHUNTING26"
 		hidden_tooltip = {
 			if = {
 				limit = { has_character_flag = flag_hunting_with_partner }
-				persistent_event_target:hunting_partner = { narrative_event = { id = lifestyle.61613 } }
+				persistent_event_target:hunting_partner = { narrative_event = { id = hunting.27 } }
 			}
-			else = { narrative_event = { id = lifestyle.2313 } }
+			else = { narrative_event = { id = hunting.53 } }
 		}
 	}
 }
 # Inform partner of death
 narrative_event = {
-	id = lifestyle.61613
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE61613"
+	id = hunting.27
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING27"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTALIFESTYLE61613"
-		hidden_tooltip = { narrative_event = { id = lifestyle.2413 } }
+		name = "EVTOPTAHUNTING27"
+		hidden_tooltip = { narrative_event = { id = hunting.54 } }
 	}
 }
 
 # Hunter's raptor attacked
 narrative_event = {
-	id = lifestyle.1713
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE1713"
+	id = hunting.28
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING28"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
@@ -7544,91 +7544,91 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTALIFESTYLE1713"
+		name = "EVTOPTAHUNTING28"
 		random_list = {
-			75 = { narrative_event = { id = lifestyle.11713 tooltip = "EVTTOOLTIPLIFESTYLE11713" } }
-			25 = { narrative_event = { id = lifestyle.31713 tooltip = "EVTTOOLTIPLIFESTYLE31713" } }
+			75 = { narrative_event = { id = hunting.29 tooltip = "EVTTOOLTIPHUNTING29" } }
+			25 = { narrative_event = { id = hunting.31 tooltip = "EVTTOOLTIPHUNTING31" } }
 		}
 	}
 }
 # Hunter's raptor injured
 narrative_event = {
-	id = lifestyle.11713
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE11713"
+	id = hunting.29
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING29"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTALIFESTYLE11713"
+		name = "EVTOPTAHUNTING29"
 		event_target:hunting_raptor = {
 			set_artifact_flag = injured
 			save_event_target_as = injured_raptor
 		}
-		hidden_tooltip = { character_event = { id = lifestyle.20014 days = 1 } } # Deal with injured raptor
+		hidden_tooltip = { character_event = { id = lifestyle.1451 days = 1 } } # Deal with injured raptor
 		if = {
 			limit = { has_character_flag = flag_hunting_with_partner }
-			hidden_tooltip = { persistent_event_target:hunting_partner = { narrative_event = { id = lifestyle.21713 } } }
+			hidden_tooltip = { persistent_event_target:hunting_partner = { narrative_event = { id = hunting.30 } } }
 		}
-		else = { hidden_tooltip = { narrative_event = { id = lifestyle.2313 } } }
+		else = { hidden_tooltip = { narrative_event = { id = hunting.53 } } }
 	}
 }
 # Inform partner that hunter's raptor injured
 narrative_event = {
-	id = lifestyle.21713
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE21713"
+	id = hunting.30
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING30"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTALIFESTYLE21713"
-		hidden_tooltip = { FROM = { narrative_event = { id = lifestyle.2313 } } }
+		name = "EVTOPTAHUNTING30"
+		hidden_tooltip = { FROM = { narrative_event = { id = hunting.53 } } }
 	}
 }
 # Hunter's raptor killed
 narrative_event = {
-	id = lifestyle.31713
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE31713"
+	id = hunting.31
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING31"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
 	
 	option = {
 		log = "[hunting_raptor.GetName] the raptor died in a hunting accident."
-		name = "EVTOPTALIFESTYLE31713"
+		name = "EVTOPTAHUNTING31"
 		event_target:hunting_raptor = { destroy_artifact = yes }
 		degrade_mood_effect = yes
 		if = {
 			limit = { has_character_flag = flag_hunting_with_partner }
-			hidden_tooltip = { persistent_event_target:hunting_partner = { narrative_event = { id = lifestyle.41713 } } }
+			hidden_tooltip = { persistent_event_target:hunting_partner = { narrative_event = { id = hunting.32 } } }
 		}
-		else = { hidden_tooltip = { narrative_event = { id = lifestyle.2313 } } }
+		else = { hidden_tooltip = { narrative_event = { id = hunting.53 } } }
 	}
 }
 # Inform partner that hunter's raptor killed
 narrative_event = {
-	id = lifestyle.41713
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE41713"
+	id = hunting.32
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING32"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTALIFESTYLE21713"
-		hidden_tooltip = { FROM = { narrative_event = { id = lifestyle.2313 } } }
+		name = "EVTOPTAHUNTING30"
+		hidden_tooltip = { FROM = { narrative_event = { id = hunting.53 } } }
 	}
 }
 
 # Partner attacked
 narrative_event = {
-	id = lifestyle.1813
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE1813"
+	id = hunting.33
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING33"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
@@ -7639,91 +7639,91 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTALIFESTYLE1813"
-		persistent_event_target:hunting_partner = { narrative_event = { id = lifestyle.11813 tooltip = "EVTTOOLTIPLIFESTYLE11813" } }
+		name = "EVTOPTAHUNTING33"
+		persistent_event_target:hunting_partner = { narrative_event = { id = hunting.34 tooltip = "EVTTOOLTIPHUNTING34" } }
 	}
 }
 # Inform partner that they've been attacked
 narrative_event = {
-	id = lifestyle.11813
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE11813"
+	id = hunting.34
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING34"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTALIFESTYLE1613"
+		name = "EVTOPTAHUNTING21"
 		random_list = {
 			40 = {
 				inflict_minor_injury_effect = yes
-				hidden_tooltip = { narrative_event = { id = lifestyle.21813 } }
+				hidden_tooltip = { narrative_event = { id = hunting.35 } }
 			}
 			20 = {
 				inflict_moderate_injury_effect = yes
-				hidden_tooltip = { narrative_event = { id = lifestyle.41813 } }
+				hidden_tooltip = { narrative_event = { id = hunting.37 } }
 			}
 			10 = {
 				inflict_major_injury_effect = yes
-				hidden_tooltip = { narrative_event = { id = lifestyle.41813 } }
+				hidden_tooltip = { narrative_event = { id = hunting.37 } }
 			}
 			5 = {
 				tooltip = { death = { death_reason = death_accident_hunting } }
-				hidden_tooltip = { narrative_event = { id = lifestyle.61813 } }
+				hidden_tooltip = { narrative_event = { id = hunting.39 } }
 			}
 		}
 	}
 }
 # Minor injury
 narrative_event = {
-	id = lifestyle.21813
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE21813"
+	id = hunting.35
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING35"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTALIFESTYLE11613"
-		hidden_tooltip = { FROM = { FROM = { narrative_event = { id = lifestyle.31813 } } } }
+		name = "EVTOPTAHUNTING22"
+		hidden_tooltip = { FROM = { FROM = { narrative_event = { id = hunting.36 } } } }
 	}
 }
 # Inform hunter of partner's minor injury
 narrative_event = {
-	id = lifestyle.31813
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE31813"
+	id = hunting.36
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING36"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTALIFESTYLE31813"
-		hidden_tooltip = { narrative_event = { id = lifestyle.2213 } }
+		name = "EVTOPTAHUNTING36"
+		hidden_tooltip = { narrative_event = { id = hunting.52 } }
 	}
 }
 # Major injury
 narrative_event = {
-	id = lifestyle.41813
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE41813"
+	id = hunting.37
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING37"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTALIFESTYLE31613"
+		name = "EVTOPTAHUNTING24"
 		hidden_tooltip = {
-			FROM = { FROM = { narrative_event = { id = lifestyle.51813 } } }
-			narrative_event = { id = lifestyle.2413 }
+			FROM = { FROM = { narrative_event = { id = hunting.38 } } }
+			narrative_event = { id = hunting.54 }
 		}
 	}
 }
 # Inform hunter of partner's major injury
 narrative_event = {
-	id = lifestyle.51813
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE51813"
+	id = hunting.38
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING38"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
@@ -7731,15 +7731,15 @@ narrative_event = {
 	option = {
 		clr_character_flag = flag_hunting_with_partner
 		clear_persistent_event_target = hunting_partner
-		name = "EVTOPTALIFESTYLE31813"
-		hidden_tooltip = { narrative_event = { id = lifestyle.2213 } }
+		name = "EVTOPTAHUNTING36"
+		hidden_tooltip = { narrative_event = { id = hunting.52 } }
 	}
 }
 # Death
 narrative_event = {
-	id = lifestyle.61813
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE61813"
+	id = hunting.39
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING39"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
@@ -7748,18 +7748,18 @@ narrative_event = {
 	
 	option = {
 		log = "[Root.GetBestName] died in a hunting accident."
-		name = "EVTOPTALIFESTYLE51613"
+		name = "EVTOPTAHUNTING26"
 		hidden_tooltip = {
-			FROM = { FROM = { narrative_event = { id = lifestyle.71813 } } }
-			narrative_event = { id = lifestyle.2413 }
+			FROM = { FROM = { narrative_event = { id = hunting.40 } } }
+			narrative_event = { id = hunting.54 }
 		}
 	}
 }
 # Inform hunter of partner's death
 narrative_event = {
-	id = lifestyle.71813
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE71813"
+	id = hunting.40
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING40"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
@@ -7767,16 +7767,16 @@ narrative_event = {
 	option = {
 		clr_character_flag = flag_hunting_with_partner
 		clear_persistent_event_target = hunting_partner
-		name = "EVTOPTALIFESTYLE31813"
-		hidden_tooltip = { narrative_event = { id = lifestyle.2313 } }
+		name = "EVTOPTAHUNTING36"
+		hidden_tooltip = { narrative_event = { id = hunting.53 } }
 	}
 }
 
 # Partner's raptor attacked
 narrative_event = {
-	id = lifestyle.1913
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE1913"
+	id = hunting.41
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING41"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
@@ -7788,93 +7788,93 @@ narrative_event = {
 	}
 	
 	option = {
-		name = "EVTOPTALIFESTYLE1913"
+		name = "EVTOPTAHUNTING41"
 		random_list = {
-			75 = { narrative_event = { id = lifestyle.11913 tooltip = "EVTTOOLTIPLIFESTYLE11913" } }
-			25 = { narrative_event = { id = lifestyle.31913 tooltip = "EVTTOOLTIPLIFESTYLE31913" } }
+			75 = { narrative_event = { id = hunting.42 tooltip = "EVTTOOLTIPHUNTING42" } }
+			25 = { narrative_event = { id = hunting.44 tooltip = "EVTTOOLTIPHUNTING44" } }
 		}
 	}
 }
 # Injury
 narrative_event = {
-	id = lifestyle.11913
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE11913"
+	id = hunting.42
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING42"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTALIFESTYLE11913"
-		hidden_tooltip = { persistent_event_target:hunting_partner = { narrative_event = { id = lifestyle.21913 } } }
+		name = "EVTOPTAHUNTING42"
+		hidden_tooltip = { persistent_event_target:hunting_partner = { narrative_event = { id = hunting.43 } } }
 		clr_character_flag = flag_hunting_with_partner
 		clear_persistent_event_target = hunting_partner
 	}
 }
 # Inform hunter of partner's raptor's injury
 narrative_event = {
-	id = lifestyle.21913
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE21913"
+	id = hunting.43
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING43"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTALIFESTYLE21913"
+		name = "EVTOPTAHUNTING43"
 		event_target:hunting_raptor_2 = {
 			set_artifact_flag = injured
 			save_event_target_as = injured_raptor
 		}
-		hidden_tooltip = { character_event = { id = lifestyle.20014 days = 1 } } # Deal with injured raptor
+		hidden_tooltip = { character_event = { id = lifestyle.1451 days = 1 } } # Deal with injured raptor
 		hidden_tooltip = {
-			narrative_event = { id = lifestyle.2413 }
-			FROM = { narrative_event = { id = lifestyle.2213 } }
+			narrative_event = { id = hunting.54 }
+			FROM = { narrative_event = { id = hunting.52 } }
 		}
 	}
 }
 # Death
 narrative_event = {
-	id = lifestyle.31913
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE31913"
+	id = hunting.44
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING44"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTALIFESTYLE11913"
-		hidden_tooltip = { persistent_event_target:hunting_partner = { narrative_event = { id = lifestyle.41913 } } }
+		name = "EVTOPTAHUNTING42"
+		hidden_tooltip = { persistent_event_target:hunting_partner = { narrative_event = { id = hunting.45 } } }
 		clr_character_flag = flag_hunting_with_partner
 		clear_persistent_event_target = hunting_partner
 	}
 }
 # Inform hunter of partner's raptor's death
 narrative_event = {
-	id = lifestyle.41913
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE41913"
+	id = hunting.45
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING45"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTALIFESTYLE21913"
+		name = "EVTOPTAHUNTING43"
 		log = "[hunting_raptor_2.GetName] the raptor died in a hunting accident."
 		event_target:hunting_raptor_2 = { destroy_artifact = yes }
 		degrade_mood_effect = yes
 		hidden_tooltip = {
-			narrative_event = { id = lifestyle.2413 }
-			FROM = { narrative_event = { id = lifestyle.2213 } }
+			narrative_event = { id = hunting.54 }
+			FROM = { narrative_event = { id = hunting.52 } }
 		}
 	}
 }
 
 # Poacher escapes
 narrative_event = {
-	id = lifestyle.2013
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE2013"
+	id = hunting.46
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING46"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
@@ -7885,7 +7885,7 @@ narrative_event = {
 			random_list = {
 				20 = {
 					# Success!
-					narrative_event = { id = lifestyle.12013 }
+					narrative_event = { id = hunting.47 }
 					modifier = {
 						factor = 1.25
 						combat_rating = 3
@@ -7960,41 +7960,41 @@ narrative_event = {
 					}
 				}
 				# Failure!
-				80 = { narrative_event = { id = lifestyle.22013 } }
+				80 = { narrative_event = { id = hunting.48 } }
 			}
 		}
 	}
 	option = {
-		name = "EVTOPTALIFESTYLE2013"
+		name = "EVTOPTAHUNTING46"
 		if = {
 			limit = { has_character_flag = flag_hunting_with_partner }
-			hidden_tooltip = { event_target:planetary_governor = { narrative_event = { id = lifestyle.32013 } } }
+			hidden_tooltip = { event_target:planetary_governor = { narrative_event = { id = hunting.49 } } }
 		}
 	}
 }
 # Poacher's partner escapes
 narrative_event = {
-	id = lifestyle.12013
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE12013"
+	id = hunting.47
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING47"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTALIFESTYLE12013"
+		name = "EVTOPTAHUNTING47"
 		if = {
 			limit = { FROM = { prisoner = no } }
-			hidden_tooltip = { event_target:planetary_governor = { narrative_event = { id = lifestyle.32013 } } }
+			hidden_tooltip = { event_target:planetary_governor = { narrative_event = { id = hunting.49 } } }
 		}
-		else = { hidden_tooltip = { event_target:planetary_governor = { narrative_event = { id = lifestyle.42013 } } } }
+		else = { hidden_tooltip = { event_target:planetary_governor = { narrative_event = { id = hunting.50 } } } }
 	}
 }
 # Poacher's partner captured
 narrative_event = {
-	id = lifestyle.22013
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE22013"
+	id = hunting.48
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING48"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
@@ -8002,44 +8002,44 @@ narrative_event = {
 	immediate = { imprison = event_target:planetary_governor }
 	
 	option = {
-		name = "EVTOPTALIFESTYLE22013"
+		name = "EVTOPTAHUNTING48"
 		tooltip = { imprison = event_target:planetary_governor }
-		event_target:planetary_governor = { hidden_tooltip = { narrative_event = { id = lifestyle.42013 } } }
+		event_target:planetary_governor = { hidden_tooltip = { narrative_event = { id = hunting.50 } } }
 	}
 }
 # Inform governor that poachers escaped
 narrative_event = {
-	id = lifestyle.32013
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE32013"
+	id = hunting.49
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING49"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTALIFESTYLE32013"
-		hidden_tooltip = { FROM = { FROM = { narrative_event = { id = lifestyle.2313 } } } } # FROMFROM is guaranteed to always be the hunter
+		name = "EVTOPTAHUNTING49"
+		hidden_tooltip = { FROM = { FROM = { narrative_event = { id = hunting.53 } } } } # FROMFROM is guaranteed to always be the hunter
 	}
 }
 # Inform governor that poachers were captured
 narrative_event = {
-	id = lifestyle.42013
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE42013"
+	id = hunting.50
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING50"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTALIFESTYLE42013"
-		hidden_tooltip = { FROM = { FROM = { narrative_event = { id = lifestyle.2313 } } } } # FROMFROM is guaranteed to always be the hunter
+		name = "EVTOPTAHUNTING50"
+		hidden_tooltip = { FROM = { FROM = { narrative_event = { id = hunting.53 } } } } # FROMFROM is guaranteed to always be the hunter
 	}
 }
 # Poacher captured
 narrative_event = {
-	id = lifestyle.2113
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE2113"
+	id = hunting.51
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING51"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
@@ -8050,7 +8050,7 @@ narrative_event = {
 			random_list = {
 				20 = {
 					# Success!
-					narrative_event = { id = lifestyle.12013 }
+					narrative_event = { id = hunting.47 }
 					modifier = {
 						factor = 1.25
 						combat_rating = 3
@@ -8125,24 +8125,24 @@ narrative_event = {
 					}
 				}
 				# Failure!
-				80 = { narrative_event = { id = lifestyle.22013 } }
+				80 = { narrative_event = { id = hunting.48 } }
 			}
 		}
 	}
 	option = {
-		name = "EVTOPTALIFESTYLE2113"
+		name = "EVTOPTAHUNTING51"
 		if = {
 			limit = { has_character_flag = flag_hunting_with_partner }
-			hidden_tooltip = { event_target:planetary_governor = { narrative_event = { id = lifestyle.42013 } } }
+			hidden_tooltip = { event_target:planetary_governor = { narrative_event = { id = hunting.50 } } }
 		}
 	}
 }
 
 # Continue the hunt?
 narrative_event = {
-	id = lifestyle.2213
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE2213"
+	id = hunting.52
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING52"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
@@ -8151,8 +8151,8 @@ narrative_event = {
 	
 	# Continue the hunt!
 	option = {
-		name = "EVTOPTALIFESTYLE2213"
-		hidden_tooltip = { narrative_event = { id = lifestyle.1213 days = 5 random = 5 } }
+		name = "EVTOPTAHUNTING52"
+		hidden_tooltip = { narrative_event = { id = hunting.9 days = 5 random = 5 } }
 		ai_chance = {
 			factor = 50
 			modifier = {
@@ -8175,8 +8175,8 @@ narrative_event = {
 	}
 	# Call it quits
 	option = {
-		name = "EVTOPTBLIFESTYLE2213"
-		hidden_tooltip = { narrative_event = { id = lifestyle.2313 } }
+		name = "EVTOPTBHUNTING52"
+		hidden_tooltip = { narrative_event = { id = hunting.53 } }
 		ai_chance = {
 			factor = 50
 			modifier = {
@@ -8193,16 +8193,16 @@ narrative_event = {
 
 # End of the hunt
 narrative_event = {
-	id = lifestyle.2313
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE2313"
+	id = hunting.53
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING53"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
 	
 	option = {
 		name = "EVTOPTCONFIRM"
-		hidden_tooltip = { persistent_event_target:hunting_partner = { narrative_event = { id = lifestyle.2413 } } }
+		hidden_tooltip = { persistent_event_target:hunting_partner = { narrative_event = { id = hunting.54 } } }
 		clr_character_flag = flag_on_the_hunt
 		clr_character_flag = flag_poacher
 		clr_character_flag = flag_hunting_with_partner
@@ -8214,9 +8214,9 @@ narrative_event = {
 
 # End of the hunt (partner)
 narrative_event = {
-	id = lifestyle.2413
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE2413"
+	id = hunting.54
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING54"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
@@ -8226,7 +8226,7 @@ narrative_event = {
 		hidden_tooltip = {
 			if = {
 				limit = { persistent_event_target:hunting_partner = { has_character_flag = flag_on_the_hunt } }
-				narrative_event = { id = lifestyle.2513 }
+				narrative_event = { id = hunting.55 }
 			}
 		}
 		clr_character_flag = flag_hunting_partner
@@ -8237,9 +8237,9 @@ narrative_event = {
 
 # Inform hunter that their partner is no longer on the hunt
 narrative_event = {
-	id = lifestyle.2513
-	title = "EVTNAMELIFESTYLE1013"
-	desc = "EVTDESCLIFESTYLE2513"
+	id = hunting.55
+	title = "EVTNAMEHUNTING0"
+	desc = "EVTDESCHUNTING55"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_narrative_frame_war
 	is_triggered_only = yes
@@ -8259,7 +8259,7 @@ narrative_event = {
 # ADDITIONAL EVENTS
 # Hunting trip ends because of unrelated injury or imprisonment
 character_event = {
-	id = lifestyle.2613
+	id = hunting.56
 	hide_window = yes
 	
 	trigger = {
@@ -8272,11 +8272,11 @@ character_event = {
 		}
 	}
 	
-	immediate = { narrative_event = { id = lifestyle.2313 } }
+	immediate = { narrative_event = { id = hunting.53 } }
 }
 # Hunting trip ends for partner because of unrelated injury or imprisonment
 character_event = {
-	id = lifestyle.2713
+	id = hunting.57
 	hide_window = yes
 	
 	trigger = {
@@ -8289,12 +8289,12 @@ character_event = {
 		}
 	}
 	
-	immediate = { narrative_event = { id = lifestyle.2413 } }
+	immediate = { narrative_event = { id = hunting.54 } }
 }
 # Invitation to a hunting trip
 letter_event = {
-	id = lifestyle.2813
-	desc = "EVTDESCLIFESTYLE2813"
+	id = hunting.58
+	desc = "EVTDESCHUNTING58"
 	show_from_from = yes
 	is_triggered_only = yes
 	
@@ -8323,8 +8323,8 @@ letter_event = {
 		save_persistent_event_target = { name = hunting_partner scope = FROMFROM }
 		FROMFROM = {
 			save_persistent_event_target = { name = hunting_partner scope = ROOT }
-			hidden_tooltip = { letter_event = { id = lifestyle.12813 } } # Inform the hunter that they have a partner
-			hidden_tooltip = { letter_event = { id = lifestyle.32813 days = 90 } } # Time limit to take the hunting trip
+			hidden_tooltip = { letter_event = { id = hunting.59 } } # Inform the hunter that they have a partner
+			hidden_tooltip = { letter_event = { id = hunting.75 days = 90 } } # Time limit to take the hunting trip
 		}
 		ai_chance = {
 			factor = 50
@@ -8540,13 +8540,13 @@ letter_event = {
 	}
 	option = {
 		name = "EVTOPTDECLINE"
-		hidden_tooltip = { FROMFROM = { letter_event = { id = lifestyle.22813 } } } # Inform the hunter that they do not have a partner
+		hidden_tooltip = { FROMFROM = { letter_event = { id = hunting.60 } } } # Inform the hunter that they do not have a partner
 		ai_chance = { factor = 50 }
 	}
 }
 letter_event = {
-	id = lifestyle.12813
-	desc = "EVTDESCLIFESTYLE12813"
+	id = hunting.59
+	desc = "EVTDESCHUNTING59"
 	is_triggered_only = yes
 	
 	option = {
@@ -8584,20 +8584,20 @@ letter_event = {
 				save_event_target_as = hunting_destination
 			}
 			set_character_flag = flag_busy
-			character_event = { id = lifestyle.1013 }
+			character_event = { id = hunting.0 }
 		}
 	}
 }
 letter_event = {
-	id = lifestyle.22813
-	desc = "EVTDESCLIFESTYLE22813"
+	id = hunting.60
+	desc = "EVTDESCHUNTING60"
 	is_triggered_only = yes
 	
 	option = { name = "EVTOPTCONFIRM" }
 }
 letter_event = {
-	id = lifestyle.32813
-	desc = "EVTDESCLIFESTYLE32813"
+	id = hunting.75
+	desc = "EVTDESCHUNTING75"
 	is_triggered_only = yes
 	
 	trigger = {
@@ -8617,8 +8617,8 @@ letter_event = {
 
 ### Assassinating your partner while hunting
 character_event = {
-	id = lifestyle.2913
-	desc = "EVTDESCLIFESTYLE2913"
+	id = hunting.61
+	desc = "EVTDESCHUNTING61"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
@@ -8660,14 +8660,14 @@ character_event = {
 	
 	# Go for it
 	option = {
-		name = "EVTOPTALIFESTYLE2913"
+		name = "EVTOPTAHUNTING61"
 		clr_character_flag = flag_on_the_hunt
 		clr_character_flag = flag_falconry_hunter
 		clr_character_flag = flag_hunting_with_partner
 		random_list = {
 			# A clean kill
 			33 = {
-				persistent_event_target:hunting_partner = { character_event = { id = lifestyle.12913 tooltip = "EVTTOOLTIPLIFESTYLE12913" } }
+				persistent_event_target:hunting_partner = { character_event = { id = hunting.62 tooltip = "EVTTOOLTIPHUNTING62" } }
 				# Known plot
 				modifier = {
 					factor = 0.2
@@ -8797,7 +8797,7 @@ character_event = {
 				}
 			}
 			# Botched kill
-			66 = { persistent_event_target:hunting_partner = { character_event = { id = lifestyle.22913 tooltip = "EVTTOOLTIPLIFESTYLE22913" } } }
+			66 = { persistent_event_target:hunting_partner = { character_event = { id = hunting.65 tooltip = "EVTTOOLTIPHUNTING65" } } }
 		}
 		ai_chance = {
 			factor = 66
@@ -8813,15 +8813,15 @@ character_event = {
 	}
 	# Let the opportunity pass by
 	option = {
-		name = "EVTOPTALIFESTYLE2913"
+		name = "EVTOPTAHUNTING61"
 		ai_chance = { factor = 33 }
 	}
 }
 
 # You were assassinated while hunting
 character_event = {
-	id = lifestyle.12913
-	desc = "EVTDESCLIFESTYLE12913"
+	id = hunting.62
+	desc = "EVTDESCHUNTING62"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
@@ -8842,60 +8842,60 @@ character_event = {
 	# FROM was the main plotter
 	option = {
 		trigger = { NOT = { main_plotter = { always = yes } } }
-		name = "EVTOPTALIFESTYLE12913"
+		name = "EVTOPTAHUNTING62"
 		if = {
 			limit = { FROM = { plot_is_known_by = ROOT } }
 			death = { death_reason = death_murder_hunting killer = FROM }
 		}
 		else = { death = { death_reason = death_murder_unknown_hunting killer = FROM } }
-		hidden_tooltip = { FROM = { character_event = { id = lifestyle.112913 } } }
+		hidden_tooltip = { FROM = { character_event = { id = hunting.63 } } }
 	}
 	
 	# FROM was not the main plotter
 	option = {
 		trigger = { main_plotter = { always = yes } }
-		name = "EVTOPTALIFESTYLE12913"
+		name = "EVTOPTAHUNTING62"
 		if = {
 			limit = { main_plotter = { plot_is_known_by = ROOT } }
 			death = { death_reason = death_murder_hunting killer = main_plotter }
 		}
 		else = { death = { death_reason = death_murder_unknown_hunting killer = main_plotter } }
-		hidden_tooltip = { FROM = { character_event = { id = lifestyle.112913 } } }
+		hidden_tooltip = { FROM = { character_event = { id = hunting.63 } } }
 	}
 }
 
 # Your assassination attempt succeeded
 character_event = {
-	id = lifestyle.112913
-	desc = "EVTDESCLIFESTYLE112913"
+	id = hunting.63
+	desc = "EVTDESCHUNTING63"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTALIFESTYLE112913"
-		hidden_tooltip = { event_target:main_plotter = { letter_event = { id = lifestyle.212913 } } }
+		name = "EVTOPTAHUNTING63"
+		hidden_tooltip = { event_target:main_plotter = { letter_event = { id = hunting.64 } } }
 	}
 }
 
 # Your plot target was killed in a hunting "accident"
 letter_event = {
-	id = lifestyle.212913
-	desc = "EVTDESCLIFESTYLE212913"
+	id = hunting.64
+	desc = "EVTDESCHUNTING64"
 	picture = GFX_evt_murder
 	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTALIFESTYLE212913"
+		name = "EVTOPTAHUNTING64"
 		clear_event_target = main_plotter
 	}
 }
 
 # Your hunting partner has opened fire on you!
 character_event = {
-	id = lifestyle.22913
-	desc = "EVTDESCLIFESTYLE22913"
+	id = hunting.65
+	desc = "EVTDESCHUNTING65"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
@@ -8914,22 +8914,22 @@ character_event = {
 	}
 	
 	option = {
-		name = "EVTOPTALIFESTYLE22913"
+		name = "EVTOPTAHUNTING65"
 		opinion = { who = FROM modifier = opinion_murder_attempt }
-		FROM = { character_event = { id = lifestyle.122913 tooltip = "EVTTOOLTIPLIFESTYLE122913" } }
+		FROM = { character_event = { id = hunting.66 tooltip = "EVTTOOLTIPHUNTING66" } }
 	}
 }
 
 # You missed. Now it's a duel.
 character_event = {
-	id = lifestyle.122913
-	desc = "EVTDESCLIFESTYLE122913"
+	id = hunting.66
+	desc = "EVTDESCHUNTING66"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTALIFESTYLE122913"
+		name = "EVTOPTAHUNTING66"
 		if = {
 			limit = {
 				has_plot = plot_kill_character
@@ -8955,8 +8955,8 @@ character_event = {
 
 # You successfully finished the job. Eventually.
 character_event = {
-	id = lifestyle.222913
-	desc = "EVTDESCLIFESTYLE222913"
+	id = hunting.67
+	desc = "EVTDESCHUNTING67"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_normal_frame_intrigue
 	show_from_from = yes
@@ -8964,14 +8964,14 @@ character_event = {
 	
 	option = {
 		log = "[Root.GetBestName] successfully assassinated [target_assassin.GetBestName] in a duel while hunting."
-		name = "EVTOPTALIFESTYLE222913"
-		hidden_tooltip = { event_target:main_plotter = { letter_event = { id = lifestyle.322913 } } }
+		name = "EVTOPTAHUNTING67"
+		hidden_tooltip = { event_target:main_plotter = { letter_event = { id = hunting.68 } } }
 		clear_event_target = target_assassin
 	}
 }
 letter_event = {
-	id = lifestyle.322913
-	desc = "EVTDESCLIFESTYLE322913"
+	id = hunting.68
+	desc = "EVTDESCHUNTING68"
 	is_triggered_only = yes
 	
 	option = {
@@ -8983,21 +8983,21 @@ letter_event = {
 
 # Your victim escaped
 character_event = {
-	id = lifestyle.422913
-	desc = "EVTDESCLIFESTYLE422913"
+	id = hunting.69
+	desc = "EVTDESCHUNTING69"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
 	
 	option = {
-		name = "EVTOPTALIFESTYLE422913"
-		hidden_tooltip = { event_target:main_plotter = { letter_event = { id = lifestyle.522913 } } }
+		name = "EVTOPTAHUNTING69"
+		hidden_tooltip = { event_target:main_plotter = { letter_event = { id = hunting.70 } } }
 	}
 }
 # Failed assassination attempt
 letter_event = {
-	id = lifestyle.522913
-	desc = "EVTDESCLIFESTYLE522913"
+	id = hunting.70
+	desc = "EVTDESCHUNTING70"
 	is_triggered_only = yes
 	
 	option = {
@@ -9008,8 +9008,8 @@ letter_event = {
 }
 # You successfully escaped
 character_event = {
-	id = lifestyle.622913
-	desc = "EVTDESCLIFESTYLE622913"
+	id = hunting.71
+	desc = "EVTDESCHUNTING71"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
@@ -9022,8 +9022,8 @@ character_event = {
 }
 # You captured the person trying to kill you
 character_event = {
-	id = lifestyle.722913
-	desc = "EVTDESCLIFESTYLE722913"
+	id = hunting.72
+	desc = "EVTDESCHUNTING72"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
@@ -9035,8 +9035,8 @@ character_event = {
 }
 # You were captured during your assassination attempt
 character_event = {
-	id = lifestyle.822913
-	desc = "EVTDESCLIFESTYLE822913"
+	id = hunting.73
+	desc = "EVTDESCHUNTING73"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
@@ -9050,8 +9050,8 @@ character_event = {
 }
 # You killed the person trying to kill you
 character_event = {
-	id = lifestyle.922913
-	desc = "EVTDESCLIFESTYLE922913"
+	id = hunting.74
+	desc = "EVTDESCHUNTING74"
 	picture = GFX_evt_hunting_party
 	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
