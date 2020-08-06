@@ -11327,15 +11327,15 @@ increase_council_power_effect = {
 increase_vassal_freedom_effect = {
 	if = {
 		limit = {
-			has_law = kings_peace_1
+			has_law = public_order_1
 		}
-		add_law = kings_peace_0
+		add_law = public_order_0
 	}
 	if = {
 		limit = {
-			has_law = kings_peace_2
+			has_law = public_order_2
 		}
-		add_law = kings_peace_1
+		add_law = public_order_1
 	}
 }
 
@@ -17456,38 +17456,6 @@ add_warrior_lodge_leader_trait_effect = {
 		}
 		warrior_lodge_hellenic = {
 			add_trait = hellenic_leader
-		}
-	}
-}
-fire_haruspicy_event_effect = {
-	hidden_tooltip = { #Divination.
-		if = {
-			limit = {
-				attacker = {
-					OR = {
-						religion = hellenic_pagan
-						religion = hellenic_pagan_reformed
-						has_religion_feature = religion_haruspicy
-					}
-				}
-			}
-			attacker = {
-				character_event = { id = HF.23005 }
-			}
-		}
-		if = {
-			limit = {
-				defender = {
-					OR = {
-						religion = hellenic_pagan
-						religion = hellenic_pagan_reformed
-						has_religion_feature = religion_haruspicy
-					}
-				}
-			}
-			defender = {
-				character_event = { id = HF.23005 }
-			}
 		}
 	}
 }

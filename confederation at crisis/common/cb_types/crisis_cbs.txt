@@ -64,10 +64,10 @@ civil_war = {
 		}
 
 		# Downgrade FROM's public order
-		FROM = {
-			any_demesne_title = { limit = { has_law = public_order_1 } }
-			add_law = public_order_0
-		}
+		#FROM = {
+		#	any_demesne_title = { limit = { has_law = public_order_1 } }
+		#	add_law = public_order_0
+		#}
 	}
 
 	on_success = {
@@ -184,8 +184,18 @@ civil_war = {
 	on_fail = {
 		# Initiator fails to achieve whatever it was they were after
 		ROOT = {
-			cancel_plot = plot_coup
-			cancel_plot = plot_justified_coup
+			if = {
+				limit = {
+					has_plot = plot_coup
+				}
+				cancel_plot = plot_coup
+			}
+			if = {
+				limit = {
+					has_plot = plot_justified_coup
+				}
+				cancel_plot = plot_justified_coup
+			}
 		}
 
 		# Remove coup flags
@@ -222,14 +232,14 @@ civil_war = {
 				limit = { trait = anti_ruler }
 				hidden_tooltip = {
 					remove_trait = anti_ruler
-					character_event = { id = laws.5 }
+					#character_event = { id = laws.5 }
 				}
 			}
 			any_courtier = {
 				limit = { trait = anti_ruler }
 				hidden_tooltip = {
 					remove_trait = anti_ruler
-					character_event = { id = laws.5 }
+					#character_event = { id = laws.5 }
 				}
 			}
 		}
@@ -240,8 +250,18 @@ civil_war = {
 		}
 		# Coups fail immediately
 		ROOT = {
-			cancel_plot = plot_coup
-			cancel_plot = plot_justified_coup
+			if = {
+				limit = {
+					has_plot = plot_coup
+				}
+				cancel_plot = plot_coup
+			}
+			if = {
+				limit = {
+					has_plot = plot_justified_coup
+				}
+				cancel_plot = plot_justified_coup
+			}
 		}
 
 		# If FROM and ROOTs' ideologies are different, the former gets a bonus and
@@ -264,22 +284,22 @@ civil_war = {
 			limit = { FROM = { has_character_flag = flag_failed_purge } }
 			end_war = invalid
 		}
+	}
 
-		attacker_ai_victory_worth = {
-			factor = -1
-		}
+	attacker_ai_victory_worth = {
+		factor = -1
+	}
 
-		attacker_ai_defeat_worth = {
-			factor = 100
-		}
+	attacker_ai_defeat_worth = {
+		factor = 100
+	}
 
-		defender_ai_victory_worth = {
-			factor = -1
-		}
+	defender_ai_victory_worth = {
+		factor = -1
+	}
 
-		defender_ai_defeat_worth = {
-			factor = 100
-		}
+	defender_ai_defeat_worth = {
+		factor = 100
 	}
 }
 
@@ -483,8 +503,8 @@ cb_military_campaign = {
 			factor = 0.2
 			ROOT = {
 				OR = {
-					any_plot = plot_coup
-					any_plot = plot_justified_coup
+					has_plot = plot_coup
+					has_plot = plot_justified_coup
 				}
 			}
 		}
@@ -492,8 +512,8 @@ cb_military_campaign = {
 			factor = 0.5
 			ROOT = {
 				OR = {
-					any_plot = plot_coup
-					any_plot = plot_justified_coup
+					has_plot = plot_coup
+					has_plot = plot_justified_coup
 				}
 				plot_power = 1
 			}
@@ -779,8 +799,6 @@ democratic_rebellion = {
 	defender_can_call_allies = yes
 	can_ask_to_join_war = yes
 
-	on_add = { log = "[Root.GetBestName] declared war on [From.GetBestName] using the CB democratic_rebellion." }
-
 	can_use = { ROOT = { has_character_flag = flag_revolter } }
 
 	is_valid = { ROOT = { has_character_flag = flag_revolter } }
@@ -865,11 +883,12 @@ democratic_rebellion = {
 	}
 
 	on_add = {
+		log = "[Root.GetBestName] declared war on [From.GetBestName] using the CB democratic_rebellion."
 		# Downgrade FROM's public order
-		FROM = {
-			any_demesne_title = { limit = { has_law = public_order_1 } }
-			add_law = public_order_0
-		}
+		#FROM = {
+		#	any_demesne_title = { limit = { has_law = public_order_1 } }
+		#	add_law = public_order_0
+		#}
 	}
 
 	on_fail = {
@@ -970,8 +989,6 @@ autocratic_rebellion = {
 	defender_can_call_allies = yes
 	can_ask_to_join_war = yes
 
-	on_add = { log = "[Root.GetBestName] declared war on [From.GetBestName] using the CB autocratic_rebellion." }
-
 	can_use = { ROOT = { has_character_flag = flag_revolter } }
 
 	is_valid = { ROOT = { has_character_flag = flag_revolter } }
@@ -1008,8 +1025,7 @@ autocratic_rebellion = {
 			# Set autocratic legitimacy
 			any_demesne_title = {
 				limit = { is_primary_holder_title_tier = yes }
-				add_law = legitimacy_law_0
-				add_law = local_legitimacy_law_0
+				add_law = military_vassal_legitimacy_0
 			}
 		}
 		# Moral authority changes
@@ -1072,11 +1088,12 @@ autocratic_rebellion = {
 	}
 
 	on_add = {
+		log = "[Root.GetBestName] declared war on [From.GetBestName] using the CB autocratic_rebellion."
 		# Downgrade FROM's public order
-		FROM = {
-			any_demesne_title = { limit = { has_law = public_order_1 } }
-			add_law = public_order_0
-		}
+		#FROM = {
+		#	any_demesne_title = { limit = { has_law = public_order_1 } }
+		#	add_law = public_order_0
+		#}
 	}
 
 	on_fail = {
@@ -1177,8 +1194,6 @@ theocratic_rebellion = {
 	defender_can_call_allies = yes
 	can_ask_to_join_war = yes
 
-	on_add = { log = "[Root.GetBestName] declared war on [From.GetBestName] using the CB theocratic_rebellion." }
-
 	can_use = { ROOT = { has_character_flag = flag_revolter } }
 
 	is_valid = { ROOT = { has_character_flag = flag_revolter } }
@@ -1248,11 +1263,16 @@ theocratic_rebellion = {
 	}
 
 	on_add = {
+		log = "[Root.GetBestName] declared war on [From.GetBestName] using the CB theocratic_rebellion."
 		# Downgrade FROM's public order
-		FROM = {
-			any_demesne_title = { limit = { has_law = public_order_1 } }
-			add_law = public_order_0
-		}
+		#FROM = {
+		#	any_demesne_title = { limit = { has_law = public_order_1 } }
+		#	add_law = public_order_0
+		#}
+		#FROM = {
+		#	any_demesne_title = { limit = { has_law = public_order_2 } }
+		#	add_law = public_order_1
+		#}
 	}
 
 	on_fail = {
@@ -1307,7 +1327,7 @@ theocratic_rebellion = {
 							religion = neo_socialist
 							religion = orthodox
 							religion = machine_cultist
-							owner = { is_administrative = yes }
+							owner = { is_administrative_trigger = yes }
 						}
 					}
 					add_province_modifier = { name = "failed_revolt" days = 3650 }
@@ -1351,8 +1371,6 @@ cb_historical_independence_revolt = {
 	truce_days = 3650
 	hostile_against_others = no
 
-	on_add = { log = "[Root.GetBestName] declared war on [From.GetBestName] using the CB cb_historical_independence." }
-
 	can_use = {
 		ROOT = {
 			has_character_flag = flag_historical_independence_revolt_leader
@@ -1361,6 +1379,7 @@ cb_historical_independence_revolt = {
 	}
 
 	on_add = {
+		log = "[Root.GetBestName] declared war on [From.GetBestName] using the CB cb_historical_independence."
 		ROOT = { clr_character_flag = flag_historical_independence_revolt_leader }
 	}
 
@@ -1370,11 +1389,6 @@ cb_historical_independence_revolt = {
 				independent = yes
 				same_liege = FROM
 			}
-		}
-	}
-
-	is_valid = {
-		ROOT = {
 			OR = {
 				liege = { character = PREV } # either independent
 				liege = { FROM = { is_liege_or_above = PREV } } # or have shared liege
@@ -1433,36 +1447,36 @@ cb_historical_independence_revolt = {
 						tier = king
 						tier = emperor
 					}
-					NOT = { has_law = crisis_centralization_0 }
+					NOT = { has_law = centralization_0 }
 				}
 				if = {
-					limit = { has_law = crisis_centralization_1 }
-					add_law = crisis_centralization_0
+					limit = { has_law = centralization_1 }
+					add_law = centralization_0
 				}
 				if = {
-					limit = { has_law = crisis_centralization_2 }
-					add_law = crisis_centralization_1
+					limit = { has_law = centralization_2 }
+					add_law = centralization_1
 				}
 				if = {
-					limit = { has_law = crisis_centralization_3 }
-					add_law = crisis_centralization_2
+					limit = { has_law = centralization_3 }
+					add_law = centralization_2
 				}
 				if = {
-					limit = { has_law = crisis_centralization_4 }
-					add_law = crisis_centralization_3
+					limit = { has_law = centralization_4 }
+					add_law = centralization_3
 				}
 			}
 		}
 
 		# Eliminate the Infinite Money Property if present
-		hidden_tooltip = { any_attacker = { character_event = { id = maintenance.550 } } }
+		# hidden_tooltip = { any_attacker = { character_event = { id = maintenance.550 } } }
 	}
 
 	on_fail = {
 		hidden_tooltip = { ROOT = { clr_character_flag = flag_historical_independence_revolt_leader } }
 		ROOT = {
 			prestige = -50
-#			prisoner = FROM
+			#prisoner = FROM
 			add_character_modifier = {
 				name = faction_independence_ultimatum_timer
 				hidden = yes
@@ -1610,8 +1624,6 @@ county_conquest = {
 
 	allow_distant = yes
 
-	on_add = { log = "[Root.GetBestName] declared war on [From.GetBestName] using the CB county_conquest." }
-
 	can_use = {
 		ROOT = {
 			NOT = { same_realm = FROM }
@@ -1619,15 +1631,13 @@ county_conquest = {
 		}
 	}
 	can_use_gui = {
-		ROOT = { prestige = 100 }
-		OR = {
-			ROOT = {
-				OR = {
-					religion = terran_imperial
-					religion = astrist
-					religion = neo_feudal
-					religion_group = outlaw_group
-				}
+		ROOT = {
+			prestige = 100
+			OR = {
+				religion = terran_imperial
+				religion = astrist
+				religion = neo_feudal
+				religion_group = outlaw_group
 			}
 		}
 	}
@@ -1649,9 +1659,7 @@ county_conquest = {
 		}
 
 		OR = {
-			AND = {
-				ROOT = { religion_group = outlaw_group }
-			}
+			ROOT = { religion_group = outlaw_group }
 			location = {
 				any_neighbor_province = {
 					owner = {
@@ -1690,9 +1698,12 @@ county_conquest = {
 			}
 		}
 	}
+
 	on_add = {
-		OOT = { show_scope_change = no prestige = -100 }
-		}
+		ROOT = { show_scope_change = no prestige = -100 }
+		log = "[Root.GetBestName] declared war on [From.GetBestName] using the CB county_conquest."
+	}
+
 	on_success_title = {
 		log = "[Root.GetBestName] won the county_conquest war against [From.GetBestName]."
 		usurp_title_plus_barony_if_unlanded = ROOT
@@ -1814,10 +1825,6 @@ warlord_conquest = {
 
 	sort_priority = 1500
 
-	can_use_gui = {
-		check_if_crusader_trigger = yes
-	}
-
 	can_use = {
 		ROOT = {
 			#CB Specific Traits and things
@@ -1827,18 +1834,6 @@ warlord_conquest = {
 			}
 			NOT = { same_realm = FROM }
 		}
-	}
-
-	on_add = {
-		hidden_tooltip = { fire_haruspicy_event_effect = yes }
-		# CB:CHINA
-		# if = {
-		# 	limit = { defender = { is_offmap_governor = offmap_china } }
-		# 	attacker = {
-		# 		sound_effect = china_angered_emperor
-		# 		detract_grace_super_huge_effect = yes
-		# 	}
-		# }
 	}
 
 	can_use_gui = {
@@ -1876,15 +1871,11 @@ warlord_conquest = {
 							AND = {
 								is_land = no
 								any_neighbor_province = {
-									OR = {
-										AND = {
-											has_owner = yes
-											owner = {
-												OR = {
-													character = ROOT
-													is_liege_or_above = ROOT
-												}
-											}
+									has_owner = yes
+									owner = {
+										OR = {
+											character = ROOT
+											is_liege_or_above = ROOT
 										}
 									}
 								}
@@ -2107,10 +2098,10 @@ crisis_cb = {
 
 	on_add = {
 		ROOT = {
-			add_character_modifier = {
-				name = "indep_war"
-				duration = 100
-			}
+			#add_character_modifier = {
+			#	name = "indep_war"
+			#	duration = 100
+			#}
 		}
 		event_target:chronicle_player = {
 			if = {
@@ -2227,12 +2218,6 @@ crisis_cb = {
 					}
 				}
 				add_weak_pressed_claim = FROM
-			}
-			hidden_tooltip = {
-				add_character_modifier = {
-					name = "indep_faction_won"
-					duration = 20
-				}
 			}
 		}
 		hidden_tooltip = {
@@ -2353,12 +2338,6 @@ crisis_cb = {
 				}
 				add_weak_pressed_claim = FROM
 			}
-			hidden_tooltip = {
-				add_character_modifier = {
-					name = "indep_faction_won"
-					duration = 20
-				}
-			}
 		}
 		hidden_tooltip = {
 			ROOT = {
@@ -2429,8 +2408,6 @@ crisis_cb = {
 							}
 						}
 					}
-					remove_character_modifier = defeated_major_revolt
-					add_character_modifier = { name = defeated_major_revolt duration = 3650 }
 				}
 			}
 		}
@@ -2496,12 +2473,6 @@ crisis_cb = {
 					}
 				}
 				add_weak_pressed_claim = FROM
-			}
-			hidden_tooltip = {
-				add_character_modifier = {
-					name = "indep_faction_won"
-					duration = 20
-				}
 			}
 		}
 		hidden_tooltip = {

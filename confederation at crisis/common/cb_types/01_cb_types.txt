@@ -5,13 +5,13 @@
 ## title scopes ##
 # ROOT = receiver
 # FROM = giver
-# <no scope change> = thirdparty landed title	
+# <no scope change> = thirdparty landed title
 #
 # the following effects/triggers exists (example execution order: on_success->on_success_title->on_success_posttitle):
 # is_valid, is_valid_title, on_add, on_add_title, on_add_posttitle, on_success, on_success_title, on_success_posttitle, on_fail, on_fail_title, on_fail_posttitle, on_reverse_demand, on_reverse_demand_title, on_reverse_demand_posttitle
 #
 # Added on_attacker_leader_death, on_defender_leader_death and on_thirdparty_death, which all trigger when corresponding character dies
-# These three all have war scopes, which currently has the following scope changes: 
+# These three all have war scopes, which currently has the following scope changes:
 # attacker, defender, thirdparty(only valid if thirdparty character is involved), thirdparty_title(only valid if thirdparty title is involved)
 #
 # ai_will_do: modifies value AI places on the CB compared to other CBs (default: 1) Note: is in title scope
@@ -30,31 +30,31 @@ force_vassalization = { # New2
 	can_ask_to_join_war = yes
 	allowed_to_target_tributaries = no
 	defender_unoccupied_warscore = yes
-	
+
 	can_use_gui = {
 		ROOT = {
 			show_scope_change = no
 			conditional_tooltip = {
-				trigger = { 
+				trigger = {
 					FROM = { tier = COUNT }
 				}
 				prestige = 250
 			}
 			conditional_tooltip = {
-				trigger = { 
+				trigger = {
 					FROM = { tier = DUKE }
 				}
 				prestige = 1000
 			}
 			conditional_tooltip = {
-				trigger = { 
+				trigger = {
 					FROM = { tier = KING }
 				}
 				prestige = 2500
 			}
 		}
 	}
-	
+
 	can_use = {
 			OR = {
 			religion = terran_imperial
@@ -66,27 +66,27 @@ force_vassalization = { # New2
 			NOT = { ROOT = { has_global_flag = war_cooldown_period } }
 			ROOT = { had_global_flag = { flag = war_cooldown_period	 days = 25 } }
 		}
-		
+
 		ROOT = {
 			higher_tier_than = COUNT
 			NOT = { same_realm = FROM }
 			NOT = { #not same realm
-				any_demesne_title = { 
+				any_demesne_title = {
 					tier = PREV
 					FROM = {
-						any_demesne_title = { 
+						any_demesne_title = {
 							tier = PREV
 							check_variable = { which = "de_facto_empire" value = 1 }
 							check_variable = { which = "de_facto_empire" which = PREVPREV }
-						}	
-					}	
-				} 
+						}
+					}
+				}
 			}
 			NOT = { is_liege_or_above = FROM }
 			mercenary = no
 			is_nomadic = no
 		}
-		
+
 		FROM = {
 			lower_tier_than = ROOT
 			NOT = {
@@ -104,12 +104,12 @@ force_vassalization = { # New2
 			NOT = { primary_title = { ROOT = { any_demesne_title = { de_jure_vassal_or_below = PREVPREV } } } }
 			shares_realm_border_with = ROOT
 		}
-		OR = { #Cannot attack vassals split by mega war
-			NOT = { FROM = { has_opinion_modifier = { who = ROOT modifier = opinion_de_facto_liege } } }
+		#OR = { #Cannot attack vassals split by mega war
+			#NOT = { FROM = { has_opinion_modifier = { who = ROOT modifier = opinion_de_facto_liege } } }
 			NOT = { ROOT = { higher_tier_than = FROM } }
-		}
+		#}
 	}
-	
+
 	on_add = {
 		FROM = {
 			if = {
@@ -137,8 +137,8 @@ force_vassalization = { # New2
 				}
 			}
 		}
-		hidden_tooltip = { 
-			FROM = { 
+		hidden_tooltip = {
+			FROM = {
 				if = {
 					limit = {
 						OR = {
@@ -146,9 +146,9 @@ force_vassalization = { # New2
 							is_republic = yes
 						}
 					}
-					character_event = { id = diplomatic.3099 } #call for aid?
-				}	
-			} 
+					#character_event = { id = diplomatic.3099 } #call for aid?
+				}
+			}
 		}
 		event_target:chronicle_player = {
 			if = {
@@ -184,7 +184,7 @@ force_vassalization = { # New2
 			}
 		}
 	}
-	
+
 	is_valid = {
 		FROM = {
 			is_landed = yes
@@ -202,20 +202,20 @@ force_vassalization = { # New2
 			prestige = -100
 			hidden_tooltip = {
 				any_war = { #end all revolts
-					limit = { 
+					limit = {
 						defender = { character = ROOT_FROM }
-						attacker = { 
+						attacker = {
 							liege_before_war = { character = ROOT_FROM }
 							NOT = { character = ROOT }
-						} 
+						}
 					}
 					end_war = invalid
 				}
 			}
 			set_defacto_liege = ROOT
-		}	
+		}
 	}
-	
+
 	on_fail = {
 		FROM = {
 			participation_scaled_prestige = 50
@@ -246,7 +246,7 @@ force_vassalization = { # New2
 	attacker_ai_victory_worth = {
 		factor = -1 # always accept
 	}
-	
+
 	attacker_ai_defeat_worth = {
 		factor = 100
 	}
@@ -254,12 +254,12 @@ force_vassalization = { # New2
 	defender_ai_victory_worth = {
 		factor = -1 # always accept
 	}
-	
+
 	defender_ai_defeat_worth = {
 		factor = 100
 	}
-	
-	ai_will_do = { 
+
+	ai_will_do = {
 		factor = 1.25
 	}
 }
@@ -285,7 +285,7 @@ unjust_conquest = { # New7
 	allowed_to_target_tributaries = no
 	infamy_modifier = 0
 	defender_unoccupied_warscore = yes
-	
+
 	can_use_gui = {
 		ROOT = {
 			show_scope_change = no
@@ -296,10 +296,9 @@ unjust_conquest = { # New7
 			# }
 			is_incapable = no
 			NOT = { trait = content }
-			NOT = { trait = honorable }
-			NOT = { trait = elephant }
+			NOT = { trait = honest }
 			conditional_tooltip = {
-				trigger = { 
+				trigger = {
 					tier = COUNT
 					religion = FROM
 				}
@@ -307,7 +306,7 @@ unjust_conquest = { # New7
 				scaled_wealth = { value = 3.0 min = 50 }
 			}
 			conditional_tooltip = {
-				trigger = { 
+				trigger = {
 					tier = COUNT
 					religion_group = FROM
 					NOT = { religion = FROM }
@@ -316,7 +315,7 @@ unjust_conquest = { # New7
 				scaled_wealth = { value = 2.0 min = 50 }
 			}
 			conditional_tooltip = {
-				trigger = { 
+				trigger = {
 					tier = COUNT
 					NOT = { religion_group = FROM }
 				}
@@ -324,7 +323,7 @@ unjust_conquest = { # New7
 				scaled_wealth = { value = 1.0 min = 50 }
 			}
 			conditional_tooltip = {
-				trigger = { 
+				trigger = {
 					tier = DUKE
 					religion = FROM
 				}
@@ -332,7 +331,7 @@ unjust_conquest = { # New7
 				scaled_wealth = { value = 3.0 min = 100 }
 			}
 			conditional_tooltip = {
-				trigger = { 
+				trigger = {
 					tier = DUKE
 					religion_group = FROM
 					NOT = { religion = FROM }
@@ -341,7 +340,7 @@ unjust_conquest = { # New7
 				scaled_wealth = { value = 2.0 min = 100 }
 			}
 			conditional_tooltip = {
-				trigger = { 
+				trigger = {
 					tier = DUKE
 					NOT = { religion_group = FROM }
 				}
@@ -349,7 +348,7 @@ unjust_conquest = { # New7
 				scaled_wealth = { value = 1.0 min = 100 }
 			}
 			conditional_tooltip = {
-				trigger = { 
+				trigger = {
 					tier = KING
 					religion = FROM
 				}
@@ -357,7 +356,7 @@ unjust_conquest = { # New7
 				scaled_wealth = { value = 3.0 min = 200 }
 			}
 			conditional_tooltip = {
-				trigger = { 
+				trigger = {
 					tier = KING
 					religion_group = FROM
 					NOT = { religion = FROM }
@@ -366,7 +365,7 @@ unjust_conquest = { # New7
 				scaled_wealth = { value = 2.0 min = 200 }
 			}
 			conditional_tooltip = {
-				trigger = { 
+				trigger = {
 					tier = KING
 					NOT = { religion_group = FROM }
 				}
@@ -374,7 +373,7 @@ unjust_conquest = { # New7
 				scaled_wealth = { value = 1.0 min = 200 }
 			}
 			conditional_tooltip = {
-				trigger = { 
+				trigger = {
 					tier = EMPEROR
 					religion = FROM
 				}
@@ -382,7 +381,7 @@ unjust_conquest = { # New7
 				scaled_wealth = { value = 3.0 min = 400 }
 			}
 			conditional_tooltip = {
-				trigger = { 
+				trigger = {
 					tier = EMPEROR
 					religion_group = FROM
 					NOT = { religion = FROM }
@@ -391,7 +390,7 @@ unjust_conquest = { # New7
 				scaled_wealth = { value = 2.0 min = 400 }
 			}
 			conditional_tooltip = {
-				trigger = { 
+				trigger = {
 					tier = EMPEROR
 					NOT = { religion_group = FROM }
 				}
@@ -400,7 +399,7 @@ unjust_conquest = { # New7
 			}
 		}
 	}
-	
+
 	on_add_title = {
 		event_target:chronicle_player = {
 			if = {
@@ -436,9 +435,9 @@ unjust_conquest = { # New7
 			}
 		}
 	}
-	
+
 	on_add = {
-		hidden_tooltip = { FROM = { character_event = { id = diplomatic.3099 } } } #call for aid?		
+		#hidden_tooltip = { FROM = { character_event = { id = diplomatic.3099 } } } #call for aid?
 		ROOT = {
 			show_scope_change = no
 			if = {
@@ -466,7 +465,7 @@ unjust_conquest = { # New7
 				piety = -25
 				scaled_wealth = { value = -1.0 min = -100 }
 			}
-			
+
 			if = {
 				limit = {
 					tier = DUKE
@@ -492,7 +491,7 @@ unjust_conquest = { # New7
 				piety = -50
 				scaled_wealth = { value = -1.0 min = -100 }
 			}
-			
+
 			if = {
 				limit = {
 					tier = KING
@@ -518,7 +517,7 @@ unjust_conquest = { # New7
 				piety = -100
 				scaled_wealth = { value = -1.0 min = -100 }
 			}
-			
+
 			if = {
 				limit = {
 					tier = EMPEROR
@@ -544,7 +543,7 @@ unjust_conquest = { # New7
 				piety = -200
 				scaled_wealth = { value = -1.0 min = -100 }
 			}
-						
+
 			if = { # Opinion hit for same religion
 				limit = {
 					religion = FROM
@@ -673,7 +672,7 @@ unjust_conquest = { # New7
 			}
 		}
 	}
-	
+
 	can_use = {
 		ROOT = {
 			NOT = {
@@ -685,14 +684,13 @@ unjust_conquest = { # New7
 			NOT = { is_liege_or_above = FROM }
 			mercenary = no
 			NOT = { pacifist = yes }
-			#These characters have other methods of invading	
-			is_nomadic = no	
-			NOT = { trait = pirate }
+			#These characters have other methods of invading
+			is_nomadic = no
 		}
-		OR = {
-			NOT = { FROM = { has_opinion_modifier = { who = ROOT modifier = opinion_de_facto_liege } } }
+		#OR = {
+			#NOT = { FROM = { has_opinion_modifier = { who = ROOT modifier = opinion_de_facto_liege } } }
 			NOT = { ROOT = { higher_tier_than = FROM } }
-		}
+		#}
 	}
 
 	can_use_title = {
@@ -715,7 +713,7 @@ unjust_conquest = { # New7
 				is_liege_or_above = ROOT
 			}
 		}
-		
+
 		location = {
 			any_neighbor_province = {
 				owner = {
@@ -725,12 +723,6 @@ unjust_conquest = { # New7
 					}
 				}
 			}
-		}
-		OR = { #cant invade nomad domains
-			holder_scope = {
-				NOT = { is_nomadic = yes }
-			}
-			location = { NOT = { traditional_nomad_territory_trigger = yes } }
 		}
 	}
 
@@ -743,17 +735,17 @@ unjust_conquest = { # New7
 				is_liege_or_above = FROM
 			}
 		}
-		OR = { #Cannot attack vassals split by mega war
-			NOT = { FROM = { has_opinion_modifier = { who = ROOT modifier = opinion_de_facto_liege } } }
+		#OR = { #Cannot attack vassals split by mega war
+			#NOT = { FROM = { has_opinion_modifier = { who = ROOT modifier = opinion_de_facto_liege } } }
 			NOT = { ROOT = { higher_tier_than = FROM } }
-		}	
+		#}
 	}
 
 	on_success_title = {
 		hidden_tooltip = {
-			ROOT = { 
+			ROOT = {
 				add_character_modifier = { name = victory_timer duration = 3 }
-			} 
+			}
 		}
 		if = {
 			limit = {
@@ -798,9 +790,9 @@ unjust_conquest = { # New7
 				usurp_title_plus_barony_if_unlanded = { target = ROOT type = invasion }
 			}
 		}
-		
+
 		add_pressed_claim = FROM
-		
+
 		ROOT = {
 			participation_scaled_prestige = 100
 		}
@@ -840,11 +832,11 @@ unjust_conquest = { # New7
 			hidden_tooltip = { participation_scaled_prestige = 100 }
 		}
 	}
-	
+
 	attacker_ai_victory_worth = {
 		factor = -1 # always accept
 	}
-	
+
 	attacker_ai_defeat_worth = {
 		factor = 100
 	}
@@ -852,30 +844,18 @@ unjust_conquest = { # New7
 	defender_ai_victory_worth = {
 		factor = -1 # always accept
 	}
-	
+
 	defender_ai_defeat_worth = {
 		factor = 100
 	}
-	
-	ai_will_do = { 
+
+	ai_will_do = {
 		factor = 1
-		
+
 		modifier = {
 			factor = 0.7 # Prefer using CB's without on_add costs
 		}
 		#Dragon intimidation
-		modifier = {
-			factor = 0
-			ROOT = { 
-				NOT = { trait = dragon_rider } 
-				NOT = { relative_power = { who = FROM power = 6 } }	
-			}
-			FROM = { 
-				trait = dragon_rider 
-				any_friend = { trait = dragon martial = 60 }
-				is_incapable = no
-			}
-		}
 		modifier = {
 			factor = 0
 			ROOT = {
