@@ -1,0 +1,1536 @@
+# Demesne type (de facto) laws (set for the PRIMARY title in a demesne but affects the whole demesne)
+law_groups = {
+
+	pledge = {
+		law_type = realm
+		allowed_for_councillors = yes
+	}
+	local_term_length = {
+		law_type = realm
+		allowed_for_councillors = yes
+	}
+	police_budget = {
+		law_type = realm
+		allowed_for_councillors = yes
+	}
+	health_care_budget = {
+		law_type = realm
+		allowed_for_councillors = yes
+	}
+	education_budget = {
+		law_type = realm
+		allowed_for_councillors = yes
+	}
+}
+
+laws = {
+
+	pledge_off = {
+		group = pledge
+		#default = yes
+		potential = {
+			holder_scope = {
+				is_tribal = no
+				OR = {
+					independent = yes
+					in_revolt = yes
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			# modifier = {
+				# factor = 0
+				# NOT = {title = e_hre}
+				# holder_scope = {
+					# num_of_vassals = 10
+					# any_vassal = {
+						# higher_tier_than = BARON
+						# }
+					# }
+				# }
+
+		}
+
+		effect = {
+			hidden_tooltip = {
+				revoke_law = pledge_on
+			}
+			set_tribal_vassal_levy_control = yes
+		}
+	}
+
+	pledge_on = {
+		group = pledge
+		default = yes
+		feudal_opinion = 5
+		potential = {
+			holder_scope = {
+				higher_tier_than = COUNT
+				independent = yes
+				#is_tribal = no
+				in_revolt = no
+			}
+		}
+		#allow = {
+			#NOT = {has_law = imperial_administration}
+		#}
+		ai_will_do = {
+			factor = 0
+			# modifier = {
+				# factor = 0
+				# title = e_hre
+				# }
+			# modifier = {
+				# factor = 0
+				# NOT = {
+					# holder_scope = {
+						# num_of_vassals = 10
+						# any_vassal = {
+							# higher_tier_than = BARON
+							# }
+						# }
+					# }
+				# }
+		}
+
+		effect = {
+			hidden_tooltip = {
+				revoke_law = pledge_off
+			}
+			set_tribal_vassal_levy_control = no
+		}
+	}
+
+	# LOCAL TERM LENGTH
+	local_term_length_0 = { # Annual
+		show_as_title = yes
+		group = local_term_length
+
+		# Annual elections cause no end of headaches
+		vassal_opinion = -15
+
+		potential = {
+			NOT = { tier = emperor }
+			OR = {
+				has_crown_law_title = no
+				crownlaw_title = { NOT = { title = PREV } }
+			}
+			OR = {
+				has_law = succ_feudal_elective
+				#has_law = succ_open_elective_crisis
+				has_law = succ_patrician_elective
+			}
+			# These are a republican thing
+			holder_scope = {
+				OR = {
+					government = military_republic
+					government = corporate_republic
+					government = merchant_republic_government
+					government = administrative_republic
+				}
+			}
+		}
+		allow = {
+			# Prestige cost
+			OR = {
+				has_law = local_term_length_1
+				holder_scope = { prestige = 100 }
+			}
+			OR = {
+				has_law = local_term_length_1
+				has_law = local_term_length_2
+				holder_scope = { prestige = 200 }
+			}
+			OR = {
+				has_law = local_term_length_1
+				has_law = local_term_length_2
+				has_law = local_term_length_3
+				holder_scope = { prestige = 300 }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.1
+			}
+			modifier = {
+				factor = 0.1
+				NOT = { has_law = local_term_length_1 }
+			}
+			modifier = {
+				factor = 0.1
+				NOT = { has_law = local_term_length_1 }
+				NOT = { has_law = local_term_length_2 }
+			}
+			modifier = {
+				factor = 0.1
+				NOT = { has_law = local_term_length_1 }
+				NOT = { has_law = local_term_length_2 }
+				NOT = { has_law = local_term_length_3 }
+			}
+			# Annual elections are a terrible idea
+			modifier = {
+				factor = 0
+				NOT = {
+					holder_scope = {
+						OR = {
+							religion = terran_federalist
+							religion = terran_republican
+							religion = colonial_separatist
+							religion = neo_socialist
+						}
+						OR = {
+							trait = radical
+							trait = lunatic
+							trait = imbecile
+						}
+						OR = {
+							trait = content
+							trait = friendly
+							trait = open_minded
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				holder_scope = { trait = pragmatic }
+			}
+			modifier = {
+				factor = 0
+				holder_scope = { trait = cold }
+			}
+			modifier = {
+				factor = 0
+				holder_scope = { trait = ambitious }
+			}
+			modifier = {
+				factor = 0
+				holder_scope = { trait = close_minded }
+			}
+		}
+		pass_effect = {
+			if = {
+				limit = { has_law = local_term_length_2 }
+				holder_scope = { prestige = -100 }
+			}
+			if = {
+				limit = { has_law = local_term_length_3 }
+				holder_scope = { prestige = -200 }
+			}
+			if = {
+				limit = { has_law = local_term_length_4 }
+				holder_scope = { prestige = -300 }
+			}
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = local_term_length_1
+				revoke_law = local_term_length_2
+				revoke_law = local_term_length_3
+				revoke_law = local_term_length_4
+			}
+		}
+	}
+	local_term_length_1 = { # Every Four Years
+		show_as_title = yes
+		group = local_term_length
+
+		potential = {
+			NOT = { tier = emperor }
+			OR = {
+				has_crown_law_title = no
+				crownlaw_title = { NOT = { title = PREV } }
+			}
+			OR = {
+				has_law = succ_feudal_elective
+				#has_law = succ_open_elective_crisis
+				has_law = succ_patrician_elective
+			}
+			# These are a republican thing
+			holder_scope = {
+				OR = {
+					government = military_republic
+					government = corporate_republic
+					government = merchant_republic_government
+					government = administrative_republic
+				}
+			}
+		}
+		allow = {
+			# Prestige cost
+			OR = {
+				has_law = local_term_length_0
+				has_law = local_term_length_2
+				holder_scope = { prestige = 100 }
+			}
+			OR = {
+				has_law = local_term_length_0
+				has_law = local_term_length_2
+				has_law = local_term_length_3
+				holder_scope = { prestige = 200 }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			# Inertia
+			modifier = {
+				factor = 0.1
+			}
+			modifier = {
+				factor = 0.1
+				NOT = { has_law = local_term_length_0 }
+				NOT = { has_law = local_term_length_2 }
+			}
+			modifier = {
+				factor = 0.1
+				NOT = { has_law = local_term_length_0 }
+				NOT = { has_law = local_term_length_2 }
+				NOT = { has_law = local_term_length_3 }
+			}
+			# Ruler's personality
+			modifier = {
+				factor = 0.2
+				holder_scope = { trait = close_minded }
+			}
+			modifier = {
+				factor = 5
+				holder_scope = { trait = open_minded }
+			}
+			modifier = {
+				factor = 0.2
+				OR = {
+					has_law = local_term_length_2
+					has_law = local_term_length_3
+					has_law = local_term_length_4
+				}
+				holder_scope = { trait = ambitious }
+			}
+			modifier = {
+				factor = 5
+				has_law = local_term_length_0
+				holder_scope = { trait = ambitious }
+			}
+			modifier = {
+				factor = 0.2
+				has_law = local_term_length_0
+				holder_scope = { trait = content }
+			}
+			# Ruler's ideology
+			modifier = {
+				factor = 4
+				OR = {
+					has_law = local_term_length_2
+					has_law = local_term_length_3
+					has_law = local_term_length_4
+				}
+				holder_scope = {
+					OR = {
+						religion = terran_federalist
+						religion = terran_republican
+						religion = colonial_separatist
+						religion = neo_socialist
+					}
+				}
+			}
+			modifier = {
+				factor = 4
+				OR = {
+					has_law = local_term_length_2
+					has_law = local_term_length_3
+					has_law = local_term_length_4
+				}
+				holder_scope = {
+					OR = {
+						religion = terran_federalist
+						religion = terran_republican
+						religion = colonial_separatist
+						religion = neo_socialist
+					}
+					NOT = { trait = pragmatic }
+				}
+			}
+			modifier = {
+				factor = 4
+				OR = {
+					has_law = local_term_length_2
+					has_law = local_term_length_3
+					has_law = local_term_length_4
+				}
+				holder_scope = {
+					OR = {
+						religion = terran_federalist
+						religion = terran_republican
+						religion = colonial_separatist
+						religion = neo_socialist
+					}
+					trait = radical
+				}
+			}
+			modifier = {
+				factor = 0.25
+				OR = {
+					has_law = local_term_length_2
+					has_law = local_term_length_3
+					has_law = local_term_length_4
+				}
+				holder_scope = {
+					OR = {
+						religion = terran_imperial
+						religion = imperial_cult
+						religion = neo_feudal
+						religion = astrist
+						religion = space_pirate
+					}
+				}
+			}
+			modifier = {
+				factor = 0.25
+				OR = {
+					has_law = local_term_length_2
+					has_law = local_term_length_3
+					has_law = local_term_length_4
+				}
+				holder_scope = {
+					OR = {
+						religion = terran_imperial
+						religion = imperial_cult
+						religion = neo_feudal
+						religion = astrist
+						religion = space_pirate
+					}
+					NOT = { trait = pragmatic }
+				}
+			}
+			modifier = {
+				factor = 0.25
+				OR = {
+					has_law = local_term_length_2
+					has_law = local_term_length_3
+					has_law = local_term_length_4
+				}
+				holder_scope = {
+					OR = {
+						religion = terran_imperial
+						religion = imperial_cult
+						religion = neo_feudal
+						religion = astrist
+						religion = space_pirate
+					}
+					trait = radical
+				}
+			}
+		}
+		pass_effect = {
+			if = {
+				limit = { has_law = local_term_length_3 }
+				holder_scope = { prestige = -100 }
+			}
+			if = {
+				limit = { has_law = local_term_length_4 }
+				holder_scope = { prestige = -200 }
+			}
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = local_term_length_0
+				revoke_law = local_term_length_2
+				revoke_law = local_term_length_3
+				revoke_law = local_term_length_4
+			}
+		}
+	}
+	local_term_length_2 = { # Every Six Years
+		show_as_title = yes
+		group = local_term_length
+
+		potential = {
+			NOT = { tier = emperor }
+			OR = {
+				has_crown_law_title = no
+				crownlaw_title = { NOT = { title = PREV } }
+			}
+			OR = {
+				has_law = succ_feudal_elective
+				#has_law = succ_open_elective_crisis
+				has_law = succ_patrician_elective
+			}
+			# These are a republican thing
+			holder_scope = {
+				OR = {
+					government = military_republic
+					government = corporate_republic
+					government = merchant_republic_government
+					government = administrative_republic
+				}
+			}
+		}
+		allow = {
+			# Prestige cost
+			OR = {
+				has_law = local_term_length_1
+				has_law = local_term_length_3
+				holder_scope = { prestige = 100 }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			# Inertia
+			modifier = {
+				factor = 0.1
+			}
+			modifier = {
+				factor = 0.1
+				NOT = { has_law = local_term_length_1 }
+				NOT = { has_law = local_term_length_3 }
+			}
+			# Ruler's personality
+			modifier = {
+				factor = 0.2
+				holder_scope = { trait = close_minded }
+			}
+			modifier = {
+				factor = 5
+				holder_scope = { trait = open_minded }
+			}
+			modifier = {
+				factor = 0.2
+				OR = {
+					has_law = local_term_length_3
+					has_law = local_term_length_4
+				}
+				holder_scope = { trait = ambitious }
+			}
+			modifier = {
+				factor = 5
+				has_law = local_term_length_0
+				holder_scope = { trait = ambitious }
+			}
+			modifier = {
+				factor = 0.2
+				has_law = local_term_length_0
+				holder_scope = { trait = content }
+			}
+			# Ruler's ideology
+			modifier = {
+				factor = 4
+				OR = {
+					has_law = local_term_length_3
+					has_law = local_term_length_4
+				}
+				holder_scope = {
+					OR = {
+						religion = terran_federalist
+						religion = terran_republican
+						religion = colonial_separatist
+						religion = neo_socialist
+					}
+				}
+			}
+			modifier = {
+				factor = 4
+				OR = {
+					has_law = local_term_length_3
+					has_law = local_term_length_4
+				}
+				holder_scope = {
+					OR = {
+						religion = terran_federalist
+						religion = terran_republican
+						religion = colonial_separatist
+						religion = neo_socialist
+					}
+					NOT = { trait = pragmatic }
+				}
+			}
+			modifier = {
+				factor = 4
+				OR = {
+					has_law = local_term_length_3
+					has_law = local_term_length_4
+				}
+				holder_scope = {
+					OR = {
+						religion = terran_federalist
+						religion = terran_republican
+						religion = colonial_separatist
+						religion = neo_socialist
+					}
+					trait = radical
+				}
+			}
+			modifier = {
+				factor = 0.25
+				OR = {
+					has_law = local_term_length_0
+					has_law = local_term_length_1
+				}
+				holder_scope = {
+					OR = {
+						religion = terran_federalist
+						religion = terran_republican
+						religion = colonial_separatist
+						religion = neo_socialist
+					}
+				}
+			}
+			modifier = {
+				factor = 0.25
+				OR = {
+					has_law = local_term_length_0
+					has_law = local_term_length_1
+				}
+				holder_scope = {
+					OR = {
+						religion = terran_federalist
+						religion = terran_republican
+						religion = colonial_separatist
+						religion = neo_socialist
+					}
+					NOT = { trait = pragmatic }
+				}
+			}
+			modifier = {
+				factor = 0.25
+				OR = {
+					has_law = local_term_length_0
+					has_law = local_term_length_1
+				}
+				holder_scope = {
+					OR = {
+						religion = terran_federalist
+						religion = terran_republican
+						religion = colonial_separatist
+						religion = neo_socialist
+					}
+					trait = radical
+				}
+			}
+			modifier = {
+				factor = 0.25
+				OR = {
+					has_law = local_term_length_3
+					has_law = local_term_length_4
+				}
+				holder_scope = {
+					OR = {
+						religion = terran_imperial
+						religion = imperial_cult
+						religion = neo_feudal
+						religion = astrist
+						religion = space_pirate
+					}
+				}
+			}
+			modifier = {
+				factor = 0.25
+				OR = {
+					has_law = local_term_length_3
+					has_law = local_term_length_4
+				}
+				holder_scope = {
+					OR = {
+						religion = terran_imperial
+						religion = imperial_cult
+						religion = neo_feudal
+						religion = astrist
+						religion = space_pirate
+					}
+					NOT = { trait = pragmatic }
+				}
+			}
+			modifier = {
+				factor = 0.25
+				OR = {
+					has_law = local_term_length_3
+					has_law = local_term_length_4
+				}
+				holder_scope = {
+					OR = {
+						religion = terran_imperial
+						religion = imperial_cult
+						religion = neo_feudal
+						religion = astrist
+						religion = space_pirate
+					}
+					trait = radical
+				}
+			}
+			modifier = {
+				factor = 4
+				OR = {
+					has_law = local_term_length_0
+					has_law = local_term_length_1
+				}
+				holder_scope = {
+					OR = {
+						religion = terran_imperial
+						religion = imperial_cult
+						religion = neo_feudal
+						religion = astrist
+						religion = space_pirate
+					}
+				}
+			}
+			modifier = {
+				factor = 4
+				OR = {
+					has_law = local_term_length_0
+					has_law = local_term_length_1
+				}
+				holder_scope = {
+					OR = {
+						religion = terran_imperial
+						religion = imperial_cult
+						religion = neo_feudal
+						religion = astrist
+						religion = space_pirate
+					}
+					NOT = { trait = pragmatic }
+				}
+			}
+			modifier = {
+				factor = 4
+				OR = {
+					has_law = local_term_length_0
+					has_law = local_term_length_1
+				}
+				holder_scope = {
+					OR = {
+						religion = terran_imperial
+						religion = imperial_cult
+						religion = neo_feudal
+						religion = astrist
+						religion = space_pirate
+					}
+					trait = radical
+				}
+			}
+		}
+		pass_effect = {
+			if = {
+				limit = {
+					OR = {
+						has_law = local_term_length_0
+						has_law = local_term_length_4
+					}
+				}
+				holder_scope = { prestige = -100 }
+			}
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = local_term_length_0
+				revoke_law = local_term_length_1
+				revoke_law = local_term_length_3
+				revoke_law = local_term_length_4
+			}
+		}
+	}
+	local_term_length_3 = { # Every Ten Years
+		show_as_title = yes
+		group = local_term_length
+
+		potential = {
+			NOT = { tier = emperor }
+			OR = {
+				has_crown_law_title = no
+				crownlaw_title = { NOT = { title = PREV } }
+			}
+			OR = {
+				has_law = succ_feudal_elective
+				#has_law = succ_open_elective_crisis
+				has_law = succ_patrician_elective
+			}
+			# These are a republican thing
+			holder_scope = {
+				OR = {
+					government = military_republic
+					government = corporate_republic
+					government = merchant_republic_government
+					government = administrative_republic
+				}
+			}
+		}
+		allow = {
+			# Prestige cost
+			OR = {
+				has_law = local_term_length_2
+				has_law = local_term_length_4
+				holder_scope = { prestige = 100 }
+			}
+			OR = {
+				has_law = local_term_length_1
+				has_law = local_term_length_2
+				has_law = local_term_length_4
+				holder_scope = { prestige = 200 }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			# Inertia
+			modifier = {
+				factor = 0.1
+			}
+			modifier = {
+				factor = 0.1
+				NOT = { has_law = local_term_length_2 }
+				NOT = { has_law = local_term_length_4 }
+			}
+			modifier = {
+				factor = 0.1
+				NOT = { has_law = local_term_length_1 }
+				NOT = { has_law = local_term_length_2 }
+				NOT = { has_law = local_term_length_4 }
+			}
+			# Ruler's personality
+			modifier = {
+				factor = 0.2
+				holder_scope = { trait = close_minded }
+			}
+			modifier = {
+				factor = 5
+				holder_scope = { trait = open_minded }
+			}
+			modifier = {
+				factor = 0.2
+				has_law = local_term_length_4
+				holder_scope = { trait = ambitious }
+			}
+			modifier = {
+				factor = 5
+				OR = {
+					has_law = local_term_length_0
+					has_law = local_term_length_1
+					has_law = local_term_length_2
+				}
+				holder_scope = { trait = ambitious }
+			}
+			modifier = {
+				factor = 0.2
+				OR = {
+					has_law = local_term_length_0
+					has_law = local_term_length_1
+					has_law = local_term_length_2
+				}
+				holder_scope = { trait = content }
+			}
+			# Ruler's ideology
+			modifier = {
+				factor = 0.25
+				OR = {
+					has_law = local_term_length_0
+					has_law = local_term_length_1
+					has_law = local_term_length_2
+				}
+				holder_scope = {
+					OR = {
+						religion = terran_federalist
+						religion = terran_republican
+						religion = colonial_separatist
+						religion = neo_socialist
+					}
+				}
+			}
+			modifier = {
+				factor = 0.25
+				OR = {
+					has_law = local_term_length_0
+					has_law = local_term_length_1
+					has_law = local_term_length_2
+				}
+				holder_scope = {
+					OR = {
+						religion = terran_federalist
+						religion = terran_republican
+						religion = colonial_separatist
+						religion = neo_socialist
+					}
+					NOT = { trait = pragmatic }
+				}
+			}
+			modifier = {
+				factor = 0.25
+				OR = {
+					has_law = local_term_length_0
+					has_law = local_term_length_1
+					has_law = local_term_length_2
+				}
+				holder_scope = {
+					OR = {
+						religion = terran_federalist
+						religion = terran_republican
+						religion = colonial_separatist
+						religion = neo_socialist
+					}
+					trait = radical
+				}
+			}
+			modifier = {
+				factor = 4
+				OR = {
+					has_law = local_term_length_0
+					has_law = local_term_length_1
+					has_law = local_term_length_2
+				}
+				holder_scope = {
+					OR = {
+						religion = terran_imperial
+						religion = imperial_cult
+						religion = neo_feudal
+						religion = astrist
+						religion = space_pirate
+					}
+				}
+			}
+			modifier = {
+				factor = 4
+				OR = {
+					has_law = local_term_length_0
+					has_law = local_term_length_1
+					has_law = local_term_length_2
+				}
+				holder_scope = {
+					OR = {
+						religion = terran_imperial
+						religion = imperial_cult
+						religion = neo_feudal
+						religion = astrist
+						religion = space_pirate
+					}
+					NOT = { trait = pragmatic }
+				}
+			}
+			modifier = {
+				factor = 4
+				OR = {
+					has_law = local_term_length_0
+					has_law = local_term_length_1
+					has_law = local_term_length_2
+				}
+				holder_scope = {
+					OR = {
+						religion = terran_imperial
+						religion = imperial_cult
+						religion = neo_feudal
+						religion = astrist
+						religion = space_pirate
+					}
+					trait = radical
+				}
+			}
+		}
+		pass_effect = {
+			if = {
+				limit = { has_law = local_term_length_1 }
+				holder_scope = { prestige = -100 }
+			}
+			if = {
+				limit = { has_law = local_term_length_0 }
+				holder_scope = { prestige = -200 }
+			}
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = local_term_length_0
+				revoke_law = local_term_length_1
+				revoke_law = local_term_length_2
+				revoke_law = local_term_length_4
+			}
+		}
+	}
+	local_term_length_4 = { # No Elections
+		show_as_title = yes
+		group = local_term_length
+		default = yes
+
+		potential = {
+			NOT = { tier = emperor }
+			OR = {
+				has_crown_law_title = no
+				crownlaw_title = { NOT = { title = PREV } }
+			}
+			OR = {
+				has_law = succ_feudal_elective
+				#has_law = succ_open_elective_crisis
+				has_law = succ_patrician_elective
+			}
+			# These are a republican thing
+			holder_scope = {
+				OR = {
+					government = military_republic
+					government = corporate_republic
+					government = merchant_republic_government
+					government = administrative_republic
+				}
+			}
+		}
+		allow = {
+			# Prestige cost
+			OR = {
+				has_law = local_term_length_3
+				holder_scope = { prestige = 100 }
+			}
+			OR = {
+				has_law = local_term_length_2
+				has_law = local_term_length_3
+				holder_scope = { prestige = 200 }
+			}
+			OR = {
+				has_law = local_term_length_1
+				has_law = local_term_length_2
+				has_law = local_term_length_3
+				holder_scope = { prestige = 300 }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			# Inertia
+			modifier = {
+				factor = 0.1
+			}
+			modifier = {
+				factor = 0.1
+				NOT = { has_law = local_term_length_3 }
+			}
+			modifier = {
+				factor = 0.1
+				NOT = { has_law = local_term_length_2 }
+				NOT = { has_law = local_term_length_3 }
+			}
+			modifier = {
+				factor = 0.1
+				NOT = { has_law = local_term_length_1 }
+				NOT = { has_law = local_term_length_2 }
+				NOT = { has_law = local_term_length_3 }
+			}
+			modifier = {
+				factor = 5
+				holder_scope = { trait = ambitious }
+			}
+			# Need a positive reason to do this
+			modifier = {
+				factor = 0
+				NOT = {
+					holder_scope = {
+						OR = {
+							trait = ambitious
+							religion = terran_imperial
+							religion = imperial_cult
+							religion = neo_feudal
+							religion = astrist
+							religion = space_pirate
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				holder_scope = {
+					OR = {
+						religion = terran_federalist
+						religion = terran_republican
+						religion = colonial_separatist
+						religion = neo_socialist
+					}
+					NOT = { trait = pragmatic }
+				}
+			}
+			modifier = {
+				factor = 0
+				holder_scope = { trait = content }
+			}
+			modifier = {
+				factor = 0
+				holder_scope = { trait = close_minded }
+			}
+		}
+		pass_effect = {
+			if = {
+				limit = { has_law = local_term_length_2 }
+				holder_scope = { prestige = -100 }
+			}
+			if = {
+				limit = { has_law = local_term_length_1 }
+				holder_scope = { prestige = -200 }
+			}
+			if = {
+				limit = { has_law = local_term_length_0 }
+				holder_scope = { prestige = -300 }
+			}
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = local_term_length_0
+				revoke_law = local_term_length_1
+				revoke_law = local_term_length_2
+				revoke_law = local_term_length_3
+			}
+		}
+	}
+
+
+	# Budget - Law Enforcement
+	police_budget_0 = {
+		group = police_budget
+		feudal_opinion = -10
+		city_opinion = -10
+		temple_opinion = -10
+
+		potential = { holder_scope = { any_demesne_province = { owner = { character = PREVPREV } } } }
+		allow = {
+			always = yes
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.1
+			}
+			modifier = {
+				factor = 0
+				holder_scope = { any_demesne_province = { revolt_risk = 0.1 } }
+			}
+			modifier = {
+				factor = 0
+				holder_scope = { monthly_income = 0 }
+			}
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = police_budget_1
+				revoke_law = police_budget_2
+				revoke_law = police_budget_3
+			}
+		}
+	}
+	police_budget_1 = {
+		group = police_budget
+		default = yes
+
+		potential = { holder_scope = { any_demesne_province = { owner = { character = PREVPREV } } } }
+		allow = {
+			OR = {
+				has_law = police_budget_2
+				has_law = police_budget_3
+				holder_scope = { monthly_income = 0 }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.1
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_law = police_budget_2
+					has_law = police_budget_3
+				}
+				holder_scope = { any_demesne_province = { revolt_risk = 0.1 } }
+			}
+			modifier = {
+				factor = 0
+				has_law = police_budget_0
+				holder_scope = { NOT = { monthly_income = 0 } }
+			}
+			modifier = {
+				factor = 0
+				holder_scope = {
+					OR = {
+						religion = terran_imperial
+						religion = astrist
+						trait = cold
+						AND = {
+							trait = radical
+							any_demesne_province = { NOT = { religion = ROOT } }
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = police_budget_0
+				revoke_law = police_budget_1
+				revoke_law = police_budget_2
+			}
+		}
+	}
+	police_budget_2 = {
+		group = police_budget
+
+		potential = { holder_scope = { any_demesne_province = { owner = { character = PREVPREV } } } }
+		allow = {
+			OR = {
+				has_law = police_budget_3
+				holder_scope = { monthly_income = 0 }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.1
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_law = police_budget_2
+					has_law = police_budget_3
+				}
+				holder_scope = { any_demesne_province = { revolt_risk = 0.1 } }
+			}
+			modifier = {
+				factor = 0
+				has_law = police_budget_0
+				holder_scope = { NOT = { monthly_income = 0 } }
+			}
+			modifier = {
+				factor = 0
+				holder_scope = {
+					NOT = { religion = terran_imperial }
+					NOT = { religion = astrist }
+					NOT = { trait = cold }
+					NOT = {
+						AND = {
+							trait = radical
+							any_demesne_province = { NOT = { religion = ROOT } }
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = police_budget_0
+				revoke_law = police_budget_1
+				revoke_law = police_budget_3
+			}
+		}
+	}
+	police_budget_3 = {
+		group = police_budget
+
+		potential = { holder_scope = { any_demesne_province = { owner = { character = PREVPREV } } } }
+		allow = {
+			holder_scope = { monthly_income = 0 }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				holder_scope = { NOT = { any_demesne_province = { revolt_risk = 0.1 } } }
+			}
+			modifier = {
+				factor = 0.1
+				holder_scope = { NOT = { any_demesne_province = { revolt_risk = 0.25 } } }
+			}
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = police_budget_0
+				revoke_law = police_budget_1
+				revoke_law = police_budget_2
+			}
+		}
+	}
+
+	# Budget - Health Care
+	health_care_budget_0 = {
+		group = health_care_budget
+
+		potential = { holder_scope = { any_demesne_province = { owner = { character = PREVPREV } } } }
+		allow = {
+			always = yes
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.1
+			}
+			modifier = {
+				factor = 0
+				holder_scope = {
+					#any_demesne_province = { has_disease = yes }
+					NOT = { religion = space_pirate }
+				}
+			}
+			modifier = {
+				factor = 0
+				holder_scope = {
+					monthly_income = 0
+					NOT = { religion = space_pirate }
+				}
+			}
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = health_care_budget_1
+				revoke_law = health_care_budget_2
+				revoke_law = health_care_budget_3
+			}
+		}
+	}
+	health_care_budget_1 = {
+		group = health_care_budget
+		default = yes
+
+		potential = { holder_scope = { any_demesne_province = { owner = { character = PREVPREV } } } }
+		allow = {
+			OR = {
+				has_law = health_care_budget_2
+				has_law = health_care_budget_3
+				holder_scope = { monthly_income = 0 }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.1
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_law = health_care_budget_2
+					has_law = health_care_budget_3
+				}
+				holder_scope = {
+					#any_demesne_province = { has_disease = yes }
+					NOT = { religion = space_pirate }
+				}
+			}
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = health_care_budget_0
+				revoke_law = health_care_budget_1
+				revoke_law = health_care_budget_2
+			}
+		}
+	}
+	health_care_budget_2 = {
+		group = health_care_budget
+
+		potential = { holder_scope = { any_demesne_province = { owner = { character = PREVPREV } } } }
+		allow = {
+			OR = {
+				has_law = health_care_budget_3
+				holder_scope = { monthly_income = 0 }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.1
+			}
+			modifier = {
+				factor = 0
+				has_law = health_care_budget_3
+				holder_scope = {
+					#any_demesne_province = { has_disease = yes }
+					NOT = { religion = space_pirate }
+				}
+			}
+			modifier = {
+				factor = 0.11
+				#holder_scope = { NOT = { any_demesne_province = { has_disease = yes } } }
+			}
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = health_care_budget_0
+				revoke_law = health_care_budget_1
+				revoke_law = health_care_budget_3
+			}
+		}
+	}
+	health_care_budget_3 = {
+		group = health_care_budget
+
+		potential = { holder_scope = { any_demesne_province = { owner = { character = PREVPREV } } } }
+		allow = {
+			holder_scope = { monthly_income = 0 }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				#holder_scope = { NOT = { any_demesne_province = { has_disease = yes } } }
+			}
+			modifier = {
+				factor = 0.1
+				holder_scope = {
+					NOT = { trait = friendly }
+					#has_disease = no
+					#NOT = { any_courtier = { has_disease = yes } }
+				}
+			}
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = health_care_budget_0
+				revoke_law = health_care_budget_1
+				revoke_law = health_care_budget_2
+			}
+		}
+	}
+	# Budget - Education
+	education_budget_0 = {
+		group = education_budget
+
+		potential = { holder_scope = { any_demesne_province = { owner = { character = PREVPREV } } } }
+		allow = {
+			always = yes
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.1
+			}
+			modifier = {
+				factor = 0
+				holder_scope = {
+					OR = {
+						any_current_enemy = { capital_scope = { has_higher_tech_than = PREVPREV } }
+						religion_group = transhumanist_group
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				holder_scope = {
+					monthly_income = 0
+					NOT = { religion = space_pirate }
+				}
+			}
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = education_budget_1
+				revoke_law = education_budget_2
+				revoke_law = education_budget_3
+			}
+		}
+	}
+	education_budget_1 = {
+		group = education_budget
+		default = yes
+
+		potential = { holder_scope = { any_demesne_province = { owner = { character = PREVPREV } } } }
+		allow = {
+			OR = {
+				has_law = education_budget_2
+				has_law = education_budget_3
+				holder_scope = { monthly_income = 0 }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.1
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_law = education_budget_2
+					has_law = education_budget_3
+				}
+				holder_scope = {
+					monthly_income = 1
+					NOT = { religion = space_pirate }
+				}
+			}
+			modifier = {
+				factor = 0.1
+				OR = {
+					has_law = education_budget_2
+					has_law = education_budget_3
+				}
+				holder_scope = {
+					OR = {
+						any_current_enemy = { capital_scope = { has_higher_tech_than = PREVPREV } }
+						religion_group = transhumanist_group
+					}
+				}
+			}
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = education_budget_0
+				revoke_law = education_budget_1
+				revoke_law = education_budget_2
+			}
+		}
+	}
+	education_budget_2 = {
+		group = education_budget
+
+		potential = { holder_scope = { any_demesne_province = { owner = { character = PREVPREV } } } }
+		allow = {
+			OR = {
+				has_law = education_budget_3
+				holder_scope = { monthly_income = 0 }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.1
+			}
+			modifier = {
+				factor = 0
+				has_law = education_budget_3
+				holder_scope = {
+					monthly_income = 2
+					NOT = { religion = space_pirate }
+				}
+			}
+			modifier = {
+				factor = 0.1
+				has_law = education_budget_3
+				holder_scope = {
+					OR = {
+						any_current_enemy = { capital_scope = { has_higher_tech_than = PREVPREV } }
+						religion_group = transhumanist_group
+					}
+				}
+			}
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = education_budget_0
+				revoke_law = education_budget_1
+				revoke_law = education_budget_3
+			}
+		}
+	}
+	education_budget_3 = {
+		group = education_budget
+
+		potential = { holder_scope = { any_demesne_province = { owner = { character = PREVPREV } } } }
+		allow = {
+			holder_scope = { monthly_income = 0 }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { holder_scope = { religion_group = transhumanist_group } }
+				NOT = { holder_scope = { any_current_enemy = { capital_scope = { has_higher_tech_than = PREVPREV } } } }
+			}
+			modifier = {
+				factor = 0.1
+				NOT = { holder_scope = { monthly_income = 2 } }
+				NOT = { holder_scope = { religion_group = transhumanist_group } }
+			}
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = education_budget_0
+				revoke_law = education_budget_1
+				revoke_law = education_budget_2
+			}
+		}
+	}
+
+}

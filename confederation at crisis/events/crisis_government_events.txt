@@ -1,0 +1,2360 @@
+namespace = government
+
+# You have an illegal legitimacy type and must change it
+# Military Monarchy
+character_event = {
+    id = government.001
+    desc = "EVTDESCGOVERNMENT100"
+    picture = GFX_evt_government
+    is_triggered_only = yes
+
+
+    option = {
+        set_government_type = military_monarchy
+    }
+}
+character_event = {
+    id = government.002
+    desc = "EVTDESCGOVERNMENT100"
+    picture = GFX_evt_government
+    is_triggered_only = yes
+
+
+    option = {
+        set_government_type = corporate_monarchy
+    }
+}
+character_event = {
+    id = government.003
+    desc = "EVTDESCGOVERNMENT100"
+    picture = GFX_evt_government
+    is_triggered_only = yes
+
+
+    option = {
+        set_government_type = administrative_monarchy
+    }
+}
+character_event = {
+    id = government.004
+    desc = "EVTDESCGOVERNMENT100"
+    picture = GFX_evt_government
+    is_triggered_only = yes
+
+
+    option = {
+        set_government_type = military_republic
+    }
+}
+character_event = {
+    id = government.005
+    desc = "EVTDESCGOVERNMENT100"
+    picture = GFX_evt_government
+    is_triggered_only = yes
+
+
+    option = {
+        set_government_type = corporate_republic
+    }
+}
+character_event = {
+    id = government.006
+    desc = "EVTDESCGOVERNMENT100"
+    picture = GFX_evt_government
+    is_triggered_only = yes
+
+
+    option = {
+        set_government_type = administrative_republic
+    }
+}
+character_event = {
+    id = government.007
+    desc = "EVTDESCGOVERNMENT100"
+    picture = GFX_evt_government
+    is_triggered_only = yes
+
+
+    option = {
+        set_government_type = military_directorate
+    }
+}
+character_event = {
+    id = government.008
+    desc = "EVTDESCGOVERNMENT100"
+    picture = GFX_evt_government
+    is_triggered_only = yes
+
+
+    option = {
+        set_government_type = corporate_directorate
+    }
+}
+character_event = {
+    id = government.009
+    desc = "EVTDESCGOVERNMENT100"
+    picture = GFX_evt_government
+    is_triggered_only = yes
+
+
+    option = {
+        set_government_type = administrative_directorate
+    }
+}
+character_event = {
+    id = government.100
+    desc = "EVTDESCGOVERNMENT100"
+    picture = GFX_evt_government
+
+    only_rulers = yes
+
+    trigger = {
+        independent = no
+        is_landed = yes
+        is_government_potential = military_monarchy
+        OR = {
+            government = military_republic
+            government = military_directorate
+        }
+
+        # Some legitimacy law applies to you
+        has_crown_law_title = yes
+        crownlaw_title = {
+            has_law = military_vassal_legitimacy_0
+            has_law = dote_autonomy_0
+            OR = {
+                has_law = centralization_4
+                AND = {
+                    has_law = centralization_3
+                    holder_scope = { any_vassal = { character = ROOT } }
+                }
+                AND = {
+                    has_law = centralization_2
+                    holder_scope = { any_vassal = { character = ROOT } }
+                    ROOT = { NOT = { higher_tier_than = duke } }
+                }
+                AND = {
+                    holder_scope = {
+                        tier = emperor
+                        any_vassal = { character = ROOT }
+                    }
+                    ROOT = { NOT = { higher_tier_than = duke } }
+                }
+                AND = {
+                    holder_scope = { any_vassal = { character = ROOT } }
+                    ROOT = { NOT = { higher_tier_than = count } }
+                }
+            }
+        }
+    }
+    option = {
+        name = "EVTOPTCONFIRM"
+        set_government_type = military_monarchy
+        any_demesne_title = {
+            limit = {
+                NOT = { has_law = succ_primogeniture }
+                NOT = { has_law = succ_ultimogeniture }
+                NOT = { has_law = succ_seniority }
+                NOT = { has_law = succ_gavelkind }
+                NOT = { has_law = succ_tanistry }
+                NOT = { has_law = succ_feudal_elective }
+            }
+            add_law = succ_gavelkind
+        }
+        any_demesne_title = {
+            limit = { NOT = { has_law = true_cognatic_succession } }
+            add_law = true_cognatic_succession
+        }
+    }
+}
+# Military Republic
+character_event = {
+    id = government.200
+    desc = "EVTDESCGOVERNMENT200"
+    picture = GFX_evt_government
+
+    only_rulers = yes
+
+    trigger = {
+        independent = no
+        is_landed = yes
+        is_government_potential = military_republic
+        OR = {
+            government = military_monarchy
+            government = military_directorate
+        }
+
+        # Some legitimacy law applies to you
+        has_crown_law_title = yes
+        crownlaw_title = {
+            has_law = military_vassal_legitimacy_1
+            has_law = dote_autonomy_0
+            OR = {
+                has_law = centralization_4
+                AND = {
+                    has_law = centralization_3
+                    holder_scope = { any_vassal = { character = ROOT } }
+                }
+                AND = {
+                    has_law = centralization_2
+                    holder_scope = { any_vassal = { character = ROOT } }
+                    ROOT = { NOT = { higher_tier_than = duke } }
+                }
+                AND = {
+                    holder_scope = {
+                        tier = emperor
+                        any_vassal = { character = ROOT }
+                    }
+                    ROOT = { NOT = { higher_tier_than = duke } }
+                }
+                AND = {
+                    holder_scope = { any_vassal = { character = ROOT } }
+                    ROOT = { NOT = { higher_tier_than = count } }
+                }
+            }
+        }
+    }
+    option = {
+        name = "EVTOPTCONFIRM"
+        set_government_type = military_republic
+        if = {
+            limit = { tier = baron }
+            any_demesne_title = {
+                limit = {
+                    NOT = { has_law = succ_feudal_elective }
+                    NOT = { has_law = succ_open_elective_crisis }
+                    NOT = { has_law = succ_patrician_elective }
+                    NOT = { has_law = succ_tanistry }
+                }
+                add_law = succ_open_elective_crisis
+            }
+        }
+        if = {
+            limit = { higher_tier_than = baron }
+            any_demesne_title = {
+                limit = {
+                    NOT = { has_law = succ_feudal_elective }
+                    NOT = { has_law = succ_open_elective_crisis }
+                    NOT = { has_law = succ_patrician_elective }
+                    NOT = { has_law = succ_tanistry }
+                }
+                add_law = succ_feudal_elective
+            }
+        }
+        any_demesne_title = {
+            limit = { NOT = { has_law = true_cognatic_succession } }
+            add_law = true_cognatic_succession
+        }
+    }
+}
+# Military Directorate
+character_event = {
+    id = government.300
+    desc = "EVTDESCGOVERNMENT300"
+    picture = GFX_evt_government
+
+    only_rulers = yes
+
+    trigger = {
+        independent = no
+        is_landed = yes
+        is_government_potential = military_directorate
+        OR = {
+            government = military_monarchy
+            government = military_republic
+        }
+
+        # Some legitimacy law applies to you
+        has_crown_law_title = yes
+        crownlaw_title = {
+            has_law = military_vassal_legitimacy_2
+            has_law = dote_autonomy_0
+            OR = {
+                has_law = centralization_4
+                AND = {
+                    has_law = centralization_3
+                    holder_scope = { any_vassal = { character = ROOT } }
+                }
+                AND = {
+                    has_law = centralization_2
+                    holder_scope = { any_vassal = { character = ROOT } }
+                    ROOT = { NOT = { higher_tier_than = duke } }
+                }
+                AND = {
+                    holder_scope = {
+                        tier = emperor
+                        any_vassal = { character = ROOT }
+                    }
+                    ROOT = { NOT = { higher_tier_than = duke } }
+                }
+                AND = {
+                    holder_scope = { any_vassal = { character = ROOT } }
+                    ROOT = { NOT = { higher_tier_than = count } }
+                }
+            }
+        }
+    }
+    option = {
+        name = "EVTOPTCONFIRM"
+        set_government_type = military_directorate
+        any_demesne_title = {
+            limit = { NOT = { has_law = succ_appointment } }
+            add_law = succ_appointment
+        }
+        any_demesne_title = {
+            limit = { NOT = { has_law = true_cognatic_succession } }
+            add_law = true_cognatic_succession
+        }
+    }
+}
+# Corporate Monarchy
+character_event = {
+    id = government.400
+    desc = "EVTDESCGOVERNMENT400"
+    picture = GFX_evt_government
+
+    only_rulers = yes
+
+    trigger = {
+        independent = no
+        is_landed = yes
+        is_government_potential = corporate_monarchy
+        OR = {
+            government = corporate_republic
+            government = corporate_directorate
+        }
+
+        # Some legitimacy law applies to you
+        has_crown_law_title = yes
+        crownlaw_title = {
+            has_law = republic_vassal_legitimacy_0
+            has_law = dote_autonomy_0
+            OR = {
+                has_law = centralization_4
+                AND = {
+                    has_law = centralization_3
+                    holder_scope = { any_vassal = { character = ROOT } }
+                }
+                AND = {
+                    has_law = centralization_2
+                    holder_scope = { any_vassal = { character = ROOT } }
+                    ROOT = { NOT = { higher_tier_than = duke } }
+                }
+                AND = {
+                    holder_scope = {
+                        tier = emperor
+                        any_vassal = { character = ROOT }
+                    }
+                    ROOT = { NOT = { higher_tier_than = duke } }
+                }
+                AND = {
+                    holder_scope = { any_vassal = { character = ROOT } }
+                    ROOT = { NOT = { higher_tier_than = count } }
+                }
+            }
+        }
+    }
+    option = {
+        name = "EVTOPTCONFIRM"
+        set_government_type = corporate_monarchy
+        any_demesne_title = {
+            limit = {
+                NOT = { has_law = succ_primogeniture }
+                NOT = { has_law = succ_ultimogeniture }
+                NOT = { has_law = succ_seniority }
+                NOT = { has_law = succ_gavelkind }
+                NOT = { has_law = succ_tanistry }
+                NOT = { has_law = succ_feudal_elective }
+            }
+            add_law = succ_gavelkind
+        }
+        any_demesne_title = {
+            limit = { NOT = { has_law = true_cognatic_succession } }
+            add_law = true_cognatic_succession
+        }
+    }
+}
+# Corporate Republic
+character_event = {
+    id = government.500
+    desc = "EVTDESCGOVERNMENT500"
+    picture = GFX_evt_government
+
+    only_rulers = yes
+
+    trigger = {
+        independent = no
+        is_landed = yes
+        is_government_potential = corporate_republic
+        OR = {
+            government = corporate_monarchy
+            government = corporate_directorate
+        }
+
+        # Some legitimacy law applies to you
+        has_crown_law_title = yes
+        crownlaw_title = {
+            has_law = republic_vassal_legitimacy_1
+            has_law = dote_autonomy_0
+            OR = {
+                has_law = centralization_4
+                AND = {
+                    has_law = centralization_3
+                    holder_scope = { any_vassal = { character = ROOT } }
+                }
+                AND = {
+                    has_law = centralization_2
+                    holder_scope = { any_vassal = { character = ROOT } }
+                    ROOT = { NOT = { higher_tier_than = duke } }
+                }
+                AND = {
+                    holder_scope = {
+                        tier = emperor
+                        any_vassal = { character = ROOT }
+                    }
+                    ROOT = { NOT = { higher_tier_than = duke } }
+                }
+                AND = {
+                    holder_scope = { any_vassal = { character = ROOT } }
+                    ROOT = { NOT = { higher_tier_than = count } }
+                }
+            }
+        }
+    }
+    option = {
+        name = "EVTOPTCONFIRM"
+        set_government_type = corporate_republic
+        if = {
+            limit = { tier = baron }
+            any_demesne_title = {
+                limit = {
+                    NOT = { has_law = succ_feudal_elective }
+                    NOT = { has_law = succ_open_elective_crisis }
+                    NOT = { has_law = succ_patrician_elective }
+                    NOT = { has_law = succ_tanistry }
+                }
+                add_law = succ_open_elective_crisis
+            }
+        }
+        if = {
+            limit = { higher_tier_than = baron }
+            any_demesne_title = {
+                limit = {
+                    NOT = { has_law = succ_feudal_elective }
+                    NOT = { has_law = succ_open_elective_crisis }
+                    NOT = { has_law = succ_patrician_elective }
+                    NOT = { has_law = succ_tanistry }
+                }
+                add_law = succ_feudal_elective
+            }
+        }
+        any_demesne_title = {
+            limit = { NOT = { has_law = true_cognatic_succession } }
+            add_law = true_cognatic_succession
+        }
+    }
+}
+# Merchant Republic
+character_event = {
+    id = government.550
+    desc = "EVTDESCGOVERNMENT500"
+    picture = GFX_evt_government
+
+    only_rulers = yes
+
+    trigger = {
+        independent = no
+        is_landed = yes
+        is_government_potential = merchant_republic_government
+        OR = {
+            government = corporate_monarchy
+            government = corporate_directorate
+        }
+
+        # Some legitimacy law applies to you
+        has_crown_law_title = yes
+        crownlaw_title = {
+            has_law = republic_vassal_legitimacy_1
+            has_law = dote_autonomy_0
+            OR = {
+                has_law = centralization_4
+                AND = {
+                    has_law = centralization_3
+                    holder_scope = { any_vassal = { character = ROOT } }
+                }
+                AND = {
+                    has_law = centralization_2
+                    holder_scope = { any_vassal = { character = ROOT } }
+                    ROOT = { NOT = { higher_tier_than = duke } }
+                }
+                AND = {
+                    holder_scope = {
+                        tier = emperor
+                        any_vassal = { character = ROOT }
+                    }
+                    ROOT = { NOT = { higher_tier_than = duke } }
+                }
+                AND = {
+                    holder_scope = { any_vassal = { character = ROOT } }
+                    ROOT = { NOT = { higher_tier_than = count } }
+                }
+            }
+        }
+    }
+    option = {
+        name = "EVTOPTCONFIRM"
+        set_government_type = merchant_republic_government
+        primary_title = { add_law = succ_patrician_elective }
+        any_demesne_title = { add_law = true_cognatic_succession }
+    }
+}
+# Corporate Directorate
+character_event = {
+    id = government.600
+    desc = "EVTDESCGOVERNMENT600"
+    picture = GFX_evt_government
+
+    only_rulers = yes
+
+    trigger = {
+        independent = no
+        is_landed = yes
+        is_government_potential = corporate_directorate
+        OR = {
+            government = corporate_monarchy
+            government = corporate_republic
+        }
+
+        # Some legitimacy law applies to you
+        has_crown_law_title = yes
+        crownlaw_title = {
+            has_law = republic_vassal_legitimacy_2
+            has_law = dote_autonomy_0
+            OR = {
+                has_law = centralization_4
+                AND = {
+                    has_law = centralization_3
+                    holder_scope = { any_vassal = { character = ROOT } }
+                }
+                AND = {
+                    has_law = centralization_2
+                    holder_scope = { any_vassal = { character = ROOT } }
+                    ROOT = { NOT = { higher_tier_than = duke } }
+                }
+                AND = {
+                    holder_scope = {
+                        tier = emperor
+                        any_vassal = { character = ROOT }
+                    }
+                    ROOT = { NOT = { higher_tier_than = duke } }
+                }
+                AND = {
+                    holder_scope = { any_vassal = { character = ROOT } }
+                    ROOT = { NOT = { higher_tier_than = count } }
+                }
+            }
+        }
+    }
+    option = {
+        name = "EVTOPTCONFIRM"
+        set_government_type = corporate_directorate
+        any_demesne_title = {
+            limit = { NOT = { has_law = succ_appointment } }
+            add_law = succ_appointment
+        }
+        any_demesne_title = {
+            limit = { NOT = { has_law = true_cognatic_succession } }
+            add_law = true_cognatic_succession
+        }
+    }
+}
+# Administrative Monarchy
+character_event = {
+    id = government.700
+    desc = "EVTDESCGOVERNMENT700"
+    picture = GFX_evt_government
+
+    only_rulers = yes
+
+    trigger = {
+        independent = no
+        is_landed = yes
+        is_government_potential = administrative_monarchy
+        OR = {
+            government = administrative_republic
+            government = administrative_directorate
+        }
+
+        # Some legitimacy law applies to you
+        has_crown_law_title = yes
+        crownlaw_title = {
+            has_law = theocracy_vassal_legitimacy_0
+            has_law = dote_autonomy_0
+            OR = {
+                has_law = centralization_4
+                AND = {
+                    has_law = centralization_3
+                    holder_scope = { any_vassal = { character = ROOT } }
+                }
+                AND = {
+                    has_law = centralization_2
+                    holder_scope = { any_vassal = { character = ROOT } }
+                    ROOT = { NOT = { higher_tier_than = duke } }
+                }
+                AND = {
+                    holder_scope = {
+                        tier = emperor
+                        any_vassal = { character = ROOT }
+                    }
+                    ROOT = { NOT = { higher_tier_than = duke } }
+                }
+                AND = {
+                    holder_scope = { any_vassal = { character = ROOT } }
+                    ROOT = { NOT = { higher_tier_than = count } }
+                }
+            }
+        }
+    }
+    option = {
+        name = "EVTOPTCONFIRM"
+        set_government_type = administrative_monarchy
+        any_demesne_title = {
+            limit = {
+                NOT = { has_law = succ_primogeniture }
+                NOT = { has_law = succ_ultimogeniture }
+                NOT = { has_law = succ_seniority }
+                NOT = { has_law = succ_gavelkind }
+                NOT = { has_law = succ_tanistry }
+                NOT = { has_law = succ_feudal_elective }
+            }
+            add_law = succ_gavelkind
+        }
+        any_demesne_title = {
+            limit = { NOT = { has_law = true_cognatic_succession } }
+            add_law = true_cognatic_succession
+        }
+    }
+}
+# Administrative Republic
+character_event = {
+    id = government.800
+    desc = "EVTDESCGOVERNMENT800"
+    picture = GFX_evt_government
+
+    only_rulers = yes
+
+    trigger = {
+        independent = no
+        is_landed = yes
+        is_government_potential = administrative_republic
+        OR = {
+            government = administrative_monarchy
+            government = administrative_directorate
+        }
+
+        # Some legitimacy law applies to you
+        has_crown_law_title = yes
+        crownlaw_title = {
+            has_law = theocracy_vassal_legitimacy_1
+            has_law = dote_autonomy_0
+            OR = {
+                has_law = centralization_4
+                AND = {
+                    has_law = centralization_3
+                    holder_scope = { any_vassal = { character = ROOT } }
+                }
+                AND = {
+                    has_law = centralization_2
+                    holder_scope = { any_vassal = { character = ROOT } }
+                    ROOT = { NOT = { higher_tier_than = duke } }
+                }
+                AND = {
+                    holder_scope = {
+                        tier = emperor
+                        any_vassal = { character = ROOT }
+                    }
+                    ROOT = { NOT = { higher_tier_than = duke } }
+                }
+                AND = {
+                    holder_scope = { any_vassal = { character = ROOT } }
+                    ROOT = { NOT = { higher_tier_than = count } }
+                }
+            }
+        }
+    }
+    option = {
+        name = "EVTOPTCONFIRM"
+        set_government_type = administrative_republic
+        if = {
+            limit = { tier = baron }
+            any_demesne_title = {
+                limit = {
+                    NOT = { has_law = succ_feudal_elective }
+                    NOT = { has_law = succ_open_elective_crisis }
+                    NOT = { has_law = succ_patrician_elective }
+                    NOT = { has_law = succ_tanistry }
+                }
+                add_law = succ_open_elective_crisis
+            }
+        }
+        if = {
+            limit = { higher_tier_than = baron }
+            any_demesne_title = {
+                limit = {
+                    NOT = { has_law = succ_feudal_elective }
+                    NOT = { has_law = succ_open_elective_crisis }
+                    NOT = { has_law = succ_patrician_elective }
+                    NOT = { has_law = succ_tanistry }
+                }
+                add_law = succ_feudal_elective
+            }
+        }
+        any_demesne_title = {
+            limit = { NOT = { has_law = true_cognatic_succession } }
+            add_law = true_cognatic_succession
+        }
+    }
+}
+# Administrative Directorate
+character_event = {
+    id = government.900
+    desc = "EVTDESCGOVERNMENT900"
+    picture = GFX_evt_government
+
+    only_rulers = yes
+
+    trigger = {
+        independent = no
+        is_landed = yes
+        is_government_potential = administrative_directorate
+        OR = {
+            government = administrative_monarchy
+            government = administrative_republic
+        }
+
+        # Some legitimacy law applies to you
+        has_crown_law_title = yes
+        crownlaw_title = {
+            has_law = theocracy_vassal_legitimacy_2
+            has_law = dote_autonomy_0
+            OR = {
+                has_law = centralization_4
+                AND = {
+                    has_law = centralization_3
+                    holder_scope = { any_vassal = { character = ROOT } }
+                }
+                AND = {
+                    has_law = centralization_2
+                    holder_scope = { any_vassal = { character = ROOT } }
+                    ROOT = { NOT = { higher_tier_than = duke } }
+                }
+                AND = {
+                    holder_scope = {
+                        tier = emperor
+                        any_vassal = { character = ROOT }
+                    }
+                    ROOT = { NOT = { higher_tier_than = duke } }
+                }
+                AND = {
+                    holder_scope = { any_vassal = { character = ROOT } }
+                    ROOT = { NOT = { higher_tier_than = count } }
+                }
+            }
+        }
+        NOR = {
+            any_demesne_title = {
+                title = d_pilgrimage
+            }
+            any_demesne_title = {
+                title = d_orthodoxy
+            }
+        }
+    }
+    option = {
+        name = "EVTOPTCONFIRM"
+        set_government_type = administrative_directorate
+        any_demesne_title = {
+            limit = { ROOT = {is_investiture_comp = no} NOT = { has_law = succ_appointment } }
+            add_law = succ_appointment
+        }
+        any_demesne_title = {
+            limit = { ROOT = {is_investiture_comp = yes} NOT = { has_law = succ_catholic_bishopric } }
+            add_law = succ_catholic_bishopric
+        }
+        any_demesne_title = {
+            limit = { NOT = { has_law = true_cognatic_succession } }
+            add_law = true_cognatic_succession
+        }
+    }
+}
+
+# You are military, but you own no castles
+character_event = {
+    id = government.1000
+    desc = "EVTDESCGOVERNMENT1000"
+    picture = GFX_evt_government
+
+    only_rulers = yes
+
+    trigger = {
+        OR = {
+            government = military_monarchy
+            government = military_republic
+            government = military_directorate
+        }
+        NOT = {
+            any_demesne_title = {
+                tier = baron
+                holding_type = castle
+            }
+        }
+        any_demesne_title = {
+            tier = baron
+            OR = {
+                type = city
+                holding_type = temple
+            }
+        }
+    }
+
+    # Grab one from the capital
+    option = {
+        trigger = {
+            capital_scope = {
+                any_province_holding = {
+                    holding_type = castle
+                    holder_scope = { any_liege = { character = ROOT } }
+                }
+            }
+        }
+        name = "EVTOPTAGOVERNMENT1000"
+        capital_scope = {
+            random_province_holding = {
+                limit = {
+                    holding_type = castle
+                    holder_scope = { any_liege = { character = ROOT } }
+                }
+                usurp_title = ROOT
+                hidden_tooltip = { holder_scope = { letter_event = { id = government.1001 } } }
+            }
+        }
+        ai_chance = {
+            factor = 100
+            modifier = {
+                factor = 0.5
+                trait = pragmatic
+            }
+            modifier = {
+                factor = 2
+                trait = radical
+            }
+        }
+    }
+    option = {
+        trigger = {
+            NOT = {
+                capital_scope = {
+                    any_province_holding = {
+                        holding_type = castle
+                        holder_scope = { any_liege = { character = ROOT } }
+                    }
+                }
+            }
+            any_vassal = {
+                any_demesne_title = {
+                    tier = baron
+                    holding_type = castle
+                }
+            }
+        }
+        name = "EVTOPTAGOVERNMENT1000"
+        random_vassal = {
+            limit = {
+                any_demesne_title = {
+                    tier = baron
+                    holding_type = castle
+                }
+            }
+            random_demesne_title = {
+                limit = { holding_type = castle }
+                usurp_title = ROOT
+            }
+            hidden_tooltip = { holder_scope = { letter_event = { id = government.1001 } } }
+        }
+        ai_chance = {
+            factor = 100
+            modifier = {
+                factor = 0.5
+                trait = pragmatic
+            }
+            modifier = {
+                factor = 2
+                trait = radical
+            }
+        }
+    }
+    option = {
+        trigger = {
+            any_demesne_title = {
+                tier = baron
+                holding_type = city
+            }
+        }
+        name = "EVTBECOMECORPORATE"
+        if = {
+            limit = { government = military_monarchy }
+            set_government_type = corporate_monarchy
+        }
+        if = {
+            limit = {
+                government = military_republic
+                is_government_potential = merchant_republic_government
+            }
+            set_government_type = merchant_republic_government
+            create_family_palace = yes
+            hidden_tooltip = {
+                any_demesne_title = {
+                    limit = { has_law = agnatic_succession }
+                    add_law = true_cognatic_succession
+                }
+            }
+        }
+        if = {
+            limit = {
+                government = military_republic
+                NOT = { is_government_potential = merchant_republic_government }
+            }
+            set_government_type = corporate_republic
+        }
+        if = {
+            limit = { government = military_directorate }
+            set_government_type = corporate_directorate
+        }
+        ai_chance = {
+            factor = 25
+            modifier = {
+                factor = 0.5
+                is_autocratic_trigger = yes
+            }
+            modifier = {
+                factor = 0.5
+                is_theocratic_trigger = yes
+            }
+            modifier = {
+                factor = 2
+                is_democratic_trigger = yes
+            }
+        }
+    }
+    option = {
+        trigger = {
+            any_demesne_title = {
+                tier = baron
+                holding_type = temple
+            }
+        }
+        name = "EVTBECOMEADMINISTRATIVE"
+        if = {
+            limit = { government = military_monarchy }
+            set_government_type = administrative_monarchy
+        }
+        if = {
+            limit = { government = military_republic }
+            set_government_type = administrative_republic
+        }
+        if = {
+            limit = { government = military_directorate }
+            set_government_type = administrative_directorate
+        }
+        ai_chance = {
+            factor = 25
+            modifier = {
+                factor = 0.5
+                is_autocratic_trigger = yes
+            }
+            modifier = {
+                factor = 0.5
+                is_democratic_trigger = yes
+            }
+            modifier = {
+                factor = 2
+                is_thecratic_trigger = yes
+            }
+        }
+    }
+}
+letter_event = {
+    id = government.1001
+    desc = "EVTDESCGOVERNMENT1001"
+    is_triggered_only = yes
+
+    option = { name = "EVTOPTCONFIRM" }
+}
+# You are corporate, but you own no cities
+character_event = {
+    id = government.1100
+    desc = "EVTDESCGOVERNMENT1100"
+    picture = GFX_evt_government
+
+    only_rulers = yes
+
+    trigger = {
+        OR = {
+            government = corporate_monarchy
+            government = corporate_republic
+            government = corporate_directorate
+            government = merchant_republic_government
+        }
+        NOT = {
+            any_demesne_title = {
+                tier = baron
+                holding_type = city
+            }
+        }
+        any_demesne_title = {
+            tier = baron
+            OR = {
+                holding_type = castle
+                holding_type = temple
+            }
+        }
+    }
+
+    # Grab one from the capital
+    option = {
+        trigger = {
+            capital_scope = {
+                any_province_holding = {
+                    holding_type = city
+                    holder_scope = { any_liege = { character = ROOT } }
+                }
+            }
+        }
+        name = "EVTOPTAGOVERNMENT1000"
+        capital_scope = {
+            random_province_holding = {
+                limit = {
+                    holding_type = city
+                    holder_scope = { any_liege = { character = ROOT } }
+                }
+                usurp_title = ROOT
+                hidden_tooltip = { holder_scope = { letter_event = { id = government.1001 } } }
+            }
+        }
+        ai_chance = {
+            factor = 100
+            modifier = {
+                factor = 0.5
+                trait = pragmatic
+            }
+            modifier = {
+                factor = 2
+                trait = radical
+            }
+            modifier = {
+                factor = 2
+                is_merchant_republic = yes
+            }
+        }
+    }
+    option = {
+        trigger = {
+            NOT = {
+                capital_scope = {
+                    any_province_holding = {
+                        holding_type = city
+                        holder_scope = { any_liege = { character = ROOT } }
+                    }
+                }
+            }
+            any_vassal = {
+                any_demesne_title = {
+                    tier = baron
+                    holding_type = city
+                }
+            }
+        }
+        name = "EVTOPTAGOVERNMENT1000"
+        random_vassal = {
+            limit = {
+                any_demesne_title = {
+                    tier = baron
+                    holding_type = city
+                }
+            }
+            random_demesne_title = {
+                limit = {
+                    tier = baron
+                    holding_type = city
+                }
+                usurp_title = ROOT
+            }
+            hidden_tooltip = { holder_scope = { letter_event = { id = government.1001 } } }
+        }
+        ai_chance = {
+            factor = 100
+            modifier = {
+                factor = 0.5
+                trait = pragmatic
+            }
+            modifier = {
+                factor = 2
+                trait = radical
+            }
+            modifier = {
+                factor = 2
+                is_merchant_republic = yes
+            }
+        }
+    }
+    option = {
+        trigger = {
+            any_demesne_title = {
+                tier = baron
+                holding_type = castle
+            }
+        }
+        name = "EVTBECOMEMILITARY"
+        if = {
+            limit = { government = corporate_monarchy }
+            set_government_type = military_monarchy
+        }
+        if = {
+            limit = {
+                OR = {
+                    government = corporate_republic
+                    government = merchant_republic_government
+                }
+            }
+            set_government_type = military_republic
+        }
+        if = {
+            limit = { government = corporate_directorate }
+            set_government_type = military_directorate
+        }
+        ai_chance = {
+            factor = 25
+            modifier = {
+                factor = 0.5
+                is_democratic_trigger = yes
+            }
+            modifier = {
+                factor = 0.5
+                is_theocratic_trigger = yes
+            }
+            modifier = {
+                factor = 2
+                is_autocratic_trigger = yes
+            }
+        }
+    }
+    option = {
+        trigger = {
+            any_demesne_title = {
+                tier = baron
+                holding_type = temple
+            }
+        }
+        name = "EVTBECOMEADMINISTRATIVE"
+        if = {
+            limit = { government = corporate_monarchy }
+            set_government_type = administrative_monarchy
+        }
+        if = {
+            limit = {
+                OR = {
+                    government = corporate_republic
+                    government = merchant_republic_government
+                }
+            }
+            set_government_type = administrative_republic
+        }
+        if = {
+            limit = { government = corporate_directorate }
+            set_government_type = administrative_directorate
+        }
+        ai_chance = {
+            factor = 25
+            modifier = {
+                factor = 0.5
+                is_autocratic_trigger = yes
+            }
+            modifier = {
+                factor = 0.5
+                is_demcratic_trigger = yes
+            }
+            modifier = {
+                factor = 2
+                is_thecratic_trigger = yes
+            }
+        }
+    }
+}
+# You are administrative, but you own no temples
+character_event = {
+    id = government.1200
+    desc = "EVTDESCGOVERNMENT1200"
+    picture = GFX_evt_government
+
+    only_rulers = yes
+
+    trigger = {
+        OR = {
+            government = administrative_monarchy
+            government = administrative_republic
+            government = administrative_directorate
+        }
+        NOT = {
+            any_demesne_title = {
+                tier = baron
+                holding_type = temple
+            }
+        }
+        any_demesne_title = {
+            tier = baron
+            OR = {
+                holding_type = castle
+                holding_type = city
+            }
+        }
+    }
+
+    # Grab one from the capital
+    option = {
+        trigger = {
+            capital_scope = {
+                any_province_holding = {
+                    holding_type = temple
+                    holder_scope = { any_liege = { character = ROOT } }
+                }
+            }
+        }
+        name = "EVTOPTAGOVERNMENT1000"
+        capital_scope = {
+            random_province_holding = {
+                limit = {
+                    holding_type = temple
+                    holder_scope = { any_liege = { character = ROOT } }
+                }
+                usurp_title = ROOT
+                hidden_tooltip = { holder_scope = { letter_event = { id = government.1001 } } }
+            }
+        }
+        ai_chance = {
+            factor = 100
+            modifier = {
+                factor = 0.5
+                trait = pragmatic
+            }
+            modifier = {
+                factor = 2
+                trait = radical
+            }
+        }
+    }
+    option = {
+        trigger = {
+            NOT = {
+                capital_scope = {
+                    any_province_holding = {
+                        holding_type = temple
+                        holder_scope = { any_liege = { character = ROOT } }
+                    }
+                }
+            }
+            any_vassal = {
+                any_demesne_title = {
+                    tier = baron
+                    holding_type = temple
+                }
+            }
+        }
+        name = "EVTOPTAGOVERNMENT1000"
+        random_vassal = {
+            limit = {
+                any_demesne_title = {
+                    tier = baron
+                    holding_type = temple
+                }
+            }
+            random_demesne_title = {
+                limit = {
+                    tier = baron
+                    holding_type = temple
+                }
+                usurp_title = ROOT
+            }
+            hidden_tooltip = { holder_scope = { letter_event = { id = government.1001 } } }
+        }
+        ai_chance = {
+            factor = 100
+            modifier = {
+                factor = 0.5
+                trait = pragmatic
+            }
+            modifier = {
+                factor = 2
+                trait = radical
+            }
+        }
+    }
+    option = {
+        trigger = {
+            any_demesne_title = {
+                tier = baron
+                holding_type = castle
+            }
+        }
+        name = "EVTBECOMEMILITARY"
+        if = {
+            limit = { government = administrative_monarchy }
+            set_government_type = military_monarchy
+        }
+        if = {
+            limit = { government = administrative_republic }
+            set_government_type = military_republic
+        }
+        if = {
+            limit = { government = administrative_directorate }
+            set_government_type = military_directorate
+        }
+        ai_chance = {
+            factor = 25
+            modifier = {
+                factor = 0.5
+                is_democratic_trigger = yes
+            }
+            modifier = {
+                factor = 0.5
+                is_theocratic_trigger = yes
+            }
+            modifier = {
+                factor = 2
+                is_autocratic_trigger = yes
+            }
+        }
+    }
+    option = {
+        trigger = {
+            any_demesne_title = {
+                tier = baron
+                holding_type = city
+            }
+        }
+        name = "EVTBECOMECORPORATE"
+        if = {
+            limit = { government = administrative_monarchy }
+            set_government_type = corporate_monarchy
+        }
+        if = {
+            limit = {
+                government = administrative_republic
+                is_government_potential = merchant_republic_government
+            }
+            set_government_type = merchant_republic_government
+            create_family_palace = yes
+            hidden_tooltip = {
+                any_demesne_title = {
+                    limit = { has_law = agnatic_succession }
+                    add_law = true_cognatic_succession
+                }
+            }
+        }
+        if = {
+            limit = {
+                government = administrative_republic
+                NOT = { is_government_potential = merchant_republic_government }
+            }
+            set_government_type = corporate_republic
+        }
+        if = {
+            limit = { government = administrative_directorate }
+            set_government_type = corporate_directorate
+        }
+        ai_chance = {
+            factor = 25
+            modifier = {
+                factor = 0.5
+                is_autocratic_trigger = yes
+            }
+            modifier = {
+                factor = 0.5
+                is_theocratic_trigger = yes
+            }
+            modifier = {
+                factor = 2
+                is_democratic_trigger = yes
+            }
+        }
+    }
+}
+
+# You have become a monarchy
+character_event = {
+    id = government.1300
+    desc = "EVTDESCGOVERNMENT1300"
+    picture = GFX_evt_government
+    border = GFX_evt_normal_frame_diplomacy
+    is_triggered_only = yes
+
+    option = {
+        name = "EVOPTCONFIRM"
+        hidden_tooltip = {
+            any_realm_character = {
+                limit = { NOT = { character = ROOT } }
+                character_event = { id = government.1301 }
+            }
+        }
+    }
+}
+character_event = {
+    id = government.1301
+    desc = "EVTDESCGOVERNMENT1301"
+    picture = GFX_evt_government
+    border = GFX_evt_normal_frame_diplomacy
+    is_triggered_only = yes
+
+    min_age = 12
+    only_capable = yes
+
+    option = {
+        trigger = { NOT = { trait = radical } }
+        name = "EVTOPTAGOVERNMENT1301" # Meh
+        ai_chance = {
+            factor = 50
+            modifier = {
+                factor = 2
+                trait = carefree
+            }
+            modifier = {
+                factor = 0.5
+                trait = disciplined
+            }
+            modifier = {
+                factor = 2
+                trait = content
+            }
+            modifier = {
+                factor = 0.5
+                trait = ambitious
+            }
+        }
+    }
+
+    option = {
+        name = "EVTOPTBGOVERNMENT1301" # How dare he/she?!
+        opinion = { who = FROM modifier = opinion_hates_reform }
+        ai_chance = {
+            factor = 25
+            modifier = {
+                factor = 2
+                OR = {
+                    religion = terran_republican
+                    religion = terran_federalist
+                    religion = colonial_separatist
+                    religion = neo_socialist
+                    religion = astrist
+                }
+            }
+            modifier = {
+                factor = 2
+                OR = {
+                    religion = terran_republican
+                    religion = terran_federalist
+                    religion = colonial_separatist
+                    religion = neo_socialist
+                    religion = astrist
+                }
+                NOT = { trait = pragmatic }
+            }
+            modifier = {
+                factor = 2
+                OR = {
+                    religion = terran_republican
+                    religion = terran_federalist
+                    religion = colonial_separatist
+                    religion = neo_socialist
+                    religion = astrist
+                }
+                trait = radical
+            }
+            modifier = {
+                factor = 0.5
+                dynasty = FROM
+                NOT = { trait = content }
+            }
+            modifier = {
+                factor = 0.5
+                dynasty = FROM
+                trait = ambitious
+            }
+        }
+    }
+    option = {
+        name = "EVTOPTCGOVERNMENT1301" # Long live the king!
+        opinion = { who = FROM modifier = opinion_loves_reform }
+        ai_chance = {
+            factor = 25
+            modifier = {
+                factor = 2
+                OR = {
+                    religion = terran_imperial
+                    religion = neo_feudal
+                    religion = bio_directionist
+                    religion = imperial_cult
+                }
+            }
+            modifier = {
+                factor = 2
+                OR = {
+                    religion = terran_imperial
+                    religion = neo_feudal
+                    religion = bio_directionist
+                    religion = imperial_cult
+                }
+                NOT = { trait = pragmatic }
+            }
+            modifier = {
+                factor = 2
+                OR = {
+                    religion = terran_imperial
+                    religion = neo_feudal
+                    religion = bio_directionist
+                    religion = imperial_cult
+                }
+                trait = radical
+            }
+            modifier = {
+                factor = 2
+                dynasty = FROM
+                NOT = { trait = content }
+            }
+            modifier = {
+                factor = 2
+                dynasty = FROM
+                trait = ambitious
+            }
+        }
+    }
+}
+# You have become a republic
+character_event = {
+    id = government.1400
+    desc = "EVTDESCGOVERNMENT1400"
+    picture = GFX_evt_government
+    border = GFX_evt_normal_frame_diplomacy
+    is_triggered_only = yes
+
+    option = {
+        name = "EVOPTCONFIRM"
+        hidden_tooltip = {
+            any_realm_character = {
+                limit = { NOT = { character = ROOT } }
+                character_event = { id = government.1401 }
+            }
+        }
+    }
+}
+character_event = {
+    id = government.1401
+    desc = "EVTDESCGOVERNMENT1301"
+    picture = GFX_evt_government
+    border = GFX_evt_normal_frame_diplomacy
+    is_triggered_only = yes
+
+    min_age = 12
+    only_capable = yes
+
+    option = {
+        trigger = { NOT = { trait = radical } }
+        name = "EVTOPTAGOVERNMENT1301" # Meh
+        ai_chance = {
+            factor = 50
+            modifier = {
+                factor = 2
+                trait = carefree
+            }
+            modifier = {
+                factor = 0.5
+                trait = disciplined
+            }
+            modifier = {
+                factor = 2
+                trait = content
+            }
+            modifier = {
+                factor = 0.5
+                trait = ambitious
+            }
+        }
+    }
+
+    option = {
+        name = "EVTOPTBGOVERNMENT1301" # How dare he/she?!
+        opinion = { who = FROM modifier = opinion_hates_reform }
+        ai_chance = {
+            factor = 25
+            modifier = {
+                factor = 2
+                OR = {
+                    religion = terran_imperial
+                    religion = neo_feudal
+                    religion = bio_directionist
+                    religion = imperial_cult
+                }
+            }
+            modifier = {
+                factor = 2
+                OR = {
+                    religion = terran_imperial
+                    religion = neo_feudal
+                    religion = bio_directionist
+                    religion = imperial_cult
+                }
+                NOT = { trait = pragmatic }
+            }
+            modifier = {
+                factor = 2
+                OR = {
+                    religion = terran_imperial
+                    religion = neo_feudal
+                    religion = bio_directionist
+                    religion = imperial_cult
+                }
+                trait = radical
+            }
+        }
+    }
+    option = {
+        name = "EVTOPTCGOVERNMENT1301" # Long live the king!
+        opinion = { who = FROM modifier = opinion_loves_reform }
+        ai_chance = {
+            factor = 25
+            modifier = {
+                factor = 2
+                OR = {
+                    religion = terran_republican
+                    religion = terran_federalist
+                    religion = colonial_separatist
+                }
+            }
+            modifier = {
+                factor = 2
+                OR = {
+                    religion = terran_republican
+                    religion = terran_federalist
+                    religion = colonial_separatist
+                }
+                NOT = { trait = pragmatic }
+            }
+            modifier = {
+                factor = 2
+                OR = {
+                    religion = terran_republican
+                    religion = terran_federalist
+                    religion = colonial_separatist
+                }
+                trait = radical
+            }
+        }
+    }
+}
+# You have become a directorate
+character_event = {
+    id = government.1500
+    desc = "EVTDESCGOVERNMENT1500"
+    picture = GFX_evt_government
+    border = GFX_evt_normal_frame_diplomacy
+    is_triggered_only = yes
+
+    option = {
+        name = "EVOPTCONFIRM"
+        hidden_tooltip = {
+            any_realm_character = {
+                limit = { NOT = { character = ROOT } }
+                character_event = { id = government.1501 }
+            }
+        }
+    }
+}
+character_event = {
+    id = government.1501
+    desc = "EVTDESCGOVERNMENT1301"
+    picture = GFX_evt_government
+    border = GFX_evt_normal_frame_diplomacy
+    is_triggered_only = yes
+
+    option = {
+        trigger = { NOT = { trait = radical } }
+        name = "EVTOPTAGOVERNMENT1301" # Meh
+        ai_chance = {
+            factor = 50
+            modifier = {
+                factor = 2
+                trait = carefree
+            }
+            modifier = {
+                factor = 0.5
+                trait = disciplined
+            }
+            modifier = {
+                factor = 2
+                trait = content
+            }
+            modifier = {
+                factor = 0.5
+                trait = ambitious
+            }
+        }
+    }
+
+    option = {
+        name = "EVTOPTBGOVERNMENT1301" # How dare he/she?!
+        opinion = { who = FROM modifier = opinion_hates_reform }
+        ai_chance = {
+            factor = 25
+            modifier = {
+                factor = 2
+                OR = {
+                    religion = terran_imperial
+                    religion = neo_feudal
+                    religion = bio_directionist
+                    religion = imperial_cult
+                    religion = terran_republican
+                    religion = terran_federalist
+                    religion = colonial_separatist
+                }
+            }
+            modifier = {
+                factor = 2
+                OR = {
+                    religion = terran_imperial
+                    religion = neo_feudal
+                    religion = bio_directionist
+                    religion = imperial_cult
+                    religion = terran_republican
+                    religion = terran_federalist
+                    religion = colonial_separatist
+                }
+                NOT = { trait = pragmatic }
+            }
+            modifier = {
+                factor = 2
+                OR = {
+                    religion = terran_imperial
+                    religion = neo_feudal
+                    religion = bio_directionist
+                    religion = imperial_cult
+                    religion = terran_republican
+                    religion = terran_federalist
+                    religion = colonial_separatist
+                }
+                trait = radical
+            }
+        }
+    }
+    option = {
+        name = "EVTOPTCGOVERNMENT1301" # Long live the king!
+        opinion = { who = FROM modifier = opinion_loves_reform }
+        ai_chance = {
+            factor = 25
+            modifier = {
+                factor = 2
+                opinion = { who = FROM value = 25 }
+            }
+            modifier = {
+                factor = 2
+                opinion = { who = FROM value = 50 }
+            }
+            modifier = {
+                factor = 2
+                opinion = { who = FROM value = 75 }
+            }
+        }
+    }
+}
+
+# You have acquired a new title, merge government types!
+# Feudal Monarchy
+character_event = {
+    id = government.2000
+    desc = "EVTDESCGOVERNMENT2000"
+    picture = GFX_evt_government
+    is_triggered_only = yes
+
+    trigger = {
+        FROM = { is_primary_holder_title = yes } # Only apply when increasing in rank
+        FROMFROM = {
+            OR = {
+                government = military_monarchy
+                government = corporate_monarchy
+                government = administrative_monarchy
+            }
+        }
+        OR = {
+            government = military_republic
+            government = military_directorate
+            government = military_command
+        }
+        is_government_potential = military_monarchy
+    }
+    option = {
+        name = "EVTOPTCONFIRM"
+        set_government_type = military_monarchy
+    }
+}
+# Military Republic
+character_event = {
+    id = government.2100
+    desc = "EVTDESCGOVERNMENT2100"
+    picture = GFX_evt_government
+    is_triggered_only = yes
+
+    trigger = {
+        FROM = { is_primary_holder_title = yes } # Only apply when increasing in rank
+        FROMFROM = {
+            OR = {
+                government = military_republic
+                government = corporate_republic
+                government = merchant_republic_government
+                government = administrative_republic
+            }
+        }
+        OR = {
+            government = military_monarchy
+            government = military_directorate
+            government = military_command
+        }
+        is_government_potential = military_republic
+    }
+    option = {
+        name = "EVTOPTCONFIRM"
+        set_government_type = military_republic
+    }
+}
+# Military Directorate
+character_event = {
+    id = government.2200
+    desc = "EVTDESCGOVERNMENT2200"
+    picture = GFX_evt_government
+    is_triggered_only = yes
+
+    trigger = {
+        FROM = { is_primary_holder_title = yes } # Only apply when increasing in rank
+        FROMFROM = {
+            OR = {
+                government = military_directorate
+                government = corporate_directorate
+                government = administrative_directorate
+            }
+        }
+        OR = {
+            government = military_republic
+            government = military_monarchy
+            government = military_command
+        }
+        is_government_potential = military_directorate
+    }
+    option = {
+        name = "EVTOPTCONFIRM"
+        set_government_type = military_directorate
+    }
+}
+# Corporate Monarchy
+character_event = {
+    id = government.2300
+    desc = "EVTDESCGOVERNMENT2300"
+    picture = GFX_evt_government
+    is_triggered_only = yes
+
+    trigger = {
+        FROM = { is_primary_holder_title = yes } # Only apply when increasing in rank
+        FROMFROM = {
+            OR = {
+                government = military_monarchy
+                government = corporate_monarchy
+                government = administrative_monarchy
+            }
+        }
+        OR = {
+            government = corporate_republic
+            government = corporate_directorate
+        }
+        is_government_potential = corporate_monarchy
+    }
+    option = {
+        name = "EVTOPTCONFIRM"
+        set_government_type = corporate_monarchy
+    }
+}
+# Merchant Republic
+character_event = {
+    id = government.2400
+    desc = "EVTDESCGOVERNMENT2400"
+    picture = GFX_evt_government
+    is_triggered_only = yes
+
+    trigger = {
+        FROM = { is_primary_holder_title = yes } # Only apply when increasing in rank
+        FROMFROM = {
+            OR = {
+                government = military_republic
+                government = corporate_republic
+                government = merchant_republic_government
+                government = administrative_republic
+            }
+        }
+        OR = {
+            government = corporate_monarchy
+            government = corporate_republic
+            government = corporate_directorate
+        }
+        is_government_potential = merchant_republic_government
+    }
+    option = {
+        name = "EVTOPTCONFIRM"
+        set_government_type = merchant_republic_government
+        if = {
+            limit = { is_patrician = no }
+            create_family_palace = yes
+            hidden_tooltip = {
+                any_demesne_title = {
+                    limit = { has_law = agnatic_succession }
+                    add_law = true_cognatic_succession
+                }
+            }
+        }
+    }
+}
+# Corporate Republic
+character_event = {
+    id = government.2500
+    desc = "EVTDESCGOVERNMENT2400"
+    picture = GFX_evt_government
+    is_triggered_only = yes
+
+    trigger = {
+        FROM = { is_primary_holder_title = yes } # Only apply when increasing in rank
+        FROMFROM = {
+            OR = {
+                government = militar_republic
+                government = corporate_republic
+                government = merchant_republic_government
+                government = administrative_republic
+            }
+        }
+        OR = {
+            government = corporate_monarchy
+            government = merchant_republic_government
+            government = corporate_directorate
+        }
+        NOT = { is_government_potential = merchant_republic_government }
+    }
+    option = {
+        name = "EVTOPTCONFIRM"
+        set_government_type = corporate_republic
+    }
+}
+# Corporate Directorate
+character_event = {
+    id = government.2600
+    desc = "EVTDESCGOVERNMENT2600"
+    picture = GFX_evt_government
+    is_triggered_only = yes
+
+    trigger = {
+        FROM = { is_primary_holder_title = yes } # Only apply when increasing in rank
+        FROMFROM = {
+            OR = {
+                government = military_directorate
+                government = corporate_directorate
+                government = administrative_directorate
+            }
+        }
+        OR = {
+            government = corporate_republic
+            government = corporate_monarchy
+        }
+        is_government_potential = corporate_directorate
+    }
+    option = {
+        name = "EVTOPTCONFIRM"
+        set_government_type = corporate_directorate
+    }
+}
+# Administrative Monarchy
+character_event = {
+    id = government.2700
+    desc = "EVTDESCGOVERNMENT2700"
+    picture = GFX_evt_government
+    is_triggered_only = yes
+
+    trigger = {
+        FROM = { is_primary_holder_title = yes } # Only apply when increasing in rank
+        FROMFROM = {
+            OR = {
+                government = military_monarchy
+                government = corporate_monarchy
+                government = administrative_monarchy
+            }
+        }
+        OR = {
+            government = administrative_republic
+            government = administrative_directorate
+        }
+        is_government_potential = administrative_monarchy
+    }
+    option = {
+        name = "EVTOPTCONFIRM"
+        set_government_type = administrative_monarchy
+    }
+}
+# Administrative Republic
+character_event = {
+    id = government.2800
+    desc = "EVTDESCGOVERNMENT2800"
+    picture = GFX_evt_government
+    is_triggered_only = yes
+
+    trigger = {
+        FROM = { is_primary_holder_title = yes } # Only apply when increasing in rank
+        FROMFROM = {
+            OR = {
+                government = military_republic
+                government = corporate_republic
+                government = merchant_republic_government
+                government = administrative_republic
+            }
+        }
+        OR = {
+            government = administrative_monarchy
+            government = administrative_directorate
+        }
+        is_government_potential = administrative_republic
+    }
+    option = {
+        name = "EVTOPTCONFIRM"
+        set_government_type = administrative_republic
+    }
+}
+# Administrative Directorate
+character_event = {
+    id = government.2900
+    desc = "EVTDESCGOVERNMENT2900"
+    picture = GFX_evt_government
+    is_triggered_only = yes
+
+    trigger = {
+        FROM = { is_primary_holder_title = yes } # Only apply when increasing in rank
+        FROMFROM = {
+            OR = {
+                government = military_directorate
+                government = corporate_directorate
+                government = administrative_directorate
+            }
+        }
+        OR = {
+            government = administrative_republic
+            government = administrative_monarchy
+        }
+        is_government_potential = administrative_directorate
+    }
+    option = {
+        name = "EVTOPTCONFIRM"
+        set_government_type = administrative_directorate
+    }
+}
+
+character_event = {
+    id = government.2950
+    desc = "EVTDESCGOVERNMENT2900"
+    picture = GFX_evt_government
+    is_triggered_only = yes
+
+    trigger = {
+        FROM = { is_primary_holder_title = yes trait = goauld_host} # Only apply when increasing in rank
+    }
+    option = {
+        name = "EVTOPTCONFIRM"
+        set_government_type = system_lords
+    }
+}
+
+# Deconverting space pirates should adopt an appropriate government
+character_event = {
+    id = government.3000
+    desc = "EVTDESCGOVERNMENT3000"
+    hide_window = yes
+    is_triggered_only = yes
+
+    trigger = {
+        is_ruler = yes
+        OR = {
+            is_patrician = no
+            is_merchant_republic = yes
+        }
+        OR = {
+            governemnt = pirate_kingdom
+            government = pirate_republic
+        }
+    }
+
+    immediate = {
+        if = {
+            limit = { governemnt = pirate_republic }
+            set_government_type = merchant_republic_government
+        }
+        if = {
+            limit = {
+                government = pirate_kingdom
+                capital_holding = { holding_type = castle }
+            }
+            set_government_type = military_monarchy
+            any_demesne_title = { add_law = succ_gavelkind }
+        }
+        if = {
+            limit = {
+                government = pirate_kingdom
+                capital_holding = { holding_type = city }
+            }
+            set_government_type = corporate_monarchy
+            any_demesne_title = { add_law = succ_gavelkind }
+        }
+        if = {
+            limit = {
+                government = pirate_kingdom
+                capital_holding = { holding_type = temple }
+            }
+            set_government_type = administrative_monarchy
+            any_demesne_title = { add_law = succ_gavelkind }
+        }
+    }
+}
+
+# Some generic maintenance events for switching merchant vs non-merchant corporate republics
+character_event = {
+    id = government.3100
+    hide_window = yes
+
+    only_rulers = yes
+
+    trigger = {
+        government = merchant_republic_government
+        NOT = { is_government_potential = merchant_republic_government }
+    }
+    immediate = { set_government_type = corporate_republic }
+}
+character_event = {
+    id = government.3150
+    hide_window = yes
+
+    only_rulers = yes
+
+    trigger = {
+        government = corporate_republic
+        is_government_potential = merchant_republic_government
+    }
+    immediate = {
+        set_government_type = merchant_republic_government
+        create_family_palace = yes
+        hidden_tooltip = {
+            any_demesne_title = {
+                limit = { has_law = agnatic_succession }
+                add_law = true_cognatic_succession
+            }
+        }
+    }
+}
+
+# Bookkeeping - set pirate kingdoms and republics to appropriate holding type
+character_event = {
+    id = government.3200
+    hide_window = yes
+
+    only_rulers = yes
+
+    trigger = {
+        government = pirate_kingdom
+        is_government_potential = pirate_republic
+        capital_holding = { holding_type = city }
+    }
+
+    immediate = {
+        set_government_type = pirate_republic
+        create_family_palace = yes
+        hidden_tooltip = {
+            any_demesne_title = {
+                limit = { has_law = agnatic_succession }
+                add_law = true_cognatic_succession
+            }
+        }
+    }
+}
+#character_event = {
+#   id = government.3250
+#   hide_window = yes
+#   #is_triggered_only = yes
+#   only_rulers = yes
+#
+#   trigger = {
+#       #government = pirate_republic
+#       OR = {
+#           #is_government_potential = pirate_kingdom
+#           religion_group = outlaw_group
+#       }
+#       NOT = {
+#           government = pirate_kingdom
+#       }
+#       NOT = {
+#           government = pirate_republic
+#       }
+#       is_landed = yes
+#       higher_tier_than = baron
+#       #capital_holding = { holding_type = castle }
+#   }
+#
+#   immediate = {
+#       set_government_type = pirate_kingdom
+#       hidden_tooltip = { any_demesne_title = { add_law = succ_nomad_succession } }
+#   }
+#}
+
+#character_event = {
+#   id = government.3300
+#   hide_window = yes
+#   is_triggered_only = yes
+#   only_rulers = yes
+#
+#   trigger = {
+#       government = pirate_kingdom
+#       any_demesne_title = {
+#           NOT = {
+#               has_law = succ_nomad_succession
+#           }
+#       }
+#   }
+#
+#   immediate = {
+#       set_government_type = pirate_kingdom
+#       hidden_tooltip = { any_demesne_title = { add_law = succ_nomad_succession } }
+#   }
+#}
+
+character_event = {
+    id = government.3350
+    hide_window = yes
+    is_triggered_only = yes
+    only_rulers = yes
+
+    trigger = {
+        OR = {
+            government = military_directorate
+            government = military_command
+            government = corporate_directorate
+            government = administrative_directorate
+        }
+        independent = no
+        is_merchant_republic = no
+        is_patrician = no
+        any_demesne_title = {
+            NOT = {
+                has_law = succ_appointment
+            }
+        }
+    }
+
+    immediate = {
+        hidden_tooltip = {
+            any_demesne_title = {
+                limit = { ROOT = {is_investiture_comp = no} NOT = { has_law = succ_appointment } }
+                add_law = succ_appointment
+            }
+            any_demesne_title = {
+                limit = { ROOT = {is_investiture_comp = yes} NOT = { has_law = succ_catholic_bishopric } }
+                add_law = succ_catholic_bishopric
+            }
+        }
+    }
+}
+
+character_event = {
+    id = government.3400
+    hide_window = yes
+    is_triggered_only = yes
+    only_rulers = yes
+
+    trigger = {
+        OR = {
+            NOR = {
+                government = military_directorate
+                government = military_command
+                government = corporate_directorate
+                government = administrative_directorate
+                government = hivemind_government
+                government = colonial_government
+            }
+            independent = yes
+        }
+        is_merchant_republic = no
+        is_patrician = no
+        any_demesne_title = {
+            has_law = succ_appointment
+        }
+        in_revolt = no
+    }
+
+    immediate = {
+        if = {
+        limit = {
+            OR = {
+                government = military_republic
+                government = corporate_republic
+                government = administrative_republic
+                independent = yes
+            }
+        }
+            any_demesne_title = {
+                add_law = succ_feudal_elective
+            }
+        }
+
+        if = {
+        limit = {
+            OR = {
+                government = military_monarchy
+                government = corporate_monarchy
+                government = administrative_monarchy
+            }
+            independent = no
+        }
+            any_demesne_title = {
+                add_law = succ_feudal_elective
+            }
+        }
+    }
+}
+character_event = {
+    id = government.3450
+    desc = "EVTDESCGOVERNMENT900"
+    picture = GFX_evt_government
+
+    only_rulers = yes
+
+    trigger = {
+        OR = {
+            any_demesne_title = {
+                title = d_pilgrimage
+            }
+            any_demesne_title = {
+                title = d_orthodoxy
+            }
+        }
+    }
+    option = {
+        name = "EVTOPTCONFIRM"
+        set_government_type = administrative_directorate
+        any_demesne_title = {
+            add_law = succ_papal_succession
+        }
+    }
+}

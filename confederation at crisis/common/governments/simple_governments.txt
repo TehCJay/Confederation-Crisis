@@ -1,0 +1,89 @@
+#these are the simplest forms of governments, barons should default to these, also these can't be emperors
+
+feudal_governments = {
+
+	military_government = {
+		preferred_holdings = { CASTLE }
+		allowed_holdings = {
+			CASTLE
+			FORT
+			HOSPITAL
+		}
+		accepts_liege_governments = {
+		}
+		potential = {
+			NOT = { trait = hiver_implant }
+			holy_order = no
+			lower_tier_than = EMPEROR
+			NOT = { is_government_potential = merchant_republic_government }
+		}
+
+		#frame_suffix = "_republic"
+		title_prefix = "military_"
+		color = { 255 0 0 }
+
+		barons_need_dynasty = no
+		can_build_tribal = no
+		uses_piety_for_law_change = yes
+	}
+}
+
+
+republic_governments = {
+
+	civil_government = {
+		preferred_holdings = { CITY }
+		allowed_holdings = {
+			CITY
+			FORT
+			HOSPITAL
+		}
+		accepts_liege_governments = { # Accepts other republics
+			merchant_republic_government
+		}
+		potential = {
+			NOT = { trait = hiver_implant }
+			holy_order = no
+			lower_tier_than = EMPEROR
+			NOT = { is_government_potential = merchant_republic_government }
+		}
+
+		#frame_suffix = "_republic"
+		title_prefix = "city_"
+		color = { 0 0 255 }
+
+		barons_need_dynasty = no
+		can_build_tribal = no
+		uses_piety_for_law_change = yes
+	}
+
+}
+
+
+theocracy_governments = {
+
+	rectorial_government = {
+		preferred_holdings = { TEMPLE }
+		allowed_holdings = {
+			TEMPLE
+			FORT
+			HOSPITAL
+		}
+		accepts_liege_governments = {
+		}
+		potential = {
+			NOT = { trait = hiver_implant }
+			holy_order = no
+			lower_tier_than = EMPEROR
+			NOT = { is_government_potential = merchant_republic_government }
+		}
+
+		#frame_suffix = "_republic"
+		title_prefix = "temple_"
+		color = { 0 255 0 }
+
+		barons_need_dynasty = no
+		can_build_tribal = no
+		uses_piety_for_law_change = yes
+	}
+}

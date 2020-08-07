@@ -1,95 +1,59 @@
 # DO NOT ALTER THE NAME OR NUMBER OF THESE!
 
 succession_laws = {
-
 	succ_gavelkind = {
-		oldest_child_opinion = -10
-		child_opinion = 30
-		dynasty_opinion = 10
+		oldest_child_opinion = -5
+		child_opinion = 15
+		dynasty_opinion = 5
 		vassal_opinion = 5
 
 		potential = {
-			holder_scope = {
-				is_nomadic = no
-				is_merchant_republic = no
-				is_patrician = no
-				OR = {
-					government = military_monarchy
-					government = corporate_monarchy
-					government = administrative_monarchy
-				}
-				in_revolt = no
-			}
-			OR = {
-				is_landless_type_title = no
-				is_tribal_type_title = yes
-				temporary = yes
-			}
-			rebel = no
-			is_primary_type_title = no
+			laws_allow_inheritance = yes
 		}
+
 		allow = {
-			OR = {
-				holder_scope = {
-					independent = yes
-				}
-				crownlaw_title = {
-					NOT = {
-						has_law = dote_autonomy_0
-					}
-				}
-			}
-			has_law = succession_voting_power_0
+			liege_allows_inheritance = yes
+			senate_allow_ending_elections = yes
+			base_requeriment_for_succession_change = yes
 		}
+
+		pass_effect = {
+			log = "succ_gavelkind pass ([This.GetFullBaseName])"
+		}
+
 		effect = {
+			log = "succ_gavelkind ([This.GetFullBaseName])"
+
 			succession = gavelkind
-		}
-		revoke_allowed = {
-			always = no
 		}
 	}
 
 	succ_elective_gavelkind = {
-		child_opinion = 25
-		dynasty_opinion = 10
+		child_opinion = 15
+		dynasty_opinion = 5
 
 		potential = {
-			holder_scope = {
-				is_nomadic = no
-				is_merchant_republic = no
-				is_patrician = no
-				in_revolt = no
-				government = pirate_kingdom
-			}
-			OR = {
-				is_landless_type_title = no
-				is_tribal_type_title = yes
-				temporary = yes
-			}
-			rebel = no
-			is_primary_type_title = no
+			laws_allow_elections = yes
+			laws_allow_inheritance = yes
 		}
+
 		allow = {
-			OR = {
-				holder_scope = {
-					independent = yes
-				}
-				crownlaw_title = {
-					NOT = {
-						has_law = dote_autonomy_0
-					}
-				}
-			}
-			has_law = succession_voting_power_0
+			liege_allows_inheritance = yes
+			senate_allow_ending_elections = yes
+			base_requeriment_for_succession_change = yes
 		}
+
+		pass_effect = {
+			log = "succ_elective_gavelkind pass ([This.GetFullBaseName])"
+		}
+
 		effect = {
+			log = "succ_elective_gavelkind ([This.GetFullBaseName])"
+
 			succession = {
 				base_type = elective_gavelkind
-				voting_rules = elective_gavelkind
+				voting_rules = crisis_democratic_elective
 			}
-		}
-		revoke_allowed = {
-			always = no
 		}
 	}
 
@@ -97,325 +61,179 @@ succession_laws = {
 		dynasty_opinion = 5
 
 		potential = {
-			NAND = {
-				has_law = succ_open_elective_crisis
-				OR = {
-					title = e_byzantium
-					title = e_roman_empire
-				}
-			}
-			holder_scope = {
-				OR = {
-					AND = {
-						is_tribal = yes
-						religion = baltic_pagan
-					}
-					AND = {
-						is_tribal = yes
-						religion = west_african_pagan
-					}
-					has_religion_feature = religion_beatification
-					has_religion_feature = religion_feature_baltic
-					has_religion_feature = religion_feature_west_african
-				}
-			}
-			holder_scope = {
-				has_dlc = "Holy Fury"
-				is_nomadic = no
-				OR = {
-					independent = yes
-					NOT = {
-						any_liege = {
-							holy_order = yes
-						}
-					}
-				}
-				NOR = {
-					religion_group = muslim
-					has_religion_feature = religion_matriarchal
-					has_religion_feature = religion_patriarchal
-				}
-				is_merchant_republic = no
-				is_patrician = no
-				OR = {
-					independent = yes
-					NOT = {
-						any_demesne_title = {
-							is_vice_royalty = yes
-						}
-					}
-				}
-			}
-			OR = {
-				is_landless_type_title = no
-				is_tribal_type_title = yes
-				temporary = yes
-			}
-
-			rebel = no
-
-			OR = {
-				holder_scope = { is_feudal = yes }
-				holder_scope = { is_tribal = yes }
-			}
-			is_primary_type_title = no
-			NOT = { holder_scope = { government = confucian_bureaucracy } }
-			NOT = { holder_scope = { government = chinese_imperial_government } }
+			#has_dlc = "Holy Fury"
+			#laws_allow_elections = yes
+			#laws_allow_inheritance = yes
+			always = no
 		}
+
 		allow = {
-			conditional_tooltip = {
-				trigger = {
-					has_dlc = "Holy Fury"
-				}
-				holder_scope = {
-					OR = {
-						AND = {
-							is_tribal = yes
-							religion = baltic_pagan
-						}
-						AND = {
-							is_tribal = yes
-							religion = west_african_pagan
-						}
-						has_religion_feature = religion_beatification
-						has_religion_feature = religion_feature_baltic
-						has_religion_feature = religion_feature_west_african
-					}
-				}
-				custom_tooltip = {
-					text = forced_elective_tt
-					hidden_tooltip = {
-						NAND = {
-							has_law = succession_voting_power_1
-							OR = {
-								has_law = succ_feudal_elective
-								has_law = succ_hre_elective
-							}
-						}
-					}
-				}
-			}
-			holder_scope = {
-				show_scope_change = no
-				in_revolt = no
-			}
+			liege_allows_inheritance = yes
+			senate_allow_ending_elections = yes
+			base_requeriment_for_succession_change = yes
 		}
+
+		pass_effect = {
+			log = "succ_eldership pass ([This.GetFullBaseName])"
+		}
+
 		effect = {
+			log = "succ_eldership ([This.GetFullBaseName])"
+
 			succession = {
 				base_type = tanistry
-				voting_rules = eldership_rules
+				#voting_rules = eldership_rules
+				voting_rules = crisis_democratic_elective
 			}
-			elective_voting_rules = eldership_rules
-		}
-		revoke_allowed = {
-			always = no
 		}
 	}
 
 	succ_seniority = {
-		vassal_opinion = -10
-		oldest_child_opinion = -30
-		child_opinion = -20
-		dynasty_opinion = 10
+		vassal_opinion = -5
+		oldest_child_opinion = -15
+		child_opinion = -10
+		dynasty_opinion = 5
 
 		potential = {
-			holder_scope = {
-				OR = {
-					is_merchant_republic = no
-					primary_title = {
-						NOT = { title = PREVPREV }
-					}
-				}
-				OR = {
-					government = military_monarchy
-					government = corporate_monarchy
-					government = administrative_monarchy
-					is_patrician = yes
-				}
-			}
-			OR = {
-				is_landless_type_title = no
-				is_tribal_type_title = yes
-				temporary = yes
-			}
-			is_primary_type_title = no
-			OR = {
-				NOT = { tier = baron }
-				holder_scope = { is_patrician = yes }
-			}
+			laws_allow_inheritance = yes
 		}
 
 		allow = {
-			OR = {
-				hidden_tooltip = {
-					has_crown_law_title = no
-				}
-				holder_scope = {
-					is_patrician = yes
-					OR = {
-						is_merchant_republic = no
-						PREV = {
-							is_primary_holder_title = no
-						}
-					}
-				}
-				crownlaw_title = {
-					OR = {
-						has_law = centralization_2
-						has_law = centralization_3
-						has_law = centralization_4
-					}
-				}
-			}
-			OR = {
-				holder_scope = {
-					independent = yes
-				}
-				crownlaw_title = {
-					NOT = {
-						has_law = dote_autonomy_0
-					}
-				}
-			}
-			has_law = succession_voting_power_0
+			liege_allows_inheritance = yes
+			senate_allow_ending_elections = yes
+			base_requeriment_for_succession_change = yes
+		}
+
+		pass_effect = {
+			log = "succ_seniority pass ([This.GetFullBaseName])"
 		}
 
 		effect = {
+			log = "succ_seniority ([This.GetFullBaseName])"
+
 			succession = seniority
-		}
-		revoke_allowed = {
-			always = no
 		}
 	}
 
 	succ_primogeniture = {
-		oldest_child_opinion = 20
-		youngest_child_opinion = -30
-		child_opinion = -20
+		oldest_child_opinion = 10
+		youngest_child_opinion = -15
+		child_opinion = -10
 		dynasty_opinion = -5
+
 		potential = {
-			holder_scope = {
-				is_merchant_republic = no
-				is_patrician = no
-			}
-			OR = {
-				holder_scope = { # Viceroyalties can always have primogeniture if not muslim
-					any_demesne_title = {
-						is_vice_royalty = yes
-					}
-				}
-				AND = {
-					holder_scope = {
-						OR = {
-							government = military_monarchy
-							government = corporate_monarchy
-							government = administrative_monarchy
-						}
-					}
-					OR = {
-						is_landless_type_title = no
-						is_tribal_type_title = yes
-						temporary = yes
-					}
-					is_primary_type_title = no
-				}
-			}
+			laws_allow_inheritance = yes
 		}
+
 		allow = {
-			OR = {
-				holder_scope = { # Viceroyalties can always have primogeniture if not muslim
-					any_demesne_title = {
-						is_vice_royalty = yes
-					}
-				}
-				OR = {
-					hidden_tooltip = {
-						has_crown_law_title = no
-					}
-					crownlaw_title = {
-						OR = {
-							has_law = centralization_3
-							has_law = centralization_4
-						}
-					}
-				}
-			}
-			OR = {
-				holder_scope = {
-					independent = yes
-				}
-				crownlaw_title = {
-					NOT = {
-						has_law = dote_autonomy_0
-					}
-				}
-			}
-			has_law = succession_voting_power_0
+			liege_allows_inheritance = yes
+			senate_allow_ending_elections = yes
+			base_requeriment_for_succession_change = yes
+
+			## Viceroyalties can always have primogeniture if not muslim
+			#trigger_if = {
+			#	limit = {
+			#		has_dlc = "Charlemagne"
+			#
+			#		holder_scope = {
+			#			independent = no
+			#
+			#			top_liege = {
+			#				OR = {
+			#					has_law = vice_royalty_1
+			#					has_law = vice_royalty_2
+			#				}
+			#			}
+			#		}
+			#	}
+			#
+			#	holder_scope = {
+			#		show_scope_change = no
+			#
+			#		any_demesne_title = {
+			#			is_vice_royalty = yes
+			#		}
+			#	}
+			#}
+		}
+
+		pass_effect = {
+			log = "succ_primogeniture pass ([This.GetFullBaseName])"
 		}
 
 		effect = {
+			log = "succ_primogeniture ([This.GetFullBaseName])"
+
 			succession = primogeniture
-		}
-		revoke_allowed = {
-			always = no
 		}
 	}
 
 	succ_feudal_elective = {
-		oldest_child_opinion = -30
-		child_opinion = -10
+		oldest_child_opinion = -15
+		child_opinion = -5
 		dynasty_opinion = -5
-		vassal_opinion = 20
-		potential = {
-			holder_scope = {
-				is_merchant_republic = no
-				is_patrician = no
-			}
-			OR = {
-				is_landless_type_title = no
-				is_tribal_type_title = yes
-				temporary = yes
-			}
-			holder_scope = {
-				OR = {
-					government = military_republic
-					government = corporate_republic
-					government = administrative_republic
-					government = corporate_directorate
-					government = administrative_directorate
-					AND = {
-						independent = yes
-						government = military_command
-					}
-				}
-				NOT = {
-					government = pirate_kingdom
-				}
+		vassal_opinion = 10
 
-			}
-			NOT = { tier = baron }
+		potential = {
+			laws_allow_elections = yes
 		}
+
 		allow = {
+			liege_allows_elections = yes
+			base_requeriment_for_succession_change = yes
 		}
+
+		pass_effect = {
+			log = "succ_feudal_elective pass ([This.GetFullBaseName])"
+		}
+
 		effect = {
+			log = "succ_feudal_elective ([This.GetFullBaseName])"
+
 			succession = {
 				base_type = feudal_elective
-				voting_rules = feudal_elective
+				voting_rules = crisis_democratic_elective
 			}
-		}
-		revoke_allowed = {
-			always = no
 		}
 	}
 
-	#succ_hre_elective was removed? renamed?
+	succ_hre_elective = {
+		oldest_child_opinion = -15
+		child_opinion = -5
+		dynasty_opinion = -5
+		vassal_opinion = 15
+		vassal_limit = 20
+
+		potential = {
+			always = no #we disable this law because we don't use it on the mod
+		}
+
+		allow = {
+			liege_allows_elections = yes
+		}
+
+		pass_effect = {
+			log = "succ_hre_elective pass ([This.GetFullBaseName])"
+		}
+
+		effect = {
+			log = "succ_hre_elective ([This.GetFullBaseName])"
+
+			succession = {
+				base_type = feudal_elective
+				voting_rules = crisis_democratic_elective
+			}
+		}
+	}
 
 	succ_byzantine_elective = { #Pirate Elective
 		oldest_child_opinion = -5
 		child_opinion = -5
 		dynasty_opinion = -5
-		feudal_opinion = +5
+		feudal_opinion = -5
+
 		potential = {
+			laws_allow_elections = yes
 			holder_scope = {
 				is_merchant_republic = no
 				is_patrician = no
@@ -428,163 +246,97 @@ succession_laws = {
 			holder_scope = {
 				OR = {
 					government = pirate_kingdom
-					OR = {
-						AND = {
-							independent = yes
-							government = military_command
-						}
-						AND = {
-							independent = yes
-							government = military_republic
-						}
-						AND = {
-							independent = yes
-							government = military_directorate
-						}
+					AND = {
+						independent = yes
+						is_hereditary_trigger = yes
 					}
 				}
 			}
 		}
+
 		allow = {
-			custom_tooltip = {
-				text = not_forced_tt
-				hidden_tooltip = {
-					holder_scope = { NOT = { has_character_flag = liege_forced_succ_law } }
-				}
-			}
+			liege_allows_elections = yes
 		}
+
+		pass_effect = {
+			log = "succ_byzantine_elective pass ([This.GetFullBaseName])"
+		}
+
 		effect = {
+			log = "succ_byzantine_elective ([This.GetFullBaseName])"
+
 			succession = {
 				base_type = feudal_elective
-				voting_rules = byzantine_elective
+				voting_rules = crisis_democratic_elective
 			}
-		}
-		revoke_allowed = {
-			always = yes
 		}
 	}
 
 	succ_tanistry = {
-		oldest_child_opinion = -40
-		child_opinion = -20
-		dynasty_opinion = 10
+		oldest_child_opinion = -20
+		child_opinion = -10
+		dynasty_opinion = 5
 		vassal_opinion = 5
+
 		potential = {
-			holder_scope = {
-				is_merchant_republic = no
-				is_patrician = no
-				OR = {
-					government = military_monarchy
-					government = military_republic
-					government = corporate_monarchy
-					government = corporate_republic
-					government = administrative_monarchy
-					government = administrative_republic
-				}
-			}
-			OR = {
-				is_landless_type_title = no
-				is_tribal_type_title = yes
-				temporary = yes
-			}
-			is_primary_type_title = no
-			NOT = { tier = baron }
+			laws_allow_elections = yes
+			laws_allow_inheritance = yes
 		}
+
 		allow = {
-			OR = {
-				has_law = succ_gavelkind
-				has_law = succ_primogeniture
-				has_law = succ_ultimogeniture
-				has_law = succ_seniority
-				holder_scope = { is_autocratic_trigger = yes }
-				holder_scope = { trait = pragmatic }
-			}
-			OR = {
-				has_law = succ_feudal_elective
-				has_law = succ_open_elective_crisis
-				holder_scope = { is_democratic_trigger = yes }
-				holder_scope = { trait = pragmatic }
-			}
-			OR = {
-				holder_scope = {
-					independent = yes
-				}
-				crownlaw_title = {
-					NOT = {
-						has_law = dote_autonomy_0
-					}
-				}
-			}
-			has_law = succession_voting_power_0
+			liege_allows_inheritance = yes
+			senate_allow_ending_elections = yes
+			base_requeriment_for_succession_change = yes
 		}
+
+		pass_effect = {
+			log = "succ_tanistry pass ([This.GetFullBaseName])"
+		}
+
 		effect = {
+			log = "succ_tanistry ([This.GetFullBaseName])"
+
 			succession = {
 				base_type = tanistry
-				voting_rules = tanistry
+				voting_rules = crisis_democratic_elective
 			}
-		}
-		revoke_allowed = {
-			always = no
 		}
 	}
 
 	succ_ultimogeniture = {
-		youngest_child_opinion = 20
-		oldest_child_opinion = -30
-		child_opinion = -20
+		youngest_child_opinion = 10
+		oldest_child_opinion = -15
+		child_opinion = -10
 		dynasty_opinion = -5
+
 		potential = {
-			holder_scope = {
-				is_merchant_republic = no
-				is_patrician = no
-				OR = {
-					government = military_monarchy
-					government = corporate_monarchy
-					government = administrative_monarchy
-				}
-			}
-			OR = {
-				is_landless_type_title = no
-				is_tribal_type_title = yes
-				temporary = yes
-			}
-			is_primary_type_title = no
+			laws_allow_inheritance = yes
 		}
+
 		allow = {
-			OR = {
-				hidden_tooltip = {
-					has_crown_law_title = no
-				}
-				crownlaw_title = {
-					NOT = { has_law = centralization_0 }
-				}
-			}
-			OR = {
-				holder_scope = {
-					independent = yes
-				}
-				crownlaw_title = {
-					NOT = {
-						has_law = dote_autonomy_0
-					}
-				}
-			}
-			has_law = succession_voting_power_0
+			liege_allows_inheritance = yes
+			senate_allow_ending_elections = yes
+			base_requeriment_for_succession_change = yes
+		}
+
+		pass_effect = {
+			log = "succ_ultimogeniture pass ([This.GetFullBaseName])"
 		}
 
 		effect = {
+			log = "succ_ultimogeniture ([This.GetFullBaseName])"
+
 			succession = ultimogeniture
 		}
-		revoke_allowed = {
-			always = no
-		}
 	}
 
-	succ_turkish_succession = { 	#Pirate Open (at request of community, not sure if makes sense with pirate lore)
-		oldest_child_opinion = -10
+	succ_turkish_succession = { #Pirate Open (at request of community, not sure if makes sense with pirate lore)
+		oldest_child_opinion = -5
 		#child_opinion = 30
-		3dynasty_opinion = 10
+		#dynasty_opinion = 10
+
 		potential = {
+			laws_allow_inheritance = yes
 			holder_scope = {
 				is_merchant_republic = no
 				is_patrician = no
@@ -596,212 +348,172 @@ succession_laws = {
 			}
 			holder_scope = {
 				OR = {
-					AND = {
-						government = pirate_kingdom
-						independent = yes
-						OR = {
-							tier = duke
-							tier = king
-							tier = emperor
-						}
-					}
+					government = pirate_kingdom
 					AND = {
 						independent = yes
-						government = military_monarchy
-					}
-					AND = {
-						independent = yes
-						government = administrative_monarchy
-					}
-					AND = {
-						independent = yes
-						government = corporate_monarchy
-					}
-					AND = {
-						independent = yes
-						government = military_directorate
+						is_hereditary_trigger = yes
 					}
 				}
 			}
-			NOT = { tier = baron }
 		}
+
 		allow = {
+			liege_allows_inheritance = yes
+			senate_allow_ending_elections = yes
+			base_requeriment_for_succession_change = yes
 		}
-		effect = {
-			succession = turkish_succession
-		}
-		revoke_allowed = {
-			always = no
-		}
-	}
-	succ_papal_succession = {
-		potential = {
-			OR = {
-				title = d_pilgrimage
-				title = d_orthodoxy
-			}
+
+		pass_effect = {
+			log = "succ_turkish_succession pass ([This.GetFullBaseName])"
 		}
 
 		effect = {
-			succession = papal_succession
+			log = "succ_turkish_succession ([This.GetFullBaseName])"
+
+			succession = turkish_succession
 		}
-		revoke_allowed = {
-			always = no
+	}
+
+	succ_papal_succession = {
+		potential = {
+			#OR = {
+				title = d_orthodoxy
+				#title = d_fraticelli
+			#}
+		}
+
+		allow = {}
+
+		pass_effect = {
+			log = "succ_papal_succession pass ([This.GetFullBaseName])"
+		}
+
+		effect = {
+			log = "succ_papal_succession ([This.GetFullBaseName])"
+
+			succession = papal_succession
 		}
 	}
 
 	# Titles revert back to the liege on death
 	succ_appointment = {
+
 		potential = {
-			holder_scope = {
-				OR = {
-					government = military_directorate
-					government = military_command
-					government = corporate_directorate
-					government = administrative_directorate
-					government = hivemind_government
-				}
-				OR = {
-					independent = no
-					in_revolt = yes
-				}
-				is_patrician = no
-				is_merchant_republic = no
-				NOT = {
-					government = pirate_kingdom
-					}
-			}
-		}
-		allow = {
 			OR = {
-				independent = no
-				crownlaw_title = {
-					NOT = {
-						has_law = dote_autonomy_0
-					}
+				laws_allow_appointment = yes
+				holder_scope = {
+					independent = no
+					government = military_command
 				}
 			}
 		}
-		effect = {
-			succession = appointment
+
+		allow = {
+			liege_allows_appointment = yes
 		}
-		revoke_allowed = {
-			always = no
+
+		pass_effect = {
+			log = "succ_appointment pass ([This.GetFullBaseName])"
+		}
+
+		effect = {
+			log = "succ_appointment ([This.GetFullBaseName])"
+
+			succession = appointment
 		}
 	}
 
 	succ_open_elective = {
 		potential = {
-		    always = no
-			temporary = no
-			holder_scope = {
-				is_patrician = no
-				is_merchant_republic = no
-			}
-			NOT = { title = d_pilgrimage }
-			NOT = { title = d_orthodoxy }
-			OR = {
-				is_primary_type_title = yes
-				is_landless_type_title = yes
-				holder_scope = {
-					OR = {
-						government = military_republic
-						government = corporate_republic
-						government = administrative_republic
-					}
-				}
-			}
+			laws_allow_elections = yes
+			holder_scope = { tier = BARON }
 		}
+
 		allow = {
-			OR = {
-				holder_scope = {
-					independent = yes
-				}
-				crownlaw_title = {
-					NOT = {
-						has_law = dote_autonomy_0
-					}
-				}
-			}
-			has_law = succession_voting_power_0
+			liege_allows_elections = yes
 		}
+
+		pass_effect = {
+			log = "succ_open_elective pass ([This.GetFullBaseName])"
+		}
+
 		effect = {
+			log = "succ_open_elective ([This.GetFullBaseName])"
+
 			succession = open_elective
 		}
-		revoke_allowed = {
-			always = no
-		}
 	}
+
 	succ_catholic_bishopric = {
 		potential = {
-			always = no
+			is_primary_type_title = no
+			is_landless_type_title = no
+
+			holder_scope = {
+				is_theocracy = yes
+
+				OR = {
+					religion = orthodox
+					religion = pilgrim
+				}
+			}
 		}
+
+		allow = {}
+
+		pass_effect = {
+			log = "succ_catholic_bishopric pass ([This.GetFullBaseName])"
+		}
+
 		effect = {
+			log = "succ_catholic_bishopric ([This.GetFullBaseName])"
+
 			succession = catholic_bishopric
-		}
-		revoke_allowed = {
-			always = no
 		}
 	}
 
 	succ_patrician_elective = {
 		potential = {
-			is_primary_holder_title = yes
+			laws_allow_elections = yes
 			holder_scope = {
 				is_merchant_republic = yes
 			}
 		}
+
 		allow = {
-			OR = {
-				holder_scope = {
-					independent = yes
-				}
-				crownlaw_title = {
-					NOT = {
-						has_law = dote_autonomy_0
-					}
-				}
-			}
+			liege_allows_inheritance = yes
+			senate_allow_ending_elections = yes
+			base_requeriment_for_succession_change = yes
 		}
+
+		pass_effect = {
+			log = "succ_patrician_elective pass ([This.GetFullBaseName])"
+		}
+
 		effect = {
+			log = "succ_patrician_elective ([This.GetFullBaseName])"
+
 			succession = patrician_elective
-		}
-		revoke_allowed = {
-			always = no
 		}
 	}
 
 	succ_nomad_succession = {
 		potential = {
-			has_dlc = "Horse Lords"
 			holder_scope = {
 				is_nomadic = yes
 			}
-			holder_scope = {
-				NOT = {
-					government = pirate_kingdom
-				}
-			}
 		}
-		allow = {
-			OR = {
-				is_nomadic = yes
-				holder_scope = {
-					independent = yes
-				}
-				crownlaw_title = {
-					NOT = {
-						has_law = dote_autonomy_0
-					}
-				}
-			}
-			has_law = succession_voting_power_0
+
+		allow = {}
+
+		pass_effect = {
+			log = "succ_nomad_succession pass ([This.GetFullBaseName])"
 		}
+
 		effect = {
+			log = "succ_nomad_succession ([This.GetFullBaseName])"
+
 			succession = nomad_succession
-		}
-		revoke_allowed = {
-			always = no
 		}
 	}
 
@@ -809,184 +521,93 @@ succession_laws = {
 		potential = {
 			holder_scope = {
 				top_liege = { is_offmap_governor = yes }
-				government = confucian_bureaucracy # To use this with future offmap powers, use an OR clause here with the new government types
+				#government = confucian_bureaucracy # To use this with future offmap powers, use an OR clause here with the new government types
 			}
 		}
+
+		allow = {}
+
+		pass_effect = {
+			log = "succ_offmap_succession pass ([This.GetFullBaseName])"
+		}
+
 		effect = {
+			log = "succ_offmap_succession ([This.GetFullBaseName])"
+
 			succession = offmap_succession
 			# This succession type generates a character of China's culture and religion
 			# They have decent (4-10) stats, and good (7-11) stewardship, and will always have a Stewardship education
 			# The offmap power defined in the top liege's government is used to determine the culture and religion. Will not function if this isn't defined
 		}
-		revoke_allowed = {
-			always = no
+	}
+
+	succ_dictatorship = {
+		oldest_child_opinion = -15
+		child_opinion = -5
+		dynasty_opinion = -5
+		vassal_opinion = -10
+
+		potential = {
+			laws_allow_dictatorship = yes
+		}
+
+		allow = {
+			liege_allows_inheritance = yes
+
+			holder_scope = {
+				show_scope_change = no
+
+				trigger_if = {
+					limit = { independent = no }
+
+					custom_tooltip = {
+						text = not_forced_tt
+						NOT = { has_character_flag = liege_forced_succ_law }
+					}
+				}
+			}
+		}
+
+		pass_effect = {
+			log = "succ_dictatorship pass ([This.GetFullBaseName])"
+		}
+
+		effect = {
+			log = "succ_dictatorship ([This.GetFullBaseName])"
+
+			succession = {
+				base_type = feudal_elective
+				voting_rules = self_appointment
+			}
 		}
 	}
 
 	succ_open_elective_crisis = {
+		oldest_child_opinion = -15
+		child_opinion = -5
+		dynasty_opinion = -5
+		vassal_opinion = 10
+
 		potential = {
-			temporary = no
-			holder_scope = {
-				is_patrician = no
-				is_merchant_republic = no
-			}
-			NOT = { title = d_pilgrimage }
-			NOT = { title = d_orthodoxy }
-			OR = {
-				is_primary_type_title = yes
-				is_landless_type_title = yes
-				holder_scope = {
-					OR = {
-						government = military_republic
-						government = corporate_republic
-						government = administrative_republic
-					}
-				}
-			}
+			laws_allow_elections = yes
 		}
+
 		allow = {
-			OR = {
-				holder_scope = {
-					independent = yes
-				}
-				crownlaw_title = {
-					NOT = {
-						has_law = dote_autonomy_0
-					}
-				}
-			}
-			has_law = succession_voting_power_0
+			liege_allows_elections = yes
+			base_requeriment_for_succession_change = yes
 		}
+
+		pass_effect = {
+			log = "succ_feudal_elective pass ([This.GetFullBaseName])"
+		}
+
 		effect = {
+			log = "succ_feudal_elective ([This.GetFullBaseName])"
+
 			succession = {
 				base_type = feudal_elective
 				voting_rules = crisis_democratic_elective
 			}
-			elective_voting_rules = crisis_democratic_elective
-		}
-		revoke_allowed = {
-			always = no
 		}
 	}
-}
-
-gender_laws = {
-	cognatic_succession = {
-		female_dynasty_opinion = -10
-		potential = {
-			always = no
-		}
-		allow = {
-			OR = {
-				independent = yes
-				crownlaw_title = {
-					NOT = {
-						has_law = dote_autonomy_0
-					}
-				}
-			}
-		}
-		effect = {
-			gender_succ = cognatic
-		}
-		revoke_allowed = {
-			always = no
-		}
-	}
-	true_cognatic_succession = {
-
-		potential = {
-			always = yes
-		}
-		allow = {
-			OR = {
-				independent = yes
-				crownlaw_title = {
-					NOT = {
-						has_law = dote_autonomy_0
-					}
-				}
-			}
-		}
-		effect = {
-			gender_succ = true_cognatic
-		}
-		revoke_allowed = {
-			always = no
-		}
-	}
-	agnatic_succession = {
-		female_dynasty_opinion = -15
-
-		potential = {
-			always = no
-		}
-		allow = {
-			OR = {
-				independent = yes
-				crownlaw_title = {
-					NOT = {
-						has_law = dote_autonomy_0
-					}
-				}
-			}
-		}
-		effect = {
-			gender_succ = agnatic
-		}
-		revoke_allowed = {
-			always = no
-		}
-	}
-
-	enatic_succession = {
-		male_dynasty_opinion = -10
-
-		potential = {
-			always = no # For modders only
-		}
-		allow = {
-			always=yes
-			OR = {
-				independent = yes
-				crownlaw_title = {
-					NOT = {
-						has_law = dote_autonomy_0
-					}
-				}
-			}
-		}
-		effect = {
-			gender_succ = enatic
-		}
-		revoke_allowed = {
-			always = no
-		}
-	}
-
-	enatic_cognatic_succession = {
-		male_dynasty_opinion = -15
-
-		potential = {
-			always = no # For modders only
-		}
-		allow = {
-			always=yes
-			OR = {
-				independent = yes
-				crownlaw_title = {
-					NOT = {
-						has_law = dote_autonomy_0
-					}
-				}
-			}
-		}
-		effect = {
-			gender_succ = enatic_cognatic
-		}
-		revoke_allowed = {
-			always = no
-		}
-	}
-
 }
