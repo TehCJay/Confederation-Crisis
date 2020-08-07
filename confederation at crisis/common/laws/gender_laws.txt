@@ -35,105 +35,16 @@ gender_laws = {
 
 		default_selection = {
 			factor = 1
-
-			trigger = {
-				# Defaults to Agnatic-Cognatic with "All" gender gamerule.
-				NOT = {
-					has_game_rule = {
-						name = gender
-						value = all
-					}
-				}
-			}
-
-			mult_modifier = {
-				factor = 100
-				holder_scope = {
-					primary_title = {
-						NOR = {
-							has_law = status_of_women_3
-							has_law = status_of_women_4
-						}
-					}
-				}
-			}
 		}
 	}
 
 	cognatic_succession = { # agnatic-cognatic
 		potential = {
-			is_landless_type_title = no
-			is_primary_type_title = no
-
 			holder_scope = {
-				is_theocracy = no
-
-				trigger_if = {
-					limit = { is_republic = yes }
-
-					has_dlc = "Conclave"
-					is_patrician = yes
-
-					trigger_if = {
-						limit = { independent = no }
-
-						defacto_liege_title = {
-							OR = {
-								has_law = true_cognatic_succession
-								has_law = cognatic_succession
-							}
-						}
-					}
-				}
-				trigger_else_if = {
-                    limit = {
-                        OR = {
-                            has_horde_culture = yes
-                            is_nomadic = yes
-                        }
-                    }
-                    has_dlc = "Conclave"
-                }
-				#trigger_else_if = {
-				#	limit = { government = order_government }
-				#	independent = yes
-				#}
-
 				# No exceptions
 				NOR = {
 					has_religion_feature = religion_matriarchal
                 	has_religion_feature = religion_equal
-				}
-			}
-		}
-
-		allow = {
-			holder_scope = {
-				show_scope_change = no
-
-				trigger_if = {
-					limit = {
-						has_dlc = "Conclave"
-						OR = {
-							has_horde_culture = yes
-							has_religion_feature = religion_matriarchal
-							has_religion_feature = religion_equal
-							is_nomadic = yes
-						}
-						NOT = {
-							has_game_rule = {
-								name = gender
-								value = all
-							}
-						}
-					}
-
-					primary_title = {
-						OR = {
-							has_law = status_of_women_3
-							has_law = status_of_women_4
-						}
-					}
 				}
 			}
 		}
@@ -158,98 +69,21 @@ gender_laws = {
 		male_dynasty_opinion = -5
 
 		potential = {
-			is_landless_type_title = no
-			is_primary_type_title = no
-
 			holder_scope = {
+				# Theocracies have to allow Male temple holders
 				trigger_if = {
 					limit = { is_theocracy = yes }
 					religion_allows_male_temple_holders = yes
 					religion_allows_female_temple_holders = yes
 				}
 
-				# Equality gets a free pass
-				trigger_else_if = {
-					limit = {
-						NOR = {
-							has_religion_feature = religion_equal
-							has_religion_feature = religion_feature_bon
-
-							trigger_if = {
-								limit = { has_dlc = "Conclave" }
-
-								has_game_rule = {
-									name = gender
-									value = all
-								}
-							}
-						}
-					}
-
-					# No Exceptions
+				trigger_else = {
 					NOR = {
+						has_religion_feature = religion_patriachal
 						has_religion_feature = religion_matriarchal
-						has_religion_feature = religion_patriarchal
-					}
-
-					trigger_if = {
-						limit = { is_republic = yes }
-
-						has_dlc = "Conclave"
-						is_patrician = yes
-
-						trigger_if = {
-							limit = { independent = no }
-
-							defacto_liege_title = {
-								OR = {
-									has_law = true_cognatic_succession
-									has_law = cognatic_succession
-									has_law = enatic_cognatic_succession
-								}
-							}
-						}
-					}
-					trigger_else_if = {
-						limit = {
-							OR = {
-								has_horde_culture = yes
-								is_nomadic = yes
-							}
-						}
-
-						has_dlc = "Conclave"
 					}
 				}
 			}
-		}
-
-		allow = {
-            holder_scope = {
-				show_scope_change = no
-
-				trigger_if = {
-					limit = {
-						NOT = {
-							has_game_rule = {
-								name = gender
-								value = all
-							}
-						}
-					}
-
-					OR = {
-
-						has_religion_feature = religion_equal
-						has_religion_feature = religion_feature_bon
-
-						trigger_if = {
-							limit = { has_dlc = "Conclave"}
-							primary_title = { has_law = status_of_women_4 }
-						}
-					}
-				}
-            }
 		}
 
 		pass_effect = {
@@ -264,21 +98,7 @@ gender_laws = {
 		}
 
 		default_selection = {
-			factor = 1
-
-			mult_modifier = {
-				factor = 0.1
-				holder_scope = {
-					NOT = { has_religion_feature = religion_equal }
-				}
-			}
-
-			mult_modifier = {
-				factor = 100
-				holder_scope = {
-					has_religion_feature = religion_equal
-				}
-			}
+			factor = 100
 		}
 	}
 
@@ -287,36 +107,11 @@ gender_laws = {
 		female_dynasty_opinion = 5
 
 		potential = {
-			is_landless_type_title = no
-			is_primary_type_title = no
-
 			holder_scope = {
-				is_theocracy = no
-
-				trigger_if = {
-					limit = { is_republic = yes }
-
-					has_dlc = "Conclave"
-					is_patrician = yes
-
-					trigger_if = {
-						limit = { independent = no }
-
-						defacto_liege_title = {
-							OR = {
-								has_law = true_cognatic_succession
-								has_law = enatic_cognatic_succession
-							}
-						}
-					}
-				}
-
-				OR = {
-					has_religion_feature = religion_matriarchal
-
-					any_owned_bloodline = {
-						has_bloodline_flag = bloodline_enatic_cognatic
-					}
+				# No exceptions
+				NOR = {
+					has_religion_feature = religion_patriarchal
+                	has_religion_feature = religion_equal
 				}
 			}
 		}
@@ -332,7 +127,7 @@ gender_laws = {
 		}
 
 		default_selection = {
-			factor = 100
+			factor = 1
 		}
 	}
 
@@ -341,17 +136,20 @@ gender_laws = {
 		female_dynasty_opinion = 10
 
 		potential = {
-			is_landless_type_title = no
-
 			holder_scope = {
+				# Theocracies have to allow Male temple holders
 				trigger_if = {
 					limit = { is_theocracy = yes }
 
-					religion_allows_male_temple_holders = no
-					religion_allows_female_temple_holders = yes
+					religion_allows_male_temple_holders = yes
+					religion_allows_female_temple_holders = no
 				}
+				# Patriarchal and Equal religions don't allow female-centric succession
 				trigger_else = {
-					has_religion_feature = religion_matriarchal
+					NOR = {
+						has_religion_feature = religion_patriachal
+						has_religion_feature = religion_equal
+					}
 				}
 			}
 		}

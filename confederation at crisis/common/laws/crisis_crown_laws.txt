@@ -3,19 +3,19 @@
 law_groups = {
 	centralization = {
 		law_type = realm
-		allowed_for_councillors = no
+		allowed_for_councillors = yes
 	}
 	public_order = {
 		law_type = realm
-		allowed_for_councillors = no
+		allowed_for_councillors = yes
 	}
 	legislative_authority = {
 		law_type = realm
-		allowed_for_councillors = no
+		allowed_for_councillors = yes
 	}
 	dote_autonomy_laws = {
 		law_type = realm
-		allowed_for_councillors = no
+		allowed_for_councillors = yes
 	}
 	crown_term_length = {
 		law_type = realm
@@ -53,12 +53,13 @@ de_jure_laws = {
 			}
 		}
 		allow = {
-			# Has a senate (non-senate-havers can just do this by decree)
-			has_law = legislative_authority_1
-			# Pro-centralization doesn't prevent it
-			NOT = { holder_scope = { check_variable = { which = "var_pro_centralization" value = 0 } } }
 			holder_scope = { NOT = { has_character_modifier = constitutional_crisis } }
 			has_law = centralization_1
+			NOR = {
+				has_law = military_vassal_legitimacy_2
+				has_law = republic_vassal_legitimacy_2
+				has_law = theocracy_vassal_legitimacy_2
+			}
 		}
 		ai_will_do = {
 			factor = 1
@@ -543,23 +544,6 @@ de_jure_laws = {
 		}
 
 		allow = {
-			# Has a senate (non-senate-havers can just do this by decree)
-			has_law = legislative_authority_1
-			# Pro-centralization doesn't prevent it
-			NOT = {
-				AND = {
-					has_law = centralization_2
-					holder_scope = { check_variable = { which = "var_pro_centralization" value = 0 } }
-				}
-			}
-			# Anti-centralization doesn't prevent it
-			NOT = {
-				AND = {
-					has_law = centralization_0
-					holder_scope = { check_variable = { which = "var_anti_centralization" value = 0 } }
-				}
-			}
-			holder_scope = { NOT = { has_character_modifier = constitutional_crisis } }
 			OR = {
 				has_law = centralization_0
 				has_law = centralization_2
@@ -1531,22 +1515,6 @@ de_jure_laws = {
 		}
 
 		allow = {
-			# Has a senate (non-senate-havers can just do this by decree)
-			has_law = legislative_authority_1
-			# Pro-centralization doesn't prevent it
-			NOT = {
-				AND = {
-					has_law = centralization_3
-					holder_scope = { check_variable = { which = "var_pro_centralization" value = 0 } }
-				}
-			}
-			# Anti-centralization doesn't prevent it
-			NOT = {
-				AND = {
-					has_law = centralization_1
-					holder_scope = { check_variable = { which = "var_anti_centralization" value = 0 } }
-				}
-			}
 			holder_scope = { NOT = { has_character_modifier = constitutional_crisis } }
 			OR = {
 				has_law = centralization_1
@@ -2513,7 +2481,6 @@ de_jure_laws = {
 		group = centralization
 
 		demesne_size = 3
-
 		potential = {
 			NOT = {
 				crownlaw_title = {
@@ -2524,21 +2491,10 @@ de_jure_laws = {
 		}
 
 		allow = {
-			# Has a senate (non-senate-havers can just do this by decree)
-			has_law = legislative_authority_1
-			# Pro-centralization doesn't prevent it
-			NOT = {
-				AND = {
-					has_law = centralization_4
-					holder_scope = { check_variable = { which = "var_pro_centralization" value = 0 } }
-				}
-			}
-			# Anti-centralization doesn't prevent it
-			NOT = {
-				AND = {
-					has_law = centralization_2
-					holder_scope = { check_variable = { which = "var_anti_centralization" value = 0 } }
-				}
+			NOR = {
+				has_law = military_vassal_legitimacy_1
+				has_law = republic_vassal_legitimacy_1
+				has_law = theocracy_vassal_legitimacy_1
 			}
 			holder_scope = { NOT = { has_character_modifier = constitutional_crisis } }
 			OR = {
@@ -3516,10 +3472,9 @@ de_jure_laws = {
 		}
 
 		allow = {
-			# Has a senate (non-senate-havers can just do this by decree)
-			has_law = legislative_authority_1
-			# Anti-centralization doesn't prevent it
-			NOT = { holder_scope = { check_variable = { which = "var_anti_centralization" value = 0 } } }
+			has_law = military_vassal_legitimacy_2
+			has_law = republic_vassal_legitimacy_2
+			has_law = theocracy_vassal_legitimacy_2
 			holder_scope = { NOT = { has_character_modifier = constitutional_crisis } }
 			has_law = centralization_3
 			has_law = revoke_title_law_2
@@ -4234,18 +4189,33 @@ de_jure_laws = {
 		group = legislative_authority
 		default = yes
 
-		potential = { always = yes }
-		allow = { holder_scope = { check_variable = { which = "var_abolish_legislature" value = 1 } } }
+		potential = { NOT = { has_law = legislative_authority_2 } }
+		#allow = { holder_scope = { check_variable = { which = "var_abolish_legislature" value = 1 } } }
 		ai_will_do = { factor = 1 }
 		effect = { hidden_tooltip = { revoke_law = legislative_authority_1 } }
 	}
-	legislative_authority_1 = {	# Legislature
+	legislative_authority_1 = {	# Aristocratic Legislature
 		show_as_title = yes
 		group = legislative_authority
 		default = no
 
 		potential = { always = yes }
-		allow = { always = no } # These decisions are made by decree
+		ai_will_do = { factor = 0 }
+		effect = {
+			hidden_tooltip = { revoke_law = legislative_authority_0 revoke_law = legislative_authority_2 }
+			holder_scope = {
+				clr_character_flag = flag_founded_legislature
+				set_character_flag = flag_founded_legislature
+				hidden_tooltip = { character_event = { id = maintenance.900 } } # calculate initial senate
+			}
+		}
+	}
+	legislative_authority_2 = {	# Democratic Legislature
+		show_as_title = yes
+		group = legislative_authority
+		default = no
+
+		potential = { NOT = { has_law = legislative_authority_0 } }
 		ai_will_do = { factor = 0 }
 		effect = {
 			hidden_tooltip = { revoke_law = legislative_authority_0 }
