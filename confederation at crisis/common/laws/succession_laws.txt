@@ -399,17 +399,19 @@ succession_laws = {
 	succ_appointment = {
 
 		potential = {
+			NOT = { has_law = succ_true_appointment }
+			holder_scope = { independent = no }
 			OR = {
 				laws_allow_appointment = yes
-				holder_scope = {
-					independent = no
-					government = military_command
-				}
+				government = military_command
 			}
 		}
 
 		allow = {
-			liege_allows_appointment = yes
+			OR = {
+				laws_allow_appointment = yes
+				government = military_command
+			}
 		}
 
 		pass_effect = {
@@ -578,6 +580,55 @@ succession_laws = {
 			succession = {
 				base_type = feudal_elective
 				voting_rules = self_appointment
+			}
+		}
+	}
+
+	succ_true_appointment = {
+		#oldest_child_opinion = -15
+		#child_opinion = -5
+		#dynasty_opinion = -5
+		#vassal_opinion = -10
+
+		potential = {
+			always = yes
+			holder_scope = { independent = no }
+			OR = {
+				laws_allow_appointment = yes
+				holder_scope = { government = military_command }
+			}
+		}
+
+		allow = {
+			OR = {
+				laws_allow_appointment = yes
+				government = military_command
+			}
+
+			holder_scope = {
+				show_scope_change = no
+
+				trigger_if = {
+					limit = { independent = no }
+
+					custom_tooltip = {
+						text = not_forced_tt
+						NOT = { has_character_flag = liege_forced_succ_law }
+					}
+				}
+			}
+		}
+
+		pass_effect = {
+			log = "succ_true_appointment pass ([This.GetFullBaseName])"
+		}
+
+		effect = {
+			log = "succ_true_appointment ([This.GetFullBaseName])"
+
+			succession = {
+				base_type = feudal_elective
+				voting_rules = appointment
 			}
 		}
 	}

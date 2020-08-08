@@ -6,12 +6,16 @@
 # The voter will vote for the top score candidate calculated from this script
 
 self_appointment = {
-	elector_vote_strength = {
-		days = 1
+	elector_vote_strength = {							# Affects the voting strength of each elector
+		days = 1										# 1 elector = 1 vote
+		additive_modifier = {
+			FROMFROM = { holder_scope = { character = ROOT } }
+			value = 998									# Ex: An Elector with the humble trait is worth an addtional 3 votes
+		}
 	}
 
 	elector_selection = {
-		max_amount = 1
+		#max_amount = 2
 		days = -5
 
 		additive_modifier = {
@@ -20,6 +24,264 @@ self_appointment = {
 			# The title must currently exist
 			FROMFROM = {
 				has_holder = no
+			}
+		}
+
+		additive_modifier = {
+			value = 6
+			character = FROM
+		}
+
+		additive_modifier = { # Current ruler is always an elector
+			value = 10
+
+			FROMFROM = { # Either title is higher than Duke-tier, or must be primary
+				holder_scope = {
+					character = PREVPREV
+				}
+
+				OR = {
+					higher_tier_than = DUKE
+
+					holder_scope = {
+						primary_title = {
+							title = PREVPREV
+						}
+					}
+				}
+			}
+		}
+	}
+
+	# ROOT is current title holder
+	# FROM is candidate
+	# FROMFROM is title
+	# FROMFROMFROM is null
+	candidate_trigger = {
+		# The title must currently exist
+		FROMFROM = {
+			has_holder = yes
+		}
+
+		FROM = {
+			NOT = { character = ROOT } # Not the current ruler
+
+			# Either the candidate is in the realm, or is landless, or the title is independent, or the realm of the title does NOT have protected inheritance
+			OR = {
+				same_realm = ROOT
+				is_ruler = no
+
+				ROOT_FROMFROM = {
+					OR = {
+						holder_scope = {
+							independent = yes
+						}
+
+						NOR = {
+							has_law = out_of_realm_inheritance_law_1
+						}
+					}
+				}
+			}
+
+			## If the current ruler controls the religion, candidates must be of the same religion
+			#trigger_if = {
+			#	limit = { ROOT = { controls_religion = yes } }
+			#	religion = FROM
+			#}
+
+			OR = {
+				# Title claimant
+				has_claim = ROOT_FROMFROM
+
+				# Family relations
+				trigger_if = {
+					limit = { is_close_relative = ROOT }
+
+					OR = {
+						dynasty = ROOT
+
+						AND = {
+							is_landed = yes
+							higher_real_tier_than = BARON
+						}
+					}
+				}
+
+				trigger_if = {
+					limit = {
+						# Either defacto direct vassal, or independent ruler who is dejure vassal
+						OR = {
+							vassal_of = ROOT
+							character = ROOT
+
+							AND = {
+								independent = yes
+
+								any_dejure_liege = {
+									title = FROMFROM
+								}
+							}
+						}
+					}
+
+					# Tier requirements
+					#OR = {
+					#	# Or Duke-tier...
+					#	higher_real_tier_than = COUNT
+					#
+					#	#...Or Count-tier under a Duchy...
+					#	trigger_if = {
+					#		limit = { ROOT = { real_tier = DUKE } }
+					#		higher_real_tier_than = BARON
+					#	}
+					#
+					#	#...Or Baron-tier under a County
+					#	trigger_if = {
+					#		limit = { ROOT = { lower_real_tier_than = DUKE } }
+					#
+					#		is_landed = yes
+					#		is_ruler = yes
+					#	}
+					#}
+				}
+			}
+
+			NOR = {
+				# Uncommenting this condition provokes that a ruler's son is not a valid candidate if the parent is married to the ruler and a candidate
+				# mother = {
+				#	is_alive = yes
+				#	is_married = ROOT
+				#	parent_for_elective_succession_trigger = yes
+				# }
+				# father = {
+				#	is_alive = yes
+				#	is_married = ROOT
+				#	parent_for_elective_succession_trigger = yes
+				# }
+
+				trait = disinherited
+				trait = eunuch
+
+				trigger_if = {
+					limit = { trait = bastard }
+					is_ruler = no
+				}
+
+				is_ascetic_trigger = yes
+			}
+		}
+	}
+
+	candidate_vote_score = {
+		days = 0
+
+		### Candidate ###
+
+		# Heir
+		additive_modifier = { # Current ruler will always try to elect his player heir
+			value = 50
+			localisation_key = tooltip_feudal_elector_vote_player_heir
+
+			player_heir = {
+				character = FROM
+				NOT = { character = ROOT }
+			}
+
+			FROMFROM = {
+				holder_scope = {
+					character = PREVPREV
+					NOT = { is_rival = FROM } # Unless rival
+				}
+			}
+		}
+
+		### Elector voting himself ###
+		additive_modifier = {
+			value = 15
+			localisation_key = tooltip_feudal_elector_vote_myself
+
+			character = FROM
+
+			NOR = {
+				trait = humble
+				trait = content
+				trait = craven
+				trait = slothful
+				trait = stressed
+				trait = depressed
+				trait = ambitious
+			}
+
+			FROMFROM = {
+				holder_scope = {
+					NOT = { is_parent_of = ROOT }
+				}
+			}
+		}
+	}
+}
+
+appointment = {
+	elector_vote_strength = {							# Affects the voting strength of each elector
+		days = 0
+											# 1 elector = 1 vote
+		additive_modifier = {
+			FROMFROM = { holder_scope = { liege = { character = ROOT } } }
+			value = 99
+		}
+
+		additive_modifier = {
+			value = 10
+			FROMFROM = {
+				NOT = { has_law = legislative_authority_0 }
+				holder_scope = {
+					liege = {
+						any_courtier_or_vassal = {
+							character = ROOT
+							is_voter = yes
+						}
+					}
+				}
+			}
+		}
+	}
+
+	elector_selection = {
+		#max_amount = 2
+		days = -5
+
+		additive_modifier = {
+			value = -1000
+
+			# The title must currently exist
+			FROMFROM = {
+				has_holder = no
+			}
+		}
+
+		additive_modifier = {
+			value = 6
+			character = FROM
+		}
+
+		additive_modifier = {
+			FROMFROM = { holder_scope = { liege = { character = ROOT } } }
+			value = 99
+		}
+
+		additive_modifier = {
+			value = 15
+			FROMFROM = {
+				NOT = { has_law = legislative_authority_0 }
+				holder_scope = {
+					liege = {
+						any_courtier_or_vassal = {
+							character = ROOT
+							is_voter = yes
+						}
+					}
+				}
 			}
 		}
 
@@ -75,32 +337,11 @@ self_appointment = {
 				}
 			}
 
-			# Candidate should not be a landless Courtier that is about to inherit a Theocracy or Republic
-			OR = {
-				AND = {
-					is_ruler = yes
-					is_landed = yes
-					is_republic = no
-					is_merchant_republic = no
-					is_theocracy = no
-				}
-
-				NOT = {
-					any_heir_title = {
-						OR = {
-							is_republic = yes
-							is_merchant_republic = yes
-							is_theocracy = yes
-						}
-					}
-				}
-			}
-
-			# If the current ruler controls the religion, candidates must be of the same religion
-			trigger_if = {
-				limit = { ROOT = { controls_religion = yes } }
-				religion = ROOT
-			}
+			## If the current ruler controls the religion, candidates must be of the same religion
+			#trigger_if = {
+			#	limit = { ROOT = { controls_religion = yes } }
+			#	religion = FROM
+			#}
 
 			OR = {
 				# Title claimant
@@ -125,6 +366,7 @@ self_appointment = {
 						# Either defacto direct vassal, or independent ruler who is dejure vassal
 						OR = {
 							vassal_of = ROOT
+							character = ROOT
 
 							AND = {
 								independent = yes
@@ -137,24 +379,24 @@ self_appointment = {
 					}
 
 					# Tier requirements
-					OR = {
-						# Or Duke-tier...
-						higher_real_tier_than = COUNT
-
-						#...Or Count-tier under a Duchy...
-						trigger_if = {
-							limit = { ROOT = { real_tier = DUKE } }
-							higher_real_tier_than = BARON
-						}
-
-						#...Or Baron-tier under a County
-						trigger_if = {
-							limit = { ROOT = { lower_real_tier_than = DUKE } }
-
-							is_landed = yes
-							is_ruler = yes
-						}
-					}
+					#OR = {
+					#	# Or Duke-tier...
+					#	higher_real_tier_than = COUNT
+					#
+					#	#...Or Count-tier under a Duchy...
+					#	trigger_if = {
+					#		limit = { ROOT = { real_tier = DUKE } }
+					#		higher_real_tier_than = BARON
+					#	}
+					#
+					#	#...Or Baron-tier under a County
+					#	trigger_if = {
+					#		limit = { ROOT = { lower_real_tier_than = DUKE } }
+					#
+					#		is_landed = yes
+					#		is_ruler = yes
+					#	}
+					#}
 				}
 			}
 
@@ -180,11 +422,6 @@ self_appointment = {
 				}
 
 				is_ascetic_trigger = yes
-				is_theocracy = yes
-				is_republic = yes
-				is_merchant_republic = yes
-				#trait = crusader_king
-				#trait = crusader_queen
 			}
 		}
 	}
@@ -208,6 +445,30 @@ self_appointment = {
 				holder_scope = {
 					character = PREVPREV
 					NOT = { is_rival = FROM } # Unless rival
+				}
+			}
+		}
+
+		### Elector voting himself ###
+		additive_modifier = {
+			value = 15
+			localisation_key = tooltip_feudal_elector_vote_myself
+
+			character = FROM
+
+			NOR = {
+				trait = humble
+				trait = content
+				trait = craven
+				trait = slothful
+				trait = stressed
+				trait = depressed
+				trait = ambitious
+			}
+
+			FROMFROM = {
+				holder_scope = {
+					NOT = { is_parent_of = ROOT }
 				}
 			}
 		}

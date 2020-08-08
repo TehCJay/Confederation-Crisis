@@ -1,6 +1,10 @@
 # Demesne type (de facto) laws (set for the PRIMARY title in a demesne but affects the whole demesne)
 law_groups = {
 
+	legislative_authority = {
+		law_type = realm
+		allowed_for_councillors = yes
+	}
 	pledge = {
 		law_type = realm
 		allowed_for_councillors = yes
@@ -32,6 +36,55 @@ law_groups = {
 }
 
 laws = {
+
+	# LEGISLATIVE AUTHORITY
+	legislative_authority_0 = {	# No Legislature
+		show_as_title = yes
+		group = legislative_authority
+		default = no
+
+		potential = { NOT = { has_law = legislative_authority_2 } }
+		#allow = { holder_scope = { check_variable = { which = "var_abolish_legislature" value = 1 } } }
+		ai_will_do = { factor = 1 }
+		pass_effect = { log = "legislative_authority_0 pass ([This.GetFullBaseName])" }
+		effect = {
+			log = "legislative_authority_0 ([This.GetFullBaseName])"
+			hidden_tooltip = { revoke_law = legislative_authority_1 add_law = law_voting_power_0 } }
+	}
+	legislative_authority_1 = {	# Aristocratic Legislature
+		show_as_title = yes
+		group = legislative_authority
+		default = yes
+
+		potential = { always = yes }
+		ai_will_do = { factor = 0 }
+		pass_effect = { log = "legislative_authority_1 pass ([This.GetFullBaseName])" }
+		effect = {
+			log = "legislative_authority_1 ([This.GetFullBaseName])"
+			hidden_tooltip = { revoke_law = legislative_authority_0 revoke_law = legislative_authority_2 add_law = law_voting_power_1 }
+			holder_scope = {
+				clr_character_flag = flag_founded_legislature
+				set_character_flag = flag_founded_legislature
+				hidden_tooltip = { character_event = { id = maintenance.900 } } # calculate initial senate
+			}
+		}
+	}
+	legislative_authority_2 = {	# Democratic Legislature
+		show_as_title = yes
+		group = legislative_authority
+		default = no
+
+		potential = { NOT = { has_law = legislative_authority_0 } }
+		ai_will_do = { factor = 0 }
+		effect = {
+			hidden_tooltip = { revoke_law = legislative_authority_0 add_law = law_voting_power_1 }
+			holder_scope = {
+				clr_character_flag = flag_founded_legislature
+				set_character_flag = flag_founded_legislature
+				hidden_tooltip = { character_event = { id = maintenance.900 } } # calculate initial senate
+			}
+		}
+	}
 
 	pledge_off = {
 		group = pledge
@@ -1302,8 +1355,12 @@ laws = {
 				}
 			}
 		}
+		pass_effect = {
+			log = "police_budget_1 pass ([This.GetFullBaseName])"
+		}
 		effect = {
-			#hidden_tooltip = {
+			log = "police_budget_1 ([This.GetFullBaseName])"
+			hidden_tooltip = {
 				revoke_law = police_budget_0
 				revoke_law = police_budget_2
 				revoke_law = police_budget_3
@@ -1317,7 +1374,7 @@ laws = {
 						remove_province_modifier = police_budget_mod_3
 					}
 				}
-			#}
+			}
 		}
 	}
 	police_budget_2 = {
@@ -1451,6 +1508,16 @@ laws = {
 				revoke_law = health_care_budget_1
 				revoke_law = health_care_budget_2
 				revoke_law = health_care_budget_3
+				holder_scope = {
+					any_demesne_province = {
+						if = {
+							limit = { owner = { character = PREVPREV } }
+						}
+						remove_province_modifier = health_care_budget_mod_1
+						remove_province_modifier = health_care_budget_mod_2
+						remove_province_modifier = health_care_budget_mod_3
+					}
+				}
 			}
 		}
 	}
@@ -1486,9 +1553,19 @@ laws = {
 		effect = {
 			hidden_tooltip = {
 				revoke_law = health_care_budget_0
-				revoke_law = health_care_budget_1
 				revoke_law = health_care_budget_2
+				revoke_law = health_care_budget_3
 			}
+			holder_scope = {
+					any_demesne_province = {
+						if = {
+							limit = { owner = { character = PREVPREV } }
+						}
+						add_province_modifier = { name = health_care_budget_mod_1 duration = -1 }
+						remove_province_modifier = health_care_budget_mod_2
+						remove_province_modifier = health_care_budget_mod_3
+					}
+				}
 		}
 	}
 	health_care_budget_2 = {
@@ -1524,6 +1601,16 @@ laws = {
 				revoke_law = health_care_budget_0
 				revoke_law = health_care_budget_1
 				revoke_law = health_care_budget_3
+				holder_scope = {
+					any_demesne_province = {
+						if = {
+							limit = { owner = { character = PREVPREV } }
+						}
+						remove_province_modifier = health_care_budget_mod_1
+						add_province_modifier = { name = health_care_budget_mod_2 duration = -1 }
+						remove_province_modifier = health_care_budget_mod_3
+					}
+				}
 			}
 		}
 	}
@@ -1554,6 +1641,16 @@ laws = {
 				revoke_law = health_care_budget_0
 				revoke_law = health_care_budget_1
 				revoke_law = health_care_budget_2
+				holder_scope = {
+					any_demesne_province = {
+						if = {
+							limit = { owner = { character = PREVPREV } }
+						}
+						remove_province_modifier = health_care_budget_mod_1
+						remove_province_modifier = health_care_budget_mod_2
+						add_province_modifier = { name = health_care_budget_mod_3 duration = -1 }
+					}
+				}
 			}
 		}
 	}
@@ -1592,6 +1689,16 @@ laws = {
 				revoke_law = education_budget_1
 				revoke_law = education_budget_2
 				revoke_law = education_budget_3
+				holder_scope = {
+					any_demesne_province = {
+						if = {
+							limit = { owner = { character = PREVPREV } }
+						}
+						remove_province_modifier = education_budget_mod_1
+						remove_province_modifier = education_budget_mod_2
+						remove_province_modifier = education_budget_mod_3
+					}
+				}
 			}
 		}
 	}
@@ -1640,8 +1747,18 @@ laws = {
 		effect = {
 			hidden_tooltip = {
 				revoke_law = education_budget_0
-				revoke_law = education_budget_1
 				revoke_law = education_budget_2
+				revoke_law = education_budget_3
+				holder_scope = {
+					any_demesne_province = {
+						if = {
+							limit = { owner = { character = PREVPREV } }
+						}
+						add_province_modifier = { name = education_budget_mod_1 duration = -1 }
+						remove_province_modifier = education_budget_mod_2
+						remove_province_modifier = education_budget_mod_3
+					}
+				}
 			}
 		}
 	}
@@ -1684,6 +1801,16 @@ laws = {
 				revoke_law = education_budget_0
 				revoke_law = education_budget_1
 				revoke_law = education_budget_3
+				holder_scope = {
+					any_demesne_province = {
+						if = {
+							limit = { owner = { character = PREVPREV } }
+						}
+						remove_province_modifier = education_budget_mod_1
+						add_province_modifier = { name = education_budget_mod_2 duration = -1 }
+						remove_province_modifier = education_budget_mod_3
+					}
+				}
 			}
 		}
 	}
@@ -1712,6 +1839,16 @@ laws = {
 				revoke_law = education_budget_0
 				revoke_law = education_budget_1
 				revoke_law = education_budget_2
+				holder_scope = {
+					any_demesne_province = {
+						if = {
+							limit = { owner = { character = PREVPREV } }
+						}
+						remove_province_modifier = education_budget_mod_1
+						remove_province_modifier = education_budget_mod_2
+						add_province_modifier = { name = education_budget_mod_3 duration = -1 }
+					}
+				}
 			}
 		}
 	}
