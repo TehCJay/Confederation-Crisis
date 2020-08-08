@@ -6,9 +6,9 @@ character_event = {
 	id = laws.4000
 	desc = "EVTDESCLAWS4000"
 	picture = GFX_evt_election
-	
+
 	only_rulers = yes
-	
+
 	trigger = {
 		NOT = { has_character_modifier = constitutional_crisis }
 		any_demesne_title = {
@@ -29,7 +29,7 @@ character_event = {
 			NOT = { has_title_flag = flag_holding_election }
 		}
 	}
-	
+
 	option = {
 		trigger = { NOT = { is_primary_war_defender = yes } }
 		name = "EVTOPTACCEPT"
@@ -83,7 +83,7 @@ character_event = {
 		}
 		if = {
 			limit = { tier = count }
-			set_character_flag = flag_crisis_king
+			set_character_flag = flag_crisis_count
 		}
 		ai_chance = {
 			factor = 10
@@ -263,7 +263,7 @@ character_event = {
 	desc = "EVTDESCLAWS4001"
 	picture = GFX_evt_scandal
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -272,9 +272,9 @@ character_event = {
 	id = laws.4100
 	desc = "EVTDESCLAWS4100"
 	picture = GFX_evt_election
-	
+
 	only_rulers = yes
-	
+
 	trigger = {
 		NOT = { has_character_modifier = constitutional_crisis }
 		any_demesne_title = {
@@ -295,7 +295,7 @@ character_event = {
 			NOT = { has_title_flag = flag_holding_election }
 		}
 	}
-	
+
 	option = {
 		trigger = { is_primary_war_defender = no }
 		name = "EVTOPTACCEPT"
@@ -528,9 +528,9 @@ character_event = {
 	id = laws.4200
 	desc = "EVTDESCLAWS4200"
 	picture = GFX_evt_election
-	
+
 	only_rulers = yes
-	
+
 	trigger = {
 		NOT = { has_character_modifier = constitutional_crisis }
 		any_demesne_title = {
@@ -551,7 +551,7 @@ character_event = {
 			NOT = { has_title_flag = flag_holding_election }
 		}
 	}
-	
+
 	option = {
 		trigger = { is_primary_war_defender = no }
 		name = "EVTOPTACCEPT"
@@ -784,9 +784,9 @@ character_event = {
 	id = laws.4300
 	desc = "EVTDESCLAWS4300"
 	picture = GFX_evt_election
-	
+
 	only_rulers = yes
-	
+
 	trigger = {
 		NOT = { has_character_modifier = constitutional_crisis }
 		any_demesne_title = {
@@ -807,7 +807,7 @@ character_event = {
 			NOT = { has_title_flag = flag_holding_election }
 		}
 	}
-	
+
 	option = {
 		trigger = { is_primary_war_defender = no }
 		name = "EVTOPTACCEPT"
@@ -1041,7 +1041,7 @@ character_event = {
 	desc = "EVTDESCLAWS5000"
 	picture = GFX_evt_election
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		any_independent_ruler = { character_event = { id = laws.5001 } }
@@ -1101,7 +1101,7 @@ character_event = {
 	desc = "EVTDESCLAWS5100"
 	picture = GFX_evt_election
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		set_variable = { which = "victory_margin_federal" value = -1 }
@@ -1159,7 +1159,7 @@ character_event = {
 	picture = GFX_evt_election
 	show_from_from = yes
 	is_triggered_only = yes
-	
+
 	option = {
 		# Vote for the incumbent
 		trigger = { NOT = { character = FROM } }
@@ -1168,7 +1168,7 @@ character_event = {
 		hidden_tooltip = { FROM = { change_variable = { which = "victory_margin_federal" value = -1 } } }
 		ai_chance = {
 			factor = 50
-			modifier = {	
+			modifier = {
 				factor = 0
 				opinion_diff = {
 					first = FROMFROM
@@ -1179,7 +1179,7 @@ character_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		# Vote for the challenger
 		trigger = { NOT = { character = FROMFROM } }
@@ -1188,7 +1188,7 @@ character_event = {
 		hidden_tooltip = { FROM = { change_variable = { which = "victory_margin_federal" value = 1 } } }
 		ai_chance = {
 			factor = 50
-			modifier = {	
+			modifier = {
 				factor = 0
 				opinion_diff = {
 					first = FROM
@@ -1207,9 +1207,9 @@ character_event = {
 	desc = "EVTDESCLAWS5110"
 	picture = GFX_evt_election
 	is_triggered_only = yes
-	
+
 	trigger = { FROM = { check_variable = { which = "victory_margin_federal" value = 1 } } }
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		any_demesne_title = {
@@ -1249,9 +1249,9 @@ character_event = {
 	desc = "EVTDESCLAWS5115"
 	picture = GFX_evt_election
 	is_triggered_only = yes
-	
+
 	trigger = { FROM = { has_title_flag = flag_just_won_federal_election } }
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		FROM = {
@@ -1297,9 +1297,9 @@ character_event = {
 	desc = "EVTDESCLAWS5116"
 	notification = yes
 	is_triggered_only = yes
-	
+
 	immediate = { }
-	
+
 	option = { name = "EVTOPTCONFIRM" } # Escape option
 }
 
@@ -1309,9 +1309,9 @@ character_event = {
 	desc = "EVTDESCLAWS5120"
 	picture = GFX_evt_election
 	is_triggered_only = yes
-	
+
 	trigger = { FROM = { NOT = { check_variable = { which = "victory_margin_federal" value = 1 } } } }
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		any_demesne_title = {
@@ -1323,12 +1323,12 @@ character_event = {
 				}
 				current_heir = { character = FROM }
 			}
-			
+
 			# End the election and reset the election cycle
 			clr_title_flag = flag_holding_election
 			clr_title_flag = flag_election_cycle
 			set_title_flag = flag_election_cycle
-			
+
 			# Gain prestige based on title rank
 			if = {
 				limit = { tier = count }
@@ -1378,7 +1378,7 @@ character_event = {
 	desc = "EVTDESCLAWS5125"
 	picture = GFX_evt_election
 	is_triggered_only = yes
-	
+
 	option = {
 		clr_character_flag = flag_informed_of_election_loss
 		name = "EVTOPTCONFIRM"
@@ -1390,9 +1390,9 @@ character_event = {
 	desc = "EVTDESCLAWS5126"
 	notification = yes
 	is_triggered_only = yes
-	
+
 	immediate = { }
-	
+
 	option = { name = "EVTOPTCONFIRM" } # Escape option
 }
 
@@ -1403,7 +1403,7 @@ character_event = {
 	desc = "EVTDESCLAWS5200"
 	picture = GFX_evt_election
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		set_variable = { which = "victory_margin_popular" value = 0 }
@@ -1508,7 +1508,7 @@ character_event = {
 	picture = GFX_evt_election
 	show_from_from = yes
 	is_triggered_only = yes
-	
+
 	option = {
 		# Vote for the incumbent
 		trigger = { NOT = { character = FROM } }
@@ -1517,7 +1517,7 @@ character_event = {
 		hidden_tooltip = { FROM = { change_variable = { which = "victory_margin_popular" value = -1 } } }
 		ai_chance = {
 			factor = 50
-			modifier = {	
+			modifier = {
 				factor = 0
 				opinion_diff = {
 					first = FROMFROM
@@ -1528,7 +1528,7 @@ character_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		# Vote for the challenger
 		trigger = { NOT = { character = FROMFROM } }
@@ -1537,7 +1537,7 @@ character_event = {
 		hidden_tooltip = { FROM = { change_variable = { which = "victory_margin_popular" value = 1 } } }
 		ai_chance = {
 			factor = 50
-			modifier = {	
+			modifier = {
 				factor = 0
 				opinion_diff = {
 					first = FROM
@@ -1555,7 +1555,7 @@ province_event = {
 	id = laws.5206
 	hide_window = yes
 	is_triggered_only = yes
-	
+
 	immediate = {
 		# Incumbent's Ideology
 		if = {
@@ -2041,9 +2041,9 @@ character_event = {
 	desc = "EVTDESCLAWS5210"
 	picture = GFX_evt_election
 	is_triggered_only = yes
-	
+
 	trigger = { FROM = { check_variable = { which = "victory_margin_popular" value = 1 } } }
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		if = {
@@ -2075,7 +2075,7 @@ character_event = {
 	id = laws.5211
 	hide_window = yes
 	is_triggered_only = yes
-	
+
 	immediate = {
 		liege = { character_event = { id = laws.5212 } }
 	}
@@ -2087,14 +2087,14 @@ character_event = {
 	desc = "EVTDESCLAWS5212"
 	picture = GFX_evt_election
 	is_triggered_only = yes
-	
+
 	trigger = {
 		any_demesne_title = {
 			has_title_flag = flag_just_won_popular_election
 			has_law = succ_patrician_elective
 		}
 	}
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		any_demesne_title = {
@@ -2128,9 +2128,9 @@ character_event = {
 	desc = "EVTDESCLAWS5213"
 	notification = yes
 	is_triggered_only = yes
-	
+
 	immediate = { }
-	
+
 	option = { name = "EVTOPTCONFIRM" } # Escape option
 }
 
@@ -2140,9 +2140,9 @@ character_event = {
 	desc = "EVTDESCLAWS5215"
 	picture = GFX_evt_election
 	is_triggered_only = yes
-	
+
 	trigger = { FROM = { has_title_flag = flag_just_won_popular_election } }
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		FROM = {
@@ -2188,9 +2188,9 @@ character_event = {
 	desc = "EVTDESCLAWS5216"
 	notification = yes
 	is_triggered_only = yes
-	
+
 	immediate = { }
-	
+
 	option = { name = "EVTOPTCONFIRM" } # Escape option
 }
 
@@ -2200,9 +2200,9 @@ character_event = {
 	desc = "EVTDESCLAWS5220"
 	picture = GFX_evt_election
 	is_triggered_only = yes
-	
+
 	trigger = { FROM = { NOT = { check_variable = { which = "victory_margin_popular" value = 1 } } } }
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		any_demesne_title = {
@@ -2214,12 +2214,12 @@ character_event = {
 				}
 				current_heir = { character = FROM }
 			}
-			
+
 			# End the election and reset the election cycle
 			clr_title_flag = flag_holding_election
 			clr_title_flag = flag_election_cycle
 			set_title_flag = flag_election_cycle
-			
+
 			# Gain prestige based on title rank
 			if = {
 				limit = { tier = count }
@@ -2269,7 +2269,7 @@ character_event = {
 	desc = "EVTDESCLAWS5225"
 	picture = GFX_evt_election
 	is_triggered_only = yes
-	
+
 	option = {
 		clr_character_flag = flag_informed_of_election_loss
 		name = "EVTOPTCONFIRM"
@@ -2281,9 +2281,9 @@ character_event = {
 	desc = "EVTDESCLAWS5226"
 	notification = yes
 	is_triggered_only = yes
-	
+
 	immediate = { }
-	
+
 	option = { name = "EVTOPTCONFIRM" } # Escape option
 }
 
@@ -2292,7 +2292,7 @@ character_event = {
 	id = laws.5500
 	hide_window = yes
 	is_triggered_only = yes
-	
+
 	trigger = {
 		FROM = {
 			OR = {
@@ -2313,7 +2313,7 @@ character_event = {
 			}
 		}
 	}
-	
+
 	immediate = {
 		FROM = {
 			clr_title_flag = flag_election_cycle
@@ -2327,7 +2327,7 @@ character_event = {
 	id = laws.5250
 	hide_window = yes
 	is_triggered_only = yes
-	
+
 	immediate = {
 		any_demesne_title = {
 			limit = {
