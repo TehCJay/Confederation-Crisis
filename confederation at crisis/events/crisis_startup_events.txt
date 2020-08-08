@@ -1,0 +1,129 @@
+namespace = startup
+
+# Fixing various game start-up bugs
+character_event = {
+	id = startup.0
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		# Ruler-designed immortality doesn't work, so re-immortalize them
+		if = {
+			limit = { trait = full_cybernetic_conversion }
+			remove_trait = full_cybernetic_conversion
+			add_trait = full_cybernetic_conversion
+		}
+	}
+}
+# Calculate initial senates
+character_event = {
+	id = startup.1
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = { any_independent_ruler = { character_event = { id = maintenance.900 } } }
+}
+#Adds the trait because History might have taken far too long.
+character_event = {
+	id = startup.2
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	immediate = {
+		if = {
+			limit = { religion_group = bio_directionist }
+			add_trait = bio_directionist_trait
+		}
+	}
+}
+
+#character_event = {
+#	id = startup.3
+#	hide_window = yes
+#
+#	only_rulers = yes
+#	is_triggered_only = yes
+#	trigger = {
+#			has_landed_title = k_avalon
+#		}
+#	immediate = {
+#		set_government_type = military_monarchy
+#	}
+#}
+
+character_event = {
+	id = startup.4
+	#hide_window = yes
+	only_rulers = yes
+	is_triggered_only = yes
+	trigger = {
+		always = yes
+	}
+	option = {
+		capital_holding = {
+
+			### fix government wishes
+			if = {
+				limit = {
+					holding_type = castle
+				}
+				ROOT = {
+					primary_title = {
+						add_law = {
+							law = local_main_government_type_0
+							cooldown = no
+							opinion_effect = no
+						}
+						add_law = {
+							law = local_secondary_government_type_0
+							cooldown = no
+							opinion_effect = no
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						holding_type = city
+						holding_type = family_palace
+					}
+				}
+				ROOT = {
+					primary_title = {
+						add_law = {
+							law = local_main_government_type_1
+							cooldown = no
+							opinion_effect = no
+						}
+						add_law = {
+							law = local_secondary_government_type_1
+							cooldown = no
+							opinion_effect = no
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					holding_type = temple
+				}
+				ROOT = {
+					primary_title = {
+						add_law = {
+							law = local_main_government_type_2
+							cooldown = no
+							opinion_effect = no
+						}
+						add_law = +{
+							law = local_secondary_government_type_2
+							cooldown = no
+							opinion_effect = no
+						}
+					}
+				}
+			}
+		}
+	}
+}
