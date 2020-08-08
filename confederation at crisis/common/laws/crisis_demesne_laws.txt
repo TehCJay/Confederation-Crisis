@@ -1221,7 +1221,7 @@ laws = {
 		city_opinion = -10
 		temple_opinion = -10
 
-		potential = { holder_scope = { any_demesne_province = { owner = { character = PREVPREV } } } }
+		potential = { always = yes }
 		allow = {
 			always = yes
 		}
@@ -1240,18 +1240,28 @@ laws = {
 			}
 		}
 		effect = {
-			hidden_tooltip = {
+			#hidden_tooltip = {
 				revoke_law = police_budget_1
 				revoke_law = police_budget_2
 				revoke_law = police_budget_3
-			}
+				holder_scope = {
+					any_demesne_province = {
+						if = {
+							limit = { owner = { character = PREVPREV } }
+						}
+						remove_province_modifier = police_budget_mod_1
+						remove_province_modifier = police_budget_mod_2
+						remove_province_modifier = police_budget_mod_3
+					}
+				}
+			#}
 		}
 	}
 	police_budget_1 = {
 		group = police_budget
 		default = yes
 
-		potential = { holder_scope = { any_demesne_province = { owner = { character = PREVPREV } } } }
+		potential = { always = yes }
 		allow = {
 			OR = {
 				has_law = police_budget_2
@@ -1293,17 +1303,27 @@ laws = {
 			}
 		}
 		effect = {
-			hidden_tooltip = {
+			#hidden_tooltip = {
 				revoke_law = police_budget_0
-				revoke_law = police_budget_1
 				revoke_law = police_budget_2
-			}
+				revoke_law = police_budget_3
+				holder_scope = {
+					any_demesne_province = {
+						if = {
+							limit = { owner = { character = PREVPREV } }
+						}
+						add_province_modifier = { name = police_budget_mod_1 duration = -1 }
+						remove_province_modifier = police_budget_mod_2
+						remove_province_modifier = police_budget_mod_3
+					}
+				}
+			#}
 		}
 	}
 	police_budget_2 = {
 		group = police_budget
 
-		potential = { holder_scope = { any_demesne_province = { owner = { character = PREVPREV } } } }
+		potential = { always = yes }
 		allow = {
 			OR = {
 				has_law = police_budget_3
@@ -1348,13 +1368,23 @@ laws = {
 				revoke_law = police_budget_0
 				revoke_law = police_budget_1
 				revoke_law = police_budget_3
+				holder_scope = {
+					any_demesne_province = {
+						if = {
+							limit = { owner = { character = PREVPREV } }
+						}
+						remove_province_modifier = police_budget_mod_1
+						add_province_modifier = { name = police_budget_mod_2 duration = -1 }
+						remove_province_modifier = police_budget_mod_3
+					}
+				}
 			}
 		}
 	}
 	police_budget_3 = {
 		group = police_budget
 
-		potential = { holder_scope = { any_demesne_province = { owner = { character = PREVPREV } } } }
+		potential = { always = yes }
 		allow = {
 			holder_scope = { monthly_income = 0 }
 		}
@@ -1374,6 +1404,16 @@ laws = {
 				revoke_law = police_budget_0
 				revoke_law = police_budget_1
 				revoke_law = police_budget_2
+				holder_scope = {
+					any_demesne_province = {
+						if = {
+							limit = { owner = { character = PREVPREV } }
+						}
+						remove_province_modifier = police_budget_mod_1
+						remove_province_modifier = police_budget_mod_2
+						add_province_modifier = { name = police_budget_mod_3 duration = -1 }
+					}
+				}
 			}
 		}
 	}

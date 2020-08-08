@@ -383,234 +383,299 @@ letter_event = {
 }
 
 # Provincial Budget Events
-# Police Budget
-province_event = {
+
+#this is called upon inheritance mainly.
+#ROOT is person that got title, FROM is title, FROMFROM is old owner.
+character_event = {
 	id = budget.10
-	desc = "EVTDESCBUDGET10"
-	notification = yes
+	notification = no
+	hide_window = yes
+	is_triggered_only = yes
+	only_playable = yes
 
 	trigger = {
-		owner = { primary_title = { has_law = police_budget_0 } }
-		OR = {
-			has_province_modifier = police_budget_mod_1
-			has_province_modifier = police_budget_mod_2
-			has_province_modifier = police_budget_mod_3
+		#FROM = { is_capital = yes } #affects only counties
+		always = yes
+	}
+
+	immediate = {
+		log = "logging event budget.10: [From.GetName] [Root.GetName]"
+		FROM = {
+			location = {
+				remove_province_modifier = police_budget_mod_1
+				remove_province_modifier = police_budget_mod_2
+				remove_province_modifier = police_budget_mod_3
+				remove_province_modifier = health_care_budget_mod_1
+				remove_province_modifier = health_care_budget_mod_2
+				remove_province_modifier = health_care_budget_mod_3
+				remove_province_modifier = education_budget_mod_1
+				remove_province_modifier = education_budget_mod_2
+				remove_province_modifier = education_budget_mod_3
+
+				if = { limit = { owner = { primary_title = { has_law = police_budget_1 } } }
+					add_province_modifier = { name = police_budget_mod_1 duration = -1 }
+				}
+				if = { limit = { owner = { primary_title = { has_law = police_budget_2 } } }
+					add_province_modifier = { name = police_budget_mod_2 duration = -1 }
+				}
+				if = { limit = { owner = { primary_title = { has_law = police_budget_3 } } }
+					add_province_modifier = { name = police_budget_mod_3 duration = -1 }
+				}
+
+				if = { limit = { owner = { primary_title = { has_law = health_care_budget_1 } } }
+					add_province_modifier = { name = health_care_budget_mod_1 duration = -1 }
+				}
+				if = { limit = { owner = { primary_title = { has_law = health_care_budget_2 } } }
+					add_province_modifier = { name = health_care_budget_mod_2 duration = -1 }
+				}
+				if = { limit = { owner = { primary_title = { has_law = health_care_budget_3 } } }
+					add_province_modifier = { name = health_care_budget_mod_3 duration = -1 }
+				}
+
+				if = { limit = { owner = { primary_title = { has_law = education_budget_1 } } }
+					add_province_modifier = { name = education_budget_mod_1 duration = -1 }
+				}
+				if = { limit = { owner = { primary_title = { has_law = education_budget_2 } } }
+					add_province_modifier = { name = education_budget_mod_2 duration = -1 }
+				}
+				if = { limit = { owner = { primary_title = { has_law = education_budget_3 } } }
+					add_province_modifier = { name = education_budget_mod_3 duration = -1 }
+				}
+			}
 		}
 	}
-
-	immediate = {
-		remove_province_modifier = police_budget_mod_1
-		remove_province_modifier = police_budget_mod_2
-		remove_province_modifier = police_budget_mod_3
-	}
-
-	option = { name = "EVTOPTCONFIRM" } # Escape option
 }
-province_event = {
-	id = budget.20
-	desc = "EVTDESCBUDGET20"
-	notification = yes
 
-	trigger = {
-		owner = { primary_title = { has_law = police_budget_1 } }
-		NOT = { has_province_modifier = police_budget_mod_1 }
-	}
 
-	immediate = {
-		add_province_modifier = { name = police_budget_mod_1 duration = -1 }
-		remove_province_modifier = police_budget_mod_2
-		remove_province_modifier = police_budget_mod_3
-	}
-
-	option = { name = "EVTOPTCONFIRM" } # Escape option
-}
-province_event = {
-	id = budget.30
-	desc = "EVTDESCBUDGET30"
-	notification = yes
-
-	trigger = {
-		owner = { primary_title = { has_law = police_budget_2 } }
-		NOT = { has_province_modifier = police_budget_mod_2 }
-	}
-
-	immediate = {
-		remove_province_modifier = police_budget_mod_1
-		add_province_modifier = { name = police_budget_mod_2 duration = -1 }
-		remove_province_modifier = police_budget_mod_3
-	}
-
-	option = { name = "EVTOPTCONFIRM" } # Escape option
-}
-province_event = {
-	id = budget.40
-	desc = "EVTDESCBUDGET40"
-	notification = yes
-
-	trigger = {
-		owner = { primary_title = { has_law = police_budget_3 } }
-		NOT = { has_province_modifier = police_budget_mod_3 }
-	}
-
-	immediate = {
-		remove_province_modifier = police_budget_mod_1
-		remove_province_modifier = police_budget_mod_2
-		add_province_modifier = { name = police_budget_mod_3 duration = -1 }
-	}
-
-	option = { name = "EVTOPTCONFIRM" } # Escape option
-}
+# Police Budget
+#province_event = {
+#	id = budget.10
+#	desc = "EVTDESCBUDGET10"
+#	notification = yes
+#
+#	trigger = {
+#		owner = { primary_title = { has_law = police_budget_0 } }
+#		OR = {
+#			has_province_modifier = police_budget_mod_1
+#			has_province_modifier = police_budget_mod_2
+#			has_province_modifier = police_budget_mod_3
+#		}
+#	}
+#
+#	immediate = {
+#		remove_province_modifier = police_budget_mod_1
+#		remove_province_modifier = police_budget_mod_2
+#		remove_province_modifier = police_budget_mod_3
+#	}
+#
+#	option = { name = "EVTOPTCONFIRM" } # Escape option
+#}
+#province_event = {
+#	id = budget.20
+#	desc = "EVTDESCBUDGET20"
+#	notification = yes
+#
+#	trigger = {
+#		owner = { primary_title = { has_law = police_budget_1 } }
+#		NOT = { has_province_modifier = police_budget_mod_1 }
+#	}
+#
+#	immediate = {
+#		add_province_modifier = { name = police_budget_mod_1 duration = -1 }
+#		remove_province_modifier = police_budget_mod_2
+#		remove_province_modifier = police_budget_mod_3
+#	}
+#
+#	option = { name = "EVTOPTCONFIRM" } # Escape option
+#}
+#province_event = {
+#	id = budget.30
+#	desc = "EVTDESCBUDGET30"
+#	notification = yes
+#
+#	trigger = {
+#		owner = { primary_title = { has_law = police_budget_2 } }
+#		NOT = { has_province_modifier = police_budget_mod_2 }
+#	}
+#
+#	immediate = {
+#		remove_province_modifier = police_budget_mod_1
+#		add_province_modifier = { name = police_budget_mod_2 duration = -1 }
+#		remove_province_modifier = police_budget_mod_3
+#	}
+#
+#	option = { name = "EVTOPTCONFIRM" } # Escape option
+#}
+#province_event = {
+#	id = budget.40
+#	desc = "EVTDESCBUDGET40"
+#	notification = yes
+#
+#	trigger = {
+#		owner = { primary_title = { has_law = police_budget_3 } }
+#		NOT = { has_province_modifier = police_budget_mod_3 }
+#	}
+#
+#	immediate = {
+#		remove_province_modifier = police_budget_mod_1
+#		remove_province_modifier = police_budget_mod_2
+#		add_province_modifier = { name = police_budget_mod_3 duration = -1 }
+#	}
+#
+#	option = { name = "EVTOPTCONFIRM" } # Escape option
+#}
 # Health Care Budget
-province_event = {
-	id = budget.110
-	desc = "EVTDESCBUDGET110"
-	notification = yes
-
-	trigger = {
-		owner = { primary_title = { has_law = health_care_budget_0 } }
-		OR = {
-			has_province_modifier = health_care_budget_mod_1
-			has_province_modifier = health_care_budget_mod_2
-			has_province_modifier = health_care_budget_mod_3
-		}
-	}
-
-	immediate = {
-		remove_province_modifier = health_care_budget_mod_1
-		remove_province_modifier = health_care_budget_mod_2
-		remove_province_modifier = health_care_budget_mod_3
-	}
-
-	option = { name = "EVTOPTCONFIRM" } # Escape option
-}
-province_event = {
-	id = budget.120
-	desc = "EVTDESCBUDGET120"
-	notification = yes
-
-	trigger = {
-		owner = { primary_title = { has_law = health_care_budget_1 } }
-		NOT = { has_province_modifier = health_care_budget_mod_1 }
-	}
-
-	immediate = {
-		add_province_modifier = { name = health_care_budget_mod_1 duration = -1 }
-		remove_province_modifier = health_care_budget_mod_2
-		remove_province_modifier = health_care_budget_mod_3
-	}
-
-	option = { name = "EVTOPTCONFIRM" } # Escape option
-}
-province_event = {
-	id = budget.130
-	desc = "EVTDESCBUDGET130"
-	notification = yes
-
-	trigger = {
-		owner = { primary_title = { has_law = health_care_budget_2 } }
-		NOT = { has_province_modifier = health_care_budget_mod_2 }
-	}
-
-	immediate = {
-		remove_province_modifier = health_care_budget_mod_1
-		add_province_modifier = { name = health_care_budget_mod_2 duration = -1 }
-		remove_province_modifier = health_care_budget_mod_3
-	}
-
-	option = { name = "EVTOPTCONFIRM" } # Escape option
-}
-province_event = {
-	id = budget.140
-	desc = "EVTDESCBUDGET140"
-	notification = yes
-
-	trigger = {
-		owner = { primary_title = { has_law = health_care_budget_3 } }
-		NOT = { has_province_modifier = health_care_budget_mod_3 }
-	}
-
-	immediate = {
-		remove_province_modifier = health_care_budget_mod_1
-		remove_province_modifier = health_care_budget_mod_2
-		add_province_modifier = { name = health_care_budget_mod_3 duration = -1 }
-	}
-
-	option = { name = "EVTOPTCONFIRM" } # Escape option
-}
-# Education Budget
-province_event = {
-	id = budget.210
-	desc = "EVTDESCBUDGET210"
-	notification = yes
-
-	trigger = {
-		owner = { primary_title = { has_law = education_budget_0 } }
-		OR = {
-			has_province_modifier = education_budget_mod_1
-			has_province_modifier = education_budget_mod_2
-			has_province_modifier = education_budget_mod_3
-		}
-	}
-
-	immediate = {
-		remove_province_modifier = education_budget_mod_1
-		remove_province_modifier = education_budget_mod_2
-		remove_province_modifier = education_budget_mod_3
-	}
-
-	option = { name = "EVTOPTCONFIRM" } # Escape option
-}
-province_event = {
-	id = budget.220
-	desc = "EVTDESCBUDGET220"
-	notification = yes
-
-	trigger = {
-		owner = { primary_title = { has_law = education_budget_1 } }
-		NOT = { has_province_modifier = education_budget_mod_1 }
-	}
-
-	immediate = {
-		add_province_modifier = { name = education_budget_mod_1 duration = -1 }
-		remove_province_modifier = education_budget_mod_2
-		remove_province_modifier = education_budget_mod_3
-	}
-
-	option = { name = "EVTOPTCONFIRM" } # Escape option
-}
-province_event = {
-	id = budget.230
-	desc = "EVTDESCBUDGET230"
-	notification = yes
-
-	trigger = {
-		owner = { primary_title = { has_law = education_budget_2 } }
-		NOT = { has_province_modifier = education_budget_mod_2 }
-	}
-
-	immediate = {
-		remove_province_modifier = education_budget_mod_1
-		add_province_modifier = { name = education_budget_mod_2 duration = -1 }
-		remove_province_modifier = education_budget_mod_3
-	}
-
-	option = { name = "EVTOPTCONFIRM" } # Escape option
-}
-province_event = {
-	id = budget.240
-	desc = "EVTDESCBUDGET240"
-	notification = yes
-
-	trigger = {
-		owner = { primary_title = { has_law = education_budget_3 } }
-		NOT = { has_province_modifier = education_budget_mod_3 }
-	}
-
-	immediate = {
-		remove_province_modifier = education_budget_mod_1
-		remove_province_modifier = education_budget_mod_2
-		add_province_modifier = { name = education_budget_mod_3 duration = -1 }
-	}
-
-	option = { name = "EVTOPTCONFIRM" } # Escape option
-}
+#province_event = {
+#	id = budget.110
+#	desc = "EVTDESCBUDGET110"
+#	notification = yes
+#
+#	trigger = {
+#		owner = { primary_title = { has_law = health_care_budget_0 } }
+#		OR = {
+#			has_province_modifier = health_care_budget_mod_1
+#			has_province_modifier = health_care_budget_mod_2
+#			has_province_modifier = health_care_budget_mod_3
+#		}
+#	}
+#
+#	immediate = {
+#		remove_province_modifier = health_care_budget_mod_1
+#		remove_province_modifier = health_care_budget_mod_2
+#		remove_province_modifier = health_care_budget_mod_3
+#	}
+#
+#	option = { name = "EVTOPTCONFIRM" } # Escape option
+#}
+#province_event = {
+#	id = budget.120
+#	desc = "EVTDESCBUDGET120"
+#	notification = yes
+#
+#	trigger = {
+#		owner = { primary_title = { has_law = health_care_budget_1 } }
+#		NOT = { has_province_modifier = health_care_budget_mod_1 }
+#	}
+#
+#	immediate = {
+#		add_province_modifier = { name = health_care_budget_mod_1 duration = -1 }
+#		remove_province_modifier = health_care_budget_mod_2
+#		remove_province_modifier = health_care_budget_mod_3
+#	}
+#
+#	option = { name = "EVTOPTCONFIRM" } # Escape option
+#}
+#province_event = {
+#	id = budget.130
+#	desc = "EVTDESCBUDGET130"
+#	notification = yes
+#
+#	trigger = {
+#		owner = { primary_title = { has_law = health_care_budget_2 } }
+#		NOT = { has_province_modifier = health_care_budget_mod_2 }
+#	}
+#
+#	immediate = {
+#		remove_province_modifier = health_care_budget_mod_1
+#		add_province_modifier = { name = health_care_budget_mod_2 duration = -1 }
+#		remove_province_modifier = health_care_budget_mod_3
+#	}
+#
+#	option = { name = "EVTOPTCONFIRM" } # Escape option
+#}
+#province_event = {
+#	id = budget.140
+#	desc = "EVTDESCBUDGET140"
+#	notification = yes
+#
+#	trigger = {
+#		owner = { primary_title = { has_law = health_care_budget_3 } }
+#		NOT = { has_province_modifier = health_care_budget_mod_3 }
+#	}
+#
+#	immediate = {
+#		remove_province_modifier = health_care_budget_mod_1
+#		remove_province_modifier = health_care_budget_mod_2
+#		add_province_modifier = { name = health_care_budget_mod_3 duration = -1 }
+#	}
+#
+#	option = { name = "EVTOPTCONFIRM" } # Escape option
+#}
+## Education Budget
+#province_event = {
+#	id = budget.210
+#	desc = "EVTDESCBUDGET210"
+#	notification = yes
+#
+#	trigger = {
+#		owner = { primary_title = { has_law = education_budget_0 } }
+#		OR = {
+#			has_province_modifier = education_budget_mod_1
+#			has_province_modifier = education_budget_mod_2
+#			has_province_modifier = education_budget_mod_3
+#		}
+#	}
+#
+#	immediate = {
+#		remove_province_modifier = education_budget_mod_1
+#		remove_province_modifier = education_budget_mod_2
+#		remove_province_modifier = education_budget_mod_3
+#	}
+#
+#	option = { name = "EVTOPTCONFIRM" } # Escape option
+#}
+#province_event = {
+#	id = budget.220
+#	desc = "EVTDESCBUDGET220"
+#	notification = yes
+#
+#	trigger = {
+#		owner = { primary_title = { has_law = education_budget_1 } }
+#		NOT = { has_province_modifier = education_budget_mod_1 }
+#	}
+#
+#	immediate = {
+#		add_province_modifier = { name = education_budget_mod_1 duration = -1 }
+#		remove_province_modifier = education_budget_mod_2
+#		remove_province_modifier = education_budget_mod_3
+#	}
+#
+#	option = { name = "EVTOPTCONFIRM" } # Escape option
+#}
+#province_event = {
+#	id = budget.230
+#	desc = "EVTDESCBUDGET230"
+#	notification = yes
+#
+#	trigger = {
+#		owner = { primary_title = { has_law = education_budget_2 } }
+#		NOT = { has_province_modifier = education_budget_mod_2 }
+#	}
+#
+#	immediate = {
+#		remove_province_modifier = education_budget_mod_1
+#		add_province_modifier = { name = education_budget_mod_2 duration = -1 }
+#		remove_province_modifier = education_budget_mod_3
+#	}
+#
+#	option = { name = "EVTOPTCONFIRM" } # Escape option
+#}
+#province_event = {
+#	id = budget.240
+#	desc = "EVTDESCBUDGET240"
+#	notification = yes
+#
+#	trigger = {
+#		owner = { primary_title = { has_law = education_budget_3 } }
+#		NOT = { has_province_modifier = education_budget_mod_3 }
+#	}
+#
+#	immediate = {
+#		remove_province_modifier = education_budget_mod_1
+#		remove_province_modifier = education_budget_mod_2
+#		add_province_modifier = { name = education_budget_mod_3 duration = -1 }
+#	}
+#
+#	option = { name = "EVTOPTCONFIRM" } # Escape option
+#}
+#
