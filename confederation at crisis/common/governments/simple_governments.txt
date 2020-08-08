@@ -16,6 +16,22 @@ feudal_governments = {
 			holy_order = no
 			lower_tier_than = EMPEROR
 			NOT = { is_government_potential = merchant_republic_government }
+			OR = {
+				AND = {
+					tier = BARON
+					capital_holding = { holding_type = castle }
+				}
+				AND = {
+					tier = COUNT
+					capital_holding = { has_law = local_main_government_type_0 }
+				}
+				AND = {
+					higher_tier_than = COUNT
+					capital_holding = { has_law = local_main_government_type_0 }
+					capital_holding = { has_law = local_secondary_government_type_0 }
+				}
+
+			}
 		}
 
 		#frame_suffix = "_republic"
@@ -31,7 +47,7 @@ feudal_governments = {
 
 republic_governments = {
 
-	civil_government = {
+	npc_civil_government = {
 		preferred_holdings = { CITY }
 		allowed_holdings = {
 			CITY
@@ -46,6 +62,22 @@ republic_governments = {
 			holy_order = no
 			lower_tier_than = EMPEROR
 			NOT = { is_government_potential = merchant_republic_government }
+			ai = yes
+			OR = {
+				AND = {
+					tier = BARON
+					capital_holding = { holding_type = city }
+				}
+				AND = {
+					tier = COUNT
+					capital_holding = { has_law = local_main_government_type_1 }
+				}
+				AND = {
+					higher_tier_than = COUNT
+					capital_holding = { has_law = local_main_government_type_1 }
+					capital_holding = { has_law = local_secondary_government_type_1 }
+				}
+			}
 		}
 
 		#frame_suffix = "_republic"
@@ -56,13 +88,12 @@ republic_governments = {
 		can_build_tribal = no
 		uses_piety_for_law_change = yes
 	}
-
 }
 
 
 theocracy_governments = {
 
-	rectorial_government = {
+	npc_rectorial_government = {
 		preferred_holdings = { TEMPLE }
 		allowed_holdings = {
 			TEMPLE
@@ -76,6 +107,22 @@ theocracy_governments = {
 			holy_order = no
 			lower_tier_than = EMPEROR
 			NOT = { is_government_potential = merchant_republic_government }
+			ai = yes
+			OR = {
+				AND = {
+					tier = BARON
+					capital_holding = { holding_type = temple }
+				}
+				AND = {
+					tier = COUNT
+					capital_holding = { has_law = local_main_government_type_2 }
+				}
+				AND = {
+					higher_tier_than = COUNT
+					capital_holding = { has_law = local_main_government_type_2 }
+					capital_holding = { has_law = local_secondary_government_type_2 }
+				}
+			}
 		}
 
 		#frame_suffix = "_republic"

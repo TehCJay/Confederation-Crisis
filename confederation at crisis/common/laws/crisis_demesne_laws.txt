@@ -9,6 +9,14 @@ law_groups = {
 		law_type = realm
 		allowed_for_councillors = yes
 	}
+	local_main_government_type = {
+		law_type = realm
+		allowed_for_councillors = yes
+	}
+	local_secondary_government_type = {
+		law_type = realm
+		allowed_for_councillors = yes
+	}
 	police_budget = {
 		law_type = realm
 		allowed_for_councillors = yes
@@ -99,6 +107,141 @@ laws = {
 				revoke_law = pledge_off
 			}
 			set_tribal_vassal_levy_control = no
+		}
+	}
+
+	# Laws to pick government type
+	local_main_government_type_0 = {
+		show_as_title = yes
+		group = local_main_government_type
+
+		potential = {
+			always = yes
+		}
+		allow = {
+			holder_scope = { piety = 500 }
+		}
+		pass_effect = {
+			#holder_scope = { piety = -500 }
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = local_main_government_type_1
+				revoke_law = local_main_government_type_2
+			}
+		}
+	}
+	local_main_government_type_1 = {
+		show_as_title = yes
+		group = local_main_government_type
+
+		potential = {
+			always = yes
+		}
+		allow = {
+			holder_scope = { piety = 500 }
+		}
+		pass_effect = {
+			#holder_scope = { piety = -500 }
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = local_main_government_type_0
+				revoke_law = local_main_government_type_2
+			}
+		}
+	}
+	local_main_government_type_2 = {
+		show_as_title = yes
+		group = local_main_government_type
+
+		potential = {
+			always = yes
+		}
+		allow = {
+			holder_scope = { piety = 500 }
+		}
+		pass_effect = {
+			#holder_scope = { piety = -500 }
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = local_main_government_type_0
+				revoke_law = local_main_government_type_1
+			}
+		}
+	}
+
+	local_secondary_government_type_0 = {
+		show_as_title = yes
+		group = local_secondary_government_type
+
+		potential = {
+			always = yes
+		}
+		allow = {
+			holder_scope = { piety = 500 }
+			OR = {
+				holder_scope = { higher_tier_than = COUNT }
+				has_law = local_main_government_type_0
+			}
+		}
+		pass_effect = {
+			#holder_scope = { piety = -500 }
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = local_secondary_government_type_1
+				revoke_law = local_secondary_government_type_2
+			}
+		}
+	}
+	local_secondary_government_type_1 = {
+		show_as_title = yes
+		group = local_secondary_government_type
+
+		potential = {
+			always = yes
+		}
+		allow = {
+			holder_scope = { piety = 500 }
+			OR = {
+				holder_scope = { higher_tier_than = COUNT }
+				has_law = local_main_government_type_1
+			}
+		}
+		pass_effect = {
+			#holder_scope = { piety = -500 }
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = local_secondary_government_type_0
+				revoke_law = local_secondary_government_type_2
+			}
+		}
+	}
+	local_secondary_government_type_2 = {
+		show_as_title = yes
+		group = local_secondary_government_type
+
+		potential = {
+			always = yes
+		}
+		allow = {
+			holder_scope = { piety = 500 }
+			OR = {
+				holder_scope = { higher_tier_than = COUNT }
+				has_law = local_main_government_type_2
+			}
+		}
+		pass_effect = {
+			#holder_scope = { piety = -500 }
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = local_secondary_government_type_0
+				revoke_law = local_secondary_government_type_1
+			}
 		}
 	}
 

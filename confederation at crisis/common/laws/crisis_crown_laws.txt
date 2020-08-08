@@ -4187,22 +4187,22 @@ de_jure_laws = {
 	legislative_authority_0 = {	# No Legislature
 		show_as_title = yes
 		group = legislative_authority
-		default = yes
+		default = no
 
 		potential = { NOT = { has_law = legislative_authority_2 } }
 		#allow = { holder_scope = { check_variable = { which = "var_abolish_legislature" value = 1 } } }
 		ai_will_do = { factor = 1 }
-		effect = { hidden_tooltip = { revoke_law = legislative_authority_1 } }
+		effect = { hidden_tooltip = { revoke_law = legislative_authority_1 add_law = law_voting_power_0 } }
 	}
 	legislative_authority_1 = {	# Aristocratic Legislature
 		show_as_title = yes
 		group = legislative_authority
-		default = no
+		default = yes
 
 		potential = { always = yes }
 		ai_will_do = { factor = 0 }
 		effect = {
-			hidden_tooltip = { revoke_law = legislative_authority_0 revoke_law = legislative_authority_2 }
+			hidden_tooltip = { revoke_law = legislative_authority_0 revoke_law = legislative_authority_2 add_law = law_voting_power_1 }
 			holder_scope = {
 				clr_character_flag = flag_founded_legislature
 				set_character_flag = flag_founded_legislature
@@ -4218,7 +4218,7 @@ de_jure_laws = {
 		potential = { NOT = { has_law = legislative_authority_0 } }
 		ai_will_do = { factor = 0 }
 		effect = {
-			hidden_tooltip = { revoke_law = legislative_authority_0 }
+			hidden_tooltip = { revoke_law = legislative_authority_0 add_law = law_voting_power_1 }
 			holder_scope = {
 				clr_character_flag = flag_founded_legislature
 				set_character_flag = flag_founded_legislature
