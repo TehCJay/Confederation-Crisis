@@ -15,6 +15,27 @@ character_event = {
     }
 
     immediate = {
-        log = "spddebug.1 fired for [Root.GetBestName] [From.GetBestName] [FromFrom.GetBestName]"
+        ROOT = {
+            export_to_variable = {
+                which = local_wealth
+                value = wealth
+            }
+            export_to_variable = {
+                which = local_scaled_wealth
+                value = scaled_wealth
+            }
+        }
+        FROMFROM = {
+            export_to_variable = {
+                which = local_f_wealth
+                value = wealth
+            }
+            export_to_variable = {
+                which = local_f_scaled_wealth
+                value = scaled_wealth
+            }
+        }
+        log = "spddebug.1 fired: [Root.GetBestName] got title [From.GetBestName] from [FromFrom.GetBestName]"
+        log = "wealth [local_wealth.GetValue] scaled [local_scaled_wealth.GetValue] from wealth [local_f_wealth.GetValue] scaled [local_f_scaled_wealth.GetValue]"
     }
 }
