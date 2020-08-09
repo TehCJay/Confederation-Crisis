@@ -64,11 +64,11 @@ character_event = {
 		primary_title = {
 			if = {
 				limit = { has_law = succ_appointment }
-			}
-			add_law = {
-				law = succ_true_appointment
-				cooldown = no
-				opinion_effect = no
+				add_law = {
+					law = succ_true_appointment
+					cooldown = no
+					opinion_effect = no
+				}
 			}
 		}
 
@@ -90,6 +90,17 @@ character_event = {
 							law = local_secondary_government_type_0
 							cooldown = no
 							opinion_effect = no
+						}
+					}
+				}
+				if = { limit = { holder_scope = { tier = KING }}
+					ROOT = {
+						primary_title = {
+							add_law = {
+								law = local_secondary_government_type_1
+								cooldown = no
+								opinion_effect = no
+							}
 						}
 					}
 				}
@@ -115,6 +126,17 @@ character_event = {
 						}
 					}
 				}
+				if = { limit = { holder_scope = { tier = KING }}
+					ROOT = {
+						primary_title = {
+							add_law = {
+								law = local_secondary_government_type_2
+								cooldown = no
+								opinion_effect = no
+							}
+						}
+					}
+				}
 			}
 			if = {
 				limit = {
@@ -127,10 +149,21 @@ character_event = {
 							cooldown = no
 							opinion_effect = no
 						}
-						add_law = +{
+						add_law = {
 							law = local_secondary_government_type_2
 							cooldown = no
 							opinion_effect = no
+						}
+					}
+				}
+				if = { limit = { holder_scope = { tier = KING }}
+					ROOT = {
+						primary_title = {
+							add_law = {
+								law = local_secondary_government_type_0
+								cooldown = no
+								opinion_effect = no
+							}
 						}
 					}
 				}

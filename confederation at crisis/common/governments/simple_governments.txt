@@ -42,6 +42,89 @@ feudal_governments = {
 		can_build_tribal = no
 		uses_piety_for_law_change = yes
 	}
+
+	pc_civil_government = {
+		preferred_holdings = { CITY }
+		allowed_holdings = {
+			CITY
+			FORT
+			HOSPITAL
+		}
+		accepts_liege_governments = { # Accepts other republics
+			merchant_republic_government
+		}
+		potential = {
+			NOT = { trait = hiver_implant }
+			holy_order = no
+			lower_tier_than = EMPEROR
+			NOT = { is_government_potential = merchant_republic_government }
+			ai = no
+			OR = {
+				AND = {
+					tier = BARON
+					capital_holding = { holding_type = city }
+				}
+				AND = {
+					tier = COUNT
+					capital_holding = { has_law = local_main_government_type_1 }
+				}
+				AND = {
+					higher_tier_than = COUNT
+					capital_holding = { has_law = local_main_government_type_1 }
+					capital_holding = { has_law = local_secondary_government_type_1 }
+				}
+			}
+		}
+
+		#frame_suffix = "_republic"
+		title_prefix = "city_"
+		color = { 0 0 255 }
+
+		barons_need_dynasty = no
+		can_build_tribal = no
+		uses_piety_for_law_change = yes
+	}
+
+	pc_rectorial_government = {
+		preferred_holdings = { TEMPLE }
+		allowed_holdings = {
+			TEMPLE
+			FORT
+			HOSPITAL
+		}
+		accepts_liege_governments = {
+		}
+		potential = {
+			NOT = { trait = hiver_implant }
+			holy_order = no
+			lower_tier_than = EMPEROR
+			NOT = { is_government_potential = merchant_republic_government }
+			ai = no
+			OR = {
+				AND = {
+					tier = BARON
+					capital_holding = { holding_type = temple }
+				}
+				AND = {
+					tier = COUNT
+					capital_holding = { has_law = local_main_government_type_2 }
+				}
+				AND = {
+					higher_tier_than = COUNT
+					capital_holding = { has_law = local_main_government_type_2 }
+					capital_holding = { has_law = local_secondary_government_type_2 }
+				}
+			}
+		}
+
+		#frame_suffix = "_republic"
+		title_prefix = "temple_"
+		color = { 0 255 0 }
+
+		barons_need_dynasty = no
+		can_build_tribal = no
+		uses_piety_for_law_change = yes
+	}
 }
 
 
