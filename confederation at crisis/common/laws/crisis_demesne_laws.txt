@@ -33,6 +33,14 @@ law_groups = {
 		law_type = realm
 		allowed_for_councillors = yes
 	}
+	military_budget = {
+		law_type = realm
+		allowed_for_councillors = yes
+	}
+	research_budget = {
+		law_type = realm
+		allowed_for_councillors = yes
+	}
 }
 
 laws = {
@@ -1849,6 +1857,165 @@ laws = {
 						add_province_modifier = { name = education_budget_mod_3 duration = -1 }
 					}
 				}
+			}
+		}
+	}
+
+	#Budget - Military
+	military_budget_0 = {
+		group = military_budget
+
+		potential = { holder_scope = { any_demesne_province = { owner = { character = PREVPREV } } } }
+		allow = {
+			always = yes
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.1
+			}
+			modifier = {
+				factor = 0
+				holder_scope = {
+					OR = {
+						any_current_enemy = { capital_scope = { has_higher_tech_than = PREVPREV } }
+						religion_group = transhumanist_group
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				holder_scope = {
+					monthly_income = 0
+					NOT = { religion = space_pirate }
+				}
+			}
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = military_budget_1
+				revoke_law = military_budget_2
+				revoke_law = military_budget_3
+			}
+		}
+	}
+	military_budget_1 = {
+		group = military_budget
+		default = yes
+
+		potential = { holder_scope = { any_demesne_province = { owner = { character = PREVPREV } } } }
+		allow = {
+			OR = {
+				has_law = military_budget_2
+				has_law = military_budget_3
+				holder_scope = { monthly_income = 0 }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.1
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_law = military_budget_2
+					has_law = military_budget_3
+				}
+				holder_scope = {
+					monthly_income = 1
+					NOT = { religion = space_pirate }
+				}
+			}
+			modifier = {
+				factor = 0.1
+				OR = {
+					has_law = military_budget_2
+					has_law = military_budget_3
+				}
+				holder_scope = {
+					OR = {
+						any_current_enemy = { capital_scope = { has_higher_tech_than = PREVPREV } }
+						religion_group = transhumanist_group
+					}
+				}
+			}
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = military_budget_0
+				revoke_law = military_budget_2
+				revoke_law = military_budget_3
+			}
+		}
+	}
+	military_budget_2 = {
+		group = military_budget
+
+		potential = { holder_scope = { any_demesne_province = { owner = { character = PREVPREV } } } }
+		allow = {
+			OR = {
+				has_law = military_budget_3
+				holder_scope = { monthly_income = 0 }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.1
+			}
+			modifier = {
+				factor = 0
+				has_law = military_budget_3
+				holder_scope = {
+					monthly_income = 2
+					NOT = { religion = space_pirate }
+				}
+			}
+			modifier = {
+				factor = 0.1
+				has_law = military_budget_3
+				holder_scope = {
+					OR = {
+						any_current_enemy = { capital_scope = { has_higher_tech_than = PREVPREV } }
+						religion_group = transhumanist_group
+					}
+				}
+			}
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = military_budget_0
+				revoke_law = military_budget_1
+				revoke_law = military_budget_3
+			}
+		}
+	}
+	military_budget_3 = {
+		group = military_budget
+
+		potential = { holder_scope = { any_demesne_province = { owner = { character = PREVPREV } } } }
+		allow = {
+			holder_scope = { monthly_income = 0 }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { holder_scope = { religion_group = transhumanist_group } }
+				NOT = { holder_scope = { any_current_enemy = { capital_scope = { has_higher_tech_than = PREVPREV } } } }
+			}
+			modifier = {
+				factor = 0.1
+				NOT = { holder_scope = { monthly_income = 2 } }
+				NOT = { holder_scope = { religion_group = transhumanist_group } }
+			}
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = military_budget_0
+				revoke_law = military_budget_1
+				revoke_law = military_budget_2
 			}
 		}
 	}

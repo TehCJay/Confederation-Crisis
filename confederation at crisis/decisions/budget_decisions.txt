@@ -1,92 +1,92 @@
-decisions = {
-	request_funds_decision = {
-		is_high_prio = yes
-		ai_check_interval = 10 
- potential = {
-			is_ruler = yes
-			independent = no # Must have a liege to ask for funds
-			# Is a "subsidiary" title
-			any_demesne_title = { OR = { has_law = succ_appointment has_law = succ_catholic_bishopric } }
-			NOT = { has_character_flag = flag_requesting_funds }
-		}
-		allow = {
-			custom_tooltip = {
-				text = "ONEYEARCOOLDOWN"
-				hidden_tooltip = {
-					OR = {
-						NOT = { has_character_flag = flag_funding_request_cooldown }
-						had_character_flag = { flag = flag_funding_request_cooldown days = 365 }
-					}
-				}
-			}
-		}
-		effect = {
-			set_character_flag = flag_requesting_funds
-			character_event = { id = budget.0 tooltip = "EVTTOOLTIPBUDGET0" }
-		}
-		ai_will_do = {
-			factor = 1
-			# Must have a positive reason to ask
-			modifier = {
-				factor = 0
-				wealth = 0
-				monthly_income = 0
-				capital_scope = {
-					OR = {
-						has_building = ca_primary_q_1
-						has_building = ct_primary_q_1
-						has_building = tp_primary_q_1
-					}
-				}
-				OR = {
-					AND = {
-						NOT = { religion = cyberneticist }
-						NOT = { religion = machine_cultist }
-						NOT = { religion = hiver }
-					}
-					is_administrative_trigger = no
-					capital_scope = { has_building = tp_cybernetics_lab_q_1 }
-				}
-				OR = {
-					NOT = { religion = bio_directionist }
-					is_administrative_trigger = no
-					capital_scope = { has_building = tp_biogenetics_lab_q_1 }
-				}
-				NOT = {
-					any_war = {
-						using_cb = cb_military_campaign
-						attacker = { character = ROOT }
-					}
-				}
-				NOT = { has_ambition = obj_amass_wealth }
-			}
-			
-			# Try to avoid annoying the liege unless you REALLY need the money
-			modifier = {
-				factor = 0
-				wealth = 0
-				NOT = { liege = { opinion = { who = ROOT value = 0 } } }
-			}
-			
-			# Don't bother asking if the liege can't pay
-			modifier = {
-				factor = 0
-				liege = { NOT = { yearly_income = 10 } }
-			}
-			
-			# Hold out for a bigger donation if possible
-			modifier = {
-				factor = 0
-				wealth = 0
-				relative_power_to_liege = 0.2
-				NOT = { liege = { scaled_wealth = 0.2 } }
-			}
-			modifier = {
-				factor = 0
-				wealth = 0
-				relative_power_to_liege = 0.3
-				NOT = { liege = { scaled_wealth = 0.3 } }
-			}
-		}
-	}
-}
+#decisions = {
+#	request_funds_decision = {
+#		is_high_prio = yes
+#		ai_check_interval = 10
+# 		potential = {
+#			is_ruler = yes
+#			independent = no # Must have a liege to ask for funds
+#			# Is a "subsidiary" title
+#			any_demesne_title = { OR = { has_law = succ_appointment has_law = succ_catholic_bishopric } }
+#			NOT = { has_character_flag = flag_requesting_funds }
+#		}
+#		allow = {
+#			custom_tooltip = {
+#				text = "ONEYEARCOOLDOWN"
+#				hidden_tooltip = {
+#					OR = {
+#						NOT = { has_character_flag = flag_funding_request_cooldown }
+#						had_character_flag = { flag = flag_funding_request_cooldown days = 365 }
+#					}
+#				}
+#			}
+#		}
+#		effect = {
+#			set_character_flag = flag_requesting_funds
+#			character_event = { id = budget.0 tooltip = "EVTTOOLTIPBUDGET0" }
+#		}
+#		ai_will_do = {
+#			factor = 1
+#			# Must have a positive reason to ask
+#			modifier = {
+#				factor = 0
+#				wealth = 0
+#				monthly_income = 0
+#				capital_scope = {
+#					OR = {
+#						has_building = ca_primary_q_1
+#						has_building = ct_primary_q_1
+#						has_building = tp_primary_q_1
+#					}
+#				}
+#				OR = {
+#					AND = {
+#						NOT = { religion = cyberneticist }
+#						NOT = { religion = machine_cultist }
+#						NOT = { religion = hiver }
+#					}
+#					is_administrative_trigger = no
+#					capital_scope = { has_building = tp_cybernetics_lab_q_1 }
+#				}
+#				OR = {
+#					NOT = { religion = bio_directionist }
+#					is_administrative_trigger = no
+#					capital_scope = { has_building = tp_biogenetics_lab_q_1 }
+#				}
+#				NOT = {
+#					any_war = {
+#						using_cb = cb_military_campaign
+#						attacker = { character = ROOT }
+#					}
+#				}
+#				NOT = { has_ambition = obj_amass_wealth }
+#			}
+#
+#			# Try to avoid annoying the liege unless you REALLY need the money
+#			modifier = {
+#				factor = 0
+#				wealth = 0
+#				NOT = { liege = { opinion = { who = ROOT value = 0 } } }
+#			}
+#
+#			# Don't bother asking if the liege can't pay
+#			modifier = {
+#				factor = 0
+#				liege = { NOT = { yearly_income = 10 } }
+#			}
+#
+#			# Hold out for a bigger donation if possible
+#			modifier = {
+#				factor = 0
+#				wealth = 0
+#				relative_power_to_liege = 0.2
+#				NOT = { liege = { scaled_wealth = 0.2 } }
+#			}
+#			modifier = {
+#				factor = 0
+#				wealth = 0
+#				relative_power_to_liege = 0.3
+#				NOT = { liege = { scaled_wealth = 0.3 } }
+#			}
+#		}
+#	}
+#}

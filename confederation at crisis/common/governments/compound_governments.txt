@@ -17,16 +17,14 @@ feudal_governments = {
 			holy_order = no
 			higher_tier_than = COUNT
 			NOT = { is_government_potential = merchant_republic_government }
-			capital_holding = {
-				OR = {
-					AND = {
-						has_law = local_main_government_type_0
-						has_law = local_secondary_government_type_1
-					}
-					AND = {
-						has_law = local_main_government_type_1
-						has_law = local_secondary_government_type_0
-					}
+			OR = {
+				AND = {
+					has_law = local_main_government_type_0
+					has_law = local_secondary_government_type_1
+				}
+				AND = {
+					has_law = local_main_government_type_1
+					has_law = local_secondary_government_type_0
 				}
 			}
 		}
@@ -34,6 +32,80 @@ feudal_governments = {
 		#frame_suffix = "_republic"
 		title_prefix = "military_"
 		color = { 255 0 127 }
+
+		barons_need_dynasty = no
+		can_build_tribal = no
+		uses_piety_for_law_change = yes
+	}
+
+	pc_technocratic_government = {
+		preferred_holdings = { CITY }
+		allowed_holdings = {
+			CITY
+			TEMPLE
+			FORT
+			HOSPITAL
+		}
+		accepts_liege_governments = {
+		}
+		potential = {
+			ai = no
+			NOT = { trait = hiver_implant }
+			holy_order = no
+			higher_tier_than = COUNT
+			NOT = { is_government_potential = merchant_republic_government }
+			OR = {
+				AND = {
+					has_law = local_main_government_type_1
+					has_law = local_secondary_government_type_2
+				}
+				AND = {
+					has_law = local_main_government_type_2
+					has_law = local_secondary_government_type_1
+				}
+			}
+		}
+
+		#frame_suffix = "_republic"
+		title_prefix = "city_"
+		color = { 0 127 255 }
+
+		barons_need_dynasty = no
+		can_build_tribal = no
+		uses_piety_for_law_change = yes
+	}
+
+	pc_theocratic_government = {
+		preferred_holdings = { TEMPLE }
+		allowed_holdings = {
+			TEMPLE
+			CASTLE
+			FORT
+			HOSPITAL
+		}
+		accepts_liege_governments = {
+		}
+		potential = {
+			ai = no
+			NOT = { trait = hiver_implant }
+			holy_order = no
+			higher_tier_than = COUNT
+			NOT = { is_government_potential = merchant_republic_government }
+			OR = {
+				AND = {
+					has_law = local_main_government_type_0
+					has_law = local_secondary_government_type_2
+				}
+				AND = {
+					has_law = local_main_government_type_2
+					has_law = local_secondary_government_type_0
+				}
+			}
+		}
+
+		#frame_suffix = "_republic"
+		title_prefix = "temple_"
+		color = { 127 255 0 }
 
 		barons_need_dynasty = no
 		can_build_tribal = no
@@ -60,16 +132,14 @@ republic_governments = {
 			holy_order = no
 			higher_tier_than = COUNT
 			NOT = { is_government_potential = merchant_republic_government }
-			capital_holding = {
-				OR = {
-					AND = {
-						has_law = local_main_government_type_1
-						has_law = local_secondary_government_type_2
-					}
-					AND = {
-						has_law = local_main_government_type_2
-						has_law = local_secondary_government_type_1
-					}
+			OR = {
+				AND = {
+					has_law = local_main_government_type_1
+					has_law = local_secondary_government_type_2
+				}
+				AND = {
+					has_law = local_main_government_type_2
+					has_law = local_secondary_government_type_1
 				}
 			}
 		}
@@ -103,16 +173,14 @@ theocracy_governments = {
 			holy_order = no
 			higher_tier_than = COUNT
 			NOT = { is_government_potential = merchant_republic_government }
-			capital_holding = {
-				OR = {
-					AND = {
-						has_law = local_main_government_type_0
-						has_law = local_secondary_government_type_2
-					}
-					AND = {
-						has_law = local_main_government_type_2
-						has_law = local_secondary_government_type_0
-					}
+			OR = {
+				AND = {
+					has_law = local_main_government_type_0
+					has_law = local_secondary_government_type_2
+				}
+				AND = {
+					has_law = local_main_government_type_2
+					has_law = local_secondary_government_type_0
 				}
 			}
 		}
