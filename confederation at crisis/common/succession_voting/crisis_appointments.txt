@@ -361,42 +361,12 @@ appointment = {
 					}
 				}
 
-				trigger_if = {
-					limit = {
-						# Either defacto direct vassal, or independent ruler who is dejure vassal
-						OR = {
-							vassal_of = ROOT
-							character = ROOT
-
-							AND = {
-								independent = yes
-
-								any_dejure_liege = {
-									title = FROMFROM
-								}
-							}
+				ROOT = {
+					liege = {
+						any_courtier_or_vassal = {
+							character = ROOT_FROM
 						}
 					}
-
-					# Tier requirements
-					#OR = {
-					#	# Or Duke-tier...
-					#	higher_real_tier_than = COUNT
-					#
-					#	#...Or Count-tier under a Duchy...
-					#	trigger_if = {
-					#		limit = { ROOT = { real_tier = DUKE } }
-					#		higher_real_tier_than = BARON
-					#	}
-					#
-					#	#...Or Baron-tier under a County
-					#	trigger_if = {
-					#		limit = { ROOT = { lower_real_tier_than = DUKE } }
-					#
-					#		is_landed = yes
-					#		is_ruler = yes
-					#	}
-					#}
 				}
 			}
 

@@ -4,13 +4,13 @@ targetted_decisions = {
 	ask_for_gift_as_favor = {
 		filter = all
 		ai_target_filter = all
-		
+
 		from_potential = {
 			is_ruler = yes
 			has_regent = no
 			NOT = { has_character_flag = flag_asking_for_favor }
 		}
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			is_ruler = yes
 			has_regent = no
@@ -60,7 +60,7 @@ targetted_decisions = {
 				factor = 0
 				trait = cold
 			}
-			
+
 			modifier = {
 				factor = 0
 				FROM = { trait = proud }
@@ -69,7 +69,7 @@ targetted_decisions = {
 				factor = 0
 				FROM = { trait = disciplined }
 			}
-			
+
 			# Don't bother pestering unrelated people
 			modifier = {
 				factor = 0
@@ -87,7 +87,7 @@ targetted_decisions = {
 					}
 				}
 			}
-			
+
 			# Don't beg for money from people who massively outrank you
 			modifier = {
 				factor = 0
@@ -107,7 +107,7 @@ targetted_decisions = {
 				NOT = { reverse_has_opinion_modifier = { who = FROM modifier = opinion_owes_me_a_favor } }
 				FROM = { tier = duke }
 			}
-			
+
 			# Prioritize rich people
 			modifier = {
 				factor = 2
@@ -134,12 +134,12 @@ targetted_decisions = {
 	pro_centralization_favor = {
 		filter = realm
 		ai_target_filter = realm
-		
+
 		from_potential = {
 			leads_faction = faction_pro_centralization
 			NOT = { has_character_flag = flag_asking_for_favor }
 		}
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			NOT = { character = FROM }
 			is_ruler = yes
@@ -214,12 +214,12 @@ targetted_decisions = {
 	anti_centralization_favor = {
 		filter = realm
 		ai_target_filter = realm
-		
+
 		from_potential = {
 			leads_faction = faction_anti_centralization
 			NOT = { has_character_flag = flag_asking_for_favor }
 		}
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			NOT = { character = FROM }
 			is_ruler = yes
@@ -294,12 +294,12 @@ targetted_decisions = {
 	no_confidence_favor = {
 		filter = realm
 		ai_target_filter = realm
-		
+
 		from_potential = {
 			leads_faction = faction_no_confidence
 			NOT = { has_character_flag = flag_asking_for_favor }
 		}
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			NOT = { character = FROM }
 			is_ruler = yes
@@ -364,20 +364,20 @@ targetted_decisions = {
 	lovers_peace_decision = {
 		filter = all
 		ai_target_filter = all
-		
+
 		from_potential = {
 			is_ruler = yes
 			is_primary_war_defender = yes
 			has_lover = yes
 		}
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			is_ruler = yes
 			any_lover = { character = FROM }
 		}
 		allow = {
 			any_war = {
-				NOT = { using_cb = cb_military_campaign }
+				#NOT = { using_cb = cb_military_campaign }
 				attacker = { character = ROOT }
 				defender = { character = FROM }
 			}
@@ -407,7 +407,7 @@ targetted_decisions = {
 				factor = 0
 				NOT = {
 					any_war = {
-						NOT = { using_cb = cb_military_campaign }
+						#NOT = { using_cb = cb_military_campaign }
 						attacker = { character = ROOT }
 						defender = { character = FROM }
 						war_score = 1

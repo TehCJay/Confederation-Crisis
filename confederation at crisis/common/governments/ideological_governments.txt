@@ -1,0 +1,43 @@
+#these are the simplest forms of governments, barons should default to these, also these can't be emperors
+
+feudal_governments = {
+
+	neofeudal_government = {
+		preferred_holdings = { CASTLE }
+		allowed_holdings = {
+			CASTLE
+			FORT
+			HOSPITAL
+		}
+		accepts_liege_governments = {
+		}
+		potential = {
+			religion = neo_feudal
+			NOT = { trait = hiver_implant }
+			holy_order = no
+			NOT = { is_government_potential = merchant_republic_government }
+			OR = {
+				AND = {
+					tier = BARON
+					capital_holding = { holding_type = castle }
+				}
+				AND = {
+					higher_tier_than = BARON
+					OR = {
+						has_law = local_main_government_type_0
+						has_law = local_secondary_government_type_0
+					}
+				}
+
+			}
+		}
+
+		#frame_suffix = "_republic"
+		title_prefix = "military_"
+		color = { 255 0 0 }
+
+		barons_need_dynasty = no
+		can_build_tribal = no
+		uses_piety_for_law_change = yes
+	}
+}

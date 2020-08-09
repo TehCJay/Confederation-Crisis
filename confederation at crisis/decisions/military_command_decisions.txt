@@ -1,145 +1,4 @@
 targetted_decisions = {
-	order_military_campaign = {
-		filter = vassals
-		ai_target_filter = vassals
-		is_high_prio = yes
-		ai_check_interval = 10 
- potential = {
-			is_landed = yes
-			is_military_trigger = yes
-			OR = {
-				higher_tier_than = baron
-				FROM = {
-					NOT = {
-						any_vassal = {
-							higher_tier_than = baron
-							is_military_trigger = yes
-						}
-					}
-				}
-			}
-			OR = {
-				higher_tier_than = count
-				FROM = {
-					NOT = {
-						any_vassal = {
-							higher_tier_than = count
-							is_military_trigger = yes
-						}
-					}
-				}
-			}
-		}
-		allow = {
-			hidden_tooltip = { FROM = { NOT = { has_character_flag = flag_ordering_military_campaign } } }
-			FROM = {
-				any_current_enemy = {
-					NOT = { any_current_enemy = { character = ROOT } }
-					NOT = { is_liege_or_above = ROOT }
-					NOT = { ROOT = { is_liege_or_above = PREV } }
-				}
-			}
-			OR = {
-				crownlaw_title = {
-					OR = {
-						has_law = centralization_3
-						has_law = centralization_4
-					}
-				}
-				primary_title = {
-					OR = {
-						OR = { has_law = succ_appointment has_law = succ_catholic_bishopric }
-						is_tribal_type_title = yes
-					}
-				}
-			}
-			# Must have a free castle
-			any_demesne_title = {
-				tier = baron
-				holding_type = castle
-				controlled_by = PREV
-			}
-		}
-		effect = {
-			FROM = { set_character_flag = flag_ordering_military_campaign }
-			ROOT = {save_event_target_as = attacker_military}
-			character_event = { id = military.1000 tooltip = "EVTTOOLTIPMILITARY1000" }
-		}
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 0
-				any_war = { using_cb = cb_military_campaign }
-				random = 10 # Should consider a new campaign every ten months on average
-			}
-			# Campaigns are usually coordinated at fleet level
-			modifier = {
-				factor = 0
-				FROM = {
-					NOT = { higher_tier_than = duke }
-					any_war = { using_cb = cb_military_campaign }
-				}
-			}
-			# Don't commit sector defense fleets unless no mobile fleets are
-			# available or the war is going really badly
-			modifier = {
-				factor = 0
-				NOT = { government = military_command }
-				FROM = {
-					any_vassal = { government = military_command }
-					NOT = {
-						any_war = {
-							attacker = { character = FROM }
-							NOT = { war_score = -50 }
-						}
-						any_war = {
-							defender = { character = FROM }
-							war_score = 50
-						}
-					}
-				}
-			}
-			# I have already committed sufficient forces
-			modifier = {
-				factor = 0
-				FROM = {
-					NOT = {
-						any_current_enemy = {
-							NOT = {
-								any_war = {
-									using_cb = cb_military_campaign
-									defender = { character = PREV }
-									attacker = { liege = { character = FROM } }
-									war_score = -25
-								}
-							}
-						}
-					}
-				}
-			}
-			# "Free riders" - I'll just let my allies win this one for me.
-			modifier = {
-				factor = 0
-				FROM = {
-					is_primary_war_defender = no
-					OR = {
-						any_war = {
-							any_attacker = { character = FROM }
-							any_attacker = { relative_power = { who = FROM power = 3 } }
-						}
-						any_war = {
-							any_defender = { character = FROM }
-							any_defender = { relative_power = { who = FROM power = 3 } }
-						}
-					}
-					OR = {
-						trait = carefree
-						trait = pragmatic
-					}
-				}
-			}
-		}
-	}
 	# Solar Guard
 	assign_command_terran_commonwealth_fleet = {
 		filter = vassals
@@ -161,8 +20,8 @@ targetted_decisions = {
 				}
 			}
 		}
-		ai_check_interval = 10 
- potential = {
+		ai_check_interval = 10
+ 	potential = {
 			is_ruler = yes
 			is_military_trigger = yes
 			OR = {
@@ -382,7 +241,7 @@ targetted_decisions = {
 				}
 			}
 		}
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			is_ruler = yes
 			is_military_trigger = yes
@@ -603,7 +462,7 @@ targetted_decisions = {
 				}
 			}
 		}
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			is_ruler = yes
 			is_military_trigger = yes
@@ -824,7 +683,7 @@ targetted_decisions = {
 				}
 			}
 		}
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			is_ruler = yes
 			is_military_trigger = yes
@@ -1045,7 +904,7 @@ targetted_decisions = {
 				}
 			}
 		}
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			is_ruler = yes
 			is_military_trigger = yes
@@ -1266,7 +1125,7 @@ targetted_decisions = {
 				}
 			}
 		}
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			is_ruler = yes
 			is_military_trigger = yes
@@ -1487,7 +1346,7 @@ targetted_decisions = {
 				}
 			}
 		}
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			is_ruler = yes
 			is_military_trigger = yes
@@ -1708,7 +1567,7 @@ targetted_decisions = {
 				}
 			}
 		}
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			is_ruler = yes
 			is_military_trigger = yes
@@ -1929,7 +1788,7 @@ targetted_decisions = {
 				}
 			}
 		}
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			is_ruler = yes
 			is_military_trigger = yes
@@ -2150,7 +2009,7 @@ targetted_decisions = {
 				}
 			}
 		}
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			is_ruler = yes
 			is_military_trigger = yes
@@ -2371,7 +2230,7 @@ targetted_decisions = {
 				}
 			}
 		}
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			is_ruler = yes
 			is_military_trigger = yes
@@ -2592,7 +2451,7 @@ targetted_decisions = {
 				}
 			}
 		}
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			is_ruler = yes
 			is_military_trigger = yes
@@ -2813,7 +2672,7 @@ targetted_decisions = {
 				}
 			}
 		}
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			is_ruler = yes
 			is_military_trigger = yes
@@ -3034,7 +2893,7 @@ targetted_decisions = {
 				}
 			}
 		}
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			is_ruler = yes
 			is_military_trigger = yes
@@ -3255,7 +3114,7 @@ targetted_decisions = {
 				}
 			}
 		}
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			is_ruler = yes
 			is_military_trigger = yes
@@ -3476,7 +3335,7 @@ targetted_decisions = {
 				}
 			}
 		}
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			is_ruler = yes
 			is_military_trigger = yes
@@ -3697,7 +3556,7 @@ targetted_decisions = {
 				}
 			}
 		}
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			is_ruler = yes
 			is_military_trigger = yes
@@ -3918,7 +3777,7 @@ targetted_decisions = {
 				}
 			}
 		}
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			is_ruler = yes
 			is_military_trigger = yes
@@ -4139,7 +3998,7 @@ targetted_decisions = {
 				}
 			}
 		}
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			is_ruler = yes
 			is_military_trigger = yes
@@ -4360,7 +4219,7 @@ targetted_decisions = {
 				}
 			}
 		}
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			is_ruler = yes
 			is_military_trigger = yes
@@ -4581,7 +4440,7 @@ targetted_decisions = {
 				}
 			}
 		}
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			is_ruler = yes
 			is_military_trigger = yes
@@ -4802,7 +4661,7 @@ targetted_decisions = {
 				}
 			}
 		}
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			is_ruler = yes
 			is_military_trigger = yes
@@ -5023,7 +4882,7 @@ targetted_decisions = {
 				}
 			}
 		}
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			is_ruler = yes
 			is_military_trigger = yes
@@ -5244,7 +5103,7 @@ targetted_decisions = {
 				}
 			}
 		}
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			is_ruler = yes
 			is_military_trigger = yes
@@ -5465,7 +5324,7 @@ targetted_decisions = {
 				}
 			}
 		}
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			is_ruler = yes
 			is_military_trigger = yes
@@ -5695,7 +5554,7 @@ targetted_decisions = {
 	assign_terran_fleet_command = {
 		filter = vassals
 		ai_target_filter = vassals
-		
+
 		from_potential = {
 			OR = {
 				has_landed_title = k_terran_navy
@@ -5705,7 +5564,7 @@ targetted_decisions = {
 				}
 			}
 		}
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			is_ruler = yes
 			is_military_trigger = yes

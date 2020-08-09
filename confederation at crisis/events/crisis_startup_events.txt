@@ -54,7 +54,7 @@ character_event = {
 
 character_event = {
 	id = startup.4
-	#hide_window = yes
+	hide_window = yes
 	only_rulers = yes
 	is_triggered_only = yes
 	trigger = {
@@ -68,7 +68,7 @@ character_event = {
 
 character_event = {
 	id = startup.5
-	#hide_window = yes
+	hide_window = yes
 	only_rulers = yes
 	is_triggered_only = yes
 	trigger = {
@@ -183,6 +183,70 @@ character_event = {
 					}
 				}
 			}
+		}
+
+		set_government_type = landless
+
+		#proper enable correct law when no law at all is enabled
+		if = {
+			limit = {
+				NOT = {
+					is_law_potential = police_budget_1
+					is_law_potential = police_budget_2
+					is_law_potential = police_budget_3
+				}
+			}
+			add_law = police_budget_0
+		}
+		if = {
+			limit = {
+				NOT = {
+					is_law_potential = health_care_budget_1
+					is_law_potential = health_care_budget_2
+					is_law_potential = health_care_budget_3
+				}
+			}
+			add_law = health_care_budget_0
+		}
+		if = {
+			limit = {
+				NOT = {
+					is_law_potential = education_budget_1
+					is_law_potential = education_budget_2
+					is_law_potential = education_budget_3
+				}
+			}
+			add_law = education_budget_0
+		}
+		if = {
+			limit = {
+				NOT = {
+					is_law_potential = military_budget_1
+					is_law_potential = military_budget_2
+					is_law_potential = military_budget_3
+				}
+			}
+			add_law = military_budget_0
+		}
+
+		if = {
+			limit = {
+				NOT = {
+					is_law_potential = military_budget_1
+					is_law_potential = military_budget_2
+					is_law_potential = military_budget_3
+				}
+			}
+			add_law = military_budget_0
+		}
+
+		if = {
+			limit = {
+				NOT = {
+					is_law_potential = pledge_on
+				}
+			}
+			add_law = pledge_off
 		}
 	}
 }

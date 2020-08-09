@@ -99,6 +99,7 @@ laws = {
 		#default = yes
 		potential = {
 			holder_scope = {
+				NOT = { government = neofeudal_government }
 				is_tribal = no
 				OR = {
 					independent = yes
@@ -135,15 +136,13 @@ laws = {
 		feudal_opinion = 5
 		potential = {
 			holder_scope = {
+				NOT = { government = neofeudal_government }
 				higher_tier_than = COUNT
 				independent = yes
 				#is_tribal = no
 				in_revolt = no
 			}
 		}
-		#allow = {
-			#NOT = {has_law = imperial_administration}
-		#}
 		ai_will_do = {
 			factor = 0
 			# modifier = {
@@ -1282,7 +1281,20 @@ laws = {
 		city_opinion = -10
 		temple_opinion = -10
 
-		potential = { always = yes }
+		potential = {
+			holder_scope = {
+				OR = {
+					NOT = { government = neofeudal_government }
+					any_demesne_province = {
+						OR = {
+							has_province_modifier = police_budget_mod_1
+							has_province_modifier = police_budget_mod_2
+							has_province_modifier = police_budget_mod_3
+						}
+					}
+				}
+			}
+		}
 		allow = {
 			always = yes
 		}
@@ -1322,7 +1334,7 @@ laws = {
 		group = police_budget
 		default = yes
 
-		potential = { always = yes }
+		potential = { holder_scope = { NOT = { government = neofeudal_government } } }
 		allow = {
 			OR = {
 				has_law = police_budget_2
@@ -1388,7 +1400,7 @@ laws = {
 	police_budget_2 = {
 		group = police_budget
 
-		potential = { always = yes }
+		potential = { holder_scope = { NOT = { government = neofeudal_government } } }
 		allow = {
 			OR = {
 				has_law = police_budget_3
@@ -1449,7 +1461,7 @@ laws = {
 	police_budget_3 = {
 		group = police_budget
 
-		potential = { always = yes }
+		potential = { holder_scope = { NOT = { government = neofeudal_government } } }
 		allow = {
 			holder_scope = { monthly_income = 0 }
 		}
@@ -1485,9 +1497,25 @@ laws = {
 
 	# Budget - Health Care
 	health_care_budget_0 = {
+		feudal_opinion = -10
+		city_opinion = -10
+		temple_opinion = -10
 		group = health_care_budget
 
-		potential = { holder_scope = { any_demesne_province = { owner = { character = PREVPREV } } } }
+		potential = {
+			holder_scope = {
+				OR = {
+					NOT = { government = neofeudal_government }
+					any_demesne_province = {
+						OR = {
+							has_province_modifier = health_care_budget_mod_1
+							has_province_modifier = health_care_budget_mod_2
+							has_province_modifier = health_care_budget_mod_3
+						}
+					}
+				}
+			}
+		}
 		allow = {
 			always = yes
 		}
@@ -1533,7 +1561,7 @@ laws = {
 		group = health_care_budget
 		default = yes
 
-		potential = { holder_scope = { any_demesne_province = { owner = { character = PREVPREV } } } }
+		potential = { holder_scope = { NOT = { government = neofeudal_government } } }
 		allow = {
 			OR = {
 				has_law = health_care_budget_2
@@ -1579,7 +1607,7 @@ laws = {
 	health_care_budget_2 = {
 		group = health_care_budget
 
-		potential = { holder_scope = { any_demesne_province = { owner = { character = PREVPREV } } } }
+		potential = { holder_scope = { NOT = { government = neofeudal_government } } }
 		allow = {
 			OR = {
 				has_law = health_care_budget_3
@@ -1625,7 +1653,7 @@ laws = {
 	health_care_budget_3 = {
 		group = health_care_budget
 
-		potential = { holder_scope = { any_demesne_province = { owner = { character = PREVPREV } } } }
+		potential = { holder_scope = { NOT = { government = neofeudal_government } } }
 		allow = {
 			holder_scope = { monthly_income = 0 }
 		}
@@ -1664,9 +1692,12 @@ laws = {
 	}
 	# Budget - Education
 	education_budget_0 = {
+		feudal_opinion = -10
+		city_opinion = -10
+		temple_opinion = -10
 		group = education_budget
 
-		potential = { holder_scope = { any_demesne_province = { owner = { character = PREVPREV } } } }
+		potential = { holder_scope = { NOT = { government = neofeudal_government } } }
 		allow = {
 			always = yes
 		}
@@ -1714,7 +1745,7 @@ laws = {
 		group = education_budget
 		default = yes
 
-		potential = { holder_scope = { any_demesne_province = { owner = { character = PREVPREV } } } }
+		potential = { holder_scope = { NOT = { government = neofeudal_government } } }
 		allow = {
 			OR = {
 				has_law = education_budget_2
@@ -1773,7 +1804,7 @@ laws = {
 	education_budget_2 = {
 		group = education_budget
 
-		potential = { holder_scope = { any_demesne_province = { owner = { character = PREVPREV } } } }
+		potential = { holder_scope = { NOT = { government = neofeudal_government } } }
 		allow = {
 			OR = {
 				has_law = education_budget_3
@@ -1825,7 +1856,7 @@ laws = {
 	education_budget_3 = {
 		group = education_budget
 
-		potential = { holder_scope = { any_demesne_province = { owner = { character = PREVPREV } } } }
+		potential = { holder_scope = { NOT = { government = neofeudal_government } } }
 		allow = {
 			holder_scope = { monthly_income = 0 }
 		}
@@ -1863,9 +1894,12 @@ laws = {
 
 	#Budget - Military
 	military_budget_0 = {
+		feudal_opinion = -10
+		city_opinion = -10
+		temple_opinion = -10
 		group = military_budget
 
-		potential = { holder_scope = { any_demesne_province = { owner = { character = PREVPREV } } } }
+		potential = { holder_scope = { NOT = { government = neofeudal_government } } }
 		allow = {
 			always = yes
 		}
@@ -1903,7 +1937,7 @@ laws = {
 		group = military_budget
 		default = yes
 
-		potential = { holder_scope = { any_demesne_province = { owner = { character = PREVPREV } } } }
+		potential = { holder_scope = { NOT = { government = neofeudal_government } } }
 		allow = {
 			OR = {
 				has_law = military_budget_2
@@ -1952,7 +1986,7 @@ laws = {
 	military_budget_2 = {
 		group = military_budget
 
-		potential = { holder_scope = { any_demesne_province = { owner = { character = PREVPREV } } } }
+		potential = { holder_scope = { NOT = { government = neofeudal_government } } }
 		allow = {
 			OR = {
 				has_law = military_budget_3
@@ -1994,7 +2028,7 @@ laws = {
 	military_budget_3 = {
 		group = military_budget
 
-		potential = { holder_scope = { any_demesne_province = { owner = { character = PREVPREV } } } }
+		potential = { holder_scope = { NOT = { government = neofeudal_government } } }
 		allow = {
 			holder_scope = { monthly_income = 0 }
 		}

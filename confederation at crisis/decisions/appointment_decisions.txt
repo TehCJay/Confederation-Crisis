@@ -1,3248 +1,3248 @@
 targetted_decisions = {
 	# Nominate yourself as successor to your liege
-	nominate_self_for_appointment = {
-		filter = self
-		ai_target_filter = self
-		ai_check_interval = 10
-		potential = {
-			is_ruler = yes
-			liege = {
-				NOT = { character = ROOT } # Must not be independent
-				any_demesne_title = {
-					OR = {has_law = succ_appointment AND = {has_law = succ_catholic_bishopric NOT = { current_heir = {always = yes}}}}
-					or = {
-						higher_tier_than = baron
-						is_capital = no
-					}
-				}
-				independent = no # No appointment nominations for independent liegs for now
-			}
-			OR = {
-				AND = {
-					is_military_trigger = yes
-					liege = { is_military_trigger = yes }
-				}
-				AND = {
-					is_corporate_trigger = yes
-					liege = { is_corporate_trigger = yes }
-				}
-				AND = {
-					is_administrative_trigger = yes
-					liege = { is_administrative_trigger = yes }
-				}
-			}
-		}
-		allow = {
-			has_regent = no
-
-			# Must not already be the expected successor
-			custom_tooltip = {
-				text = "ALREADYSUCCESSOR"
-				hidden_tooltip = { NOT = { has_minor_title = title_expected_successor } }
-			}
-			OR = {NOT = { has_character_flag = flag_making_appointment_nomination }	# Try to limit simultaneous nominations
-				had_character_flag = { flag = flag_making_appointment_nomination days = 21 }}
-		}
-		effect = {
-			set_character_flag = flag_making_appointment_nomination
-			character_event = { id = nepotism.100 }
-		}
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 0.1
-			}
-			# Personality
-			modifier = {
-				factor = 4
-				trait = ambitious
-			}
-			modifier = {
-				factor = 0.25
-				trait = content
-			}
-
-			# Do not make requests that have very little chance of being granted
-			modifier = {
-				factor = 0
-				liege = {
-					liege = {
-						has_regent = no
-						NOT = { opinion = { who = ROOT value = 0 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0
-				liege = {
-					liege = {
-						has_regent = yes
-						regent = { NOT = { opinion = { who = ROOT value = 0 } } }
-					}
-				}
-			}
-
-			modifier = {
-				factor = 3
-				has_ambition = obj_become_king
-				liege = {
-					any_demesne_title = {
-						OR = {has_law = succ_appointment AND = {has_law = succ_catholic_bishopric NOT = { current_heir = {always = yes}}}}
-						tier = king
-					}
-				}
-			}
-			modifier = {
-				factor = 3
-				has_ambition = obj_become_emperor
-				liege = {
-					any_demesne_title = {
-						OR = {has_law = succ_appointment AND = {has_law = succ_catholic_bishopric NOT = { current_heir = {always = yes}}}}
-						tier = emperor
-					}
-				}
-			}
-
-			# There is no expected successor AT ALL
-			# Extra important if liegeliege is wrong type!
-			modifier = {
-				factor = 4
-				NOT = { liege = { any_vassal = { has_minor_title = title_expected_successor } } }
-				NOT = { liege = { any_courtier = { has_minor_title = title_expected_successor } } }
-			}
-			modifier = {
-				factor = 2
-				NOT = { liege = { any_vassal = { has_minor_title = title_expected_successor } } }
-				NOT = { liege = { any_courtier = { has_minor_title = title_expected_successor } } }
-				liege = {
-					OR = {
-						AND = {
-							is_military_trigger = yes
-							liege = { is_military_trigger = no }
-						}
-						AND = {
-							is_corporate_trigger = yes
-							liege = { is_corporate_trigger = no }
-						}
-						AND = {
-							is_administrative_trigger = yes
-							liege = { is_administrative_trigger = no }
-						}
-					}
-				}
-			}
-
-			# Opinion of current expected sucessor
-			modifier = {
-				factor = 0.8
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = ROOT value = 100 }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = ROOT value = 100 }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 0.8
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = ROOT value = 90 }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = ROOT value = 90 }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 0.8
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = ROOT value = 80 }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = ROOT value = 80 }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 0.8
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = ROOT value = 70 }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = ROOT value = 70 }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 0.8
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = ROOT value = 60 }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = ROOT value = 60 }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 0.8
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = ROOT value = 50 }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = ROOT value = 50 }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 0.8
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = ROOT value = 40 }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = ROOT value = 40 }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 0.8
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = ROOT value = 30 }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = ROOT value = 30 }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 0.8
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = ROOT value = 20 }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = ROOT value = 20 }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 0.8
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = ROOT value = 10 }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = ROOT value = 10 }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = ROOT value = -9 } }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = ROOT value = -9 } }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = ROOT value = -19 } }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = ROOT value = -19 } }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = ROOT value = -29 } }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = ROOT value = -29 } }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = ROOT value = -39 } }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = ROOT value = -39 } }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = ROOT value = -49 } }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = ROOT value = -49 } }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = ROOT value = -59 } }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = ROOT value = -59 } }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = ROOT value = -69 } }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = ROOT value = -69 } }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = ROOT value = -79 } }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = ROOT value = -79 } }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = ROOT value = -89 } }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = ROOT value = -89 } }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = ROOT value = -99 } }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = ROOT value = -99 } }
-						}
-					}
-				}
-			}
-
-			# Cooldown timer - avoid spamming requests for a particular appointment
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_vassal = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_vassal = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
-						count = 2
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_vassal = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
-						count = 3
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_courtier = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_courtier = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
-						count = 2
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_courtier = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
-						count = 3
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_vassal = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_vassal = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
-						count = 2
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_vassal = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
-						count = 3
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_courtier = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_courtier = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
-						count = 2
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_courtier = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
-						count = 3
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_vassal = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_vassal = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
-						count = 2
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_vassal = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
-						count = 3
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_courtier = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_courtier = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
-						count = 2
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_courtier = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
-						count = 3
-					}
-				}
-			}
-
-			# Bonus cooldowns for recent successful appointments
-			modifier = {
-				factor = 0
-				liege = {
-					any_vassal = {
-						has_minor_title = title_expected_successor
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0
-				liege = {
-					any_courtier = {
-						has_minor_title = title_expected_successor
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_vassal = {
-						has_minor_title = title_expected_successor
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_courtier = {
-						has_minor_title = title_expected_successor
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0
-				liege = {
-					any_vassal = {
-						has_minor_title = title_expected_successor
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0
-				liege = {
-					any_courtier = {
-						has_minor_title = title_expected_successor
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
-					}
-				}
-			}
-		}
-	}
-	# Nominate a dynasty member as successor to their liege
-	nominate_relative_for_appointment = {
-		filter = dynasty
-		ai_target_filter = dynasty
-		from_potential = {
-			is_ruler = yes
-		}
-		ai_check_interval = 10
- potential = {
- 			age = 18 #do not attempt to appoint minors
-			NOT = { character = FROM }
-			#NOT = { dynasty = FROM }
-			liege = {
-				NOT = { character = ROOT } # Must not be independent
-				any_demesne_title = {
-					OR = {has_law = succ_appointment AND = {has_law = succ_catholic_bishopric NOT = { current_heir = {always = yes}}}}
-					or = {
-						higher_tier_than = baron
-						is_capital = no
-					}
-				}
-				independent = no # No appointment nominations for independent lieges for now
-			}
-			OR = {
-				is_ruler = no
-				AND = {
-					is_military_trigger = yes
-					liege = { is_military_trigger = yes }
-				}
-				AND = {
-					is_corporate_trigger = yes
-					liege = { is_corporate_trigger = yes }
-				}
-				AND = {
-					is_administrative_trigger = yes
-					liege = { is_administrative_trigger = yes }
-				}
-			}
-		}
-		allow = {
-			custom_tooltip = {
-				text = "ALREADYSUCCESSOR"
-				hidden_tooltip = { NOT = { has_minor_title = title_expected_successor } }
-			}
-			OR = {
-				has_regent = no
-				NOT = {age = 18}
-			}
-			# Must not replace self
-			NOT = {
-				FROM = {
-					has_minor_title = title_expected_successor
-					same_liege = ROOT
-				}
-			}
-
-			OR = {NOT = { has_character_flag = flag_making_appointment_nomination }	# Try to limit simultaneous nominations
-				had_character_flag = { flag = flag_making_appointment_nomination days = 21 }}
-			OR = {NOT = { FROM = { has_character_flag = flag_making_appointment_nomination } }
-				FROM = { had_character_flag = { flag = flag_making_appointment_nomination days = 21 } }}
-		}
-		effect = {
-			ROOT = {
-				save_event_target_as = nominating
-			}
-			FROM = {
-				save_event_target_as = nominator
-			}
-			hidden_tooltip = { opinion = { who = FROM modifier = opinion_appointment_nominee } } # Flag dynast for event
-			FROM = {
-				character_event = { id = nepotism.200 tooltip = "EVTTOOLTIPNEPOTISM200" }
-				set_character_flag = flag_making_appointment_nomination
-				# These flags help keep the AI from spamming nominations
-				clr_character_flag = flag_appointment_nomination_cooldown
-				set_character_flag = flag_appointment_nomination_cooldown
-			}
-		}
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 0.1
-			}
-
-			# Do not make requests that have very little chance of being granted
-			modifier = {
-				factor = 0
-				liege = {
-					liege = {
-						has_regent = no
-						NOT = { opinion = { who = ROOT value = 0 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0
-				liege = {
-					liege = {
-						has_regent = no
-						NOT = { opinion = { who = FROM value = 0 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0
-				liege = {
-					liege = {
-						has_regent = yes
-						regent = { NOT = { opinion = { who = ROOT value = 0 } } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0
-				liege = {
-					liege = {
-						has_regent = yes
-						regent = { NOT = { opinion = { who = FROM value = 0 } } }
-					}
-				}
-			}
-
-			# There is no expected successor AT ALL
-			# Extra important if liegeliege is wrong type!
-			modifier = {
-				factor = 4
-				NOT = { liege = { any_vassal = { has_minor_title = title_expected_successor } } }
-				NOT = { liege = { any_courtier = { has_minor_title = title_expected_successor } } }
-			}
-			modifier = {
-				factor = 2
-				NOT = { liege = { any_vassal = { has_minor_title = title_expected_successor } } }
-				NOT = { liege = { any_courtier = { has_minor_title = title_expected_successor } } }
-				liege = {
-					OR = {
-						AND = {
-							is_military_trigger = yes
-							liege = { is_military_trigger = no }
-						}
-						AND = {
-							is_corporate_trigger = yes
-							liege = { is_corporate_trigger = no }
-						}
-						AND = {
-							is_administrative_trigger = yes
-							liege = { is_administrative_trigger = no }
-						}
-					}
-				}
-			}
-
-			modifier = {
-				factor = 3
-				liege = {
-					character = FROM
-					NOT = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							dynasty = FROM
-						}
-					}
-					NOT = {
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							dynasty = FROM
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 2
-				liege = {
-					OR = {
-						religion = terran_imperial
-						religion = neo_feudal
-						religion = bio_directionist
-					}
-					character = FROM
-					NOT = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							dynasty = FROM
-						}
-					}
-					NOT = {
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							dynasty = FROM
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 2
-				liege = {
-					OR = {
-						religion = terran_imperial
-						religion = neo_feudal
-						religion = bio_directionist
-					}
-					trait = radical
-					character = FROM
-					NOT = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							dynasty = FROM
-						}
-					}
-					NOT = {
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							dynasty = FROM
-						}
-					}
-				}
-			}
-
-			# Ideological opposition to nepotism
-			modifier = {
-				factor = 0.5
-				OR = {
-					religion = terran_federalist
-					religion = terran_republican
-					religion = colonial_separatist
-					religion = neo_socialist
-				}
-				NOT = { trait = pragmatic }
-			}
-			modifier = {
-				factor = 0.5
-				OR = {
-					religion = terran_federalist
-					religion = terran_republican
-					religion = colonial_separatist
-					religion = neo_socialist
-				}
-				trait = radical
-			}
-
-			# Opinion of nominee
-			modifier = {
-				factor = 1.25
-				reverse_opinion = { who = FROM value = 100 }
-			}
-			modifier = {
-				factor = 1.25
-				reverse_opinion = { who = FROM value = 90 }
-			}
-			modifier = {
-				factor = 1.25
-				reverse_opinion = { who = FROM value = 80 }
-			}
-			modifier = {
-				factor = 1.25
-				reverse_opinion = { who = FROM value = 70 }
-			}
-			modifier = {
-				factor = 1.25
-				reverse_opinion = { who = FROM value = 60 }
-			}
-			modifier = {
-				factor = 1.25
-				reverse_opinion = { who = FROM value = 50 }
-			}
-			modifier = {
-				factor = 1.25
-				reverse_opinion = { who = FROM value = 40 }
-			}
-			modifier = {
-				factor = 1.25
-				reverse_opinion = { who = FROM value = 30 }
-			}
-			modifier = {
-				factor = 1.25
-				reverse_opinion = { who = FROM value = 20 }
-			}
-			modifier = {
-				factor = 1.25
-				reverse_opinion = { who = FROM value = 10 }
-			}
-			modifier = {
-				factor = 1.25
-				NOT = { reverse_opinion = { who = FROM value = -9 } }
-			}
-			modifier = {
-				factor = 1.25
-				NOT = { reverse_opinion = { who = FROM value = -19 } }
-			}
-			modifier = {
-				factor = 1.25
-				NOT = { reverse_opinion = { who = FROM value = -29 } }
-			}
-			modifier = {
-				factor = 1.25
-				NOT = { reverse_opinion = { who = FROM value = -39 } }
-			}
-			modifier = {
-				factor = 1.25
-				NOT = { reverse_opinion = { who = FROM value = -49 } }
-			}
-			modifier = {
-				factor = 1.25
-				NOT = { reverse_opinion = { who = FROM value = -59 } }
-			}
-			modifier = {
-				factor = 1.25
-				NOT = { reverse_opinion = { who = FROM value = -69 } }
-			}
-			modifier = {
-				factor = 1.25
-				NOT = { reverse_opinion = { who = FROM value = -79 } }
-			}
-			modifier = {
-				factor = 1.25
-				NOT = { reverse_opinion = { who = FROM value = -89 } }
-			}
-			modifier = {
-				factor = 1.25
-				NOT = { reverse_opinion = { who = FROM value = -99 } }
-			}
-
-			# Opinion of current expected sucessor
-			modifier = {
-				factor = 0.8
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 100 }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 100 }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 0.8
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 90 }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 90 }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 0.8
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 80 }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 80 }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 0.8
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 70 }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 70 }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 0.8
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 60 }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 60 }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 0.8
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 50 }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 50 }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 0.8
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 40 }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 40 }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 0.8
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 30 }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 30 }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 0.8
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 20 }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 20 }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 0.8
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 10 }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 10 }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -9 } }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -9 } }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -19 } }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -19 } }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -29 } }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -29 } }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -39 } }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -39 } }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -49 } }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -49 } }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -59 } }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -59 } }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -69 } }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -69 } }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -79 } }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -79 } }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -89 } }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -89 } }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -99 } }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -99 } }
-						}
-					}
-				}
-			}
-
-			# Cooldown timer - avoid spamming requests for a particular appointment
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_vassal = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_vassal = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
-						count = 2
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_vassal = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
-						count = 3
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_courtier = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_courtier = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
-						count = 2
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_courtier = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
-						count = 3
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_vassal = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_vassal = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
-						count = 2
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_vassal = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
-						count = 3
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_courtier = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_courtier = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
-						count = 2
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_courtier = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
-						count = 3
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_vassal = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_vassal = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
-						count = 2
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_vassal = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
-						count = 3
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_courtier = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_courtier = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
-						count = 2
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_courtier = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
-						count = 3
-					}
-				}
-			}
-
-			# Bonus cooldowns for recent successful appointments
-			modifier = {
-				factor = 0
-				liege = {
-					any_vassal = {
-						has_minor_title = title_expected_successor
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0
-				liege = {
-					any_courtier = {
-						has_minor_title = title_expected_successor
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_vassal = {
-						has_minor_title = title_expected_successor
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_courtier = {
-						has_minor_title = title_expected_successor
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0
-				liege = {
-					any_vassal = {
-						has_minor_title = title_expected_successor
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0
-				liege = {
-					any_courtier = {
-						has_minor_title = title_expected_successor
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
-					}
-				}
-			}
-		}
-	}
-	unnominate_for_appointment = {
-		filter = realm
-		ai_target_filter = realm
-		from_potential = {
-			is_ruler = yes
-			ai = no
-		}
-		ai_check_interval = 10
- potential = {
-			NOT = { character = FROM }
-			NOT = { dynasty = FROM }
-			liege = {
-				NOT = { character = ROOT } # Must not be independent
-				any_demesne_title = {
-					OR = {has_law = succ_appointment AND = {has_law = succ_catholic_bishopric NOT = { current_heir = {always = yes}}}}
-					or = {
-						higher_tier_than = baron
-						is_capital = no
-					}
-				}
-				independent = no # No appointment nominations for independent lieges for now
-			}
-			OR = {
-				is_ruler = no
-				AND = {
-					is_military_trigger = yes
-					liege = { is_military_trigger = yes }
-				}
-				AND = {
-					is_corporate_trigger = yes
-					liege = { is_corporate_trigger = yes }
-				}
-				AND = {
-					is_administrative_trigger = yes
-					liege = { is_administrative_trigger = yes }
-				}
-			}
-		}
-		allow = {
-			custom_tooltip = {
-				text = "ALREADYSUCCESSOR"
-			hidden_tooltip = { has_minor_title = title_expected_successor }
-			}
-			has_regent = no
-			# Must not replace self
-			NOT = {
-				FROM = {
-					has_minor_title = title_expected_successor
-					same_liege = ROOT
-				}
-			}
-
-			OR = {NOT = { has_character_flag = flag_making_appointment_nomination }	# Try to limit simultaneous nominations
-				had_character_flag = { flag = flag_making_appointment_nomination days = 21 }}
-			OR = {NOT = { FROM = { has_character_flag = flag_making_appointment_nomination } }
-				FROM = { had_character_flag = { flag = flag_making_appointment_nomination days = 21 } }}
-		}
-		effect = {
-			hidden_tooltip = { opinion = { who = FROM modifier = opinion_appointment_nominee } } # Flag dynast for event
-			FROM = {
-				character_event = { id = nepotism.400 tooltip = "EVTTOOLTIPNEPOTISM200" }
-				set_character_flag = flag_making_appointment_nomination
-				# These flags help keep the AI from spamming nominations
-				clr_character_flag = flag_appointment_nomination_cooldown
-				set_character_flag = flag_appointment_nomination_cooldown
-			}
-		}
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 0.1
-			}
-
-			# Do not make requests that have very little chance of being granted
-			modifier = {
-				factor = 0
-				liege = {
-					liege = {
-						has_regent = no
-						NOT = { opinion = { who = ROOT value = 0 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0
-				liege = {
-					liege = {
-						has_regent = no
-						NOT = { opinion = { who = FROM value = 0 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0
-				liege = {
-					liege = {
-						has_regent = yes
-						regent = { NOT = { opinion = { who = ROOT value = 0 } } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0
-				liege = {
-					liege = {
-						has_regent = yes
-						regent = { NOT = { opinion = { who = FROM value = 0 } } }
-					}
-				}
-			}
-
-			# There is no expected successor AT ALL
-			# Extra important if liegeliege is wrong type!
-			modifier = {
-				factor = 4
-				NOT = { liege = { any_vassal = { has_minor_title = title_expected_successor } } }
-				NOT = { liege = { any_courtier = { has_minor_title = title_expected_successor } } }
-			}
-			modifier = {
-				factor = 2
-				NOT = { liege = { any_vassal = { has_minor_title = title_expected_successor } } }
-				NOT = { liege = { any_courtier = { has_minor_title = title_expected_successor } } }
-				liege = {
-					OR = {
-						AND = {
-							is_military_trigger = yes
-							liege = { is_military_trigger = no }
-						}
-						AND = {
-							is_corporate_trigger = yes
-							liege = { is_corporate_trigger = no }
-						}
-						AND = {
-							is_administrative_trigger = yes
-							liege = { is_administrative_trigger = no }
-						}
-					}
-				}
-			}
-
-			modifier = {
-				factor = 3
-				liege = {
-					character = FROM
-					NOT = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							dynasty = FROM
-						}
-					}
-					NOT = {
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							dynasty = FROM
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 2
-				liege = {
-					OR = {
-						religion = terran_imperial
-						religion = neo_feudal
-						religion = bio_directionist
-					}
-					character = FROM
-					NOT = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							dynasty = FROM
-						}
-					}
-					NOT = {
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							dynasty = FROM
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 2
-				liege = {
-					OR = {
-						religion = terran_imperial
-						religion = neo_feudal
-						religion = bio_directionist
-					}
-					trait = radical
-					character = FROM
-					NOT = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							dynasty = FROM
-						}
-					}
-					NOT = {
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							dynasty = FROM
-						}
-					}
-				}
-			}
-
-			# Ideological opposition to nepotism
-			modifier = {
-				factor = 0.5
-				OR = {
-					religion = terran_federalist
-					religion = terran_republican
-					religion = colonial_separatist
-					religion = neo_socialist
-				}
-				NOT = { trait = pragmatic }
-			}
-			modifier = {
-				factor = 0.5
-				OR = {
-					religion = terran_federalist
-					religion = terran_republican
-					religion = colonial_separatist
-					religion = neo_socialist
-				}
-				trait = radical
-			}
-
-			# Opinion of nominee
-			modifier = {
-				factor = 1.25
-				reverse_opinion = { who = FROM value = 100 }
-			}
-			modifier = {
-				factor = 1.25
-				reverse_opinion = { who = FROM value = 90 }
-			}
-			modifier = {
-				factor = 1.25
-				reverse_opinion = { who = FROM value = 80 }
-			}
-			modifier = {
-				factor = 1.25
-				reverse_opinion = { who = FROM value = 70 }
-			}
-			modifier = {
-				factor = 1.25
-				reverse_opinion = { who = FROM value = 60 }
-			}
-			modifier = {
-				factor = 1.25
-				reverse_opinion = { who = FROM value = 50 }
-			}
-			modifier = {
-				factor = 1.25
-				reverse_opinion = { who = FROM value = 40 }
-			}
-			modifier = {
-				factor = 1.25
-				reverse_opinion = { who = FROM value = 30 }
-			}
-			modifier = {
-				factor = 1.25
-				reverse_opinion = { who = FROM value = 20 }
-			}
-			modifier = {
-				factor = 1.25
-				reverse_opinion = { who = FROM value = 10 }
-			}
-			modifier = {
-				factor = 1.25
-				NOT = { reverse_opinion = { who = FROM value = -9 } }
-			}
-			modifier = {
-				factor = 1.25
-				NOT = { reverse_opinion = { who = FROM value = -19 } }
-			}
-			modifier = {
-				factor = 1.25
-				NOT = { reverse_opinion = { who = FROM value = -29 } }
-			}
-			modifier = {
-				factor = 1.25
-				NOT = { reverse_opinion = { who = FROM value = -39 } }
-			}
-			modifier = {
-				factor = 1.25
-				NOT = { reverse_opinion = { who = FROM value = -49 } }
-			}
-			modifier = {
-				factor = 1.25
-				NOT = { reverse_opinion = { who = FROM value = -59 } }
-			}
-			modifier = {
-				factor = 1.25
-				NOT = { reverse_opinion = { who = FROM value = -69 } }
-			}
-			modifier = {
-				factor = 1.25
-				NOT = { reverse_opinion = { who = FROM value = -79 } }
-			}
-			modifier = {
-				factor = 1.25
-				NOT = { reverse_opinion = { who = FROM value = -89 } }
-			}
-			modifier = {
-				factor = 1.25
-				NOT = { reverse_opinion = { who = FROM value = -99 } }
-			}
-
-			# Opinion of current expected sucessor
-			modifier = {
-				factor = 0.8
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 100 }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 100 }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 0.8
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 90 }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 90 }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 0.8
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 80 }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 80 }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 0.8
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 70 }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 70 }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 0.8
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 60 }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 60 }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 0.8
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 50 }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 50 }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 0.8
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 40 }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 40 }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 0.8
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 30 }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 30 }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 0.8
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 20 }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 20 }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 0.8
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 10 }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 10 }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -9 } }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -9 } }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -19 } }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -19 } }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -29 } }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -29 } }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -39 } }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -39 } }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -49 } }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -49 } }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -59 } }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -59 } }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -69 } }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -69 } }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -79 } }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -79 } }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -89 } }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -89 } }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -99 } }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -99 } }
-						}
-					}
-				}
-			}
-
-			# Cooldown timer - avoid spamming requests for a particular appointment
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_vassal = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_vassal = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
-						count = 2
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_vassal = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
-						count = 3
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_courtier = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_courtier = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
-						count = 2
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_courtier = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
-						count = 3
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_vassal = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_vassal = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
-						count = 2
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_vassal = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
-						count = 3
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_courtier = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_courtier = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
-						count = 2
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_courtier = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
-						count = 3
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_vassal = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_vassal = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
-						count = 2
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_vassal = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
-						count = 3
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_courtier = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_courtier = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
-						count = 2
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_courtier = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
-						count = 3
-					}
-				}
-			}
-
-			# Bonus cooldowns for recent successful appointments
-			modifier = {
-				factor = 0
-				liege = {
-					any_vassal = {
-						has_minor_title = title_expected_successor
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0
-				liege = {
-					any_courtier = {
-						has_minor_title = title_expected_successor
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_vassal = {
-						has_minor_title = title_expected_successor
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_courtier = {
-						has_minor_title = title_expected_successor
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0
-				liege = {
-					any_vassal = {
-						has_minor_title = title_expected_successor
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0
-				liege = {
-					any_courtier = {
-						has_minor_title = title_expected_successor
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
-					}
-				}
-			}
-		}
-	}
-	nominate_nonrelative_for_appointment = {
-		filter = realm
-		ai_target_filter = realm
-		from_potential = {
-			is_ruler = yes
-			ai = no
-		}
-		ai_check_interval = 10
- potential = {
- 			age = 18 #do not attempt to appoint minors
-			NOT = { character = FROM }
-			NOT = { dynasty = FROM }
-			liege = {
-				NOT = { character = ROOT } # Must not be independent
-				any_demesne_title = {
-					OR = {has_law = succ_appointment AND = {has_law = succ_catholic_bishopric NOT = { current_heir = {always = yes}}}}
-					or = {
-						higher_tier_than = baron
-						is_capital = no
-					}
-				}
-				independent = no # No appointment nominations for independent lieges for now
-			}
-			OR = {
-				is_ruler = no
-				AND = {
-					is_military_trigger = yes
-					liege = { is_military_trigger = yes }
-				}
-				AND = {
-					is_corporate_trigger = yes
-					liege = { is_corporate_trigger = yes }
-				}
-				AND = {
-					is_administrative_trigger = yes
-					liege = { is_administrative_trigger = yes }
-				}
-			}
-		}
-		allow = {
-			custom_tooltip = {
-				text = "ALREADYSUCCESSOR"
-				hidden_tooltip = { NOT = { has_minor_title = title_expected_successor } }
-			}
-			has_regent = no
-			# Must not replace self
-			NOT = {
-				FROM = {
-					has_minor_title = title_expected_successor
-					same_liege = ROOT
-				}
-			}
-
-			OR = {NOT = { has_character_flag = flag_making_appointment_nomination }	# Try to limit simultaneous nominations
-				had_character_flag = { flag = flag_making_appointment_nomination days = 21 }}
-			OR = {NOT = { FROM = { has_character_flag = flag_making_appointment_nomination } }
-				FROM = { had_character_flag = { flag = flag_making_appointment_nomination days = 21 } }}
-		}
-		effect = {
-			ROOT = {
-				save_event_target_as = nominating
-			}
-			FROM = {
-				save_event_target_as = nominator
-			}
-			hidden_tooltip = { opinion = { who = FROM modifier = opinion_appointment_nominee } } # Flag dynast for event
-			FROM = {
-				character_event = { id = nepotism.200 tooltip = "EVTTOOLTIPNEPOTISM200" }
-				set_character_flag = flag_making_appointment_nomination
-				# These flags help keep the AI from spamming nominations
-				clr_character_flag = flag_appointment_nomination_cooldown
-				set_character_flag = flag_appointment_nomination_cooldown
-			}
-		}
-		ai_will_do = {
-			factor = 0.5
-			modifier = {
-				factor = 0.1
-			}
-
-			# Do not make requests that have very little chance of being granted
-			modifier = {
-				factor = 0
-				liege = {
-					liege = {
-						has_regent = no
-						NOT = { opinion = { who = ROOT value = 0 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0
-				liege = {
-					liege = {
-						has_regent = no
-						NOT = { opinion = { who = FROM value = 0 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0
-				liege = {
-					liege = {
-						has_regent = yes
-						regent = { NOT = { opinion = { who = ROOT value = 0 } } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0
-				liege = {
-					liege = {
-						has_regent = yes
-						regent = { NOT = { opinion = { who = FROM value = 0 } } }
-					}
-				}
-			}
-
-			# There is no expected successor AT ALL
-			# Extra important if liegeliege is wrong type!
-			modifier = {
-				factor = 4
-				NOT = { liege = { any_vassal = { has_minor_title = title_expected_successor } } }
-				NOT = { liege = { any_courtier = { has_minor_title = title_expected_successor } } }
-			}
-			modifier = {
-				factor = 2
-				NOT = { liege = { any_vassal = { has_minor_title = title_expected_successor } } }
-				NOT = { liege = { any_courtier = { has_minor_title = title_expected_successor } } }
-				liege = {
-					OR = {
-						AND = {
-							is_military_trigger = yes
-							liege = { is_military_trigger = no }
-						}
-						AND = {
-							is_corporate_trigger = yes
-							liege = { is_corporate_trigger = no }
-						}
-						AND = {
-							is_administrative_trigger = yes
-							liege = { is_administrative_trigger = no }
-						}
-					}
-				}
-			}
-
-			modifier = {
-				factor = 3
-				liege = {
-					character = FROM
-					NOT = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							dynasty = FROM
-						}
-					}
-					NOT = {
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							dynasty = FROM
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 2
-				liege = {
-					OR = {
-						religion = terran_imperial
-						religion = neo_feudal
-						religion = bio_directionist
-					}
-					character = FROM
-					NOT = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							dynasty = FROM
-						}
-					}
-					NOT = {
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							dynasty = FROM
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 2
-				liege = {
-					OR = {
-						religion = terran_imperial
-						religion = neo_feudal
-						religion = bio_directionist
-					}
-					trait = radical
-					character = FROM
-					NOT = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							dynasty = FROM
-						}
-					}
-					NOT = {
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							dynasty = FROM
-						}
-					}
-				}
-			}
-
-			# Ideological opposition to nepotism
-			modifier = {
-				factor = 0.5
-				OR = {
-					religion = terran_federalist
-					religion = terran_republican
-					religion = colonial_separatist
-					religion = neo_socialist
-				}
-				NOT = { trait = pragmatic }
-			}
-			modifier = {
-				factor = 0.5
-				OR = {
-					religion = terran_federalist
-					religion = terran_republican
-					religion = colonial_separatist
-					religion = neo_socialist
-				}
-				trait = radical
-			}
-
-			# Opinion of nominee
-			modifier = {
-				factor = 1.25
-				reverse_opinion = { who = FROM value = 100 }
-			}
-			modifier = {
-				factor = 1.25
-				reverse_opinion = { who = FROM value = 90 }
-			}
-			modifier = {
-				factor = 1.25
-				reverse_opinion = { who = FROM value = 80 }
-			}
-			modifier = {
-				factor = 1.25
-				reverse_opinion = { who = FROM value = 70 }
-			}
-			modifier = {
-				factor = 1.25
-				reverse_opinion = { who = FROM value = 60 }
-			}
-			modifier = {
-				factor = 1.25
-				reverse_opinion = { who = FROM value = 50 }
-			}
-			modifier = {
-				factor = 1.25
-				reverse_opinion = { who = FROM value = 40 }
-			}
-			modifier = {
-				factor = 1.25
-				reverse_opinion = { who = FROM value = 30 }
-			}
-			modifier = {
-				factor = 1.25
-				reverse_opinion = { who = FROM value = 20 }
-			}
-			modifier = {
-				factor = 1.25
-				reverse_opinion = { who = FROM value = 10 }
-			}
-			modifier = {
-				factor = 1.25
-				NOT = { reverse_opinion = { who = FROM value = -9 } }
-			}
-			modifier = {
-				factor = 1.25
-				NOT = { reverse_opinion = { who = FROM value = -19 } }
-			}
-			modifier = {
-				factor = 1.25
-				NOT = { reverse_opinion = { who = FROM value = -29 } }
-			}
-			modifier = {
-				factor = 1.25
-				NOT = { reverse_opinion = { who = FROM value = -39 } }
-			}
-			modifier = {
-				factor = 1.25
-				NOT = { reverse_opinion = { who = FROM value = -49 } }
-			}
-			modifier = {
-				factor = 1.25
-				NOT = { reverse_opinion = { who = FROM value = -59 } }
-			}
-			modifier = {
-				factor = 1.25
-				NOT = { reverse_opinion = { who = FROM value = -69 } }
-			}
-			modifier = {
-				factor = 1.25
-				NOT = { reverse_opinion = { who = FROM value = -79 } }
-			}
-			modifier = {
-				factor = 1.25
-				NOT = { reverse_opinion = { who = FROM value = -89 } }
-			}
-			modifier = {
-				factor = 1.25
-				NOT = { reverse_opinion = { who = FROM value = -99 } }
-			}
-
-			# Opinion of current expected sucessor
-			modifier = {
-				factor = 0.8
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 100 }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 100 }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 0.8
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 90 }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 90 }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 0.8
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 80 }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 80 }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 0.8
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 70 }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 70 }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 0.8
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 60 }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 60 }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 0.8
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 50 }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 50 }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 0.8
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 40 }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 40 }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 0.8
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 30 }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 30 }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 0.8
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 20 }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 20 }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 0.8
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 10 }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							reverse_opinion = { who = FROM value = 10 }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -9 } }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -9 } }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -19 } }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -19 } }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -29 } }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -29 } }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -39 } }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -39 } }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -49 } }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -49 } }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -59 } }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -59 } }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -69 } }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -69 } }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -79 } }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -79 } }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -89 } }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -89 } }
-						}
-					}
-				}
-			}
-			modifier = {
-				factor = 1.25
-				liege = {
-					OR = {
-						any_vassal = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -99 } }
-						}
-						any_courtier = {
-							has_minor_title = title_expected_successor
-							NOT = { reverse_opinion = { who = FROM value = -99 } }
-						}
-					}
-				}
-			}
-
-			# Cooldown timer - avoid spamming requests for a particular appointment
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_vassal = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_vassal = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
-						count = 2
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_vassal = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
-						count = 3
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_courtier = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_courtier = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
-						count = 2
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_courtier = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
-						count = 3
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_vassal = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_vassal = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
-						count = 2
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_vassal = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
-						count = 3
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_courtier = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_courtier = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
-						count = 2
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_courtier = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
-						count = 3
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_vassal = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_vassal = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
-						count = 2
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_vassal = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
-						count = 3
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_courtier = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_courtier = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
-						count = 2
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_courtier = {
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
-						count = 3
-					}
-				}
-			}
-
-			# Bonus cooldowns for recent successful appointments
-			modifier = {
-				factor = 0
-				liege = {
-					any_vassal = {
-						has_minor_title = title_expected_successor
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0
-				liege = {
-					any_courtier = {
-						has_minor_title = title_expected_successor
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_vassal = {
-						has_minor_title = title_expected_successor
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0.5
-				liege = {
-					any_courtier = {
-						has_minor_title = title_expected_successor
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0
-				liege = {
-					any_vassal = {
-						has_minor_title = title_expected_successor
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
-					}
-				}
-			}
-			modifier = {
-				factor = 0
-				liege = {
-					any_courtier = {
-						has_minor_title = title_expected_successor
-						has_character_flag = flag_appointment_nomination_cooldown
-						NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
-					}
-				}
-			}
-		}
-	}
+	#nominate_self_for_appointment = {
+	#	filter = self
+	#	ai_target_filter = self
+	#	ai_check_interval = 10
+	#	potential = {
+	#		is_ruler = yes
+	#		liege = {
+	#			NOT = { character = ROOT } # Must not be independent
+	#			any_demesne_title = {
+	#				OR = {has_law = succ_appointment AND = {has_law = succ_catholic_bishopric NOT = { current_heir = {always = yes}}}}
+	#				or = {
+	#					higher_tier_than = baron
+	#					is_capital = no
+	#				}
+	#			}
+	#			independent = no # No appointment nominations for independent liegs for now
+	#		}
+	#		OR = {
+	#			AND = {
+	#				is_military_trigger = yes
+	#				liege = { is_military_trigger = yes }
+	#			}
+	#			AND = {
+	#				is_corporate_trigger = yes
+	#				liege = { is_corporate_trigger = yes }
+	#			}
+	#			AND = {
+	#				is_administrative_trigger = yes
+	#				liege = { is_administrative_trigger = yes }
+	#			}
+	#		}
+	#	}
+	#	allow = {
+	#		has_regent = no
+	#
+	#		# Must not already be the expected successor
+	#		custom_tooltip = {
+	#			text = "ALREADYSUCCESSOR"
+	#			hidden_tooltip = { NOT = { has_minor_title = title_expected_successor } }
+	#		}
+	#		OR = {NOT = { has_character_flag = flag_making_appointment_nomination }	# Try to limit simultaneous nominations
+	#			had_character_flag = { flag = flag_making_appointment_nomination days = 21 }}
+	#	}
+	#	effect = {
+	#		set_character_flag = flag_making_appointment_nomination
+	#		character_event = { id = nepotism.100 }
+	#	}
+	#	ai_will_do = {
+	#		factor = 1
+	#		modifier = {
+	#			factor = 0.1
+	#		}
+	#		# Personality
+	#		modifier = {
+	#			factor = 4
+	#			trait = ambitious
+	#		}
+	#		modifier = {
+	#			factor = 0.25
+	#			trait = content
+	#		}
+	#
+	#		# Do not make requests that have very little chance of being granted
+	#		modifier = {
+	#			factor = 0
+	#			liege = {
+	#				liege = {
+	#					has_regent = no
+	#					NOT = { opinion = { who = ROOT value = 0 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			liege = {
+	#				liege = {
+	#					has_regent = yes
+	#					regent = { NOT = { opinion = { who = ROOT value = 0 } } }
+	#				}
+	#			}
+	#		}
+	#
+	#		modifier = {
+	#			factor = 3
+	#			has_ambition = obj_become_king
+	#			liege = {
+	#				any_demesne_title = {
+	#					OR = {has_law = succ_appointment AND = {has_law = succ_catholic_bishopric NOT = { current_heir = {always = yes}}}}
+	#					tier = king
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 3
+	#			has_ambition = obj_become_emperor
+	#			liege = {
+	#				any_demesne_title = {
+	#					OR = {has_law = succ_appointment AND = {has_law = succ_catholic_bishopric NOT = { current_heir = {always = yes}}}}
+	#					tier = emperor
+	#				}
+	#			}
+	#		}
+	#
+	#		# There is no expected successor AT ALL
+	#		# Extra important if liegeliege is wrong type!
+	#		modifier = {
+	#			factor = 4
+	#			NOT = { liege = { any_vassal = { has_minor_title = title_expected_successor } } }
+	#			NOT = { liege = { any_courtier = { has_minor_title = title_expected_successor } } }
+	#		}
+	#		modifier = {
+	#			factor = 2
+	#			NOT = { liege = { any_vassal = { has_minor_title = title_expected_successor } } }
+	#			NOT = { liege = { any_courtier = { has_minor_title = title_expected_successor } } }
+	#			liege = {
+	#				OR = {
+	#					AND = {
+	#						is_military_trigger = yes
+	#						liege = { is_military_trigger = no }
+	#					}
+	#					AND = {
+	#						is_corporate_trigger = yes
+	#						liege = { is_corporate_trigger = no }
+	#					}
+	#					AND = {
+	#						is_administrative_trigger = yes
+	#						liege = { is_administrative_trigger = no }
+	#					}
+	#				}
+	#			}
+	#		}
+	#
+	#		# Opinion of current expected sucessor
+	#		modifier = {
+	#			factor = 0.8
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = ROOT value = 100 }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = ROOT value = 100 }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.8
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = ROOT value = 90 }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = ROOT value = 90 }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.8
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = ROOT value = 80 }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = ROOT value = 80 }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.8
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = ROOT value = 70 }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = ROOT value = 70 }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.8
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = ROOT value = 60 }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = ROOT value = 60 }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.8
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = ROOT value = 50 }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = ROOT value = 50 }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.8
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = ROOT value = 40 }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = ROOT value = 40 }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.8
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = ROOT value = 30 }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = ROOT value = 30 }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.8
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = ROOT value = 20 }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = ROOT value = 20 }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.8
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = ROOT value = 10 }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = ROOT value = 10 }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = ROOT value = -9 } }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = ROOT value = -9 } }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = ROOT value = -19 } }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = ROOT value = -19 } }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = ROOT value = -29 } }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = ROOT value = -29 } }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = ROOT value = -39 } }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = ROOT value = -39 } }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = ROOT value = -49 } }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = ROOT value = -49 } }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = ROOT value = -59 } }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = ROOT value = -59 } }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = ROOT value = -69 } }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = ROOT value = -69 } }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = ROOT value = -79 } }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = ROOT value = -79 } }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = ROOT value = -89 } }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = ROOT value = -89 } }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = ROOT value = -99 } }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = ROOT value = -99 } }
+	#					}
+	#				}
+	#			}
+	#		}
+	#
+	#		# Cooldown timer - avoid spamming requests for a particular appointment
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_vassal = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_vassal = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
+	#					count = 2
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_vassal = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
+	#					count = 3
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_courtier = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_courtier = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
+	#					count = 2
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_courtier = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
+	#					count = 3
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_vassal = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_vassal = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
+	#					count = 2
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_vassal = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
+	#					count = 3
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_courtier = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_courtier = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
+	#					count = 2
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_courtier = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
+	#					count = 3
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_vassal = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_vassal = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
+	#					count = 2
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_vassal = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
+	#					count = 3
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_courtier = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_courtier = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
+	#					count = 2
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_courtier = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
+	#					count = 3
+	#				}
+	#			}
+	#		}
+	#
+	#		# Bonus cooldowns for recent successful appointments
+	#		modifier = {
+	#			factor = 0
+	#			liege = {
+	#				any_vassal = {
+	#					has_minor_title = title_expected_successor
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			liege = {
+	#				any_courtier = {
+	#					has_minor_title = title_expected_successor
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_vassal = {
+	#					has_minor_title = title_expected_successor
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_courtier = {
+	#					has_minor_title = title_expected_successor
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			liege = {
+	#				any_vassal = {
+	#					has_minor_title = title_expected_successor
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			liege = {
+	#				any_courtier = {
+	#					has_minor_title = title_expected_successor
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
+	#				}
+	#			}
+	#		}
+	#	}
+	#}
+	## Nominate a dynasty member as successor to their liege
+	#nominate_relative_for_appointment = {
+	#	filter = dynasty
+	#	ai_target_filter = dynasty
+	#	from_potential = {
+	#		is_ruler = yes
+	#	}
+	#	ai_check_interval = 10
+ 	#	potential = {
+ 	#		age = 18 #do not attempt to appoint minors
+	#		NOT = { character = FROM }
+	#		#NOT = { dynasty = FROM }
+	#		liege = {
+	#			NOT = { character = ROOT } # Must not be independent
+	#			any_demesne_title = {
+	#				OR = {has_law = succ_appointment AND = {has_law = succ_catholic_bishopric NOT = { current_heir = {always = yes}}}}
+	#				or = {
+	#					higher_tier_than = baron
+	#					is_capital = no
+	#				}
+	#			}
+	#			independent = no # No appointment nominations for independent lieges for now
+	#		}
+	#		OR = {
+	#			is_ruler = no
+	#			AND = {
+	#				is_military_trigger = yes
+	#				liege = { is_military_trigger = yes }
+	#			}
+	#			AND = {
+	#				is_corporate_trigger = yes
+	#				liege = { is_corporate_trigger = yes }
+	#			}
+	#			AND = {
+	#				is_administrative_trigger = yes
+	#				liege = { is_administrative_trigger = yes }
+	#			}
+	#		}
+	#	}
+	#	allow = {
+	#		custom_tooltip = {
+	#			text = "ALREADYSUCCESSOR"
+	#			hidden_tooltip = { NOT = { has_minor_title = title_expected_successor } }
+	#		}
+	#		OR = {
+	#			has_regent = no
+	#			NOT = {age = 18}
+	#		}
+	#		# Must not replace self
+	#		NOT = {
+	#			FROM = {
+	#				has_minor_title = title_expected_successor
+	#				same_liege = ROOT
+	#			}
+	#		}
+	#
+	#		OR = {NOT = { has_character_flag = flag_making_appointment_nomination }	# Try to limit simultaneous nominations
+	#			had_character_flag = { flag = flag_making_appointment_nomination days = 21 }}
+	#		OR = {NOT = { FROM = { has_character_flag = flag_making_appointment_nomination } }
+	#			FROM = { had_character_flag = { flag = flag_making_appointment_nomination days = 21 } }}
+	#	}
+	#	effect = {
+	#		ROOT = {
+	#			save_event_target_as = nominating
+	#		}
+	#		FROM = {
+	#			save_event_target_as = nominator
+	#		}
+	#		hidden_tooltip = { opinion = { who = FROM modifier = opinion_appointment_nominee } } # Flag dynast for event
+	#		FROM = {
+	#			character_event = { id = nepotism.200 tooltip = "EVTTOOLTIPNEPOTISM200" }
+	#			set_character_flag = flag_making_appointment_nomination
+	#			# These flags help keep the AI from spamming nominations
+	#			clr_character_flag = flag_appointment_nomination_cooldown
+	#			set_character_flag = flag_appointment_nomination_cooldown
+	#		}
+	#	}
+	#	ai_will_do = {
+	#		factor = 1
+	#		modifier = {
+	#			factor = 0.1
+	#		}
+	#
+	#		# Do not make requests that have very little chance of being granted
+	#		modifier = {
+	#			factor = 0
+	#			liege = {
+	#				liege = {
+	#					has_regent = no
+	#					NOT = { opinion = { who = ROOT value = 0 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			liege = {
+	#				liege = {
+	#					has_regent = no
+	#					NOT = { opinion = { who = FROM value = 0 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			liege = {
+	#				liege = {
+	#					has_regent = yes
+	#					regent = { NOT = { opinion = { who = ROOT value = 0 } } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			liege = {
+	#				liege = {
+	#					has_regent = yes
+	#					regent = { NOT = { opinion = { who = FROM value = 0 } } }
+	#				}
+	#			}
+	#		}
+	#
+	#		# There is no expected successor AT ALL
+	#		# Extra important if liegeliege is wrong type!
+	#		modifier = {
+	#			factor = 4
+	#			NOT = { liege = { any_vassal = { has_minor_title = title_expected_successor } } }
+	#			NOT = { liege = { any_courtier = { has_minor_title = title_expected_successor } } }
+	#		}
+	#		modifier = {
+	#			factor = 2
+	#			NOT = { liege = { any_vassal = { has_minor_title = title_expected_successor } } }
+	#			NOT = { liege = { any_courtier = { has_minor_title = title_expected_successor } } }
+	#			liege = {
+	#				OR = {
+	#					AND = {
+	#						is_military_trigger = yes
+	#						liege = { is_military_trigger = no }
+	#					}
+	#					AND = {
+	#						is_corporate_trigger = yes
+	#						liege = { is_corporate_trigger = no }
+	#					}
+	#					AND = {
+	#						is_administrative_trigger = yes
+	#						liege = { is_administrative_trigger = no }
+	#					}
+	#				}
+	#			}
+	#		}
+	#
+	#		modifier = {
+	#			factor = 3
+	#			liege = {
+	#				character = FROM
+	#				NOT = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						dynasty = FROM
+	#					}
+	#				}
+	#				NOT = {
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						dynasty = FROM
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 2
+	#			liege = {
+	#				OR = {
+	#					religion = terran_imperial
+	#					religion = neo_feudal
+	#					religion = bio_directionist
+	#				}
+	#				character = FROM
+	#				NOT = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						dynasty = FROM
+	#					}
+	#				}
+	#				NOT = {
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						dynasty = FROM
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 2
+	#			liege = {
+	#				OR = {
+	#					religion = terran_imperial
+	#					religion = neo_feudal
+	#					religion = bio_directionist
+	#				}
+	#				trait = radical
+	#				character = FROM
+	#				NOT = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						dynasty = FROM
+	#					}
+	#				}
+	#				NOT = {
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						dynasty = FROM
+	#					}
+	#				}
+	#			}
+	#		}
+	#
+	#		# Ideological opposition to nepotism
+	#		modifier = {
+	#			factor = 0.5
+	#			OR = {
+	#				religion = terran_federalist
+	#				religion = terran_republican
+	#				religion = colonial_separatist
+	#				religion = neo_socialist
+	#			}
+	#			NOT = { trait = pragmatic }
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			OR = {
+	#				religion = terran_federalist
+	#				religion = terran_republican
+	#				religion = colonial_separatist
+	#				religion = neo_socialist
+	#			}
+	#			trait = radical
+	#		}
+	#
+	#		# Opinion of nominee
+	#		modifier = {
+	#			factor = 1.25
+	#			reverse_opinion = { who = FROM value = 100 }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			reverse_opinion = { who = FROM value = 90 }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			reverse_opinion = { who = FROM value = 80 }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			reverse_opinion = { who = FROM value = 70 }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			reverse_opinion = { who = FROM value = 60 }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			reverse_opinion = { who = FROM value = 50 }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			reverse_opinion = { who = FROM value = 40 }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			reverse_opinion = { who = FROM value = 30 }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			reverse_opinion = { who = FROM value = 20 }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			reverse_opinion = { who = FROM value = 10 }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			NOT = { reverse_opinion = { who = FROM value = -9 } }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			NOT = { reverse_opinion = { who = FROM value = -19 } }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			NOT = { reverse_opinion = { who = FROM value = -29 } }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			NOT = { reverse_opinion = { who = FROM value = -39 } }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			NOT = { reverse_opinion = { who = FROM value = -49 } }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			NOT = { reverse_opinion = { who = FROM value = -59 } }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			NOT = { reverse_opinion = { who = FROM value = -69 } }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			NOT = { reverse_opinion = { who = FROM value = -79 } }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			NOT = { reverse_opinion = { who = FROM value = -89 } }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			NOT = { reverse_opinion = { who = FROM value = -99 } }
+	#		}
+	#
+	#		# Opinion of current expected sucessor
+	#		modifier = {
+	#			factor = 0.8
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 100 }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 100 }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.8
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 90 }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 90 }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.8
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 80 }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 80 }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.8
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 70 }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 70 }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.8
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 60 }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 60 }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.8
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 50 }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 50 }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.8
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 40 }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 40 }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.8
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 30 }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 30 }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.8
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 20 }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 20 }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.8
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 10 }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 10 }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -9 } }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -9 } }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -19 } }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -19 } }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -29 } }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -29 } }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -39 } }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -39 } }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -49 } }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -49 } }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -59 } }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -59 } }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -69 } }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -69 } }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -79 } }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -79 } }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -89 } }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -89 } }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -99 } }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -99 } }
+	#					}
+	#				}
+	#			}
+	#		}
+	#
+	#		# Cooldown timer - avoid spamming requests for a particular appointment
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_vassal = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_vassal = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
+	#					count = 2
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_vassal = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
+	#					count = 3
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_courtier = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_courtier = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
+	#					count = 2
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_courtier = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
+	#					count = 3
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_vassal = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_vassal = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
+	#					count = 2
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_vassal = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
+	#					count = 3
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_courtier = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_courtier = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
+	#					count = 2
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_courtier = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
+	#					count = 3
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_vassal = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_vassal = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
+	#					count = 2
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_vassal = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
+	#					count = 3
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_courtier = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_courtier = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
+	#					count = 2
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_courtier = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
+	#					count = 3
+	#				}
+	#			}
+	#		}
+	#
+	#		# Bonus cooldowns for recent successful appointments
+	#		modifier = {
+	#			factor = 0
+	#			liege = {
+	#				any_vassal = {
+	#					has_minor_title = title_expected_successor
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			liege = {
+	#				any_courtier = {
+	#					has_minor_title = title_expected_successor
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_vassal = {
+	#					has_minor_title = title_expected_successor
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_courtier = {
+	#					has_minor_title = title_expected_successor
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			liege = {
+	#				any_vassal = {
+	#					has_minor_title = title_expected_successor
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			liege = {
+	#				any_courtier = {
+	#					has_minor_title = title_expected_successor
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
+	#				}
+	#			}
+	#		}
+	#	}
+	#}
+	#unnominate_for_appointment = {
+	#	filter = realm
+	#	ai_target_filter = realm
+	#	from_potential = {
+	#		is_ruler = yes
+	#		ai = no
+	#	}
+	#	ai_check_interval = 10
+ 	#	potential = {
+	#		NOT = { character = FROM }
+	#		NOT = { dynasty = FROM }
+	#		liege = {
+	#			NOT = { character = ROOT } # Must not be independent
+	#			any_demesne_title = {
+	#				OR = {has_law = succ_appointment AND = {has_law = succ_catholic_bishopric NOT = { current_heir = {always = yes}}}}
+	#				or = {
+	#					higher_tier_than = baron
+	#					is_capital = no
+	#				}
+	#			}
+	#			independent = no # No appointment nominations for independent lieges for now
+	#		}
+	#		OR = {
+	#			is_ruler = no
+	#			AND = {
+	#				is_military_trigger = yes
+	#				liege = { is_military_trigger = yes }
+	#			}
+	#			AND = {
+	#				is_corporate_trigger = yes
+	#				liege = { is_corporate_trigger = yes }
+	#			}
+	#			AND = {
+	#				is_administrative_trigger = yes
+	#				liege = { is_administrative_trigger = yes }
+	#			}
+	#		}
+	#	}
+	#	allow = {
+	#		custom_tooltip = {
+	#			text = "ALREADYSUCCESSOR"
+	#		hidden_tooltip = { has_minor_title = title_expected_successor }
+	#		}
+	#		has_regent = no
+	#		# Must not replace self
+	#		NOT = {
+	#			FROM = {
+	#				has_minor_title = title_expected_successor
+	#				same_liege = ROOT
+	#			}
+	#		}
+	#
+	#		OR = {NOT = { has_character_flag = flag_making_appointment_nomination }	# Try to limit simultaneous nominations
+	#			had_character_flag = { flag = flag_making_appointment_nomination days = 21 }}
+	#		OR = {NOT = { FROM = { has_character_flag = flag_making_appointment_nomination } }
+	#			FROM = { had_character_flag = { flag = flag_making_appointment_nomination days = 21 } }}
+	#	}
+	#	effect = {
+	#		hidden_tooltip = { opinion = { who = FROM modifier = opinion_appointment_nominee } } # Flag dynast for event
+	#		FROM = {
+	#			character_event = { id = nepotism.400 tooltip = "EVTTOOLTIPNEPOTISM200" }
+	#			set_character_flag = flag_making_appointment_nomination
+	#			# These flags help keep the AI from spamming nominations
+	#			clr_character_flag = flag_appointment_nomination_cooldown
+	#			set_character_flag = flag_appointment_nomination_cooldown
+	#		}
+	#	}
+	#	ai_will_do = {
+	#		factor = 1
+	#		modifier = {
+	#			factor = 0.1
+	#		}
+	#
+	#		# Do not make requests that have very little chance of being granted
+	#		modifier = {
+	#			factor = 0
+	#			liege = {
+	#				liege = {
+	#					has_regent = no
+	#					NOT = { opinion = { who = ROOT value = 0 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			liege = {
+	#				liege = {
+	#					has_regent = no
+	#					NOT = { opinion = { who = FROM value = 0 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			liege = {
+	#				liege = {
+	#					has_regent = yes
+	#					regent = { NOT = { opinion = { who = ROOT value = 0 } } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			liege = {
+	#				liege = {
+	#					has_regent = yes
+	#					regent = { NOT = { opinion = { who = FROM value = 0 } } }
+	#				}
+	#			}
+	#		}
+	#
+	#		# There is no expected successor AT ALL
+	#		# Extra important if liegeliege is wrong type!
+	#		modifier = {
+	#			factor = 4
+	#			NOT = { liege = { any_vassal = { has_minor_title = title_expected_successor } } }
+	#			NOT = { liege = { any_courtier = { has_minor_title = title_expected_successor } } }
+	#		}
+	#		modifier = {
+	#			factor = 2
+	#			NOT = { liege = { any_vassal = { has_minor_title = title_expected_successor } } }
+	#			NOT = { liege = { any_courtier = { has_minor_title = title_expected_successor } } }
+	#			liege = {
+	#				OR = {
+	#					AND = {
+	#						is_military_trigger = yes
+	#						liege = { is_military_trigger = no }
+	#					}
+	#					AND = {
+	#						is_corporate_trigger = yes
+	#						liege = { is_corporate_trigger = no }
+	#					}
+	#					AND = {
+	#						is_administrative_trigger = yes
+	#						liege = { is_administrative_trigger = no }
+	#					}
+	#				}
+	#			}
+	#		}
+	#
+	#		modifier = {
+	#			factor = 3
+	#			liege = {
+	#				character = FROM
+	#				NOT = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						dynasty = FROM
+	#					}
+	#				}
+	#				NOT = {
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						dynasty = FROM
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 2
+	#			liege = {
+	#				OR = {
+	#					religion = terran_imperial
+	#					religion = neo_feudal
+	#					religion = bio_directionist
+	#				}
+	#				character = FROM
+	#				NOT = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						dynasty = FROM
+	#					}
+	#				}
+	#				NOT = {
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						dynasty = FROM
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 2
+	#			liege = {
+	#				OR = {
+	#					religion = terran_imperial
+	#					religion = neo_feudal
+	#					religion = bio_directionist
+	#				}
+	#				trait = radical
+	#				character = FROM
+	#				NOT = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						dynasty = FROM
+	#					}
+	#				}
+	#				NOT = {
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						dynasty = FROM
+	#					}
+	#				}
+	#			}
+	#		}
+	#
+	#		# Ideological opposition to nepotism
+	#		modifier = {
+	#			factor = 0.5
+	#			OR = {
+	#				religion = terran_federalist
+	#				religion = terran_republican
+	#				religion = colonial_separatist
+	#				religion = neo_socialist
+	#			}
+	#			NOT = { trait = pragmatic }
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			OR = {
+	#				religion = terran_federalist
+	#				religion = terran_republican
+	#				religion = colonial_separatist
+	#				religion = neo_socialist
+	#			}
+	#			trait = radical
+	#		}
+	#
+	#		# Opinion of nominee
+	#		modifier = {
+	#			factor = 1.25
+	#			reverse_opinion = { who = FROM value = 100 }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			reverse_opinion = { who = FROM value = 90 }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			reverse_opinion = { who = FROM value = 80 }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			reverse_opinion = { who = FROM value = 70 }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			reverse_opinion = { who = FROM value = 60 }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			reverse_opinion = { who = FROM value = 50 }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			reverse_opinion = { who = FROM value = 40 }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			reverse_opinion = { who = FROM value = 30 }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			reverse_opinion = { who = FROM value = 20 }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			reverse_opinion = { who = FROM value = 10 }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			NOT = { reverse_opinion = { who = FROM value = -9 } }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			NOT = { reverse_opinion = { who = FROM value = -19 } }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			NOT = { reverse_opinion = { who = FROM value = -29 } }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			NOT = { reverse_opinion = { who = FROM value = -39 } }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			NOT = { reverse_opinion = { who = FROM value = -49 } }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			NOT = { reverse_opinion = { who = FROM value = -59 } }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			NOT = { reverse_opinion = { who = FROM value = -69 } }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			NOT = { reverse_opinion = { who = FROM value = -79 } }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			NOT = { reverse_opinion = { who = FROM value = -89 } }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			NOT = { reverse_opinion = { who = FROM value = -99 } }
+	#		}
+	#
+	#		# Opinion of current expected sucessor
+	#		modifier = {
+	#			factor = 0.8
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 100 }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 100 }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.8
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 90 }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 90 }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.8
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 80 }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 80 }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.8
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 70 }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 70 }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.8
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 60 }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 60 }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.8
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 50 }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 50 }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.8
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 40 }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 40 }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.8
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 30 }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 30 }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.8
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 20 }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 20 }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.8
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 10 }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 10 }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -9 } }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -9 } }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -19 } }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -19 } }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -29 } }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -29 } }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -39 } }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -39 } }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -49 } }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -49 } }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -59 } }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -59 } }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -69 } }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -69 } }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -79 } }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -79 } }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -89 } }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -89 } }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -99 } }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -99 } }
+	#					}
+	#				}
+	#			}
+	#		}
+	#
+	#		# Cooldown timer - avoid spamming requests for a particular appointment
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_vassal = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_vassal = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
+	#					count = 2
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_vassal = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
+	#					count = 3
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_courtier = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_courtier = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
+	#					count = 2
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_courtier = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
+	#					count = 3
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_vassal = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_vassal = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
+	#					count = 2
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_vassal = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
+	#					count = 3
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_courtier = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_courtier = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
+	#					count = 2
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_courtier = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
+	#					count = 3
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_vassal = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_vassal = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
+	#					count = 2
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_vassal = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
+	#					count = 3
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_courtier = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_courtier = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
+	#					count = 2
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_courtier = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
+	#					count = 3
+	#				}
+	#			}
+	#		}
+	#
+	#		# Bonus cooldowns for recent successful appointments
+	#		modifier = {
+	#			factor = 0
+	#			liege = {
+	#				any_vassal = {
+	#					has_minor_title = title_expected_successor
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			liege = {
+	#				any_courtier = {
+	#					has_minor_title = title_expected_successor
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_vassal = {
+	#					has_minor_title = title_expected_successor
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_courtier = {
+	#					has_minor_title = title_expected_successor
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			liege = {
+	#				any_vassal = {
+	#					has_minor_title = title_expected_successor
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			liege = {
+	#				any_courtier = {
+	#					has_minor_title = title_expected_successor
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
+	#				}
+	#			}
+	#		}
+	#	}
+	#}
+	#nominate_nonrelative_for_appointment = {
+	#	filter = realm
+	#	ai_target_filter = realm
+	#	from_potential = {
+	#		is_ruler = yes
+	#		ai = no
+	#	}
+	#	ai_check_interval = 10
+ 	#	potential = {
+ 	#		age = 18 #do not attempt to appoint minors
+	#		NOT = { character = FROM }
+	#		NOT = { dynasty = FROM }
+	#		liege = {
+	#			NOT = { character = ROOT } # Must not be independent
+	#			any_demesne_title = {
+	#				OR = {has_law = succ_appointment AND = {has_law = succ_catholic_bishopric NOT = { current_heir = {always = yes}}}}
+	#				or = {
+	#					higher_tier_than = baron
+	#					is_capital = no
+	#				}
+	#			}
+	#			independent = no # No appointment nominations for independent lieges for now
+	#		}
+	#		OR = {
+	#			is_ruler = no
+	#			AND = {
+	#				is_military_trigger = yes
+	#				liege = { is_military_trigger = yes }
+	#			}
+	#			AND = {
+	#				is_corporate_trigger = yes
+	#				liege = { is_corporate_trigger = yes }
+	#			}
+	#			AND = {
+	#				is_administrative_trigger = yes
+	#				liege = { is_administrative_trigger = yes }
+	#			}
+	#		}
+	#	}
+	#	allow = {
+	#		custom_tooltip = {
+	#			text = "ALREADYSUCCESSOR"
+	#			hidden_tooltip = { NOT = { has_minor_title = title_expected_successor } }
+	#		}
+	#		has_regent = no
+	#		# Must not replace self
+	#		NOT = {
+	#			FROM = {
+	#				has_minor_title = title_expected_successor
+	#				same_liege = ROOT
+	#			}
+	#		}
+	#
+	#		OR = {NOT = { has_character_flag = flag_making_appointment_nomination }	# Try to limit simultaneous nominations
+	#			had_character_flag = { flag = flag_making_appointment_nomination days = 21 }}
+	#		OR = {NOT = { FROM = { has_character_flag = flag_making_appointment_nomination } }
+	#			FROM = { had_character_flag = { flag = flag_making_appointment_nomination days = 21 } }}
+	#	}
+	#	effect = {
+	#		ROOT = {
+	#			save_event_target_as = nominating
+	#		}
+	#		FROM = {
+	#			save_event_target_as = nominator
+	#		}
+	#		hidden_tooltip = { opinion = { who = FROM modifier = opinion_appointment_nominee } } # Flag dynast for event
+	#		FROM = {
+	#			character_event = { id = nepotism.200 tooltip = "EVTTOOLTIPNEPOTISM200" }
+	#			set_character_flag = flag_making_appointment_nomination
+	#			# These flags help keep the AI from spamming nominations
+	#			clr_character_flag = flag_appointment_nomination_cooldown
+	#			set_character_flag = flag_appointment_nomination_cooldown
+	#		}
+	#	}
+	#	ai_will_do = {
+	#		factor = 0.5
+	#		modifier = {
+	#			factor = 0.1
+	#		}
+	#
+	#		# Do not make requests that have very little chance of being granted
+	#		modifier = {
+	#			factor = 0
+	#			liege = {
+	#				liege = {
+	#					has_regent = no
+	#					NOT = { opinion = { who = ROOT value = 0 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			liege = {
+	#				liege = {
+	#					has_regent = no
+	#					NOT = { opinion = { who = FROM value = 0 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			liege = {
+	#				liege = {
+	#					has_regent = yes
+	#					regent = { NOT = { opinion = { who = ROOT value = 0 } } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			liege = {
+	#				liege = {
+	#					has_regent = yes
+	#					regent = { NOT = { opinion = { who = FROM value = 0 } } }
+	#				}
+	#			}
+	#		}
+	#
+	#		# There is no expected successor AT ALL
+	#		# Extra important if liegeliege is wrong type!
+	#		modifier = {
+	#			factor = 4
+	#			NOT = { liege = { any_vassal = { has_minor_title = title_expected_successor } } }
+	#			NOT = { liege = { any_courtier = { has_minor_title = title_expected_successor } } }
+	#		}
+	#		modifier = {
+	#			factor = 2
+	#			NOT = { liege = { any_vassal = { has_minor_title = title_expected_successor } } }
+	#			NOT = { liege = { any_courtier = { has_minor_title = title_expected_successor } } }
+	#			liege = {
+	#				OR = {
+	#					AND = {
+	#						is_military_trigger = yes
+	#						liege = { is_military_trigger = no }
+	#					}
+	#					AND = {
+	#						is_corporate_trigger = yes
+	#						liege = { is_corporate_trigger = no }
+	#					}
+	#					AND = {
+	#						is_administrative_trigger = yes
+	#						liege = { is_administrative_trigger = no }
+	#					}
+	#				}
+	#			}
+	#		}
+	#
+	#		modifier = {
+	#			factor = 3
+	#			liege = {
+	#				character = FROM
+	#				NOT = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						dynasty = FROM
+	#					}
+	#				}
+	#				NOT = {
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						dynasty = FROM
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 2
+	#			liege = {
+	#				OR = {
+	#					religion = terran_imperial
+	#					religion = neo_feudal
+	#					religion = bio_directionist
+	#				}
+	#				character = FROM
+	#				NOT = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						dynasty = FROM
+	#					}
+	#				}
+	#				NOT = {
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						dynasty = FROM
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 2
+	#			liege = {
+	#				OR = {
+	#					religion = terran_imperial
+	#					religion = neo_feudal
+	#					religion = bio_directionist
+	#				}
+	#				trait = radical
+	#				character = FROM
+	#				NOT = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						dynasty = FROM
+	#					}
+	#				}
+	#				NOT = {
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						dynasty = FROM
+	#					}
+	#				}
+	#			}
+	#		}
+	#
+	#		# Ideological opposition to nepotism
+	#		modifier = {
+	#			factor = 0.5
+	#			OR = {
+	#				religion = terran_federalist
+	#				religion = terran_republican
+	#				religion = colonial_separatist
+	#				religion = neo_socialist
+	#			}
+	#			NOT = { trait = pragmatic }
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			OR = {
+	#				religion = terran_federalist
+	#				religion = terran_republican
+	#				religion = colonial_separatist
+	#				religion = neo_socialist
+	#			}
+	#			trait = radical
+	#		}
+	#
+	#		# Opinion of nominee
+	#		modifier = {
+	#			factor = 1.25
+	#			reverse_opinion = { who = FROM value = 100 }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			reverse_opinion = { who = FROM value = 90 }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			reverse_opinion = { who = FROM value = 80 }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			reverse_opinion = { who = FROM value = 70 }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			reverse_opinion = { who = FROM value = 60 }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			reverse_opinion = { who = FROM value = 50 }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			reverse_opinion = { who = FROM value = 40 }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			reverse_opinion = { who = FROM value = 30 }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			reverse_opinion = { who = FROM value = 20 }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			reverse_opinion = { who = FROM value = 10 }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			NOT = { reverse_opinion = { who = FROM value = -9 } }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			NOT = { reverse_opinion = { who = FROM value = -19 } }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			NOT = { reverse_opinion = { who = FROM value = -29 } }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			NOT = { reverse_opinion = { who = FROM value = -39 } }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			NOT = { reverse_opinion = { who = FROM value = -49 } }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			NOT = { reverse_opinion = { who = FROM value = -59 } }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			NOT = { reverse_opinion = { who = FROM value = -69 } }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			NOT = { reverse_opinion = { who = FROM value = -79 } }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			NOT = { reverse_opinion = { who = FROM value = -89 } }
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			NOT = { reverse_opinion = { who = FROM value = -99 } }
+	#		}
+	#
+	#		# Opinion of current expected sucessor
+	#		modifier = {
+	#			factor = 0.8
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 100 }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 100 }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.8
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 90 }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 90 }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.8
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 80 }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 80 }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.8
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 70 }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 70 }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.8
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 60 }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 60 }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.8
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 50 }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 50 }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.8
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 40 }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 40 }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.8
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 30 }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 30 }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.8
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 20 }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 20 }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.8
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 10 }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						reverse_opinion = { who = FROM value = 10 }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -9 } }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -9 } }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -19 } }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -19 } }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -29 } }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -29 } }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -39 } }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -39 } }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -49 } }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -49 } }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -59 } }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -59 } }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -69 } }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -69 } }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -79 } }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -79 } }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -89 } }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -89 } }
+	#					}
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 1.25
+	#			liege = {
+	#				OR = {
+	#					any_vassal = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -99 } }
+	#					}
+	#					any_courtier = {
+	#						has_minor_title = title_expected_successor
+	#						NOT = { reverse_opinion = { who = FROM value = -99 } }
+	#					}
+	#				}
+	#			}
+	#		}
+	#
+	#		# Cooldown timer - avoid spamming requests for a particular appointment
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_vassal = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_vassal = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
+	#					count = 2
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_vassal = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
+	#					count = 3
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_courtier = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_courtier = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
+	#					count = 2
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_courtier = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
+	#					count = 3
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_vassal = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_vassal = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
+	#					count = 2
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_vassal = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
+	#					count = 3
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_courtier = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_courtier = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
+	#					count = 2
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_courtier = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
+	#					count = 3
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_vassal = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_vassal = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
+	#					count = 2
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_vassal = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
+	#					count = 3
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_courtier = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_courtier = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
+	#					count = 2
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_courtier = {
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
+	#					count = 3
+	#				}
+	#			}
+	#		}
+	#
+	#		# Bonus cooldowns for recent successful appointments
+	#		modifier = {
+	#			factor = 0
+	#			liege = {
+	#				any_vassal = {
+	#					has_minor_title = title_expected_successor
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			liege = {
+	#				any_courtier = {
+	#					has_minor_title = title_expected_successor
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 365 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_vassal = {
+	#					has_minor_title = title_expected_successor
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			liege = {
+	#				any_courtier = {
+	#					has_minor_title = title_expected_successor
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 730 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			liege = {
+	#				any_vassal = {
+	#					has_minor_title = title_expected_successor
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
+	#				}
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			liege = {
+	#				any_courtier = {
+	#					has_minor_title = title_expected_successor
+	#					has_character_flag = flag_appointment_nomination_cooldown
+	#					NOT = { had_character_flag = { flag = flag_appointment_nomination_cooldown days = 1460 } }
+	#				}
+	#			}
+	#		}
+	#	}
+	#}
 	fire_vassal_decision = {
 		filter = vassals
 		ai_target_filter = vassals
@@ -3251,7 +3251,7 @@ targetted_decisions = {
 			has_regent = no
 		}
 		ai_check_interval = 10
- potential = {
+ 		potential = {
 			NOT = { character = FROM }
 			liege = { character = FROM }
 			any_demesne_title = { OR = {has_law = succ_appointment AND = {has_law = succ_catholic_bishopric NOT = { current_heir = {always = yes}}}} }

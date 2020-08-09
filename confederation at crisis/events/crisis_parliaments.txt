@@ -5,29 +5,24 @@ character_event = {
 	#hide_window = yes
 	desc = EVTPARLDESC_GRANTING_SENATOR
 	is_triggered_only = yes
-	
+	only_playable = yes
+
 	trigger = {
 		higher_tier_than = DUKE
-		primary_title = { has_law = legislative_authority_1 }
-		gm_can_distribute_title_senator_trigger = yes
-		NOT = { government = military_directorate }
+		NOT = { primary_title = { has_law = legislative_authority_0 } }
 	}
-	
+
 	option = {
 		name = EVTPARL_GRANTING_SENATOR
 		if = {
-			limit = {
-				gm_can_distribute_title_senator_trigger = yes
-			}
 			any_realm_character = {
 				limit = {
-					NOT = {has_minor_title = title_senatorrome}
-					age = 16
+					NOT = { has_minor_title = title_senatorrome }
+					age = 18
 					NOT = { trait = incapable }
+					ROOT = { can_grant_title = title_senatorrome }
 				}
-				set_character_flag = flag_senatorrome
 				give_minor_title = title_senatorrome
-				clr_character_flag = flag_senatorrome
 			}
 		}
 	}
