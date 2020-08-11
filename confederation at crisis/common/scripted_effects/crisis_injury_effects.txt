@@ -81,15 +81,11 @@ inflict_minor_injury_effect = {
 inflict_moderate_injury_effect = {
 	if = {
 		limit = {
-			trait = maimed
 			OR = {
 				trait = one_eyed
 				trait = blinded
-				NOT = { has_dlc = "Reapers" }
-			}
-			OR = {
+				trait = maimed
 				trait = disfigured
-				NOT = { has_dlc = "Reapers" }
 			}
 		}
 		inflict_major_injury_effect = yes
@@ -101,7 +97,10 @@ inflict_moderate_injury_effect = {
 				15 = {
 					modifier = {
 						factor = 0
-						trait = maimed
+						OR = {
+							trait = maimed
+							has_dlc = "Reapers"
+						}
 					}
 					add_trait = maimed
 					hidden_tooltip = { character_event = { id = 38281 } }
