@@ -34,10 +34,13 @@ character_event = {
 	min_age = 16
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_inquisition
 		NOT = { has_character_modifier = in_seclusion }
+		NOT = { has_character_modifier = bedridden_illness }
+		NOT = { trait = incapable }
 		NOT = { location = { religion = ROOT } }
 		location = {
 			owner = { same_realm = ROOT }
@@ -55,6 +58,14 @@ character_event = {
 			}
 		}
 		modifier = {
+			factor = 0.6
+			has_religion_feature = religion_proselytizing
+		}
+		modifier = {
+			factor = 2.5
+			has_religion_feature = religion_cosmopolitan
+		}
+		modifier = {
 			factor = 0.75
 			liege = {
 				has_artifact = finger_of_st_john
@@ -62,64 +73,42 @@ character_event = {
 		}
 		modifier = {
 			factor = 0.75
+			has_job_action = action_inquisition
 			location = { culture_group = ROOT }
 		}
 		modifier = {
 			factor = 0.75
+			has_job_action = action_inquisition
 			location = { culture = ROOT }
 		}
 		modifier = {
 			factor = 0.5
+			has_job_action = action_inquisition
 			location = { religion_group = ROOT }
 		}
 		modifier = {
 			factor = 0.75
+			has_job_action = action_inquisition
 			location = { has_province_modifier = depopulated_1 }
 		}
 		modifier = {
 			factor = 0.50
+			has_job_action = action_inquisition
 			location = { has_province_modifier = depopulated_2 }
 		}
 		modifier = {
 			factor = 0.25
+			has_job_action = action_inquisition
 			location = { has_province_modifier = depopulated_3 }
 		}
 		modifier = {
 			factor = 3.0
+			has_job_action = action_inquisition
 			location = { is_hard_to_convert = yes }
 		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 2 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 3 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 4 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 5 }
-		}
-		modifier = {
-			factor = 0.75
-			learning = 10
-		}
-		modifier = {
-			factor = 0.75
-			learning = 11
-		}
-		modifier = {
-			factor = 0.75
-			learning = 12
-		}
-		modifier = {
-			factor = 0.75
-			learning = 13
-		}
+
+		job_event_mtth_modifier_learning_score = yes
+
 		modifier = {
 			factor = 3.0
 			NOT = { religion_authority = 0.1 }
@@ -163,22 +152,102 @@ character_event = {
 				society_rank >= 4
 			}
 		}
+		#Bloodlines
+		modifier = {
+			factor = 0.75
+			liege = {
+				any_owned_bloodline = {
+					has_bloodline_flag = bloodline_better_inquisition
+					bloodline_is_active_for = PREV
+				}
+			}
+		}
+		modifier = {
+			factor = 0.75
+			#If chaplain is also your relative.
+			any_owned_bloodline = {
+				has_bloodline_flag = bloodline_better_inquisition
+				bloodline_is_active_for = PREV
+			}
+		}
+		modifier = {
+			factor = 0.6
+			NOT = {
+				liege = {
+					any_owned_bloodline = {
+						has_bloodline_flag = inquisitional_bloodline
+						bloodline_is_active_for = PREV
+					}
+				}
+			}
+			liege = {
+		    	any_owned_bloodline = {
+    				has_bloodline_flag = inquisitional_saintly_bloodline
+    				founder = {
+    					religion = ROOT
+    				}
+    			}
+    		}
+		}
+		modifier = {
+			factor = 0.4
+			liege = {
+				any_owned_bloodline = {
+					has_bloodline_flag = inquisitional_bloodline
+					bloodline_is_active_for = PREV
+				}
+			}
+		}
+		
+		modifier = {
+			factor = 0.6
+			religion = hindu
+	    	any_owned_bloodline = {
+    			has_bloodline_flag = bloodline_faster_hindu
+    		}
+		}
+
+		# Effect of wonder upgrades
+		modifier = {
+			factor = 0.6
+			liege = {
+				any_realm_wonder_upgrade = {
+					has_wonder_upgrade_flag = religion_conversion_faster
+					is_active = yes
+					wonder = {
+						original_wonder_owner = {
+							religion_group = PREVPREVPREV
+						}
+					}
+				}
+			}
+		}
 		
 		# Hindus and Buddhists have a hard time converting other Indian religions
 		modifier = {
 			factor = 3.0
+			has_job_action = action_inquisition
 			OR = {
 				religion = hindu
 				religion = buddhist
 			}
 			location = {
 				religion_group = indian_group
+				NOT = {
+					religion = taoist
+				}
 			}
 		}
-		# Jains have a hard time converting ALL non-pagans
+		# Jains, Taoists and Bön have a hard time converting ALL non-pagans
 		modifier = {
 			factor = 3.0
-			religion = jain
+			has_job_action = action_inquisition
+			OR = {
+				religion = jain
+				religion = taoist
+				religion = bon
+				religion = bon_reformed
+			}
 			location = {
 				NOT = { religion_group = pagan_group }
 			}
@@ -186,6 +255,7 @@ character_event = {
 		
 		modifier = {
 			factor = 3.0
+			has_job_action = action_inquisition
 			religion_group = pagan_group
 			is_reformed_religion = no
 			location = {
@@ -197,16 +267,19 @@ character_event = {
 		}
 		modifier = {
 			factor = 1.5
+			has_job_action = action_inquisition
 			location = { is_heresy_of = ROOT }
 		}
 		modifier = {
 			factor = 0.75
+			has_job_action = action_inquisition
 			location = {
 				has_province_modifier = force_converting
 			}
 		}
 		modifier = {
 			factor = 3.0
+			has_job_action = action_inquisition
 			location = {
 				has_province_modifier = heretic_stronghold
 			}
@@ -218,6 +291,7 @@ character_event = {
 				value = slower
 			}
 		}
+
 	}
 
 	option = {
@@ -260,6 +334,14 @@ letter_event = {
 	option = {
 		name = "EVTOPTA20000"
 		piety = 15
+		hidden_tooltip = {
+			if = {
+				limit = {
+					has_ambition = obj_strengthen_religion
+				}
+				change_variable = { which = strengthen_religion value = 1 }
+			}
+		}
 		if = {
 			limit = {
 				is_heretic = no
@@ -307,12 +389,16 @@ character_event = {
 	min_age = 16
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_inquisition
 		NOT = { has_character_modifier = in_seclusion }
+		NOT = { has_character_modifier = bedridden_illness }
+		NOT = { trait = incapable }
 		location = {
 			any_province_character = {
+				ai = yes
 				is_adult = yes
 				NOT = { character = ROOT }
 				NOT = { is_liege_of = ROOT }
@@ -334,37 +420,16 @@ character_event = {
 		months = 120
 	
 		modifier = {
-			factor = 1.25
-			NOT = { learning = 2 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 3 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 4 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 5 }
-		}
-		modifier = {
 			factor = 0.75
-			learning = 10
+			has_religion_feature = religion_proselytizing
 		}
 		modifier = {
-			factor = 0.75
-			learning = 11
+			factor = 2.75
+			has_religion_feature = religion_cosmopolitan
 		}
-		modifier = {
-			factor = 0.75
-			learning = 12
-		}
-		modifier = {
-			factor = 0.75
-			learning = 13
-		}
+
+		job_event_mtth_modifier_learning_score = yes
+
 		modifier = {
 			factor = 2.0
 			NOT = { religion_authority = 0.4 }
@@ -394,6 +459,7 @@ character_event = {
 		location = {
 			random_province_character = {
 				limit = {
+					ai = yes
 					is_adult = yes
 					NOT = { character = ROOT }
 					NOT = { is_liege_of = ROOT }
@@ -434,6 +500,8 @@ letter_event = {
 		
 		religion = FROM
 		
+		save_event_target_as = portrait_target
+		
 		if = {
 			limit = { higher_tier_than = BARON }
 			religion_authority = {
@@ -471,6 +539,7 @@ letter_event = {
 	
 	option = {
 		name = "EVTOPTA20011"
+		show_portrait = event_target:portrait_target
 	}
 }
 
@@ -485,10 +554,12 @@ letter_event = {
 	option = {
 		name = "EVTOPTA20012"
 		trigger = { FROM = { religion = ROOT } }
+		show_portrait = event_target:portrait_target
 	}
 	option = {
 		name = "EVTOPTB20012"
 		trigger = { FROM = { NOT = { religion = ROOT } } }
+		show_portrait = event_target:portrait_target
 	}
 }
 
@@ -504,10 +575,13 @@ character_event = {
 	min_age = 16
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_inquisition
 		NOT = { has_character_modifier = in_seclusion }
+		NOT = { has_character_modifier = bedridden_illness }
+		NOT = { trait = incapable }
 		location = {
 			NOT = { religion = ROOT }
 			owner = { same_realm = ROOT }
@@ -524,39 +598,38 @@ character_event = {
 				ai = yes
 			}
 		}
+		modifier = {
+			factor = 1.5
+			liege = {
+				any_owned_bloodline = {
+					has_bloodline_flag = bloodline_better_inquisition
+					bloodline_is_active_for = PREV
+				}
+			}
+		}
+		modifier = {
+			factor = 1.5
+			#If chaplain is also your relative.
+			any_owned_bloodline = {
+				has_bloodline_flag = bloodline_better_inquisition
+				bloodline_is_active_for = PREV
+			}
+		}
+		modifier = {
+			factor = 0.75
+			has_religion_feature = religion_dogmatic
+		}
+		modifier = {
+			factor = 1.25
+			has_religion_feature = religion_proselytizing
+		}
+		modifier = {
+			factor = 2.75
+			has_religion_feature = religion_cosmopolitan
+		}
 	
-		modifier = {
-			factor = 0.75
-			NOT = { learning = 2 }
-		}
-		modifier = {
-			factor = 0.75
-			NOT = { learning = 3 }
-		}
-		modifier = {
-			factor = 0.75
-			NOT = { learning = 4 }
-		}
-		modifier = {
-			factor = 0.75
-			NOT = { learning = 5 }
-		}
-		modifier = {
-			factor = 1.25
-			learning = 10
-		}
-		modifier = {
-			factor = 1.25
-			learning = 11
-		}
-		modifier = {
-			factor = 1.25
-			learning = 12
-		}
-		modifier = {
-			factor = 1.25
-			learning = 13
-		}
+		job_event_mtth_modifier_inverted_learning_score = yes
+
 		modifier = {
 			factor = 0.75
 			NOT = { religion_authority = 0.4 }
@@ -632,7 +705,7 @@ character_event = {
 				trait = wroth
 			}
 		}
-		inflict_minor_injury_effect = yes
+		add_trait = wounded
 		liege = { letter_event = { id = 20022 tooltip = "EVTTOOLTIP20022" } }
 	}
 	option = {
@@ -642,8 +715,8 @@ character_event = {
 			trait = wroth
 			NOT = { trait = humble}
 		}
-		inflict_minor_injury_effect = yes
-		add_trait = radical
+		add_trait = wounded
+		add_trait = zealous
 		liege = { letter_event = { id = 20022 tooltip = "EVTTOOLTIP20022" } }
 	}
 	option = {
@@ -657,7 +730,7 @@ character_event = {
 				}
 			}
 		}
-		inflict_minor_injury_effect = yes
+		add_trait = wounded
 		liege = { letter_event = { id = 20022 tooltip = "EVTTOOLTIP20022" } }
 	}
 }
@@ -709,16 +782,20 @@ character_event = {
 	min_age = 16
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_inquisition
 		NOT = { has_character_modifier = in_seclusion }
+		NOT = { has_character_modifier = bedridden_illness }
+		NOT = { trait = incapable }
+		NOT = { has_religion_feature = religion_cosmopolitan }
 		NOT = { religion_group = pagan_group }
 		NOT = { religion_group = indian_group }
-		trait = radical
+		trait = zealous
 		location = {
 			any_province_lord = {
-				trait = pragmatic
+				trait = cynical
 				NOT = { is_liege_of = ROOT }
 				NOT = { has_character_flag = no_heretic }
 				NOT = { has_character_flag = branded_heretic }
@@ -736,37 +813,11 @@ character_event = {
 		months = 240
 	
 		modifier = {
-			factor = 1.25
-			NOT = { learning = 2 }
+			factor = 1.5
+			has_religion_feature = religion_dogmatic
 		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 3 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 4 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 5 }
-		}
-		modifier = {
-			factor = 0.75
-			learning = 10
-		}
-		modifier = {
-			factor = 0.75
-			learning = 11
-		}
-		modifier = {
-			factor = 0.75
-			learning = 12
-		}
-		modifier = {
-			factor = 0.75
-			learning = 13
-		}
+		job_event_mtth_modifier_learning_score = yes
+
 		modifier = {
 			factor = 2.0
 			NOT = { religion_authority = 0.4 }
@@ -789,7 +840,7 @@ character_event = {
 		location = {
 			random_province_lord = {
 				limit = {
-					trait = pragmatic
+					trait = cynical
 					NOT = { is_liege_of = ROOT }
 					NOT = { has_character_flag = no_heretic }
 					NOT = { has_character_flag = branded_heretic }
@@ -1005,10 +1056,14 @@ character_event = {
 	min_age = 16
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_inquisition
 		NOT = { has_character_modifier = in_seclusion }
+		NOT = { has_character_modifier = bedridden_illness }
+		NOT = { trait = incapable }
+		NOT = { has_religion_feature = religion_cosmopolitan }
 		location = {
 			NOT = { religion = ROOT }
 			NOT = { has_province_modifier = religious_tension }
@@ -1018,37 +1073,11 @@ character_event = {
 	mean_time_to_happen = {
 		months = 240
 	
-		modifier = {
-			factor = 0.75
-			NOT = { learning = 2 }
-		}
-		modifier = {
-			factor = 0.75
-			NOT = { learning = 3 }
-		}
-		modifier = {
-			factor = 0.75
-			NOT = { learning = 4 }
-		}
-		modifier = {
-			factor = 0.75
-			NOT = { learning = 5 }
-		}
+		job_event_mtth_modifier_inverted_learning_score = yes
+
 		modifier = {
 			factor = 1.25
-			learning = 10
-		}
-		modifier = {
-			factor = 1.25
-			learning = 11
-		}
-		modifier = {
-			factor = 1.25
-			learning = 12
-		}
-		modifier = {
-			factor = 1.25
-			learning = 13
+			has_religion_feature = religion_dogmatic
 		}
 		modifier = {
 			factor = 0.75
@@ -1156,10 +1185,13 @@ character_event = {
 	min_age = 16
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_inquisition
 		NOT = { has_character_modifier = in_seclusion }
+		NOT = { has_character_modifier = bedridden_illness }
+		NOT = { trait = incapable }
 		NOT = { has_character_flag = preacher_arrives }
 		location = {
 			owner = {
@@ -1168,6 +1200,8 @@ character_event = {
 				NOT = { religion = ROOT }
 				religion_group = pagan_group
 				NOT = { same_realm = ROOT }
+				NOT = { has_character_flag = flag_converting_baptism }
+				NOT = { has_character_modifier = baptism_request_cooldown }
 				controls_religion = no
 			}
 		}
@@ -1199,10 +1233,13 @@ character_event = {
 	capable_only = yes
 	prisoner = no
 	has_character_flag = preacher_arrives
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_inquisition
 		NOT = { has_character_modifier = in_seclusion }
+		NOT = { has_character_modifier = bedridden_illness }
+		NOT = { trait = incapable }
 		location = {
 			owner = {
 				is_adult = yes
@@ -1214,6 +1251,8 @@ character_event = {
 				is_reformed_religion = no
 				NOT = { same_realm = ROOT }
 				controls_religion = no
+				NOT = { has_character_flag = flag_converting_baptism }
+				NOT = { has_character_modifier = baptism_request_cooldown }
 				# at_location = ROOT
 			}
 		}
@@ -1221,38 +1260,12 @@ character_event = {
 	
 	mean_time_to_happen = {
 		months = 120
+
+		job_event_mtth_modifier_learning_score = yes
 	
 		modifier = {
-			factor = 1.25
-			NOT = { learning = 2 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 3 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 4 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 5 }
-		}
-		modifier = {
-			factor = 0.75
-			learning = 10
-		}
-		modifier = {
-			factor = 0.75
-			learning = 11
-		}
-		modifier = {
-			factor = 0.75
-			learning = 12
-		}
-		modifier = {
-			factor = 0.75
-			learning = 13
+			factor = 1.5
+			has_religion_feature = religion_proselytizing
 		}
 		modifier = {
 			factor = 2.0
@@ -1328,10 +1341,13 @@ character_event = {
 	capable_only = yes
 	prisoner = no
 	has_character_flag = preacher_arrives
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_inquisition
 		NOT = { has_character_modifier = in_seclusion }
+		NOT = { has_character_modifier = bedridden_illness }
+		NOT = { trait = incapable }
 		location = {
 			owner = {
 				NOT = { character = ROOT }
@@ -1347,37 +1363,11 @@ character_event = {
 	mean_time_to_happen = {
 		months = 120
 	
+		job_event_mtth_modifier_learning_score = yes
+
 		modifier = {
-			factor = 1.25
-			NOT = { learning = 2 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 3 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 4 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 5 }
-		}
-		modifier = {
-			factor = 0.75
-			learning = 10
-		}
-		modifier = {
-			factor = 0.75
-			learning = 11
-		}
-		modifier = {
-			factor = 0.75
-			learning = 12
-		}
-		modifier = {
-			factor = 0.75
-			learning = 13
+			factor = 1.5
+			has_religion_feature = religion_proselytizing
 		}
 		modifier = {
 			factor = 2.0
@@ -1430,10 +1420,13 @@ character_event = {
 	capable_only = yes
 	prisoner = no
 	has_character_flag = preacher_arrives
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_inquisition
 		NOT = { has_character_modifier = in_seclusion }
+		NOT = { has_character_modifier = bedridden_illness }
+		NOT = { trait = incapable }
 		location = {
 			owner = {
 				NOT = { character = ROOT }
@@ -1527,10 +1520,13 @@ character_event = {
 	min_age = 16
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_improve_rel_relations
 		NOT = { has_character_modifier = in_seclusion }
+		NOT = { has_character_modifier = bedridden_illness }
+		NOT = { trait = incapable }
 		location = { 
 			any_province_lord = {
 				NOT = { character = ROOT }
@@ -1544,38 +1540,8 @@ character_event = {
 	mean_time_to_happen = { 
 		months = 240
 		
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 2 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 3 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 4 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 5 }
-		}
-		modifier = {
-			factor = 0.75
-			learning = 10
-		}
-		modifier = {
-			factor = 0.75
-			learning = 11
-		}
-		modifier = {
-			factor = 0.75
-			learning = 12
-		}
-		modifier = {
-			factor = 0.75
-			learning = 13
-		}
+		job_event_mtth_modifier_learning_score = yes
+
 		modifier = {
 			factor = 2.0
 			NOT = { religion_authority = 0.4 }
@@ -1664,10 +1630,13 @@ character_event = {
 	min_age = 16
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_improve_rel_relations
 		NOT = { has_character_modifier = in_seclusion }
+		NOT = { has_character_modifier = bedridden_illness }
+		NOT = { trait = incapable }
 		NOT = { religion_group = indian_group }
 		religion_head = {
 			NOT = { character = liege }
@@ -1688,39 +1657,7 @@ character_event = {
 	
 	mean_time_to_happen = {
 		months = 240
-		
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 2 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 3 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 4 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 5 }
-		}
-		modifier = {
-			factor = 0.75
-			learning = 10
-		}
-		modifier = {
-			factor = 0.75
-			learning = 11
-		}
-		modifier = {
-			factor = 0.75
-			learning = 12
-		}
-		modifier = {
-			factor = 0.75
-			learning = 13
-		}
+		job_event_mtth_modifier_learning_score = yes
 	}
 	
 	option = {
@@ -1804,10 +1741,13 @@ character_event = {
 	min_age = 16
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_advance_cul_tech
 		NOT = { has_character_modifier = in_seclusion }
+		NOT = { has_character_modifier = bedridden_illness }
+		NOT = { trait = incapable }
 	}
 	
 	mean_time_to_happen = {
@@ -1821,36 +1761,32 @@ character_event = {
 			}
 		}
 		modifier = {
-			factor = 1.25
-			NOT = { learning = 2 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 3 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 4 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 5 }
+			factor = 2
+			has_religion_feature = religion_dogmatic
 		}
 		modifier = {
 			factor = 0.75
-			learning = 10
+			has_religion_feature = religion_cosmopolitan
+		}
+
+		job_event_mtth_modifier_learning_score = yes
+
+		modifier = {
+			factor = 0.5
+			liege = {
+				any_owned_bloodline = {
+					has_bloodline_flag = bloodline_more_philosophers
+					bloodline_is_active_for = PREV
+				}
+			}
 		}
 		modifier = {
-			factor = 0.75
-			learning = 11
-		}
-		modifier = {
-			factor = 0.75
-			learning = 12
-		}
-		modifier = {
-			factor = 0.75
-			learning = 13
+			factor = 0.5
+			#If chaplain is also your relative.
+			any_owned_bloodline = {
+				has_bloodline_flag = bloodline_more_philosophers
+				bloodline_is_active_for = PREV
+			}
 		}
 	}
 	
@@ -1905,11 +1841,15 @@ character_event = {
 	min_age = 16
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_advance_cul_tech
 		NOT = { has_character_modifier = in_seclusion }
+		NOT = { has_character_modifier = bedridden_illness }
+		NOT = { trait = incapable }
 		NOT = { religion_group = indian_group }
+		NOT = { has_religion_feature = religion_cosmopolitan }
 		is_heretic = no
 		has_secret_religion = no
 		OR = {
@@ -1934,37 +1874,11 @@ character_event = {
 		months = 1000
 		
 		modifier = {
-			factor = 1.25
-			NOT = { learning = 2 }
+			factor = 2
+			has_religion_feature = religion_dogmatic
 		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 3 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 4 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 5 }
-		}
-		modifier = {
-			factor = 0.75
-			learning = 10
-		}
-		modifier = {
-			factor = 0.75
-			learning = 11
-		}
-		modifier = {
-			factor = 0.75
-			learning = 12
-		}
-		modifier = {
-			factor = 0.75
-			learning = 13
-		}
+
+		job_event_mtth_modifier_learning_score = yes
 	}
 	
 	option = {
@@ -2025,15 +1939,40 @@ letter_event = {
 		religion = FROM
 		set_secret_religion = { target_type = true target = FROM }
 		hidden_tooltip = {
-			liege = { letter_event = { id = 20271 } }
+			liege = { letter_event = { id = 20272 } }
 		}
-		
 		ai_chance = { factor = 10 }
 	}
 	option = {
 		name = EVTOPTB20271
-		
+		hidden_tooltip = {
+			liege = { letter_event = { id = 20273 } }
+		}
 		ai_chance = { factor = 5 }
+	}
+}
+
+letter_event = {
+	id = 20272
+	desc = EVTDESC20272
+	border = GFX_event_letter_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA20272
+	}
+}
+
+letter_event = {
+	id = 20273
+	desc = EVTDESC20273
+	border = GFX_event_letter_frame_religion
+	
+	is_triggered_only = yes
+	
+	option = {
+		name = EVTOPTA20273
 	}
 }
 
@@ -2053,10 +1992,13 @@ character_event = {
 	min_age = 16
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_charity
 		NOT = { has_character_modifier = in_seclusion }
+		NOT = { has_character_modifier = bedridden_illness }
+		NOT = { trait = incapable }
 		location = { 
 			any_province_lord = {
 				religion = ROOT
@@ -2068,38 +2010,8 @@ character_event = {
 	mean_time_to_happen = { 
 		months = 220
 		
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 2 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 3 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 4 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 5 }
-		}
-		modifier = {
-			factor = 0.75
-			learning = 10
-		}
-		modifier = {
-			factor = 0.75
-			learning = 11
-		}
-		modifier = {
-			factor = 0.75
-			learning = 12
-		}
-		modifier = {
-			factor = 0.75
-			learning = 13
-		}
+		job_event_mtth_modifier_learning_score = yes
+
 		modifier = {
 			factor = 2.0
 			NOT = { religion_authority = 0.4 }
@@ -2187,10 +2099,13 @@ character_event = {
 	min_age = 16
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_charity
 		NOT = { has_character_modifier = in_seclusion }
+		NOT = { has_character_modifier = bedridden_illness }
+		NOT = { trait = incapable }
 		location = {
 			religion = ROOT
 			owner = { same_realm = ROOT }
@@ -2200,38 +2115,8 @@ character_event = {
 	mean_time_to_happen = {
 		months = 120
 	
-		modifier = {
-			factor = 0.75
-			NOT = { learning = 2 }
-		}
-		modifier = {
-			factor = 0.75
-			NOT = { learning = 3 }
-		}
-		modifier = {
-			factor = 0.75
-			NOT = { learning = 4 }
-		}
-		modifier = {
-			factor = 0.75
-			NOT = { learning = 5 }
-		}
-		modifier = {
-			factor = 1.25
-			learning = 10
-		}
-		modifier = {
-			factor = 1.25
-			learning = 11
-		}
-		modifier = {
-			factor = 1.25
-			learning = 12
-		}
-		modifier = {
-			factor = 1.25
-			learning = 13
-		}
+		job_event_mtth_modifier_inverted_learning_score = yes
+
 		modifier = {
 			factor = 0.75
 			NOT = { religion_authority = 0.4 }
@@ -2293,7 +2178,7 @@ character_event = {
 	
 	option = {
 		name = "EVTOPTA20045"
-		inflict_minor_injury_effect = yes
+		add_trait = wounded
 		hidden_tooltip = {
 			liege = { character_event = { id = 20046 days = 7 } }
 		}
@@ -2330,7 +2215,7 @@ character_event = {
 	}
 }
 
-# 20048: The Mufti pockets money meant for the pooor 
+# 20048: The Mufti pockets money meant for the poor 
 character_event = {
 	id = 20048
 	desc = "EVTDESC20048"
@@ -2341,10 +2226,13 @@ character_event = {
 	min_age = 16
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_charity
 		NOT = { has_character_modifier = in_seclusion }
+		NOT = { has_character_modifier = bedridden_illness }
+		NOT = { trait = incapable }
 	}
 	
 	mean_time_to_happen = {
@@ -2415,47 +2303,19 @@ character_event = {
 	min_age = 16
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_charity
 		NOT = { has_character_modifier = in_seclusion }
+		NOT = { has_character_modifier = bedridden_illness }
+		NOT = { trait = incapable }
 	}
 	
 	mean_time_to_happen = {
 		months = 180
-		
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 2 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 3 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 4 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 5 }
-		}
-		modifier = {
-			factor = 0.75
-			learning = 10
-		}
-		modifier = {
-			factor = 0.75
-			learning = 11
-		}
-		modifier = {
-			factor = 0.75
-			learning = 12
-		}
-		modifier = {
-			factor = 0.75
-			learning = 13
-		}
+
+		job_event_mtth_modifier_learning_score = yes
 	}
 	
 	option = {
@@ -2495,11 +2355,18 @@ character_event = {
 	min_age = 16
 	capable_only = yes
 	prisoner = no
+	has_job_title = yes
 	
 	trigger = {
 		has_job_action = action_build_zeal
 		NOT = { has_character_modifier = in_seclusion }
+		NOT = { has_character_modifier = bedridden_illness }
+		NOT = { trait = incapable }
 		liege = {
+			OR = { # The AI pretty much always just let their warriors stand around, getting a piety hit when they disband
+				war = yes
+				ai = no
+			}
 			is_adult = yes
 			prisoner = no
 			piety = 10
@@ -2513,6 +2380,7 @@ character_event = {
 				any_war = {
 					OR = {
 						using_cb = crusade
+						using_cb = new_crusade
 						using_cb = religious
 						using_cb = religious_revolt
 						using_cb = pagan_holy_war
@@ -2545,42 +2413,8 @@ character_event = {
 			}
 		}
 		
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 2 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 3 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 4 }
-		}
-		modifier = {
-			factor = 1.25
-			NOT = { learning = 5 }
-		}
-		modifier = {
-			factor = 0.75
-			learning = 9
-		}
-		modifier = {
-			factor = 0.75
-			learning = 10
-		}
-		modifier = {
-			factor = 0.75
-			learning = 11
-		}
-		modifier = {
-			factor = 0.75
-			learning = 12
-		}
-		modifier = {
-			factor = 0.75
-			learning = 13
-		}
+		job_event_mtth_modifier_learning_score = yes
+
 	}
 	
 	option = {
@@ -2678,16 +2512,21 @@ character_event = {
 	trigger = {
 		has_earmarked_regiments = tribal_build_zeal
 		
-		NOT = {
+		NOR = {
 			any_war = {
-				OR = {
-					using_cb = crusade
-					using_cb = religious
-					using_cb = religious_revolt
-					using_cb = pagan_holy_war
-					using_cb = buddhist_holy_war
-					using_cb = muslim_invasion
-					using_cb = manifest_destiny_invasion
+				defender = { character = ROOT }
+				attacker = {
+					NOT = {
+						religion = ROOT
+					}		
+				}
+			}
+			any_war = {
+				attacker = { character = ROOT }
+				defender = {
+					NOT = {
+						religion = ROOT
+					}				
 				}
 			}
 		}
