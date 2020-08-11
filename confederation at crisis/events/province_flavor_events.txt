@@ -1578,9 +1578,14 @@ province_event = {
 		# Lead the rescue effort personally
 		trigger = {
 			owner = {
-				in_command = yes
-				in_battle = no
 				location = { province_id = PREVPREV }
+				OR = {
+					AND = {
+						in_command = yes
+						in_battle = no
+					}
+					in_command = no
+				}
 			}
 		}
 		name = "EVTOPTAFLAVOR800"
@@ -1628,18 +1633,24 @@ province_event = {
 		trigger = {
 			any_realm_character = {
 				is_liege_or_above = ROOT
-				in_command = yes
 				in_battle = no
 				location = { province_id = PREVPREV }
+				OR = {
+					in_command = yes
+					has_minor_title = title_commander
+				}
 			}
 		}
 		name = "EVTOPTBFLAVOR800"
 		random_realm_character = {
 			limit = {
 				is_liege_or_above = ROOT
-				in_command = yes
 				in_battle = no
 				location = { province_id = PREVPREV }
+				OR = {
+					in_command = yes
+					has_minor_title = title_commander
+				}
 			}
 			character_event = { id = flavor.805 tooltip = "EVTTOOLTIPFLAVOR805" }
 		}
