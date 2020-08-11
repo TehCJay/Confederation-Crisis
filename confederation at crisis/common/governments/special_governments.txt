@@ -1,0 +1,180 @@
+#these are for governments tied to special features, be careful in messing with them.
+
+feudal_governments = {
+
+	# this government is the government of professional military structure,
+	# the "owners" of the titles are not owners, only appointed leaders
+	# the difference between them and "military command" is that they aren't allowed to
+	# command troops on their own, their purpose is supply troops to their liege, that should be the actual military command
+	# or a military-oriented government where the head of state is also commander in chief
+	# also although they can go up to be king-tier they are not supposed to have civilian vassals except for barons
+	military_base_government = {
+		preferred_holdings = { CASTLE }
+		allowed_holdings = {
+			CASTLE
+			FORT
+			HOSPITAL
+		}
+		accepts_liege_governments = {
+			military_command
+			military_government
+			imperialistic_government
+		}
+		potential = {
+			NOT = { trait = hiver_implant }
+			holy_order = no
+			independent = no
+			lower_tier_than = EMPEROR
+			NOT = {
+				is_government_potential = merchant_republic_government
+				is_government_potential = neofeudal_government
+			}
+			OR = {
+				capital_holding = { holding_type = castle }
+				AND = {
+					higher_tier_than = BARON
+					liege = {
+						OR = {
+							government = military_base_government
+							government = military_command
+						}
+
+					}
+				}
+			}
+
+			OR = {
+				has_law = succ_appointment
+				has_law = succ_true_appointment
+				crownlaw_title = { has_law = military_vassal_legitimacy_2 }
+			}
+
+			crownlaw_title = { has_law = standing_army_law_2 }
+		}
+
+		forced_contract = {
+			military_base_government
+		}
+		no_vassal_tax = {
+			military_base_government
+			military_command
+		}
+
+		#frame_suffix = "_republic"
+		title_prefix = "military_"
+		color = { 255 0 0 }
+
+		barons_need_dynasty = no
+		can_build_tribal = no
+		uses_piety_for_law_change = no
+
+		character_modifier = {
+			global_levy_size = 0.5 #this is to benefit of their lieges, giving more troops compared to other military governments
+		}
+	}
+}
+
+
+#republic_governments = {
+
+	#npc_civil_government = {
+	#	preferred_holdings = { CITY }
+	#	allowed_holdings = {
+	#		CITY
+	#		FORT
+	#		HOSPITAL
+	#	}
+	#	accepts_liege_governments = { # Accepts other republics
+	#		merchant_republic_government
+	#	}
+	#	potential = {
+	#		NOT = { trait = hiver_implant }
+	#		holy_order = no
+	#		lower_tier_than = EMPEROR
+	#		NOT = {
+	#			is_government_potential = merchant_republic_government
+	#			is_government_potential = neofeudal_government
+	#		}
+	#		ai = yes
+	#		OR = {
+	#			AND = {
+	#				tier = BARON
+	#				capital_holding = { holding_type = city }
+	#			}
+	#			AND = {
+	#				tier = COUNT
+	#				has_law = local_main_government_type_1
+	#			}
+	#			AND = {
+	#				higher_tier_than = COUNT
+	#				has_law = local_main_government_type_1
+	#				has_law = local_secondary_government_type_1
+	#			}
+	#		}
+	#	}
+#
+	#	#frame_suffix = "_republic"
+	#	title_prefix = "city_"
+	#	color = { 0 0 255 }
+#
+	#	barons_need_dynasty = no
+	#	can_build_tribal = no
+	#	uses_piety_for_law_change = yes
+#
+	#	character_modifier = {
+	#		levy_size = -10
+	#	}
+	#}
+#}
+
+
+#theocracy_governments = {
+
+	#npc_rectorial_government = {
+	#	preferred_holdings = { TEMPLE }
+	#	allowed_holdings = {
+	#		TEMPLE
+	#		FORT
+	#		HOSPITAL
+	#	}
+	#	accepts_liege_governments = {
+	#	}
+	#	potential = {
+	#		NOT = { trait = hiver_implant }
+	#		holy_order = no
+	#		lower_tier_than = EMPEROR
+	#		NOT = {
+	#			is_government_potential = merchant_republic_government
+	#			is_government_potential = neofeudal_government
+	#		}
+	#		ai = yes
+	#		OR = {
+	#			AND = {
+	#				tier = BARON
+	#				capital_holding = { holding_type = temple }
+	#			}
+	#			AND = {
+	#				tier = COUNT
+	#				has_law = local_main_government_type_2
+	#			}
+	#			AND = {
+	#				higher_tier_than = COUNT
+	#				has_law = local_main_government_type_2
+	#				has_law = local_secondary_government_type_2
+	#			}
+	#		}
+	#	}
+#
+	#	#frame_suffix = "_republic"
+	#	title_prefix = "temple_"
+	#	color = { 0 255 0 }
+#
+	#	barons_need_dynasty = no
+	#	can_build_tribal = no
+	#	uses_piety_for_law_change = yes
+#
+	#	character_modifier = {
+	#		levy_size = -10
+	#	}
+	#}
+#}

@@ -18,6 +18,7 @@ feudal_governments = {
 			NOT = {
 				is_government_potential = merchant_republic_government
 				is_government_potential = neofeudal_government
+				is_government_potential = military_base_government
 			}
 			OR = {
 				AND = {
@@ -37,6 +38,14 @@ feudal_governments = {
 			}
 		}
 
+		forced_contract = {
+			military_base_government
+		}
+		no_vassal_tax = {
+			military_base_government
+			military_command
+		}
+
 		#frame_suffix = "_republic"
 		title_prefix = "military_"
 		color = { 255 0 0 }
@@ -44,6 +53,11 @@ feudal_governments = {
 		barons_need_dynasty = no
 		can_build_tribal = no
 		uses_piety_for_law_change = yes
+
+		character_modifier = {
+			#levy_size = -10
+			#castle_levy_size = -10
+		}
 	}
 
 	pc_civil_government = {
@@ -80,6 +94,14 @@ feudal_governments = {
 					has_law = local_secondary_government_type_1
 				}
 			}
+		}
+
+		forced_contract = {
+			military_base_government
+		}
+		no_vassal_tax = {
+			military_base_government
+			military_command
 		}
 
 		#frame_suffix = "_republic"
@@ -124,6 +146,14 @@ feudal_governments = {
 					has_law = local_secondary_government_type_2
 				}
 			}
+		}
+
+		forced_contract = {
+			military_base_government
+		}
+		no_vassal_tax = {
+			military_base_government
+			military_command
 		}
 
 		#frame_suffix = "_republic"
@@ -175,6 +205,14 @@ republic_governments = {
 			}
 		}
 
+		forced_contract = {
+			military_base_government
+		}
+		no_vassal_tax = {
+			military_base_government
+			military_command
+		}
+
 		#frame_suffix = "_republic"
 		title_prefix = "city_"
 		color = { 0 0 255 }
@@ -182,6 +220,10 @@ republic_governments = {
 		barons_need_dynasty = no
 		can_build_tribal = no
 		uses_piety_for_law_change = yes
+
+		character_modifier = {
+			levy_size = -10
+		}
 	}
 }
 
@@ -223,6 +265,14 @@ theocracy_governments = {
 			}
 		}
 
+		forced_contract = {
+			military_base_government
+		}
+		no_vassal_tax = {
+			military_base_government
+			military_command
+		}
+
 		#frame_suffix = "_republic"
 		title_prefix = "temple_"
 		color = { 0 255 0 }
@@ -230,5 +280,9 @@ theocracy_governments = {
 		barons_need_dynasty = no
 		can_build_tribal = no
 		uses_piety_for_law_change = yes
+
+		character_modifier = {
+			levy_size = -10
+		}
 	}
 }

@@ -9,6 +9,7 @@ succession_laws = {
 
 		potential = {
 			laws_allow_inheritance = yes
+			NOT = { holding_type = family_palace }
 		}
 
 		allow = {
@@ -61,6 +62,7 @@ succession_laws = {
 		dynasty_opinion = 5
 
 		potential = {
+			NOT = { holding_type = family_palace }
 			#has_dlc = "Holy Fury"
 			#laws_allow_elections = yes
 			#laws_allow_inheritance = yes
@@ -95,7 +97,10 @@ succession_laws = {
 		dynasty_opinion = 5
 
 		potential = {
-			laws_allow_inheritance = yes
+			OR = {
+				laws_allow_inheritance = yes
+				holding_type = family_palace
+			}
 		}
 
 		allow = {
@@ -122,6 +127,7 @@ succession_laws = {
 		dynasty_opinion = -5
 
 		potential = {
+			NOT = { holding_type = family_palace }
 			laws_allow_inheritance = yes
 		}
 
@@ -175,6 +181,7 @@ succession_laws = {
 		vassal_opinion = 10
 
 		potential = {
+			NOT = { holding_type = family_palace }
 			laws_allow_elections = yes
 		}
 
@@ -205,6 +212,7 @@ succession_laws = {
 		vassal_limit = 20
 
 		potential = {
+			NOT = { holding_type = family_palace }
 			always = no #we disable this law because we don't use it on the mod
 		}
 
@@ -233,6 +241,7 @@ succession_laws = {
 		feudal_opinion = -5
 
 		potential = {
+			NOT = { holding_type = family_palace }
 			laws_allow_elections = yes
 			holder_scope = {
 				is_merchant_republic = no
@@ -279,6 +288,7 @@ succession_laws = {
 		vassal_opinion = 5
 
 		potential = {
+			NOT = { holding_type = family_palace }
 			laws_allow_elections = yes
 			laws_allow_inheritance = yes
 		}
@@ -310,6 +320,7 @@ succession_laws = {
 		dynasty_opinion = -5
 
 		potential = {
+			NOT = { holding_type = family_palace }
 			laws_allow_inheritance = yes
 		}
 
@@ -336,6 +347,7 @@ succession_laws = {
 		#dynasty_opinion = 10
 
 		potential = {
+			NOT = { holding_type = family_palace }
 			laws_allow_inheritance = yes
 			holder_scope = {
 				is_merchant_republic = no
@@ -376,6 +388,7 @@ succession_laws = {
 
 	succ_papal_succession = {
 		potential = {
+			NOT = { holding_type = family_palace }
 			#OR = {
 				title = d_orthodoxy
 				#title = d_fraticelli
@@ -399,18 +412,19 @@ succession_laws = {
 	succ_appointment = {
 
 		potential = {
+			NOT = { holding_type = family_palace }
 			NOT = { has_law = succ_true_appointment }
 			holder_scope = { independent = no }
 			OR = {
 				laws_allow_appointment = yes
-				government = military_command
+				holder_scope = { government = military_command }
 			}
 		}
 
 		allow = {
 			OR = {
 				laws_allow_appointment = yes
-				government = military_command
+				holder_scope = { government = military_command }
 			}
 		}
 
@@ -427,6 +441,7 @@ succession_laws = {
 
 	succ_open_elective = {
 		potential = {
+			NOT = { holding_type = family_palace }
 			laws_allow_elections = yes
 			holder_scope = { tier = BARON }
 		}
@@ -448,6 +463,7 @@ succession_laws = {
 
 	succ_catholic_bishopric = {
 		potential = {
+			NOT = { holding_type = family_palace }
 			is_primary_type_title = no
 			is_landless_type_title = no
 
@@ -476,6 +492,7 @@ succession_laws = {
 
 	succ_patrician_elective = {
 		potential = {
+			NOT = { holding_type = family_palace }
 			laws_allow_elections = yes
 			holder_scope = {
 				is_merchant_republic = yes
@@ -501,6 +518,7 @@ succession_laws = {
 
 	succ_nomad_succession = {
 		potential = {
+			NOT = { holding_type = family_palace }
 			holder_scope = {
 				is_nomadic = yes
 			}
@@ -521,6 +539,7 @@ succession_laws = {
 
 	succ_offmap_succession = {
 		potential = {
+			NOT = { holding_type = family_palace }
 			holder_scope = {
 				top_liege = { is_offmap_governor = yes }
 				#government = confucian_bureaucracy # To use this with future offmap powers, use an OR clause here with the new government types
@@ -550,6 +569,7 @@ succession_laws = {
 		vassal_opinion = -10
 
 		potential = {
+			NOT = { holding_type = family_palace }
 			laws_allow_dictatorship = yes
 		}
 
@@ -591,6 +611,7 @@ succession_laws = {
 		#vassal_opinion = -10
 
 		potential = {
+			NOT = { holding_type = family_palace }
 			always = yes
 			holder_scope = { independent = no }
 			OR = {
@@ -602,7 +623,7 @@ succession_laws = {
 		allow = {
 			OR = {
 				laws_allow_appointment = yes
-				government = military_command
+				holder_scope = { government = military_command }
 			}
 
 			holder_scope = {
@@ -640,6 +661,7 @@ succession_laws = {
 		vassal_opinion = 10
 
 		potential = {
+			NOT = { holding_type = family_palace }
 			laws_allow_elections = yes
 		}
 

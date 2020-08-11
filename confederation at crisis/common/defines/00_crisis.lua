@@ -75,7 +75,7 @@ NDefines.NEconomy.HOLDING_SLOT_BUILD_COST_MOD = 3
 
 NDefines.NMilitary.MERCENARY_MAINTENANCE_FACTOR = 3	    		-- Maintenance factor for NORMAL mercenary units
 NDefines.NMilitary.MERCENARY_VASSAL_MAINTENANCE_FACTOR = 1		-- Maintenance factor for VASSALIZED mercenary units
-NDefines.NMilitary.MERCENARY_HIRE_COST_FACTOR = 0.2   			-- Hire cost factor for mercenary units
+NDefines.NMilitary.MERCENARY_HIRE_COST_FACTOR = 1   			-- Hire cost factor for mercenary units
 NDefines.NMilitary.HOLY_ORDER_HIRE_COST_FACTOR = 0.2				-- Conversion of nominal gold cost to piety cost when hiring Holy Orders
 NDefines.NMilitary.HOLY_ORDER_DYNASTY_HIRE_COST_FACTOR = 0.1		-- Reduction of cost if the Holy Order is controlled by a dynasty member
 NDefines.NMilitary.VASSAL_MERC_HIRE_COST_FACTOR = 0.1			-- Fraction of nominal hire cost when hiring vassal mercenaries OR Holy Orders
@@ -85,14 +85,31 @@ NDefines.NMilitary.DAYS_BETWEEN_COMBAT_EVENTS = 3                -- Combat event
 NDefines.NMilitary.DAYS_BEFORE_FIRST_COMBAT_EVENT = 2             -- First combat event can't fire before this many days
 
 
+NDefines.NMilitary.CAPITAL_COUNTY_LIEGE_LEVY_MULT = 1                                         -- Multiplier to liege levies in the capital county
+NDefines.NMilitary.CAPITAL_DUCHY_LIEGE_LEVY_MULT = 1
+NDefines.NMilitary.CAPITAL_KINGDOM_LIEGE_LEVY_MULT = 1
+NDefines.NMilitary.CAPITAL_EMPIRE_LIEGE_LEVY_MULT = 1
+NDefines.NMilitary.OUTSIDE_LIEGE_LEVY_MULT = 1                                             -- Multiplier to liege levies outside all capital regions
+
+NDefines.NMilitary.LIEGE_LEVY_REINF_RATE = 0.05
+NDefines.NMilitary.LIEGE_LEVY_SIZE_MULTIPLIER = 1.0                                           -- The Size of the liege levy will be the total troops in the vassal subrealm * this
+NDefines.NMilitary.LIEGE_FLEET_SIZE_MULTIPLIER = 1.0                                          -- As above but for galleys
+NDefines.NMilitary.LIEGE_LEVY_COST_MULTIPLIER = 1.0                                           -- The vassal will pay regular maintenance * this for the liege levy
+NDefines.NMilitary.LIEGE_LEVY_SUBUNIT_SIZE_CUTOFF = 3000                                      -- The max size of each liege levy subunit.
+NDefines.NMilitary.LIEGE_LEVY_SUBUNIT_SIZE_MIN = 500                                          -- The min size before liege levy subunits start splitting.
+NDefines.NMilitary.LIEGE_LEVY_VICE_ROYALTY_MULTIPLIER = 1.0                                   -- Liege levy multiplier for viceroy vassals
+
+
+NDefines.NMilitary.LEVY_MAINTENANCE_FACTOR = 15                 -- how much to multiply the "maintenance" cost of a unit to charge gold per month. Maintenance also affect retinue cap usage.
+
 -- retinue stuff
-NDefines.NMilitary.RETINUE_FROM_REALMSIZE = 10
-NDefines.NMilitary.RETINUE_HIRE_COST_MULTIPLIER = 0
-NDefines.NMilitary.RETINUE_REINFORCE_COST = 1
-NDefines.NMilitary.RETINUE_CONSTANT_COST = 1
+NDefines.NMilitary.RETINUE_FROM_REALMSIZE = 10                  -- for a count. for duke is *1.5, for king is *2, for emperor is *2.5
+NDefines.NMilitary.RETINUE_HIRE_COST_MULTIPLIER = 0             -- retinue creation price in gold, as percentage of its retinue cap usage
+NDefines.NMilitary.RETINUE_REINFORCE_COST = 100                   -- how much it costs to build a single unit in cents of gold, based on its retinue cap usage.
+NDefines.NMilitary.RETINUE_CONSTANT_COST = 0.2*NDefines.NMilitary.LEVY_MAINTENANCE_FACTOR -- idea here is retinue montly costs is 20% of what it would cost if same army was a levy
 NDefines.NMilitary.MIN_RETINUE = 0
-NDefines.NMilitary.RETINUE_INCREASE_PER_TECH = 0
-NDefines.NMilitary.RETINUE_REINFORCE_RATE = 0.025
+NDefines.NMilitary.RETINUE_INCREASE_PER_TECH = 0.1              -- since this is "per tech"  it means at the end of the game the total is multiplied by 8, since that is the tech levels the game support.
+NDefines.NMilitary.RETINUE_REINFORCE_RATE = 0.1
 
 NDefines.NMilitary.OTHER_TERRITORY_LEVY_RETURN_PERCENT = 0.3 -- Harsher than vanilla. Being stranded in space is terrible.
 
@@ -142,7 +159,6 @@ NDefines.NMilitary.MAX_COMMANDERS_DUKE = 9
 NDefines.NMilitary.MAX_COMMANDERS_KING = 12
 NDefines.NMilitary.MAX_COMMANDERS_EMPEROR = 15
 
-local militaryMaintenanceAdjustement = 10
 
 -- Ship Combat Stats
 -- Gunships, they are agile, can improve turrets point defense by turning and shooting with main guns.
@@ -150,7 +166,7 @@ local militaryMaintenanceAdjustement = 10
 -- Also ammo is not cheap, so they cost a little more than normal to maintain.
 -- Utterly useless in skirmish phase because slight thrust in any direction is enough to dodge their attacks.
 NDefines.NMilitary.LIGHT_INFANTRY_MORALE = 1
-NDefines.NMilitary.LIGHT_INFANTRY_MAINTENANCE = 1.2*militaryMaintenanceAdjustement
+NDefines.NMilitary.LIGHT_INFANTRY_MAINTENANCE = 1.2
 NDefines.NMilitary.LIGHT_INFANTRY_PHASE_SKIRMISH_ATTACK = 0
 NDefines.NMilitary.LIGHT_INFANTRY_PHASE_SKIRMISH_DEFENSE = 5
 NDefines.NMilitary.LIGHT_INFANTRY_PHASE_MELEE_ATTACK = 4
@@ -162,7 +178,7 @@ NDefines.NMilitary.LIGHT_INFANTRY_GRAPHICAL_FACTOR = 1
 -- Laserships, they pack a big laser and can hit stuff long range, they also can easily hit fast ships in melee.
 -- they are fragile though, their systems being rather delicate.
 NDefines.NMilitary.HEAVY_INFANTRY_MORALE = 2 --they have more morable because they don't need to deal with depleting ammo.
-NDefines.NMilitary.HEAVY_INFANTRY_MAINTENANCE = 1*militaryMaintenanceAdjustement
+NDefines.NMilitary.HEAVY_INFANTRY_MAINTENANCE = 1
 NDefines.NMilitary.HEAVY_INFANTRY_PHASE_SKIRMISH_ATTACK = 2
 NDefines.NMilitary.HEAVY_INFANTRY_PHASE_SKIRMISH_DEFENSE = 2
 NDefines.NMilitary.HEAVY_INFANTRY_PHASE_MELEE_ATTACK = 5
@@ -174,7 +190,7 @@ NDefines.NMilitary.HEAVY_INFANTRY_GRAPHICAL_FACTOR = 1
 -- Missile ships, their purpose is to stand back firing missile volleys, at skirmish their damage is not impressive because
 -- it is rather easy to defend against missiles at large distances. Ammo is not free, so they also have more maintenance.
 NDefines.NMilitary.PIKEMEN_MORALE = 1
-NDefines.NMilitary.PIKEMEN_MAINTENANCE = 1.2*militaryMaintenanceAdjustement
+NDefines.NMilitary.PIKEMEN_MAINTENANCE = 1.2
 NDefines.NMilitary.PIKEMEN_PHASE_SKIRMISH_ATTACK = 1
 NDefines.NMilitary.PIKEMEN_PHASE_SKIRMISH_DEFENSE = 4
 NDefines.NMilitary.PIKEMEN_PHASE_MELEE_ATTACK = 3
@@ -186,7 +202,7 @@ NDefines.NMilitary.PIKEMEN_GRAPHICAL_FACTOR = 1
 -- Destroyers. They have all weapons, and are medium-sized, we can use them as "reference" ship, other ships having their stats based off them.
 -- Because they have all weapons they are more expensive to maintain.
 NDefines.NMilitary.LIGHT_CAVALRY_MORALE = 2
-NDefines.NMilitary.LIGHT_CAVALRY_MAINTENANCE = 2*militaryMaintenanceAdjustement
+NDefines.NMilitary.LIGHT_CAVALRY_MAINTENANCE = 2
 NDefines.NMilitary.LIGHT_CAVALRY_PHASE_SKIRMISH_ATTACK = 1
 NDefines.NMilitary.LIGHT_CAVALRY_PHASE_SKIRMISH_DEFENSE = 4
 NDefines.NMilitary.LIGHT_CAVALRY_PHASE_MELEE_ATTACK = 6
@@ -198,7 +214,7 @@ NDefines.NMilitary.LIGHT_CAVALRY_GRAPHICAL_FACTOR = 2
 -- Battleships. They are big, heavily armed, have a powerful laser to use in skirmishing, but are expensive to maintain and slow.
 -- They also have some marines, thus can land them on planets or board ships, or defend against boarding.
 NDefines.NMilitary.KNIGHTS_MORALE = 4
-NDefines.NMilitary.KNIGHTS_MAINTENANCE = 5*militaryMaintenanceAdjustement
+NDefines.NMilitary.KNIGHTS_MAINTENANCE = 5
 NDefines.NMilitary.KNIGHTS_PHASE_SKIRMISH_ATTACK = 3
 NDefines.NMilitary.KNIGHTS_PHASE_SKIRMISH_DEFENSE = 8
 NDefines.NMilitary.KNIGHTS_PHASE_MELEE_ATTACK = 8
@@ -212,7 +228,7 @@ NDefines.NMilitary.KNIGHTS_GRAPHICAL_FACTOR = 5
 -- Also because of how the game rules work in non-assault sieges they need big numbers, thus numbers here are divided by their multiplier.
 local transportMultiplier = 4
 NDefines.NMilitary.ARCHERS_MORALE = 5/transportMultiplier
-NDefines.NMilitary.ARCHERS_MAINTENANCE = (5/transportMultiplier)*militaryMaintenanceAdjustement
+NDefines.NMilitary.ARCHERS_MAINTENANCE = (5/transportMultiplier)
 NDefines.NMilitary.ARCHERS_PHASE_SKIRMISH_ATTACK = 0/transportMultiplier
 NDefines.NMilitary.ARCHERS_PHASE_SKIRMISH_DEFENSE = 6/transportMultiplier
 NDefines.NMilitary.ARCHERS_PHASE_MELEE_ATTACK = 5/transportMultiplier

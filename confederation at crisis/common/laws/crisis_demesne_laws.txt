@@ -5,10 +5,6 @@ law_groups = {
 		law_type = realm
 		allowed_for_councillors = yes
 	}
-	pledge = {
-		law_type = realm
-		allowed_for_councillors = yes
-	}
 	local_term_length = {
 		law_type = realm
 		allowed_for_councillors = yes
@@ -91,82 +87,6 @@ laws = {
 				set_character_flag = flag_founded_legislature
 				hidden_tooltip = { character_event = { id = maintenance.900 } } # calculate initial senate
 			}
-		}
-	}
-
-	pledge_off = {
-		group = pledge
-		#default = yes
-		potential = {
-			holder_scope = {
-				NOT = { government = neofeudal_government }
-				is_tribal = no
-				OR = {
-					independent = yes
-					in_revolt = yes
-				}
-			}
-		}
-		ai_will_do = {
-			factor = 1
-			# modifier = {
-				# factor = 0
-				# NOT = {title = e_hre}
-				# holder_scope = {
-					# num_of_vassals = 10
-					# any_vassal = {
-						# higher_tier_than = BARON
-						# }
-					# }
-				# }
-
-		}
-
-		effect = {
-			hidden_tooltip = {
-				revoke_law = pledge_on
-			}
-			set_tribal_vassal_levy_control = yes
-		}
-	}
-
-	pledge_on = {
-		group = pledge
-		default = yes
-		feudal_opinion = 5
-		potential = {
-			holder_scope = {
-				NOT = { government = neofeudal_government }
-				higher_tier_than = COUNT
-				independent = yes
-				#is_tribal = no
-				in_revolt = no
-			}
-		}
-		ai_will_do = {
-			factor = 0
-			# modifier = {
-				# factor = 0
-				# title = e_hre
-				# }
-			# modifier = {
-				# factor = 0
-				# NOT = {
-					# holder_scope = {
-						# num_of_vassals = 10
-						# any_vassal = {
-							# higher_tier_than = BARON
-							# }
-						# }
-					# }
-				# }
-		}
-
-		effect = {
-			hidden_tooltip = {
-				revoke_law = pledge_off
-			}
-			set_tribal_vassal_levy_control = no
 		}
 	}
 

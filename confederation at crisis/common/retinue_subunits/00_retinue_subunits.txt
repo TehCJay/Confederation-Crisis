@@ -1,0 +1,220 @@
+# Types:
+# 0 - Light Infantry/Gunships
+# 1 - Heavy Infantry/Laserships
+# 2 - Pikemen/Missileships
+# 3 - Light Cavalry/Destroyers
+# 4 - Heavy Cavalry/Battleships
+# 5 - Archers/Troop Transports
+# 6 - Special Troops (DN)
+
+# hire_cost seemly is mininum hire cost
+# maintenance multiplier is how much it costs to reinforce retinue, based on retinue cap usage
+# the monthly maintenance cost after reinforcement ended is based on retinue cap usage, nothing on this file can influence it.
+
+RETTYPE_GUNSHIPS =
+{
+	first_type = 0
+	first_amount = 50
+
+    second_type = 5
+    second_amount = 50
+}
+
+RETTYPE_LASERSHIPS =
+{
+	first_type = 1
+	first_amount = 50
+
+    second_type = 5
+    second_amount = 50
+}
+
+RETTYPE_MISSILESHIPS =
+{
+	first_type = 2
+	first_amount = 50
+
+    second_type = 5
+    second_amount = 50
+}
+
+RETTYPE_DESTROYERS =
+{
+	first_type = 3
+	first_amount = 50
+
+    second_type = 5
+    second_amount = 50
+
+    potential = {
+        any_demesne_title = {
+            OR = {
+                has_building = ca_destroyer_hanger_q_1
+                has_building = ct_emergency_reserve_q_4
+                has_building = tp_robotics_lab_q_3
+            }
+        }
+    }
+}
+
+RETTYPE_BATTLESHIPS =
+{
+    first_type = 4
+    first_amount = 50
+
+    second_type = 5
+    second_amount = 50
+
+    potential = {
+        any_demesne_title = {
+            OR = {
+                has_building = ca_capital_factory_q_1
+                AND = {
+                    has_building = tp_robotics_lab_q_5
+                    has_building = tp_military_mathematics_q_6
+                }
+                AND = {
+                    has_building = ct_emergency_reserve_q_5
+                    has_building = ct_robotics_infrastructure_q_5
+                    has_building = ct_factories_q_8
+                }
+            }
+        }
+    }
+}
+
+
+#### elite versions of normal retinues
+
+RETTYPE_ELITE_GUNSHIPS =
+{
+    first_type = 0
+    first_amount = 50
+
+    second_type = 5
+    second_amount = 50
+
+    hire_cost = 50
+    maintenance_multiplier = 3
+
+    modifier = {
+        light_infantry_offensive = 0.5
+        light_infantry_defensive = 0.5
+        light_infantry_morale = 0.5
+        archers_offensive = 0.5
+        archers_defensive = 0.5
+        archers_morale = 0.5
+    }
+}
+
+RETTYPE_ELITE_LASERSHIPS =
+{
+    first_type = 1
+    first_amount = 50
+
+    second_type = 5
+    second_amount = 50
+
+    hire_cost = 50
+    maintenance_multiplier = 3
+
+    modifier = {
+        heavy_infantry_offensive = 0.5
+        heavy_infantry_defensive = 0.5
+        heavy_infantry_morale = 0.5
+        archers_offensive = 0.5
+        archers_defensive = 0.5
+        archers_morale = 0.5
+    }
+}
+
+RETTYPE_ELITE_MISSILESHIPS =
+{
+    first_type = 2
+    first_amount = 50
+
+    second_type = 5
+    second_amount = 50
+
+    hire_cost = 50
+    maintenance_multiplier = 3
+
+    modifier = {
+        pikemen_offensive = 0.5
+        pikemen_defensive = 0.5
+        pikemen_morale = 0.5
+        archers_offensive = 0.5
+        archers_defensive = 0.5
+        archers_morale = 0.5
+    }
+}
+
+RETTYPE_ELITE_DESTROYERS =
+{
+    first_type = 3
+    first_amount = 50
+
+    second_type = 5
+    second_amount = 50
+
+    hire_cost = 50
+    maintenance_multiplier = 3
+
+    modifier = {
+        light_cavalry_offensive = 0.5
+        light_cavalry_defensive = 0.5
+        light_cavalry_morale = 0.5
+        archers_offensive = 0.5
+        archers_defensive = 0.5
+        archers_morale = 0.5
+    }
+
+
+    potential = {
+        any_demesne_title = {
+            OR = {
+                has_building = ca_destroyer_hanger_q_1
+                has_building = ct_emergency_reserve_q_4
+                has_building = tp_robotics_lab_q_3
+            }
+        }
+    }
+}
+
+RETTYPE_ELITE_BATTLESHIPS =
+{
+    first_type = 4
+    first_amount = 50
+
+    second_type = 5
+    second_amount = 50
+
+    hire_cost = 50
+    maintenance_multiplier = 3
+
+    modifier = {
+        heavy_cavalry_offensive = 0.5
+        heavy_cavalry_defensive = 0.5
+        heavy_cavalry_morale = 0.5
+        archers_offensive = 0.5
+        archers_defensive = 0.5
+        archers_morale = 0.5
+    }
+
+    potential = {
+        any_demesne_title = {
+            OR = {
+                has_building = ca_capital_factory_q_1
+                AND = {
+                    has_building = tp_robotics_lab_q_5
+                    has_building = tp_military_mathematics_q_6
+                }
+                AND = {
+                    has_building = ct_emergency_reserve_q_5
+                    has_building = ct_robotics_infrastructure_q_5
+                    has_building = ct_factories_q_8
+                }
+            }
+        }
+    }
+}
