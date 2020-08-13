@@ -32,14 +32,14 @@ character_event = {
 	only_playable = yes
 
 	immediate = {
-		#log = "DEBUG: emf_core.5: dying ruler shall distribute wealth: [This.EMF_GetDebugName]"
 		export_to_variable = { which = local_wealth value = yearly_income }
-		log = " ----> Treasury: [local_wealth.GetValue]"
-		log = " ----> Allocating shares:"
+		#log = " ----> Treasury: [local_wealth.GetValue]"
+		#log = " ----> Allocating shares:"
 		set_variable = { which = local_shares value = 0 }
 		any_vassal = {
 			if = {
 				limit = { is_military_trigger = yes }
+				limit = { is_appointed_trigger = yes }
 				if = {
 					limit = { tier = KING }
 					change_variable = { which = local_shares value = 20 }
@@ -73,10 +73,10 @@ character_event = {
 
 		#multiply_variable = { which = local_share_value which = local_wealth }
 		divide_variable = { which = local_share_value which = local_shares }
-		log = " ----> Total shares: [local_shares.GetValue]"
-		log = " ----> Share value: [local_share_value.GetValue]"
+		#log = " ----> Total shares: [local_shares.GetValue]"
+		#log = " ----> Share value: [local_share_value.GetValue]"
 		# Transfer total shares' value to each of the 3 classes' treasuries:
-		#log = " ----> Transferring inheritance:"
+		##log = " ----> Transferring inheritance:"
 
 		any_vassal = {
 			if = {
@@ -86,28 +86,28 @@ character_event = {
 					set_variable = { which = local_value which = local_share_value }
 					multiply_variable = { which = local_value value = 20 }
 					set_variable = { which = money_to_receive which = local_value }
-					log = " ----> Wealth to transfer to [This.GetName] is [money_to_receive.GetValue]"
+					#log = " ----> Wealth to transfer to [This.GetName] is [money_to_receive.GetValue]"
 				}
 				else_if = {
 					limit = { tier = DUKE }
 					set_variable = { which = local_value which = local_share_value }
 					multiply_variable = { which = local_value value = 7 }
 					set_variable = { which = money_to_receive which = local_value }
-					log = " ----> Wealth to transfer to [This.GetName] is [money_to_receive.GetValue]"
+					#log = " ----> Wealth to transfer to [This.GetName] is [money_to_receive.GetValue]"
 				}
 				else_if = {
 					limit = { tier = COUNT }
 					set_variable = { which = local_value which = local_share_value }
 					multiply_variable = { which = local_value value = 3 }
 					set_variable = { which = money_to_receive which = local_value }
-					log = " ----> Wealth to transfer to [This.GetName] is [money_to_receive.GetValue]"
+					#log = " ----> Wealth to transfer to [This.GetName] is [money_to_receive.GetValue]"
 				}
 				else_if = {
 					limit = { tier = BARON }
 					set_variable = { which = local_value which = local_share_value }
 					multiply_variable = { which = local_value value = 1 }
 					set_variable = { which = money_to_receive which = local_value }
-					log = " ----> Wealth to transfer to [This.GetName] is [money_to_receive.GetValue]"
+					#log = " ----> Wealth to transfer to [This.GetName] is [money_to_receive.GetValue]"
 				}
 			}
 		}

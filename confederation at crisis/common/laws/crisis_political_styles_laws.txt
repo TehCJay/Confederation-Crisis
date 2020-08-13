@@ -1,0 +1,474 @@
+law_groups = {
+	gender_status = {
+		law_type = realm
+	}
+}
+
+#law_set_allow_matrilineal_marriage
+
+#idea:
+#status decay... more center needing more tech OR itself, thus if a law changes away from center you can't put it back without the tech
+
+#need to fix tooltips
+#max = only relatives of opposite gender on council
+#med = landed vassals of opposite gender on council
+#equal = "opposite" gender allowed on council, command, matrilineal marriage
+
+laws = {
+	# Status of Women
+	gender_status_0 = {
+		group = gender_status
+
+		potential = {
+			has_dlc = "Conclave"
+			holy_order = no
+		}
+
+		allow = {
+			trigger_if = {
+				limit = {
+					OR = {
+						has_law = gender_status_0
+						has_law = gender_status_1
+						has_law = gender_status_2
+						has_law = gender_status_3
+						has_law = gender_status_4
+					}
+				}
+				has_law = gender_status_1
+			}
+			holder_scope = {
+				show_scope_change = no
+
+				trigger_if = {
+					limit = { has_religion_feature = religion_matriarchal }
+
+					NOT = { has_religion_feature = religion_matriarchal }
+				}
+				trigger_else_if = {
+					limit = { has_religion_feature = religion_equal }
+
+					NOT = { has_religion_feature = religion_equal }
+				}
+			}
+		}
+
+		pass_effect = {
+			log = "gender_status_0 pass ([This.GetFullBaseName])"
+		}
+
+		effect = {
+			log = "gender_status_0 ([This.GetFullBaseName])"
+			trigger_switch = {
+				on_trigger = has_law
+
+				gender_status_1 = {
+					custom_tooltip = { text = TOOLTIP_DISALLOW_FEMALE_COMMANDERS }
+					custom_tooltip = { text = TOOLTIP_DISALLOW_MALE_COMMANDERS }
+					custom_tooltip = { text = TOOLTIP_ALLOW_FEMALE_FAMILY_COUNCIL }
+					custom_tooltip = { text = TOOLTIP_ALLOW_MALE_FAMILY_COUNCIL }
+					custom_tooltip = { text = TOOLTIP_ALLOW_FEMALE_COUNCIL }
+					custom_tooltip = { text = TOOLTIP_ALLOW_MALE_COUNCIL }
+				}
+				gender_status_2 = {
+					custom_tooltip = { text = TOOLTIP_DISALLOW_FEMALE_COMMANDERS }
+					custom_tooltip = { text = TOOLTIP_DISALLOW_MALE_COMMANDERS }
+					custom_tooltip = { text = TOOLTIP_ALLOW_FEMALE_FAMILY_COUNCIL }
+					custom_tooltip = { text = TOOLTIP_ALLOW_MALE_FAMILY_COUNCIL }
+					custom_tooltip = { text = TOOLTIP_DISALLOW_FEMALE_COUNCIL }
+					custom_tooltip = { text = TOOLTIP_ALLOW_MALE_COUNCIL }
+					custom_tooltip = { text = TOOLTIP_DISALLOW_TRUE_COGNATIC }
+				}
+				gender_status_3 = {
+					custom_tooltip = { text = TOOLTIP_DISALLOW_FEMALE_COMMANDERS }
+					custom_tooltip = { text = TOOLTIP_DISALLOW_MALE_COMMANDERS }
+					custom_tooltip = { text = TOOLTIP_ALLOW_FEMALE_FAMILY_COUNCIL }
+					custom_tooltip = { text = TOOLTIP_ALLOW_MALE_FAMILY_COUNCIL }
+					custom_tooltip = { text = TOOLTIP_DISALLOW_FEMALE_COUNCIL }
+					custom_tooltip = { text = TOOLTIP_ALLOW_MALE_COUNCIL }
+				}
+				gender_status_4 = {
+					custom_tooltip = { text = TOOLTIP_DISALLOW_FEMALE_COMMANDERS }
+					custom_tooltip = { text = TOOLTIP_ALLOW_MALE_COMMANDERS }
+					custom_tooltip = { text = TOOLTIP_DISALLOW_FEMALE_FAMILY_COUNCIL }
+					custom_tooltip = { text = TOOLTIP_ALLOW_MALE_FAMILY_COUNCIL }
+					custom_tooltip = { text = TOOLTIP_DISALLOW_FEMALE_COUNCIL }
+					custom_tooltip = { text = TOOLTIP_ALLOW_MALE_COUNCIL }
+				}
+			}
+
+			set_allow_feminism = no
+			set_allow_gender_laws = no
+			law_set_allow_matrilineal_marriage = no
+
+			hidden_effect = {
+				revoke_law = gender_status_1
+				revoke_law = gender_status_2
+				revoke_law = gender_status_3
+				revoke_law = gender_status_4
+			}
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	gender_status_1 = {
+		group = gender_status
+
+		potential = {
+			is_law_potential = gender_status_0
+		}
+
+		allow = {
+			OR = {
+				has_law = gender_status_0
+				has_law = gender_status_2
+			}
+			holder_scope = {
+				show_scope_change = no
+
+				trigger_if = {
+					limit = { has_religion_feature = religion_matriarchal }
+
+					NOT = { has_religion_feature = religion_matriarchal }
+				}
+				trigger_else_if = {
+					limit = { has_religion_feature = religion_equal }
+
+					NOT = { has_religion_feature = religion_equal }
+				}
+			}
+		}
+
+		pass_effect = {
+			log = "gender_status_1 pass ([This.GetFullBaseName])"
+		}
+
+		effect = {
+			log = "gender_status_1 ([This.GetFullBaseName])"
+			trigger_switch = {
+				on_trigger = has_law
+
+				gender_status_0 = {
+					custom_tooltip = { text = TOOLTIP_DISALLOW_FEMALE_COMMANDERS }
+					custom_tooltip = { text = TOOLTIP_DISALLOW_MALE_COMMANDERS }
+					custom_tooltip = { text = TOOLTIP_ALLOW_FEMALE_FAMILY_COUNCIL }
+					custom_tooltip = { text = TOOLTIP_ALLOW_MALE_FAMILY_COUNCIL }
+					custom_tooltip = { text = TOOLTIP_ALLOW_FEMALE_COUNCIL }
+					custom_tooltip = { text = TOOLTIP_ALLOW_MALE_COUNCIL }
+				}
+				gender_status_1 = {
+					custom_tooltip = { text = TOOLTIP_DISALLOW_FEMALE_COMMANDERS }
+					custom_tooltip = { text = TOOLTIP_DISALLOW_MALE_COMMANDERS }
+					custom_tooltip = { text = TOOLTIP_ALLOW_FEMALE_FAMILY_COUNCIL }
+					custom_tooltip = { text = TOOLTIP_ALLOW_MALE_FAMILY_COUNCIL }
+					custom_tooltip = { text = TOOLTIP_ALLOW_FEMALE_COUNCIL }
+					custom_tooltip = { text = TOOLTIP_ALLOW_MALE_COUNCIL }
+				}
+				gender_status_2 = {
+					custom_tooltip = { text = TOOLTIP_DISALLOW_FEMALE_COMMANDERS }
+					custom_tooltip = { text = TOOLTIP_DISALLOW_MALE_COMMANDERS }
+					custom_tooltip = { text = TOOLTIP_ALLOW_FEMALE_FAMILY_COUNCIL }
+					custom_tooltip = { text = TOOLTIP_ALLOW_MALE_FAMILY_COUNCIL }
+					custom_tooltip = { text = TOOLTIP_ALLOW_FEMALE_COUNCIL }
+					custom_tooltip = { text = TOOLTIP_ALLOW_MALE_COUNCIL }
+					custom_tooltip = { text = TOOLTIP_DISALLOW_TRUE_COGNATIC }
+				}
+				gender_status_3 = {
+					custom_tooltip = { text = TOOLTIP_DISALLOW_FEMALE_COMMANDERS }
+					custom_tooltip = { text = TOOLTIP_DISALLOW_MALE_COMMANDERS }
+					custom_tooltip = { text = TOOLTIP_ALLOW_FEMALE_FAMILY_COUNCIL }
+					custom_tooltip = { text = TOOLTIP_ALLOW_MALE_FAMILY_COUNCIL }
+					custom_tooltip = { text = TOOLTIP_ALLOW_FEMALE_COUNCIL }
+					custom_tooltip = { text = TOOLTIP_ALLOW_MALE_COUNCIL }
+				}
+				gender_status_4 = {
+					custom_tooltip = { text = TOOLTIP_DISALLOW_FEMALE_COMMANDERS }
+					custom_tooltip = { text = TOOLTIP_DISALLOW_MALE_COMMANDERS }
+					custom_tooltip = { text = TOOLTIP_ALLOW_FEMALE_FAMILY_COUNCIL }
+					custom_tooltip = { text = TOOLTIP_ALLOW_MALE_FAMILY_COUNCIL }
+					custom_tooltip = { text = TOOLTIP_ALLOW_FEMALE_COUNCIL }
+					custom_tooltip = { text = TOOLTIP_ALLOW_MALE_COUNCIL }
+				}
+			}
+
+			set_allow_feminism = no
+			set_allow_gender_laws = no
+
+			hidden_effect = {
+				revoke_law = gender_status_0
+				revoke_law = gender_status_2
+				revoke_law = gender_status_3
+				revoke_law = gender_status_4
+			}
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	gender_status_2 = {
+		group = gender_status
+		default = yes
+
+		potential = {
+			is_law_potential = gender_status_0
+		}
+
+		allow = {
+			OR = {
+				has_law = gender_status_1
+				has_law = gender_status_3
+			}
+			holder_scope = {
+				show_scope_change = no
+
+				trigger_if = {
+					limit = { has_religion_feature = religion_matriarchal }
+
+					NOT = { has_religion_feature = religion_matriarchal }
+				}
+				trigger_else_if = {
+					limit = { has_religion_feature = religion_patriarchal }
+
+					NOT = { has_religion_feature = religion_patriarchal }
+				}
+			}
+		}
+
+		pass_effect = {
+			log = "gender_status_2 pass ([This.GetFullBaseName])"
+		}
+
+		effect = {
+			log = "gender_status_2 ([This.GetFullBaseName])"
+
+			trigger_switch = {
+				on_trigger = has_law
+
+				gender_status_0 = {
+					custom_tooltip = { text = TOOLTIP_ALLOW_FEMALE_SPYMASTER }
+					custom_tooltip = { text = TOOLTIP_ALLOW_FEMALE_CHANCELLOR }
+					custom_tooltip = { text = TOOLTIP_ALLOW_FEMALE_TREASURER }
+				}
+				gender_status_1 = {
+					custom_tooltip = { text = TOOLTIP_ALLOW_FEMALE_CHANCELLOR }
+					custom_tooltip = { text = TOOLTIP_ALLOW_FEMALE_TREASURER }
+				}
+				gender_status_2 = {
+					custom_tooltip = { text = TOOLTIP_DISALLOW_FEMALE_CHANCELLOR }
+					custom_tooltip = { text = TOOLTIP_DISALLOW_FEMALE_TREASURER }
+				}
+				gender_status_3 = {
+					custom_tooltip = { text = TOOLTIP_DISALLOW_FEMALE_MARSHAL }
+				}
+				gender_status_4 = {
+					custom_tooltip = { text = TOOLTIP_DISALLOW_FEMALE_MARSHAL }
+					custom_tooltip = { text = TOOLTIP_DISALLOW_TRUE_COGNATIC }
+					custom_tooltip = { text = TOOLTIP_DISALLOW_FEMALE_COMMANDERS }
+				}
+			}
+
+			set_allow_feminism = no
+			set_allow_gender_laws = no
+
+			hidden_effect = {
+				revoke_law = gender_status_0
+				revoke_law = gender_status_1
+				revoke_law = gender_status_3
+				revoke_law = gender_status_4
+			}
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	gender_status_3 = {
+		group = gender_status
+
+		potential = {
+			is_law_potential = gender_status_0
+		}
+
+		allow = {
+			OR = {
+				has_law = gender_status_2
+				has_law = gender_status_4
+			}
+			holder_scope = {
+				show_scope_change = no
+
+				trigger_if = {
+					limit = { has_religion_feature = religion_patriarchal }
+
+					NOT = { has_religion_feature = religion_patriarchal }
+				}
+				trigger_else_if = {
+					limit = { has_religion_feature = religion_equal }
+
+					NOT = { has_religion_feature = religion_equal }
+				}
+			}
+		}
+
+		pass_effect = {
+			log = "gender_status_3 pass ([This.GetFullBaseName])"
+		}
+
+		effect = {
+			log = "gender_status_3 ([This.GetFullBaseName])"
+
+			trigger_switch = {
+				on_trigger = has_law
+
+				gender_status_0 = {
+					custom_tooltip = {
+						text = TOOLTIP_ALLOW_FEMALE_SPYMASTER
+					}
+					custom_tooltip = {
+						text = TOOLTIP_ALLOW_FEMALE_CHANCELLOR
+					}
+					custom_tooltip = {
+						text = TOOLTIP_ALLOW_FEMALE_TREASURER
+					}
+					custom_tooltip = {
+						text = TOOLTIP_ALLOW_FEMALE_MARSHAL
+					}
+				}
+				gender_status_1 = {
+					custom_tooltip = {
+						text = TOOLTIP_ALLOW_FEMALE_CHANCELLOR
+					}
+					custom_tooltip = {
+						text = TOOLTIP_ALLOW_FEMALE_TREASURER
+					}
+					custom_tooltip = {
+						text = TOOLTIP_ALLOW_FEMALE_MARSHAL
+					}
+				}
+				gender_status_2 = {
+					custom_tooltip = {
+						text = TOOLTIP_ALLOW_FEMALE_MARSHAL
+					}
+				}
+				gender_status_4 = {
+					custom_tooltip = {
+						text = TOOLTIP_DISALLOW_TRUE_COGNATIC
+					}
+					custom_tooltip = {
+						text = TOOLTIP_DISALLOW_FEMALE_COMMANDERS
+					}
+				}
+			}
+
+			set_allow_feminism = no
+			set_allow_gender_laws = no
+
+			hidden_effect = {
+				revoke_law = gender_status_0
+				revoke_law = gender_status_1
+				revoke_law = gender_status_2
+				revoke_law = gender_status_4
+			}
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	gender_status_4 = {
+		group = gender_status
+
+		potential = {
+			is_law_potential = gender_status_0
+		}
+
+		allow = {
+			has_law = gender_status_3
+
+			holder_scope = {
+				show_scope_change = no
+
+				trigger_if = {
+					limit = { has_religion_feature = religion_patriarchal }
+
+					NOT = { has_religion_feature = religion_patriarchal }
+				}
+				trigger_else_if = {
+					limit = { has_religion_feature = religion_equal }
+
+					NOT = { has_religion_feature = religion_equal }
+				}
+			}
+		}
+
+		pass_effect = {
+			log = "gender_status_4 pass ([This.GetFullBaseName])"
+		}
+
+		effect = {
+			log = "gender_status_4 ([This.GetFullBaseName])"
+
+			trigger_switch = {
+				on_trigger = has_law
+
+				gender_status_0 = {
+					custom_tooltip = {
+						text = TOOLTIP_ALLOW_FEMALE_SPYMASTER
+					}
+					custom_tooltip = {
+						text = TOOLTIP_ALLOW_FEMALE_CHANCELLOR
+					}
+					custom_tooltip = {
+						text = TOOLTIP_ALLOW_FEMALE_TREASURER
+					}
+					custom_tooltip = {
+						text = TOOLTIP_ALLOW_FEMALE_MARSHAL
+					}
+					custom_tooltip = {
+						text = TOOLTIP_ALLOW_TRUE_COGNATIC
+					}
+					custom_tooltip = {
+						text = TOOLTIP_ALLOW_FEMALE_COMMANDERS
+					}
+				}
+				gender_status_1 = {
+					custom_tooltip = { text = TOOLTIP_ALLOW_FEMALE_CHANCELLOR }
+					custom_tooltip = { text = TOOLTIP_ALLOW_FEMALE_TREASURER }
+					custom_tooltip = { text = TOOLTIP_ALLOW_FEMALE_MARSHAL }
+					custom_tooltip = { text = TOOLTIP_ALLOW_TRUE_COGNATIC }
+					custom_tooltip = { text = TOOLTIP_ALLOW_FEMALE_COMMANDERS }
+				}
+				gender_status_2 = {
+					custom_tooltip = { text = TOOLTIP_ALLOW_FEMALE_MARSHAL }
+					custom_tooltip = { text = TOOLTIP_ALLOW_TRUE_COGNATIC }
+					custom_tooltip = { text = TOOLTIP_ALLOW_FEMALE_COMMANDERS }
+				}
+				gender_status_3 = {
+					custom_tooltip = { text = TOOLTIP_ALLOW_TRUE_COGNATIC }
+					custom_tooltip = { text = TOOLTIP_ALLOW_FEMALE_COMMANDERS }
+				}
+			}
+
+			set_allow_feminism = yes
+			set_allow_gender_laws = no
+
+			hidden_effect = {
+				revoke_law = gender_status_0
+				revoke_law = gender_status_1
+				revoke_law = gender_status_2
+				revoke_law = gender_status_3
+			}
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+	}
+}

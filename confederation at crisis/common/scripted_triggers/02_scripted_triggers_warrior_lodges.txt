@@ -1,0 +1,86 @@
+#####################################################
+##### Warrior Lodge work...
+#####################################################
+
+is_member_of_roots_warrior_lodge_trigger = {
+	custom_tooltip = {
+		text = is_member_of_roots_warrior_lodge_tt
+
+		is_member_of_any_warrior_lodge_trigger = yes
+		same_society_as = ROOT
+	}
+}
+
+# TODO: replace with society flags?
+is_member_of_any_warrior_lodge_trigger = {
+	custom_tooltip = {
+		text = is_member_of_any_warrior_lodge_tt
+
+		always = no
+	}
+}
+
+has_any_warrior_lodge_training_trait_trigger = {
+	always = no
+}
+
+has_current_warrior_lodge_leader_trait_trigger = {
+	custom_tooltip = {
+		text = has_warrior_training_with_current_society_tt
+
+		always = no
+	}
+}
+
+has_religion_matching_joined_warrior_lodge_trigger = {
+	custom_tooltip = {
+		text = has_religion_matching_joined_warrior_lodge_tt
+
+		always = no
+	}
+}
+
+has_religion_matching_available_warrior_lodge_trigger = {
+	always = no
+}
+
+has_religion_matching_warrior_lodge_in_need_of_members_trigger = {
+	always = no
+}
+
+has_religion_matching_empty_warrior_lodge_trigger = {
+	always = no
+}
+
+# Can be used on a character too -- will then default to look at the society a character is member of.
+this_society_is_a_warrior_lodge_trigger = {
+	always = no
+}
+
+has_religion_matching_any_warrior_lodge_trigger = {
+	always = no
+}
+
+has_religion_matching_warrior_lodge_to_revive_trigger = {
+	always = no
+}
+
+special_join_warrior_lodge_trigger = {
+	custom_tooltip = {
+		text = special_join_warrior_lodge_trigger_tt
+
+		always = no
+	}
+}
+
+is_available_fellow_society_member_trigger = {
+	same_society_as = ROOT
+
+	is_inaccessible_or_incapable_trigger = no # in prison, incapable, etc...
+	in_command = no
+
+	NOR = {
+		has_character_flag = do_not_disturb
+		character = ROOT
+	}
+}

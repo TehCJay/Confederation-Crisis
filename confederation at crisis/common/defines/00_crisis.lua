@@ -240,9 +240,14 @@ NDefines.NMilitary.ARCHERS_GRAPHICAL_FACTOR = 1/transportMultiplier
 NDefines.NTechnology.DONT_EXECUTE_TECH_BEFORE = 2000
 NDefines.NTechnology.IDEAL_YEAR_LEVEL_0 = 2998
 NDefines.NTechnology.IDEAL_YEAR_LEVEL_8 = 4000
+NDefines.NTechnology.NEIGHBOUR_SAME_RELIGON_GROUP_MULT = 4.0                    -- since we have more focused religion groups this can be higher than vanilla
+NDefines.NTechnology.POINTS_PER_ATTRIBUTE = 0                                   -- idea is there will be no passive tech bonus, only actual investment in universities and whatnot will help advance education
 
 NDefines.NAI.MAX_EMPIRE_TITLES_TO_CREATE = 1
 NDefines.NAI.AI_EMPEROR_CREATES_KINGDOMS = 1
+NDefines.NAI.BASE_AI_ARMY_SIZE = 1000                                           -- our supply limtis are much lower
+NDefines.NAI.INTERACTION_THRESHOLD_FOR_NO = 25
+NDefines.NAI.INTERACTION_THRESHOLD_FOR_YES = 50
 -- Format for overwriting define values:
 --
 -- NDefines.NDiplomacy.DEMESNE_BASE_MAX_SIZE = 2.0
@@ -261,28 +266,32 @@ NDefines.NNomad.CLAN_GRAZING_LAND_MALUS = 150 -- 75 vanilla
 NDefines.NNomad.HORDE_REINFORCE_MULTIPLIER = 6 -- 4 vanilla
 NDefines.NNomad.MIN_STARTING_HORDE_SUBUNITS = 0 -- 2 vanilla
 NDefines.NCharacter.MAX_WARDS_PER_GUARDIAN = 4
-NDefines.NEconomy.DOGE_SUCC_RANDOM_FACTOR = 0									-- 500 The random Respect factor on actual Doge succession.
+NDefines.NEconomy.DOGE_SUCC_RANDOM_FACTOR = 500     									-- 500 The random Respect factor on actual Doge succession.
 NDefines.NEconomy.PATRICIAN_CAMPAIGN_FUND_FACTOR = 2.5									-- 5 The effect of money in the Campaign Fund on Doge elections (money * factor).
 NDefines.NEconomy.PATRICIAN_PRESTIGE_RESPECT_FACTOR = 5									-- 2 The effect of Prestige on the Respect value for Doge elections (prestige * factor).
 NDefines.NEconomy.PATRICIAN_AGE_RESPECT_FACTOR = 0.125									-- 1 The effect of Age on the Respect value for Doge elections (age * age * factor).
 NDefines.NMilitary.MAX_LEADERSHIP_TRAITS = 4
+NDefines.NEconomy.FORT_CONSUMED_IN_SETTLEMENT_CONTRUCTION = 0
+
 
 NDefines.NDiplomacy.PRESTIGE_OPINION_MAX = 10									-- Max opinion impact of prestige (positive OR negative)
 NDefines.NDiplomacy.PIETY_OPINION_MAX = 20										-- Max opinion impact of piety (positive OR negative)
 NDefines.NDiplomacy.PRESTIGE_OPINION_DIV = 200
 NDefines.NDiplomacy.PIETY_OPINION_DIV = 100
-NDefines.NTitle.EMPEROR_TITLE_PRESTIGE = 4.8
 
-NDefines.NTitle.BARON_TITLE_PRESTIGE = 0.25
-NDefines.NTitle.COUNT_TITLE_PRESTIGE = 1
-NDefines.NTitle.DUKE_TITLE_PRESTIGE = 1
-NDefines.NTitle.KING_TITLE_PRESTIGE = 1
+NDefines.NTitle.BARON_TITLE_PRESTIGE = 0.0625
+NDefines.NTitle.COUNT_TITLE_PRESTIGE = 0.125
+NDefines.NTitle.DUKE_TITLE_PRESTIGE = 0.25
+NDefines.NTitle.KING_TITLE_PRESTIGE = 0.5
+NDefines.NTitle.EMPEROR_TITLE_PRESTIGE = 1
 
-NDefines.NTitle.BARON_AS_VASSAL_PRESTIGE = 0.25
-NDefines.NTitle.COUNT_AS_VASSAL_PRESTIGE = 1
-NDefines.NTitle.DUKE_AS_VASSAL_PRESTIGE = 1
-NDefines.NTitle.KING_AS_VASSAL_PRESTIGE = 1
-NDefines.NTitle.EMPEROR_AS_VASSAL_PRESTIGE = 3.2
+NDefines.NTitle.BARON_AS_VASSAL_PRESTIGE = 0.0625
+NDefines.NTitle.COUNT_AS_VASSAL_PRESTIGE = 0.125
+NDefines.NTitle.DUKE_AS_VASSAL_PRESTIGE = 0.25
+NDefines.NTitle.KING_AS_VASSAL_PRESTIGE = 0.5
+NDefines.NTitle.EMPEROR_AS_VASSAL_PRESTIGE = 1
+
+NDefines.NTitle.ENFORCE_ONE_OF_EACH_HOLDING = 0
 
 NDefines.NDiplomacy.MAX_DUCHIES_LEGALLY_HELD = 3             -- from 2, vanilla=2
 NDefines.NDiplomacy.MAX_ELECTOR_TITLES_LEGALLY_HELD = 3      -- from 1, vanilla=1

@@ -228,10 +228,10 @@ title_caesar = {
 	allowed_to_hold = {
 		OR = {
 		trait = skilled_tactician
-			trait = brilliant_strategist
-			trait = experienced_captain
-			trait = seasoned_commander
-			trait = great_general
+		trait = brilliant_strategist
+		#trait = experienced_captain
+		#trait = seasoned_commander
+		#trait = great_general
 		martial = 10
 		}
 	}
@@ -415,7 +415,7 @@ title_speaker = {
 
 	is_unique = yes
 
-	allowed_to_grant = { any_demesne_title = { has_law = legislative_authority_1 } }
+	allowed_to_grant = { NOT = { any_demesne_title = { has_law = legislative_authority_0 } } }
 
 	allowed_to_hold = {
 		is_adult = yes
@@ -424,7 +424,6 @@ title_speaker = {
 		NOT = { has_minor_title = title_prime }
 		NOT = { has_minor_title = title_minister_without_portfolio }
 		has_minor_title = title_senatorrome
-		society_member_of = political_senate_representatives
 	}
 
 	gain_effect = { }
@@ -941,85 +940,4 @@ title_prince_royal = {
 
 	gain_effect = { }
 	lose_effect = { }
-}
-
-#MNM hermetics apprentice
-title_hermetics_apprentice = {
-	is_high_prio = yes
-	attribute = learning
-    dignity = 1
-    realm_in_name = no
-	grant_limit = 1
-	opinion_effect = 10
-	monthly_salary = 0.1
-	monthly_prestige = 0.1
-	revoke_allowed = no
-
-	allowed_to_grant = {
-		has_dlc = "Mystics"
-		society_member_of = hermetics
-		ai = no
-	}
-
-	allowed_to_hold = {
-		custom_tooltip = {
-			text = court_physician_tooltip_1
-			NOT = {
-				primary_title = { temporary = yes }
-			}
-		}
-		is_adult = yes
-		OR = {
-			society_member_of = hermetics
-			is_in_society = no
-		}
-
-		NOT = { trait = in_hiding }
-		NOT = { trait = incapable }
-		prisoner = no
-
-		hidden_trigger = {
-			liege = { society_member_of = hermetics }
-			ai = yes
-			NOT = { has_character_flag = completed_apprenticeship }
-			OR = {
-				FROM = { ai = no }
-				learning = 10
-				is_smart_trigger = yes
-				trait = gardener
-				trait = scholar
-				trait = mystic
-			}
-		}
-	}
-
-	gain_effect = {
-		if = {
-			limit = { NOT = { society_member_of = hermetics } }
-			join_society = hermetics
-		}
-		character_event = { id = MNM.1413 days = 4500 random = 1000 }  #Some years later, the apprenticeship ends
-
-		opinion = {
-			modifier = opinion_hermetic_apprentice
-			who = FROM
-			years = 100
-		}
-		FROM = {
-			if = {
-				limit = { has_quest = quest_hermetics_find_apprentice }
-				character_event = { id = MNM.1409 }
-			}
-		}
-	}
-	lose_effect = {
-		remove_opinion = {
-			modifier = opinion_hermetic_apprentice
-			who = FROM
-		}
-	}
-	retire_effect = {
-	}
-
-	message = yes
 }

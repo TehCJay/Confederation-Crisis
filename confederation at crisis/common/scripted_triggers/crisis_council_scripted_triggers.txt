@@ -1,0 +1,58 @@
+proselytize_convert_independent_trigger = {
+    owner = {
+        independent = yes
+        is_within_diplo_range = FROM
+
+        NOR = {
+            religion = FROM
+            religion_group = FROM
+            controls_religion = yes
+            is_reformed_religion = yes
+        }
+
+        NOT = {
+            religion_group = religious_terran_group
+            FROM = { religion_group = political_terran_group }
+        }
+
+        NOT = {
+            religion_group = political_terran_group
+            FROM = { religion_group = religious_terran_group }
+        }
+
+        NOT = {
+            religion_group = religious_group
+            FROM = { religion_group = religious_terran_group }
+        }
+
+        NOT = {
+            religion_group = religious_terran_group
+            FROM = { religion_group = religious_group }
+        }
+
+        capital_scope = {
+            province = ROOT
+        }
+
+        FROM = {
+            higher_tier_than = COUNT
+
+            trigger_if = {
+                limit = { independent = no }
+                higher_tier_than = DUKE
+            }
+
+            #trigger_if = {
+            #    limit = { religion_group = pagan_group }
+            #    has_religion_feature = religion_proselytizing
+            #}
+        }
+
+        NOT = {
+            has_opinion_modifier = {
+                who = FROM
+                modifier = opinion_sent_preacher
+            }
+        }
+    }
+}

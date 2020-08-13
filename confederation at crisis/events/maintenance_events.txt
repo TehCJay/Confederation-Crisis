@@ -267,55 +267,6 @@ character_event = {
 	}
 }
 
-
-# Clean up default agnatics
-character_event = {
-	id = maintenance.450
-	hide_window = yes
-	is_triggered_only = yes
-	only_rulers = yes
-
-	trigger = {
-		any_demesne_title = { NOT = { has_law = true_cognatic_succession } }
-	}
-	immediate = {
-		any_demesne_title = {
-			limit = { NOT = { has_law = true_cognatic_succession } }
-			add_law = true_cognatic_succession
-		}
-	}
-}
-
-# Clean up default agnatics
-character_event = {
-	id = maintenance.451
-	hide_window = yes
-	is_triggered_only = yes
-	only_rulers = yes
-
-	trigger = {
-		any_demesne_title = { NOT = { has_law = status_of_women_4 } }
-	}
-	immediate = {
-		any_demesne_title = {
-			limit = { NOT = { has_law = status_of_women_4 } }
-			add_law = status_of_women_4
-		}
-	}
-}
-
-# Clean up orphaned trade posts
-province_event = {
-	id = maintenance.500
-	hide_window = yes
-	is_triggered_only = yes
-	trigger = { trade_post_owner = { is_patrician = no } }
-
-	immediate = {
-		trade_post_owner = { destroy_tradepost = ROOT }
-	}
-}
-
 # If a character is trapped in a "busy" state, pull them out of it
 character_event = {
 	id = maintenance.600
