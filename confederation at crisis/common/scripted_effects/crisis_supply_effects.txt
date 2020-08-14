@@ -275,10 +275,115 @@ fn_crisis_recalcsupply_in_province = {
     }
 
     remove_province_modifiers = {
-        name = province_supply_from_building
+        name = province_supply_from_building1
+        amount = 10000
+    }
+    remove_province_modifiers = {
+        name = province_supply_from_building2
+        amount = 10000
+    }
+    remove_province_modifiers = {
+        name = province_supply_from_building5
+        amount = 10000
+    }
+    remove_province_modifiers = {
+        name = province_supply_from_building10
+        amount = 10000
+    }
+    remove_province_modifiers = {
+        name = province_supply_from_building20
+        amount = 10000
+    }
+    remove_province_modifiers = {
+        name = province_supply_from_building50
         amount = 10000
     }
 
+    while = {
+        limit = {
+            check_variable = {
+                which = "supply_value"
+                value >= 50
+            }
+        }
+        subtract_variable = {
+            which = "supply_value"
+            value = 50
+        }
+        add_province_modifier = {
+            name = province_supply_from_building50
+            duration = -1
+            stacking = yes
+        }
+    }
+    while = {
+        limit = {
+            check_variable = {
+                which = "supply_value"
+                value >= 20
+            }
+        }
+        subtract_variable = {
+            which = "supply_value"
+            value = 20
+        }
+        add_province_modifier = {
+            name = province_supply_from_building20
+            duration = -1
+            stacking = yes
+        }
+    }
+    while = {
+        limit = {
+            check_variable = {
+                which = "supply_value"
+                value >= 10
+            }
+        }
+        subtract_variable = {
+            which = "supply_value"
+            value = 10
+        }
+        add_province_modifier = {
+            name = province_supply_from_building10
+            duration = -1
+            stacking = yes
+        }
+    }
+    while = {
+        limit = {
+            check_variable = {
+                which = "supply_value"
+                value >= 5
+            }
+        }
+        subtract_variable = {
+            which = "supply_value"
+            value = 5
+        }
+        add_province_modifier = {
+            name = province_supply_from_building5
+            duration = -1
+            stacking = yes
+        }
+    }
+    while = {
+        limit = {
+            check_variable = {
+                which = "supply_value"
+                value >= 2
+            }
+        }
+        subtract_variable = {
+            which = "supply_value"
+            value = 2
+        }
+        add_province_modifier = {
+            name = province_supply_from_building2
+            duration = -1
+            stacking = yes
+        }
+    }
     while = {
         limit = {
             check_variable = {
@@ -291,7 +396,7 @@ fn_crisis_recalcsupply_in_province = {
             value = 1
         }
         add_province_modifier = {
-            name = province_supply_from_building
+            name = province_supply_from_building1
             duration = -1
             stacking = yes
         }
