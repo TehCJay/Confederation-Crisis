@@ -32,30 +32,6 @@ zealot_pattern_for = {
 					religion = FROMFROMFROMFROM # Third-party title
 				}
 			}
-
-			custom_tooltip = {
-				text = pattern_attacking_excom_or_antipope_custom_tooltip
-
-				# or attacking an excommunicated member of the faith or an antipope
-				religion = FROMFROM
-
-				OR = {
-					stored_token_trigger = depose_antipope # cb_type
-
-					FROMFROM = {
-						trait = excommunicated
-					}
-				}
-			}
-		}
-
-		custom_tooltip = {
-			text = pattern_zealot_not_other_religion_antipope_custom_tooltip
-
-			trigger_if = { # Will prefer to keep antipopes of other religions alive
-				limit = { stored_token_trigger = depose_antipope } # cb_type
-				religion = FROM # Attacker
-			}
 		}
 
 		custom_tooltip = {
@@ -97,10 +73,6 @@ zealot_pattern_for = {
 
 	succession_voting_power_0 = { always = no }
 	succession_voting_power_1 = { always = yes }
-
-	vassal_wars_law_0 = { always = yes }
-	vassal_wars_law_1 = { always = no }
-	vassal_wars_law_2 = { always = no }
 
 	# ROOT is voter
 	# FROM is actor
@@ -231,8 +203,6 @@ zealot_pattern_for = {
 	}
 
 	vice_royalty_2 = { always = no }
-	feudal_administration = { always = yes }
-	imperial_administration = { always = no }
 
 	out_of_realm_inheritance_law_0 = { always = yes }
 	out_of_realm_inheritance_law_1 = { always = no }
@@ -277,49 +247,6 @@ zealot_pattern_for = {
 	}
 
 	tax_levy_law_feudal_8 = {
-		always = no
-	}
-
-	tax_levy_law_iqta_0 = {
-		is_feudal = yes
-	}
-
-	tax_levy_law_iqta_1 = {
-		is_feudal = yes
-		liege = { has_law = tax_levy_law_iqta_2 }
-	}
-
-	tax_levy_law_iqta_2 = {
-		is_feudal = yes
-		liege = { has_law = tax_levy_law_iqta_3 }
-	}
-
-	tax_levy_law_iqta_3 = {
-		is_feudal = yes
-		liege = { has_law = tax_levy_law_iqta_4 }
-	}
-
-	tax_levy_law_iqta_4 = {
-		is_feudal = yes
-		liege = { has_law = tax_levy_law_iqta_5 }
-	}
-
-	tax_levy_law_iqta_5 = {
-		is_feudal = yes
-		liege = { has_law = tax_levy_law_iqta_6 }
-	}
-
-	tax_levy_law_iqta_6 = {
-		is_feudal = yes
-		liege = { has_law = tax_levy_law_iqta_7 }
-	}
-
-	tax_levy_law_iqta_7 = {
-		is_feudal = yes
-		liege = { has_law = tax_levy_law_iqta_8 }
-	}
-
-	tax_levy_law_iqta_8 = {
 		always = no
 	}
 
@@ -422,30 +349,6 @@ zealot_pattern_for = {
 			value >= 20
 		}
 	}
-
-	status_of_women_0 = {
-		is_female = yes
-		NOT = { has_law = status_of_women_1 }
-	}
-
-	status_of_women_1 = {
-		is_female = yes
-		has_law = status_of_women_0
-	}
-
-	status_of_women_2 = {
-		is_female = yes
-		has_law = status_of_women_1
-	}
-
-	status_of_women_3 = {
-		is_female = yes
-		has_law = status_of_women_2
-	}
-
-	status_of_women_4 = {
-		is_female = yes
-	}
 }
 
 zealot_pattern_against = {
@@ -453,21 +356,12 @@ zealot_pattern_against = {
 	pattern_type = against
 
 	declare_war_interaction = {
-		OR = {
-			custom_tooltip = {
-				text = pattern_zealot_not_other_religion_antipope_custom_tooltip
+		custom_tooltip = {
+			text = pattern_zealot_should_focus_on_great_holy_war
 
-				stored_token_trigger = depose_antipope
-				NOT = { religion = FROM } # Attacker
-			}
-
-			custom_tooltip = {
-				text = pattern_zealot_should_focus_on_great_holy_war
-
-				FROM = { # Attacker
-					religion = ROOT_FROMFROM
-					has_called_crusade = yes
-				}
+			FROM = { # Attacker
+				religion = ROOT_FROMFROM
+				has_called_crusade = yes
 			}
 		}
 	}
@@ -535,10 +429,6 @@ zealot_pattern_against = {
 	succession_voting_power_0 = { always = yes }
 	succession_voting_power_1 = { always = no }
 
-	vassal_wars_law_0 = { always = no }
-	vassal_wars_law_1 = { always = yes }
-	vassal_wars_law_2 = { always = yes }
-
 	centralization_0 = { always = no }
 	centralization_1 = { always = no }
 	centralization_2 = { always = no }
@@ -566,9 +456,6 @@ zealot_pattern_against = {
 			}
 		}
 	}
-
-	feudal_administration = { always = no }
-	imperial_administration = { always = yes }
 
 	out_of_realm_inheritance_law_0 = { always = no }
 	out_of_realm_inheritance_law_1 = { always = yes }
@@ -613,49 +500,6 @@ zealot_pattern_against = {
 	}
 
 	tax_levy_law_feudal_8 = {
-		is_feudal = yes
-	}
-
-	tax_levy_law_iqta_0 = {
-		always = no
-	}
-
-	tax_levy_law_iqta_1 = {
-		is_feudal = yes
-		liege = { has_law = tax_levy_law_iqta_0 }
-	}
-
-	tax_levy_law_iqta_2 = {
-		is_feudal = yes
-		liege = { has_law = tax_levy_law_iqta_1 }
-	}
-
-	tax_levy_law_iqta_3 = {
-		is_feudal = yes
-		liege = { has_law = tax_levy_law_iqta_2 }
-	}
-
-	tax_levy_law_iqta_4 = {
-		is_feudal = yes
-		liege = { has_law = tax_levy_law_iqta_3 }
-	}
-
-	tax_levy_law_iqta_5 = {
-		is_feudal = yes
-		liege = { has_law = tax_levy_law_iqta_4 }
-	}
-
-	tax_levy_law_iqta_6 = {
-		is_feudal = yes
-		liege = { has_law = tax_levy_law_iqta_5 }
-	}
-
-	tax_levy_law_iqta_7 = {
-		is_feudal = yes
-		liege = { has_law = tax_levy_law_iqta_6 }
-	}
-
-	tax_levy_law_iqta_8 = {
 		is_feudal = yes
 	}
 
@@ -760,37 +604,5 @@ zealot_pattern_against = {
 
 	revoke_title_law_2 = {
 		always = no
-	}
-
-	ze_administration_laws_0 = {
-		has_law = ze_administration_laws_1
-	}
-
-	ze_administration_laws_1 = {
-		has_law = ze_administration_laws_1
-	}
-
-	ze_administration_laws_2 = {
-		always = yes
-	}
-
-	status_of_women_0 = {
-		always = no
-	}
-
-	status_of_women_1 = {
-		has_law = status_of_women_0
-	}
-
-	status_of_women_2 = {
-		has_law = status_of_women_1
-	}
-
-	status_of_women_3 = {
-		has_law = status_of_women_2
-	}
-
-	status_of_women_4 = {
-		has_law = status_of_women_3
 	}
 }

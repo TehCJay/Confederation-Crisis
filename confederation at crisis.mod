@@ -22,6 +22,7 @@ replace_path="common/dynasties"
 #replace_path="common/cultures"
 replace_path="common/religions"
 replace_path="common/religious_titles"
+replace_path="common/religion_modifiers"
 replace_path="common/succession_voting"
 
 #disable DLC stuff we won't use
