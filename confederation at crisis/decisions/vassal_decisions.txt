@@ -6,7 +6,7 @@ targeted_decisions = {
 		only_playable = yes
 		filter = vassals
 		ai_target_filter = vassals
-		
+
 		from_potential = {
 			is_playable = yes
 			higher_tier_than = BARON
@@ -15,9 +15,9 @@ targeted_decisions = {
 				has_job_title = job_spiritual
 			}
 		}
-		
-		ai_check_interval = 40 
- potential = {
+
+		ai_check_interval = 40
+ 		potential = {
 			age = 16
 			is_ruler = yes
 			is_landed = yes
@@ -83,7 +83,7 @@ targeted_decisions = {
 			}
 		}
 	}
-	
+
 	vassal_castrate_decision = {
 		only_playable = yes
 		filter = court
@@ -98,8 +98,8 @@ targeted_decisions = {
 			}
 		}
 
-		ai_check_interval = 40 
- potential = {
+		ai_check_interval = 40
+ 		potential = {
 			prisoner = yes
 			host = { character = FROM }
 			is_female = no
@@ -248,14 +248,14 @@ targeted_decisions = {
 		only_playable = yes
 		filter = court
 		ai_target_filter = court
-		
+
 		from_potential = {
 			has_dlc = "Legacy of Rome"
 			is_playable = yes
 		}
 
-		ai_check_interval = 40 
- potential = {
+		ai_check_interval = 40
+ 		potential = {
 			prisoner = yes
 			host = { character = FROM }
 			NOT = { trait = blinded }
@@ -349,7 +349,7 @@ targeted_decisions = {
 			factor = 1
 			modifier = {
 				factor = 0.1 # Less likely to do it
-				always = yes 
+				always = yes
 			}
 			modifier = {
 				factor = 0
@@ -408,12 +408,12 @@ targeted_decisions = {
 			}
 		}
 	}
-	
+
 	vassal_zun_judgement_decision = {
 		only_playable = yes
 		filter = court
 		ai_target_filter = court
-		
+
 		from_potential = {
 			is_playable = yes
 			OR = {
@@ -421,9 +421,9 @@ targeted_decisions = {
 				religion = zun_pagan_reformed
 			}
 		}
-		
-		ai_check_interval = 40 
- potential = {
+
+		ai_check_interval = 40
+ 		potential = {
 			prisoner = yes
 			vassal_of = FROM
 			host = { character = FROM }
@@ -440,7 +440,7 @@ targeted_decisions = {
 		}
 		ai_will_do = {
 			factor = 1
-			
+
 			modifier = {
 				factor = 0
 				reverse_opinion = { who = FROM value = 40 }
@@ -476,9 +476,9 @@ targeted_decisions = {
 		from_potential = {
 			ai = no
 		}
-		
-		ai_check_interval = 40 
- potential = {
+
+		ai_check_interval = 40
+ 		potential = {
 			host = { character = FROM }
 			prisoner = yes
 			NOT = { has_character_modifier = the_oubliette }
@@ -487,7 +487,7 @@ targeted_decisions = {
 			prisoner = yes
 		}
 		effect = {
-			add_character_modifier = { 
+			add_character_modifier = {
 				name = the_oubliette
 				duration = -1
 			}
@@ -496,16 +496,16 @@ targeted_decisions = {
 				remove_character_modifier = house_arrest
 			}
 		}
-		
+
 		revoke_allowed = {
 			always = no
 		}
-		
+
 		ai_will_do = {
 			factor = 0
 		}
 	}
-	
+
 	prisoner_to_dungeon = {
 		filter = court
 		ai_target_filter = court
@@ -513,9 +513,9 @@ targeted_decisions = {
 		from_potential = {
 			ai = no
 		}
-		
-		ai_check_interval = 40 
- potential = {
+
+		ai_check_interval = 40
+ 		potential = {
 			host = { character = FROM }
 			prisoner = yes
 			OR = {
@@ -527,7 +527,7 @@ targeted_decisions = {
 			prisoner = yes
 		}
 		effect = {
-			add_character_modifier = { 
+			add_character_modifier = {
 				name = the_dungeon
 				duration = -1
 			}
@@ -536,16 +536,16 @@ targeted_decisions = {
 				remove_character_modifier = house_arrest
 			}
 		}
-		
+
 		revoke_allowed = {
 			always = no
 		}
-		
+
 		ai_will_do = {
 			factor = 0
 		}
 	}
-	
+
 	prisoner_to_suite = {
 		filter = court
 		ai_target_filter = court
@@ -553,9 +553,9 @@ targeted_decisions = {
 		from_potential = {
 			ai = no
 		}
-		
-		ai_check_interval = 40 
- potential = {
+
+		ai_check_interval = 40
+ 		potential = {
 			host = { character = FROM }
 			prisoner = yes
 			NOT = { has_character_modifier = house_arrest }
@@ -564,7 +564,7 @@ targeted_decisions = {
 			prisoner = yes
 		}
 		effect = {
-			add_character_modifier = { 
+			add_character_modifier = {
 				name = house_arrest
 				duration = -1
 			}
@@ -574,11 +574,11 @@ targeted_decisions = {
 				character_event = { id = ZE.12219 } # Loses pet rat
 			}
 		}
-		
+
 		revoke_allowed = {
 			always = no
 		}
-		
+
 		ai_will_do = {
 			factor = 0
 		}
@@ -587,7 +587,7 @@ targeted_decisions = {
 	imperial_corrupt_councillor = {
 		filter = realm
 		ai_target_filter = realm
-		
+
 		from_potential = {
 			real_tier = EMPEROR
 			#has_imperial_government_trigger = yes
@@ -596,8 +596,8 @@ targeted_decisions = {
 				any_demesne_title = { temporary = yes }
 			}
 		}
-		ai_check_interval = 40 
- potential = {
+		ai_check_interval = 40
+ 		potential = {
 			OR = {
 				is_voter = yes
 				is_councillor = yes

@@ -1,7 +1,7 @@
 decisions = {
 	get_full_cybernetic_conversion_decision = {
 		is_high_prio = yes
-		ai_check_interval = 40 
+		ai_check_interval = 40
 		potential = {
 			NOT = { trait = full_cybernetic_conversion }
 			age = 16
@@ -24,7 +24,7 @@ decisions = {
 			is_pregnant = no
 			NOT = { has_character_flag = flag_busy }
 			location = {
-				TECH_POPULAR_CUSTOMS = 5
+				TECH_CYBERNETICS = 5
 				any_province_lord = {
 					NOT = { war_with = ROOT }
 					any_demesne_title = {
@@ -37,11 +37,11 @@ decisions = {
 			OR = {
 				wealth = 2000
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 6 }
+					location = { TECH_CYBERNETICS = 6 }
 					wealth = 1000
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 7 }
+					location = { TECH_CYBERNETICS = 7 }
 					wealth = 500
 				}
 			}
@@ -53,20 +53,20 @@ decisions = {
 		}
 		effect = {
 			if = {
-				limit = { location = { NOT = { TECH_POPULAR_CUSTOMS = 6 } } }
+				limit = { location = { NOT = { TECH_CYBERNETICS = 6 } } }
 				wealth = -2000
 			}
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 6
-						NOT = { TECH_POPULAR_CUSTOMS = 7 }
+						TECH_CYBERNETICS = 6
+						NOT = { TECH_CYBERNETICS = 7 }
 					}
 				}
 				wealth = -1000
 			}
 			if = {
-				limit = { location = { TECH_POPULAR_CUSTOMS = 7 } }
+				limit = { location = { TECH_CYBERNETICS = 7 } }
 				wealth = -500
 			}
 			# Remove Health Traits
@@ -78,7 +78,7 @@ decisions = {
 				limit = { trait = maimed }
 				remove_trait = maimed
 			}
-			if = {	
+			if = {
 				limit = { trait = severely_injured }
 				remove_trait = severely_injured
 			}
@@ -328,7 +328,7 @@ decisions = {
 	# Get DNI
 	get_dni_decision = {
 		is_high_prio = yes
-		ai_check_interval = 40 
+		ai_check_interval = 40
 		potential = {
 			NOT = { trait = dni }
 			age = 16
@@ -354,22 +354,22 @@ decisions = {
 			OR = {
 				wealth = 100
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 2 }
+					location = { TECH_CYBERNETICS = 2 }
 					wealth = 50
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 3 }
+					location = { TECH_CYBERNETICS = 3 }
 					wealth = 25
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 4 }
+					location = { TECH_CYBERNETICS = 4 }
 					wealth = 10
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 5 }
+					location = { TECH_CYBERNETICS = 5 }
 					wealth = 5
 				}
-				location = { TECH_POPULAR_CUSTOMS = 6 }
+				location = { TECH_CYBERNETICS = 6 }
 			}
 			OR = {
 				NOT = { religion_group = religious_group }
@@ -379,14 +379,14 @@ decisions = {
 		}
 		effect = {
 			if = {
-				limit = { NOT = { location = { TECH_POPULAR_CUSTOMS = 2 } } }
+				limit = { NOT = { location = { TECH_CYBERNETICS = 2 } } }
 				wealth = -100
 			}
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 2
-						NOT = { TECH_POPULAR_CUSTOMS = 3 }
+						TECH_CYBERNETICS = 2
+						NOT = { TECH_CYBERNETICS = 3 }
 					}
 				}
 				wealth = -50
@@ -394,8 +394,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 3
-						NOT = { TECH_POPULAR_CUSTOMS = 4 }
+						TECH_CYBERNETICS = 3
+						NOT = { TECH_CYBERNETICS = 4 }
 					}
 				}
 				wealth = -25
@@ -403,8 +403,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 4
-						NOT = { TECH_POPULAR_CUSTOMS = 5 }
+						TECH_CYBERNETICS = 4
+						NOT = { TECH_CYBERNETICS = 5 }
 					}
 				}
 				wealth = -10
@@ -412,8 +412,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 5
-						NOT = { TECH_POPULAR_CUSTOMS = 6 }
+						TECH_CYBERNETICS = 5
+						NOT = { TECH_CYBERNETICS = 6 }
 					}
 				}
 				wealth = -5
@@ -459,14 +459,14 @@ decisions = {
 				NOT = { trait = open_minded }
 				NOT = { trait = ambitious }
 			}
-			
+
 			# Ideological concerns
 			modifier = {
 				factor = 0
 				religion_group = religious_group
 				NOT = { trait = pragmatic }
 			}
-			
+
 			# Just plain squeamish
 			modifier = {
 				factor = 0
@@ -483,7 +483,7 @@ decisions = {
 	}
 	get_iaei_mk_i_decision = {
 		is_high_prio = yes
-		ai_check_interval = 40 
+		ai_check_interval = 40
 		potential = {
 			trait = dni
 			NOT = { trait = thoth_mk_i }
@@ -518,27 +518,27 @@ decisions = {
 			OR = {
 				wealth = 500
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 1 }
+					location = { TECH_CYBERNETICS = 1 }
 					wealth = 250
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 2 }
+					location = { TECH_CYBERNETICS = 2 }
 					wealth = 100
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 3 }
+					location = { TECH_CYBERNETICS = 3 }
 					wealth = 50
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 4 }
+					location = { TECH_CYBERNETICS = 4 }
 					wealth = 25
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 5 }
+					location = { TECH_CYBERNETICS = 5 }
 					wealth = 10
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 6 }
+					location = { TECH_CYBERNETICS = 6 }
 					wealth = 5
 				}
 			}
@@ -550,14 +550,14 @@ decisions = {
 		}
 		effect = {
 			if = {
-				limit = { location = { NOT = { TECH_POPULAR_CUSTOMS = 1 } } }
+				limit = { location = { NOT = { TECH_CYBERNETICS = 1 } } }
 				wealth = -500
 			}
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 1
-						NOT = { TECH_POPULAR_CUSTOMS = 2 }
+						TECH_CYBERNETICS = 1
+						NOT = { TECH_CYBERNETICS = 2 }
 					}
 				}
 				wealth = -250
@@ -565,8 +565,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 2
-						NOT = { TECH_POPULAR_CUSTOMS = 3 }
+						TECH_CYBERNETICS = 2
+						NOT = { TECH_CYBERNETICS = 3 }
 					}
 				}
 				wealth = -100
@@ -574,8 +574,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 3
-						NOT = { TECH_POPULAR_CUSTOMS = 4 }
+						TECH_CYBERNETICS = 3
+						NOT = { TECH_CYBERNETICS = 4 }
 					}
 				}
 				wealth = -50
@@ -583,8 +583,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 4
-						NOT = { TECH_POPULAR_CUSTOMS = 5 }
+						TECH_CYBERNETICS = 4
+						NOT = { TECH_CYBERNETICS = 5 }
 					}
 				}
 				wealth = -25
@@ -592,14 +592,14 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 5
-						NOT = { TECH_POPULAR_CUSTOMS = 6 }
+						TECH_CYBERNETICS = 5
+						NOT = { TECH_CYBERNETICS = 6 }
 					}
 				}
 				wealth = -10
 			}
 			if = {
-				limit = { location = { TECH_POPULAR_CUSTOMS = 6 } }
+				limit = { location = { TECH_CYBERNETICS = 6 } }
 				wealth = -5
 			}
 			add_trait = iaei_mk_i
@@ -646,7 +646,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 2 }
+				location = { TECH_CYBERNETICS = 2 }
 				monthly_income = 1
 				NOT = { trait = odin_mk_ii }
 				NOT = { trait = pci_mk_ii }
@@ -655,7 +655,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 4 }
+				location = { TECH_CYBERNETICS = 4 }
 				monthly_income = 2
 				NOT = { trait = odin_mk_iii }
 				NOT = { trait = pci_mk_iii }
@@ -664,7 +664,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 6 }
+				location = { TECH_CYBERNETICS = 6 }
 				monthly_income = 3
 				NOT = { trait = odin_mk_iv }
 				NOT = { trait = pci_mk_iv }
@@ -673,7 +673,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 8 }
+				location = { TECH_CYBERNETICS = 8 }
 				monthly_income = 4
 				NOT = { trait = odin_mk_v }
 				NOT = { trait = pci_mk_v }
@@ -684,10 +684,10 @@ decisions = {
 	}
 	get_iaei_mk_ii_decision = {
 		is_high_prio = yes
-		ai_check_interval = 40 
+		ai_check_interval = 40
 		potential = {
 			trait = dni
-			location = { TECH_POPULAR_CUSTOMS = 2 }
+			location = { TECH_CYBERNETICS = 2 }
 			NOT = { trait = iaei_mk_ii }
 			NOT = { trait = iaei_mk_iii }
 			NOT = { trait = iaei_mk_iv }
@@ -719,27 +719,27 @@ decisions = {
 			OR = {
 				wealth = 500
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 3 }
+					location = { TECH_CYBERNETICS = 3 }
 					wealth = 250
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 4 }
+					location = { TECH_CYBERNETICS = 4 }
 					wealth = 100
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 5 }
+					location = { TECH_CYBERNETICS = 5 }
 					wealth = 50
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 6 }
+					location = { TECH_CYBERNETICS = 6 }
 					wealth = 25
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 7 }
+					location = { TECH_CYBERNETICS = 7 }
 					wealth = 10
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 8 }
+					location = { TECH_CYBERNETICS = 8 }
 					wealth = 5
 				}
 			}
@@ -751,14 +751,14 @@ decisions = {
 		}
 		effect = {
 			if = {
-				limit = { location = { NOT = { TECH_POPULAR_CUSTOMS = 3 } } }
+				limit = { location = { NOT = { TECH_CYBERNETICS = 3 } } }
 				wealth = -500
 			}
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 3
-						NOT = { TECH_POPULAR_CUSTOMS = 4 }
+						TECH_CYBERNETICS = 3
+						NOT = { TECH_CYBERNETICS = 4 }
 					}
 				}
 				wealth = -250
@@ -766,8 +766,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 4
-						NOT = { TECH_POPULAR_CUSTOMS = 5 }
+						TECH_CYBERNETICS = 4
+						NOT = { TECH_CYBERNETICS = 5 }
 					}
 				}
 				wealth = -100
@@ -775,8 +775,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 5
-						NOT = { TECH_POPULAR_CUSTOMS = 6 }
+						TECH_CYBERNETICS = 5
+						NOT = { TECH_CYBERNETICS = 6 }
 					}
 				}
 				wealth = -50
@@ -784,8 +784,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 6
-						NOT = { TECH_POPULAR_CUSTOMS = 7 }
+						TECH_CYBERNETICS = 6
+						NOT = { TECH_CYBERNETICS = 7 }
 					}
 				}
 				wealth = -25
@@ -793,14 +793,14 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 7
-						NOT = { TECH_POPULAR_CUSTOMS = 8 }
+						TECH_CYBERNETICS = 7
+						NOT = { TECH_CYBERNETICS = 8 }
 					}
 				}
 				wealth = -10
 			}
 			if = {
-				limit = { location = { TECH_POPULAR_CUSTOMS = 8 } }
+				limit = { location = { TECH_CYBERNETICS = 8 } }
 				wealth = -5
 			}
 			remove_trait = iaei_mk_i
@@ -848,7 +848,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 4 }
+				location = { TECH_CYBERNETICS = 4 }
 				monthly_income = 2
 				NOT = { trait = odin_mk_iii }
 				NOT = { trait = pci_mk_iii }
@@ -857,7 +857,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 6 }
+				location = { TECH_CYBERNETICS = 6 }
 				monthly_income = 3
 				NOT = { trait = odin_mk_iv }
 				NOT = { trait = pci_mk_iv }
@@ -866,7 +866,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 8 }
+				location = { TECH_CYBERNETICS = 8 }
 				monthly_income = 4
 				NOT = { trait = odin_mk_v }
 				NOT = { trait = pci_mk_v }
@@ -877,10 +877,10 @@ decisions = {
 	}
 	get_iaei_mk_iii_decision = {
 		is_high_prio = yes
-		ai_check_interval = 40 
+		ai_check_interval = 40
 		potential = {
 			trait = dni
-			location = { TECH_POPULAR_CUSTOMS = 4 }
+			location = { TECH_CYBERNETICS = 4 }
 			NOT = { trait = iaei_mk_iii }
 			NOT = { trait = iaei_mk_iv }
 			NOT = { trait = iaei_mk_v }
@@ -911,19 +911,19 @@ decisions = {
 			OR = {
 				wealth = 500
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 5 }
+					location = { TECH_CYBERNETICS = 5 }
 					wealth = 250
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 6 }
+					location = { TECH_CYBERNETICS = 6 }
 					wealth = 100
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 7 }
+					location = { TECH_CYBERNETICS = 7 }
 					wealth = 50
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 8 }
+					location = { TECH_CYBERNETICS = 8 }
 					wealth = 25
 				}
 			}
@@ -935,14 +935,14 @@ decisions = {
 		}
 		effect = {
 			if = {
-				limit = { location = { NOT = { TECH_POPULAR_CUSTOMS = 5 } } }
+				limit = { location = { NOT = { TECH_CYBERNETICS = 5 } } }
 				wealth = -500
 			}
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 5
-						NOT = { TECH_POPULAR_CUSTOMS = 6 }
+						TECH_CYBERNETICS = 5
+						NOT = { TECH_CYBERNETICS = 6 }
 					}
 				}
 				wealth = -250
@@ -950,8 +950,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 6
-						NOT = { TECH_POPULAR_CUSTOMS = 7 }
+						TECH_CYBERNETICS = 6
+						NOT = { TECH_CYBERNETICS = 7 }
 					}
 				}
 				wealth = -100
@@ -959,14 +959,14 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 7
-						NOT = { TECH_POPULAR_CUSTOMS = 8 }
+						TECH_CYBERNETICS = 7
+						NOT = { TECH_CYBERNETICS = 8 }
 					}
 				}
 				wealth = -50
 			}
 			if = {
-				limit = { location = { TECH_POPULAR_CUSTOMS = 8 } }
+				limit = { location = { TECH_CYBERNETICS = 8 } }
 				wealth = -25
 			}
 			remove_trait = iaei_mk_i
@@ -1015,7 +1015,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 6 }
+				location = { TECH_CYBERNETICS = 6 }
 				monthly_income = 3
 				NOT = { trait = odin_mk_iv }
 				NOT = { trait = pci_mk_iv }
@@ -1024,7 +1024,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 8 }
+				location = { TECH_CYBERNETICS = 8 }
 				monthly_income = 4
 				NOT = { trait = odin_mk_v }
 				NOT = { trait = pci_mk_v }
@@ -1035,10 +1035,10 @@ decisions = {
 	}
 	get_iaei_mk_iv_decision = {
 		is_high_prio = yes
-		ai_check_interval = 40 
+		ai_check_interval = 40
 		potential = {
 			trait = dni
-			location = { TECH_POPULAR_CUSTOMS = 6 }
+			location = { TECH_CYBERNETICS = 6 }
 			NOT = { trait = iaei_mk_iv }
 			NOT = { trait = iaei_mk_v }
 			NOT = { trait = odin_mk_iv }
@@ -1068,11 +1068,11 @@ decisions = {
 			OR = {
 				wealth = 500
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 7 }
+					location = { TECH_CYBERNETICS = 7 }
 					wealth = 250
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 8 }
+					location = { TECH_CYBERNETICS = 8 }
 					wealth = 100
 				}
 			}
@@ -1084,20 +1084,20 @@ decisions = {
 		}
 		effect = {
 			if = {
-				limit = { location = { NOT = { TECH_POPULAR_CUSTOMS = 7 } } }
+				limit = { location = { NOT = { TECH_CYBERNETICS = 7 } } }
 				wealth = -500
 			}
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 7
-						NOT = { TECH_POPULAR_CUSTOMS = 8 }
+						TECH_CYBERNETICS = 7
+						NOT = { TECH_CYBERNETICS = 8 }
 					}
 				}
 				wealth = -250
 			}
 			if = {
-				limit = { location = { TECH_POPULAR_CUSTOMS = 8 } }
+				limit = { location = { TECH_CYBERNETICS = 8 } }
 				wealth = -100
 			}
 			remove_trait = iaei_mk_i
@@ -1147,7 +1147,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 8 }
+				location = { TECH_CYBERNETICS = 8 }
 				monthly_income = 4
 				NOT = { trait = odin_mk_v }
 				NOT = { trait = pci_mk_v }
@@ -1158,10 +1158,10 @@ decisions = {
 	}
 	get_iaei_mk_v_decision = {
 		is_high_prio = yes
-		ai_check_interval = 40 
+		ai_check_interval = 40
 		potential = {
 			trait = dni
-			location = { TECH_POPULAR_CUSTOMS = 8 }
+			location = { TECH_CYBERNETICS = 8 }
 			NOT = { trait = iaei_mk_v }
 			NOT = { trait = odin_mk_v }
 			NOT = { trait = pluto_mk_v }
@@ -1246,7 +1246,7 @@ decisions = {
 	}
 	get_odin_mk_i_decision = {
 		is_high_prio = yes
-		ai_check_interval = 40 
+		ai_check_interval = 40
 		potential = {
 			trait = dni
 			NOT = { trait = thoth_mk_i }
@@ -1281,27 +1281,27 @@ decisions = {
 			OR = {
 				wealth = 500
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 1 }
+					location = { TECH_CYBERNETICS = 1 }
 					wealth = 250
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 2 }
+					location = { TECH_CYBERNETICS = 2 }
 					wealth = 100
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 3 }
+					location = { TECH_CYBERNETICS = 3 }
 					wealth = 50
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 4 }
+					location = { TECH_CYBERNETICS = 4 }
 					wealth = 25
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 5 }
+					location = { TECH_CYBERNETICS = 5 }
 					wealth = 10
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 6 }
+					location = { TECH_CYBERNETICS = 6 }
 					wealth = 5
 				}
 			}
@@ -1313,14 +1313,14 @@ decisions = {
 		}
 		effect = {
 			if = {
-				limit = { location = { NOT = { TECH_POPULAR_CUSTOMS = 1 } } }
+				limit = { location = { NOT = { TECH_CYBERNETICS = 1 } } }
 				wealth = -500
 			}
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 1
-						NOT = { TECH_POPULAR_CUSTOMS = 2 }
+						TECH_CYBERNETICS = 1
+						NOT = { TECH_CYBERNETICS = 2 }
 					}
 				}
 				wealth = -250
@@ -1328,8 +1328,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 2
-						NOT = { TECH_POPULAR_CUSTOMS = 3 }
+						TECH_CYBERNETICS = 2
+						NOT = { TECH_CYBERNETICS = 3 }
 					}
 				}
 				wealth = -100
@@ -1337,8 +1337,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 3
-						NOT = { TECH_POPULAR_CUSTOMS = 4 }
+						TECH_CYBERNETICS = 3
+						NOT = { TECH_CYBERNETICS = 4 }
 					}
 				}
 				wealth = -50
@@ -1346,8 +1346,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 4
-						NOT = { TECH_POPULAR_CUSTOMS = 5 }
+						TECH_CYBERNETICS = 4
+						NOT = { TECH_CYBERNETICS = 5 }
 					}
 				}
 				wealth = -25
@@ -1355,14 +1355,14 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 5
-						NOT = { TECH_POPULAR_CUSTOMS = 6 }
+						TECH_CYBERNETICS = 5
+						NOT = { TECH_CYBERNETICS = 6 }
 					}
 				}
 				wealth = -10
 			}
 			if = {
-				limit = { location = { TECH_POPULAR_CUSTOMS = 6 } }
+				limit = { location = { TECH_CYBERNETICS = 6 } }
 				wealth = -5
 			}
 			if = {
@@ -1413,7 +1413,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 2 }
+				location = { TECH_CYBERNETICS = 2 }
 				monthly_income = 1
 				NOT = { trait = iaei_mk_ii }
 				NOT = { trait = pci_mk_ii }
@@ -1422,7 +1422,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 4 }
+				location = { TECH_CYBERNETICS = 4 }
 				monthly_income = 2
 				NOT = { trait = iaei_mk_iii }
 				NOT = { trait = pci_mk_iii }
@@ -1431,7 +1431,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 6 }
+				location = { TECH_CYBERNETICS = 6 }
 				monthly_income = 3
 				NOT = { trait = iaei_mk_iv }
 				NOT = { trait = pci_mk_iv }
@@ -1440,7 +1440,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 8 }
+				location = { TECH_CYBERNETICS = 8 }
 				monthly_income = 4
 				NOT = { trait = iaei_mk_v }
 				NOT = { trait = pci_mk_v }
@@ -1451,10 +1451,10 @@ decisions = {
 	}
 	get_odin_mk_ii_decision = {
 		is_high_prio = yes
-		ai_check_interval = 40 
+		ai_check_interval = 40
 		potential = {
 			trait = dni
-			location = { TECH_POPULAR_CUSTOMS = 2 }
+			location = { TECH_CYBERNETICS = 2 }
 			NOT = { trait = odin_mk_ii }
 			NOT = { trait = odin_mk_iii }
 			NOT = { trait = odin_mk_iv }
@@ -1486,27 +1486,27 @@ decisions = {
 			OR = {
 				wealth = 500
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 3 }
+					location = { TECH_CYBERNETICS = 3 }
 					wealth = 250
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 4 }
+					location = { TECH_CYBERNETICS = 4 }
 					wealth = 100
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 5 }
+					location = { TECH_CYBERNETICS = 5 }
 					wealth = 50
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 6 }
+					location = { TECH_CYBERNETICS = 6 }
 					wealth = 25
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 7 }
+					location = { TECH_CYBERNETICS = 7 }
 					wealth = 10
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 8 }
+					location = { TECH_CYBERNETICS = 8 }
 					wealth = 5
 				}
 			}
@@ -1518,14 +1518,14 @@ decisions = {
 		}
 		effect = {
 			if = {
-				limit = { location = { NOT = { TECH_POPULAR_CUSTOMS = 3 } } }
+				limit = { location = { NOT = { TECH_CYBERNETICS = 3 } } }
 				wealth = -500
 			}
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 3
-						NOT = { TECH_POPULAR_CUSTOMS = 4 }
+						TECH_CYBERNETICS = 3
+						NOT = { TECH_CYBERNETICS = 4 }
 					}
 				}
 				wealth = -250
@@ -1533,8 +1533,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 4
-						NOT = { TECH_POPULAR_CUSTOMS = 5 }
+						TECH_CYBERNETICS = 4
+						NOT = { TECH_CYBERNETICS = 5 }
 					}
 				}
 				wealth = -100
@@ -1542,8 +1542,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 5
-						NOT = { TECH_POPULAR_CUSTOMS = 6 }
+						TECH_CYBERNETICS = 5
+						NOT = { TECH_CYBERNETICS = 6 }
 					}
 				}
 				wealth = -50
@@ -1551,8 +1551,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 6
-						NOT = { TECH_POPULAR_CUSTOMS = 7 }
+						TECH_CYBERNETICS = 6
+						NOT = { TECH_CYBERNETICS = 7 }
 					}
 				}
 				wealth = -25
@@ -1560,14 +1560,14 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 7
-						NOT = { TECH_POPULAR_CUSTOMS = 8 }
+						TECH_CYBERNETICS = 7
+						NOT = { TECH_CYBERNETICS = 8 }
 					}
 				}
 				wealth = -10
 			}
 			if = {
-				limit = { location = { TECH_POPULAR_CUSTOMS = 8 } }
+				limit = { location = { TECH_CYBERNETICS = 8 } }
 				wealth = -5
 			}
 			if = {
@@ -1619,7 +1619,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 4 }
+				location = { TECH_CYBERNETICS = 4 }
 				monthly_income = 2
 				NOT = { trait = iaei_mk_iii }
 				NOT = { trait = pci_mk_iii }
@@ -1628,7 +1628,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 6 }
+				location = { TECH_CYBERNETICS = 6 }
 				monthly_income = 3
 				NOT = { trait = iaei_mk_iv }
 				NOT = { trait = pci_mk_iv }
@@ -1637,7 +1637,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 8 }
+				location = { TECH_CYBERNETICS = 8 }
 				monthly_income = 4
 				NOT = { trait = iaei_mk_v }
 				NOT = { trait = pci_mk_v }
@@ -1648,10 +1648,10 @@ decisions = {
 	}
 	get_odin_mk_iii_decision = {
 		is_high_prio = yes
-		ai_check_interval = 40 
+		ai_check_interval = 40
 		potential = {
 			trait = dni
-			location = { TECH_POPULAR_CUSTOMS = 4 }
+			location = { TECH_CYBERNETICS = 4 }
 			NOT = { trait = odin_mk_iii }
 			NOT = { trait = odin_mk_iv }
 			NOT = { trait = odin_mk_v }
@@ -1682,19 +1682,19 @@ decisions = {
 			OR = {
 				wealth = 500
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 5 }
+					location = { TECH_CYBERNETICS = 5 }
 					wealth = 250
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 6 }
+					location = { TECH_CYBERNETICS = 6 }
 					wealth = 100
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 7 }
+					location = { TECH_CYBERNETICS = 7 }
 					wealth = 50
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 8 }
+					location = { TECH_CYBERNETICS = 8 }
 					wealth = 25
 				}
 			}
@@ -1706,14 +1706,14 @@ decisions = {
 		}
 		effect = {
 			if = {
-				limit = { location = { NOT = { TECH_POPULAR_CUSTOMS = 5 } } }
+				limit = { location = { NOT = { TECH_CYBERNETICS = 5 } } }
 				wealth = -500
 			}
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 5
-						NOT = { TECH_POPULAR_CUSTOMS = 6 }
+						TECH_CYBERNETICS = 5
+						NOT = { TECH_CYBERNETICS = 6 }
 					}
 				}
 				wealth = -250
@@ -1721,8 +1721,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 6
-						NOT = { TECH_POPULAR_CUSTOMS = 7 }
+						TECH_CYBERNETICS = 6
+						NOT = { TECH_CYBERNETICS = 7 }
 					}
 				}
 				wealth = -100
@@ -1730,14 +1730,14 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 7
-						NOT = { TECH_POPULAR_CUSTOMS = 8 }
+						TECH_CYBERNETICS = 7
+						NOT = { TECH_CYBERNETICS = 8 }
 					}
 				}
 				wealth = -50
 			}
 			if = {
-				limit = { location = { TECH_POPULAR_CUSTOMS = 8 } }
+				limit = { location = { TECH_CYBERNETICS = 8 } }
 				wealth = -25
 			}
 			if = {
@@ -1790,7 +1790,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 6 }
+				location = { TECH_CYBERNETICS = 6 }
 				monthly_income = 3
 				NOT = { trait = iaei_mk_iv }
 				NOT = { trait = pci_mk_iv }
@@ -1799,7 +1799,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 8 }
+				location = { TECH_CYBERNETICS = 8 }
 				monthly_income = 4
 				NOT = { trait = iaei_mk_v }
 				NOT = { trait = pci_mk_v }
@@ -1810,10 +1810,10 @@ decisions = {
 	}
 	get_odin_mk_iv_decision = {
 		is_high_prio = yes
-		ai_check_interval = 40 
+		ai_check_interval = 40
 		potential = {
 			trait = dni
-			location = { TECH_POPULAR_CUSTOMS = 6 }
+			location = { TECH_CYBERNETICS = 6 }
 			NOT = { trait = odin_mk_iv }
 			NOT = { trait = odin_mk_v }
 			NOT = { trait = iaei_mk_iv }
@@ -1843,11 +1843,11 @@ decisions = {
 			OR = {
 				wealth = 500
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 7 }
+					location = { TECH_CYBERNETICS = 7 }
 					wealth = 250
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 8 }
+					location = { TECH_CYBERNETICS = 8 }
 					wealth = 100
 				}
 			}
@@ -1859,20 +1859,20 @@ decisions = {
 		}
 		effect = {
 			if = {
-				limit = { location = { NOT = { TECH_POPULAR_CUSTOMS = 7 } } }
+				limit = { location = { NOT = { TECH_CYBERNETICS = 7 } } }
 				wealth = -500
 			}
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 7
-						NOT = { TECH_POPULAR_CUSTOMS = 8 }
+						TECH_CYBERNETICS = 7
+						NOT = { TECH_CYBERNETICS = 8 }
 					}
 				}
 				wealth = -250
 			}
 			if = {
-				limit = { location = { TECH_POPULAR_CUSTOMS = 8 } }
+				limit = { location = { TECH_CYBERNETICS = 8 } }
 				wealth = -100
 			}
 			if = {
@@ -1926,7 +1926,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 8 }
+				location = { TECH_CYBERNETICS = 8 }
 				monthly_income = 4
 				NOT = { trait = iaei_mk_v }
 				NOT = { trait = pci_mk_v }
@@ -1937,10 +1937,10 @@ decisions = {
 	}
 	get_odin_mk_v_decision = {
 		is_high_prio = yes
-		ai_check_interval = 40 
+		ai_check_interval = 40
 		potential = {
 			trait = dni
-			location = { TECH_POPULAR_CUSTOMS = 8 }
+			location = { TECH_CYBERNETICS = 8 }
 			NOT = { trait = odin_mk_v }
 			NOT = { trait = iaei_mk_v }
 			NOT = { trait = pci_mk_v }
@@ -2029,7 +2029,7 @@ decisions = {
 	}
 	get_pci_mk_i_decision = {
 		is_high_prio = yes
-		ai_check_interval = 40 
+		ai_check_interval = 40
 		potential = {
 			trait = dni
 			NOT = { trait = thoth_mk_i }
@@ -2064,27 +2064,27 @@ decisions = {
 			OR = {
 				wealth = 500
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 1 }
+					location = { TECH_CYBERNETICS = 1 }
 					wealth = 250
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 2 }
+					location = { TECH_CYBERNETICS = 2 }
 					wealth = 100
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 3 }
+					location = { TECH_CYBERNETICS = 3 }
 					wealth = 50
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 4 }
+					location = { TECH_CYBERNETICS = 4 }
 					wealth = 25
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 5 }
+					location = { TECH_CYBERNETICS = 5 }
 					wealth = 10
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 6 }
+					location = { TECH_CYBERNETICS = 6 }
 					wealth = 5
 				}
 			}
@@ -2096,14 +2096,14 @@ decisions = {
 		}
 		effect = {
 			if = {
-				limit = { location = { NOT = { TECH_POPULAR_CUSTOMS = 1 } } }
+				limit = { location = { NOT = { TECH_CYBERNETICS = 1 } } }
 				wealth = -500
 			}
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 1
-						NOT = { TECH_POPULAR_CUSTOMS = 2 }
+						TECH_CYBERNETICS = 1
+						NOT = { TECH_CYBERNETICS = 2 }
 					}
 				}
 				wealth = -250
@@ -2111,8 +2111,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 2
-						NOT = { TECH_POPULAR_CUSTOMS = 3 }
+						TECH_CYBERNETICS = 2
+						NOT = { TECH_CYBERNETICS = 3 }
 					}
 				}
 				wealth = -100
@@ -2120,8 +2120,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 3
-						NOT = { TECH_POPULAR_CUSTOMS = 4 }
+						TECH_CYBERNETICS = 3
+						NOT = { TECH_CYBERNETICS = 4 }
 					}
 				}
 				wealth = -50
@@ -2129,8 +2129,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 4
-						NOT = { TECH_POPULAR_CUSTOMS = 5 }
+						TECH_CYBERNETICS = 4
+						NOT = { TECH_CYBERNETICS = 5 }
 					}
 				}
 				wealth = -25
@@ -2138,14 +2138,14 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 5
-						NOT = { TECH_POPULAR_CUSTOMS = 6 }
+						TECH_CYBERNETICS = 5
+						NOT = { TECH_CYBERNETICS = 6 }
 					}
 				}
 				wealth = -10
 			}
 			if = {
-				limit = { location = { TECH_POPULAR_CUSTOMS = 6 } }
+				limit = { location = { TECH_CYBERNETICS = 6 } }
 				wealth = -5
 			}
 			add_trait = pci_mk_i
@@ -2186,7 +2186,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 2 }
+				location = { TECH_CYBERNETICS = 2 }
 				monthly_income = 1
 				NOT = { trait = iaei_mk_ii }
 				NOT = { trait = odin_mk_ii }
@@ -2195,7 +2195,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 4 }
+				location = { TECH_CYBERNETICS = 4 }
 				monthly_income = 2
 				NOT = { trait = iaei_mk_iii }
 				NOT = { trait = odin_mk_iii }
@@ -2204,7 +2204,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 6 }
+				location = { TECH_CYBERNETICS = 6 }
 				monthly_income = 3
 				NOT = { trait = iaei_mk_iv }
 				NOT = { trait = odin_mk_iv }
@@ -2213,7 +2213,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 8 }
+				location = { TECH_CYBERNETICS = 8 }
 				monthly_income = 4
 				NOT = { trait = iaei_mk_v }
 				NOT = { trait = odin_mk_v }
@@ -2224,10 +2224,10 @@ decisions = {
 	}
 	get_pci_mk_ii_decision = {
 		is_high_prio = yes
-		ai_check_interval = 40 
+		ai_check_interval = 40
 		potential = {
 			trait = dni
-			location = { TECH_POPULAR_CUSTOMS = 2 }
+			location = { TECH_CYBERNETICS = 2 }
 			NOT = { trait = pci_mk_ii }
 			NOT = { trait = pci_mk_iii }
 			NOT = { trait = pci_mk_iv }
@@ -2259,27 +2259,27 @@ decisions = {
 			OR = {
 				wealth = 500
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 3 }
+					location = { TECH_CYBERNETICS = 3 }
 					wealth = 250
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 4 }
+					location = { TECH_CYBERNETICS = 4 }
 					wealth = 100
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 5 }
+					location = { TECH_CYBERNETICS = 5 }
 					wealth = 50
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 6 }
+					location = { TECH_CYBERNETICS = 6 }
 					wealth = 25
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 7 }
+					location = { TECH_CYBERNETICS = 7 }
 					wealth = 10
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 8 }
+					location = { TECH_CYBERNETICS = 8 }
 					wealth = 5
 				}
 			}
@@ -2291,14 +2291,14 @@ decisions = {
 		}
 		effect = {
 			if = {
-				limit = { location = { NOT = { TECH_POPULAR_CUSTOMS = 3 } } }
+				limit = { location = { NOT = { TECH_CYBERNETICS = 3 } } }
 				wealth = -500
 			}
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 3
-						NOT = { TECH_POPULAR_CUSTOMS = 4 }
+						TECH_CYBERNETICS = 3
+						NOT = { TECH_CYBERNETICS = 4 }
 					}
 				}
 				wealth = -250
@@ -2306,8 +2306,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 4
-						NOT = { TECH_POPULAR_CUSTOMS = 5 }
+						TECH_CYBERNETICS = 4
+						NOT = { TECH_CYBERNETICS = 5 }
 					}
 				}
 				wealth = -100
@@ -2315,8 +2315,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 5
-						NOT = { TECH_POPULAR_CUSTOMS = 6 }
+						TECH_CYBERNETICS = 5
+						NOT = { TECH_CYBERNETICS = 6 }
 					}
 				}
 				wealth = -50
@@ -2324,8 +2324,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 6
-						NOT = { TECH_POPULAR_CUSTOMS = 7 }
+						TECH_CYBERNETICS = 6
+						NOT = { TECH_CYBERNETICS = 7 }
 					}
 				}
 				wealth = -25
@@ -2333,14 +2333,14 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 7
-						NOT = { TECH_POPULAR_CUSTOMS = 8 }
+						TECH_CYBERNETICS = 7
+						NOT = { TECH_CYBERNETICS = 8 }
 					}
 				}
 				wealth = -10
 			}
 			if = {
-				limit = { location = { TECH_POPULAR_CUSTOMS = 8 } }
+				limit = { location = { TECH_CYBERNETICS = 8 } }
 				wealth = -5
 			}
 			remove_trait = pci_mk_i
@@ -2382,7 +2382,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 4 }
+				location = { TECH_CYBERNETICS = 4 }
 				monthly_income = 2
 				NOT = { trait = iaei_mk_iii }
 				NOT = { trait = odin_mk_iii }
@@ -2391,7 +2391,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 6 }
+				location = { TECH_CYBERNETICS = 6 }
 				monthly_income = 3
 				NOT = { trait = iaei_mk_iv }
 				NOT = { trait = odin_mk_iv }
@@ -2400,7 +2400,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 8 }
+				location = { TECH_CYBERNETICS = 8 }
 				monthly_income = 4
 				NOT = { trait = iaei_mk_v }
 				NOT = { trait = odin_mk_v }
@@ -2411,10 +2411,10 @@ decisions = {
 	}
 	get_pci_mk_iii_decision = {
 		is_high_prio = yes
-		ai_check_interval = 40 
+		ai_check_interval = 40
 		potential = {
 			trait = dni
-			location = { TECH_POPULAR_CUSTOMS = 4 }
+			location = { TECH_CYBERNETICS = 4 }
 			NOT = { trait = pci_mk_iii }
 			NOT = { trait = pci_mk_iv }
 			NOT = { trait = pci_mk_v }
@@ -2445,19 +2445,19 @@ decisions = {
 			OR = {
 				wealth = 500
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 5 }
+					location = { TECH_CYBERNETICS = 5 }
 					wealth = 250
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 6 }
+					location = { TECH_CYBERNETICS = 6 }
 					wealth = 100
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 7 }
+					location = { TECH_CYBERNETICS = 7 }
 					wealth = 50
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 8 }
+					location = { TECH_CYBERNETICS = 8 }
 					wealth = 25
 				}
 			}
@@ -2469,14 +2469,14 @@ decisions = {
 		}
 		effect = {
 			if = {
-				limit = { location = { NOT = { TECH_POPULAR_CUSTOMS = 5 } } }
+				limit = { location = { NOT = { TECH_CYBERNETICS = 5 } } }
 				wealth = -500
 			}
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 5
-						NOT = { TECH_POPULAR_CUSTOMS = 6 }
+						TECH_CYBERNETICS = 5
+						NOT = { TECH_CYBERNETICS = 6 }
 					}
 				}
 				wealth = -250
@@ -2484,8 +2484,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 6
-						NOT = { TECH_POPULAR_CUSTOMS = 7 }
+						TECH_CYBERNETICS = 6
+						NOT = { TECH_CYBERNETICS = 7 }
 					}
 				}
 				wealth = -100
@@ -2493,14 +2493,14 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 7
-						NOT = { TECH_POPULAR_CUSTOMS = 8 }
+						TECH_CYBERNETICS = 7
+						NOT = { TECH_CYBERNETICS = 8 }
 					}
 				}
 				wealth = -50
 			}
 			if = {
-				limit = { location = { TECH_POPULAR_CUSTOMS = 8 } }
+				limit = { location = { TECH_CYBERNETICS = 8 } }
 				wealth = -25
 			}
 			remove_trait = pci_mk_i
@@ -2543,7 +2543,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 6 }
+				location = { TECH_CYBERNETICS = 6 }
 				monthly_income = 3
 				NOT = { trait = iaei_mk_iv }
 				NOT = { trait = odin_mk_iv }
@@ -2552,7 +2552,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 8 }
+				location = { TECH_CYBERNETICS = 8 }
 				monthly_income = 4
 				NOT = { trait = iaei_mk_v }
 				NOT = { trait = odin_mk_v }
@@ -2563,10 +2563,10 @@ decisions = {
 	}
 	get_pci_mk_iv_decision = {
 		is_high_prio = yes
-		ai_check_interval = 40 
+		ai_check_interval = 40
 		potential = {
 			trait = dni
-			location = { TECH_POPULAR_CUSTOMS = 6 }
+			location = { TECH_CYBERNETICS = 6 }
 			NOT = { trait = pci_mk_iv }
 			NOT = { trait = pci_mk_v }
 			NOT = { trait = iaei_mk_iv }
@@ -2596,11 +2596,11 @@ decisions = {
 			OR = {
 				wealth = 500
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 7 }
+					location = { TECH_CYBERNETICS = 7 }
 					wealth = 250
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 8 }
+					location = { TECH_CYBERNETICS = 8 }
 					wealth = 100
 				}
 			}
@@ -2612,20 +2612,20 @@ decisions = {
 		}
 		effect = {
 			if = {
-				limit = { location = { NOT = { TECH_POPULAR_CUSTOMS = 7 } } }
+				limit = { location = { NOT = { TECH_CYBERNETICS = 7 } } }
 				wealth = -500
 			}
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 7
-						NOT = { TECH_POPULAR_CUSTOMS = 8 }
+						TECH_CYBERNETICS = 7
+						NOT = { TECH_CYBERNETICS = 8 }
 					}
 				}
 				wealth = -250
 			}
 			if = {
-				limit = { location = { TECH_POPULAR_CUSTOMS = 8 } }
+				limit = { location = { TECH_CYBERNETICS = 8 } }
 				wealth = -100
 			}
 			remove_trait = pci_mk_i
@@ -2669,7 +2669,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 8 }
+				location = { TECH_CYBERNETICS = 8 }
 				monthly_income = 4
 				NOT = { trait = iaei_mk_v }
 				NOT = { trait = odin_mk_v }
@@ -2680,10 +2680,10 @@ decisions = {
 	}
 	get_pci_mk_v_decision = {
 		is_high_prio = yes
-		ai_check_interval = 40 
+		ai_check_interval = 40
 		potential = {
 			trait = dni
-			location = { TECH_POPULAR_CUSTOMS = 8 }
+			location = { TECH_CYBERNETICS = 8 }
 			NOT = { trait = pci_mk_v }
 			NOT = { trait = iaei_mk_v }
 			NOT = { trait = odin_mk_v }
@@ -2762,7 +2762,7 @@ decisions = {
 	}
 	get_pluto_mk_i_decision = {
 		is_high_prio = yes
-		ai_check_interval = 40 
+		ai_check_interval = 40
 		potential = {
 			trait = dni
 			NOT = { trait = thoth_mk_i }
@@ -2797,27 +2797,27 @@ decisions = {
 			OR = {
 				wealth = 500
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 1 }
+					location = { TECH_CYBERNETICS = 1 }
 					wealth = 250
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 2 }
+					location = { TECH_CYBERNETICS = 2 }
 					wealth = 100
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 3 }
+					location = { TECH_CYBERNETICS = 3 }
 					wealth = 50
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 4 }
+					location = { TECH_CYBERNETICS = 4 }
 					wealth = 25
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 5 }
+					location = { TECH_CYBERNETICS = 5 }
 					wealth = 10
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 6 }
+					location = { TECH_CYBERNETICS = 6 }
 					wealth = 5
 				}
 			}
@@ -2829,14 +2829,14 @@ decisions = {
 		}
 		effect = {
 			if = {
-				limit = { location = { NOT = { TECH_POPULAR_CUSTOMS = 1 } } }
+				limit = { location = { NOT = { TECH_CYBERNETICS = 1 } } }
 				wealth = -500
 			}
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 1
-						NOT = { TECH_POPULAR_CUSTOMS = 2 }
+						TECH_CYBERNETICS = 1
+						NOT = { TECH_CYBERNETICS = 2 }
 					}
 				}
 				wealth = -250
@@ -2844,8 +2844,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 2
-						NOT = { TECH_POPULAR_CUSTOMS = 3 }
+						TECH_CYBERNETICS = 2
+						NOT = { TECH_CYBERNETICS = 3 }
 					}
 				}
 				wealth = -100
@@ -2853,8 +2853,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 3
-						NOT = { TECH_POPULAR_CUSTOMS = 4 }
+						TECH_CYBERNETICS = 3
+						NOT = { TECH_CYBERNETICS = 4 }
 					}
 				}
 				wealth = -50
@@ -2862,8 +2862,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 4
-						NOT = { TECH_POPULAR_CUSTOMS = 5 }
+						TECH_CYBERNETICS = 4
+						NOT = { TECH_CYBERNETICS = 5 }
 					}
 				}
 				wealth = -25
@@ -2871,14 +2871,14 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 5
-						NOT = { TECH_POPULAR_CUSTOMS = 6 }
+						TECH_CYBERNETICS = 5
+						NOT = { TECH_CYBERNETICS = 6 }
 					}
 				}
 				wealth = -10
 			}
 			if = {
-				limit = { location = { TECH_POPULAR_CUSTOMS = 6 } }
+				limit = { location = { TECH_CYBERNETICS = 6 } }
 				wealth = -5
 			}
 			add_trait = pluto_mk_i
@@ -2919,7 +2919,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 2 }
+				location = { TECH_CYBERNETICS = 2 }
 				monthly_income = 1
 				NOT = { trait = iaei_mk_ii }
 				NOT = { trait = odin_mk_ii }
@@ -2928,7 +2928,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 4 }
+				location = { TECH_CYBERNETICS = 4 }
 				monthly_income = 2
 				NOT = { trait = iaei_mk_iii }
 				NOT = { trait = odin_mk_iii }
@@ -2937,7 +2937,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 6 }
+				location = { TECH_CYBERNETICS = 6 }
 				monthly_income = 3
 				NOT = { trait = iaei_mk_iv }
 				NOT = { trait = odin_mk_iv }
@@ -2946,7 +2946,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 8 }
+				location = { TECH_CYBERNETICS = 8 }
 				monthly_income = 4
 				NOT = { trait = iaei_mk_v }
 				NOT = { trait = odin_mk_v }
@@ -2957,10 +2957,10 @@ decisions = {
 	}
 	get_pluto_mk_ii_decision = {
 		is_high_prio = yes
-		ai_check_interval = 40 
+		ai_check_interval = 40
 		potential = {
 			trait = dni
-			location = { TECH_POPULAR_CUSTOMS = 2 }
+			location = { TECH_CYBERNETICS = 2 }
 			NOT = { trait = pluto_mk_ii }
 			NOT = { trait = pluto_mk_iii }
 			NOT = { trait = pluto_mk_iv }
@@ -2992,27 +2992,27 @@ decisions = {
 			OR = {
 				wealth = 500
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 3 }
+					location = { TECH_CYBERNETICS = 3 }
 					wealth = 250
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 4 }
+					location = { TECH_CYBERNETICS = 4 }
 					wealth = 100
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 5 }
+					location = { TECH_CYBERNETICS = 5 }
 					wealth = 50
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 6 }
+					location = { TECH_CYBERNETICS = 6 }
 					wealth = 25
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 7 }
+					location = { TECH_CYBERNETICS = 7 }
 					wealth = 10
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 8 }
+					location = { TECH_CYBERNETICS = 8 }
 					wealth = 5
 				}
 			}
@@ -3024,14 +3024,14 @@ decisions = {
 		}
 		effect = {
 			if = {
-				limit = { location = { NOT = { TECH_POPULAR_CUSTOMS = 3 } } }
+				limit = { location = { NOT = { TECH_CYBERNETICS = 3 } } }
 				wealth = -500
 			}
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 3
-						NOT = { TECH_POPULAR_CUSTOMS = 4 }
+						TECH_CYBERNETICS = 3
+						NOT = { TECH_CYBERNETICS = 4 }
 					}
 				}
 				wealth = -250
@@ -3039,8 +3039,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 4
-						NOT = { TECH_POPULAR_CUSTOMS = 5 }
+						TECH_CYBERNETICS = 4
+						NOT = { TECH_CYBERNETICS = 5 }
 					}
 				}
 				wealth = -100
@@ -3048,8 +3048,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 5
-						NOT = { TECH_POPULAR_CUSTOMS = 6 }
+						TECH_CYBERNETICS = 5
+						NOT = { TECH_CYBERNETICS = 6 }
 					}
 				}
 				wealth = -50
@@ -3057,8 +3057,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 6
-						NOT = { TECH_POPULAR_CUSTOMS = 7 }
+						TECH_CYBERNETICS = 6
+						NOT = { TECH_CYBERNETICS = 7 }
 					}
 				}
 				wealth = -25
@@ -3066,14 +3066,14 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 7
-						NOT = { TECH_POPULAR_CUSTOMS = 8 }
+						TECH_CYBERNETICS = 7
+						NOT = { TECH_CYBERNETICS = 8 }
 					}
 				}
 				wealth = -10
 			}
 			if = {
-				limit = { location = { TECH_POPULAR_CUSTOMS = 8 } }
+				limit = { location = { TECH_CYBERNETICS = 8 } }
 				wealth = -5
 			}
 			remove_trait = pluto_mk_i
@@ -3115,7 +3115,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 4 }
+				location = { TECH_CYBERNETICS = 4 }
 				monthly_income = 2
 				NOT = { trait = iaei_mk_iii }
 				NOT = { trait = odin_mk_iii }
@@ -3124,7 +3124,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 6 }
+				location = { TECH_CYBERNETICS = 6 }
 				monthly_income = 3
 				NOT = { trait = iaei_mk_iv }
 				NOT = { trait = odin_mk_iv }
@@ -3133,7 +3133,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 8 }
+				location = { TECH_CYBERNETICS = 8 }
 				monthly_income = 4
 				NOT = { trait = iaei_mk_v }
 				NOT = { trait = odin_mk_v }
@@ -3144,10 +3144,10 @@ decisions = {
 	}
 	get_pluto_mk_iii_decision = {
 		is_high_prio = yes
-		ai_check_interval = 40 
+		ai_check_interval = 40
 		potential = {
 			trait = dni
-			location = { TECH_POPULAR_CUSTOMS = 4 }
+			location = { TECH_CYBERNETICS = 4 }
 			NOT = { trait = pluto_mk_iii }
 			NOT = { trait = pluto_mk_iv }
 			NOT = { trait = pluto_mk_v }
@@ -3178,19 +3178,19 @@ decisions = {
 			OR = {
 				wealth = 500
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 5 }
+					location = { TECH_CYBERNETICS = 5 }
 					wealth = 250
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 6 }
+					location = { TECH_CYBERNETICS = 6 }
 					wealth = 100
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 7 }
+					location = { TECH_CYBERNETICS = 7 }
 					wealth = 50
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 8 }
+					location = { TECH_CYBERNETICS = 8 }
 					wealth = 25
 				}
 			}
@@ -3202,14 +3202,14 @@ decisions = {
 		}
 		effect = {
 			if = {
-				limit = { location = { NOT = { TECH_POPULAR_CUSTOMS = 5 } } }
+				limit = { location = { NOT = { TECH_CYBERNETICS = 5 } } }
 				wealth = -500
 			}
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 5
-						NOT = { TECH_POPULAR_CUSTOMS = 6 }
+						TECH_CYBERNETICS = 5
+						NOT = { TECH_CYBERNETICS = 6 }
 					}
 				}
 				wealth = -250
@@ -3217,8 +3217,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 6
-						NOT = { TECH_POPULAR_CUSTOMS = 7 }
+						TECH_CYBERNETICS = 6
+						NOT = { TECH_CYBERNETICS = 7 }
 					}
 				}
 				wealth = -100
@@ -3226,14 +3226,14 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 7
-						NOT = { TECH_POPULAR_CUSTOMS = 8 }
+						TECH_CYBERNETICS = 7
+						NOT = { TECH_CYBERNETICS = 8 }
 					}
 				}
 				wealth = -50
 			}
 			if = {
-				limit = { location = { TECH_POPULAR_CUSTOMS = 8 } }
+				limit = { location = { TECH_CYBERNETICS = 8 } }
 				wealth = -25
 			}
 			remove_trait = pluto_mk_i
@@ -3276,7 +3276,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 6 }
+				location = { TECH_CYBERNETICS = 6 }
 				monthly_income = 3
 				NOT = { trait = iaei_mk_iv }
 				NOT = { trait = odin_mk_iv }
@@ -3285,7 +3285,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 8 }
+				location = { TECH_CYBERNETICS = 8 }
 				monthly_income = 4
 				NOT = { trait = iaei_mk_v }
 				NOT = { trait = odin_mk_v }
@@ -3296,10 +3296,10 @@ decisions = {
 	}
 	get_pluto_mk_iv_decision = {
 		is_high_prio = yes
-		ai_check_interval = 40 
+		ai_check_interval = 40
 		potential = {
 			trait = dni
-			location = { TECH_POPULAR_CUSTOMS = 6 }
+			location = { TECH_CYBERNETICS = 6 }
 			NOT = { trait = pluto_mk_iv }
 			NOT = { trait = pluto_mk_v }
 			NOT = { trait = iaei_mk_iv }
@@ -3329,11 +3329,11 @@ decisions = {
 			OR = {
 				wealth = 500
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 7 }
+					location = { TECH_CYBERNETICS = 7 }
 					wealth = 250
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 8 }
+					location = { TECH_CYBERNETICS = 8 }
 					wealth = 100
 				}
 			}
@@ -3345,20 +3345,20 @@ decisions = {
 		}
 		effect = {
 			if = {
-				limit = { location = { NOT = { TECH_POPULAR_CUSTOMS = 7 } } }
+				limit = { location = { NOT = { TECH_CYBERNETICS = 7 } } }
 				wealth = -500
 			}
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 7
-						NOT = { TECH_POPULAR_CUSTOMS = 8 }
+						TECH_CYBERNETICS = 7
+						NOT = { TECH_CYBERNETICS = 8 }
 					}
 				}
 				wealth = -250
 			}
 			if = {
-				limit = { location = { TECH_POPULAR_CUSTOMS = 8 } }
+				limit = { location = { TECH_CYBERNETICS = 8 } }
 				wealth = -100
 			}
 			remove_trait = pluto_mk_i
@@ -3402,7 +3402,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 8 }
+				location = { TECH_CYBERNETICS = 8 }
 				monthly_income = 4
 				NOT = { trait = iaei_mk_v }
 				NOT = { trait = odin_mk_v }
@@ -3413,10 +3413,10 @@ decisions = {
 	}
 	get_pluto_mk_v_decision = {
 		is_high_prio = yes
-		ai_check_interval = 40 
+		ai_check_interval = 40
 		potential = {
 			trait = dni
-			location = { TECH_POPULAR_CUSTOMS = 8 }
+			location = { TECH_CYBERNETICS = 8 }
 			NOT = { trait = pluto_mk_v }
 			NOT = { trait = iaei_mk_v }
 			NOT = { trait = odin_mk_v }
@@ -3495,7 +3495,7 @@ decisions = {
 	}
 	get_thoth_mk_i_decision = {
 		is_high_prio = yes
-		ai_check_interval = 40 
+		ai_check_interval = 40
 		potential = {
 			trait = dni
 			NOT = { trait = pci_mk_i }
@@ -3530,27 +3530,27 @@ decisions = {
 			OR = {
 				wealth = 500
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 1 }
+					location = { TECH_CYBERNETICS = 1 }
 					wealth = 250
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 2 }
+					location = { TECH_CYBERNETICS = 2 }
 					wealth = 100
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 3 }
+					location = { TECH_CYBERNETICS = 3 }
 					wealth = 50
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 4 }
+					location = { TECH_CYBERNETICS = 4 }
 					wealth = 25
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 5 }
+					location = { TECH_CYBERNETICS = 5 }
 					wealth = 10
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 6 }
+					location = { TECH_CYBERNETICS = 6 }
 					wealth = 5
 				}
 			}
@@ -3562,14 +3562,14 @@ decisions = {
 		}
 		effect = {
 			if = {
-				limit = { location = { NOT = { TECH_POPULAR_CUSTOMS = 1 } } }
+				limit = { location = { NOT = { TECH_CYBERNETICS = 1 } } }
 				wealth = -500
 			}
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 1
-						NOT = { TECH_POPULAR_CUSTOMS = 2 }
+						TECH_CYBERNETICS = 1
+						NOT = { TECH_CYBERNETICS = 2 }
 					}
 				}
 				wealth = -250
@@ -3577,8 +3577,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 2
-						NOT = { TECH_POPULAR_CUSTOMS = 3 }
+						TECH_CYBERNETICS = 2
+						NOT = { TECH_CYBERNETICS = 3 }
 					}
 				}
 				wealth = -100
@@ -3586,8 +3586,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 3
-						NOT = { TECH_POPULAR_CUSTOMS = 4 }
+						TECH_CYBERNETICS = 3
+						NOT = { TECH_CYBERNETICS = 4 }
 					}
 				}
 				wealth = -50
@@ -3595,8 +3595,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 4
-						NOT = { TECH_POPULAR_CUSTOMS = 5 }
+						TECH_CYBERNETICS = 4
+						NOT = { TECH_CYBERNETICS = 5 }
 					}
 				}
 				wealth = -25
@@ -3604,14 +3604,14 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 5
-						NOT = { TECH_POPULAR_CUSTOMS = 6 }
+						TECH_CYBERNETICS = 5
+						NOT = { TECH_CYBERNETICS = 6 }
 					}
 				}
 				wealth = -10
 			}
 			if = {
-				limit = { location = { TECH_POPULAR_CUSTOMS = 6 } }
+				limit = { location = { TECH_CYBERNETICS = 6 } }
 				wealth = -5
 			}
 			add_trait = thoth_mk_i
@@ -3653,7 +3653,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 2 }
+				location = { TECH_CYBERNETICS = 2 }
 				monthly_income = 1
 				NOT = { trait = iaei_mk_ii }
 				NOT = { trait = odin_mk_ii }
@@ -3662,7 +3662,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 4 }
+				location = { TECH_CYBERNETICS = 4 }
 				monthly_income = 2
 				NOT = { trait = iaei_mk_iii }
 				NOT = { trait = odin_mk_iii }
@@ -3671,7 +3671,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 6 }
+				location = { TECH_CYBERNETICS = 6 }
 				monthly_income = 3
 				NOT = { trait = iaei_mk_iv }
 				NOT = { trait = odin_mk_iv }
@@ -3680,7 +3680,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 8 }
+				location = { TECH_CYBERNETICS = 8 }
 				monthly_income = 4
 				NOT = { trait = iaei_mk_v }
 				NOT = { trait = odin_mk_v }
@@ -3691,10 +3691,10 @@ decisions = {
 	}
 	get_thoth_mk_ii_decision = {
 		is_high_prio = yes
-		ai_check_interval = 40 
+		ai_check_interval = 40
 		potential = {
 			trait = dni
-			location = { TECH_POPULAR_CUSTOMS = 2 }
+			location = { TECH_CYBERNETICS = 2 }
 			NOT = { trait = thoth_mk_ii }
 			NOT = { trait = thoth_mk_iii }
 			NOT = { trait = thoth_mk_iv }
@@ -3726,27 +3726,27 @@ decisions = {
 			OR = {
 				wealth = 500
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 3 }
+					location = { TECH_CYBERNETICS = 3 }
 					wealth = 250
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 4 }
+					location = { TECH_CYBERNETICS = 4 }
 					wealth = 100
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 5 }
+					location = { TECH_CYBERNETICS = 5 }
 					wealth = 50
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 6 }
+					location = { TECH_CYBERNETICS = 6 }
 					wealth = 25
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 7 }
+					location = { TECH_CYBERNETICS = 7 }
 					wealth = 10
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 8 }
+					location = { TECH_CYBERNETICS = 8 }
 					wealth = 5
 				}
 			}
@@ -3758,14 +3758,14 @@ decisions = {
 		}
 		effect = {
 			if = {
-				limit = { location = { NOT = { TECH_POPULAR_CUSTOMS = 3 } } }
+				limit = { location = { NOT = { TECH_CYBERNETICS = 3 } } }
 				wealth = -500
 			}
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 3
-						NOT = { TECH_POPULAR_CUSTOMS = 4 }
+						TECH_CYBERNETICS = 3
+						NOT = { TECH_CYBERNETICS = 4 }
 					}
 				}
 				wealth = -250
@@ -3773,8 +3773,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 4
-						NOT = { TECH_POPULAR_CUSTOMS = 5 }
+						TECH_CYBERNETICS = 4
+						NOT = { TECH_CYBERNETICS = 5 }
 					}
 				}
 				wealth = -100
@@ -3782,8 +3782,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 5
-						NOT = { TECH_POPULAR_CUSTOMS = 6 }
+						TECH_CYBERNETICS = 5
+						NOT = { TECH_CYBERNETICS = 6 }
 					}
 				}
 				wealth = -50
@@ -3791,8 +3791,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 6
-						NOT = { TECH_POPULAR_CUSTOMS = 7 }
+						TECH_CYBERNETICS = 6
+						NOT = { TECH_CYBERNETICS = 7 }
 					}
 				}
 				wealth = -25
@@ -3800,14 +3800,14 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 7
-						NOT = { TECH_POPULAR_CUSTOMS = 8 }
+						TECH_CYBERNETICS = 7
+						NOT = { TECH_CYBERNETICS = 8 }
 					}
 				}
 				wealth = -10
 			}
 			if = {
-				limit = { location = { TECH_POPULAR_CUSTOMS = 8 } }
+				limit = { location = { TECH_CYBERNETICS = 8 } }
 				wealth = -5
 			}
 			remove_trait = thoth_mk_i
@@ -3850,7 +3850,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 4 }
+				location = { TECH_CYBERNETICS = 4 }
 				monthly_income = 2
 				NOT = { trait = iaei_mk_iii }
 				NOT = { trait = odin_mk_iii }
@@ -3859,7 +3859,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 6 }
+				location = { TECH_CYBERNETICS = 6 }
 				monthly_income = 3
 				NOT = { trait = iaei_mk_iv }
 				NOT = { trait = odin_mk_iv }
@@ -3868,7 +3868,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 8 }
+				location = { TECH_CYBERNETICS = 8 }
 				monthly_income = 4
 				NOT = { trait = iaei_mk_v }
 				NOT = { trait = odin_mk_v }
@@ -3879,10 +3879,10 @@ decisions = {
 	}
 	get_thoth_mk_iii_decision = {
 		is_high_prio = yes
-		ai_check_interval = 40 
+		ai_check_interval = 40
 		potential = {
 			trait = dni
-			location = { TECH_POPULAR_CUSTOMS = 4 }
+			location = { TECH_CYBERNETICS = 4 }
 			NOT = { trait = thoth_mk_iii }
 			NOT = { trait = thoth_mk_iv }
 			NOT = { trait = thoth_mk_v }
@@ -3913,19 +3913,19 @@ decisions = {
 			OR = {
 				wealth = 500
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 5 }
+					location = { TECH_CYBERNETICS = 5 }
 					wealth = 250
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 6 }
+					location = { TECH_CYBERNETICS = 6 }
 					wealth = 100
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 7 }
+					location = { TECH_CYBERNETICS = 7 }
 					wealth = 50
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 8 }
+					location = { TECH_CYBERNETICS = 8 }
 					wealth = 25
 				}
 			}
@@ -3937,14 +3937,14 @@ decisions = {
 		}
 		effect = {
 			if = {
-				limit = { location = { NOT = { TECH_POPULAR_CUSTOMS = 5 } } }
+				limit = { location = { NOT = { TECH_CYBERNETICS = 5 } } }
 				wealth = -500
 			}
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 5
-						NOT = { TECH_POPULAR_CUSTOMS = 6 }
+						TECH_CYBERNETICS = 5
+						NOT = { TECH_CYBERNETICS = 6 }
 					}
 				}
 				wealth = -250
@@ -3952,8 +3952,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 6
-						NOT = { TECH_POPULAR_CUSTOMS = 7 }
+						TECH_CYBERNETICS = 6
+						NOT = { TECH_CYBERNETICS = 7 }
 					}
 				}
 				wealth = -100
@@ -3961,14 +3961,14 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 7
-						NOT = { TECH_POPULAR_CUSTOMS = 8 }
+						TECH_CYBERNETICS = 7
+						NOT = { TECH_CYBERNETICS = 8 }
 					}
 				}
 				wealth = -50
 			}
 			if = {
-				limit = { location = { TECH_POPULAR_CUSTOMS = 8 } }
+				limit = { location = { TECH_CYBERNETICS = 8 } }
 				wealth = -25
 			}
 			remove_trait = thoth_mk_i
@@ -4012,7 +4012,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 6 }
+				location = { TECH_CYBERNETICS = 6 }
 				monthly_income = 3
 				NOT = { trait = iaei_mk_iv }
 				NOT = { trait = odin_mk_iv }
@@ -4021,7 +4021,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 8 }
+				location = { TECH_CYBERNETICS = 8 }
 				monthly_income = 4
 				NOT = { trait = iaei_mk_v }
 				NOT = { trait = odin_mk_v }
@@ -4032,10 +4032,10 @@ decisions = {
 	}
 	get_thoth_mk_iv_decision = {
 		is_high_prio = yes
-		ai_check_interval = 40 
+		ai_check_interval = 40
 		potential = {
 			trait = dni
-			location = { TECH_POPULAR_CUSTOMS = 6 }
+			location = { TECH_CYBERNETICS = 6 }
 			NOT = { trait = thoth_mk_iv }
 			NOT = { trait = thoth_mk_v }
 			NOT = { trait = iaei_mk_iv }
@@ -4065,11 +4065,11 @@ decisions = {
 			OR = {
 				wealth = 500
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 7 }
+					location = { TECH_CYBERNETICS = 7 }
 					wealth = 250
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 8 }
+					location = { TECH_CYBERNETICS = 8 }
 					wealth = 100
 				}
 			}
@@ -4081,20 +4081,20 @@ decisions = {
 		}
 		effect = {
 			if = {
-				limit = { location = { NOT = { TECH_POPULAR_CUSTOMS = 7 } } }
+				limit = { location = { NOT = { TECH_CYBERNETICS = 7 } } }
 				wealth = -500
 			}
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 7
-						NOT = { TECH_POPULAR_CUSTOMS = 8 }
+						TECH_CYBERNETICS = 7
+						NOT = { TECH_CYBERNETICS = 8 }
 					}
 				}
 				wealth = -250
 			}
 			if = {
-				limit = { location = { TECH_POPULAR_CUSTOMS = 8 } }
+				limit = { location = { TECH_CYBERNETICS = 8 } }
 				wealth = -100
 			}
 			remove_trait = thoth_mk_i
@@ -4139,7 +4139,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 0
-				location = { TECH_POPULAR_CUSTOMS = 8 }
+				location = { TECH_CYBERNETICS = 8 }
 				monthly_income = 4
 				NOT = { trait = iaei_mk_v }
 				NOT = { trait = odin_mk_v }
@@ -4150,10 +4150,10 @@ decisions = {
 	}
 	get_thoth_mk_v_decision = {
 		is_high_prio = yes
-		ai_check_interval = 40 
+		ai_check_interval = 40
 		potential = {
 			trait = dni
-			location = { TECH_POPULAR_CUSTOMS = 8 }
+			location = { TECH_CYBERNETICS = 8 }
 			NOT = { trait = thoth_mk_v }
 			NOT = { trait = iaei_mk_v }
 			NOT = { trait = odin_mk_v }
@@ -4234,7 +4234,7 @@ decisions = {
 	# Get cybernetic limb
 	get_cybernetic_limb_decision = {
 		is_high_prio = yes
-		ai_check_interval = 40 
+		ai_check_interval = 40
 		potential = {
 			age = 16
 			NOT = { trait = incapable }
@@ -4260,27 +4260,27 @@ decisions = {
 			OR = {
 				wealth = 500
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 1 }
+					location = { TECH_CYBERNETICS = 1 }
 					wealth = 250
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 2 }
+					location = { TECH_CYBERNETICS = 2 }
 					wealth = 100
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 3 }
+					location = { TECH_CYBERNETICS = 3 }
 					wealth = 50
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 4 }
+					location = { TECH_CYBERNETICS = 4 }
 					wealth = 25
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 5 }
+					location = { TECH_CYBERNETICS = 5 }
 					wealth = 10
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 6 }
+					location = { TECH_CYBERNETICS = 6 }
 					wealth = 5
 				}
 			}
@@ -4292,14 +4292,14 @@ decisions = {
 		}
 		effect = {
 			if = {
-				limit = { location = { NOT = { TECH_POPULAR_CUSTOMS = 1 } } }
+				limit = { location = { NOT = { TECH_CYBERNETICS = 1 } } }
 				wealth = -500
 			}
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 1
-						NOT = { TECH_POPULAR_CUSTOMS = 2 }
+						TECH_CYBERNETICS = 1
+						NOT = { TECH_CYBERNETICS = 2 }
 					}
 				}
 				wealth = -250
@@ -4307,8 +4307,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 2
-						NOT = { TECH_POPULAR_CUSTOMS = 3 }
+						TECH_CYBERNETICS = 2
+						NOT = { TECH_CYBERNETICS = 3 }
 					}
 				}
 				wealth = -100
@@ -4316,8 +4316,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 3
-						NOT = { TECH_POPULAR_CUSTOMS = 4 }
+						TECH_CYBERNETICS = 3
+						NOT = { TECH_CYBERNETICS = 4 }
 					}
 				}
 				wealth = -50
@@ -4325,8 +4325,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 4
-						NOT = { TECH_POPULAR_CUSTOMS = 5 }
+						TECH_CYBERNETICS = 4
+						NOT = { TECH_CYBERNETICS = 5 }
 					}
 				}
 				wealth = -25
@@ -4334,14 +4334,14 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 5
-						NOT = { TECH_POPULAR_CUSTOMS = 6 }
+						TECH_CYBERNETICS = 5
+						NOT = { TECH_CYBERNETICS = 6 }
 					}
 				}
 				wealth = -10
 			}
 			if = {
-				limit = { location = { TECH_POPULAR_CUSTOMS = 6 } }
+				limit = { location = { TECH_CYBERNETICS = 6 } }
 				wealth = -5
 			}
 			if = {
@@ -4444,7 +4444,7 @@ decisions = {
 	# Get cybernetic leg
 	get_cybernetic_leg_decision = {
 		is_high_prio = yes
-		ai_check_interval = 40 
+		ai_check_interval = 40
 		potential = {
 			has_dlc = "Reapers"
 			age = 16
@@ -4471,27 +4471,27 @@ decisions = {
 			OR = {
 				wealth = 500
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 1 }
+					location = { TECH_CYBERNETICS = 1 }
 					wealth = 250
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 2 }
+					location = { TECH_CYBERNETICS = 2 }
 					wealth = 100
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 3 }
+					location = { TECH_CYBERNETICS = 3 }
 					wealth = 50
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 4 }
+					location = { TECH_CYBERNETICS = 4 }
 					wealth = 25
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 5 }
+					location = { TECH_CYBERNETICS = 5 }
 					wealth = 10
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 6 }
+					location = { TECH_CYBERNETICS = 6 }
 					wealth = 5
 				}
 			}
@@ -4503,14 +4503,14 @@ decisions = {
 		}
 		effect = {
 			if = {
-				limit = { location = { NOT = { TECH_POPULAR_CUSTOMS = 1 } } }
+				limit = { location = { NOT = { TECH_CYBERNETICS = 1 } } }
 				wealth = -500
 			}
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 1
-						NOT = { TECH_POPULAR_CUSTOMS = 2 }
+						TECH_CYBERNETICS = 1
+						NOT = { TECH_CYBERNETICS = 2 }
 					}
 				}
 				wealth = -250
@@ -4518,8 +4518,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 2
-						NOT = { TECH_POPULAR_CUSTOMS = 3 }
+						TECH_CYBERNETICS = 2
+						NOT = { TECH_CYBERNETICS = 3 }
 					}
 				}
 				wealth = -100
@@ -4527,8 +4527,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 3
-						NOT = { TECH_POPULAR_CUSTOMS = 4 }
+						TECH_CYBERNETICS = 3
+						NOT = { TECH_CYBERNETICS = 4 }
 					}
 				}
 				wealth = -50
@@ -4536,8 +4536,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 4
-						NOT = { TECH_POPULAR_CUSTOMS = 5 }
+						TECH_CYBERNETICS = 4
+						NOT = { TECH_CYBERNETICS = 5 }
 					}
 				}
 				wealth = -25
@@ -4545,14 +4545,14 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 5
-						NOT = { TECH_POPULAR_CUSTOMS = 6 }
+						TECH_CYBERNETICS = 5
+						NOT = { TECH_CYBERNETICS = 6 }
 					}
 				}
 				wealth = -10
 			}
 			if = {
-				limit = { location = { TECH_POPULAR_CUSTOMS = 6 } }
+				limit = { location = { TECH_CYBERNETICS = 6 } }
 				wealth = -5
 			}
 			if = {
@@ -4640,7 +4640,7 @@ decisions = {
 	# Get cybernetic skeleton
 	get_cybernetic_skeleton_decision = {
 		is_high_prio = yes
-		ai_check_interval = 40 
+		ai_check_interval = 40
 		potential = {
 			has_dlc = "Reapers"
 			age = 16
@@ -4666,27 +4666,27 @@ decisions = {
 			NOT = { has_character_flag = flag_busy }
 			OR = {
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 3 }
+					location = { TECH_CYBERNETICS = 3 }
 					wealth = 500
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 4 }
+					location = { TECH_CYBERNETICS = 4 }
 					wealth = 250
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 5 }
+					location = { TECH_CYBERNETICS = 5 }
 					wealth = 100
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 6 }
+					location = { TECH_CYBERNETICS = 6 }
 					wealth = 50
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 7 }
+					location = { TECH_CYBERNETICS = 7 }
 					wealth = 25
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 8 }
+					location = { TECH_CYBERNETICS = 8 }
 					wealth = 10
 				}
 			}
@@ -4698,14 +4698,14 @@ decisions = {
 		}
 		effect = {
 			if = {
-				limit = { location = { NOT = { TECH_POPULAR_CUSTOMS = 4 } } }
+				limit = { location = { NOT = { TECH_CYBERNETICS = 4 } } }
 				wealth = -500
 			}
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 4
-						NOT = { TECH_POPULAR_CUSTOMS = 5 }
+						TECH_CYBERNETICS = 4
+						NOT = { TECH_CYBERNETICS = 5 }
 					}
 				}
 				wealth = -250
@@ -4713,8 +4713,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 5
-						NOT = { TECH_POPULAR_CUSTOMS = 6 }
+						TECH_CYBERNETICS = 5
+						NOT = { TECH_CYBERNETICS = 6 }
 					}
 				}
 				wealth = -100
@@ -4722,8 +4722,8 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 6
-						NOT = { TECH_POPULAR_CUSTOMS = 7 }
+						TECH_CYBERNETICS = 6
+						NOT = { TECH_CYBERNETICS = 7 }
 					}
 				}
 				wealth = -50
@@ -4731,14 +4731,14 @@ decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 7
-						NOT = { TECH_POPULAR_CUSTOMS = 8 }
+						TECH_CYBERNETICS = 7
+						NOT = { TECH_CYBERNETICS = 8 }
 					}
 				}
 				wealth = -25
 			}
 			if = {
-				limit = { location = { TECH_POPULAR_CUSTOMS = 8 } }
+				limit = { location = { TECH_CYBERNETICS = 8 } }
 				wealth = -10
 			}
 			if = {
@@ -4833,7 +4833,7 @@ targetted_decisions = {
 			NOT = { trait = incapable }
 			prisoner = no
 		}
-		ai_check_interval = 40 
+		ai_check_interval = 40
 		potential = {
 			NOT = { trait = dni }
 			prisoner = no
@@ -4846,22 +4846,22 @@ targetted_decisions = {
 			OR = {
 				FROM = { wealth = 100 }
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 2 }
+					location = { TECH_CYBERNETICS = 2 }
 					FROM = { wealth = 50 }
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 3 }
+					location = { TECH_CYBERNETICS = 3 }
 					FROM = { wealth = 25 }
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 4 }
+					location = { TECH_CYBERNETICS = 4 }
 					FROM = { wealth = 10 }
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 5 }
+					location = { TECH_CYBERNETICS = 5 }
 					FROM = { wealth = 5 }
 				}
-				location = { TECH_POPULAR_CUSTOMS = 6 }
+				location = { TECH_CYBERNETICS = 6 }
 			}
 			location = {
 				any_province_lord = {
@@ -4903,14 +4903,14 @@ targetted_decisions = {
 			}
 			hidden_tooltip = { character_event = { id = cybernetics.5001 } }
 			if = {
-				limit = { location = { NOT = { TECH_POPULAR_CUSTOMS = 2 } } }
+				limit = { location = { NOT = { TECH_CYBERNETICS = 2 } } }
 				FROM = { wealth = -100 }
 			}
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 2
-						NOT = { TECH_POPULAR_CUSTOMS = 3 }
+						TECH_CYBERNETICS = 2
+						NOT = { TECH_CYBERNETICS = 3 }
 					}
 				}
 				FROM = { wealth = -50 }
@@ -4918,8 +4918,8 @@ targetted_decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 3
-						NOT = { TECH_POPULAR_CUSTOMS = 4 }
+						TECH_CYBERNETICS = 3
+						NOT = { TECH_CYBERNETICS = 4 }
 					}
 				}
 				FROM = { wealth = -25 }
@@ -4927,8 +4927,8 @@ targetted_decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 4
-						NOT = { TECH_POPULAR_CUSTOMS = 5 }
+						TECH_CYBERNETICS = 4
+						NOT = { TECH_CYBERNETICS = 5 }
 					}
 				}
 				FROM = { wealth = -10 }
@@ -4936,8 +4936,8 @@ targetted_decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 5
-						NOT = { TECH_POPULAR_CUSTOMS = 6 }
+						TECH_CYBERNETICS = 5
+						NOT = { TECH_CYBERNETICS = 6 }
 					}
 				}
 				FROM = { wealth = -5 }
@@ -5079,7 +5079,7 @@ targetted_decisions = {
 			NOT = { trait = incapable }
 			prisoner = no
 		}
-		ai_check_interval = 40 
+		ai_check_interval = 40
 		potential = {
 			NOT = { trait = cybernetic_limb }
 			prisoner = no
@@ -5099,27 +5099,27 @@ targetted_decisions = {
 			OR = {
 				FROM = { wealth = 500 }
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 1 }
+					location = { TECH_CYBERNETICS = 1 }
 					FROM = { wealth = 250 }
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 2 }
+					location = { TECH_CYBERNETICS = 2 }
 					FROM = { wealth = 100 }
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 3 }
+					location = { TECH_CYBERNETICS = 3 }
 					FROM = { wealth = 50 }
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 4 }
+					location = { TECH_CYBERNETICS = 4 }
 					FROM = { wealth = 25 }
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 5 }
+					location = { TECH_CYBERNETICS = 5 }
 					FROM = { wealth = 10 }
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 6 }
+					location = { TECH_CYBERNETICS = 6 }
 					FROM = { wealth = 5 }
 				}
 			}
@@ -5185,14 +5185,14 @@ targetted_decisions = {
 			}
 			hidden_tooltip = { character_event = { id = cybernetics.5061 } }
 			if = {
-				limit = { location = { NOT = { TECH_POPULAR_CUSTOMS = 1 } } }
+				limit = { location = { NOT = { TECH_CYBERNETICS = 1 } } }
 				FROM = { wealth = -500 }
 			}
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 1
-						NOT = { TECH_POPULAR_CUSTOMS = 2 }
+						TECH_CYBERNETICS = 1
+						NOT = { TECH_CYBERNETICS = 2 }
 					}
 				}
 				FROM = { wealth = -250 }
@@ -5200,8 +5200,8 @@ targetted_decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 2
-						NOT = { TECH_POPULAR_CUSTOMS = 3 }
+						TECH_CYBERNETICS = 2
+						NOT = { TECH_CYBERNETICS = 3 }
 					}
 				}
 				FROM = { wealth = -100 }
@@ -5209,8 +5209,8 @@ targetted_decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 3
-						NOT = { TECH_POPULAR_CUSTOMS = 4 }
+						TECH_CYBERNETICS = 3
+						NOT = { TECH_CYBERNETICS = 4 }
 					}
 				}
 				FROM = { wealth = -50 }
@@ -5218,8 +5218,8 @@ targetted_decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 4
-						NOT = { TECH_POPULAR_CUSTOMS = 5 }
+						TECH_CYBERNETICS = 4
+						NOT = { TECH_CYBERNETICS = 5 }
 					}
 				}
 				FROM = { wealth = -25 }
@@ -5227,14 +5227,14 @@ targetted_decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 5
-						NOT = { TECH_POPULAR_CUSTOMS = 6 }
+						TECH_CYBERNETICS = 5
+						NOT = { TECH_CYBERNETICS = 6 }
 					}
 				}
 				FROM = { wealth = -10 }
 			}
 			if = {
-				limit = { location = { TECH_POPULAR_CUSTOMS = 6 } }
+				limit = { location = { TECH_CYBERNETICS = 6 } }
 				FROM = { wealth = -5 }
 			}
 			FROM = {
@@ -5404,7 +5404,7 @@ targetted_decisions = {
 			NOT = { trait = incapable }
 			prisoner = no
 		}
-		ai_check_interval = 40 
+		ai_check_interval = 40
 		potential = {
 			has_dlc = "Reapers"
 			NOT = { trait = cybernetic_leg }
@@ -5419,27 +5419,27 @@ targetted_decisions = {
 			OR = {
 				FROM = { wealth = 500 }
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 1 }
+					location = { TECH_CYBERNETICS = 1 }
 					FROM = { wealth = 250 }
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 2 }
+					location = { TECH_CYBERNETICS = 2 }
 					FROM = { wealth = 100 }
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 3 }
+					location = { TECH_CYBERNETICS = 3 }
 					FROM = { wealth = 50 }
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 4 }
+					location = { TECH_CYBERNETICS = 4 }
 					FROM = { wealth = 25 }
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 5 }
+					location = { TECH_CYBERNETICS = 5 }
 					FROM = { wealth = 10 }
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 6 }
+					location = { TECH_CYBERNETICS = 6 }
 					FROM = { wealth = 5 }
 				}
 			}
@@ -5505,14 +5505,14 @@ targetted_decisions = {
 			}
 			hidden_tooltip = { character_event = { id = cybernetics.5071 } }
 			if = {
-				limit = { location = { NOT = { TECH_POPULAR_CUSTOMS = 1 } } }
+				limit = { location = { NOT = { TECH_CYBERNETICS = 1 } } }
 				FROM = { wealth = -500 }
 			}
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 1
-						NOT = { TECH_POPULAR_CUSTOMS = 2 }
+						TECH_CYBERNETICS = 1
+						NOT = { TECH_CYBERNETICS = 2 }
 					}
 				}
 				FROM = { wealth = -250 }
@@ -5520,8 +5520,8 @@ targetted_decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 2
-						NOT = { TECH_POPULAR_CUSTOMS = 3 }
+						TECH_CYBERNETICS = 2
+						NOT = { TECH_CYBERNETICS = 3 }
 					}
 				}
 				FROM = { wealth = -100 }
@@ -5529,8 +5529,8 @@ targetted_decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 3
-						NOT = { TECH_POPULAR_CUSTOMS = 4 }
+						TECH_CYBERNETICS = 3
+						NOT = { TECH_CYBERNETICS = 4 }
 					}
 				}
 				FROM = { wealth = -50 }
@@ -5538,8 +5538,8 @@ targetted_decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 4
-						NOT = { TECH_POPULAR_CUSTOMS = 5 }
+						TECH_CYBERNETICS = 4
+						NOT = { TECH_CYBERNETICS = 5 }
 					}
 				}
 				FROM = { wealth = -25 }
@@ -5547,14 +5547,14 @@ targetted_decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 5
-						NOT = { TECH_POPULAR_CUSTOMS = 6 }
+						TECH_CYBERNETICS = 5
+						NOT = { TECH_CYBERNETICS = 6 }
 					}
 				}
 				FROM = { wealth = -10 }
 			}
 			if = {
-				limit = { location = { TECH_POPULAR_CUSTOMS = 6 } }
+				limit = { location = { TECH_CYBERNETICS = 6 } }
 				FROM = { wealth = -5 }
 			}
 			FROM = {
@@ -5718,7 +5718,7 @@ targetted_decisions = {
 			NOT = { trait = incapable }
 			prisoner = no
 		}
-		ai_check_interval = 40 
+		ai_check_interval = 40
 		potential = {
 			has_dlc = "Reapers"
 			NOT = { trait = cybernetic_skeleton }
@@ -5732,27 +5732,27 @@ targetted_decisions = {
 			trait = mangled
 			OR = {
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 3 }
+					location = { TECH_CYBERNETICS = 3 }
 					FROM = { wealth = 500 }
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 4 }
+					location = { TECH_CYBERNETICS = 4 }
 					FROM = { wealth = 250 }
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 5 }
+					location = { TECH_CYBERNETICS = 5 }
 					FROM = { wealth = 100 }
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 6 }
+					location = { TECH_CYBERNETICS = 6 }
 					FROM = { wealth = 50 }
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 7 }
+					location = { TECH_CYBERNETICS = 7 }
 					FROM = { wealth = 25 }
 				}
 				AND = {
-					location = { TECH_POPULAR_CUSTOMS = 8 }
+					location = { TECH_CYBERNETICS = 8 }
 					FROM = { wealth = 10 }
 				}
 			}
@@ -5818,14 +5818,14 @@ targetted_decisions = {
 			}
 			hidden_tooltip = { character_event = { id = cybernetics.5071 } }
 			if = {
-				limit = { location = { NOT = { TECH_POPULAR_CUSTOMS = 4 } } }
+				limit = { location = { NOT = { TECH_CYBERNETICS = 4 } } }
 				FROM = { wealth = -500 }
 			}
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 4
-						NOT = { TECH_POPULAR_CUSTOMS = 5 }
+						TECH_CYBERNETICS = 4
+						NOT = { TECH_CYBERNETICS = 5 }
 					}
 				}
 				FROM = { wealth = -250 }
@@ -5833,8 +5833,8 @@ targetted_decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 5
-						NOT = { TECH_POPULAR_CUSTOMS = 6 }
+						TECH_CYBERNETICS = 5
+						NOT = { TECH_CYBERNETICS = 6 }
 					}
 				}
 				FROM = { wealth = -100 }
@@ -5842,8 +5842,8 @@ targetted_decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 6
-						NOT = { TECH_POPULAR_CUSTOMS = 7 }
+						TECH_CYBERNETICS = 6
+						NOT = { TECH_CYBERNETICS = 7 }
 					}
 				}
 				FROM = { wealth = -50 }
@@ -5851,8 +5851,8 @@ targetted_decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 7
-						NOT = { TECH_POPULAR_CUSTOMS = 8 }
+						TECH_CYBERNETICS = 7
+						NOT = { TECH_CYBERNETICS = 8 }
 					}
 				}
 				FROM = { wealth = -25 }
@@ -5860,7 +5860,7 @@ targetted_decisions = {
 			if = {
 				limit = {
 					location = {
-						TECH_POPULAR_CUSTOMS = 8
+						TECH_CYBERNETICS = 8
 					}
 				}
 				FROM = { wealth = -10 }

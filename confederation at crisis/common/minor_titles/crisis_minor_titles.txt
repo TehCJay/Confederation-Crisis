@@ -126,58 +126,526 @@ title_court_educator = {
 #	message: should fire a message to the its owner when set
 #	The other fields are all character modifiers.
 
-title_senatorrome = {
+title_senatorduke = {
 	dignity = 8.0
-	grant_limit = 10
+	grant_limit = 5
 	opinion_effect = 0
 	monthly_salary = 0.5
-	monthly_prestige = 0.50
+	monthly_prestige = 0.5
 	is_voter = yes
 	realm_in_name = yes
+	attribute = diplomacy
+	is_high_prio = yes
 
 	allowed_to_grant = {
-		higher_tier_than = DUKE
-		#has_landed_title = e_byzantium
-		primary_title = { has_law = legislative_authority_1 }
+		higher_tier_than = COUNT
+		primary_title = { has_law = law_voting_power_1 }
 	}
 
 	allowed_to_hold = {
-		#higher_tier_than = BARON
-		#OR = {
-			#	primary_title = { temporary = no }
-			#	NOT = {
-				#		primary_title = {
-					#			always = yes
-					#		}
-				#	}
-			#}
-		#can_be_councilmember_king_trigger = yes
-		OR = {
-			has_character_flag = flag_senatorrome
-			has_minor_title = title_senatorrome
+		can_be_councilmember_king_trigger = yes
+
+		trigger_if = {
+			limit = {
+				FROM = { has_law = legislative_authority_1 } # Aristocracy, only nobility can have titles
+			}
+			NOT = { dynasty = none }
 		}
-		age = 18
-		NOT = { trait = incapable }
 	}
 	revoke_trigger = {
 		FROM = {
 			primary_title = {
-				NOT = {
-					AND = {
-						has_law = succession_voting_power_1
-						ROOT = { is_powerful_vassal = yes }
-					}
-				}
-				has_law = legislative_authority_0
+				has_law = law_voting_power_0
 			}
 		}
 	}
 	gain_effect = {
-		clr_character_flag = flag_senatorrome
 	}
 	lose_effect = {
+		if = {
+			limit = {
+				FROM = {
+					NOT = {
+						has_character_flag = swapping_councillors
+					}
+				}
+
+				NOR = {
+					is_incapable = yes
+					trait = sick_incapable
+				}
+			}
+			opinion = { who = FROM modifier = opinion_fired_from_council }
+			opinion = { who = FROM modifier = opinion_recently_fired }
+		}
+
+		FROM = { character_event = { id = parliaments.001 } }
 	}
 	retire_effect = {
+		FROM = { character_event = { id = parliaments.001 } }
+	}
+	death_effect = {
+		FROM = { character_event = { id = parliaments.001 } }
+	}
+
+	message = yes
+}
+
+title_senatorking = {
+	dignity = 8.0
+	grant_limit = 5
+	opinion_effect = 0
+	monthly_salary = 0.5
+	monthly_prestige = 0.5
+	is_voter = yes
+	realm_in_name = yes
+	attribute = diplomacy
+	is_high_prio = yes
+
+	allowed_to_grant = {
+		higher_tier_than = DUKE
+		primary_title = { has_law = law_voting_power_1 }
+	}
+
+	allowed_to_hold = {
+		can_be_councilmember_king_trigger = yes
+
+		trigger_if = {
+			limit = {
+				FROM = { has_law = legislative_authority_1 } # Aristocracy, only nobility can have titles
+			}
+			NOT = { dynasty = none }
+		}
+	}
+	revoke_trigger = {
+		FROM = {
+			primary_title = {
+				has_law = law_voting_power_0
+			}
+		}
+	}
+	gain_effect = {
+	}
+	lose_effect = {
+		if = {
+			limit = {
+				FROM = {
+					NOT = {
+						has_character_flag = swapping_councillors
+					}
+				}
+
+				NOR = {
+					is_incapable = yes
+					trait = sick_incapable
+				}
+			}
+			opinion = { who = FROM modifier = opinion_fired_from_council }
+			opinion = { who = FROM modifier = opinion_recently_fired }
+		}
+
+		FROM = { character_event = { id = parliaments.001 } }
+	}
+	retire_effect = {
+		FROM = { character_event = { id = parliaments.001 } }
+	}
+	death_effect = {
+		FROM = { character_event = { id = parliaments.001 } }
+	}
+
+	message = yes
+}
+
+title_senatoremperor = {
+	dignity = 8.0
+	grant_limit = 10
+	opinion_effect = 0
+	monthly_salary = 0.5
+	monthly_prestige = 0.5
+	is_voter = yes
+	realm_in_name = yes
+	attribute = diplomacy
+	is_high_prio = yes
+
+	allowed_to_grant = {
+		higher_tier_than = KING
+		primary_title = { has_law = law_voting_power_1 }
+	}
+
+	allowed_to_hold = {
+		can_be_councilmember_king_trigger = yes
+
+		trigger_if = {
+			limit = {
+				FROM = { has_law = legislative_authority_1 } # Aristocracy, only nobility can have titles
+			}
+			NOT = { dynasty = none }
+		}
+	}
+	revoke_trigger = {
+		FROM = {
+			primary_title = {
+				has_law = law_voting_power_0
+			}
+		}
+	}
+	gain_effect = {
+	}
+	lose_effect = {
+		if = {
+			limit = {
+				FROM = {
+					NOT = {
+						has_character_flag = swapping_councillors
+					}
+				}
+
+				NOR = {
+					is_incapable = yes
+					trait = sick_incapable
+				}
+			}
+			opinion = { who = FROM modifier = opinion_fired_from_council }
+			opinion = { who = FROM modifier = opinion_recently_fired }
+		}
+
+		FROM = { character_event = { id = parliaments.001 } }
+	}
+	retire_effect = {
+		FROM = { character_event = { id = parliaments.001 } }
+	}
+	death_effect = {
+		FROM = { character_event = { id = parliaments.001 } }
+	}
+
+	message = yes
+}
+
+title_senatorbigrealm1 = {
+	dignity = 8.0
+	grant_limit = 5
+	opinion_effect = 0
+	monthly_salary = 0.5
+	monthly_prestige = 0.5
+	is_voter = yes
+	realm_in_name = yes
+	attribute = diplomacy
+	is_high_prio = yes
+
+	allowed_to_grant = {
+		higher_tier_than = COUNT
+		primary_title = { has_law = law_voting_power_1 }
+		num_of_count_titles_in_realm = 10
+	}
+
+	allowed_to_hold = {
+		can_be_councilmember_king_trigger = yes
+
+		trigger_if = {
+			limit = {
+				FROM = { has_law = legislative_authority_1 } # Aristocracy, only nobility can have titles
+			}
+			NOT = { dynasty = none }
+		}
+	}
+	revoke_trigger = {
+		FROM = {
+			primary_title = {
+				has_law = law_voting_power_0
+			}
+		}
+	}
+	gain_effect = {
+	}
+	lose_effect = {
+		if = {
+			limit = {
+				FROM = {
+					NOT = {
+						has_character_flag = swapping_councillors
+					}
+				}
+
+				NOR = {
+					is_incapable = yes
+					trait = sick_incapable
+				}
+			}
+			opinion = { who = FROM modifier = opinion_fired_from_council }
+			opinion = { who = FROM modifier = opinion_recently_fired }
+		}
+
+		FROM = { character_event = { id = parliaments.001 } }
+	}
+	retire_effect = {
+		FROM = { character_event = { id = parliaments.001 } }
+	}
+	death_effect = {
+		FROM = { character_event = { id = parliaments.001 } }
+	}
+
+	message = yes
+}
+
+title_senatorbigrealm2 = {
+	dignity = 8.0
+	grant_limit = 5
+	opinion_effect = 0
+	monthly_salary = 0.5
+	monthly_prestige = 0.5
+	is_voter = yes
+	realm_in_name = yes
+	attribute = diplomacy
+	is_high_prio = yes
+
+	allowed_to_grant = {
+		higher_tier_than = COUNT
+		primary_title = { has_law = law_voting_power_1 }
+		num_of_count_titles_in_realm = 20
+	}
+
+	allowed_to_hold = {
+		can_be_councilmember_king_trigger = yes
+
+		trigger_if = {
+			limit = {
+				FROM = { has_law = legislative_authority_1 } # Aristocracy, only nobility can have titles
+			}
+			NOT = { dynasty = none }
+		}
+	}
+	revoke_trigger = {
+		FROM = {
+			primary_title = {
+				has_law = law_voting_power_0
+			}
+		}
+	}
+	gain_effect = {
+	}
+	lose_effect = {
+		if = {
+			limit = {
+				FROM = {
+					NOT = {
+						has_character_flag = swapping_councillors
+					}
+				}
+
+				NOR = {
+					is_incapable = yes
+					trait = sick_incapable
+				}
+			}
+			opinion = { who = FROM modifier = opinion_fired_from_council }
+			opinion = { who = FROM modifier = opinion_recently_fired }
+		}
+
+		FROM = { character_event = { id = parliaments.001 } }
+	}
+	retire_effect = {
+		FROM = { character_event = { id = parliaments.001 } }
+	}
+	death_effect = {
+		FROM = { character_event = { id = parliaments.001 } }
+	}
+
+	message = yes
+}
+
+title_senatorbigrealm3 = {
+	dignity = 8.0
+	grant_limit = 5
+	opinion_effect = 0
+	monthly_salary = 0.5
+	monthly_prestige = 0.5
+	is_voter = yes
+	realm_in_name = yes
+	attribute = diplomacy
+	is_high_prio = yes
+
+	allowed_to_grant = {
+		higher_tier_than = COUNT
+		primary_title = { has_law = law_voting_power_1 }
+		num_of_count_titles_in_realm = 30
+	}
+
+	allowed_to_hold = {
+		can_be_councilmember_king_trigger = yes
+
+		trigger_if = {
+			limit = {
+				FROM = { has_law = legislative_authority_1 } # Aristocracy, only nobility can have titles
+			}
+			NOT = { dynasty = none }
+		}
+	}
+	revoke_trigger = {
+		FROM = {
+			primary_title = {
+				has_law = law_voting_power_0
+			}
+		}
+	}
+	gain_effect = {
+	}
+	lose_effect = {
+		if = {
+			limit = {
+				FROM = {
+					NOT = {
+						has_character_flag = swapping_councillors
+					}
+				}
+
+				NOR = {
+					is_incapable = yes
+					trait = sick_incapable
+				}
+			}
+			opinion = { who = FROM modifier = opinion_fired_from_council }
+			opinion = { who = FROM modifier = opinion_recently_fired }
+		}
+
+		FROM = { character_event = { id = parliaments.001 } }
+	}
+	retire_effect = {
+		FROM = { character_event = { id = parliaments.001 } }
+	}
+	death_effect = {
+		FROM = { character_event = { id = parliaments.001 } }
+	}
+
+	message = yes
+}
+
+title_senatorbigrealm4 = {
+	dignity = 8.0
+	grant_limit = 10
+	opinion_effect = 0
+	monthly_salary = 0.5
+	monthly_prestige = 0.5
+	is_voter = yes
+	realm_in_name = yes
+	attribute = diplomacy
+	is_high_prio = yes
+
+	allowed_to_grant = {
+		higher_tier_than = COUNT
+		primary_title = { has_law = law_voting_power_1 }
+		num_of_count_titles_in_realm = 50
+	}
+
+	allowed_to_hold = {
+		can_be_councilmember_king_trigger = yes
+
+		trigger_if = {
+			limit = {
+				FROM = { has_law = legislative_authority_1 } # Aristocracy, only nobility can have titles
+			}
+			NOT = { dynasty = none }
+		}
+	}
+	revoke_trigger = {
+		FROM = {
+			primary_title = {
+				has_law = law_voting_power_0
+			}
+		}
+	}
+	gain_effect = {
+	}
+	lose_effect = {
+		if = {
+			limit = {
+				FROM = {
+					NOT = {
+						has_character_flag = swapping_councillors
+					}
+				}
+
+				NOR = {
+					is_incapable = yes
+					trait = sick_incapable
+				}
+			}
+			opinion = { who = FROM modifier = opinion_fired_from_council }
+			opinion = { who = FROM modifier = opinion_recently_fired }
+		}
+
+		FROM = { character_event = { id = parliaments.001 } }
+	}
+	retire_effect = {
+		FROM = { character_event = { id = parliaments.001 } }
+	}
+	death_effect = {
+		FROM = { character_event = { id = parliaments.001 } }
+	}
+
+	message = yes
+}
+
+title_senatorbigrealm5 = {
+	dignity = 8.0
+	grant_limit = 25
+	opinion_effect = 0
+	monthly_salary = 0.5
+	monthly_prestige = 0.5
+	is_voter = yes
+	realm_in_name = yes
+	attribute = diplomacy
+	is_high_prio = yes
+
+	allowed_to_grant = {
+		higher_tier_than = COUNT
+		primary_title = { has_law = law_voting_power_1 }
+		num_of_count_titles_in_realm = 100
+	}
+
+	allowed_to_hold = {
+		can_be_councilmember_king_trigger = yes
+
+		trigger_if = {
+			limit = {
+				FROM = { has_law = legislative_authority_1 } # Aristocracy, only nobility can have titles
+			}
+			NOT = { dynasty = none }
+		}
+	}
+	revoke_trigger = {
+		FROM = {
+			primary_title = {
+				has_law = law_voting_power_0
+			}
+		}
+	}
+	gain_effect = {
+	}
+	lose_effect = {
+		if = {
+			limit = {
+				FROM = {
+					NOT = {
+						has_character_flag = swapping_councillors
+					}
+				}
+
+				NOR = {
+					is_incapable = yes
+					trait = sick_incapable
+				}
+			}
+			opinion = { who = FROM modifier = opinion_fired_from_council }
+			opinion = { who = FROM modifier = opinion_recently_fired }
+		}
+
+		FROM = { character_event = { id = parliaments.001 } }
+	}
+	retire_effect = {
+		FROM = { character_event = { id = parliaments.001 } }
+	}
+	death_effect = {
+		FROM = { character_event = { id = parliaments.001 } }
 	}
 
 	message = yes

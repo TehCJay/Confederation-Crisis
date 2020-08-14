@@ -44,25 +44,25 @@ decisions = {
 		}
 		ai_will_do = {
 			factor = 1
-			
+
 			# Random factor
 			modifier = {
 				factor = 0.5
 			}
-			
+
 			# Needs a positive reason to want a corvette
 			modifier = {
 				factor = 0
 				has_education_stewardship_trigger = no
 				is_ruler = no
 			}
-			
+
 			# Already have a ship
 			modifier = {
 				factor = 0
 				any_artifact = { has_artifact_flag = ship }
 			}
-			
+
 			# Would prefer a different, more expensive ship
 			modifier = {
 				factor = 0.5
@@ -137,12 +137,12 @@ decisions = {
 		}
 		ai_will_do = {
 			factor = 1
-			
+
 			# Random factor
 			modifier = {
 				factor = 0.5
 			}
-			
+
 			# Needs a positive reason to want a freighter
 			modifier = {
 				factor = 0
@@ -150,13 +150,13 @@ decisions = {
 				has_education_intrigue_trigger = no
 				NOT = { religion_group = outlaw_group }
 			}
-			
+
 			# Already have a ship
 			modifier = {
 				factor = 0
 				any_artifact = { has_artifact_flag = ship }
 			}
-			
+
 			# Would prefer a different, more expensive ship
 			modifier = {
 				factor = 0.5
@@ -244,12 +244,12 @@ decisions = {
 		}
 		ai_will_do = {
 			factor = 1
-			
+
 			# Random factor
 			modifier = {
 				factor = 0.5
 			}
-			
+
 			# Needs a positive reason to want a yacht
 			modifier = {
 				factor = 0
@@ -257,13 +257,13 @@ decisions = {
 				NOT = { trait = proud }
 				is_ruler = no
 			}
-			
+
 			# Already have a ship
 			modifier = {
 				factor = 0
 				any_artifact = { has_artifact_flag = ship }
 			}
-			
+
 			modifier = {
 				factor = 0.25
 				trait = humble
@@ -272,7 +272,7 @@ decisions = {
 				factor = 4
 				trait = proud
 			}
-			
+
 			# The symbol of bourgeosie decadence
 			modifier = {
 				factor = 0
@@ -284,7 +284,7 @@ decisions = {
 				NOT = { trait = pragmatic }
 				religion = neo_socialist
 			}
-			
+
 			# Would prefer a different, more expensive ship
 			modifier = {
 				factor = 0
@@ -337,18 +337,18 @@ decisions = {
 		}
 		ai_will_do = {
 			factor = 1
-			
+
 			# Random factor
 			modifier = {
 				factor = 0.5
 			}
-			
+
 			# Needs a positive reason to want a dreadnought
 			modifier = {
 				factor = 0
 				NOT = { trait = warship_captain }
 			}
-			
+
 			# Already have a ship
 			modifier = {
 				factor = 0
@@ -396,17 +396,17 @@ decisions = {
 		}
 		ai_will_do = {
 			factor = 1
-			
+
 			modifier = {
 				factor = 0.5
 			}
-			
+
 			# Needs a positive reason to want a fighter
 			modifier = {
 				factor = 0
 				NOT = { trait = fighter_pilot }
 			}
-			
+
 			# Already have a fighter
 			modifier = {
 				factor = 0
@@ -451,17 +451,17 @@ decisions = {
 		}
 		ai_will_do = {
 			factor = 1
-			
+
 			modifier = {
 				factor = 0.5
 			}
-			
+
 			# Needs a positive reason to want a fighter
 			modifier = {
 				factor = 0
 				NOT = { trait = marine_colonel }
 			}
-			
+
 			# Already have a ground vehicle
 			modifier = {
 				factor = 0
@@ -469,13 +469,13 @@ decisions = {
 			}
 		}
 	}
-	
+
 	# Buying new weapons
 	purchase_hunting_or_sniper_rifle_decision = {
 		is_high_prio = yes
 		only_rulers = yes
 		ai_check_interval = 24
-		
+
 		potential = {
 			OR = {
 				ai = yes
@@ -504,7 +504,7 @@ decisions = {
 				NOT = { has_focus = focus_hunting }
 				NOT = { has_education_martial_trigger = yes }
 			}
-			
+
 			# Not saving money
 			modifier = {
 				factor = 0
@@ -516,7 +516,7 @@ decisions = {
 					has_ambition = obj_build_a_war_chest
 				}
 			}
-			
+
 			# Civilians should be satisfied with just a hunting rifle
 			modifier = {
 				factor = 0
@@ -532,7 +532,7 @@ decisions = {
 					has_artifact = tech_8_hunting_rifle
 				}
 			}
-			
+
 			# Non-civilians should save up for a military rifle
 			modifier = {
 				factor = 0
@@ -540,7 +540,7 @@ decisions = {
 				martial = 10
 				intrigue = 10
 			}
-			
+
 			# Must not already have a weapon that's up to date
 			modifier = {
 				factor = 0
@@ -555,8 +555,8 @@ decisions = {
 					has_artifact_flag = weapon
 					has_artifact_flag = tech_7
 				}
-				NOT = { location = { TECH_CAVALRY = 8 } }
-				NOT = { capital_scope = { TECH_CAVALRY = 8 } }
+				NOT = { location = { TECH_INFANTRY = 8 } }
+				NOT = { capital_scope = { TECH_INFANTRY = 8 } }
 			}
 			modifier = {
 				factor = 0
@@ -564,8 +564,8 @@ decisions = {
 					has_artifact_flag = weapon
 					has_artifact_flag = tech_6
 				}
-				NOT = { location = { TECH_CAVALRY = 7 } }
-				NOT = { capital_scope = { TECH_CAVALRY = 7 } }
+				NOT = { location = { TECH_INFANTRY = 7 } }
+				NOT = { capital_scope = { TECH_INFANTRY = 7 } }
 			}
 			modifier = {
 				factor = 0
@@ -573,8 +573,8 @@ decisions = {
 					has_artifact_flag = weapon
 					has_artifact_flag = tech_5
 				}
-				NOT = { location = { TECH_CAVALRY = 6 } }
-				NOT = { capital_scope = { TECH_CAVALRY = 6 } }
+				NOT = { location = { TECH_INFANTRY = 6 } }
+				NOT = { capital_scope = { TECH_INFANTRY = 6 } }
 			}
 			modifier = {
 				factor = 0
@@ -582,8 +582,8 @@ decisions = {
 					has_artifact_flag = weapon
 					has_artifact_flag = tech_4
 				}
-				NOT = { location = { TECH_CAVALRY = 5 } }
-				NOT = { capital_scope = { TECH_CAVALRY = 5 } }
+				NOT = { location = { TECH_INFANTRY = 5 } }
+				NOT = { capital_scope = { TECH_INFANTRY = 5 } }
 			}
 			modifier = {
 				factor = 0
@@ -591,8 +591,8 @@ decisions = {
 					has_artifact_flag = weapon
 					has_artifact_flag = tech_3
 				}
-				NOT = { location = { TECH_CAVALRY = 4 } }
-				NOT = { capital_scope = { TECH_CAVALRY = 4 } }
+				NOT = { location = { TECH_INFANTRY = 4 } }
+				NOT = { capital_scope = { TECH_INFANTRY = 4 } }
 			}
 			modifier = {
 				factor = 0
@@ -600,8 +600,8 @@ decisions = {
 					has_artifact_flag = weapon
 					has_artifact_flag = tech_2
 				}
-				NOT = { location = { TECH_CAVALRY = 3 } }
-				NOT = { capital_scope = { TECH_CAVALRY = 3 } }
+				NOT = { location = { TECH_INFANTRY = 3 } }
+				NOT = { capital_scope = { TECH_INFANTRY = 3 } }
 			}
 			modifier = {
 				factor = 0
@@ -609,14 +609,14 @@ decisions = {
 					has_artifact_flag = weapon
 					has_artifact_flag = tech_1
 				}
-				NOT = { location = { TECH_CAVALRY = 2 } }
-				NOT = { capital_scope = { TECH_CAVALRY = 2 } }
+				NOT = { location = { TECH_INFANTRY = 2 } }
+				NOT = { capital_scope = { TECH_INFANTRY = 2 } }
 			}
 			modifier = {
 				factor = 0
 				any_artifact = { has_artifact_flag = weapon }
-				NOT = { location = { TECH_CAVALRY = 1 } }
-				NOT = { capital_scope = { TECH_CAVALRY = 1 } }
+				NOT = { location = { TECH_INFANTRY = 1 } }
+				NOT = { capital_scope = { TECH_INFANTRY = 1 } }
 			}
 		}
 	}
@@ -628,25 +628,25 @@ targetted_decisions = {
 		filter = realm
 		ai_target_filter = realm
 		ai_check_interval = 12
-		
+
 		from_potential = {
 			trait = gardener
 			prisoner = no
 			NOT = { trait = incapable }
 			NOT = { has_artifact = onideguzu_specimen }
 		}
-		
+
 		potential = {
 			NOT = { trait = gardener }
 			is_within_diplo_range = FROM
 			has_artifact = onideguzu_specimen
 		}
-		
+
 		allow = {
 			FROM = { wealth = 100 }
 			NOT = { has_opinion_modifier = { who = FROM modifier = opinion_very_recent_request } }
 		}
-		
+
 		effect = {
 			hidden_tooltip = { opinion = { who = FROM modifier = opinion_very_recent_request } }
 			FROM = { save_event_target_as = purchaser }
@@ -687,25 +687,25 @@ targetted_decisions = {
 		filter = realm
 		ai_target_filter = realm
 		ai_check_interval = 12
-		
+
 		from_potential = {
 			trait = gardener
 			prisoner = no
 			NOT = { trait = incapable }
 			NOT = { has_artifact = omidi_giant_mangrove_specimen }
 		}
-		
+
 		potential = {
 			NOT = { trait = gardener }
 			is_within_diplo_range = FROM
 			has_artifact = omidi_giant_mangrove_specimen
 		}
-		
+
 		allow = {
 			FROM = { wealth = 100 }
 			NOT = { has_opinion_modifier = { who = FROM modifier = opinion_very_recent_request } }
 		}
-		
+
 		effect = {
 			hidden_tooltip = { opinion = { who = FROM modifier = opinion_very_recent_request } }
 			FROM = { save_event_target_as = purchaser }
@@ -746,25 +746,25 @@ targetted_decisions = {
 		filter = realm
 		ai_target_filter = realm
 		ai_check_interval = 12
-		
+
 		from_potential = {
 			trait = gardener
 			prisoner = no
 			NOT = { trait = incapable }
 			NOT = { has_artifact = steelwood_specimen }
 		}
-		
+
 		potential = {
 			NOT = { trait = gardener }
 			is_within_diplo_range = FROM
 			has_artifact = steelwood_specimen
 		}
-		
+
 		allow = {
 			FROM = { wealth = 100 }
 			NOT = { has_opinion_modifier = { who = FROM modifier = opinion_very_recent_request } }
 		}
-		
+
 		effect = {
 			hidden_tooltip = { opinion = { who = FROM modifier = opinion_very_recent_request } }
 			FROM = { save_event_target_as = purchaser }
@@ -805,25 +805,25 @@ targetted_decisions = {
 		filter = realm
 		ai_target_filter = realm
 		ai_check_interval = 12
-		
+
 		from_potential = {
 			trait = gardener
 			prisoner = no
 			NOT = { trait = incapable }
 			NOT = { has_artifact = chengdu_coral_specimen }
 		}
-		
+
 		potential = {
 			NOT = { trait = gardener }
 			is_within_diplo_range = FROM
 			has_artifact = chengdu_coral_specimen
 		}
-		
+
 		allow = {
 			FROM = { wealth = 100 }
 			NOT = { has_opinion_modifier = { who = FROM modifier = opinion_very_recent_request } }
 		}
-		
+
 		effect = {
 			hidden_tooltip = { opinion = { who = FROM modifier = opinion_very_recent_request } }
 			FROM = { save_event_target_as = purchaser }
@@ -864,25 +864,25 @@ targetted_decisions = {
 		filter = realm
 		ai_target_filter = realm
 		ai_check_interval = 12
-		
+
 		from_potential = {
 			trait = gardener
 			prisoner = no
 			NOT = { trait = incapable }
 			NOT = { has_artifact = razorgrass_specimen }
 		}
-		
+
 		potential = {
 			NOT = { trait = gardener }
 			is_within_diplo_range = FROM
 			has_artifact = razorgrass_specimen
 		}
-		
+
 		allow = {
 			FROM = { wealth = 100 }
 			NOT = { has_opinion_modifier = { who = FROM modifier = opinion_very_recent_request } }
 		}
-		
+
 		effect = {
 			hidden_tooltip = { opinion = { who = FROM modifier = opinion_very_recent_request } }
 			FROM = { save_event_target_as = purchaser }
@@ -923,25 +923,25 @@ targetted_decisions = {
 		filter = realm
 		ai_target_filter = realm
 		ai_check_interval = 12
-		
+
 		from_potential = {
 			trait = gardener
 			prisoner = no
 			NOT = { trait = incapable }
 			NOT = { has_artifact = metagenic_wasp_specimen }
 		}
-		
+
 		potential = {
 			NOT = { trait = gardener }
 			is_within_diplo_range = FROM
 			has_artifact = metagenic_wasp_specimen
 		}
-		
+
 		allow = {
 			FROM = { wealth = 100 }
 			NOT = { has_opinion_modifier = { who = FROM modifier = opinion_very_recent_request } }
 		}
-		
+
 		effect = {
 			hidden_tooltip = { opinion = { who = FROM modifier = opinion_very_recent_request } }
 			FROM = { save_event_target_as = purchaser }
@@ -982,25 +982,25 @@ targetted_decisions = {
 		filter = realm
 		ai_target_filter = realm
 		ai_check_interval = 12
-		
+
 		from_potential = {
 			trait = gardener
 			prisoner = no
 			NOT = { trait = incapable }
 			NOT = { has_artifact = world_tree_specimen }
 		}
-		
+
 		potential = {
 			NOT = { trait = gardener }
 			is_within_diplo_range = FROM
 			has_artifact = world_tree_specimen
 		}
-		
+
 		allow = {
 			FROM = { wealth = 100 }
 			NOT = { has_opinion_modifier = { who = FROM modifier = opinion_very_recent_request } }
 		}
-		
+
 		effect = {
 			hidden_tooltip = { opinion = { who = FROM modifier = opinion_very_recent_request } }
 			FROM = { save_event_target_as = purchaser }
@@ -1041,25 +1041,25 @@ targetted_decisions = {
 		filter = realm
 		ai_target_filter = realm
 		ai_check_interval = 12
-		
+
 		from_potential = {
 			trait = gardener
 			prisoner = no
 			NOT = { trait = incapable }
 			NOT = { has_artifact = rainbow_grass_specimen }
 		}
-		
+
 		potential = {
 			NOT = { trait = gardener }
 			is_within_diplo_range = FROM
 			has_artifact = rainbow_grass_specimen
 		}
-		
+
 		allow = {
 			FROM = { wealth = 100 }
 			NOT = { has_opinion_modifier = { who = FROM modifier = opinion_very_recent_request } }
 		}
-		
+
 		effect = {
 			hidden_tooltip = { opinion = { who = FROM modifier = opinion_very_recent_request } }
 			FROM = { save_event_target_as = purchaser }
@@ -1100,25 +1100,25 @@ targetted_decisions = {
 		filter = realm
 		ai_target_filter = realm
 		ai_check_interval = 12
-		
+
 		from_potential = {
 			trait = gardener
 			prisoner = no
 			NOT = { trait = incapable }
 			NOT = { has_artifact = touchdown_tumbleweed_specimen }
 		}
-		
+
 		potential = {
 			NOT = { trait = gardener }
 			is_within_diplo_range = FROM
 			has_artifact = touchdown_tumbleweed_specimen
 		}
-		
+
 		allow = {
 			FROM = { wealth = 100 }
 			NOT = { has_opinion_modifier = { who = FROM modifier = opinion_very_recent_request } }
 		}
-		
+
 		effect = {
 			hidden_tooltip = { opinion = { who = FROM modifier = opinion_very_recent_request } }
 			FROM = { save_event_target_as = purchaser }

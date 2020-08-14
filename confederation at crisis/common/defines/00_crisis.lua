@@ -5,15 +5,15 @@ NDefines.NCouncil.COUNCIL_REJECTED_LAW_TIMEOUT = 5
 NDefines.NCouncil.COUNCIL_REJECTED_CROWN_LAW_TIMEOUT = 3
 NDefines.NCouncil.COUNCIL_REJECTION_ALL_LAWS_TIMEOUT = 0.5
 NDefines.NCouncil.COUNCIL_REJECTION_ALL_CROWN_LAWS_TIMEOUT = 0.5
-NDefines.NCouncil.CHANGE_POSITION_COOLDOWN = 4 --default is 1, but seemly was causing performance issues. Not sure of that though.
+NDefines.NCouncil.CHANGE_POSITION_COOLDOWN = 1
 
 NDefines.NDiplomacy.DEMESNE_MAX_SIZE_KING_MULT = 1.5			-- Extra Max Demesne Size from the ruler's rank
 NDefines.NDiplomacy.DEMESNE_MAX_SIZE_EMPEROR_MULT = 2		-- Extra Max Demesne Size from the ruler's rank
 
-NDefines.NCharacter.PORTRAIT_ADULT_MALE_AGE_THRESHOLD = 14
+NDefines.NCharacter.PORTRAIT_ADULT_MALE_AGE_THRESHOLD = 16
 NDefines.NCharacter.MAX_LED_FACTIONS = 3
 NDefines.NCharacter.MAX_JOINED_FACTIONS = 4
-NDefines.NCharacter.PORTRAIT_ADULT_FEMALE_AGE_THRESHOLD = 14
+NDefines.NCharacter.PORTRAIT_ADULT_FEMALE_AGE_THRESHOLD = 16
 NDefines.NCharacter.PORTRAIT_MID_AGE_THRESHOLD = 40
 NDefines.NCharacter.PORTRAIT_OLD_AGE_THRESHOLD = 60
 NDefines.NCharacter.AGE_OF_ADULTHOOD_MALE = 18
@@ -24,7 +24,7 @@ NDefines.NCharacter.AGE_ADULT = 40
 NDefines.NCharacter.AGE_OLD = 60
 NDefines.NCharacter.AGE_VERY_OLD = 80
 NDefines.NCharacter.MAX_CHILD_BIRTH_AGE = 50
-NDefines.NCharacter.BASE_NR_OF_CHILDREN_PER_COUPLE = 0
+NDefines.NCharacter.BASE_NR_OF_CHILDREN_PER_COUPLE = 2
 NDefines.NCharacter.EXTRA_NR_OF_CHILDREN_FOR_PLAYERS = 0
 NDefines.NCharacter.NATURAL_DEATH_CHANCE_AGE_0 = 0
 NDefines.NCharacter.NATURAL_DEATH_CHANCE_AGE_10 = 0
@@ -37,13 +37,13 @@ NDefines.NCharacter.NATURAL_DEATH_CHANCE_AGE_70 = 1000
 NDefines.NCharacter.NATURAL_DEATH_CHANCE_AGE_80 = 2000
 NDefines.NCharacter.NATURAL_DEATH_CHANCE_AGE_90 = 4000
 NDefines.NCharacter.NATURAL_DEATH_CHANCE_AGE_100 = 8000
-NDefines.NCharacter.FERTILITY_BASE_MULT = 0.25
+NDefines.NCharacter.FERTILITY_BASE_MULT = 1
 NDefines.NCharacter.SECONDARY_SPOUSE_FERTILITY_MULT = 0.25         -- Applied to fertility of secondary spouses and concubines
-NDefines.NCharacter.NOT_SPOUSE_FERTILITY_MULT = 0.25               -- Applied to fertility when two lovers are not married
-NDefines.NCharacter.MARRIED_LOVERS_FERTILITY_MULT = 1            -- Applied to fertility when lovers are married
+NDefines.NCharacter.NOT_SPOUSE_FERTILITY_MULT = 0.5               -- Applied to fertility when two lovers are not married
+NDefines.NCharacter.MARRIED_LOVERS_FERTILITY_MULT = 2            -- Applied to fertility when lovers are married
 NDefines.NCharacter.INFANT_DEATH_CHANCE = 0
 NDefines.NCharacter.FEMALE_ATTRACTION_CUTOFF = 65
-NDefines.NCharacter.COURT_SIZE_CHILD_PENALTY_THRESHOLD = 10 -- courts bigger than this reduce fertility
+NDefines.NCharacter.COURT_SIZE_CHILD_PENALTY_THRESHOLD = 30 -- courts bigger than this reduce fertility
 
 NDefines.NDiplomacy.DEMAND_RELIGIOUS_CONVERSION_INTERACTION_THRESHOLD_FOR_NO = 75
 NDefines.NDiplomacy.DEMAND_RELIGIOUS_CONVERSION_INTERACTION_THRESHOLD_FOR_YES = 75
@@ -272,6 +272,15 @@ NDefines.NEconomy.PATRICIAN_PRESTIGE_RESPECT_FACTOR = 5									-- 2 The effect 
 NDefines.NEconomy.PATRICIAN_AGE_RESPECT_FACTOR = 0.125									-- 1 The effect of Age on the Respect value for Doge elections (age * age * factor).
 NDefines.NMilitary.MAX_LEADERSHIP_TRAITS = 4
 NDefines.NEconomy.FORT_CONSUMED_IN_SETTLEMENT_CONTRUCTION = 0
+
+-- court stuff
+NDefines.NEconomy.BASE_COURT_LIMIT_COUNT = 10                                                -- Base amount of unlanded characters and councillors allowed to reside in your court before you need to pay upkeep.
+NDefines.NEconomy.BASE_COURT_LIMIT_DUKE = 20
+NDefines.NEconomy.BASE_COURT_LIMIT_KING = 25
+NDefines.NEconomy.BASE_COURT_LIMIT_EMPEROR = 30
+NDefines.NEconomy.OVERSIZED_COURT_UPKEEP_COST = 4.5                                        -- Amount of ducats paid per month for the upkeep of each courtier above the court limit.
+NDefines.NEconomy.OVERSIZED_COURT_PRESTIGE_GAIN = 0.30                                      -- Amount of prestige gained per month for each courtier above the court limit.
+NDefines.NDisease.CROWDED_THRESHOLD_MODIFIER = 40                                            -- How many courtiers in a court to make it crowded and increase chance for disease.
 
 
 NDefines.NDiplomacy.PRESTIGE_OPINION_MAX = 10									-- Max opinion impact of prestige (positive OR negative)
@@ -838,9 +847,9 @@ NDefines.NEngine.MISSING_SCRIPTED_SUCCESSOR_ERROR_CUTOFF_DAY = 16
 NDefines.NEngine.EVENT_PROCESS_OFFSET = 100
 NDefines.NEngine.COURTIER_EVENT_PROCESS_OFFSET = 200
 NDefines.NEngine.COURTIERS_MTTTH_EVENTS = 1
-NDefines.NEngine.COURT_PRUNE_SIZE = 1
-NDefines.NEngine.PRUNE_MINIMAL_AGE = 1
-NDefines.NEngine.HEALTH_IMMUNITY_TO_PRUNING = 10
+NDefines.NEngine.COURT_PRUNE_SIZE = 30
+NDefines.NEngine.PRUNE_MINIMAL_AGE = 40                                         -- since some succession require high age too early pruning might prune candidates
+NDefines.NEngine.HEALTH_IMMUNITY_TO_PRUNING = 4
 
 NDefines.NNomad.PROVINCES_PER_CLAN = 1							-- Used to calculate if you have too many clans
 NDefines.NNomad.MIN_CLAN_LAND_PROPORTION = 0.8				-- Used to calculate when the clans get angry over you holding too much land

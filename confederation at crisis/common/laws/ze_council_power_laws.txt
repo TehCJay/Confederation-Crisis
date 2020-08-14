@@ -35,6 +35,15 @@ law_groups = {
 	}
 }
 
+# Vanilla laws default according to Galle
+# - Laws: Empower Council
+# - War Declaration: Council
+# - Title Revokation: Council
+# - Imprisonment: Ruler
+# - Title Grants: Ruler
+# - Banishment: Council
+# - Execution: Council
+
 laws = {
 	# COUNCIL POWER LAWS
 	##############################
@@ -42,7 +51,6 @@ laws = {
 	#VOTE ON LAW CHANGES
 	law_voting_power_0 = {
 		group = law_voting_power
-		default = no
 
 		demesne_size = 2
 
@@ -134,7 +142,9 @@ laws = {
 
 	law_voting_power_1 = {
 		group = law_voting_power
-		default = yes
+		default_selection = {
+			factor = 10
+		}
 
 		potential = {
 			is_law_potential = law_voting_power_0
@@ -142,7 +152,6 @@ laws = {
 
 		allow = {
 			has_law = law_voting_power_0
-			NOT = { has_law = legislative_authority_0 }
 
 			trigger_if = {
 				limit = { holder_scope = { is_tribal = yes } }
@@ -201,16 +210,11 @@ laws = {
 		ai_will_do = {
 			factor = 0
 		}
-
-		default_selection = {
-			factor = 0
-		}
 	}
 
 	# VOTE ON WAR
 	war_voting_power_0 = {
 		group = war_voting_power
-		default = yes
 
 		potential = {
 			has_dlc = "Conclave"
@@ -237,11 +241,6 @@ laws = {
 			trigger_else = {
 				has_law = law_voting_power_1
 				has_law = war_voting_power_1
-				has_law = banish_voting_power_0
-				has_law = revoke_title_voting_power_0
-				has_law = grant_title_voting_power_0
-				has_law = imprison_voting_power_0
-				has_law = execution_voting_power_0
 
 				trigger_if = {
 					limit = { holder_scope = { is_tribal = yes } }
@@ -295,6 +294,9 @@ laws = {
 
 	war_voting_power_1 = {
 		group = war_voting_power
+		default_selection = {
+			factor = 10
+		}
 
 		vassal_limit = 2
 
@@ -359,21 +361,14 @@ laws = {
 		ai_will_do = {
 			factor = 0
 		}
-
-		default_selection = {
-			factor = 0
-
-			additive_modifier = {
-				value = 10
-				holder_scope = { is_nomadic = yes }
-			}
-		}
 	}
 
 	#VOTE ON GRANT TITLES
 	grant_title_voting_power_0 = {
 		group = grant_title_voting_power
-		default = yes
+		default_selection = {
+			factor = 10
+		}
 
 		potential = {
 			has_dlc = "Conclave"
@@ -457,8 +452,6 @@ laws = {
 
 		allow = {
 			has_law = law_voting_power_1
-			has_law = war_voting_power_1
-			has_law = grant_title_voting_power_0
 
 			trigger_if = {
 				limit = { holder_scope = { is_tribal = yes } }
@@ -508,21 +501,11 @@ laws = {
 		ai_will_do = {
 			factor = 0
 		}
-
-		default_selection = {
-			factor = 0
-
-			additive_modifier = {
-				value = 10
-				holder_scope = { is_nomadic = yes }
-			}
-		}
 	}
 
 	#VOTE ON REVOKE TITLES
 	revoke_title_voting_power_0 = {
 		group = revoke_title_voting_power
-		default = yes
 
 		potential = {
 			has_dlc = "Conclave"
@@ -596,6 +579,9 @@ laws = {
 
 	revoke_title_voting_power_1 = {
 		group = revoke_title_voting_power
+		default_selection = {
+			factor = 10
+		}
 
 		vassal_limit = 2
 
@@ -605,7 +591,6 @@ laws = {
 
 		allow = {
 			has_law = law_voting_power_1
-			has_law = war_voting_power_1
 			has_law = revoke_title_voting_power_0
 
 			trigger_if = {
@@ -656,21 +641,14 @@ laws = {
 		ai_will_do = {
 			factor = 0
 		}
-
-		default_selection = {
-			factor = 0
-
-			additive_modifier = {
-				value = 10
-				holder_scope = { is_nomadic = yes }
-			}
-		}
 	}
 
 	#VOTE ON IMPRISON
 	imprison_voting_power_0 = {
 		group = imprison_voting_power
-		default = yes
+		default_selection = {
+			factor = 10
+		}
 
 		potential = {
 			has_dlc = "Conclave"
@@ -752,7 +730,6 @@ laws = {
 
 		allow = {
 			has_law = law_voting_power_1
-			has_law = war_voting_power_1
 			has_law = imprison_voting_power_0
 
 			trigger_if = {
@@ -802,21 +779,11 @@ laws = {
 		ai_will_do = {
 			factor = 0
 		}
-
-		default_selection = {
-			factor = 0
-
-			additive_modifier = {
-				value = 10
-				holder_scope = { is_nomadic = yes }
-			}
-		}
 	}
 
 	#VOTE ON BANISH
 	banish_voting_power_0 = {
 		group = banish_voting_power
-		default = yes
 
 		potential = {
 			has_dlc = "Conclave"
@@ -889,7 +856,9 @@ laws = {
 
 	banish_voting_power_1 = {
 		group = banish_voting_power
-		default = yes
+		default_selection = {
+			factor = 10
+		}
 
 		vassal_limit = 2
 
@@ -899,7 +868,6 @@ laws = {
 
 		allow = {
 			has_law = law_voting_power_1
-			has_law = war_voting_power_1
 			has_law = banish_voting_power_0
 
 			trigger_if = {
@@ -949,21 +917,11 @@ laws = {
 		ai_will_do = {
 			factor = 0
 		}
-
-		default_selection = {
-			factor = 0
-
-			additive_modifier = {
-				value = 10
-				holder_scope = { is_nomadic = yes }
-			}
-		}
 	}
 
 	#VOTE ON EXECUTE
 	execution_voting_power_0 = {
 		group = execution_voting_power
-		default = yes
 
 		potential = {
 			has_dlc = "Conclave"
@@ -1036,6 +994,9 @@ laws = {
 
 	execution_voting_power_1 = {
 		group = execution_voting_power
+		default_selection = {
+			factor = 10
+		}
 
 		vassal_limit = 2
 
@@ -1045,7 +1006,6 @@ laws = {
 
 		allow = {
 			has_law = law_voting_power_1
-			has_law = war_voting_power_1
 			has_law = execution_voting_power_0
 
 			trigger_if = {
@@ -1095,28 +1055,21 @@ laws = {
 		ai_will_do = {
 			factor = 0
 		}
-
-		default_selection = {
-			factor = 0
-
-			additive_modifier = {
-				value = 10
-				holder_scope = { is_nomadic = yes }
-			}
-		}
 	}
 
 	#VOTE ON SUCCESSION
 	succession_voting_power_0 = {
 		group = succession_voting_power
-		default = yes
+		default_selection = {
+			factor = 10
+		}
 
 		potential = {
 			has_dlc = "Conclave"
 
 			holder_scope = {
 				higher_tier_than = DUKE
-				is_feudal = yes
+				is_merchant_republic = no
 				holy_order = no
 			}
 		}
@@ -1177,7 +1130,6 @@ laws = {
 
 		allow = {
 			has_law = law_voting_power_1
-			has_law = war_voting_power_1
 			has_law = succession_voting_power_0
 		}
 

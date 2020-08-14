@@ -2,28 +2,18 @@ namespace = parliaments
 
 character_event = {
 	id = parliaments.001
-	#hide_window = yes
+	hide_window = yes
 	desc = EVTPARLDESC_GRANTING_SENATOR
 	is_triggered_only = yes
 	only_playable = yes
 
 	trigger = {
-		higher_tier_than = COUNT
-		NOT = { primary_title = { has_law = legislative_authority_0 } }
+		#higher_tier_than = COUNT
+		NOT = { has_law = legislative_authority_0 }
 	}
 
 	option = {
 		name = EVTPARL_GRANTING_SENATOR
-		if = {
-			any_realm_character = {
-				limit = {
-					NOT = { has_minor_title = title_senatorrome }
-					age = 18
-					NOT = { trait = incapable }
-					ROOT = { can_grant_title = title_senatorrome }
-				}
-				give_minor_title = title_senatorrome
-			}
-		}
+		replace_senators_effect = yes
 	}
 }

@@ -42,49 +42,52 @@ law_groups = {
 laws = {
 
 	# LEGISLATIVE AUTHORITY
-	legislative_authority_0 = {	# No Legislature
+	legislative_authority_0 = {	# Appointed
 		show_as_title = yes
 		group = legislative_authority
 		default = no
 
-		potential = { NOT = { has_law = legislative_authority_2 } }
+		potential = { has_law = law_voting_power_1 }
 		#allow = { holder_scope = { check_variable = { which = "var_abolish_legislature" value = 1 } } }
 		ai_will_do = { factor = 1 }
 		pass_effect = { log = "legislative_authority_0 pass ([This.GetFullBaseName])" }
 		effect = {
 			log = "legislative_authority_0 ([This.GetFullBaseName])"
-			hidden_tooltip = { revoke_law = legislative_authority_1 add_law = law_voting_power_0 } }
+			hidden_tooltip = { revoke_law = legislative_authority_1 revoke_law = legislative_authority_2 }
+		}
 	}
 	legislative_authority_1 = {	# Aristocratic Legislature
 		show_as_title = yes
 		group = legislative_authority
-		default = yes
+		default = no
 
-		potential = { always = yes }
+		potential = { has_law = law_voting_power_1 }
 		ai_will_do = { factor = 0 }
 		pass_effect = { log = "legislative_authority_1 pass ([This.GetFullBaseName])" }
 		effect = {
 			log = "legislative_authority_1 ([This.GetFullBaseName])"
-			hidden_tooltip = { revoke_law = legislative_authority_0 revoke_law = legislative_authority_2 add_law = law_voting_power_1 }
-			holder_scope = {
-				clr_character_flag = flag_founded_legislature
-				set_character_flag = flag_founded_legislature
-			}
+			hidden_tooltip = { revoke_law = legislative_authority_0 revoke_law = legislative_authority_2 }
+			#holder_scope = {
+			#	clr_character_flag = flag_founded_legislature
+			#	set_character_flag = flag_founded_legislature
+			#}
 		}
 	}
 	legislative_authority_2 = {	# Democratic Legislature
 		show_as_title = yes
 		group = legislative_authority
-		default = no
+		default = yes
 
-		potential = { NOT = { has_law = legislative_authority_0 } }
+		potential = { has_law = law_voting_power_1 }
 		ai_will_do = { factor = 0 }
+		pass_effect = { log = "legislative_authority_2 pass ([This.GetFullBaseName])" }
 		effect = {
-			hidden_tooltip = { revoke_law = legislative_authority_0 add_law = law_voting_power_1 }
-			holder_scope = {
-				clr_character_flag = flag_founded_legislature
-				set_character_flag = flag_founded_legislature
-			}
+			log = "legislative_authority_2 ([This.GetFullBaseName])"
+			hidden_tooltip = { revoke_law = legislative_authority_0 revoke_law = legislative_authority_1 }
+			#holder_scope = {
+			#	clr_character_flag = flag_founded_legislature
+			#	set_character_flag = flag_founded_legislature
+			#}
 		}
 	}
 

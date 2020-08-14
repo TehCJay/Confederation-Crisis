@@ -3,7 +3,7 @@
 # the game cares about 4 specific techs that must not be renamed
 # three of them are used to check if your history file is valid
 # and two of them (one is used twice) have hardcoded effects
-# they are: TECH_NAVAL, TECH_RECRUITMENT, TECH_CONSTRUCTION for history file
+# they are: TECH_NAVAL, TECH_RECRUITMENT, TECH_SOCIOLOGY for history file
 # TECH_TRADE_PRACTICES defines how much trade posts you can build
 # TECH_RECRUITMENT gives a increase in retinues and manages pagan attrition
 # - Speeder
@@ -51,17 +51,17 @@
 
 
 TECH_GROUP_MILITARY = {
-	TECH_MELEE = { #Kinetic Weapons
+	TECH_KINETIC = { #Kinetic Weapons
 		modifier = {
 			light_infantry_offensive = 4
 			light_cavalry_offensive = 0.4
 			knights_offensive = 0.4
 			siege_speed = 0.2
 			siege_defense = 0.2
-			custom_modifier_text  = better_melee_tactics_custom_modifier_tt
+			#custom_modifier_text  = better_melee_tactics_custom_modifier_tt
 		}
 	}
-	TECH_CAVALRY = { #Energy Weapons
+	TECH_LASER = { #Energy Weapons
 		modifier = {
 			heavy_infantry_offensive = 4
 			light_cavalry_offensive = 1.6
@@ -70,24 +70,24 @@ TECH_GROUP_MILITARY = {
 			siege_defense = 0.2
 		}
 	}
-	TECH_SIEGE_EQUIPMENT = { #Missiles and Propulsion
+	TECH_MISSILES = { #Missiles
 		modifier = {
 			pikemen_offensive = 4
 			light_cavalry_offensive = 2
 			knights_offensive = 0.8
-			global_movement_speed = 0.5
+			#global_movement_speed = 0.5
 			siege_speed = 0.2
 			siege_defense = 0.2
 		}
 	}
-	TECH_SKIRMISH = { #Intelligence and Sensors
+	TECH_INTEL_N_SENSORS = { #Intelligence and Sensors
 		modifier = {
 			#plot_discovery_chance = 20
 			light_cavalry_morale = 0.4
 			knights_morale = 0.4
 			light_infantry_morale = 0.4
 			heavy_infantry_morale = 0.4
-			custom_modifier_text  = better_skirmisher_tactics_custom_modifier_tt
+			#custom_modifier_text  = better_skirmisher_tactics_custom_modifier_tt
 		}
 
 	}
@@ -98,10 +98,10 @@ TECH_GROUP_MILITARY = {
 			knights_offensive = 1
 			siege_speed = 1
 			siege_defense = 0.5
-			custom_modifier_text  = better_melee_tactics_custom_modifier_tt
+			#custom_modifier_text  = better_melee_tactics_custom_modifier_tt
 		}
 	}
-	TECH_RECRUITMENT = { #Military Engineering
+	TECH_RECRUITMENT = { #Military Engineering. DO NOT RENAME THIS, EVER, GAME WILL BREAK IF YOU DO!
 		modifier = {
 			global_supply_limit = 1.0
 			land_morale = 0.2
@@ -114,7 +114,7 @@ TECH_GROUP_MILITARY = {
 }
 
 TECH_GROUP_ECONOMY = {
-	TECH_CASTLE_CONSTRUCTION = { # Civil Engineering  - Infrastructure Buildings
+	TECH_CIVIL_ENGINEERING = { # Civil Engineering  - Infrastructure Buildings
 		modifier = {
 			garrison_size = 1.0
 		}
@@ -182,7 +182,7 @@ TECH_GROUP_ECONOMY = {
 			add_building = ct_factories_q_8
 		}
 	}
-	TECH_CITY_CONSTRUCTION = { # Education - Tech Buildings
+	TECH_EDUCATION = { # Education - Tech Buildings
 		modifier = {
 		}
 		1 = {
@@ -237,7 +237,51 @@ TECH_GROUP_ECONOMY = {
 			TEMPLE_TAX_MODIFIER = 0.5
 		}
 	}
-	TECH_TRADE_PRACTICES = { # Interstellar Trade
+	TECH_SOCIOLOGY = { # Sociology - Vassal Loyalty, retinues, militia
+		modifier = {
+			CASTLE_OPINION = 24
+			TOWN_OPINION = 24
+			CHURCH_OPINION = 24
+			culture_flex = -0.5
+			religion_flex = -0.5
+		}
+		1 = {
+			add_building = ca_fleet_support_q_1
+			add_building = ct_recruitment_center_q_3
+			add_building = tr_garrison_1
+		}
+		2 = {
+			add_building = ca_fleet_support_q_2
+			add_building = ct_emergency_reserve_q_2
+		}
+		3 = {
+			add_building = ca_fleet_support_q_3
+			add_building = ct_recruitment_center_q_4
+			add_building = tr_garrison_2
+		}
+		4 = {
+			add_building = ca_fleet_support_q_4
+			add_building = ct_emergency_reserve_q_2
+		}
+		5 = {
+			add_building = ca_fleet_support_q_5
+			add_building = ct_recruitment_center_q_5
+			add_building = tr_garrison_3
+		}
+		6 = {
+			add_building = ca_fleet_support_q_6
+			add_building = ct_emergency_reserve_q_2
+		}
+		7 = {
+			add_building = ca_fleet_support_q_7
+			add_building = ct_recruitment_center_q_6
+		}
+		8 = {
+			add_building = ca_fleet_support_q_8
+			add_building = ct_emergency_reserve_q_2
+		}
+	}
+	TECH_TRADE_PRACTICES = { # Interstellar Trade - DO NOT RENAME THIS, EVER, GAME WILL BREAK IF YOU DO!
 		modifier = {
 			TRADEVALUE_MULT = 0.6
 		}
@@ -271,57 +315,7 @@ TECH_GROUP_ECONOMY = {
 			add_building = ct_trade_center_q_5
 		}
 	}
-	TECH_CONSTRUCTION = { # Sociology - Vassal Loyalty, retinues, militia
-		modifier = {
-			CASTLE_OPINION = 24
-			TOWN_OPINION = 24
-			CHURCH_OPINION = 24
-			culture_flex = -0.5
-			religion_flex = -0.5
-		}
-		1 = {
-			add_building = ca_fleet_support_q_1
-			add_building = ct_recruitment_center_q_3
-			add_building = tr_garrison_1
-			add_decision = centralization_1
-			add_decision = revoke_title_law_1
-		}
-		2 = {
-			add_building = ca_fleet_support_q_2
-			add_building = ct_emergency_reserve_q_2
-			add_decision = centralization_2
-			add_decision = revoke_title_law_2
-		}
-		3 = {
-			add_building = ca_fleet_support_q_3
-			add_building = ct_recruitment_center_q_4
-			add_building = tr_garrison_2
-			add_decision = centralization_3
-		}
-		4 = {
-			add_building = ca_fleet_support_q_4
-			add_building = ct_emergency_reserve_q_2
-		}
-		5 = {
-			add_building = ca_fleet_support_q_5
-			add_building = ct_recruitment_center_q_5
-			add_building = tr_garrison_3
-			add_decision = centralization_4
-		}
-		6 = {
-			add_building = ca_fleet_support_q_6
-			add_building = ct_emergency_reserve_q_2
-		}
-		7 = {
-			add_building = ca_fleet_support_q_7
-			add_building = ct_recruitment_center_q_6
-		}
-		8 = {
-			add_building = ca_fleet_support_q_8
-			add_building = ct_emergency_reserve_q_2
-		}
-	}
-	TECH_NAVAL = { #Interstellar Industrialism - Construction Bonuses and Military Buildings
+	TECH_NAVAL = { #Interstellar Industrialism - DO NOT RENAME THIS, EVER, GAME WILL BREAK IF YOU DO!
 		modifier = {
 			LOCAL_BUILD_TIME_MODIFIER = -0.25
 			LOCAL_BUILD_COST_MODIFIER = -0.25
@@ -383,7 +377,7 @@ TECH_GROUP_ECONOMY = {
 }
 
 TECH_GROUP_CULTURE = {
-	TECH_NOBLE_CUSTOMS = { # Medicine - Disease Prevention Buildings, switch over vanilla hospital buildings
+	TECH_MEDICINE = { # Medicine - Disease Prevention Buildings, switch over vanilla hospital buildings
 		modifier = {
 		}
 		1 = {
@@ -419,7 +413,7 @@ TECH_GROUP_CULTURE = {
 		8 = {
 		}
 	}
-	TECH_POPULAR_CUSTOMS = { # Cybernetics - Cybernetics Labs
+	TECH_CYBERNETICS = { # Cybernetics - Cybernetics Labs
 		modifier = {
 		}
 		1 = {
@@ -462,7 +456,7 @@ TECH_GROUP_CULTURE = {
 			add_decision = get_thoth_mk_v_decision
 		}
 	}
-	TECH_RELIGIOUS_CUSTOMS = { # Biotech - Biotech Labs
+	TECH_BIOTECH = { # Biotech - Biotech Labs
 		modifier = {
 		}
 		1 = {
@@ -488,7 +482,7 @@ TECH_GROUP_CULTURE = {
 			add_building = ca_clone_vats_q_4
 		}
 	}
-	TECH_MAJESTY = { # Artificial Intelligence - Drones and Drone-related buildings
+	TECH_AI = { # Artificial Intelligence - Drones and Drone-related buildings
 		modifier = {
 			court_size_maintenance_cost_modifier = -0.1
 			court_size_modifier = 30
