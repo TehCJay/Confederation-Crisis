@@ -24,6 +24,8 @@ replace_path="common/religions"
 replace_path="common/religious_titles"
 replace_path="common/religion_modifiers"
 replace_path="common/succession_voting"
+replace_path="common/council_positions"
+replace_path="common/council_voting"
 
 #disable DLC stuff we won't use
 replace_path="common/offmap_powers"
