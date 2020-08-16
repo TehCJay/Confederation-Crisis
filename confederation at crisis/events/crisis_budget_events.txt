@@ -1,28 +1,5 @@
 namespace = budget
 
-# Request funds from your liege
-#character_event = {
-#	id = budget.0
-#	desc = "EVTDESCBUDGET0"
-#	picture = GFX_evt_council
-#	border = GFX_event_normal_frame_economy
-#	is_triggered_only = yes
-#
-#	option = {
-#		name = "EVTOPTCONFIRM"
-#		clr_character_flag = flag_requesting_funds
-#		clr_character_flag = flag_funding_request_cooldown
-#		set_character_flag = flag_funding_request_cooldown
-#		liege = { letter_event = { id = budget.1 tooltip = "EVTTOOLTIPBUDGET1" days = 5 random = 3 } }
-#		ai_chance = { factor = 1 }
-#	}
-#	option = {
-#		name = "EVTOPTNEVERMIND"
-#		clr_character_flag = flag_requesting_funds
-#		ai_chance = { factor = 0 }
-#	}
-#}
-
 character_event = {
 	id = budget.0
 	desc = "EVTDESCBUDGET0"
@@ -33,100 +10,275 @@ character_event = {
 
 	immediate = {
 		export_to_variable = { which = local_wealth value = yearly_income }
-		#log = " ----> Treasury: [local_wealth.GetValue]"
-		#log = " ----> Allocating shares:"
-		set_variable = { which = local_shares value = 0 }
+		set_variable = { which = local_military_shares value = 0 }
 		any_vassal = {
 			if = {
 				limit = { is_military_trigger = yes }
 				limit = { is_appointed_trigger = yes }
-				if = {
-					limit = { tier = KING }
-					change_variable = { which = local_shares value = 20 }
-				}
-				else_if = {
-					limit = { tier = DUKE }
-					change_variable = { which = local_shares value = 7 }
-				}
-				else_if = {
-					limit = { tier = COUNT }
-					change_variable = { which = local_shares value = 3 }
-				}
-				else_if = {
-					limit = { tier = BARON }
-					change_variable = { which = local_shares value = 1 }
-				}
+				if = {  limit = { tier = KING }
+					change_variable = { which = local_military_shares value = 20 } }
+				else_if = {	limit = { tier = DUKE }
+					change_variable = { which = local_military_shares value = 7 } }
+				else_if = {	limit = { tier = COUNT }
+					change_variable = { which = local_military_shares value = 3 } }
+				else_if = {	limit = { tier = BARON }
+					change_variable = { which = local_military_shares value = 1 } }
+			}
+		}
+		set_variable = { which = local_civil_shares value = 0 }
+		any_vassal = {
+			if = {
+				limit = { is_civil_trigger = yes }
+				limit = { is_appointed_trigger = yes }
+				if = {  limit = { tier = KING }
+					change_variable = { which = local_civil_shares value = 20 } }
+				else_if = {	limit = { tier = DUKE }
+					change_variable = { which = local_civil_shares value = 7 } }
+				else_if = {	limit = { tier = COUNT }
+					change_variable = { which = local_civil_shares value = 3 } }
+				else_if = {	limit = { tier = BARON }
+					change_variable = { which = local_civil_shares value = 1 } }
+			}
+		}
+		set_variable = { which = local_rectorial_shares value = 0 }
+		any_vassal = {
+			if = {
+				limit = { is_rectorial_trigger = yes }
+				limit = { is_appointed_trigger = yes }
+				if = {  limit = { tier = KING }
+					change_variable = { which = local_rectorial_shares value = 20 } }
+				else_if = {	limit = { tier = DUKE }
+					change_variable = { which = local_rectorial_shares value = 7 } }
+				else_if = {	limit = { tier = COUNT }
+					change_variable = { which = local_rectorial_shares value = 3 } }
+				else_if = {	limit = { tier = BARON }
+					change_variable = { which = local_rectorial_shares value = 1 } }
 			}
 		}
 
-		# Calculate share value:
-		set_variable = { which = local_share_value value = 0 }
+		set_variable = { which = local_military_share_value value = 0.0 }
 		primary_title = {
 			trigger_switch = {
 				on_trigger = has_law
-				military_budget_0 = { set_variable = { which = local_share_value value = 0.0 } }
-				military_budget_1 = { set_variable = { which = local_share_value value = 0.2 } }
-				military_budget_2 = { set_variable = { which = local_share_value value = 0.5 } }
-				military_budget_3 = { set_variable = { which = local_share_value value = 0.7 } }
+				military_budget_0 = { set_variable = { which = local_military_share_value value = 0.0 } }
+				military_budget_1 = { set_variable = { which = local_military_share_value value = 0.2 } }
+				military_budget_2 = { set_variable = { which = local_military_share_value value = 0.5 } }
+				military_budget_3 = { set_variable = { which = local_military_share_value value = 0.7 } }
 			}
 		}
+		set_variable = { which = local_military_budget which = local_military_share_value }
+		multiply_variable = { which = local_military_budget which = local_wealth }
+		divide_variable = { which = local_military_share_value which = local_military_shares }
 
-		#multiply_variable = { which = local_share_value which = local_wealth }
-		divide_variable = { which = local_share_value which = local_shares }
-		#log = " ----> Total shares: [local_shares.GetValue]"
-		#log = " ----> Share value: [local_share_value.GetValue]"
-		# Transfer total shares' value to each of the 3 classes' treasuries:
-		##log = " ----> Transferring inheritance:"
+		set_variable = { which = local_civil_share_value value = 0.0 }
+		primary_title = {
+			trigger_switch = {
+				on_trigger = has_law
+				civil_budget_0 = { set_variable = { which = local_civil_share_value value = 0.0 } }
+				civil_budget_1 = { set_variable = { which = local_civil_share_value value = 0.2 } }
+				civil_budget_2 = { set_variable = { which = local_civil_share_value value = 0.5 } }
+				civil_budget_3 = { set_variable = { which = local_civil_share_value value = 0.7 } }
+			}
+		}
+		set_variable = { which = local_civil_budget which = local_civil_share_value }
+		multiply_variable = { which = local_civil_budget which = local_wealth }
+		divide_variable = { which = local_civil_share_value which = local_civil_shares }
+
+		set_variable = { which = local_rectorial_share_value value = 0.0 }
+		primary_title = {
+			trigger_switch = {
+				on_trigger = has_law
+				rectorial_budget_0 = { set_variable = { which = local_rectorial_share_value value = 0.0 } }
+				rectorial_budget_1 = { set_variable = { which = local_rectorial_share_value value = 0.2 } }
+				rectorial_budget_2 = { set_variable = { which = local_rectorial_share_value value = 0.5 } }
+				rectorial_budget_3 = { set_variable = { which = local_rectorial_share_value value = 0.7 } }
+			}
+		}
+		set_variable = { which = local_rectorial_budget which = local_rectorial_share_value }
+		multiply_variable = { which = local_rectorial_budget which = local_wealth }
+		divide_variable = { which = local_rectorial_share_value which = local_rectorial_shares }
 
 		any_vassal = {
 			if = {
-				limit = { is_military_trigger = yes }
-				if = {
-					limit = { tier = KING }
-					set_variable = { which = local_value which = local_share_value }
+				limit = { is_military_trigger = yes is_appointed_trigger = yes }
+				if = { limit = { tier = KING }
+					set_variable = { which = local_value which = local_military_share_value }
 					multiply_variable = { which = local_value value = 20 }
 					set_variable = { which = money_to_receive which = local_value }
-					#log = " ----> Wealth to transfer to [This.GetName] is [money_to_receive.GetValue]"
-				}
-				else_if = {
-					limit = { tier = DUKE }
-					set_variable = { which = local_value which = local_share_value }
+					set_variable = { which = money_to_receive_half which = local_value }
+					multiply_variable = { which = money_to_receive_half value = 0.5 }
+					set_variable = { which = money_to_receive_increase which = local_value }
+					multiply_variable = { which = money_to_receive_increase value = 2 } }
+				else_if = {	limit = { tier = DUKE }
+					set_variable = { which = local_value which = local_military_share_value }
 					multiply_variable = { which = local_value value = 7 }
 					set_variable = { which = money_to_receive which = local_value }
-					#log = " ----> Wealth to transfer to [This.GetName] is [money_to_receive.GetValue]"
-				}
-				else_if = {
-					limit = { tier = COUNT }
-					set_variable = { which = local_value which = local_share_value }
+					set_variable = { which = money_to_receive_half which = local_value }
+					multiply_variable = { which = money_to_receive_half value = 0.5 }
+					set_variable = { which = money_to_receive_increase which = local_value }
+					multiply_variable = { which = money_to_receive_increase value = 2 } }
+				else_if = {	limit = { tier = COUNT }
+					set_variable = { which = local_value which = local_military_share_value }
 					multiply_variable = { which = local_value value = 3 }
 					set_variable = { which = money_to_receive which = local_value }
-					#log = " ----> Wealth to transfer to [This.GetName] is [money_to_receive.GetValue]"
-				}
-				else_if = {
-					limit = { tier = BARON }
-					set_variable = { which = local_value which = local_share_value }
+					set_variable = { which = money_to_receive_half which = local_value }
+					multiply_variable = { which = money_to_receive_half value = 0.5 }
+					set_variable = { which = money_to_receive_increase which = local_value }
+					multiply_variable = { which = money_to_receive_increase value = 2 } }
+				else_if = {	limit = { tier = BARON }
+					set_variable = { which = local_value which = local_military_share_value }
 					multiply_variable = { which = local_value value = 1 }
 					set_variable = { which = money_to_receive which = local_value }
-					#log = " ----> Wealth to transfer to [This.GetName] is [money_to_receive.GetValue]"
+					set_variable = { which = money_to_receive_half which = local_value }
+					multiply_variable = { which = money_to_receive_half value = 0.5 }
+					set_variable = { which = money_to_receive_increase which = local_value }
+					multiply_variable = { which = money_to_receive_increase value = 2 } }
+			}
+		}
+
+		any_vassal = {
+			if = {
+				limit = { is_civil_trigger = yes is_appointed_trigger = yes }
+				if = { limit = { tier = KING }
+					set_variable = { which = local_value which = local_civil_share_value }
+					multiply_variable = { which = local_value value = 20 }
+					set_variable = { which = money_to_receive which = local_value }
+					set_variable = { which = money_to_receive_half which = local_value }
+					multiply_variable = { which = money_to_receive_half value = 0.5 }
+					set_variable = { which = money_to_receive_increase which = local_value }
+					multiply_variable = { which = money_to_receive_increase value = 2 } }
+				else_if = {	limit = { tier = DUKE }
+					set_variable = { which = local_value which = local_civil_share_value }
+					multiply_variable = { which = local_value value = 7 }
+					set_variable = { which = money_to_receive which = local_value }
+					set_variable = { which = money_to_receive_half which = local_value }
+					multiply_variable = { which = money_to_receive_half value = 0.5 }
+					set_variable = { which = money_to_receive_increase which = local_value }
+					multiply_variable = { which = money_to_receive_increase value = 2 } }
+				else_if = {	limit = { tier = COUNT }
+					set_variable = { which = local_value which = local_civil_share_value }
+					multiply_variable = { which = local_value value = 3 }
+					set_variable = { which = money_to_receive which = local_value }
+					set_variable = { which = money_to_receive_half which = local_value }
+					multiply_variable = { which = money_to_receive_half value = 0.5 }
+					set_variable = { which = money_to_receive_increase which = local_value }
+					multiply_variable = { which = money_to_receive_increase value = 2 } }
+				else_if = {	limit = { tier = BARON }
+					set_variable = { which = local_value which = local_civil_share_value }
+					multiply_variable = { which = local_value value = 1 }
+					set_variable = { which = money_to_receive which = local_value }
+					set_variable = { which = money_to_receive_half which = local_value }
+					multiply_variable = { which = money_to_receive_half value = 0.5 }
+					set_variable = { which = money_to_receive_increase which = local_value }
+					multiply_variable = { which = money_to_receive_increase value = 2 } }
+			}
+		}
+
+		any_vassal = {
+			if = {
+				limit = { is_rectorial_trigger = yes is_appointed_trigger = yes }
+				if = { limit = { tier = KING }
+					set_variable = { which = local_value which = local_rectorial_share_value }
+					multiply_variable = { which = local_value value = 20 }
+					set_variable = { which = money_to_receive which = local_value }
+					set_variable = { which = money_to_receive_half which = local_value }
+					multiply_variable = { which = money_to_receive_half value = 0.5 }
+					set_variable = { which = money_to_receive_increase which = local_value }
+					multiply_variable = { which = money_to_receive_increase value = 2 } }
+				else_if = {	limit = { tier = DUKE }
+					set_variable = { which = local_value which = local_rectorial_share_value }
+					multiply_variable = { which = local_value value = 7 }
+					set_variable = { which = money_to_receive which = local_value }
+					set_variable = { which = money_to_receive_half which = local_value }
+					multiply_variable = { which = money_to_receive_half value = 0.5 }
+					set_variable = { which = money_to_receive_increase which = local_value }
+					multiply_variable = { which = money_to_receive_increase value = 2 } }
+				else_if = {	limit = { tier = COUNT }
+					set_variable = { which = local_value which = local_rectorial_share_value }
+					multiply_variable = { which = local_value value = 3 }
+					set_variable = { which = money_to_receive which = local_value }
+					set_variable = { which = money_to_receive_half which = local_value }
+					multiply_variable = { which = money_to_receive_half value = 0.5 }
+					set_variable = { which = money_to_receive_increase which = local_value }
+					multiply_variable = { which = money_to_receive_increase value = 2 } }
+				else_if = {	limit = { tier = BARON }
+					set_variable = { which = local_value which = local_rectorial_share_value }
+					multiply_variable = { which = local_value value = 1 }
+					set_variable = { which = money_to_receive which = local_value }
+					set_variable = { which = money_to_receive_half which = local_value }
+					multiply_variable = { which = money_to_receive_half value = 0.5 }
+					set_variable = { which = money_to_receive_increase which = local_value }
+					multiply_variable = { which = money_to_receive_increase value = 2 } }
+			}
+		}
+	}
+
+	option = {
+		name = "EVTOPTABUDGET0"
+		any_vassal = {
+			if = {
+				limit = { is_appointed_trigger = yes }
+				transfer_scaled_wealth = {
+					from = ROOT
+					value = money_to_receive }
+				hidden_tooltip = {
+					multiply_variable = { which = money_to_receive which = local_wealth }
+					letter_event = { id = budget.1 }
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTBBUDGET0"
+		any_vassal = {
+			if = {
+				limit = { is_appointed_trigger = yes }
+				transfer_scaled_wealth = {
+					from = ROOT
+					value = money_to_receive_half }
+				hidden_tooltip = {
+					multiply_variable = { which = money_to_receive which = local_wealth }
+					multiply_variable = { which = money_to_receive_half which = local_wealth }
+					letter_event = { id = budget.2 }
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTCBUDGET0"
+		any_vassal = {
+			if = {
+				limit = { is_appointed_trigger = yes }
+				transfer_scaled_wealth = {
+					from = ROOT
+					value = money_to_receive_increase }
+				hidden_tooltip = {
+					multiply_variable = { which = money_to_receive which = local_wealth }
+					multiply_variable = { which = money_to_receive_increase which = local_wealth }
+					letter_event = { id = budget.3 }
 				}
 			}
 		}
 	}
 
 	option = {
-		name = "EVTOPTCONFIRM"
+		name = "EVTOPTDBUDGET0"
 		any_vassal = {
 			if = {
-				limit = { is_military_trigger = yes }
+				limit = { is_appointed_trigger = yes }
 				transfer_scaled_wealth = {
 					from = ROOT
-					value = money_to_receive
+					value = 0 }
+				hidden_tooltip = {
+					multiply_variable = { which = money_to_receive which = local_wealth }
+					letter_event = { id = budget.4 }
 				}
 			}
 		}
 	}
 }
 
+# Liege paid 100% of his debt to us.
 letter_event = {
 	id = budget.1
 	desc = "EVTDESCBUDGET1"
@@ -134,304 +286,11 @@ letter_event = {
 	is_triggered_only = yes
 
 	option = {
-		name = "EVTOPTABUDGET1" # 10%
-		tooltip = { transfer_scaled_wealth = { to = FROM value = 0.1 } }
-		FROM = { hidden_tooltip = { letter_event = { id = budget.2 } } } # Inform of response
-		ai_chance = {
-			factor = 40
-			# Opinion of FROM
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = -99 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = -89 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = -79 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = -69 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = -59 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = -49 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = -39 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = -29 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = -19 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = -9 }
-			}
-		}
-	}
-
-	option = {
-		trigger = { scaled_wealth = 0.2 }
-		name = "EVTOPTBBUDGET1" # 20%
-		tooltip = { transfer_scaled_wealth = { to = FROM value = 0.2 } }
-		FROM = {
-			opinion = { who = ROOT modifier = opinion_moderate_budget }
-			hidden_tooltip = { letter_event = { id = budget.3 } }
-		}
-		ai_chance = {
-			factor = 20
-			modifier = {
-				factor = 0.5
-				NOT = { FROM = { relative_power_to_liege = 0.2 } }
-			}
-			# Opinion of FROM
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = -99 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = -89 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = -79 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = -69 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = -59 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = -49 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = -39 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = -29 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = -19 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = -9 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = 10 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = 20 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = 30 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = 40 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = 50 }
-			}
-		}
-	}
-
-	option = {
-		trigger = { scaled_wealth = 0.3 }
-		name = "EVTOPTCBUDGET1" # 30%
-		tooltip = { transfer_scaled_wealth = { to = FROM value = 0.3 } }
-		FROM = {
-			opinion = { who = ROOT modifier = opinion_large_budget }
-			hidden_tooltip = { letter_event = { id = budget.4 } }
-		}
-		ai_chance = {
-			factor = 10
-			modifier = {
-				factor = 0.5
-				NOT = { FROM = { relative_power_to_liege = 0.2 } }
-			}
-			modifier = {
-				factor = 0.5
-				NOT = { FROM = { relative_power_to_liege = 0.3 } }
-			}
-			# Opinion of FROM
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = -99 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = -89 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = -79 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = -69 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = -59 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = -49 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = -39 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = -29 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = -19 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = -9 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = 10 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = 20 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = 30 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = 40 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = 50 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = 60 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = 70 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = 80 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = 90 }
-			}
-			modifier = {
-				factor = 1.25
-				opinion = { who = FROM value = 100 }
-			}
-		}
-	}
-
-	option = {
-		# Send nothing
-		name = "EVTOPTDBUDGET1"
-		FROM = {
-			opinion = { who = ROOT modifier = opinion_no_budget }
-			hidden_tooltip = { letter_event = { id = budget.5 } }
-		}
-		ai_chance = {
-			factor = 80
-			# No money
-			modifier = {
-				factor = 2
-				NOT = { scaled_wealth = 0.1 }
-			}
-			modifier = {
-				factor = 5
-				NOT = { scaled_wealth = 0.1 }
-				independent = yes
-			}
-			# Lots of money
-			modifier = {
-				factor = 0.8
-				scaled_wealth = 0.2
-			}
-			modifier = {
-				factor = 0.8
-				scaled_wealth = 0.3
-			}
-			modifier = {
-				factor = 0.8
-				scaled_wealth = 0.4
-			}
-			modifier = {
-				factor = 0.8
-				scaled_wealth = 0.5
-			}
-			modifier = {
-				factor = 0.8
-				scaled_wealth = 0.6
-			}
-			modifier = {
-				factor = 0.8
-				scaled_wealth = 0.7
-			}
-			modifier = {
-				factor = 0.8
-				scaled_wealth = 0.8
-			}
-			modifier = {
-				factor = 0.8
-				scaled_wealth = 0.9
-			}
-			modifier = {
-				factor = 0.8
-				scaled_wealth = 1
-			}
-			# FROM needs the money
-			modifier = {
-				factor = 0.5
-				FROM = { NOT = { wealth = 0 } }
-			}
-			modifier = {
-				factor = 2
-				FROM = { wealth = 100 }
-			}
-		}
+		name = "EVTOPTCONFIRM"
 	}
 }
 
+# Liege paid 50% of his debt to us.
 letter_event = {
 	id = budget.2
 	desc = "EVTDESCBUDGET2"
@@ -440,10 +299,15 @@ letter_event = {
 
 	option = {
 		name = "EVTOPTCONFIRM"
-		liege = { transfer_scaled_wealth = { to = ROOT value = 0.1 } }
+		opinion = {
+			modifier = opinion_small_budget
+			who = FROM
+			years = 8 # People have long memory when promises are broken
+		}
 	}
 }
 
+# Liege paid 200% of his debt to us.
 letter_event = {
 	id = budget.3
 	desc = "EVTDESCBUDGET3"
@@ -452,10 +316,15 @@ letter_event = {
 
 	option = {
 		name = "EVTOPTCONFIRM"
-		liege = { transfer_scaled_wealth = { to = ROOT value = 0.2 } }
+		opinion = {
+			modifier = opinion_large_budget
+			who = FROM
+			years = 1 # Unexpected windfall is good but soon forgotten
+		}
 	}
 }
 
+# Liege refused to pay us.
 letter_event = {
 	id = budget.4
 	desc = "EVTDESCBUDGET4"
@@ -464,9 +333,17 @@ letter_event = {
 
 	option = {
 		name = "EVTOPTCONFIRM"
-		liege = { transfer_scaled_wealth = { to = ROOT value = 0.3 } }
+		opinion = {
+			modifier = opinion_no_budget
+			who = FROM
+			years = 8 # People have long memory when promises are broken
+		}
 	}
+
+	#need to give options to do something about the situation of not getting paid.
 }
+
+
 
 letter_event = {
 	id = budget.5
@@ -540,237 +417,3 @@ character_event = {
 		}
 	}
 }
-
-
-# Police Budget
-#province_event = {
-#	id = budget.10
-#	desc = "EVTDESCBUDGET10"
-#	notification = yes
-#
-#	trigger = {
-#		owner = { primary_title = { has_law = police_budget_0 } }
-#		OR = {
-#			has_province_modifier = police_budget_mod_1
-#			has_province_modifier = police_budget_mod_2
-#			has_province_modifier = police_budget_mod_3
-#		}
-#	}
-#
-#	immediate = {
-#		remove_province_modifier = police_budget_mod_1
-#		remove_province_modifier = police_budget_mod_2
-#		remove_province_modifier = police_budget_mod_3
-#	}
-#
-#	option = { name = "EVTOPTCONFIRM" } # Escape option
-#}
-#province_event = {
-#	id = budget.20
-#	desc = "EVTDESCBUDGET20"
-#	notification = yes
-#
-#	trigger = {
-#		owner = { primary_title = { has_law = police_budget_1 } }
-#		NOT = { has_province_modifier = police_budget_mod_1 }
-#	}
-#
-#	immediate = {
-#		add_province_modifier = { name = police_budget_mod_1 duration = -1 }
-#		remove_province_modifier = police_budget_mod_2
-#		remove_province_modifier = police_budget_mod_3
-#	}
-#
-#	option = { name = "EVTOPTCONFIRM" } # Escape option
-#}
-#province_event = {
-#	id = budget.30
-#	desc = "EVTDESCBUDGET30"
-#	notification = yes
-#
-#	trigger = {
-#		owner = { primary_title = { has_law = police_budget_2 } }
-#		NOT = { has_province_modifier = police_budget_mod_2 }
-#	}
-#
-#	immediate = {
-#		remove_province_modifier = police_budget_mod_1
-#		add_province_modifier = { name = police_budget_mod_2 duration = -1 }
-#		remove_province_modifier = police_budget_mod_3
-#	}
-#
-#	option = { name = "EVTOPTCONFIRM" } # Escape option
-#}
-#province_event = {
-#	id = budget.40
-#	desc = "EVTDESCBUDGET40"
-#	notification = yes
-#
-#	trigger = {
-#		owner = { primary_title = { has_law = police_budget_3 } }
-#		NOT = { has_province_modifier = police_budget_mod_3 }
-#	}
-#
-#	immediate = {
-#		remove_province_modifier = police_budget_mod_1
-#		remove_province_modifier = police_budget_mod_2
-#		add_province_modifier = { name = police_budget_mod_3 duration = -1 }
-#	}
-#
-#	option = { name = "EVTOPTCONFIRM" } # Escape option
-#}
-# Health Care Budget
-#province_event = {
-#	id = budget.110
-#	desc = "EVTDESCBUDGET110"
-#	notification = yes
-#
-#	trigger = {
-#		owner = { primary_title = { has_law = health_care_budget_0 } }
-#		OR = {
-#			has_province_modifier = health_care_budget_mod_1
-#			has_province_modifier = health_care_budget_mod_2
-#			has_province_modifier = health_care_budget_mod_3
-#		}
-#	}
-#
-#	immediate = {
-#		remove_province_modifier = health_care_budget_mod_1
-#		remove_province_modifier = health_care_budget_mod_2
-#		remove_province_modifier = health_care_budget_mod_3
-#	}
-#
-#	option = { name = "EVTOPTCONFIRM" } # Escape option
-#}
-#province_event = {
-#	id = budget.120
-#	desc = "EVTDESCBUDGET120"
-#	notification = yes
-#
-#	trigger = {
-#		owner = { primary_title = { has_law = health_care_budget_1 } }
-#		NOT = { has_province_modifier = health_care_budget_mod_1 }
-#	}
-#
-#	immediate = {
-#		add_province_modifier = { name = health_care_budget_mod_1 duration = -1 }
-#		remove_province_modifier = health_care_budget_mod_2
-#		remove_province_modifier = health_care_budget_mod_3
-#	}
-#
-#	option = { name = "EVTOPTCONFIRM" } # Escape option
-#}
-#province_event = {
-#	id = budget.130
-#	desc = "EVTDESCBUDGET130"
-#	notification = yes
-#
-#	trigger = {
-#		owner = { primary_title = { has_law = health_care_budget_2 } }
-#		NOT = { has_province_modifier = health_care_budget_mod_2 }
-#	}
-#
-#	immediate = {
-#		remove_province_modifier = health_care_budget_mod_1
-#		add_province_modifier = { name = health_care_budget_mod_2 duration = -1 }
-#		remove_province_modifier = health_care_budget_mod_3
-#	}
-#
-#	option = { name = "EVTOPTCONFIRM" } # Escape option
-#}
-#province_event = {
-#	id = budget.140
-#	desc = "EVTDESCBUDGET140"
-#	notification = yes
-#
-#	trigger = {
-#		owner = { primary_title = { has_law = health_care_budget_3 } }
-#		NOT = { has_province_modifier = health_care_budget_mod_3 }
-#	}
-#
-#	immediate = {
-#		remove_province_modifier = health_care_budget_mod_1
-#		remove_province_modifier = health_care_budget_mod_2
-#		add_province_modifier = { name = health_care_budget_mod_3 duration = -1 }
-#	}
-#
-#	option = { name = "EVTOPTCONFIRM" } # Escape option
-#}
-## Education Budget
-#province_event = {
-#	id = budget.210
-#	desc = "EVTDESCBUDGET210"
-#	notification = yes
-#
-#	trigger = {
-#		owner = { primary_title = { has_law = education_budget_0 } }
-#		OR = {
-#			has_province_modifier = education_budget_mod_1
-#			has_province_modifier = education_budget_mod_2
-#			has_province_modifier = education_budget_mod_3
-#		}
-#	}
-#
-#	immediate = {
-#		remove_province_modifier = education_budget_mod_1
-#		remove_province_modifier = education_budget_mod_2
-#		remove_province_modifier = education_budget_mod_3
-#	}
-#
-#	option = { name = "EVTOPTCONFIRM" } # Escape option
-#}
-#province_event = {
-#	id = budget.220
-#	desc = "EVTDESCBUDGET220"
-#	notification = yes
-#
-#	trigger = {
-#		owner = { primary_title = { has_law = education_budget_1 } }
-#		NOT = { has_province_modifier = education_budget_mod_1 }
-#	}
-#
-#	immediate = {
-#		add_province_modifier = { name = education_budget_mod_1 duration = -1 }
-#		remove_province_modifier = education_budget_mod_2
-#		remove_province_modifier = education_budget_mod_3
-#	}
-#
-#	option = { name = "EVTOPTCONFIRM" } # Escape option
-#}
-#province_event = {
-#	id = budget.230
-#	desc = "EVTDESCBUDGET230"
-#	notification = yes
-#
-#	trigger = {
-#		owner = { primary_title = { has_law = education_budget_2 } }
-#		NOT = { has_province_modifier = education_budget_mod_2 }
-#	}
-#
-#	immediate = {
-#		remove_province_modifier = education_budget_mod_1
-#		add_province_modifier = { name = education_budget_mod_2 duration = -1 }
-#		remove_province_modifier = education_budget_mod_3
-#	}
-#
-#	option = { name = "EVTOPTCONFIRM" } # Escape option
-#}
-#province_event = {
-#	id = budget.240
-#	desc = "EVTDESCBUDGET240"
-#	notification = yes
-#
-#	trigger = {
-#		owner = { primary_title = { has_law = education_budget_3 } }
-#		NOT = { has_province_modifier = education_budget_mod_3 }
-#	}
-#
-#	immediate = {
-#		remove_province_modifier = education_budget_mod_1
-#		remove_province_modifier = education_budget_mod_2
-#		add_province_modifier = { name = education_budget_mod_3 duration = -1 }
-#	}
-#
-#	option = { name = "EVTOPTCONFIRM" } # Escape option
-#}
-#

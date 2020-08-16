@@ -1,4 +1,5 @@
 # Government Class Checks
+# Expected scope for those are Characters
 is_military_trigger = {
     custom_tooltip = {
         text = "ISMILITARY"
@@ -15,9 +16,9 @@ is_military_trigger = {
         }
     }
 }
-is_corporate_trigger = {
+is_civil_trigger = {
     custom_tooltip = {
-        text = "ISCORPORATE"
+        text = "ISCIVIL"
         hidden_tooltip = {
             OR = {
                 government = corporate_monarchy
@@ -32,9 +33,9 @@ is_corporate_trigger = {
         }
     }
 }
-is_administrative_trigger = {
+is_rectorial_trigger = {
     custom_tooltip = {
-        text = "ISADMINISTRATIVE"
+        text = "ISRECTOR"
         hidden_tooltip = {
             OR = {
                 government = administrative_monarchy
@@ -55,15 +56,16 @@ is_hereditary_trigger = {
         text = "ISHEREDITARY"
         hidden_tooltip = {
             OR = {
-                government = military_monarchy
-                government = corporate_monarchy
-                government = administrative_monarchy
-                government = pirate_kingdom
+                #government = military_monarchy
+                #government = corporate_monarchy
+                #government = administrative_monarchy
+                #government = pirate_kingdom
                 has_law = succ_gavelkind
                 has_law = succ_elective_gavelkind
                 has_law = succ_seniority
                 has_law = succ_primogeniture
                 has_law = succ_ultimogeniture
+                has_law = succ_feudal_elective
             }
         }
     }
@@ -73,13 +75,23 @@ is_appointed_trigger = {
         text = "ISAPPOINTED"
         hidden_tooltip = {
             OR = {
-                government = military_directorate
-                government = corporate_directorate
-                government = administrative_directorate
-                government = military_command
-                government = pirate_republic_governor
+                #government = military_directorate
+                #government = corporate_directorate
+                #government = administrative_directorate
+                #government = military_command
+                #government = pirate_republic_governor
                 has_law = succ_true_appointment
                 has_law = succ_appointment
+            }
+        }
+    }
+}
+is_dictatorship_trigger = {
+    custom_tooltip = {
+        text = "ISDICTATORSHIP"
+        hidden_tooltip = {
+            OR = {
+                has_law = succ_dictatorship
             }
         }
     }
@@ -89,11 +101,18 @@ is_elective_trigger = {
         text = "ISELECTIVE"
         hidden_tooltip = {
             OR = {
-                government = military_republic
-                government = corporate_republic
-                government = administrative_republic
-                government = merchant_republic_government
-                government = pirate_republic
+                #government = military_republic
+                #government = corporate_republic
+                #government = administrative_republic
+                #government = merchant_republic_government
+                #government = pirate_republic
+                has_law = succ_eldership
+                has_law = succ_byzantine_elective #pirate elective it seems
+                has_law = succ_tanistry
+                has_law = succ_papal_succession
+                has_law = succ_open_elective
+                has_law = succ_patrician_elective
+                has_law = succ_open_elective_crisis
             }
         }
     }
@@ -213,11 +232,11 @@ liege_allows_inheritance = {
             }
             AND = {
                 crownlaw_title = { has_law = republic_vassal_legitimacy_0 }
-                holder_scope = { is_corporate_trigger = yes }
+                holder_scope = { is_civil_trigger = yes }
             }
             AND = {
                 crownlaw_title = { has_law = theocracy_vassal_legitimacy_0 }
-                holder_scope = { is_administrative_trigger = yes }
+                holder_scope = { is_rectorial_trigger = yes }
             }
         }
     }
@@ -264,11 +283,11 @@ liege_allows_elections = {
             }
             AND = {
                 crownlaw_title = { has_law = republic_vassal_legitimacy_1 }
-                holder_scope = { is_corporate_trigger = yes }
+                holder_scope = { is_civil_trigger = yes }
             }
             AND = {
                 crownlaw_title = { has_law = theocracy_vassal_legitimacy_1 }
-                holder_scope = { is_administrative_trigger = yes }
+                holder_scope = { is_rectorial_trigger = yes }
             }
         }
     }
@@ -315,11 +334,11 @@ liege_allows_appointment = {
             }
             AND = {
                 crownlaw_title = { has_law = republic_vassal_legitimacy_2 }
-                holder_scope = { is_corporate_trigger = yes }
+                holder_scope = { is_civil_trigger = yes }
             }
             AND = {
                 crownlaw_title = { has_law = theocracy_vassal_legitimacy_2 }
-                holder_scope = { is_administrative_trigger = yes }
+                holder_scope = { is_rectorial_trigger = yes }
             }
         }
     }
@@ -410,13 +429,13 @@ this_is_spiritual_culture_trigger = {
         religion_group = religious_group
         religion_group = religious_terran_group
         has_religion_feature = religion_peaceful
-        is_administrative_trigger = yes
+        is_rectorial_trigger = yes
     }
 }
 
 # Not really about culture - Used in AI voting logic
 this_is_corporate_culture_trigger = {
-    is_corporate_trigger = yes
+    is_civil_trigger = yes
 }
 
 # Used in succession voting to decide valid candidates

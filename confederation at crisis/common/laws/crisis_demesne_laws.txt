@@ -33,7 +33,11 @@ law_groups = {
 		law_type = realm
 		allowed_for_councillors = yes
 	}
-	research_budget = {
+	civil_budget = {
+		law_type = realm
+		allowed_for_councillors = yes
+	}
+	rectorial_budget = {
 		law_type = realm
 		allowed_for_councillors = yes
 	}
@@ -1916,4 +1920,327 @@ laws = {
 		}
 	}
 
+	#Budget - Civil
+	civil_budget_0 = {
+		feudal_opinion = -10
+		city_opinion = -10
+		temple_opinion = -10
+		group = civil_budget
+
+		potential = { holder_scope = { NOT = { government = neofeudal_government } } }
+		allow = {
+			always = yes
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.1
+			}
+			modifier = {
+				factor = 0
+				holder_scope = {
+					OR = {
+						any_current_enemy = { capital_scope = { has_higher_tech_than = PREVPREV } }
+						religion_group = transhumanist_group
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				holder_scope = {
+					monthly_income = 0
+					NOT = { religion = space_pirate }
+				}
+			}
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = civil_budget_1
+				revoke_law = civil_budget_2
+				revoke_law = civil_budget_3
+			}
+		}
+	}
+	civil_budget_1 = {
+		group = civil_budget
+		default = yes
+
+		potential = { holder_scope = { NOT = { government = neofeudal_government } } }
+		allow = {
+			OR = {
+				has_law = civil_budget_2
+				has_law = civil_budget_3
+				holder_scope = { monthly_income = 0 }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.1
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_law = civil_budget_2
+					has_law = civil_budget_3
+				}
+				holder_scope = {
+					monthly_income = 1
+					NOT = { religion = space_pirate }
+				}
+			}
+			modifier = {
+				factor = 0.1
+				OR = {
+					has_law = civil_budget_2
+					has_law = civil_budget_3
+				}
+				holder_scope = {
+					OR = {
+						any_current_enemy = { capital_scope = { has_higher_tech_than = PREVPREV } }
+						religion_group = transhumanist_group
+					}
+				}
+			}
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = civil_budget_0
+				revoke_law = civil_budget_2
+				revoke_law = civil_budget_3
+			}
+		}
+	}
+	civil_budget_2 = {
+		group = civil_budget
+
+		potential = { holder_scope = { NOT = { government = neofeudal_government } } }
+		allow = {
+			OR = {
+				has_law = civil_budget_3
+				holder_scope = { monthly_income = 0 }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.1
+			}
+			modifier = {
+				factor = 0
+				has_law = civil_budget_3
+				holder_scope = {
+					monthly_income = 2
+					NOT = { religion = space_pirate }
+				}
+			}
+			modifier = {
+				factor = 0.1
+				has_law = civil_budget_3
+				holder_scope = {
+					OR = {
+						any_current_enemy = { capital_scope = { has_higher_tech_than = PREVPREV } }
+						religion_group = transhumanist_group
+					}
+				}
+			}
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = civil_budget_0
+				revoke_law = civil_budget_1
+				revoke_law = civil_budget_3
+			}
+		}
+	}
+	civil_budget_3 = {
+		group = civil_budget
+
+		potential = { holder_scope = { NOT = { government = neofeudal_government } } }
+		allow = {
+			holder_scope = { monthly_income = 0 }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { holder_scope = { religion_group = transhumanist_group } }
+				NOT = { holder_scope = { any_current_enemy = { capital_scope = { has_higher_tech_than = PREVPREV } } } }
+			}
+			modifier = {
+				factor = 0.1
+				NOT = { holder_scope = { monthly_income = 2 } }
+				NOT = { holder_scope = { religion_group = transhumanist_group } }
+			}
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = civil_budget_0
+				revoke_law = civil_budget_1
+				revoke_law = civil_budget_2
+			}
+		}
+	}
+
+	#Budget - Rectorial
+	rectorial_budget_0 = {
+		feudal_opinion = -10
+		city_opinion = -10
+		temple_opinion = -10
+		group = rectorial_budget
+
+		potential = { holder_scope = { NOT = { government = neofeudal_government } } }
+		allow = {
+			always = yes
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.1
+			}
+			modifier = {
+				factor = 0
+				holder_scope = {
+					OR = {
+						any_current_enemy = { capital_scope = { has_higher_tech_than = PREVPREV } }
+						religion_group = transhumanist_group
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				holder_scope = {
+					monthly_income = 0
+					NOT = { religion = space_pirate }
+				}
+			}
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = rectorial_budget_1
+				revoke_law = rectorial_budget_2
+				revoke_law = rectorial_budget_3
+			}
+		}
+	}
+	rectorial_budget_1 = {
+		group = rectorial_budget
+		default = yes
+
+		potential = { holder_scope = { NOT = { government = neofeudal_government } } }
+		allow = {
+			OR = {
+				has_law = rectorial_budget_2
+				has_law = rectorial_budget_3
+				holder_scope = { monthly_income = 0 }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.1
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_law = rectorial_budget_2
+					has_law = rectorial_budget_3
+				}
+				holder_scope = {
+					monthly_income = 1
+					NOT = { religion = space_pirate }
+				}
+			}
+			modifier = {
+				factor = 0.1
+				OR = {
+					has_law = rectorial_budget_2
+					has_law = rectorial_budget_3
+				}
+				holder_scope = {
+					OR = {
+						any_current_enemy = { capital_scope = { has_higher_tech_than = PREVPREV } }
+						religion_group = transhumanist_group
+					}
+				}
+			}
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = rectorial_budget_0
+				revoke_law = rectorial_budget_2
+				revoke_law = rectorial_budget_3
+			}
+		}
+	}
+	rectorial_budget_2 = {
+		group = rectorial_budget
+
+		potential = { holder_scope = { NOT = { government = neofeudal_government } } }
+		allow = {
+			OR = {
+				has_law = rectorial_budget_3
+				holder_scope = { monthly_income = 0 }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0.1
+			}
+			modifier = {
+				factor = 0
+				has_law = rectorial_budget_3
+				holder_scope = {
+					monthly_income = 2
+					NOT = { religion = space_pirate }
+				}
+			}
+			modifier = {
+				factor = 0.1
+				has_law = rectorial_budget_3
+				holder_scope = {
+					OR = {
+						any_current_enemy = { capital_scope = { has_higher_tech_than = PREVPREV } }
+						religion_group = transhumanist_group
+					}
+				}
+			}
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = rectorial_budget_0
+				revoke_law = rectorial_budget_1
+				revoke_law = rectorial_budget_3
+			}
+		}
+	}
+	rectorial_budget_3 = {
+		group = rectorial_budget
+
+		potential = { holder_scope = { NOT = { government = neofeudal_government } } }
+		allow = {
+			holder_scope = { monthly_income = 0 }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { holder_scope = { religion_group = transhumanist_group } }
+				NOT = { holder_scope = { any_current_enemy = { capital_scope = { has_higher_tech_than = PREVPREV } } } }
+			}
+			modifier = {
+				factor = 0.1
+				NOT = { holder_scope = { monthly_income = 2 } }
+				NOT = { holder_scope = { religion_group = transhumanist_group } }
+			}
+		}
+		effect = {
+			hidden_tooltip = {
+				revoke_law = rectorial_budget_0
+				revoke_law = rectorial_budget_1
+				revoke_law = rectorial_budget_2
+			}
+		}
+	}
 }
