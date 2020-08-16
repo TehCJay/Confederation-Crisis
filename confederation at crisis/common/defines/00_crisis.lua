@@ -615,10 +615,10 @@ NDefines.NDiplomacy.ASK_FOR_EXCOMMUNICATION_INTERACTION_ENABLED = 1						-- Shou
 
 NDefines.NDiplomacy.CALL_ALLY_INTERACTION_MONEY = 0
 NDefines.NDiplomacy.CALL_ALLY_INTERACTION_PIETY = 0
-NDefines.NDiplomacy.CALL_ALLY_INTERACTION_PRESTIGE = 60
+NDefines.NDiplomacy.CALL_ALLY_INTERACTION_PRESTIGE = 0
 NDefines.NDiplomacy.CALL_ALLY_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.CALL_ALLY_INTERACTION_THRESHOLD_FOR_YES = 75
-NDefines.NDiplomacy.CALL_ALLY_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
+NDefines.NDiplomacy.CALL_ALLY_INTERACTION_MUST_HAVE_COST = 0				-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.CALL_ALLY_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.ASK_TO_LIFT_EXCOMMUNICATION_INTERACTION_MONEY = 0
