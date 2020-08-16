@@ -579,7 +579,7 @@ for k, v in pairs(finalParse) do
     else
         print("SUPPLY BUILDINGS NEEDED!")
     end
-    print("retinue generated " .. dataToAnalyse.retinuesize)
+    print("retinue generated " .. (dataToAnalyse.retinuesize or 0))
     print("levy and garrison size " .. dataToAnalyse.levy_size .. " " .. dataToAnalyse.garrison_size)
     print("reinforcement " .. dataToAnalyse.levy_reinforce_rate)
 
