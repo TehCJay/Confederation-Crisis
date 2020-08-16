@@ -226,7 +226,7 @@ NDefines.NMilitary.KNIGHTS_GRAPHICAL_FACTOR = 5
 -- Troop transports, they have small lasers for self defense, but otherwise the only way they can attack are boarding ships.
 -- They are essential in sieges.
 -- Also because of how the game rules work in non-assault sieges they need big numbers, thus numbers here are divided by their multiplier.
-local transportMultiplier = 4
+local transportMultiplier = 2
 NDefines.NMilitary.ARCHERS_MORALE = 5/transportMultiplier
 NDefines.NMilitary.ARCHERS_MAINTENANCE = (5/transportMultiplier)
 NDefines.NMilitary.ARCHERS_PHASE_SKIRMISH_ATTACK = 0/transportMultiplier

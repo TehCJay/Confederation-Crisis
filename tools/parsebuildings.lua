@@ -240,9 +240,9 @@ local planetTypeStats = {
 }
 
 local targets = {
-    castle = {gunships = 40, laserships = 40, missileships = 70, destroyers = 50, battleships = 50, troopTransports = 250},
-    city = {gunships = 70, laserships = 20, missileships = 20, destroyers = 15, battleships = 1, troopTransports = 300},
-    temple = {gunships = 15, laserships = 60, missileships = 15, destroyers = 30, battleships = 1, troopTransports = 200}
+    castle = {gunships = 40, laserships = 40, missileships = 70, destroyers = 50, battleships = 50, troopTransports = 150},
+    city = {gunships = 70, laserships = 20, missileships = 20, destroyers = 15, battleships = 1, troopTransports = 150},
+    temple = {gunships = 15, laserships = 60, missileships = 15, destroyers = 30, battleships = 1, troopTransports = 100}
 }
 
 finalParse.castle.ca_environment_0 = { maxBuilt = planetTypeStats.environment[1] }
