@@ -1,0 +1,156 @@
+
+fn_crisis_recalcsupply_in_province = {
+#this function is called from different places, and as thus FROM and ROOT are NOT trustworthy.
+#what is ensured, is that the "main scope" is a location scope that resolves to a province
+
+    set_variable = { which = "supply_value" value = 0 }
+
+    #castles
+    any_province_holding = { limit = { has_building = ca_fleet_support_q_1 }
+        PREV = { change_variable = { which = "supply_value" value = 6 } } }
+    any_province_holding = { limit = { has_building = ca_fleet_support_q_2 }
+        PREV = { change_variable = { which = "supply_value" value = 6 } } }
+    any_province_holding = { limit = { has_building = ca_fleet_support_q_3 }
+        PREV = { change_variable = { which = "supply_value" value = 6 } } }
+    any_province_holding = { limit = { has_building = ca_fleet_support_q_4 }
+        PREV = { change_variable = { which = "supply_value" value = 6 } } }
+    any_province_holding = { limit = { has_building = ca_fleet_support_q_5 }
+        PREV = { change_variable = { which = "supply_value" value = 6 } } }
+    any_province_holding = { limit = { has_building = ca_fleet_support_q_6 }
+        PREV = { change_variable = { which = "supply_value" value = 6 } } }
+    any_province_holding = { limit = { has_building = ca_fleet_support_q_7 }
+        PREV = { change_variable = { which = "supply_value" value = 6 } } }
+    any_province_holding = { limit = { has_building = ca_fleet_support_q_8 }
+        PREV = { change_variable = { which = "supply_value" value = 6 } } }
+
+    #cities
+    any_province_holding = { limit = { has_building = ct_agriculture_q_1 }
+        PREV = { change_variable = { which = "supply_value" value = 1 } } }
+    any_province_holding = { limit = { has_building = ct_agriculture_q_2 }
+        PREV = { change_variable = { which = "supply_value" value = 1 } } }
+    any_province_holding = { limit = { has_building = ct_agriculture_q_3 }
+        PREV = { change_variable = { which = "supply_value" value = 1 } } }
+    any_province_holding = { limit = { has_building = ct_agriculture_q_4 }
+        PREV = { change_variable = { which = "supply_value" value = 1 } } }
+    any_province_holding = { limit = { has_building = ct_agriculture_q_5 }
+        PREV = { change_variable = { which = "supply_value" value = 1 } } }
+    any_province_holding = { limit = { has_building = ct_trade_center_q_1 }
+        PREV = { change_variable = { which = "supply_value" value = 1 } } }
+    any_province_holding = { limit = { has_building = ct_trade_center_q_2 }
+        PREV = { change_variable = { which = "supply_value" value = 1 } } }
+    any_province_holding = { limit = { has_building = ct_trade_center_q_3 }
+        PREV = { change_variable = { which = "supply_value" value = 1 } } }
+    any_province_holding = { limit = { has_building = ct_trade_center_q_4 }
+        PREV = { change_variable = { which = "supply_value" value = 1 } } }
+    any_province_holding = { limit = { has_building = ct_trade_center_q_5 }
+        PREV = { change_variable = { which = "supply_value" value = 1 } } }
+    any_province_holding = { limit = { has_building = ct_factories_q_1 }
+        PREV = { change_variable = { which = "supply_value" value = 0.5 } } }
+    any_province_holding = { limit = { has_building = ct_factories_q_2 }
+        PREV = { change_variable = { which = "supply_value" value = 0.5 } } }
+    any_province_holding = { limit = { has_building = ct_factories_q_3 }
+        PREV = { change_variable = { which = "supply_value" value = 0.5 } } }
+    any_province_holding = { limit = { has_building = ct_factories_q_4 }
+        PREV = { change_variable = { which = "supply_value" value = 0.5 } } }
+    any_province_holding = { limit = { has_building = ct_factories_q_5 }
+        PREV = { change_variable = { which = "supply_value" value = 0.5 } } }
+    any_province_holding = { limit = { has_building = ct_factories_q_6 }
+        PREV = { change_variable = { which = "supply_value" value = 0.5 } } }
+    any_province_holding = { limit = { has_building = ct_factories_q_7 }
+        PREV = { change_variable = { which = "supply_value" value = 0.5 } } }
+    any_province_holding = { limit = { has_building = ct_factories_q_8 }
+        PREV = { change_variable = { which = "supply_value" value = 0.5 } } }
+
+    #temples
+    any_province_holding = { limit = { has_building = tp_military_mathematics_q_1 }
+        PREV = { change_variable = { which = "supply_value" value = 1 } } }
+    any_province_holding = { limit = { has_building = tp_military_mathematics_q_2 }
+        PREV = { change_variable = { which = "supply_value" value = 1 } } }
+    any_province_holding = { limit = { has_building = tp_military_mathematics_q_3 }
+        PREV = { change_variable = { which = "supply_value" value = 1 } } }
+    any_province_holding = { limit = { has_building = tp_military_mathematics_q_4 }
+        PREV = { change_variable = { which = "supply_value" value = 1 } } }
+    any_province_holding = { limit = { has_building = tp_military_mathematics_q_5 }
+        PREV = { change_variable = { which = "supply_value" value = 1 } } }
+    any_province_holding = { limit = { has_building = tp_military_mathematics_q_6 }
+        PREV = { change_variable = { which = "supply_value" value = 1 } } }
+
+    remove_province_modifiers = { name = province_supply_from_building1 amount = 10000 }
+    remove_province_modifiers = { name = province_supply_from_building2 amount = 10000 }
+    remove_province_modifiers = { name = province_supply_from_building5 amount = 10000 }
+    remove_province_modifiers = { name = province_supply_from_building10 amount = 10000 }
+    remove_province_modifiers = { name = province_supply_from_building20 amount = 10000 }
+    remove_province_modifiers = { name = province_supply_from_building50 amount = 10000 }
+
+    while = { limit = { check_variable = { which = "supply_value" value >= 50 } }
+        subtract_variable = { which = "supply_value" value = 50 }
+        add_province_modifier = { name = province_supply_from_building50 duration = -1 stacking = yes } }
+    while = { limit = { check_variable = { which = "supply_value" value >= 20 } }
+        subtract_variable = { which = "supply_value" value = 20 }
+        add_province_modifier = { name = province_supply_from_building20 duration = -1 stacking = yes } }
+    while = { limit = { check_variable = { which = "supply_value" value >= 10 } }
+        subtract_variable = { which = "supply_value" value = 10 }
+        add_province_modifier = { name = province_supply_from_building10 duration = -1 stacking = yes } }
+    while = { limit = { check_variable = { which = "supply_value" value >= 5 } }
+        subtract_variable = { which = "supply_value" value = 5 }
+        add_province_modifier = { name = province_supply_from_building5 duration = -1 stacking = yes } }
+    while = { limit = { check_variable = { which = "supply_value" value >= 2 } }
+        subtract_variable = { which = "supply_value" value = 2 }
+        add_province_modifier = { name = province_supply_from_building2 duration = -1 stacking = yes } }
+    while = { limit = { check_variable = { which = "supply_value" value > 0 } }
+        subtract_variable = { which = "supply_value" value = 1 }
+        add_province_modifier = { name = province_supply_from_building1 duration = -1 stacking = yes } }
+}
+
+fn_crisis_recalctrade_in_province = {
+#this function is called from different places, and as thus FROM and ROOT are NOT trustworthy.
+#what is ensured, is that the "main scope" is a location scope that resolves to a province
+
+    set_variable = { which = trade_wealth_generated value = 0 }
+    log = "trade wealth generated from [This.GetID] [This.GetName] is [This.trade_wealth_generated.GetValue]"
+
+    if = { limit = { province = 202 }
+        any_province_holding = { if = { limit = { has_building = ca_olympus_shipyards }
+            PREV = { change_variable = { which = trade_wealth_generated value = 200 } } } }
+
+        if = { limit = {
+        NOT = { has_province_modifier = early_anarchy_problems }
+        NOT = { has_province_modifier = econ_anarchy_problems } }
+            any_province_holding = { if = { limit = { has_building = ca_military_surplus }
+                PREV = { change_variable = { which = trade_wealth_generated value = 100 } } } }
+            any_province_holding = { if = { limit = { has_building = ct_industrial_export_farming }
+                PREV = { change_variable = { which = trade_wealth_generated value = 300 } } } }
+            any_province_holding = { if = { limit = { has_building = ct_export_infrastructure }
+                PREV = { change_variable = { which = trade_wealth_generated value = 300 } } } }
+            any_province_holding = { if = { limit = { has_building = ct_industrial_park }
+                PREV = { change_variable = { which = trade_wealth_generated value = 300 } } } }
+            any_province_holding = { if = { limit = { has_building = tp_cultural_goods_institute }
+                PREV = { change_variable = { which = trade_wealth_generated value = 300 } } } }
+            any_province_holding = { if = { limit = { has_building = tp_intellectual_property_office }
+                PREV = { change_variable = { which = trade_wealth_generated value = 300 } } } }
+        }
+    }
+
+    log = "trade wealth generated from [This.GetID] [This.GetName] is [This.trade_wealth_generated.GetValue] after processing"
+
+    if = { limit = { province = 202 }
+        set_variable = { which = local_trade_wealth_generated value = -300 }
+        log = "bugs with trade? [local_trade_wealth_generated.GetValue] 1"
+        any_trade_route_province = {
+            limit = { trade_route = sol_export_trade_route NOT = { has_province_flag = processing_trade } }
+            set_province_flag = processing_trade
+            change_variable = { which = local_trade_wealth_generated which = trade_wealth_generated }
+            log = "bugs with trade? [local_trade_wealth_generated.GetValue] 2 [This.GetID This.GetName]"
+        }
+
+        log = "bugs with trade? [local_trade_wealth_generated.GetValue] 3"
+        set_trade_route_base_value = { which = sol_export_trade_route value = 0 }
+        set_trade_route_base_value = { which = sol_export_trade_route value = local_trade_wealth_generated }
+        log = "bugs with trade? [local_trade_wealth_generated.GetValue] 4"
+
+        any_trade_route_province = {
+            limit = { trade_route = sol_export_trade_route has_province_flag = processing_trade }
+            clr_province_flag = processing_trade
+        }
+    }
+}
