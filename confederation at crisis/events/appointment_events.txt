@@ -4042,9 +4042,9 @@ letter_event = {
 		custom_tooltip = {
 			text = "FORFEITAPPOINTEDTITLES"
 			hidden_tooltip = {
-				character_event = { id = nepotism.0 }
-				character_event = { id = nepotism.1 }
 				liege = { letter_event = { id = nepotism.301 } }
+				#character_event = { id = nepotism.0 }
+				#character_event = { id = nepotism.1 }
 			}
 		}
 		ai_chance = {
@@ -4282,7 +4282,20 @@ letter_event = {
 	border = GFX_event_letter_frame_diplomacy
 	is_triggered_only = yes
 
-	option = { name = "EVTOPTCONFIRM" }
+	option = { name = "EVTOPTCONFIRM"
+		FROM = {
+			show_scope_change = no
+			any_demesne_title = {
+				show_scope_change = no
+				limit = { is_appointed_trigger = yes }
+				any_character = {
+					show_scope_change = no
+				    limit = { is_heir = PREV }
+				    gain_title = PREV
+				}
+			}
+		}
+	}
 }
 
 character_event = {

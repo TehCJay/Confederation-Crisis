@@ -3255,27 +3255,30 @@ targetted_decisions = {
  		potential = {
 			NOT = { character = FROM }
 			liege = { character = FROM }
-			any_demesne_title = { OR = {has_law = succ_appointment AND = {has_law = succ_catholic_bishopric NOT = { current_heir = {always = yes}}}} }
+			any_demesne_title = { is_appointed_trigger = yes }
 		}
 		allow = {
-			OR = {
-				AND = {
-					tier = baron
-					FROM = { prestige = 100 piety = 100}
-				}
-				AND = {
-					tier = count
-					FROM = { prestige = 250 piety = 250}
-				}
-				AND = {
-					tier = duke
-					FROM = { prestige = 500 piety = 500}
-				}
-				AND = {
-					tier = king
-					FROM = { prestige = 1000 piety = 1000}
-				}
+
+			trigger_if = {
+				limit = { tier = baron }
+				FROM = { prestige = 100 piety = 100}
 			}
+
+			trigger_if = {
+				limit = { tier = count }
+				FROM = { prestige = 250 piety = 250}
+			}
+
+			trigger_if = {
+				limit = { tier = duke }
+				FROM = { prestige = 500 piety = 500}
+			}
+
+			trigger_if = {
+				limit = { tier = king }
+				FROM = { prestige = 1000 piety = 1000}
+			}
+
 			NOT = { has_character_modifier = successful_campaign }
 			NOT = { has_character_flag = flag_being_fired }
 		}
