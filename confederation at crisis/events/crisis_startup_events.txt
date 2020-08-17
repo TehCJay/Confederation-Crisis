@@ -233,6 +233,36 @@ character_event = {
 			}
 			add_law = military_budget_0
 		}
+		if = {
+			limit = {
+				NOT = {
+					is_law_potential = civil_budget_1
+					is_law_potential = civil_budget_2
+					is_law_potential = civil_budget_3
+				}
+			}
+			add_law = civil_budget_0
+		}
+		if = {
+			limit = {
+				NOT = {
+					is_law_potential = rectorial_budget_1
+					is_law_potential = rectorial_budget_2
+					is_law_potential = rectorial_budget_3
+				}
+			}
+			add_law = rectorial_budget_0
+		}
+
+		#if = { limit = { has_law = law_voting_power_1 }
+		#	if = { limit = { government = neo_feudal_government }
+		#		add_law = legislative_type_aristocratic
+		#	}
+		#	else =
+		#	{
+		#		add_law = legislative_type_democratic
+		#	}
+		#}
 
 		#if = { limit = { government = neo_feudal_government } set_tribal_vassal_levy_control = no }
 		#else = {  }

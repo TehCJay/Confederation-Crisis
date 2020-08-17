@@ -2220,6 +2220,7 @@ crisis_cb = {
 		factor = 1
 	}
 }
+
 confed_reconquest = {
 	name = CB_NAME_IMPERIAL
 	war_name = WAR_NAME_IMPERIAL
@@ -2232,52 +2233,53 @@ confed_reconquest = {
 
 	sort_priority = 1900
 
-	can_use_gui = {
-		check_if_crusader_trigger = yes
-	}
+	#can_use_gui = {
+		#has_global_flag = confed_anarchy_active
+		#check_if_crusader_trigger = yes
+		#always = yes
+	#}
 
 	can_use = {
 		has_global_flag = confed_anarchy_active
-		OR = {
-			e_terran_confederation = {
-				de_jure_vassal_or_below = ROOT
-			}
-			primary_title = { title = e_terran_confederation }
-		}
 		ROOT = {
 			independent = yes
-			NOT = {
-				religion = astrist
-				religion = colonial_separatist
-				religion = neo_feudal
-				religion = hiver
-				religion = space_pirate
-				religion = xenoterran
+			OR = {
+				religion_group = political_terran_group
+				religion_group = religious_terran_group
 			}
 			NOT = { same_realm = FROM }
 			mercenary = no
+			OR = {
+				e_terran_confederation = { de_jure_vassal_or_below = ROOT }
+				primary_title = { title = e_terran_confederation }
+			}
 		}
 	}
 
 	can_use_title = {
 		de_jure_liege_or_above = e_terran_confederation
+		#always = yes
 	}
 
 	is_valid = {
 		ROOT = {
-			de_jure_liege_or_above = e_terran_confederation
 			independent = yes
-			NOT = {
-				religion = astrist
-				religion = colonial_separatist
-				religion = neo_feudal
-				religion = hiver
-				religion = space_pirate
-				religion = xenoterran
+			OR = {
+				religion_group = political_terran_group
+				religion_group = religious_terran_group
 			}
 			NOT = { same_realm = FROM }
 			mercenary = no
+			OR = {
+				e_terran_confederation = { de_jure_vassal_or_below = ROOT }
+				primary_title = { title = e_terran_confederation }
+			}
 		}
+	}
+
+	is_valid_title = {
+		de_jure_liege_or_above = e_terran_confederation
+		#always = yes
 	}
 
 	on_add = {
@@ -2286,15 +2288,19 @@ confed_reconquest = {
 	on_success = {
 		ROOT = {
 			participation_scaled_prestige = 100
+			participation_scaled_piety = 100
+			reconquest_of_terran_territory_authority_effect = yes
 		}
 		any_attacker = {
 			limit = { NOT = { character = ROOT } }
 			hidden_tooltip = {
 				participation_scaled_prestige = 100
+				participation_scaled_piety = 100
 			}
 		}
 
 		FROM = { prestige = -100 }
+		FROM = { piety = -100 }
 	}
 
 	on_success_title = {
@@ -2328,7 +2334,7 @@ confed_reconquest = {
 				to = FROM
 				value = 4.0
 			}
-			ROOT = { prestige = -200 }
+			ROOT = { prestige = -200 piety = -200 }
 		}
 		FROM = {
 			participation_scaled_piety = 100

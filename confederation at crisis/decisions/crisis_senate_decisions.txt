@@ -1,0 +1,97 @@
+
+decisions = {
+    call_senate_elections = {
+        is_high_prio = yes
+        ai_check_interval = 12
+
+        potential = {
+            OR = {
+                can_grant_title = title_senatorduke
+                can_grant_title = title_senatorking
+                can_grant_title = title_senatoremperor
+                can_grant_title = title_senatorbigrealm1
+                can_grant_title = title_senatorbigrealm2
+                can_grant_title = title_senatorbigrealm3
+                can_grant_title = title_senatorbigrealm4
+                can_grant_title = title_senatorbigrealm5
+            }
+            NOT = { has_law = legislative_type_autocratic }
+        }
+
+        effect = {
+            character_event = { id = parliaments.001 }
+        }
+
+        ai_will_do = {
+            factor = 1
+        }
+    }
+
+
+    request_senator_candidates_from_provinces = {
+        is_high_prio = yes
+        ai_check_interval = 12
+
+        potential = {
+            trigger_if ={
+                OR = {
+                    can_grant_title = title_senatorduke
+                    can_grant_title = title_senatorking
+                    can_grant_title = title_senatoremperor
+                    can_grant_title = title_senatorbigrealm1
+                    can_grant_title = title_senatorbigrealm2
+                    can_grant_title = title_senatorbigrealm3
+                    can_grant_title = title_senatorbigrealm4
+                    can_grant_title = title_senatorbigrealm5
+                }
+                NOT = {
+                    any_courtier_or_vassal = {
+                        can_hold_title = title_senatorduke
+                    }
+                }
+            }
+            #else = { always = no }
+
+            has_law = legislative_type_autocratic
+        }
+
+        effect = {
+            character_event = { id = parliaments.002 }
+        }
+
+        ai_will_do = {
+            factor = 1
+        }
+    }
+
+    fill_seats_with_available_people = {
+        is_high_prio = yes
+        ai_check_interval = 12
+
+        potential = {
+            trigger_if ={
+                OR = {
+                    can_grant_title = title_senatorduke
+                    can_grant_title = title_senatorking
+                    can_grant_title = title_senatoremperor
+                    can_grant_title = title_senatorbigrealm1
+                    can_grant_title = title_senatorbigrealm2
+                    can_grant_title = title_senatorbigrealm3
+                    can_grant_title = title_senatorbigrealm4
+                    can_grant_title = title_senatorbigrealm5
+                }
+                any_courtier_or_vassal = {
+                    can_hold_title = title_senatorduke
+                }
+            }
+            #else = { always = no }
+
+            has_law = legislative_type_autocratic
+        }
+
+        effect = {
+            fill_seats_with_courtiers = yes
+            fill_seats_with_realm_characters = yes
+        }
+    }
+}

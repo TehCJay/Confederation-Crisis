@@ -1,11 +1,11 @@
 decisions = {
-	
+
 	# Improve public order
 	# Since public order is not actually a law, you can do this regardless
 	# of what the Senate looks like.
 	improve_public_order_decision = {
 		is_high_prio = yes
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			any_demesne_title = {
 				crownlaw_title = { title = PREV } # Must be own crownlaw title
@@ -45,7 +45,7 @@ decisions = {
 			any_demesne_title = {
 				limit = {
 					crownlaw_title = { title = PREV } # Must be own crownlaw title
-					has_law = public_order_1 
+					has_law = public_order_1
 					NOR = { has_law = centralization_0 has_law = centralization_1} # Must have zero public order
 				}
 				add_law = public_order_2
@@ -55,11 +55,11 @@ decisions = {
 		ai_will_do = { factor = 1 }
 	}
 	# Decrees
-	
+
 	# Break up Empire
 	break_up_empire_decision = {
 		is_high_prio = yes
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			OR = {
 				ai = yes
@@ -75,7 +75,7 @@ decisions = {
 			NOT = {
 				any_demesne_title = {
 					tier = emperor
-					NOT = { has_law = legislative_authority_0 }
+					NOT = { has_law = legislative_type_autocratic }
 				}
 			}
 		}
@@ -137,7 +137,7 @@ decisions = {
 	}
 	dissolve_legislature_decision = {
 		is_high_prio = yes
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			OR = {
 				ai = yes
@@ -145,12 +145,12 @@ decisions = {
 			}
 			any_demesne_title = {
 				crownlaw_title = { title = PREV } # Must be own crownlaw title
-				has_law = legislative_authority_1 # Must have a legislature to dissolve
+				has_law = legislative_type_aristocratic # Must have a legislature to dissolve
 			}
 		}
 		allow = {
 			NOT = { has_character_modifier = constitutional_crisis } # No constitutional crisis
-			
+
 			# Sees this as immoral
 			OR = {
 				AND = {
@@ -161,21 +161,21 @@ decisions = {
 				}
 				trait = pragmatic
 			}
-			
+
 			# Too weak-willed to actually do it
 			NOT = { trait = craven }
 			NOT = { trait = neurotic }
-			
+
 			# Doesn't have the authority to do it
 			has_regent = no
-			
+
 			# Prestige cost
 			prestige = 500
 		}
 		effect = {
 			# Subtract prestige cost
 			prestige = -500
-			
+
 			# Begin a constitutional crisis
 			add_character_modifier = { name = constitutional_crisis days = -1 }
 			add_character_modifier = { name = crisis_dissolved_legislature days = -1 }
@@ -247,11 +247,11 @@ decisions = {
 					any_vassal = {
 						OR = {
 							kingdom = {
-								has_law = legislative_authority_1
+								has_law = legislative_type_aristocratic
 								holder_scope = { character = ROOT }
 							}
 							empire = {
-								has_law = legislative_authority_1
+								has_law = legislative_type_aristocratic
 								holder_scope = { character = ROOT }
 							}
 						}
@@ -274,13 +274,13 @@ decisions = {
 				}
 				NOT = { trait = ambitious }
 			}
-			
+
 			# This is a very non-content thing to do!
 			modifier = {
 				factor = 0
 				trait = content
 			}
-			
+
 			# Likes a senator who opposes this
 			modifier = {
 				factor = 0
@@ -288,11 +288,11 @@ decisions = {
 				any_vassal = {
 					OR = {
 						kingdom = {
-							has_law = legislative_authority_1
+							has_law = legislative_type_aristocratic
 							holder_scope = { character = ROOT }
 						}
 						empire = {
-							has_law = legislative_authority_1
+							has_law = legislative_type_aristocratic
 							holder_scope = { character = ROOT }
 						}
 					}
@@ -318,11 +318,11 @@ decisions = {
 				any_vassal = {
 					OR = {
 						kingdom = {
-							has_law = legislative_authority_1
+							has_law = legislative_type_aristocratic
 							holder_scope = { character = ROOT }
 						}
 						empire = {
-							has_law = legislative_authority_1
+							has_law = legislative_type_aristocratic
 							holder_scope = { character = ROOT }
 						}
 					}
@@ -342,7 +342,7 @@ decisions = {
 					}
 				}
 			}
-			
+
 			# Won't risk the crisis
 			modifier = {
 				factor = 0
@@ -442,7 +442,7 @@ decisions = {
 					relative_power_to_liege = 1
 				}
 			}
-			
+
 			# Once you've founded a legislature, let it stick around for at least five years
 			modifier = {
 				factor = 0
@@ -451,11 +451,11 @@ decisions = {
 			}
 		}
 	}
-	
+
 	# The following decrees require there to be no legislature
 	rule_for_life_decision = {
 		is_high_prio = yes
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			OR = {
 				ai = yes
@@ -478,13 +478,13 @@ decisions = {
 					has_law = crown_term_length_2
 					has_law = crown_term_length_3
 				}
-				NOT = { has_law = legislative_authority_1 }
+				NOT = { has_law = legislative_type_aristocratic }
 			}
 			independent = yes
 		}
 		allow = {
 			# Must not have a legislature
-			NOT = { crownlaw_title = { has_law = legislative_authority_1 } }
+			NOT = { crownlaw_title = { has_law = legislative_type_aristocratic } }
 			any_demesne_title = {
 				OR = {
 					has_law = succ_feudal_elective
@@ -502,16 +502,16 @@ decisions = {
 					has_law = crown_term_length_2
 					has_law = crown_term_length_3
 				}
-				NOT = { has_law = legislative_authority_1 }
+				NOT = { has_law = legislative_type_aristocratic }
 			}
-			
+
 			# Too weak-willed to actually do it
 			NOT = { trait = craven }
 			NOT = { trait = neurotic }
-			
+
 			# Doesn't have the authority to do it
 			has_regent = no
-			
+
 			# Needs enough prestige to buy this
 			prestige = 100
 		}
@@ -548,7 +548,7 @@ decisions = {
 						has_law = crown_term_length_2
 						has_law = crown_term_length_3
 					}
-					NOT = { has_law = legislative_authority_1 }
+					NOT = { has_law = legislative_type_aristocratic }
 				}
 				add_law = crown_term_length_4
 			}
@@ -581,7 +581,7 @@ decisions = {
 	}
 	become_military_decision = {
 		is_high_prio = yes
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			OR = {
 				ai = yes
@@ -601,7 +601,7 @@ decisions = {
 		}
 		allow = {
 			independent = yes
-			NOT = { crownlaw_title = { has_law = legislative_authority_1 } }
+			NOT = { crownlaw_title = { has_law = legislative_type_aristocratic } }
 #			OR = {
 #				religion = terran_imperial
 #				religion = neo_feudal
@@ -712,7 +712,7 @@ decisions = {
 	}
 	become_corporate_decision = {
 		is_high_prio = yes
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			OR = {
 				ai = yes
@@ -732,7 +732,7 @@ decisions = {
 		}
 		allow = {
 			independent = yes
-			NOT = { crownlaw_title = { has_law = legislative_authority_1 } }
+			NOT = { crownlaw_title = { has_law = legislative_type_aristocratic } }
 #			OR = {
 #				religion = terran_imperial
 #				religion = neo_feudal
@@ -843,7 +843,7 @@ decisions = {
 	}
 	become_administrative_decision = {
 		is_high_prio = yes
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			OR = {
 				ai = yes
@@ -863,7 +863,7 @@ decisions = {
 		}
 		allow = {
 			independent = yes
-			NOT = { crownlaw_title = { has_law = legislative_authority_1 } }
+			NOT = { crownlaw_title = { has_law = legislative_type_aristocratic } }
 #			OR = {
 #				religion = terran_imperial
 #				religion = neo_feudal
@@ -974,7 +974,7 @@ decisions = {
 	}
 	become_monarchy_decision = {
 		is_high_prio = yes
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			OR = {
 				ai = yes
@@ -991,7 +991,7 @@ decisions = {
 		}
 		allow = {
 			independent = yes
-			NOT = { crownlaw_title = { has_law = legislative_authority_1 } }
+			NOT = { crownlaw_title = { has_law = legislative_type_aristocratic } }
 			OR = {
 				religion = terran_imperial
 				religion = neo_feudal
@@ -1105,7 +1105,7 @@ decisions = {
 	}
 	become_republic_decision = {
 		is_high_prio = yes
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			OR = {
 				ai = yes
@@ -1122,7 +1122,7 @@ decisions = {
 		}
 		allow = {
 			independent = yes
-			NOT = { crownlaw_title = { has_law = legislative_authority_1 } }
+			NOT = { crownlaw_title = { has_law = legislative_type_aristocratic } }
 			OR = {
 				religion = terran_federalist
 				religion = terran_republican
@@ -1196,7 +1196,7 @@ decisions = {
 						government = corporate_monarchy
 						government = corporate_directorate
 					}
-					is_government_ai_check_interval = 10 
+					is_government_ai_check_interval = 10
  potential = merchant_republic_government
 				}
 				set_government_type = merchant_republic_government
@@ -1207,7 +1207,7 @@ decisions = {
 						government = corporate_monarchy
 						government = corporate_directorate
 					}
-					NOT = { is_government_ai_check_interval = 10 
+					NOT = { is_government_ai_check_interval = 10
  potential = merchant_republic_government }
 				}
 				set_government_type = corporate_republic
@@ -1246,7 +1246,7 @@ decisions = {
 	}
 	become_directorate_decision = {
 		is_high_prio = yes
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			OR = {
 				ai = yes
@@ -1264,7 +1264,7 @@ decisions = {
 		}
 		allow = {
 			independent = yes
-			NOT = { crownlaw_title = { has_law = legislative_authority_1 } }
+			NOT = { crownlaw_title = { has_law = legislative_type_aristocratic } }
 			OR = {
 				religion = neo_socialist
 				religion = astrist
@@ -1397,7 +1397,7 @@ decisions = {
 	# Centralization and Decentralization
 	increase_centralization_decision = {
 		is_high_prio = yes
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			OR = {
 				ai = yes
@@ -1414,9 +1414,9 @@ decisions = {
 			any_demesne_title = {
 				crownlaw_title = { title = PREV }
 				NOT = { has_law = centralization_4 }
-				NOT = { has_law = legislative_authority_1 }
+				NOT = { has_law = legislative_type_aristocratic }
 			}
-			
+
 			# Must not be ideologically opposed
 			OR = {
 				AND = {
@@ -1426,13 +1426,13 @@ decisions = {
 				}
 				trait = pragmatic
 			}
-			
+
 			# Doesn't have the authority to do it
 			has_regent = no
-			
+
 			# Needs enough prestige to buy this
 			prestige = 100
-			
+
 			custom_tooltip = {
 				text = "FIVEYEARCOOLDOWN"
 				hidden_tooltip = {
@@ -1446,14 +1446,14 @@ decisions = {
 		effect = {
 			clr_character_flag = flag_made_crown_law_decree
 			set_character_flag = flag_made_crown_law_decree
-			
+
 			prestige = -100
-			
+
 			any_demesne_title = {
 				limit = {
 					crownlaw_title = { title = PREV }
 					has_law = centralization_3
-					NOT = { has_law = legislative_authority_1 }
+					NOT = { has_law = legislative_type_aristocratic }
 				}
 				add_law = centralization_4
 			}
@@ -1461,7 +1461,7 @@ decisions = {
 				limit = {
 					crownlaw_title = { title = PREV }
 					has_law = centralization_2
-					NOT = { has_law = legislative_authority_1 }
+					NOT = { has_law = legislative_type_aristocratic }
 				}
 				add_law = centralization_3
 			}
@@ -1469,7 +1469,7 @@ decisions = {
 				limit = {
 					crownlaw_title = { title = PREV }
 					has_law = centralization_1
-					NOT = { has_law = legislative_authority_1 }
+					NOT = { has_law = legislative_type_aristocratic }
 				}
 				add_law = centralization_2
 			}
@@ -1477,7 +1477,7 @@ decisions = {
 				limit = {
 					crownlaw_title = { title = PREV }
 					has_law = centralization_0
-					NOT = { has_law = legislative_authority_1 }
+					NOT = { has_law = legislative_type_aristocratic }
 				}
 				add_law = centralization_1
 			}
@@ -1494,7 +1494,7 @@ decisions = {
 							leads_faction = faction_pro_centralization
 							faction_pro_centralization = {
 								crownlaw_title = { title = PREV }
-								has_law = legislative_authority_0
+								has_law = legislative_type_autocratic
 								NOT = { has_law = centralization_4 }
 							}
 							faction_power = {
@@ -1527,7 +1527,7 @@ decisions = {
 					}
 				}
 			}
-			
+
 			# Political Concerns
 			modifier = {
 				factor = 0
@@ -1535,7 +1535,7 @@ decisions = {
 					leads_faction = faction_anti_centralization
 					faction_anti_centralization = {
 						crownlaw_title = { title = PREV }
-						has_law = legislative_authority_0
+						has_law = legislative_type_autocratic
 						NOT = { has_law = centralization_4 }
 					}
 					faction_power = {
@@ -1555,7 +1555,7 @@ decisions = {
 					leads_faction = faction_anti_centralization
 					faction_anti_centralization = {
 						crownlaw_title = { title = PREV }
-						has_law = legislative_authority_0
+						has_law = legislative_type_autocratic
 						NOT = { has_law = centralization_4 }
 					}
 					faction_power = {
@@ -1569,7 +1569,7 @@ decisions = {
 	}
 	decrease_centralization_decision = {
 		is_high_prio = yes
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			OR = {
 				ai = yes
@@ -1586,9 +1586,9 @@ decisions = {
 			any_demesne_title = {
 				crownlaw_title = { title = PREV }
 				NOT = { has_law = centralization_0 }
-				NOT = { has_law = legislative_authority_1 }
+				NOT = { has_law = legislative_type_aristocratic }
 			}
-			
+
 			# Must not be ideologically opposed
 			OR = {
 				AND = {
@@ -1598,13 +1598,13 @@ decisions = {
 				}
 				trait = pragmatic
 			}
-			
+
 			# Doesn't have the authority to do it
 			has_regent = no
-			
+
 			# Needs enough prestige to buy this
 			prestige = 100
-			
+
 			custom_tooltip = {
 				text = "FIVEYEARCOOLDOWN"
 				hidden_tooltip = {
@@ -1618,14 +1618,14 @@ decisions = {
 		effect = {
 			clr_character_flag = flag_made_crown_law_decree
 			set_character_flag = flag_made_crown_law_decree
-			
+
 			prestige = -100
-			
+
 			any_demesne_title = {
 				limit = {
 					crownlaw_title = { title = PREV }
 					has_law = centralization_1
-					NOT = { has_law = legislative_authority_1 }
+					NOT = { has_law = legislative_type_aristocratic }
 				}
 				add_law = centralization_0
 			}
@@ -1633,7 +1633,7 @@ decisions = {
 				limit = {
 					crownlaw_title = { title = PREV }
 					has_law = centralization_1
-					NOT = { has_law = legislative_authority_1 }
+					NOT = { has_law = legislative_type_aristocratic }
 				}
 				add_law = centralization_2
 			}
@@ -1641,7 +1641,7 @@ decisions = {
 				limit = {
 					crownlaw_title = { title = PREV }
 					has_law = centralization_2
-					NOT = { has_law = legislative_authority_1 }
+					NOT = { has_law = legislative_type_aristocratic }
 				}
 				add_law = centralization_3
 			}
@@ -1649,7 +1649,7 @@ decisions = {
 				limit = {
 					crownlaw_title = { title = PREV }
 					has_law = centralization_2
-					NOT = { has_law = legislative_authority_1 }
+					NOT = { has_law = legislative_type_aristocratic }
 				}
 				add_law = centralization_4
 			}
@@ -1665,7 +1665,7 @@ decisions = {
 							leads_faction = faction_anti_centralization
 							faction_anti_centralization = {
 								crownlaw_title = { title = PREV }
-								has_law = legislative_authority_0
+								has_law = legislative_type_autocratic
 								NOT = { has_law = centralization_0 }
 							}
 							faction_power = {
@@ -1698,7 +1698,7 @@ decisions = {
 					}
 				}
 			}
-			
+
 			# Political Concerns
 			modifier = {
 				factor = 0
@@ -1706,7 +1706,7 @@ decisions = {
 					leads_faction = faction_pro_centralization
 					faction_pro_centralization = {
 						crownlaw_title = { title = PREV }
-						has_law = legislative_authority_0
+						has_law = legislative_type_autocratic
 						NOT = { has_law = centralization_4 }
 					}
 					faction_power = {
@@ -1726,7 +1726,7 @@ decisions = {
 					leads_faction = faction_pro_centralization
 					faction_pro_centralization = {
 						crownlaw_title = { title = PREV }
-						has_law = legislative_authority_0
+						has_law = legislative_type_autocratic
 						NOT = { has_law = centralization_4 }
 					}
 					faction_power = {

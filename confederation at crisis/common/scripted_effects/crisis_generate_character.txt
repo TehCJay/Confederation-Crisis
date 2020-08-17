@@ -2,6 +2,18 @@
 # intention is for example generate senators, representing a specific province.
 generate_random_lowborn_adult_from_realm_effect = {
     random_realm_province = {
+        generate_random_lowborn_adult_from_province_effect = yes
+    }
+}
+
+generate_random_highborn_adult_from_realm_effect = {
+    random_realm_province = {
+        generate_random_highborn_adult_from_province_effect = yes
+    }
+}
+
+generate_random_lowborn_adult_from_province_effect = {
+    hidden_tooltip = {
         random_list = {
             10 = {
                 create_character = {
@@ -499,11 +511,32 @@ generate_random_lowborn_adult_from_realm_effect = {
                 }
             }
         }
+        random = {
+            chance = 1
+            new_character = {
+                add_trait = ambitious
+                remove_trait = imbecile
+                remove_trait = slow
+                remove_trait = quick
+                add_trait = genius
+                remove_trait = fair
+                remove_trait = homely
+                remove_trait = ugly
+                add_trait = beautiful
+                remove_trait = dwarf
+                add_trait = tall
+                change_diplomacy = 5
+                change_learning = 3
+                change_intrigue = 3
+                change_stewardship = 1
+            }
+        }
     }
+    custom_tooltip = { text = generate_lowborn_senator_tooltip }
 }
 
-generate_random_highborn_adult_from_realm_effect = {
-    random_realm_province = {
+generate_random_highborn_adult_from_province_effect = {
+    hidden_tooltip = {
         random_list = {
             10 = {
                 create_character = {
@@ -1000,6 +1033,210 @@ generate_random_highborn_adult_from_realm_effect = {
                     female = 60
                 }
             }
+        }
+        random = {
+            chance = 1
+            new_character = {
+                add_trait = ambitious
+                remove_trait = imbecile
+                remove_trait = slow
+                remove_trait = quick
+                add_trait = genius
+                remove_trait = fair
+                remove_trait = homely
+                remove_trait = ugly
+                add_trait = beautiful
+                remove_trait = dwarf
+                add_trait = tall
+                change_diplomacy = 5
+                change_learning = 3
+                change_intrigue = 3
+                change_stewardship = 1
+            }
+        }
+    }
+    custom_tooltip = { text = generate_highborn_senator_tooltip }
+}
+
+count_senator_seats_to_fill = {
+    hidden_tooltip = {
+        ROOT = {
+            set_variable = { which = empty_seats value = 0 }
+            if = { limit = { can_grant_title = title_senatorduke }
+                change_variable = { which = empty_seats value = 5 }
+                any_courtier_or_vassal = {
+                    limit = { has_minor_title = title_senatorduke }
+                    PREV = { subtract_variable = { which = empty_seats value = 1 } }
+                }
+            }
+            if = { limit = { can_grant_title = title_senatorking }
+                change_variable = { which = empty_seats value = 5 }
+                any_courtier_or_vassal = {
+                    limit = { has_minor_title = title_senatorking }
+                    PREV = { subtract_variable = { which = empty_seats value = 1 } }
+                }
+            }
+            if = { limit = { can_grant_title = title_senatoremperor }
+                change_variable = { which = empty_seats value = 10 }
+                any_courtier_or_vassal = {
+                    limit = { has_minor_title = title_senatoremperor }
+                    PREV = { subtract_variable = { which = empty_seats value = 1 } }
+                }
+            }
+            if = { limit = { can_grant_title = title_senatorbigrealm1 }
+                change_variable = { which = empty_seats value = 5 }
+                any_courtier_or_vassal = {
+                    limit = { has_minor_title = title_senatorbigrealm1 }
+                    PREV = { subtract_variable = { which = empty_seats value = 1 } }
+                }
+            }
+            if = { limit = { can_grant_title = title_senatorbigrealm2 }
+                change_variable = { which = empty_seats value = 5 }
+                any_courtier_or_vassal = {
+                    limit = { has_minor_title = title_senatorbigrealm2 }
+                    PREV = { subtract_variable = { which = empty_seats value = 1 } }
+                }
+            }
+            if = { limit = { can_grant_title = title_senatorbigrealm3 }
+                change_variable = { which = empty_seats value = 5 }
+                any_courtier_or_vassal = {
+                    limit = { has_minor_title = title_senatorbigrealm3 }
+                    PREV = { subtract_variable = { which = empty_seats value = 1 } }
+                }
+            }
+            if = { limit = { can_grant_title = title_senatorbigrealm4 }
+                change_variable = { which = empty_seats value = 10 }
+                any_courtier_or_vassal = {
+                    limit = { has_minor_title = title_senatorbigrealm4 }
+                    PREV = { subtract_variable = { which = empty_seats value = 1 } }
+                }
+            }
+            if = { limit = { can_grant_title = title_senatorbigrealm5 }
+                change_variable = { which = empty_seats value = 25 }
+                any_courtier_or_vassal = {
+                    limit = { has_minor_title = title_senatorbigrealm5 }
+                    PREV = { subtract_variable = { which = empty_seats value = 1 } }
+                }
+            }
+        }
+    }
+}
+
+fill_seats_with_courtiers = {
+    any_courtier_or_vassal = {
+        if = {
+            limit = { is_voter = no }
+            if = { limit = { can_hold_title = title_senatorduke
+            PREV = { can_grant_title = title_senatorduke }}
+                give_minor_title = title_senatorduke }
+            else_if = { limit = { can_hold_title = title_senatorking
+            PREV = { can_grant_title = title_senatorking }}
+                give_minor_title = title_senatorking }
+            else_if = { limit = { can_hold_title = title_senatoremperor
+            PREV = { can_grant_title = title_senatoremperor }}
+                give_minor_title = title_senatoremperor }
+            else_if = { limit = { can_hold_title = title_senatorbigrealm1
+            PREV = { can_grant_title = title_senatorbigrealm1 }}
+                give_minor_title = title_senatorbigrealm1 }
+            else_if = { limit = { can_hold_title = title_senatorbigrealm2
+            PREV = { can_grant_title = title_senatorbigrealm2 }}
+                give_minor_title = title_senatorbigrealm2 }
+            else_if = { limit = { can_hold_title = title_senatorbigrealm3
+            PREV = { can_grant_title = title_senatorbigrealm3 }}
+                give_minor_title = title_senatorbigrealm3 }
+            else_if = { limit = { can_hold_title = title_senatorbigrealm4
+            PREV = { can_grant_title = title_senatorbigrealm4 }}
+                give_minor_title = title_senatorbigrealm4 }
+            else_if = { limit = { can_hold_title = title_senatorbigrealm5
+            PREV = { can_grant_title = title_senatorbigrealm5 }}
+                give_minor_title = title_senatorbigrealm5 }
+        }
+    }
+}
+
+fill_seats_with_realm_characters = {
+    any_realm_character = {
+        if = {
+            limit = { is_voter = no is_ruler = no is_immune_to_pruning = no
+                NOT = { has_minor_title = title_commander has_minor_title = title_court_physician } }
+            if = { limit = { can_hold_title = title_senatorduke
+            PREV = { can_grant_title = title_senatorduke }}
+                move_character = PREV give_minor_title = title_senatorduke }
+            else_if = { limit = { can_hold_title = title_senatorking
+            PREV = { can_grant_title = title_senatorking }}
+                move_character = PREV give_minor_title = title_senatorking }
+            else_if = { limit = { can_hold_title = title_senatoremperor
+            PREV = { can_grant_title = title_senatoremperor }}
+                move_character = PREV give_minor_title = title_senatoremperor }
+            else_if = { limit = { can_hold_title = title_senatorbigrealm1
+            PREV = { can_grant_title = title_senatorbigrealm1 }}
+                move_character = PREV give_minor_title = title_senatorbigrealm1 }
+            else_if = { limit = { can_hold_title = title_senatorbigrealm2
+            PREV = { can_grant_title = title_senatorbigrealm2 }}
+                move_character = PREV give_minor_title = title_senatorbigrealm2 }
+            else_if = { limit = { can_hold_title = title_senatorbigrealm3
+            PREV = { can_grant_title = title_senatorbigrealm3 }}
+                move_character = PREV give_minor_title = title_senatorbigrealm3 }
+            else_if = { limit = { can_hold_title = title_senatorbigrealm4
+            PREV = { can_grant_title = title_senatorbigrealm4 }}
+                move_character = PREV give_minor_title = title_senatorbigrealm4 }
+            else_if = { limit = { can_hold_title = title_senatorbigrealm5
+            PREV = { can_grant_title = title_senatorbigrealm5 }}
+                move_character = PREV give_minor_title = title_senatorbigrealm5 }
+        }
+    }
+}
+
+#scope of this, is expected to be a ruler character
+replace_senators_effect = {
+    if = {
+        limit = {
+            NOT = { has_law = legislative_type_autocratic } # voter appointment law, letting liege to appoint whenever he wants
+        }
+
+        fill_seats_with_courtiers = yes
+        fill_seats_with_realm_characters = yes
+
+        if = {
+            limit = {
+                OR = {
+                    can_grant_title = title_senatorduke
+                    can_grant_title = title_senatorking
+                    can_grant_title = title_senatoremperor
+                    can_grant_title = title_senatorbigrealm1
+                    can_grant_title = title_senatorbigrealm2
+                    can_grant_title = title_senatorbigrealm3
+                    can_grant_title = title_senatorbigrealm4
+                    can_grant_title = title_senatorbigrealm5
+                }
+            }
+
+            count_senator_seats_to_fill = yes
+
+            while = {
+                limit = { check_variable = { which = empty_seats value > 0 } }
+                if = {
+                    limit = { has_law = legislative_type_aristocratic }
+                    generate_random_highborn_adult_from_realm_effect = yes
+                }
+                else_if = {
+                    limit = { has_law = legislative_type_aristocratic }
+                    random_list = {
+                        10 = { generate_random_highborn_adult_from_realm_effect = yes }
+                        10 = { generate_random_lowborn_adult_from_realm_effect = yes }
+                    }
+                }
+                else = {
+                    generate_random_lowborn_adult_from_realm_effect = yes
+                }
+                subtract_variable = { which = empty_seats value = 1 }
+            }
+
+            fill_seats_with_courtiers = yes
+            fill_seats_with_realm_characters = yes
+
+            # We call the event to fill seats again just to be sure nothing went wrong, it should do nothing if seats are already full, it must be with a delay to avoid infinite loops.
+            character_event = { id = parliaments.001 days = 1 }
         }
     }
 }
