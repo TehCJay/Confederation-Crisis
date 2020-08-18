@@ -651,17 +651,17 @@ on_combat_pulse = {
 	}
 }
 
-on_combat_starting = {
-	events = {
+#on_combat_starting = {
+#	events = {
 		#battle.1000  #start the battle movement engine
-	}
-}
+#	}
+#}
 
 #on siege pulse
 on_siege_pulse = {
 	random_events = {
 		5000 = 0
-		100 = cotc_siege.0
+		80 = cotc_siege.0
 	}
 	events = {
 		#coup.140 # Defense commander defects
@@ -680,6 +680,7 @@ on_battle_won = {
 		neofeudal.6 # Knight becomes a Gallant
 		neofeudal.7 # Gallant becomes a Worthy
 		neofeudal.8 # Scoring event
+		battle.1006
 	}
 }
 
@@ -687,6 +688,7 @@ on_battle_won = {
 on_major_battle_won = {
 	events = {
 		CM.10029 # Chronicle
+		battle.1002
 	}
 }
 
@@ -699,6 +701,7 @@ on_battle_won_leader = {
 		neofeudal.6
 		neofeudal.7
 		neofeudal.8
+		battle.1004
 	}
 }
 
@@ -706,6 +709,7 @@ on_battle_won_leader = {
 on_major_battle_won_leader = {
 	events = {
 		CM.10031
+		battle.1000
 	}
 }
 
@@ -715,9 +719,12 @@ on_battle_won_owner = {
 
 #character
 on_battle_lost = {
-	random_events = {
-		900 = 0
-		50 = 250 # Imprisoned by the enemy
+	#random_events = {
+	#	900 = 0
+	#	50 = 250 # Imprisoned by the enemy
+	#}
+	events = {
+		battle.1007
 	}
 }
 
@@ -725,17 +732,21 @@ on_battle_lost = {
 on_major_battle_lost = {
 	events = {
 		CM.10030 # Chronicle
+		battle.1003
 	}
 }
 
 on_battle_lost_leader = {
-
+	events = {
+		battle.1005
+	}
 }
 
 # Losing army leader ROOT - opponent army leader is FROM
 on_major_battle_lost_leader = {
 	events = {
 		CM.10032
+		battle.1001
 	}
 }
 

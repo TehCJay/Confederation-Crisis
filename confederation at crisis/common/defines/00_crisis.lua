@@ -81,7 +81,7 @@ NDefines.NMilitary.HOLY_ORDER_DYNASTY_HIRE_COST_FACTOR = 0.1		-- Reduction of co
 NDefines.NMilitary.VASSAL_MERC_HIRE_COST_FACTOR = 0.1			-- Fraction of nominal hire cost when hiring vassal mercenaries OR Holy Orders
 NDefines.NMilitary.MERCENARY_HIRE_DISTANCE_THRESHOLD = 800
 NDefines.NMilitary.REINFORCE_RATE = 0.2                          -- Reinforce rate per year, it is increased compared to vanilla because building ships is easier than making people reproduce
-NDefines.NMilitary.DAYS_BETWEEN_COMBAT_EVENTS = 3                -- Combat events will happen every this many days
+NDefines.NMilitary.DAYS_BETWEEN_COMBAT_EVENTS = 5                -- Combat events will happen every this many days
 NDefines.NMilitary.DAYS_BEFORE_FIRST_COMBAT_EVENT = 2             -- First combat event can't fire before this many days
 
 
@@ -114,20 +114,33 @@ NDefines.NMilitary.RETINUE_REINFORCE_RATE = 0.1
 NDefines.NMilitary.OTHER_TERRITORY_LEVY_RETURN_PERCENT = 0.3 -- Harsher than vanilla. Being stranded in space is terrible.
 
 NDefines.NMilitary.MORALE_COLLAPSE_THRESHOLD = 0.35               -- Ships are expensive thus retreating easlier is more common
-NDefines.NMilitary.ATTACK_TO_DAMAGE_MULT = 0.004                   -- Attack value of troops is multiplied by this when doing damage
+NDefines.NMilitary.ATTACK_TO_DAMAGE_MULT = 0.006                   -- Attack value of troops is multiplied by this when doing damage
 NDefines.NMilitary.BATTLE_MINIMUM_WARSCORE = 0.01
 
+NDefines.NMilitary.MORALELOSS_FACTOR = 1.0                                 -- Affects the morale loss rate in combats (higher gives bigger losses)
+NDefines.NMilitary.MIN_COMBAT_DAYS = 15                                                        -- Minimum number of days in combat
+NDefines.NMilitary.NUMBER_OF_RETREAT_DAYS = 4                                                 -- Number of days before you retreat successfully
+NDefines.NMilitary.NUMBER_OF_TROOPS_PER_GALLEY = 10                                          -- Number of men each galley can hold
+NDefines.NMilitary.BATTLE_WARSCORE_WORTH = 100                                                 -- Warscore from battles are multiplied with this value
+NDefines.NMilitary.BATTLE_WARSCORE_DEFENDER_MULTIPLIER = 1.5                                  -- Defenders wins are multiplied with this value, which also means they get more prestige for a win
+NDefines.NMilitary.BATTLE_WARSCORE_WORTH_MULTIPLIER = 1.25                                    -- Multiplier applied to the warscore value of individual battles (doesn't affect prestige)
+NDefines.NMilitary.BATTLE_WARSCORE_HOSTS_MULTIPLIER = 2                                       -- Multiplier applied to the warscore value of major battle if the losing side is a claimant adventurer
+NDefines.NMilitary.BATTLE_WARSCORE_LANDLESS_MULTIPLIER = 2                                    -- Multiplier applied to the warscore value of major battle if the losing side has no holdings
+NDefines.NMilitary.TERRAIN_SPEC_BONUS = 0.25                                                   -- Bonus to fighting in this terrain if you have that terrain as your
+
 -- siege related stuff
-NDefines.NMilitary.ATTACKER_SIEGE_DAMAGE = 0.1                      -- Skirmish damage done by defenders on attackers
-NDefines.NMilitary.DEFENDER_SIEGE_DAMAGE = 0.1                      -- Skirmish damage done by attackers on defenders
+NDefines.NMilitary.ATTACKER_SIEGE_DAMAGE = 1.0                      -- Skirmish damage done by defenders on attackers
+NDefines.NMilitary.DEFENDER_SIEGE_DAMAGE = 1.0                      -- Skirmish damage done by attackers on defenders
 NDefines.NMilitary.PERCENT_OF_GARRISON_DETACHED = 0.1               -- How many people of your forces become the new garrison
 NDefines.NMilitary.NUM_DAYS_BETWEEN_SIEGE_MORALE_LOSS = 6        -- Number of days between morale loss for defender in a siege
 NDefines.NMilitary.SIEGE_MORALE_LOSS = 0.15                                        -- Base monthly morale loss in a siege
 NDefines.NMilitary.FORT_LEVEL_MORALE_LOSS_REDUCTION_MULT = 4.0    -- Fort Level effect on morale loss (a higher value slows down morale loss)
-NDefines.NMilitary.DAYS_BEFORE_DEFENDER_SALLY = 2                 -- Number of days before defenders sally in a siege where they have superior numbers
-NDefines.NMilitary.ATTACKER_ASSULT_DAMAGE_FACTOR = 1.5             -- How much damage attackers take when assaulting
-NDefines.NMilitary.DEFENDER_ASSULT_DAMAGE_FACTOR = 0.5            -- How much damage defenders take when assaulting
+NDefines.NMilitary.DAYS_BEFORE_DEFENDER_SALLY = 4                 -- Seemly this affects how many days happen between siege events.
+NDefines.NMilitary.ATTACKER_ASSULT_DAMAGE_FACTOR = 3.0             -- How much damage attackers take when assaulting
+NDefines.NMilitary.DEFENDER_ASSULT_DAMAGE_FACTOR = 0.4            -- How much damage defenders take when assaulting
 NDefines.NMilitary.DAYS_PER_FORTLEVEL_BEFORE_ASSAULT = 5         -- Number of days until attacker can assault
+NDefines.NMilitary.SIMPLE_RETREAT_ENABLED_SIEGE = 1                                           -- Enables simple retreat for sieges if set to 1
+NDefines.NMilitary.FORT_LEVEL_ASSAULT_THRESHOLD = 8
 
 
 -- atrrition related stuff
@@ -272,6 +285,8 @@ NDefines.NEconomy.PATRICIAN_PRESTIGE_RESPECT_FACTOR = 5									-- 2 The effect 
 NDefines.NEconomy.PATRICIAN_AGE_RESPECT_FACTOR = 0.125									-- 1 The effect of Age on the Respect value for Doge elections (age * age * factor).
 NDefines.NMilitary.MAX_LEADERSHIP_TRAITS = 4
 NDefines.NEconomy.FORT_CONSUMED_IN_SETTLEMENT_CONTRUCTION = 0
+NDefines.NEconomy.TRADE_ROUTE_SIEGE_MULTIPLIER = 0.7                                 -- Sieges multiply the value of trade routes by this amount downstream
+NDefines.NEconomy.TRADE_ROUTE_OCCUPATION_MULTIPLIER = 0.3                                   -- Occupied provinces multiply the value of trade routes by this amount downstream. If sieged as well, the lowest of this and TRADE_ROUTE_SIEGE_MULTIPLIER is used
 
 -- court stuff
 NDefines.NEconomy.BASE_COURT_LIMIT_COUNT = 10                                                -- Base amount of unlanded characters and councillors allowed to reside in your court before you need to pay upkeep.

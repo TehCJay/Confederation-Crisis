@@ -1979,7 +1979,11 @@ character_event = {
 		}
 		modifier = {
 			factor = 3
-			trait = marine_colonel
+			trait = marine_captain
+		}
+		modifier = {
+			factor = 1.5
+			trait = army_captain
 		}
 	}
 
@@ -2092,7 +2096,7 @@ character_event = {
 	option = {
 		name = "EVTOPTABATTLE203"
 		# Bad morale for you, good morale for the enemy
-		log_scopes = yes
+		#log_scopes = yes
 		if = {
 			limit = {
 				character = event_target:targetted_flank_leader
@@ -2110,5 +2114,100 @@ character_event = {
 				}
 			}
 		}
+	}
+}
+
+# The following events purpose is track battle performance
+
+
+# Won Major Battle: Leader
+character_event = {
+	id = battle.1000
+	is_triggered_only = yes
+	hide_window = yes
+
+	immediate = {
+		change_variable = { which = major_victories value = 1 }
+		add_character_modifier = { name = recent_major_victory months = 6 }
+	}
+}
+
+# Lost Major Battle: Leader
+character_event = {
+	id = battle.1001
+	is_triggered_only = yes
+	hide_window = yes
+
+	immediate = {
+		change_variable = { which = major_losses value = 1 }
+		add_character_modifier = { name = recent_major_loss months = 6 }
+	}
+}
+
+# Won Major Battle: Others
+character_event = {
+	id = battle.1002
+	is_triggered_only = yes
+	hide_window = yes
+
+	immediate = {
+		change_variable = { which = major_victories_support value = 1 }
+	}
+}
+
+# Lost Major Battle: Others
+character_event = {
+	id = battle.1003
+	is_triggered_only = yes
+	hide_window = yes
+
+	immediate = {
+		change_variable = { which = major_losses_support value = 1 }
+	}
+}
+
+# Won Minor Battle: Leader
+character_event = {
+	id = battle.1004
+	is_triggered_only = yes
+	hide_window = yes
+
+	immediate = {
+		change_variable = { which = minor_victories value = 1 }
+		add_character_modifier = { name = recent_minor_victory months = 6 }
+	}
+}
+
+# Lost Minor Battle: Leader
+character_event = {
+	id = battle.1005
+	is_triggered_only = yes
+	hide_window = yes
+
+	immediate = {
+		change_variable = { which = minor_losses value = 1 }
+		add_character_modifier = { name = recent_minor_loss months = 6 }
+	}
+}
+
+# Won Minor Battle: Others
+character_event = {
+	id = battle.1006
+	is_triggered_only = yes
+	hide_window = yes
+
+	immediate = {
+		change_variable = { which = minor_victories_support value = 1 }
+	}
+}
+
+# Lost Minor Battle: Others
+character_event = {
+	id = battle.1007
+	is_triggered_only = yes
+	hide_window = yes
+
+	immediate = {
+		change_variable = { which = minor_losses_support value = 1 }
 	}
 }

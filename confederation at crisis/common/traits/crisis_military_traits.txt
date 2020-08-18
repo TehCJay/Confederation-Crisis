@@ -3,12 +3,15 @@
 # Core Military Traits
 # Characters are supposed to have only one of these.
 # It affects the class of warships they prefer personally command.
+# It affects how effective certain artifacts are in their hands
+# It also affects what military branch they are part of.
 
+#"Air Force" sort of...
 frigate_pilot = {
     leader = yes
     opposites = {
         warship_captain
-        marine_colonel
+        marine_captain
         army_captain
     }
     command_modifier = {
@@ -19,11 +22,12 @@ frigate_pilot = {
     martial = 3
     land_morale = 0.2
 }
+#Navy
 warship_captain = {
     leader = yes
     opposites = {
         frigate_pilot
-        marine_colonel
+        marine_captain
         army_captain
     }
     command_modifier = {
@@ -32,7 +36,8 @@ warship_captain = {
     martial = 3
     max_attrition = -0.2
 }
-marine_colonel = {
+#Marine
+marine_captain = {
     leader = yes
     opposites = {
         frigate_pilot
@@ -45,13 +50,13 @@ marine_colonel = {
     combat_rating = 30
     siege_speed = 0.2
 }
-
+#Army
 army_captain = {
     leader = yes
     opposites = {
         frigate_pilot
         warship_captain
-        marine_colonel
+        marine_captain
     }
     command_modifier = {
         siege = 0.3
@@ -60,16 +65,17 @@ army_captain = {
     siege_defence = 0.2
 }
 
-# Phase Specializations
+# Range (phase) Specializations
 # Also can have only one of these
+# Represents at what range characters prefer to fight
 
-blockade_master = {
+orbital_combat_specialist = {
     leader = yes
     opposites = {
-        orbital_combat_master
-        long_range_combat_master
-        pursuit_master
-        rangeless_master
+        short_range_specialist
+        long_range_combat_specialist
+        pursuit_specialist
+        range_generalist
     }
 
     command_modifier = {
@@ -77,41 +83,43 @@ blockade_master = {
     }
 }
 
-orbital_combat_master = {
+short_range_specialist = {
     leader = yes
     opposites = {
-        blockade_master
-        long_range_combat_master
-        pursuit_master
-        rangeless_master
+        orbital_combat_specialist
+        long_range_combat_specialist
+        pursuit_specialist
+        range_generalist
     }
 
     command_modifier = {
-        melee = 0.4
+        phase_melee_attack = 0.4
+        phase_melee_defense = 0.4
     }
 }
 
-long_range_combat_master = {
+long_range_combat_specialist = {
     leader = yes
     opposites = {
-        blockade_master
-        orbital_combat_master
-        pursuit_master
-        rangeless_master
+        orbital_combat_specialist
+        short_range_specialist
+        pursuit_specialist
+        range_generalist
     }
 
     command_modifier = {
-        skirmish = 0.4
+        phase_skirmish_attack = 0.4
+        phase_skirmish_defense = 0.4
     }
 }
 
-pursuit_master = {
+pursuit_specialist = {
     leader = yes
     opposites = {
-        blockade_master
-        orbital_combat_master
-        long_range_combat_master
-        rangeless_master
+        orbital_combat_specialist
+        short_range_specialist
+        long_range_combat_specialist
+        range_generalist
         kind
     }
 
@@ -128,23 +136,27 @@ pursuit_master = {
     }
 }
 
-rangeless_master = {
+range_generalist = {
     leader = yes
     opposites = {
-        blockade_master
-        orbital_combat_master
-        long_range_combat_master
-        pursuit_master
+        orbital_combat_specialist
+        short_range_specialist
+        long_range_combat_specialist
+        pursuit_specialist
     }
 
     command_modifier = {
-        skirmish = 0.2
-        melee = 0.2
+        phase_skirmish_attack = 0.2
+        phase_skirmish_defense = 0.2
+        phase_melee_attack = 0.2
+        phase_melee_defense = 0.2
         siege = 0.2
     }
 }
 
 # Choice of Flanks (mutually exclusive)
+# Not important having one, like the previous traits were.
+
 experimenter = { #Actually Direct Leader, really hard to rename.
     leader = yes
     opposites = {
@@ -170,6 +182,9 @@ flanker = {
 }
 
 # Weapon traits (mutually exclusive)
+# This is super important for AI
+# These should influence the AI regarding troop composition
+# And also thus building choices
 
 kinetic_master = {
     leader = yes
@@ -222,78 +237,87 @@ weapon_master = {
     }
 
     command_modifier = {
-        attack = 0.4
+        damage = 0.4
         defence = 0.1
     }
 }
 
 # Terrain mastery
 
-
-#nebula
-#protostar
-#debris_disk
-
-#goldilocks_star
-
-#main_sequence
-#white_dwarf
-#red_giant
-
-#high gravity and dangerous
-#neutron_star
-#pulsar
-#black_hole
-
-#sparse_system
-
-#crazy dangerous
-#supergiant
-
+#Orthodox Navigator
 jungle_terrain_leader = {
     leader = yes
     random = no
-
-    command_modifier = {
-        terrain = jungle
+    opposites = {
+        rough_terrain_leader
+        mountain_terrain_leader
+        desert_terrain_leader
     }
 
-    male_insult = INSULT_JUNGLE_SNAKE
-    female_insult = INSULT_JUNGLE_SNAKE
+    command_modifier = {
+        terrain = main_sequence
+        terrain = white_dwarf
+        terrain = red_giant
+        terrain = goldilocks_star
+    }
 }
 
+#Astute Navigator
 rough_terrain_leader = {
     leader = yes
     random = no
+    opposites = {
+        jungle_terrain_leader
+        mountain_terrain_leader
+        desert_terrain_leader
+    }
 
     command_modifier = {
-        terrain = forest
-        terrain = hills
+        terrain = nebula
+        terrain = protostar
+        terrain = debris_disk
+        terrain = sparse_system
     }
 }
 
+#Gravity Sailor
 mountain_terrain_leader = {
     leader = yes
     random = no
+    opposites = {
+        jungle_terrain_leader
+        rough_terrain_leader
+        desert_terrain_leader
+    }
 
     command_modifier = {
-        terrain = mountain
+        terrain = neutron_star
+        terrain = pulsar
+        terrain = black_hole
+        terrain = supergiant
     }
 }
 
+#Unorthodox Navigator
 desert_terrain_leader = {
     leader = yes
     random = no
-
-    command_modifier = {
-        terrain = desert
+    opposites = {
+        jungle_terrain_leader
+        rough_terrain_leader
+        mountain_terrain_leader
     }
 
-    male_insult = INSULT_DESERT_RAT
-    female_insult = INSULT_DESERT_RAT
+    command_modifier = {
+        terrain = goldilocks_star
+        terrain = supergiant
+        narrow_flank = 0.2
+    }
 }
 
 # Leadership styles
+# Can be combined and are fairly important, but less than previous traits.
+
 inspiring_leader = {
     leader = yes
 
@@ -321,6 +345,7 @@ organizer = {
     command_modifier = {
         speed = 0.1
         retreat = 0.1
+        phase_pursue_defense = 0.1
     }
 }
 
@@ -476,6 +501,27 @@ omnicidal_maniac = {
         morale_defence = -0.5
     }
 }
+
+# military traits but coming from non-military education
+# character if having one of these should have only one
+
+#physics (learning)
+
+#history (learning)
+
+#intelligence (intrigue)
+
+#counterintelligence (intrigue)
+
+#???? (diplomacy)
+
+#logistics (stewardship)
+
+
+# military mastery traits
+# this is intended for characters that have specific uses, and enable certain strategies.
+
+
 
 # as far as I know we won't use this, unless we somehow use the winter map for something.
 winter_soldier = {
