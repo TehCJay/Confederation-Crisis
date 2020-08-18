@@ -1,0 +1,489 @@
+#### Military Traits ####
+
+# Core Military Traits
+# Characters are supposed to have only one of these.
+# It affects the class of warships they prefer personally command.
+
+frigate_pilot = {
+    leader = yes
+    opposites = {
+        warship_captain
+        marine_colonel
+        army_captain
+    }
+    command_modifier = {
+        light_infantry = 0.3
+        heavy_infantry = 0.3
+        pikemen = 0.3
+    }
+    martial = 3
+    land_morale = 0.2
+}
+warship_captain = {
+    leader = yes
+    opposites = {
+        frigate_pilot
+        marine_colonel
+        army_captain
+    }
+    command_modifier = {
+        cavalry = 0.3
+    }
+    martial = 3
+    max_attrition = -0.2
+}
+marine_colonel = {
+    leader = yes
+    opposites = {
+        frigate_pilot
+        warship_captain
+        army_captain
+    }
+    command_modifier = {
+        archers = 0.3
+    }
+    combat_rating = 30
+    siege_speed = 0.2
+}
+
+army_captain = {
+    leader = yes
+    opposites = {
+        frigate_pilot
+        warship_captain
+        marine_colonel
+    }
+    command_modifier = {
+        siege = 0.3
+    }
+    combat_rating = 30
+    siege_defence = 0.2
+}
+
+# Phase Specializations
+# Also can have only one of these
+
+blockade_master = {
+    leader = yes
+    opposites = {
+        orbital_combat_master
+        long_range_combat_master
+        pursuit_master
+        rangeless_master
+    }
+
+    command_modifier = {
+        siege = 0.4
+    }
+}
+
+orbital_combat_master = {
+    leader = yes
+    opposites = {
+        blockade_master
+        long_range_combat_master
+        pursuit_master
+        rangeless_master
+    }
+
+    command_modifier = {
+        melee = 0.4
+    }
+}
+
+long_range_combat_master = {
+    leader = yes
+    opposites = {
+        blockade_master
+        orbital_combat_master
+        pursuit_master
+        rangeless_master
+    }
+
+    command_modifier = {
+        skirmish = 0.4
+    }
+}
+
+pursuit_master = {
+    leader = yes
+    opposites = {
+        blockade_master
+        orbital_combat_master
+        long_range_combat_master
+        rangeless_master
+        kind
+    }
+
+    # People think these are murderous maniacs.
+    general_opinion = -30
+
+    ai_rationality = 40
+    ai_greed = 20
+    ai_ambition = 20
+    ai_honor = -30
+
+    command_modifier = {
+        pursue = 3
+    }
+}
+
+rangeless_master = {
+    leader = yes
+    opposites = {
+        blockade_master
+        orbital_combat_master
+        long_range_combat_master
+        pursuit_master
+    }
+
+    command_modifier = {
+        skirmish = 0.2
+        melee = 0.2
+        siege = 0.2
+    }
+}
+
+# Choice of Flanks (mutually exclusive)
+experimenter = { #Actually Direct Leader, really hard to rename.
+    leader = yes
+    opposites = {
+        flanker
+    }
+
+    command_modifier = {
+        center = 0.2
+        flank = -0.2
+    }
+}
+
+flanker = {
+    leader = yes
+    opposites = {
+        experimenter #direct leader
+    }
+
+    command_modifier = {
+        flank = 0.2
+        center = -0.2
+    }
+}
+
+# Weapon traits (mutually exclusive)
+
+kinetic_master = {
+    leader = yes
+    opposites = {
+        laser_master
+        missile_master
+        weapon_master
+    }
+
+    command_modifier = {
+        light_infantry = 0.5
+        cavalry = 0.1
+    }
+}
+
+laser_master = {
+    leader = yes
+    opposites = {
+        kinetic_master
+        missile_master
+        weapon_master
+    }
+
+    command_modifier = {
+        heavy_infantry = 0.5
+        cavalry = 0.1
+    }
+}
+
+missile_master = {
+    leader = yes
+    opposites = {
+        laser_master
+        kinetic_master
+        weapon_master
+    }
+
+    command_modifier = {
+        pikemen = 0.5
+        cavalry = 0.1
+    }
+}
+
+weapon_master = {
+    leader = yes
+    opposites = {
+        laser_master
+        kinetic_master
+        missile_master
+    }
+
+    command_modifier = {
+        attack = 0.4
+        defence = 0.1
+    }
+}
+
+# Terrain mastery
+
+
+#nebula
+#protostar
+#debris_disk
+
+#goldilocks_star
+
+#main_sequence
+#white_dwarf
+#red_giant
+
+#high gravity and dangerous
+#neutron_star
+#pulsar
+#black_hole
+
+#sparse_system
+
+#crazy dangerous
+#supergiant
+
+jungle_terrain_leader = {
+    leader = yes
+    random = no
+
+    command_modifier = {
+        terrain = jungle
+    }
+
+    male_insult = INSULT_JUNGLE_SNAKE
+    female_insult = INSULT_JUNGLE_SNAKE
+}
+
+rough_terrain_leader = {
+    leader = yes
+    random = no
+
+    command_modifier = {
+        terrain = forest
+        terrain = hills
+    }
+}
+
+mountain_terrain_leader = {
+    leader = yes
+    random = no
+
+    command_modifier = {
+        terrain = mountain
+    }
+}
+
+desert_terrain_leader = {
+    leader = yes
+    random = no
+
+    command_modifier = {
+        terrain = desert
+    }
+
+    male_insult = INSULT_DESERT_RAT
+    female_insult = INSULT_DESERT_RAT
+}
+
+# Leadership styles
+inspiring_leader = {
+    leader = yes
+
+    command_modifier = {
+        morale_defence = 0.15
+        morale_offence = 0.15
+    }
+}
+
+trickster = {
+    leader = yes
+
+    command_modifier = {
+        random = 0.3
+    }
+}
+
+organizer = {
+    leader = yes
+
+    max_attrition = -0.05
+    attrition = -0.1
+    days_of_supply = 10
+
+    command_modifier = {
+        speed = 0.1
+        retreat = 0.1
+    }
+}
+
+defensive_leader = {
+    leader = yes
+
+    command_modifier = {
+        defence = 0.1
+        damage = -0.2
+    }
+}
+
+aggressive_leader = {
+    leader = yes
+
+    command_modifier = {
+        damage = 0.1
+        defence = -0.2
+    }
+}
+
+shock_leader = {
+    leader = yes
+
+    command_modifier = {
+        morale_defence = -0.3
+        morale_offence = 0.2
+        damage = 0.1
+    }
+}
+
+unyielding_leader = {
+    leader = yes
+
+    command_modifier = {
+        morale_offence = -0.3
+        morale_defence = 0.2
+        defence = 0.1
+    }
+}
+
+narrow_flank_leader = {
+    leader = yes
+
+    command_modifier = {
+        narrow_flank = 0.5
+    }
+}
+
+
+# Ideology-derived traits
+
+holy_warrior = {
+    leader = yes
+
+    potential = {
+        OR = {
+            religion_group = religious_group
+            religion_group = religious_terran_group
+        }
+        trait = radical
+    }
+
+    command_modifier = {
+        religious_enemy = 0.3
+    }
+
+    male_compliment = COMPL_HOLY_WARRIOR
+    female_compliment = COMPL_HOLY_WARRIOR
+    male_insult = INSULT_FANATIC
+    female_insult = INSULT_FANATIC
+}
+
+ideological_warrior = {
+    leader = yes
+
+    potential = {
+        OR = {
+            religion_group = political_group
+            religion_group = political_terran_group
+        }
+        trait = radical
+    }
+
+    command_modifier = {
+        religious_enemy = 0.3
+    }
+
+    male_compliment = COMPL_HOLY_WARRIOR
+    female_compliment = COMPL_HOLY_WARRIOR
+    male_insult = INSULT_FANATIC
+    female_insult = INSULT_FANATIC
+}
+
+true_transhumanist = {
+    leader = yes
+
+    potential = {
+        religion_group = transhumanist_group
+        trait = radical
+    }
+
+    infidel_opinion = -5
+
+    command_modifier = {
+        religious_enemy = 0.3
+    }
+
+    male_compliment = COMPL_HOLY_WARRIOR
+    female_compliment = COMPL_HOLY_WARRIOR
+    male_insult = INSULT_FANATIC
+    female_insult = INSULT_FANATIC
+}
+
+ambusher = {
+    leader = yes
+
+    potential = {
+        religion_group = outlaw_group
+        trait = radical
+    }
+
+    infidel_opinion = -5
+
+    command_modifier = {
+        religious_enemy = 0.3
+    }
+
+    male_compliment = COMPL_HOLY_WARRIOR
+    female_compliment = COMPL_HOLY_WARRIOR
+    male_insult = INSULT_FANATIC
+    female_insult = INSULT_FANATIC
+}
+
+omnicidal_maniac = {
+    leader = yes
+
+    potential = {
+        OR = {
+            religion_group = outlaw_group
+            religion = xenoterran
+            trait = cruel
+            trait = amoral
+        }
+    }
+
+    command_modifier = {
+        religious_enemy = 0.3
+        pursue = 10
+        damage = 1
+        defence = -0.8
+        morale_offence = 0.5
+        morale_defence = -0.5
+    }
+}
+
+# as far as I know we won't use this, unless we somehow use the winter map for something.
+winter_soldier = {
+    leader = yes
+    random = no
+
+    command_modifier = {
+        winter_supply = 4
+        winter_combat = 0.5
+    }
+}

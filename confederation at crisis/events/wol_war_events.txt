@@ -3687,7 +3687,8 @@ character_event = {
 		has_focus = focus_war
 		can_have_more_leadership_traits = yes
 		OR = {
-			NOT = { trait = fighter_pilot }
+			NOT = { trait = army_captain }
+			NOT = { trait = frigate_pilot }
 			NOT = { trait = warship_captain }
 			NOT = { trait = marine_colonel }
 		}
@@ -3739,30 +3740,13 @@ character_event = {
 
 	option = {
 		name = EVTOPTA_WOL_11302
-		ai_chance = {
-			factor = 100
-			modifier = {
-				factor = 50
-				is_nomadic = yes
-			}
-		}
 		trigger = {
-			NOT = { trait = fighter_pilot }
+			NOT = { trait = frigate_pilot }
 		}
-		add_trait = fighter_pilot
+		add_trait = frigate_pilot
 	}
 	option = {
 		name = EVTOPTB_WOL_11302 # Bombers
-		ai_chance = {
-			factor = 100
-			modifier = {
-				factor = 2
-				OR = {
-					trait = skilled_tactician
-					is_tribal = yes
-				}
-			}
-		}
 		trigger = {
 			NOT = { trait = warship_captain }
 		}
@@ -3770,24 +3754,17 @@ character_event = {
 	}
 	option = {
 		name = EVTOPTC_WOL_11302 # Destroyers and Battle Cruisers
-		ai_chance = {
-			factor = 100
-			modifier = {
-				factor = 2
-				OR = {
-					trait = brilliant_strategist
-					is_tribal = yes
-				}
-			}
-		}
 		trigger = {
 			NOT = { trait = marine_colonel }
 		}
 		add_trait = marine_colonel
 	}
-
 	option = {
-		name = EVTOPTE_WOL_11301 # Bad choices all...
+		name = EVTOPTD_WOL_11302 # Army, Siege
+		trigger = {
+			NOT = { trait = army_captain }
+		}
+		add_trait = army_captain
 	}
 }
 
@@ -4159,7 +4136,7 @@ character_event = {
 	trigger = {
 		has_focus = focus_war
 		OR = {
-			trait = fighter_pilot
+			trait = frigate_pilot
 			trait = warship_captain
 			trait = marine_colonel
 			trait = light_foot_leader
@@ -4175,7 +4152,8 @@ character_event = {
 			trait = siege_leader
 			trait = unyielding_leader
 			trait = narrow_flank_leader
-			trait = fighter_pilot
+			trait = frigate_pilot
+			trait = army_captain
 			trait = holy_warrior
 			trait = war_elephant_leader
 			trait = jungle_terrain_leader
@@ -4369,11 +4347,11 @@ character_event = {
 	option = {
 		name = EVTOPT_WOL_11310_FTL
 		trigger = {
-			trait = fighter_pilot
+			trait = frigate_pilot
 		}
 		event_target:my_student = {
 			tooltip = {
-				add_trait = fighter_pilot
+				add_trait = frigate_pilot
 			}
 			character_event = { id = WoL.11324 days = 7 }
 		}
@@ -4398,6 +4376,18 @@ character_event = {
 		event_target:my_student = {
 			tooltip = {
 				add_trait = marine_colonel
+			}
+			character_event = { id = WoL.11326 days = 7 }
+		}
+	}
+	option = {
+		name = EVTOPT_WOL_11310_ARMY
+		trigger = {
+			trait = army_captain
+		}
+		event_target:my_student = {
+			tooltip = {
+				add_trait = army_captain
 			}
 			character_event = { id = WoL.11326 days = 7 }
 		}
@@ -4916,7 +4906,7 @@ character_event = {
 		ai_chance = {
 			factor = 100
 		}
-		add_trait = fighter_pilot
+		add_trait = frigate_pilot
 		FROM = {
 			character_event = { id = WoL.11340 }
 		}
