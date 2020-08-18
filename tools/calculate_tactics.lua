@@ -256,7 +256,7 @@ local function printTactic(phase, tacticName, hasBadVariation, hasGoodVariation)
     line("", 0)
     line("trigger = {", 1)
     line("phase = " .. phase, 2)
-    line("days >= " .. (tacticData.days or 0), 2)
+    line("days >= " .. (tacticData.days or 1), 2)
     if tacticData.flank_has_leader then line("flank_has_leader = " .. tacticData.flank_has_leader, 2) end
     if tacticData.flank_has_leader and tacticData.flank_has_leader == "yes" then
         line("leader = {", 2)
@@ -405,7 +405,7 @@ local function calculateTactics(phase)
             length = 1,
             change_phase_to = targetName,
             previousTactics = sourceTactics,
-            days = 20, --work around CK2 bug :( goal is have this set to a low value
+            days = 3,
             chance = 1000000
         }
         --[[for k2, v2 in pairs(v) do
