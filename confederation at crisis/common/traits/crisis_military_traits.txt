@@ -522,6 +522,34 @@ omnicidal_maniac = {
 # this is intended for characters that have specific uses, and enable certain strategies.
 
 
+# Peculiar command traits
+
+twod_thinking = {
+    leader = yes
+
+    potential = {
+        OR = {
+            martial < 12
+            trait = army_captain
+            learning < 10
+        }
+        NOT = {
+            OR = {
+                learning > 20
+                martial > 25
+            }
+        }
+    }
+
+    command_modifier = {
+        defence = -0.2
+        damage = -0.1
+        speed = -0.1
+        siege = 0.3
+    }
+}
+
+
 
 # as far as I know we won't use this, unless we somehow use the winter map for something.
 winter_soldier = {

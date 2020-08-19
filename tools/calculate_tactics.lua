@@ -94,6 +94,7 @@ local tacGenData = {
             }
         },
 
+        -- Here is the combat effects for each tactical decision, not the "trigger" for them.
         tacticalFeatures = {
             --the base weapon features should not be mixed
             balanced = {
@@ -154,68 +155,50 @@ local tacGenData = {
             }
         },
 
-        tacticalWeaponChoices = { balanced={}, laser={}, missile={}, defensive={} },
+        -- Here are the special properties and triggers for each tactical decision.
+        tacticalWeaponChoices = {
+            balanced = {
+                encouraged_trait = {"weapon_master"}
+            },
+            laser = {
+                encouraged_trait = {"laser_master"}
+            },
+            missile = {
+                encouraged_trait = {"missile_master", "kinetic_master"},
+                encouraged_religion = {"cyberneticist", "machine_cultist", "hiver"}
+            },
+            defensive = {
+                encouraged_trait = {"kinetic_master"}
+            }
+        },
+
         tacticalMovementChoices = {
             direct = {
                 duration = 15,
-                target = "melee"
+                target = "melee",
+                encouraged_religion = {"neo_feudal"},
+                encouraged_trait = { "pursuit_specialist", "unyielding_leader", "shock_leader", "aggressive_leader", "omnicidal_maniac" }
             },
             weave = {
                 duration = 25,
-                target = "melee"
+                target = "melee",
+                discouraged_trait = { "short_range_specialist", "orbital_combat_specialist" },
+                encouraged_trait = { "desert_terrain_leader", "narrow_flank_leader" }
             }
         },
 
         tacticalExtraVariations = {
             retrograde = {
                 duration = 5,
-                target = "skirmish"
+                target = "skirmish",
+                forbidden_trait = {"pursuit_specialist", "unyielding_leader", "omnicidal_maniac"},
+                encouraged_trait = {"long_range_combat_specialist", "desert_terrain_leader", "trickster", "organizer", "defensive_leader" },
+                discouraged_trait = {"short_range_specialist", "orbital_combat_specialist"},
+                discouraged_religion = {"neo_feudal"}
             }
         },
 
-        tactics = {
-            --[[balanced_advance = {
-                features = {"direct"},
-                days = 15,
-                change_phase_to = "melee"
-            },
-            laser_advance = {
-                features = {"laserfocus", "direct"},
-                days = 15,
-                change_phase_to = "melee"
-            },
-            missile_advance = {
-                features = {"missilefocus", "direct"},
-                days = 15,
-                change_phase_to = "melee"
-            },
-            defensive_advance = {
-                features = {"defensefocus", "direct"},
-                days = 15,
-                change_phase_to = "melee"
-            },
-            balanced_weave = {
-                features = {"weave"},
-                days = 25,
-                change_phase_to = "melee"
-            },
-            laser_weave = {
-                features = {"laserfocus", "weave"},
-                days = 25,
-                change_phase_to = "melee"
-            },
-            missile_weave = {
-                features = {"missilefocus", "weave"},
-                days = 25,
-                change_phase_to = "melee"
-            },
-            defensive_weave = {
-                features = {"defensefocus", "weave"},
-                days = 25,
-                change_phase_to = "melee"
-            }]]
-        },
-
+        tactics = {},
         weaponPower = {},
         defensePower = {},
         fromTo = {},
@@ -262,6 +245,23 @@ local function printTactic(phase, tacticName, hasBadVariation, hasGoodVariation)
         line("leader = {", 2)
         if tacticData.martialMaximum then line("martial <= " .. tacticData.martialMaximum, 3) end
         if tacticData.martialMininum then line("martial >= " .. tacticData.martialMininum, 3) end
+        --for dk, dv in pairs(tacticData) do print(dk, dv) end
+        for pName, pValue in pairs(tacticData) do
+            local reqType = string.match(pName, 'required_(%a+)')
+            local forbidType = string.match(pName, 'forbidden_(%a+)')
+            if reqType then
+                line("OR = {", 3)
+                for _, traitName in pairs(pValue) do
+                    line(reqType .. " = " .. traitName, 4)
+                end
+                line("}",3)
+            end
+            if forbidType then
+                for _, traitName in pairs(pValue) do
+                    line("NOT = { " .. forbidType .. " = " .. traitName .. " }", 3)
+                end
+            end
+        end
         line("}", 2)
     end
     if tacticData.previousTactics then
@@ -275,6 +275,40 @@ local function printTactic(phase, tacticName, hasBadVariation, hasGoodVariation)
     line("", 0)
     line("mean_time_to_happen = {", 1)
     line("days = " .. tacticData.chance, 2)
+    if tacticData.flank_has_leader and tacticData.flank_has_leader == "yes" then
+        line("", 0)
+        line("mult_modifier = {", 2)
+        line("factor = 4", 3)
+        line("leader = {", 3)
+        if tacticData.martialMaximum then line("martial <= " .. tacticData.martialMaximum, 4) end
+        if tacticData.martialMininum then line("martial >= " .. tacticData.martialMininum, 4) end
+        line("}", 3)
+        line("}", 2)
+        for pName, pValue in pairs(tacticData) do
+            local encourageType = string.match(pName, 'encouraged_(%a+)')
+            local discourageType = string.match(pName, 'discouraged_(%a+)')
+            if encourageType then
+                for _, traitName in pairs(pValue) do
+                    line("additive_modifier = {", 2)
+                    line("value = 30", 3)
+                    line("leader = {", 3)
+                    line(encourageType .. " = " .. traitName, 4)
+                    line("}", 3)
+                    line("}", 2)
+                end
+            end
+            if discourageType then
+                for _, traitName in pairs(pValue) do
+                    line("additive_modifier = {", 2)
+                    line("value = -30", 3)
+                    line("leader = {", 3)
+                    line(discourageType .. " = " .. traitName, 4)
+                    line("}", 3)
+                    line("}", 2)
+                end
+            end
+        end
+    end
     line("}", 1)
     line("", 0)
     line(gameUnitName["gunships"] .. "_offensive = " .. toPct(tacticData.offensebonus["gunships"])/100, 1)
@@ -371,17 +405,56 @@ local function calculateTactics(phase)
         for movementName, movementValue in pairs(tacGenData[phase].tacticalMovementChoices) do
             tacGenData[phase].tactics[choiceName.."_"..movementName] = {
                 features = {choiceName, movementName},
-                length = movementValue.duration,
+                length = movementValue.duration+(choiceValue.duration or 0),
                 target = movementValue.target,
                 chance = 100
             }
+            local generatedTactic = tacGenData[phase].tactics[choiceName.."_"..movementName]
+
+            --merge table properties
+            for propertyName, propertyValue in pairs(choiceValue) do
+                if type(propertyValue) == "table" then
+                    --print(propertyName, propertyValue)
+                    if not generatedTactic[propertyName] then generatedTactic[propertyName] = propertyValue
+                    else
+                        for subPName, subPValue in pairs(propertyValue) do
+                            table.insert(generatedTactic[propertyName], subPValue)
+                        end
+                    end
+                end
+            end
+
+            for propertyName, propertyValue in pairs(movementValue) do
+                if type(propertyValue) == "table" then
+                    --print(propertyName, propertyValue)
+                    if not generatedTactic[propertyName] then generatedTactic[propertyName] = propertyValue
+                    else
+                        for subPName, subPValue in pairs(propertyValue) do
+                            table.insert(generatedTactic[propertyName], subPValue)
+                        end
+                    end
+                end
+            end
+
             for extraName, extraValue in pairs(tacGenData[phase].tacticalExtraVariations) do
                 tacGenData[phase].tactics[choiceName.."_"..movementName.."_"..extraName] = {
-                    features = {choiceName, movementName},
-                    length = (extraValue.duration or 0) + movementValue.duration,
-                    target = extraValue.target or movementValue.target,
+                    features = generatedTactic.features,
+                    length = (extraValue.duration or 0) + generatedTactic.length,
+                    target = extraValue.target or generatedTactic.target,
                     chance = 100
                 }
+                local newTactic = tacGenData[phase].tactics[choiceName.."_"..movementName.."_"..extraName]
+
+                for propertyName, propertyValue in pairs(extraValue) do
+                    if type(propertyValue) == "table" then
+                        if not newTactic[propertyName] then newTactic[propertyName] = propertyValue
+                        else
+                            for subPName, subPValue in pairs(propertyValue) do
+                                table.insert(generatedTactic[propertyName], subPValue)
+                            end
+                        end
+                    end
+                end
             end
         end
     end
@@ -399,7 +472,7 @@ local function calculateTactics(phase)
     end
 
     for targetName, sourceTactics in pairs(tacGenData[phase].fromTo) do
-        print(targetName, sourceTactics)
+        --print(targetName, sourceTactics)
         tacGenData[phase].tactics["arrival_at_"  .. targetName] = {
             features = {},
             length = 1,
@@ -455,7 +528,7 @@ end
 
 calculateTactics("skirmish")
 
-file = io.open("../confederation at crisis/common/combat_tactics/skirmish_advance.txt", "w")
+file = io.open("../confederation at crisis/common/combat_tactics/skirmish_normal.txt", "w")
 io.output(file)
 printHeader()
 printTactic("skirmish", "balanced_direct", true, true)
