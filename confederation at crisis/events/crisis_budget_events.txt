@@ -8,7 +8,18 @@ character_event = {
 	is_triggered_only = yes
 	only_playable = yes
 
+	trigger = {
+		OR = {
+			NOT = { has_character_flag = paid_yearly_budget }
+			had_character_flag = { flag = paid_yearly_budget days > 300 }
+		}
+		yearly_income >= 50
+		#NOR = { has_law = military_budget_0 has_law = military_budget_0 has_law = military_budget_0 }
+	}
+
 	immediate = {
+		clr_character_flag = paid_yearly_budget
+		set_character_flag = paid_yearly_budget
 		export_to_variable = { which = local_wealth value = yearly_income }
 		set_variable = { which = local_military_shares value = 0 }
 		any_vassal = {

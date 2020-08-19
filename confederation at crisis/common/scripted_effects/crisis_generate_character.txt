@@ -1191,8 +1191,17 @@ fill_seats_with_realm_characters = {
 replace_senators_effect = {
     if = {
         limit = {
+            is_alive = yes # somehow we were replacing senators of dead people, resulting in thousands of senators...
             NOT = { has_law = legislative_type_autocratic } # voter appointment law, letting liege to appoint whenever he wants
+            OR = {
+                free_court_slots > 10
+                NOT = { has_character_flag = processing_senate }
+                had_character_flag = { flag = processing_senate days = 30 }
+            }
+
         }
+
+        set_character_flag = processing_senate
 
         fill_seats_with_courtiers = yes
         fill_seats_with_realm_characters = yes
@@ -1235,8 +1244,16 @@ replace_senators_effect = {
             fill_seats_with_courtiers = yes
             fill_seats_with_realm_characters = yes
 
+            if = {
+                limit = { free_court_slots < -30 }
+                log = "Minus 30 free court slots for character [This.GetBestName]"
+            }
+            else = {
+                character_event = { id = parliaments.001 days = 1 } # Stop generating characters to avoid bankrupticing the dynasty forever with all the hotel bills...
+            }
+
             # We call the event to fill seats again just to be sure nothing went wrong, it should do nothing if seats are already full, it must be with a delay to avoid infinite loops.
-            character_event = { id = parliaments.001 days = 1 }
+            clr_character_flag = processing_senate
         }
     }
 }
