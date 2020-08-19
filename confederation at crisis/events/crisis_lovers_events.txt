@@ -2645,29 +2645,13 @@ character_event = {
 }
 
 # Two lovers at war make peace
-character_event = {
-	id = lovers.80
-	hide_window = yes
-	is_triggered_only = yes
-	
-	immediate = {
-		target = {
-			limit = { has_opinion_modifier = { who = ROOT modifier = opinion_lovers_peace_target } }
-			letter_event = { id = lovers.81 }
-		}
-	}
-}
-
 letter_event = {
-	id = lovers.81
+	id = lovers.80
 	desc = "EVTDESCLOVERS81"
 	border = GFX_evt_letter_frame_war
 	is_triggered_only = yes
 	
-	immediate = {
-		remove_trait = target
-		remove_opinion = { who = FROM modifier = opinion_lovers_peace_target }
-	}
+	immediate = { opinion = { who = FROMFROM modifier = opinion_very_recent_request } }
 	
 	option = {
 		name = "EVTOPTACCEPT"
@@ -2675,7 +2659,7 @@ letter_event = {
 			limit = {
 				NOT = { using_cb = cb_military_campaign }
 				attacker = { character = ROOT }
-				defender = { character = FROM }
+				defender = { character = FROMFROM }
 			}
 			end_war = whitepeace
 		}
@@ -2687,83 +2671,83 @@ letter_event = {
 			factor = 50
 			modifier = {
 				factor = 1.25
-				opinion = { who = FROM value = 100 }
+				opinion = { who = FROMFROM value = 100 }
 			}
 			modifier = {
 				factor = 1.25
-				opinion = { who = FROM value = 90 }
+				opinion = { who = FROMFROM value = 90 }
 			}
 			modifier = {
 				factor = 1.25
-				opinion = { who = FROM value = 80 }
+				opinion = { who = FROMFROM value = 80 }
 			}
 			modifier = {
 				factor = 1.25
-				opinion = { who = FROM value = 70 }
+				opinion = { who = FROMFROM value = 70 }
 			}
 			modifier = {
 				factor = 1.25
-				opinion = { who = FROM value = 60 }
+				opinion = { who = FROMFROM value = 60 }
 			}
 			modifier = {
 				factor = 1.25
-				opinion = { who = FROM value = 50 }
+				opinion = { who = FROMFROM value = 50 }
 			}
 			modifier = {
 				factor = 1.25
-				opinion = { who = FROM value = 40 }
+				opinion = { who = FROMFROM value = 40 }
 			}
 			modifier = {
 				factor = 1.25
-				opinion = { who = FROM value = 30 }
+				opinion = { who = FROMFROM value = 30 }
 			}
 			modifier = {
 				factor = 1.25
-				opinion = { who = FROM value = 20 }
+				opinion = { who = FROMFROM value = 20 }
 			}
 			modifier = {
 				factor = 1.25
-				opinion = { who = FROM value = 10 }
+				opinion = { who = FROMFROM value = 10 }
 			}
 			modifier = {
 				factor = 0.8
-				NOT = { opinion = { who = FROM value = -9 } }
+				NOT = { opinion = { who = FROMFROM value = -9 } }
 			}
 			modifier = {
 				factor = 0.8
-				NOT = { opinion = { who = FROM value = -19 } }
+				NOT = { opinion = { who = FROMFROM value = -19 } }
 			}
 			modifier = {
 				factor = 0.8
-				NOT = { opinion = { who = FROM value = -29 } }
+				NOT = { opinion = { who = FROMFROM value = -29 } }
 			}
 			modifier = {
 				factor = 0.8
-				NOT = { opinion = { who = FROM value = -39 } }
+				NOT = { opinion = { who = FROMFROM value = -39 } }
 			}
 			modifier = {
 				factor = 0.8
-				NOT = { opinion = { who = FROM value = -49 } }
+				NOT = { opinion = { who = FROMFROM value = -49 } }
 			}
 			modifier = {
 				factor = 0.8
-				NOT = { opinion = { who = FROM value = -59 } }
+				NOT = { opinion = { who = FROMFROM value = -59 } }
 			}
 			modifier = {
 				factor = 0.8
-				NOT = { opinion = { who = FROM value = -69 } }
+				NOT = { opinion = { who = FROMFROM value = -69 } }
 			}
 			modifier = {
 				factor = 0.8
-				NOT = { opinion = { who = FROM value = -79 } }
+				NOT = { opinion = { who = FROMFROM value = -79 } }
 			}
 			modifier = {
 				factor = 0.8
-				NOT = { opinion = { who = FROM value = -89 } }
+				NOT = { opinion = { who = FROMFROM value = -89 } }
 			}
 			modifier = {
 				factor = 0.8
-				NOT = { opinion = { who = FROM value = -99 } }
+				NOT = { opinion = { who = FROMFROM value = -99 } }
 			}
 			
 			modifier = {
@@ -2794,7 +2778,7 @@ letter_event = {
 				factor = 3
 				any_war = {
 					attacker = { character = ROOT }
-					defender = { character = FROM }
+					defender = { character = FROMFROM }
 					NOT = { war_score = -50 }
 				}
 				NOT = { trait = imbecile }
@@ -2804,7 +2788,7 @@ letter_event = {
 				factor = 3
 				any_war = {
 					attacker = { character = ROOT }
-					defender = { character = FROM }
+					defender = { character = FROMFROM }
 					NOT = { war_score = -25 }
 				}
 				NOT = { trait = imbecile }
@@ -2815,7 +2799,7 @@ letter_event = {
 				factor = 3
 				any_war = {
 					attacker = { character = ROOT }
-					defender = { character = FROM }
+					defender = { character = FROMFROM }
 					NOT = { war_score = 0 }
 				}
 				NOT = { trait = imbecile }
@@ -2825,14 +2809,14 @@ letter_event = {
 			}
 			modifier = {
 				factor = 0.1
-				NOT = { religion = FROM }
+				NOT = { religion = FROMFROM }
 				trait = radical
 			}
 		}
 	}
 	option = {
 		name = "EVTOPTREFUSE"
-		FROM = {
+		FROMFROM = {
 			character_event = { id = lovers.4 tooltip = "EVTTOOLTIPLOVERS4" }
 			hidden_tooltip = { letter_event = { id = lovers.83 } }
 		}
