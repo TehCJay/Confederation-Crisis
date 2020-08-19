@@ -1,0 +1,124 @@
+defined_text = {
+	name = GetBrainjackVictimDesc
+	use_first_valid = yes
+	
+	text = {
+		trigger = {
+			event_target:target_victim = {
+				OR = {
+					trait = possessed
+					trait = hiver_implant
+				}
+			}
+		}
+		localisation_key = String_brainjack_victim_desc_schizophrenic
+	}
+	text = { localisation_key = String_brainjack_victim_desc_neurotypical }
+}
+defined_text = {
+	name = GetBrainjackHackerDesc
+	text = {
+		trigger = { attribute_diff = { character = event_target:target_victim attribute = intrigue value = 5 } }
+		localisation_key = String_brainjack_hacker_desc_easy
+	}
+	text = {
+		trigger = {
+			NOT = { attribute_diff = { character = event_target:target_victim attribute = intrigue value = 5 } }
+			NOT = { event_target:target_victim = { attribute_diff = { character = ROOT attribute = intrigue value = 5 } } }
+		}
+		localisation_key = String_brainjack_hacker_desc_medium
+	}
+	text = {
+		trigger = { event_target:target_victim = { attribute_diff = { character = ROOT attribute = intrigue value = 5 } } }
+		localisation_key = String_brainjack_hacker_desc_hard
+	}
+}
+defined_text = {
+	name = GetBrainjackHackerDescSchizophrenic
+	use_first_valid = yes
+	
+	text = {
+		trigger = {
+			event_target:target_victim = {
+				OR = {
+					trait = possessed
+					trait = hiver_implant
+				}
+			}
+		}
+		localisation_key = String_brainjack_hacker_desc_schizophrenic
+	}
+}
+defined_text = {
+	name = GetBrainjackFeedbackVictimDesc
+	use_first_valid = yes
+	text = {
+		trigger = { event_target:target_mastermind = { plot_is_known_by = ROOT } }
+		localisation_key = String_brainjack_feedback_backer
+	}
+	text = {
+		trigger = {
+			FROMFROM = {
+				has_plot = plot_kill_character
+				plot_target_char = { character = ROOT }
+				plot_is_known_by = ROOT
+			}
+		}
+		localisation_key = String_brainjack_feedback_mastermind
+	}
+	text = { localisation_key = String_brainjack_feedback_no_result }
+}
+defined_text = {
+	name = GetLateNightActivity
+	text = {
+		trigger = { age = 18 }
+		localisation_key = String_late_night_in_your_office
+	}
+	text = {
+		trigger = {
+			OR = {
+				is_married = no
+				NOT = { spouse = { at_location = PREV } }
+			}
+		}
+		localisation_key = String_late_night_at_home_unmarried
+	}
+	text = {
+		trigger = {
+			is_married = yes
+			spouse = { at_location = PREV }
+		}
+		localisation_key = String_late_night_at_home_married
+	}
+}
+defined_text = {
+	name = GetHowBadTheAssassinationWent
+	text = {
+		trigger = {
+			prisoner = yes
+			character = ROOT
+		}
+		localisation_key = String_how_bad_the_assassination_went_imprisoned_root
+	}
+	text = {
+		trigger = {
+			prisoner = no
+			character = ROOT
+		}
+		localisation_key = String_how_bad_the_assassination_went_escaped_root
+	}
+	text = {
+		trigger = {
+			prisoner = yes
+			character = FROM
+		}
+		localisation_key = String_how_bad_the_assassination_went_imprisoned_from
+	}
+	text = {
+		trigger = {
+			prisoner = no
+			character = FROM
+		}
+		localisation_key = String_how_bad_the_assassination_went_escaped_from
+	}
+}

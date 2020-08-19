@@ -1213,32 +1213,6 @@ character_event = {
 
 character_event = {
 	id = clone.300
-	hide_window = yes
-	is_triggered_only = yes
-
-	# Bounce to get target
-	immediate = {
-		target = {
-			limit = { has_opinion_modifier = { who = ROOT modifier = opinion_clone_courtier_target } }
-			}
-			FROM = { character_event = { id = clone.301 } }
-	}
-}
-
-character_event = {
-	id = clone.301
-	hide_window = yes
-	is_triggered_only = yes
-
-	immediate = {
-		remove_trait = target
-		remove_opinion = { who = FROM modifier = opinion_clone_courtier_target  }
-		character_event = { id = clone.302 }
-	}
-}
-
-character_event = {
-	id = clone.302
 	desc = "EVTDESCCLONE302"
 	picture = GFX_evt_laboratory
 	is_triggered_only = yes
@@ -1247,9 +1221,7 @@ character_event = {
 		name = "EVTOPTACLONE302"
 		set_character_flag = flag_cloning_decision_active
 		character_event = { id = clone.303 tooltip = "EVTTOOLTIPCLONE303" }
-        FROMFROM = {
-			    wealth = -100
-				}
+        FROMFROM = { wealth = -100 }
 		ai_chance = {
 			factor = 50
 			modifier = {
@@ -1269,7 +1241,7 @@ character_event = {
 		}
 	}
 	option = {
-		name = "EVTOPTbCLONE302"
+		name = "EVTOPTBCLONE302"
 		prestige = 50
 	}
 }

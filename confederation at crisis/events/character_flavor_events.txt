@@ -1074,32 +1074,10 @@ character_event = {
 		ai_chance = { factor = 0 }
 	}
 }
-character_event = {
-	id = flavor.5605
-	hide_window = yes
-	is_triggered_only = yes
-
-	immediate = {
-		target = {
-			limit = { has_opinion_modifier = { who = ROOT modifier = opinion_asking_for_rehab } }
-			character_event = { id = flavor.5606 }
-		}
-	}
-}
-character_event = {
-	id = flavor.5606
-	hide_window = yes
-	is_triggered_only = yes
-
-	immediate = {
-		remove_trait = target
-		remove_opinion = { who = FROM modifier = opinion_asking_for_rehab }
-		FROM = { letter_event = { id = 5607 } }
-	}
-}
 letter_event = {
-	id = flavor.5607
-	desc = "EVTDESCFLAVOR5607"
+	id = flavor.5605
+	desc = "EVTDESCFLAVOR5605"
+	show_from_from = yes
 	is_triggered_only = yes
 
 	option = {
@@ -1107,7 +1085,7 @@ letter_event = {
 		clr_character_flag = flag_entering_rehab
 		add_character_modifier = { name = spice_rehab duration = -1 }
 		prestige = -100
-		FROM = {
+		FROMFROM = {
 			opinion = { who = ROOT modifier = opinion_on_rehab_for_me }
 			hidden_tooltip = { letter_event = { id = flavor.5608 } }
 		}
@@ -1115,84 +1093,84 @@ letter_event = {
 			factor = 50
 			modifier = {
 				factor = 1.25
-				opinion = { who = FROM value = 100 }
+				opinion = { who = FROMFROM value = 100 }
 			}
 			modifier = {
 				factor = 1.25
-				opinion = { who = FROM value = 90 }
+				opinion = { who = FROMFROM value = 90 }
 			}
 			modifier = {
 				factor = 1.25
-				opinion = { who = FROM value = 80 }
+				opinion = { who = FROMFROM value = 80 }
 			}
 			modifier = {
 				factor = 1.25
-				opinion = { who = FROM value = 70 }
+				opinion = { who = FROMFROM value = 70 }
 			}
 			modifier = {
 				factor = 1.25
-				opinion = { who = FROM value = 60 }
+				opinion = { who = FROMFROM value = 60 }
 			}
 			modifier = {
 				factor = 1.25
-				opinion = { who = FROM value = 50 }
+				opinion = { who = FROMFROM value = 50 }
 				trait = friendly
 			}
 			modifier = {
 				factor = 1.25
-				opinion = { who = FROM value = 40 }
+				opinion = { who = FROMFROM value = 40 }
 			}
 			modifier = {
 				factor = 1.25
-				opinion = { who = FROM value = 30 }
+				opinion = { who = FROMFROM value = 30 }
 			}
 			modifier = {
 				factor = 1.25
-				opinion = { who = FROM value = 20 }
+				opinion = { who = FROMFROM value = 20 }
 			}
 			modifier = {
 				factor = 1.25
-				opinion = { who = FROM value = 10 }
+				opinion = { who = FROMFROM value = 10 }
 			}
 			modifier = {
 				factor = 0.8
-				NOT = { opinion = { who = FROM value = -9 } }
+				NOT = { opinion = { who = FROMFROM value = -9 } }
 			}
 			modifier = {
 				factor = 0.8
-				NOT = { opinion = { who = FROM value = -19 } }
+				NOT = { opinion = { who = FROMFROM value = -19 } }
 			}
 			modifier = {
 				factor = 0.8
-				NOT = { opinion = { who = FROM value = -29 } }
+				NOT = { opinion = { who = FROMFROM value = -29 } }
 			}
 			modifier = {
 				factor = 0.8
-				NOT = { opinion = { who = FROM value = -39 } }
+				NOT = { opinion = { who = FROMFROM value = -39 } }
 			}
 			modifier = {
 				factor = 0.8
-				NOT = { opinion = { who = FROM value = -49 } }
+				NOT = { opinion = { who = FROMFROM value = -49 } }
 			}
 			modifier = {
 				factor = 0.8
-				NOT = { opinion = { who = FROM value = -59 } }
+				NOT = { opinion = { who = FROMFROM value = -59 } }
 			}
 			modifier = {
 				factor = 0.8
-				NOT = { opinion = { who = FROM value = -69 } }
+				NOT = { opinion = { who = FROMFROM value = -69 } }
 			}
 			modifier = {
 				factor = 0.8
-				NOT = { opinion = { who = FROM value = -79 } }
+				NOT = { opinion = { who = FROMFROM value = -79 } }
 			}
 			modifier = {
 				factor = 0.8
-				NOT = { opinion = { who = FROM value = -89 } }
+				NOT = { opinion = { who = FROMFROM value = -89 } }
 			}
 			modifier = {
 				factor = 0.8
-				NOT = { opinion = { who = FROM value = -99 } }
+				NOT = { opinion = { who = FROMFROM value = -99 } }
 			}
 			modifier = {
 				factor = 0.5
@@ -1208,11 +1186,11 @@ letter_event = {
 			}
 			modifier = {
 				factor = 2
-				trait = humble
+				trait = honest
 			}
 			modifier = {
 				factor = 0.5
-				trait = proud
+				trait = deceitful
 			}
 			modifier = {
 				factor = 2
@@ -1235,7 +1213,7 @@ letter_event = {
 	option = {
 		name = "EVTOPTREFUSE"
 		clr_character_flag = flag_entering_rehab
-		FROM = {
+		FROMFROM = {
 			opinion = { who = ROOT modifier = opinion_refused_rehab }
 			hidden_tooltip = { letter_event = { id = flavor.5609 } }
 		}

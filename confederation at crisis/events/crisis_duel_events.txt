@@ -12,7 +12,8 @@ namespace = duel
 # flag_friendly_duel: Surrenderers cannot be captured or killed, and death and severe injury are far less likely. DO NOT USE WITH flag_no_quarter
 # flag_battlefield: The duel takes place during actual combat. Killing someone who tries to surrender will be considered a war crime.
 # flag_open_field: The duel takes place on an open field, where both combatants can see each other clearly and there are few obstructions.
-# flag_interior: The duel takes place in an interior area, with tight corridors. Non-walker vehicles are ignored.
+# flag_enemy_spotted: Any duelist with this flag will start the duel already aware of their opponent.
+# flag_interior: The duel takes place in an interior area, with tight corridors. Non-walker vehicles and sniper rifle bonuses are ignored.
 
 # Flag a duelist with these if you want to limit their tactical options
 # flag_no_guns
@@ -1387,6 +1388,7 @@ character_event = {
 					has_character_flag = flag_anti_personnel_tactics
 					NOT = { has_character_flag = flag_in_vehicle }
 					persistent_event_target:my_weapon = { has_artifact_flag = sniper_rifle }
+					NOT = { has_character_flag = flag_interior }
 					FROM = {
 						NOT = { has_character_flag = flag_in_vehicle }
 						has_character_flag = flag_anti_personnel_tactics
@@ -2035,6 +2037,7 @@ character_event = {
 						has_character_flag = flag_anti_personnel_tactics
 						NOT = { has_character_flag = flag_in_vehicle }
 						persistent_event_target:my_weapon = { has_artifact_flag = sniper_rifle }
+						NOT = { has_character_flag = flag_interior }
 					}
 					NOT = { has_character_flag = flag_in_vehicle }
 					has_character_flag = flag_anti_personnel_tactics
@@ -2897,7 +2900,28 @@ character_event = {
 
 	option = {
 		name = "EVTOPTANEWDUEL21"
-		death = { death_reason = death_duel killer = FROM }
+		if = {
+			limit = {
+				FROM = {
+					event_target:target_mastermind = { always = yes }
+					OR = {
+						has_character_flag = flag_duel_hunt_assassin
+						has_character_flag = flag_duel_close_quarters_assassin
+					}
+				}
+			}
+			death = { death_reason = death_murder killer = event_target:target_mastermind }
+		}
+		else_if = {
+			limit = {
+				OR = {
+					has_character_flag = flag_duel_hunt_assassin
+					has_character_flag = flag_duel_close_quarters_assassin
+				}
+			}
+			death = { death_reason = death_self_defense killer = FROM }
+		}
+		else = { death = { death_reason = death_duel killer = FROM } }
 		set_character_flag = flag_defeat
 		hidden_tooltip = {
 			FROM = {
@@ -3280,6 +3304,15 @@ character_event = {
 
 	option = {
 		name = "EVTOPTANEWDUEL25"
+		# Killing people is stressful, at least the first time
+		if = {
+			limit = {
+				NOT = { has_education_martial_trigger = yes }
+				NOT = { has_character_flag = flag_has_killed_someone }
+			}
+			degrade_mood_effect = yes
+		}
+		set_character_flag = flag_has_killed_someone
 		hidden_tooltip = { character_event = { id = duel.100 } }
 	}
 }
@@ -3490,6 +3523,15 @@ character_event = {
 		trigger = { NOT = { has_character_flag = flag_friendly_duel } }
 		name = "EVTOPTCNEWDUEL30"
 		set_character_flag = flag_victory
+		# Killing people is stressful, at least the first time
+		if = {
+			limit = {
+				NOT = { has_education_martial_trigger = yes }
+				NOT = { has_character_flag = flag_has_killed_someone }
+			}
+			degrade_mood_effect = yes
+		}
+		set_character_flag = flag_has_killed_someone
 		if = {
 			limit = { FROM = { has_character_flag = flag_vehicle_destroyed } }
 			FROM = {
@@ -4065,6 +4107,17 @@ character_event = {
 	immediate = {
 		name = "EVTOPTANEWDUEL100"
 
+		log = "[Root.GetBestName] won the duel."
+		if = {
+			limit = { FROMFROM = { is_alive = no } }
+			log = "[FromFrom.GetBestName] is dead."
+		}
+		else_if = {
+			limit = { FROMFROM = { prisoner = yes } }
+			log = "[FromFrom.GetBestName] was taken prisoner."
+		}
+		else = { log = "[FromFrom.GetBestName] escaped." }
+		
 		# Clean up remaining flags and event targets
 		clear_persistent_event_target = my_armor
 		clear_persistent_event_target = my_vehicle
@@ -4149,6 +4202,44 @@ character_event = {
 					character_event = { id = hunting.69 }
 				}
 				character_event = { id = hunting.71 }
+			}
+		}
+		# Duels from attempted close-quarters assassinations
+		if = {
+			limit = { has_character_flag = flag_duel_close_quarters_assassin }
+			if = {
+				limit = { FROMFROM = { is_alive = no } }
+				clr_character_flag = flag_duel_close_quarters_assassin
+				FROMFROM = { clr_character_flag = flag_duel_close_quarters_victim }
+				character_event = { id = assassination.522 }
+			}
+			else = {
+				clr_character_flag = flag_duel_close_quarters_assassin
+				FROMFROM = {
+					clr_character_flag = flag_duel_close_quarters_victim
+					character_event = { id = assassination.526 }
+				}
+				character_event = { id = assassination.524 }
+			}
+		}
+		if = {
+			limit = { has_character_flag = flag_duel_close_quarters_victim }
+			if = {
+				limit = { FROMFROM = { is_alive = no } }
+				clr_character_flag = flag_duel_close_quarters_victim
+				FROMFROM = {
+					save_event_target_as = target_assassin
+					clr_character_flag = flag_duel_close_quarters_assassin
+				}
+				character_event = { id = assassination.528 }
+			}
+			else = {
+				clr_character_flag = flag_duel_close_quarters_victim
+				FROMFROM = {
+					clr_character_flag = flag_duel_close_quarters_assassin
+					character_event = { id = assassination.524 }
+				}
+				character_event = { id = assassination.527 }
 			}
 		}
 	}
