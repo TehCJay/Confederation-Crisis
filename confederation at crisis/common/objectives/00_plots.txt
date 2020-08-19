@@ -71,6 +71,7 @@ plot_kill_character = {
 				AND = {
 					NOT = { trait = content }
 					NOT = { trait = radical }
+					NOT = { trait = pragmatic }
 					OR = {
 						# Heir to a title I'm a pretender to
 						any_pretender_title = {
@@ -166,6 +167,7 @@ plot_kill_character = {
 				# Political
 				AND = {
 					NOT = { trait = pragmatic }
+					NOT = { trait = amoral }
 					NOT = { trait = open_minded }
 					NOT = { religion = ROOT }
 					OR = {
@@ -264,15 +266,23 @@ plot_kill_character = {
 
 		# Personality effects
 		modifier = {
-			factor = 0.1
+			factor = 0.2
 			FROM = { trait = friendly }
 		}
 		modifier = {
-			factor = 0.5
+			factor = 0.2
+			FROM = { trait = honest }
+		}
+		modifier = {
+			factor = 0.25
 			FROM = { NOT = { trait = cold } }
 		}
 		modifier = {
-			factor = 0.2
+			factor = 0.25
+			FROM = { NOT = { trait = deceitful } }
+		}
+		modifier = {
+			factor = 0.25
 			FROM = {
 				trait = disciplined
 				NOT = { religion_group = outlaw_group }
@@ -280,6 +290,15 @@ plot_kill_character = {
 			NOT = { religion_group = outlaw_group }
 		}
 
+		modifier = {
+			factor = 0.25
+			FROM = {
+				NOT = { trait = carefree }
+				NOT = { religion_group = outlaw_group }
+			}
+			NOT = { religion_group = outlaw_group }
+		}
+		
 		# Rule of Law effects
 		modifier = {
 			factor = 0.5
@@ -425,6 +444,7 @@ plot_kill_character = {
 				trait = ambitious
 				NOT = { trait = content }
 				NOT = { trait = radical }
+				NOT = { trait = pragmatic }
 				OR = {
 					# Heir to a title I'm a pretender to
 					any_pretender_title = {
@@ -523,9 +543,10 @@ plot_kill_character = {
 		modifier = {
 			factor = 3
 			FROM = {
-				trait = proud
+				trait = deceitful
 				NOT = { trait = content }
 				NOT = { trait = radical }
+				NOT = { trait = pragmatic }
 				OR = {
 					# Heir to a title I'm a pretender to
 					any_pretender_title = {
@@ -624,6 +645,7 @@ plot_kill_character = {
 			FROM = {
 				trait = radical
 				NOT = { trait = pragmatic }
+				NOT = { trait = amoral }
 				NOT = { trait = open_minded }
 				NOT = { religion = ROOT }
 				OR = {
@@ -670,6 +692,7 @@ plot_kill_character = {
 			FROM = {
 				trait = close_minded
 				NOT = { trait = pragmatic }
+				NOT = { trait = amoral }
 				NOT = { trait = open_minded }
 				NOT = { religion = ROOT }
 				OR = {
@@ -745,7 +768,7 @@ plot_kill_character = {
 					}
 					AND = {
 						had_character_flag = { flag = flag_plot_timer years = 2 }
-						NOT = { trait = proud }
+						NOT = { trait = deceitful }
 					}
 					had_character_flag = { flag = flag_plot_timer years = 3 }
 				}
