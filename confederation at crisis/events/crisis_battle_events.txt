@@ -1,5 +1,138 @@
 namespace = battle
 
+# This comes from "on_combat_pulse"
+# Theoretically ROOT is a commander of a flank, and FROM is the commander in the opposing flank.
+character_event = {
+	id = battle.770
+	desc = "crisis_event_desc_found_enemy"
+	picture = GFX_event_placeholder
+	border = GFX_event_normal_frame_war
+	is_triggered_only = yes
+
+	trigger = {
+		ROOT = {
+			in_command = yes
+			in_battle = yes
+			prisoner = no
+			capital_scope = { always = yes }
+			at_location = FROM
+		}
+		FROM = {
+			in_command = yes
+			in_battle = yes
+			prisoner = no
+			capital_scope = { always = yes }
+			at_location = ROOT
+		}
+	}
+
+	immediate = {
+		# we can't se variables on trigger scope, so here we perform the actual calculations.
+		set_variable = { which = local_tracking_chance value = 20 } #base chance
+		ROOT = { any_artifact = {
+			limit = { has_artifact_flag = ship is_artifact_equipped = yes }
+			save_event_target_as = ship_1
+		} }
+		FROM = { any_artifact = {
+			limit = { has_artifact_flag = ship is_artifact_equipped = yes }
+			save_event_target_as = ship_2
+		} }
+		if = {
+			limit = { FROM = { had_character_flag = { flag=fired_during_battle days <= 8 } } } #If enemy made a move recently against our flagships, we can easily know who it is and return fire.
+			set_variable = { which = local_tracking_chance value = 100 }
+		}
+		else = {
+			export_to_variable = { which = local_r_martial value = martial }
+			export_to_variable = { which = local_f_martial value = martial who = FROM }
+			export_to_variable = { which = local_r_learning value = learning }
+			export_to_variable = { which = local_f_learning value = learning who = FROM }
+			export_to_variable = { which = local_r_intrigue value = intrigue }
+			export_to_variable = { which = local_f_intrigue value = intrigue who = FROM }
+			set_variable = { which = local_ship_sensor value = 0 }
+			set_variable = { which = local_enemy_ecm value = 0 }
+			event_target:ship_1 = {
+				set_variable = { which = local_ship_sensor which = sensor_rating }
+			}
+			event_target:ship_2 = {
+				set_variable = { which = local_enemy_ecm which = ecm_rating }
+			}
+			subtract_variable = { which = local_tracking_chance which = local_f_martial }
+			subtract_variable = { which = local_tracking_chance which = local_f_learning }
+			subtract_variable = { which = local_tracking_chance which = local_f_intrigue }
+			subtract_variable = { which = local_tracking_chance which = local_enemy_ecm }
+			change_variable = { which = local_tracking_chance which = local_r_martial }
+			change_variable = { which = local_tracking_chance which = local_r_learning }
+			change_variable = { which = local_tracking_chance which = local_r_intrigue }
+			change_variable = { which = local_tracking_chance which = local_ship_sensor }
+			FROM = { capital_scope = { save_event_target_as = enemy_capital } }
+			if = { limit = { capital_scope = { TECH_INTEL_N_SENSORS > event_target:enemy_capital } }
+				change_variable = { which = local_tracking_chance value = 15 } }
+			set_variable = { which = local_fail_tracking_chance which = local_tracking_chance }
+			change_variable = { which = local_fail_tracking_chance value = 30 }
+		}
+	}
+
+	option = {
+		name = "crisis_found_enemy_confirm"
+		roll1d100 = yes
+		if = {
+			limit = { check_variable = { which = dice1d100 which <= local_tracking_chance } }
+			log = "found enemy!"
+		}
+		else_if = {
+			limit = { check_variable = { which = dice1d100 which <= local_fail_tracking_chance } }
+			log = "success, but we alerted the enemy!"
+			set_character_flag = fired_during_battle
+		}
+		else =
+		{
+			log = "failed completely to find enemy!"
+		}
+	}
+}
+
+character_event = {
+	id = battle.771
+	desc = "crisis_event_desc_found_enemy"
+	picture = GFX_event_placeholder
+	border = GFX_event_normal_frame_war
+	is_triggered_only = yes
+	#hide_window = yes
+
+	option = {
+		name = "EVTOPTCONFIRM"
+		log = "Battle Started: This: [This.GetBestName] From: [From.GetBestName] FromFrom: [FromFrom.GetBestName]"
+	}
+}
+
+character_event = {
+	id = battle.772
+	desc = "crisis_event_desc_found_enemy"
+	picture = GFX_event_placeholder
+	border = GFX_event_normal_frame_war
+	is_triggered_only = yes
+	#hide_window = yes
+
+	option = {
+		name = "EVTOPTCONFIRM"
+		log = "Battle Ended, Owner Winner: This: [This.GetBestName] From: [From.GetBestName] FromFrom: [FromFrom.GetBestName]"
+	}
+}
+
+character_event = {
+	id = battle.773
+	desc = "crisis_event_desc_found_enemy"
+	picture = GFX_event_placeholder
+	border = GFX_event_normal_frame_war
+	is_triggered_only = yes
+	#hide_window = yes
+
+	option = {
+		name = "EVTOPTCONFIRM"
+		log = "Battle Ended, Owner Loser: This: [This.GetBestName] From: [From.GetBestName] FromFrom: [FromFrom.GetBestName]"
+	}
+}
+
 # Fighter pilot versus fighter pilot: You Wound Enemy
 character_event = {
 	id = battle.0
