@@ -12,37 +12,37 @@ local tacGenData = {
     skirmish = {
         weaponPowerRaw = {
             gunships = {
-                kinectic = 1,
+                kinetic = 1,
                 laser = 0,
                 missile = 0,
                 boarding = 0
             },
             laserships = {
-                kinectic = 0,
+                kinetic = 0,
                 laser = 1,
                 missile = 0,
                 boarding = 0
             },
             missileships = {
-                kinectic = 0,
+                kinetic = 0,
                 laser = 0,
                 missile = 1,
                 boarding = 0
             },
             destroyers = {
-                kinectic = 0.1,
+                kinetic = 0.1,
                 laser = 0.4,
                 missile = 0.5,
                 boarding = 0
             },
             battleships = {
-                kinectic = 0.1,
+                kinetic = 0.1,
                 laser = 0.7,
                 missile = 0.2,
                 boarding = 0
             },
             trooptransports = {
-                kinectic = 0,
+                kinetic = 0,
                 laser = 0,
                 missile = 0,
                 boarding = 1
@@ -100,7 +100,7 @@ local tacGenData = {
             balanced = {
             },
             laser = {
-                kinectic = 0,
+                kinetic = 0,
                 laser = 2,
                 missile = 0,
                 boarding = 0,
@@ -108,7 +108,7 @@ local tacGenData = {
                 pd = 1.1
             },
             missile = {
-                kinectic = 1,
+                kinetic = 1,
                 laser = 0,
                 missile = 2,
                 boarding = 0,
@@ -127,7 +127,7 @@ local tacGenData = {
 
             --the base movement features should not be mixed
             direct = {
-                kinectic = 1.1,
+                kinetic = 1.1,
                 laser = 1.1,
                 missile = 1.1,
                 boarding = 1.1,
@@ -136,7 +136,7 @@ local tacGenData = {
                 dodge = 0.7
             },
             weave = {
-                kinectic = 0.9,
+                kinetic = 0.9,
                 laser = 0.9,
                 missile = 0.9,
                 boarding = 0.9,
@@ -196,6 +196,293 @@ local tacGenData = {
                 discouraged_trait = {"short_range_specialist", "orbital_combat_specialist"},
                 discouraged_religion = {"neo_feudal"}
             }
+        },
+
+        tactics = {},
+        weaponPower = {},
+        defensePower = {},
+        fromTo = {},
+    },
+    melee = {
+        weaponPowerRaw = {
+            gunships = {
+                kinetic = 1,
+                laser = 0.1,
+                missile = 0,
+                boarding = 0
+            },
+            laserships = {
+                kinetic = 0,
+                laser = 1,
+                missile = 0,
+                boarding = 0
+            },
+            missileships = {
+                kinetic = 0.05,
+                laser = 0.05,
+                missile = 1,
+                boarding = 0
+            },
+            destroyers = {
+                kinetic = 0.4,
+                laser = 0.4,
+                missile = 0.5,
+                boarding = 0
+            },
+            battleships = {
+                kinetic = 0.4,
+                laser = 0.5,
+                missile = 0.3,
+                boarding = 0
+            },
+            trooptransports = {
+                kinetic = 0.05,
+                laser = 0.05,
+                missile = 0,
+                boarding = 1
+            }
+        },
+
+        defensePowerRaw = {
+            gunships = {
+                radiator = 1,
+                spin = 2,
+                pd = 5,
+                dodge = 5,
+                armor = 0
+            },
+            laserships = {
+                radiator = 10,
+                spin = 1,
+                pd = 5,
+                dodge = 2,
+                armor = 1
+            },
+            missileships = {
+                radiator = 1,
+                spin = 1,
+                pd = 2,
+                dodge = 3,
+                armor = 2
+            },
+            destroyers = {
+                radiator = 2,
+                spin = 1,
+                pd = 2,
+                dodge = 1,
+                armor = 2
+            },
+            battleships = {
+                radiator = 7,
+                spin = 2,
+                pd = 5,
+                dodge = 1,
+                armor = 3
+            },
+            trooptransports = {
+                radiator = 0,
+                spin = 2,
+                pd = 5,
+                dodge = 0,
+                armor = 10
+            }
+        },
+
+        -- Here is the combat effects for each tactical decision, not the "trigger" for them.
+        tacticalFeatures = {
+            --the base weapon features should not be mixed
+            balanced = {
+                boarding = 0.7,
+                armor = 1.1
+            },
+            laser = {
+                kinetic = 0,
+                laser = 2,
+                missile = 0,
+                boarding = 0.5,
+                radiator = 0.5,
+                pd = 1.2
+            },
+            kinetic = {
+                kinetic = 2,
+                laser = 0,
+                missile = 2,
+                boarding = 0.5,
+                radiator = 4,
+                dodge = 1.1
+            },
+            defensive = {
+                kinetic = 0.5,
+                laser = 0.5,
+                missile = 0.5,
+                boarding = 1,
+                radiator = 2,
+                spin = 2,
+                pd = 2,
+                dodge = 2
+            },
+            boarding = {
+                kinetic = 0.4,
+                laser = 0.4,
+                missile = 0.4,
+                boarding = 3,
+                radiator = 0.8,
+                spin = 0.8,
+                pd = 0.8
+            },
+
+            --the base movement features should not be mixed
+            column = {
+                kinetic = 0.2,
+                laser = 0.2,
+                missile = 0.2,
+                boarding = 0.2,
+                spin = 1.5,
+                pd = 1.8,
+                dodge = 0.8,
+                radiator = 1.2,
+                armor = 3
+            },
+            sphere = {
+                kinetic = 0.7,
+                laser = 0.9,
+                missile = 1,
+                boarding = 0.9,
+                spin = 1.1,
+                pd = 1.1,
+                dodge = 1.2,
+                radiator = 1.1,
+                armor = 1.3
+            },
+            cone = {
+                kinetic = 2,
+                laser = 2,
+                missile = 2,
+                boarding = 2,
+                spin = 0.9,
+                pd = 2,
+                dodge = 0.8,
+                radiator = 1.1,
+                armor = 1
+            },
+            inverted_cone = {
+                kinetic = 2.1,
+                laser = 2.1,
+                missile = 2.1,
+                boarding = 2,
+                spin = 0.8,
+                pd = 2,
+                dodge = 0.7,
+                radiator = 1,
+                armor = 0.9
+            },
+            echelon = {
+                kinetic = 2,
+                laser = 2,
+                missile = 2,
+                boarding = 2,
+                spin = 0.9,
+                pd = 2,
+                dodge = 0.8,
+                radiator = 1.1,
+                armor = 1
+            },
+            cube = {
+                kinetic = 0.7,
+                laser = 0.9,
+                missile = 1,
+                boarding = 1
+            },
+            plane = {
+                kinetic = 3,
+                laser = 3,
+                missile = 3,
+                boarding = 1.1,
+                spin = 0.5,
+                pd = 0.5,
+                dodge = 0.5,
+                radiator = 0.5,
+                armor = 0.2
+            },
+            line = {
+                kinetic = 0.9,
+                laser = 0.9,
+                missile = 0.9,
+                boarding = 0.8,
+                spin = 0.5,
+                pd = 0.5,
+                dodge = 0.5,
+                radiator = 0.5,
+                armor = 0.2
+            },
+
+            --special modifier for tactics that are moving AWAY from combat
+            --[[retrograde = {
+                missile = 0.7,
+                radiator = 1.1,
+                spin = 1.1,
+                pd = 1.2,
+                dodge = 1.3,
+                armor = 1.3
+            }]]
+        },
+
+        -- Here are the special properties and triggers for each tactical decision.
+        tacticalWeaponChoices = {
+            balanced = {
+                encouraged_trait = {"weapon_master"}
+            },
+            laser = {
+                encouraged_trait = {"laser_master"}
+            },
+            kinetic = {
+                encouraged_trait = {"missile_master", "kinetic_master"},
+                encouraged_religion = {"neo_feudal"}
+            },
+            defensive = {
+                encouraged_trait = {"kinetic_master"}
+            },
+            boarding = {
+                --encouraged_trait = {"kinetic_master"}
+            }
+        },
+
+        tacticalMovementChoices = {
+            column = {
+                duration = 4,
+            },
+            sphere = {
+                duration = 6,
+            },
+            cone = {
+                duration = 5,
+            },
+            inverted_cone = {
+                duration = 7,
+            },
+            echelon = {
+                duration = 3,
+            },
+            cube = {
+                duration = 5,
+            },
+            plane = {
+                duration = 8,
+            },
+            line = {
+                duration = 8
+            }
+        },
+
+        tacticalExtraVariations = {
+            --[[retrograde = {
+                duration = 5,
+                target = "skirmish",
+                forbidden_trait = {"pursuit_specialist", "unyielding_leader", "omnicidal_maniac"},
+                encouraged_trait = {"long_range_combat_specialist", "desert_terrain_leader", "trickster", "organizer", "defensive_leader" },
+                discouraged_trait = {"short_range_specialist", "orbital_combat_specialist"},
+                discouraged_religion = {"neo_feudal"}
+            }]]
         },
 
         tactics = {},
@@ -557,6 +844,42 @@ printTactic("skirmish", "arrival_at_skirmish", false, false)
 printTactic("skirmish", "arrival_at_melee", false, false)
 io.close(file)
 
+calculateTactics("melee")
+
+file = io.open("../confederation at crisis/common/combat_tactics/melee_normal.txt", "w")
+io.output(file)
+printHeader()
+printTactic("melee", "balanced_column", false, false)
+printTactic("melee", "balanced_sphere", false, false)
+printTactic("melee", "balanced_cone", false, false)
+printTactic("melee", "balanced_inverted_cone", false, false)
+printTactic("melee", "balanced_echelon", false, false)
+printTactic("melee", "balanced_cube", false, false)
+printTactic("melee", "laser_column", false, false)
+printTactic("melee", "laser_sphere", false, false)
+printTactic("melee", "laser_cone", false, false)
+printTactic("melee", "laser_inverted_cone", false, false)
+printTactic("melee", "laser_echelon", false, false)
+printTactic("melee", "laser_cube", false, false)
+printTactic("melee", "kinetic_column", false, false)
+printTactic("melee", "kinetic_sphere", false, false)
+printTactic("melee", "kinetic_cone", false, false)
+printTactic("melee", "kinetic_inverted_cone", false, false)
+printTactic("melee", "kinetic_echelon", false, false)
+printTactic("melee", "kinetic_cube", false, false)
+printTactic("melee", "defensive_column", false, false)
+printTactic("melee", "defensive_sphere", false, false)
+printTactic("melee", "defensive_cone", false, false)
+printTactic("melee", "defensive_inverted_cone", false, false)
+printTactic("melee", "defensive_echelon", false, false)
+printTactic("melee", "defensive_cube", false, false)
+printTactic("melee", "boarding_column", false, false)
+printTactic("melee", "boarding_sphere", false, false)
+printTactic("melee", "boarding_cone", false, false)
+printTactic("melee", "boarding_inverted_cone", false, false)
+printTactic("melee", "boarding_echelon", false, false)
+printTactic("melee", "boarding_cube", false, false)
+io.close(file)
 
 --tactic_name = {                             # Tactic name, localised
 --    days = 6                                # In-game duration
