@@ -3,14 +3,91 @@
 balanced_column = {
     sprite = 1
     days = 4
+    group = column
 
     trigger = {
         phase = melee
         days >= 1
+        is_flanking = no
+        flank_has_leader = yes
+        leader = {
+        }
     }
 
     mean_time_to_happen = {
         days = 100
+
+        mult_modifier = {
+            factor = 2
+
+            leader = { enemy = {
+                flank_has_tactic = twod
+            } }
+        }
+
+        mult_modifier = {
+            factor = 3
+
+            leader = { enemy = {
+                flank_has_tactic = plane
+            } }
+        }
+
+        mult_modifier = {
+            factor = 4
+
+            leader = { enemy = {
+                flank_has_tactic = funnel
+            } }
+        }
+
+        mult_modifier = {
+            factor = 1
+
+            leader = { enemy = {
+                flank_has_tactic = encircled
+            } }
+        }
+
+        additive_modifier = {
+            value = 10
+
+            leader = { enemy = {
+                flank_has_tactic = plane
+            } }
+        }
+
+        additive_modifier = {
+            value = 5.0
+
+            leader = { enemy = {
+                flank_has_tactic = funnel
+            } }
+        }
+
+        mult_modifier = {
+            factor = 4
+            leader = {
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = short_range_specialist
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = defensive_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = unyielding_leader
+            }
+        }
     }
 
     light_infantry_offensive = -0.8
@@ -26,159 +103,100 @@ balanced_column = {
     archers_offensive = -0.9
     archers_defensive = 1.6
 
-}
 
-balanced_sphere = {
-    sprite = 1
-    days = 6
-
-    trigger = {
-        phase = melee
-        days >= 1
+    enemy = {
+        group = funnel
+        factor = 0.5
     }
 
-    mean_time_to_happen = {
-        days = 100
+    enemy = {
+        group = plane
+        factor = 1
     }
-
-    light_infantry_offensive = -0.3
-    light_infantry_defensive = 0.1
-    heavy_infantry_offensive = -0.1
-    heavy_infantry_defensive = 0.1
-    pikemen_offensive = 0.0
-    pikemen_defensive = 0.2
-    light_cavalry_offensive = -0.1
-    light_cavalry_defensive = 0.2
-    knights_offensive = -0.1
-    knights_defensive = 0.2
-    archers_offensive = -0.4
-    archers_defensive = 0.3
-
-}
-
-balanced_cone = {
-    sprite = 1
-    days = 5
-
-    trigger = {
-        phase = melee
-        days >= 1
-    }
-
-    mean_time_to_happen = {
-        days = 100
-    }
-
-    light_infantry_offensive = 1.0
-    light_infantry_defensive = 0.3
-    heavy_infantry_offensive = 1.0
-    heavy_infantry_defensive = 0.3
-    pikemen_offensive = 1.0
-    pikemen_defensive = 0.2
-    light_cavalry_offensive = 1.0
-    light_cavalry_defensive = 0.3
-    knights_offensive = 1.0
-    knights_defensive = 0.3
-    archers_offensive = 0.5
-    archers_defensive = 0.3
-
-}
-
-balanced_inverted_cone = {
-    sprite = 1
-    days = 7
-
-    trigger = {
-        phase = melee
-        days >= 1
-    }
-
-    mean_time_to_happen = {
-        days = 100
-    }
-
-    light_infantry_offensive = 1.1
-    light_infantry_defensive = 0.2
-    heavy_infantry_offensive = 1.1
-    heavy_infantry_defensive = 0.2
-    pikemen_offensive = 1.1
-    pikemen_defensive = 0.1
-    light_cavalry_offensive = 1.1
-    light_cavalry_defensive = 0.2
-    knights_offensive = 1.1
-    knights_defensive = 0.2
-    archers_offensive = 0.5
-    archers_defensive = 0.3
-
-}
-
-balanced_echelon = {
-    sprite = 1
-    days = 3
-
-    trigger = {
-        phase = melee
-        days >= 1
-    }
-
-    mean_time_to_happen = {
-        days = 100
-    }
-
-    light_infantry_offensive = 1.0
-    light_infantry_defensive = 0.3
-    heavy_infantry_offensive = 1.0
-    heavy_infantry_defensive = 0.3
-    pikemen_offensive = 1.0
-    pikemen_defensive = 0.2
-    light_cavalry_offensive = 1.0
-    light_cavalry_defensive = 0.3
-    knights_offensive = 1.0
-    knights_defensive = 0.3
-    archers_offensive = 0.5
-    archers_defensive = 0.3
-
-}
-
-balanced_cube = {
-    sprite = 1
-    days = 5
-
-    trigger = {
-        phase = melee
-        days >= 1
-    }
-
-    mean_time_to_happen = {
-        days = 100
-    }
-
-    light_infantry_offensive = -0.3
-    light_infantry_defensive = 0.0
-    heavy_infantry_offensive = -0.1
-    heavy_infantry_defensive = 0.0
-    pikemen_offensive = 0.0
-    pikemen_defensive = 0.0
-    light_cavalry_offensive = -0.1
-    light_cavalry_defensive = 0.0
-    knights_offensive = -0.1
-    knights_defensive = 0.0
-    archers_offensive = -0.3
-    archers_defensive = 0.1
-
 }
 
 laser_column = {
     sprite = 1
     days = 4
+    group = column
 
     trigger = {
         phase = melee
         days >= 1
+        is_flanking = no
+        flank_has_leader = yes
+        leader = {
+        }
     }
 
     mean_time_to_happen = {
         days = 100
+
+        mult_modifier = {
+            factor = 2
+
+            leader = { enemy = {
+                flank_has_tactic = twod
+            } }
+        }
+
+        mult_modifier = {
+            factor = 3
+
+            leader = { enemy = {
+                flank_has_tactic = plane
+            } }
+        }
+
+        mult_modifier = {
+            factor = 4
+
+            leader = { enemy = {
+                flank_has_tactic = funnel
+            } }
+        }
+
+        mult_modifier = {
+            factor = 1
+
+            leader = { enemy = {
+                flank_has_tactic = encircled
+            } }
+        }
+
+        additive_modifier = {
+            value = 10
+
+            leader = { enemy = {
+                flank_has_tactic = plane
+            } }
+        }
+
+        additive_modifier = {
+            value = 5.0
+
+            leader = { enemy = {
+                flank_has_tactic = funnel
+            } }
+        }
+
+        mult_modifier = {
+            factor = 4
+            leader = {
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = short_range_specialist
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = defensive_leader
+            }
+        }
     }
 
     light_infantry_offensive = -1.0
@@ -194,159 +212,106 @@ laser_column = {
     archers_offensive = -0.9
     archers_defensive = 1.6
 
-}
 
-laser_sphere = {
-    sprite = 1
-    days = 6
-
-    trigger = {
-        phase = melee
-        days >= 1
+    enemy = {
+        group = funnel
+        factor = 0.5
     }
 
-    mean_time_to_happen = {
-        days = 100
+    enemy = {
+        group = plane
+        factor = 1
     }
-
-    light_infantry_offensive = -0.8
-    light_infantry_defensive = 0.2
-    heavy_infantry_offensive = 0.8
-    heavy_infantry_defensive = -0.1
-    pikemen_offensive = -0.9
-    pikemen_defensive = 0.2
-    light_cavalry_offensive = -0.4
-    light_cavalry_defensive = 0.1
-    knights_offensive = -0.2
-    knights_defensive = 0.0
-    archers_offensive = -0.5
-    archers_defensive = 0.3
-
-}
-
-laser_cone = {
-    sprite = 1
-    days = 5
-
-    trigger = {
-        phase = melee
-        days >= 1
-    }
-
-    mean_time_to_happen = {
-        days = 100
-    }
-
-    light_infantry_offensive = -0.6
-    light_infantry_defensive = 0.4
-    heavy_infantry_offensive = 3.0
-    heavy_infantry_defensive = 0.1
-    pikemen_offensive = -0.8
-    pikemen_defensive = 0.2
-    light_cavalry_offensive = 0.2
-    light_cavalry_defensive = 0.2
-    knights_offensive = 0.7
-    knights_defensive = 0.2
-    archers_offensive = 0.1
-    archers_defensive = 0.4
-
-}
-
-laser_inverted_cone = {
-    sprite = 1
-    days = 7
-
-    trigger = {
-        phase = melee
-        days >= 1
-    }
-
-    mean_time_to_happen = {
-        days = 100
-    }
-
-    light_infantry_offensive = -0.6
-    light_infantry_defensive = 0.4
-    heavy_infantry_offensive = 3.2
-    heavy_infantry_defensive = 0.1
-    pikemen_offensive = -0.8
-    pikemen_defensive = 0.1
-    light_cavalry_offensive = 0.3
-    light_cavalry_defensive = 0.1
-    knights_offensive = 0.8
-    knights_defensive = 0.1
-    archers_offensive = 0.1
-    archers_defensive = 0.3
-
-}
-
-laser_echelon = {
-    sprite = 1
-    days = 3
-
-    trigger = {
-        phase = melee
-        days >= 1
-    }
-
-    mean_time_to_happen = {
-        days = 100
-    }
-
-    light_infantry_offensive = -0.6
-    light_infantry_defensive = 0.4
-    heavy_infantry_offensive = 3.0
-    heavy_infantry_defensive = 0.1
-    pikemen_offensive = -0.8
-    pikemen_defensive = 0.2
-    light_cavalry_offensive = 0.2
-    light_cavalry_defensive = 0.2
-    knights_offensive = 0.7
-    knights_defensive = 0.2
-    archers_offensive = 0.1
-    archers_defensive = 0.4
-
-}
-
-laser_cube = {
-    sprite = 1
-    days = 5
-
-    trigger = {
-        phase = melee
-        days >= 1
-    }
-
-    mean_time_to_happen = {
-        days = 100
-    }
-
-    light_infantry_offensive = -0.8
-    light_infantry_defensive = 0.0
-    heavy_infantry_offensive = 0.8
-    heavy_infantry_defensive = -0.2
-    pikemen_offensive = -0.9
-    pikemen_defensive = 0.0
-    light_cavalry_offensive = -0.4
-    light_cavalry_defensive = -0.1
-    knights_offensive = -0.2
-    knights_defensive = -0.1
-    archers_offensive = -0.5
-    archers_defensive = 0.1
-
 }
 
 kinetic_column = {
     sprite = 1
     days = 4
+    group = column
 
     trigger = {
         phase = melee
         days >= 1
+        is_flanking = no
+        flank_has_leader = yes
+        leader = {
+        }
     }
 
     mean_time_to_happen = {
         days = 100
+
+        mult_modifier = {
+            factor = 2
+
+            leader = { enemy = {
+                flank_has_tactic = twod
+            } }
+        }
+
+        mult_modifier = {
+            factor = 3
+
+            leader = { enemy = {
+                flank_has_tactic = plane
+            } }
+        }
+
+        mult_modifier = {
+            factor = 4
+
+            leader = { enemy = {
+                flank_has_tactic = funnel
+            } }
+        }
+
+        mult_modifier = {
+            factor = 1
+
+            leader = { enemy = {
+                flank_has_tactic = encircled
+            } }
+        }
+
+        additive_modifier = {
+            value = 10
+
+            leader = { enemy = {
+                flank_has_tactic = plane
+            } }
+        }
+
+        additive_modifier = {
+            value = 5.0
+
+            leader = { enemy = {
+                flank_has_tactic = funnel
+            } }
+        }
+
+        mult_modifier = {
+            factor = 4
+            leader = {
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                religion = neo_feudal
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = short_range_specialist
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = defensive_leader
+            }
+        }
     }
 
     light_infantry_offensive = -0.6
@@ -362,159 +327,125 @@ kinetic_column = {
     archers_offensive = -0.9
     archers_defensive = 1.5
 
-}
 
-kinetic_sphere = {
-    sprite = 1
-    days = 6
-
-    trigger = {
-        phase = melee
-        days >= 1
+    enemy = {
+        group = funnel
+        factor = 0.5
     }
 
-    mean_time_to_happen = {
-        days = 100
+    enemy = {
+        group = plane
+        factor = 1
     }
-
-    light_infantry_offensive = 0.3
-    light_infantry_defensive = 0.4
-    heavy_infantry_offensive = -1.0
-    heavy_infantry_defensive = 1.9
-    pikemen_offensive = 0.9
-    pikemen_defensive = 0.6
-    light_cavalry_offensive = 0.2
-    light_cavalry_defensive = 1.0
-    knights_offensive = 0.0
-    knights_defensive = 1.4
-    archers_offensive = -0.5
-    archers_defensive = 0.2
-
-}
-
-kinetic_cone = {
-    sprite = 1
-    days = 5
-
-    trigger = {
-        phase = melee
-        days >= 1
-    }
-
-    mean_time_to_happen = {
-        days = 100
-    }
-
-    light_infantry_offensive = 2.6
-    light_infantry_defensive = 0.6
-    heavy_infantry_offensive = -1.0
-    heavy_infantry_defensive = 2.0
-    pikemen_offensive = 2.8
-    pikemen_defensive = 0.5
-    light_cavalry_offensive = 1.8
-    light_cavalry_defensive = 1.1
-    knights_offensive = 1.3
-    knights_defensive = 1.6
-    archers_offensive = 0.1
-    archers_defensive = 0.3
-
-}
-
-kinetic_inverted_cone = {
-    sprite = 1
-    days = 7
-
-    trigger = {
-        phase = melee
-        days >= 1
-    }
-
-    mean_time_to_happen = {
-        days = 100
-    }
-
-    light_infantry_offensive = 2.8
-    light_infantry_defensive = 0.5
-    heavy_infantry_offensive = -1.0
-    heavy_infantry_defensive = 1.8
-    pikemen_offensive = 3.0
-    pikemen_defensive = 0.4
-    light_cavalry_offensive = 1.9
-    light_cavalry_defensive = 0.9
-    knights_offensive = 1.5
-    knights_defensive = 1.4
-    archers_offensive = 0.1
-    archers_defensive = 0.2
-
-}
-
-kinetic_echelon = {
-    sprite = 1
-    days = 3
-
-    trigger = {
-        phase = melee
-        days >= 1
-    }
-
-    mean_time_to_happen = {
-        days = 100
-    }
-
-    light_infantry_offensive = 2.6
-    light_infantry_defensive = 0.6
-    heavy_infantry_offensive = -1.0
-    heavy_infantry_defensive = 2.0
-    pikemen_offensive = 2.8
-    pikemen_defensive = 0.5
-    light_cavalry_offensive = 1.8
-    light_cavalry_defensive = 1.1
-    knights_offensive = 1.3
-    knights_defensive = 1.6
-    archers_offensive = 0.1
-    archers_defensive = 0.3
-
-}
-
-kinetic_cube = {
-    sprite = 1
-    days = 5
-
-    trigger = {
-        phase = melee
-        days >= 1
-    }
-
-    mean_time_to_happen = {
-        days = 100
-    }
-
-    light_infantry_offensive = 0.3
-    light_infantry_defensive = 0.3
-    heavy_infantry_offensive = -1.0
-    heavy_infantry_defensive = 1.6
-    pikemen_offensive = 0.9
-    pikemen_defensive = 0.4
-    light_cavalry_offensive = 0.2
-    light_cavalry_defensive = 0.8
-    knights_offensive = 0.0
-    knights_defensive = 1.2
-    archers_offensive = -0.5
-    archers_defensive = 0.0
-
 }
 
 defensive_column = {
     sprite = 1
     days = 4
+    group = column
 
     trigger = {
         phase = melee
         days >= 1
+        is_flanking = no
+        flank_has_leader = yes
+        leader = {
+            NOT = { trait = pursuit_specialist }
+        }
     }
 
     mean_time_to_happen = {
         days = 100
+
+        mult_modifier = {
+            factor = 2
+
+            leader = { enemy = {
+                flank_has_tactic = twod
+            } }
+        }
+
+        mult_modifier = {
+            factor = 3
+
+            leader = { enemy = {
+                flank_has_tactic = plane
+            } }
+        }
+
+        mult_modifier = {
+            factor = 4
+
+            leader = { enemy = {
+                flank_has_tactic = funnel
+            } }
+        }
+
+        mult_modifier = {
+            factor = 1
+
+            leader = { enemy = {
+                flank_has_tactic = encircled
+            } }
+        }
+
+        additive_modifier = {
+            value = 10
+
+            leader = { enemy = {
+                flank_has_tactic = plane
+            } }
+        }
+
+        additive_modifier = {
+            value = 5.0
+
+            leader = { enemy = {
+                flank_has_tactic = funnel
+            } }
+        }
+
+        mult_modifier = {
+            factor = 4
+            leader = {
+            }
+        }
+        additive_modifier = {
+            value = -30
+            leader = {
+                trait = frigate_pilot
+            }
+        }
+        additive_modifier = {
+            value = -30
+            leader = {
+                trait = aggressive_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = short_range_specialist
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = defensive_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = defensive_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = unyielding_leader
+            }
+        }
     }
 
     light_infantry_offensive = -0.9
@@ -530,159 +461,118 @@ defensive_column = {
     archers_offensive = -0.8
     archers_defensive = 2.2
 
-}
 
-defensive_sphere = {
-    sprite = 1
-    days = 6
-
-    trigger = {
-        phase = melee
-        days >= 1
+    enemy = {
+        group = funnel
+        factor = 0.5
     }
 
-    mean_time_to_happen = {
-        days = 100
+    enemy = {
+        group = plane
+        factor = 1
     }
-
-    light_infantry_offensive = -0.6
-    light_infantry_defensive = 1.3
-    heavy_infantry_offensive = -0.6
-    heavy_infantry_defensive = 1.2
-    pikemen_offensive = -0.5
-    pikemen_defensive = 1.1
-    light_cavalry_offensive = -0.6
-    light_cavalry_defensive = 1.0
-    knights_offensive = -0.6
-    knights_defensive = 1.1
-    archers_offensive = -0.1
-    archers_defensive = 0.7
-
-}
-
-defensive_cone = {
-    sprite = 1
-    days = 5
-
-    trigger = {
-        phase = melee
-        days >= 1
-    }
-
-    mean_time_to_happen = {
-        days = 100
-    }
-
-    light_infantry_offensive = 0.0
-    light_infantry_defensive = 1.6
-    heavy_infantry_offensive = 0.0
-    heavy_infantry_defensive = 1.5
-    pikemen_offensive = 0.0
-    pikemen_defensive = 1.1
-    light_cavalry_offensive = 0.0
-    light_cavalry_defensive = 1.2
-    knights_offensive = 0.0
-    knights_defensive = 1.4
-    archers_offensive = 0.9
-    archers_defensive = 1.0
-
-}
-
-defensive_inverted_cone = {
-    sprite = 1
-    days = 7
-
-    trigger = {
-        phase = melee
-        days >= 1
-    }
-
-    mean_time_to_happen = {
-        days = 100
-    }
-
-    light_infantry_offensive = 0.1
-    light_infantry_defensive = 1.5
-    heavy_infantry_offensive = 0.1
-    heavy_infantry_defensive = 1.4
-    pikemen_offensive = 0.1
-    pikemen_defensive = 1.0
-    light_cavalry_offensive = 0.1
-    light_cavalry_defensive = 1.1
-    knights_offensive = 0.1
-    knights_defensive = 1.3
-    archers_offensive = 0.9
-    archers_defensive = 0.9
-
-}
-
-defensive_echelon = {
-    sprite = 1
-    days = 3
-
-    trigger = {
-        phase = melee
-        days >= 1
-    }
-
-    mean_time_to_happen = {
-        days = 100
-    }
-
-    light_infantry_offensive = 0.0
-    light_infantry_defensive = 1.6
-    heavy_infantry_offensive = 0.0
-    heavy_infantry_defensive = 1.5
-    pikemen_offensive = 0.0
-    pikemen_defensive = 1.1
-    light_cavalry_offensive = 0.0
-    light_cavalry_defensive = 1.2
-    knights_offensive = 0.0
-    knights_defensive = 1.4
-    archers_offensive = 0.9
-    archers_defensive = 1.0
-
-}
-
-defensive_cube = {
-    sprite = 1
-    days = 5
-
-    trigger = {
-        phase = melee
-        days >= 1
-    }
-
-    mean_time_to_happen = {
-        days = 100
-    }
-
-    light_infantry_offensive = -0.6
-    light_infantry_defensive = 1.0
-    heavy_infantry_offensive = -0.6
-    heavy_infantry_defensive = 0.9
-    pikemen_offensive = -0.5
-    pikemen_defensive = 0.8
-    light_cavalry_offensive = -0.6
-    light_cavalry_defensive = 0.8
-    knights_offensive = -0.6
-    knights_defensive = 0.8
-    archers_offensive = -0.1
-    archers_defensive = 0.4
-
 }
 
 boarding_column = {
     sprite = 1
     days = 4
+    group = column
 
     trigger = {
         phase = melee
         days >= 1
+        is_flanking = no
+        flank_has_leader = yes
+        leader = {
+        }
     }
 
     mean_time_to_happen = {
         days = 100
+
+        mult_modifier = {
+            factor = 2
+
+            leader = { enemy = {
+                flank_has_tactic = twod
+            } }
+        }
+
+        mult_modifier = {
+            factor = 3
+
+            leader = { enemy = {
+                flank_has_tactic = plane
+            } }
+        }
+
+        mult_modifier = {
+            factor = 4
+
+            leader = { enemy = {
+                flank_has_tactic = funnel
+            } }
+        }
+
+        mult_modifier = {
+            factor = 1
+
+            leader = { enemy = {
+                flank_has_tactic = encircled
+            } }
+        }
+
+        additive_modifier = {
+            value = 10
+
+            leader = { enemy = {
+                flank_has_tactic = plane
+            } }
+        }
+
+        additive_modifier = {
+            value = 5.0
+
+            leader = { enemy = {
+                flank_has_tactic = funnel
+            } }
+        }
+
+        mult_modifier = {
+            factor = 4
+            leader = {
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                religion = neo_feudal
+            }
+        }
+        additive_modifier = {
+            value = -30
+            leader = {
+                trait = defensive_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = short_range_specialist
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = defensive_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = pursuit_specialist
+            }
+        }
     }
 
     light_infantry_offensive = -0.9
@@ -698,6 +588,321 @@ boarding_column = {
     archers_offensive = -0.4
     archers_defensive = 1.3
 
+
+    enemy = {
+        group = funnel
+        factor = 0.5
+    }
+
+    enemy = {
+        group = plane
+        factor = 1
+    }
+}
+
+balanced_sphere = {
+    sprite = 1
+    days = 6
+
+    trigger = {
+        phase = melee
+        days >= 1
+        flank_has_leader = yes
+        leader = {
+            martial >= 14
+        }
+    }
+
+    mean_time_to_happen = {
+        days = 100
+
+        additive_modifier = {
+            value = 5.0
+
+            leader = { enemy = {
+                flank_has_tactic = rearattack
+            } }
+        }
+
+        mult_modifier = {
+            factor = 4
+            leader = {
+                martial >= 14
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = range_generalist
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = defensive_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = narrow_flank_leader
+            }
+        }
+    }
+
+    light_infantry_offensive = -0.3
+    light_infantry_defensive = 0.1
+    heavy_infantry_offensive = -0.1
+    heavy_infantry_defensive = 0.1
+    pikemen_offensive = 0.0
+    pikemen_defensive = 0.2
+    light_cavalry_offensive = -0.1
+    light_cavalry_defensive = 0.2
+    knights_offensive = -0.1
+    knights_defensive = 0.2
+    archers_offensive = -0.4
+    archers_defensive = 0.3
+
+
+    enemy = {
+        group = rearattack
+        factor = 0.5
+    }
+}
+
+laser_sphere = {
+    sprite = 1
+    days = 6
+
+    trigger = {
+        phase = melee
+        days >= 1
+        flank_has_leader = yes
+        leader = {
+            martial >= 14
+        }
+    }
+
+    mean_time_to_happen = {
+        days = 100
+
+        additive_modifier = {
+            value = 5.0
+
+            leader = { enemy = {
+                flank_has_tactic = rearattack
+            } }
+        }
+
+        mult_modifier = {
+            factor = 4
+            leader = {
+                martial >= 14
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = range_generalist
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = defensive_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = narrow_flank_leader
+            }
+        }
+    }
+
+    light_infantry_offensive = -0.8
+    light_infantry_defensive = 0.2
+    heavy_infantry_offensive = 0.8
+    heavy_infantry_defensive = -0.1
+    pikemen_offensive = -0.9
+    pikemen_defensive = 0.2
+    light_cavalry_offensive = -0.4
+    light_cavalry_defensive = 0.1
+    knights_offensive = -0.2
+    knights_defensive = 0.0
+    archers_offensive = -0.5
+    archers_defensive = 0.3
+
+
+    enemy = {
+        group = rearattack
+        factor = 0.5
+    }
+}
+
+kinetic_sphere = {
+    sprite = 1
+    days = 6
+
+    trigger = {
+        phase = melee
+        days >= 1
+        flank_has_leader = yes
+        leader = {
+            martial >= 14
+        }
+    }
+
+    mean_time_to_happen = {
+        days = 100
+
+        additive_modifier = {
+            value = 5.0
+
+            leader = { enemy = {
+                flank_has_tactic = rearattack
+            } }
+        }
+
+        mult_modifier = {
+            factor = 4
+            leader = {
+                martial >= 14
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = range_generalist
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = defensive_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = narrow_flank_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                religion = neo_feudal
+            }
+        }
+    }
+
+    light_infantry_offensive = 0.3
+    light_infantry_defensive = 0.4
+    heavy_infantry_offensive = -1.0
+    heavy_infantry_defensive = 1.9
+    pikemen_offensive = 0.9
+    pikemen_defensive = 0.6
+    light_cavalry_offensive = 0.2
+    light_cavalry_defensive = 1.0
+    knights_offensive = 0.0
+    knights_defensive = 1.4
+    archers_offensive = -0.5
+    archers_defensive = 0.2
+
+
+    enemy = {
+        group = rearattack
+        factor = 0.5
+    }
+}
+
+defensive_sphere = {
+    sprite = 1
+    days = 6
+
+    trigger = {
+        phase = melee
+        days >= 1
+        flank_has_leader = yes
+        leader = {
+            martial >= 14
+            NOT = { trait = pursuit_specialist }
+        }
+    }
+
+    mean_time_to_happen = {
+        days = 100
+
+        additive_modifier = {
+            value = 5.0
+
+            leader = { enemy = {
+                flank_has_tactic = rearattack
+            } }
+        }
+
+        mult_modifier = {
+            factor = 4
+            leader = {
+                martial >= 14
+            }
+        }
+        additive_modifier = {
+            value = -30
+            leader = {
+                trait = frigate_pilot
+            }
+        }
+        additive_modifier = {
+            value = -30
+            leader = {
+                trait = aggressive_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = range_generalist
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = defensive_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = narrow_flank_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = unyielding_leader
+            }
+        }
+    }
+
+    light_infantry_offensive = -0.6
+    light_infantry_defensive = 1.3
+    heavy_infantry_offensive = -0.6
+    heavy_infantry_defensive = 1.2
+    pikemen_offensive = -0.5
+    pikemen_defensive = 1.1
+    light_cavalry_offensive = -0.6
+    light_cavalry_defensive = 1.0
+    knights_offensive = -0.6
+    knights_defensive = 1.1
+    archers_offensive = -0.1
+    archers_defensive = 0.7
+
+
+    enemy = {
+        group = rearattack
+        factor = 0.5
+    }
 }
 
 boarding_sphere = {
@@ -707,10 +912,59 @@ boarding_sphere = {
     trigger = {
         phase = melee
         days >= 1
+        flank_has_leader = yes
+        leader = {
+            martial >= 14
+        }
     }
 
     mean_time_to_happen = {
         days = 100
+
+        additive_modifier = {
+            value = 5.0
+
+            leader = { enemy = {
+                flank_has_tactic = rearattack
+            } }
+        }
+
+        mult_modifier = {
+            factor = 4
+            leader = {
+                martial >= 14
+            }
+        }
+        additive_modifier = {
+            value = -30
+            leader = {
+                trait = defensive_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = range_generalist
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = defensive_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = narrow_flank_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                religion = neo_feudal
+            }
+        }
     }
 
     light_infantry_offensive = -0.7
@@ -726,6 +980,316 @@ boarding_sphere = {
     archers_offensive = 1.5
     archers_defensive = 0.1
 
+
+    enemy = {
+        group = rearattack
+        factor = 0.5
+    }
+}
+
+balanced_cone = {
+    sprite = 1
+    days = 5
+
+    trigger = {
+        phase = melee
+        days >= 1
+        flank_has_leader = yes
+        leader = {
+            martial >= 12
+        }
+    }
+
+    mean_time_to_happen = {
+        days = 100
+
+        additive_modifier = {
+            value = 10
+
+            leader = { enemy = {
+                flank_has_tactic = plane
+            } }
+        }
+
+        mult_modifier = {
+            factor = 4
+            leader = {
+                martial >= 12
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = experimenter
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = unyielding_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = omnicidal_maniac
+            }
+        }
+    }
+
+    light_infantry_offensive = 1.0
+    light_infantry_defensive = 0.3
+    heavy_infantry_offensive = 1.0
+    heavy_infantry_defensive = 0.3
+    pikemen_offensive = 1.0
+    pikemen_defensive = 0.2
+    light_cavalry_offensive = 1.0
+    light_cavalry_defensive = 0.3
+    knights_offensive = 1.0
+    knights_defensive = 0.3
+    archers_offensive = 0.5
+    archers_defensive = 0.3
+
+
+    enemy = {
+        group = plane
+        factor = 1
+    }
+}
+
+laser_cone = {
+    sprite = 1
+    days = 5
+
+    trigger = {
+        phase = melee
+        days >= 1
+        flank_has_leader = yes
+        leader = {
+            martial >= 12
+        }
+    }
+
+    mean_time_to_happen = {
+        days = 100
+
+        additive_modifier = {
+            value = 10
+
+            leader = { enemy = {
+                flank_has_tactic = plane
+            } }
+        }
+
+        mult_modifier = {
+            factor = 4
+            leader = {
+                martial >= 12
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = experimenter
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = unyielding_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = omnicidal_maniac
+            }
+        }
+    }
+
+    light_infantry_offensive = -0.6
+    light_infantry_defensive = 0.4
+    heavy_infantry_offensive = 3.0
+    heavy_infantry_defensive = 0.1
+    pikemen_offensive = -0.8
+    pikemen_defensive = 0.2
+    light_cavalry_offensive = 0.2
+    light_cavalry_defensive = 0.2
+    knights_offensive = 0.7
+    knights_defensive = 0.2
+    archers_offensive = 0.1
+    archers_defensive = 0.4
+
+
+    enemy = {
+        group = plane
+        factor = 1
+    }
+}
+
+kinetic_cone = {
+    sprite = 1
+    days = 5
+
+    trigger = {
+        phase = melee
+        days >= 1
+        flank_has_leader = yes
+        leader = {
+            martial >= 12
+        }
+    }
+
+    mean_time_to_happen = {
+        days = 100
+
+        additive_modifier = {
+            value = 10
+
+            leader = { enemy = {
+                flank_has_tactic = plane
+            } }
+        }
+
+        mult_modifier = {
+            factor = 4
+            leader = {
+                martial >= 12
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = experimenter
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = unyielding_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = omnicidal_maniac
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                religion = neo_feudal
+            }
+        }
+    }
+
+    light_infantry_offensive = 2.6
+    light_infantry_defensive = 0.6
+    heavy_infantry_offensive = -1.0
+    heavy_infantry_defensive = 2.0
+    pikemen_offensive = 2.8
+    pikemen_defensive = 0.5
+    light_cavalry_offensive = 1.8
+    light_cavalry_defensive = 1.1
+    knights_offensive = 1.3
+    knights_defensive = 1.6
+    archers_offensive = 0.1
+    archers_defensive = 0.3
+
+
+    enemy = {
+        group = plane
+        factor = 1
+    }
+}
+
+defensive_cone = {
+    sprite = 1
+    days = 5
+
+    trigger = {
+        phase = melee
+        days >= 1
+        flank_has_leader = yes
+        leader = {
+            martial >= 12
+            NOT = { trait = pursuit_specialist }
+        }
+    }
+
+    mean_time_to_happen = {
+        days = 100
+
+        additive_modifier = {
+            value = 10
+
+            leader = { enemy = {
+                flank_has_tactic = plane
+            } }
+        }
+
+        mult_modifier = {
+            factor = 4
+            leader = {
+                martial >= 12
+            }
+        }
+        additive_modifier = {
+            value = -30
+            leader = {
+                trait = frigate_pilot
+            }
+        }
+        additive_modifier = {
+            value = -30
+            leader = {
+                trait = aggressive_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = experimenter
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = unyielding_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = omnicidal_maniac
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = unyielding_leader
+            }
+        }
+    }
+
+    light_infantry_offensive = 0.0
+    light_infantry_defensive = 1.6
+    heavy_infantry_offensive = 0.0
+    heavy_infantry_defensive = 1.5
+    pikemen_offensive = 0.0
+    pikemen_defensive = 1.1
+    light_cavalry_offensive = 0.0
+    light_cavalry_defensive = 1.2
+    knights_offensive = 0.0
+    knights_defensive = 1.4
+    archers_offensive = 0.9
+    archers_defensive = 1.0
+
+
+    enemy = {
+        group = plane
+        factor = 1
+    }
 }
 
 boarding_cone = {
@@ -735,10 +1299,59 @@ boarding_cone = {
     trigger = {
         phase = melee
         days >= 1
+        flank_has_leader = yes
+        leader = {
+            martial >= 12
+        }
     }
 
     mean_time_to_happen = {
         days = 100
+
+        additive_modifier = {
+            value = 10
+
+            leader = { enemy = {
+                flank_has_tactic = plane
+            } }
+        }
+
+        mult_modifier = {
+            factor = 4
+            leader = {
+                martial >= 12
+            }
+        }
+        additive_modifier = {
+            value = -30
+            leader = {
+                trait = defensive_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = experimenter
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = unyielding_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = omnicidal_maniac
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                religion = neo_feudal
+            }
+        }
     }
 
     light_infantry_offensive = -0.2
@@ -754,19 +1367,543 @@ boarding_cone = {
     archers_offensive = 4.5
     archers_defensive = 0.1
 
+
+    enemy = {
+        group = plane
+        factor = 1
+    }
 }
 
-boarding_inverted_cone = {
+balanced_funnel = {
     sprite = 1
     days = 7
+    group = funnel
 
     trigger = {
         phase = melee
         days >= 1
+        flank_has_leader = yes
+        leader = {
+            martial >= 15
+        }
     }
 
     mean_time_to_happen = {
         days = 100
+
+        mult_modifier = {
+            factor = 8
+
+            leader = { enemy = {
+                flank_has_tactic = cone
+            } }
+        }
+
+        additive_modifier = {
+            value = 20
+
+            leader = { enemy = {
+                flank_has_tactic = encircled
+            } }
+        }
+
+        mult_modifier = {
+            factor = 4
+            leader = {
+                martial >= 15
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = short_range_specialist
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = aggressive_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = shock_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            troops = {
+                who = troops
+                value > 1.2
+                enemy = yes
+            }
+        }
+        additive_modifier = {
+            value = 50
+            troops = {
+                who = troops
+                value > 1.6
+                enemy = yes
+            }
+        }
+        additive_modifier = {
+            value = 40
+            troops = {
+                who = troops
+                value > 1.4
+                enemy = yes
+            }
+        }
+    }
+
+    light_infantry_offensive = 1.1
+    light_infantry_defensive = 0.2
+    heavy_infantry_offensive = 1.1
+    heavy_infantry_defensive = 0.2
+    pikemen_offensive = 1.1
+    pikemen_defensive = 0.1
+    light_cavalry_offensive = 1.1
+    light_cavalry_defensive = 0.2
+    knights_offensive = 1.1
+    knights_defensive = 0.2
+    archers_offensive = 0.5
+    archers_defensive = 0.3
+
+
+    enemy = {
+        group = encircled
+        factor = 2
+    }
+}
+
+laser_funnel = {
+    sprite = 1
+    days = 7
+    group = funnel
+
+    trigger = {
+        phase = melee
+        days >= 1
+        flank_has_leader = yes
+        leader = {
+            martial >= 15
+        }
+    }
+
+    mean_time_to_happen = {
+        days = 100
+
+        mult_modifier = {
+            factor = 8
+
+            leader = { enemy = {
+                flank_has_tactic = cone
+            } }
+        }
+
+        additive_modifier = {
+            value = 20
+
+            leader = { enemy = {
+                flank_has_tactic = encircled
+            } }
+        }
+
+        mult_modifier = {
+            factor = 4
+            leader = {
+                martial >= 15
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = short_range_specialist
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = aggressive_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = shock_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            troops = {
+                who = troops
+                value > 1.2
+                enemy = yes
+            }
+        }
+        additive_modifier = {
+            value = 50
+            troops = {
+                who = troops
+                value > 1.6
+                enemy = yes
+            }
+        }
+        additive_modifier = {
+            value = 40
+            troops = {
+                who = troops
+                value > 1.4
+                enemy = yes
+            }
+        }
+    }
+
+    light_infantry_offensive = -0.6
+    light_infantry_defensive = 0.4
+    heavy_infantry_offensive = 3.2
+    heavy_infantry_defensive = 0.1
+    pikemen_offensive = -0.8
+    pikemen_defensive = 0.1
+    light_cavalry_offensive = 0.3
+    light_cavalry_defensive = 0.1
+    knights_offensive = 0.8
+    knights_defensive = 0.1
+    archers_offensive = 0.1
+    archers_defensive = 0.3
+
+
+    enemy = {
+        group = encircled
+        factor = 2
+    }
+}
+
+kinetic_funnel = {
+    sprite = 1
+    days = 7
+    group = funnel
+
+    trigger = {
+        phase = melee
+        days >= 1
+        flank_has_leader = yes
+        leader = {
+            martial >= 15
+        }
+    }
+
+    mean_time_to_happen = {
+        days = 100
+
+        mult_modifier = {
+            factor = 8
+
+            leader = { enemy = {
+                flank_has_tactic = cone
+            } }
+        }
+
+        additive_modifier = {
+            value = 20
+
+            leader = { enemy = {
+                flank_has_tactic = encircled
+            } }
+        }
+
+        mult_modifier = {
+            factor = 4
+            leader = {
+                martial >= 15
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                religion = neo_feudal
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = short_range_specialist
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = aggressive_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = shock_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            troops = {
+                who = troops
+                value > 1.2
+                enemy = yes
+            }
+        }
+        additive_modifier = {
+            value = 40
+            troops = {
+                who = troops
+                value > 1.4
+                enemy = yes
+            }
+        }
+        additive_modifier = {
+            value = 50
+            troops = {
+                who = troops
+                value > 1.6
+                enemy = yes
+            }
+        }
+    }
+
+    light_infantry_offensive = 2.8
+    light_infantry_defensive = 0.5
+    heavy_infantry_offensive = -1.0
+    heavy_infantry_defensive = 1.8
+    pikemen_offensive = 3.0
+    pikemen_defensive = 0.4
+    light_cavalry_offensive = 1.9
+    light_cavalry_defensive = 0.9
+    knights_offensive = 1.5
+    knights_defensive = 1.4
+    archers_offensive = 0.1
+    archers_defensive = 0.2
+
+
+    enemy = {
+        group = encircled
+        factor = 2
+    }
+}
+
+defensive_funnel = {
+    sprite = 1
+    days = 7
+    group = funnel
+
+    trigger = {
+        phase = melee
+        days >= 1
+        flank_has_leader = yes
+        leader = {
+            martial >= 15
+            NOT = { trait = pursuit_specialist }
+        }
+    }
+
+    mean_time_to_happen = {
+        days = 100
+
+        mult_modifier = {
+            factor = 8
+
+            leader = { enemy = {
+                flank_has_tactic = cone
+            } }
+        }
+
+        additive_modifier = {
+            value = 20
+
+            leader = { enemy = {
+                flank_has_tactic = encircled
+            } }
+        }
+
+        mult_modifier = {
+            factor = 4
+            leader = {
+                martial >= 15
+            }
+        }
+        additive_modifier = {
+            value = -30
+            leader = {
+                trait = frigate_pilot
+            }
+        }
+        additive_modifier = {
+            value = -30
+            leader = {
+                trait = aggressive_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = short_range_specialist
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = aggressive_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = shock_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = unyielding_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            troops = {
+                who = troops
+                value > 1.2
+                enemy = yes
+            }
+        }
+        additive_modifier = {
+            value = 50
+            troops = {
+                who = troops
+                value > 1.6
+                enemy = yes
+            }
+        }
+        additive_modifier = {
+            value = 40
+            troops = {
+                who = troops
+                value > 1.4
+                enemy = yes
+            }
+        }
+    }
+
+    light_infantry_offensive = 0.1
+    light_infantry_defensive = 1.5
+    heavy_infantry_offensive = 0.1
+    heavy_infantry_defensive = 1.4
+    pikemen_offensive = 0.1
+    pikemen_defensive = 1.0
+    light_cavalry_offensive = 0.1
+    light_cavalry_defensive = 1.1
+    knights_offensive = 0.1
+    knights_defensive = 1.3
+    archers_offensive = 0.9
+    archers_defensive = 0.9
+
+
+    enemy = {
+        group = encircled
+        factor = 2
+    }
+}
+
+boarding_funnel = {
+    sprite = 1
+    days = 7
+    group = funnel
+
+    trigger = {
+        phase = melee
+        days >= 1
+        flank_has_leader = yes
+        leader = {
+            martial >= 15
+        }
+    }
+
+    mean_time_to_happen = {
+        days = 100
+
+        mult_modifier = {
+            factor = 8
+
+            leader = { enemy = {
+                flank_has_tactic = cone
+            } }
+        }
+
+        additive_modifier = {
+            value = 20
+
+            leader = { enemy = {
+                flank_has_tactic = encircled
+            } }
+        }
+
+        mult_modifier = {
+            factor = 4
+            leader = {
+                martial >= 15
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                religion = neo_feudal
+            }
+        }
+        additive_modifier = {
+            value = -30
+            leader = {
+                trait = defensive_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = short_range_specialist
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = aggressive_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = shock_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            troops = {
+                who = troops
+                value > 1.2
+                enemy = yes
+            }
+        }
+        additive_modifier = {
+            value = 40
+            troops = {
+                who = troops
+                value > 1.4
+                enemy = yes
+            }
+        }
+        additive_modifier = {
+            value = 50
+            troops = {
+                who = troops
+                value > 1.6
+                enemy = yes
+            }
+        }
     }
 
     light_infantry_offensive = -0.2
@@ -782,6 +1919,372 @@ boarding_inverted_cone = {
     archers_offensive = 4.5
     archers_defensive = 0.1
 
+
+    enemy = {
+        group = encircled
+        factor = 2
+    }
+}
+
+balanced_echelon = {
+    sprite = 1
+    days = 3
+
+    trigger = {
+        phase = melee
+        days >= 1
+        is_flanking = yes
+        flank_has_leader = yes
+        leader = {
+            martial >= 13
+        }
+    }
+
+    mean_time_to_happen = {
+        days = 100
+
+        additive_modifier = {
+            value = 10
+
+            leader = { enemy = {
+                flank_has_tactic = column
+            } }
+        }
+
+        additive_modifier = {
+            value = 20
+
+            leader = { enemy = {
+                flank_has_tactic = encircled
+            } }
+        }
+
+        mult_modifier = {
+            factor = 4
+            leader = {
+                martial >= 13
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = flanker
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = pursuit_specialist
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = aggressive_leader
+            }
+        }
+    }
+
+    light_infantry_offensive = 1.0
+    light_infantry_defensive = 0.3
+    heavy_infantry_offensive = 1.0
+    heavy_infantry_defensive = 0.3
+    pikemen_offensive = 1.0
+    pikemen_defensive = 0.2
+    light_cavalry_offensive = 1.0
+    light_cavalry_defensive = 0.3
+    knights_offensive = 1.0
+    knights_defensive = 0.3
+    archers_offensive = 0.5
+    archers_defensive = 0.3
+
+
+    enemy = {
+        group = column
+        factor = 1
+    }
+
+    enemy = {
+        group = encircled
+        factor = 2
+    }
+}
+
+laser_echelon = {
+    sprite = 1
+    days = 3
+
+    trigger = {
+        phase = melee
+        days >= 1
+        is_flanking = yes
+        flank_has_leader = yes
+        leader = {
+            martial >= 13
+        }
+    }
+
+    mean_time_to_happen = {
+        days = 100
+
+        additive_modifier = {
+            value = 10
+
+            leader = { enemy = {
+                flank_has_tactic = column
+            } }
+        }
+
+        additive_modifier = {
+            value = 20
+
+            leader = { enemy = {
+                flank_has_tactic = encircled
+            } }
+        }
+
+        mult_modifier = {
+            factor = 4
+            leader = {
+                martial >= 13
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = flanker
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = pursuit_specialist
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = aggressive_leader
+            }
+        }
+    }
+
+    light_infantry_offensive = -0.6
+    light_infantry_defensive = 0.4
+    heavy_infantry_offensive = 3.0
+    heavy_infantry_defensive = 0.1
+    pikemen_offensive = -0.8
+    pikemen_defensive = 0.2
+    light_cavalry_offensive = 0.2
+    light_cavalry_defensive = 0.2
+    knights_offensive = 0.7
+    knights_defensive = 0.2
+    archers_offensive = 0.1
+    archers_defensive = 0.4
+
+
+    enemy = {
+        group = column
+        factor = 1
+    }
+
+    enemy = {
+        group = encircled
+        factor = 2
+    }
+}
+
+kinetic_echelon = {
+    sprite = 1
+    days = 3
+
+    trigger = {
+        phase = melee
+        days >= 1
+        is_flanking = yes
+        flank_has_leader = yes
+        leader = {
+            martial >= 13
+        }
+    }
+
+    mean_time_to_happen = {
+        days = 100
+
+        additive_modifier = {
+            value = 10
+
+            leader = { enemy = {
+                flank_has_tactic = column
+            } }
+        }
+
+        additive_modifier = {
+            value = 20
+
+            leader = { enemy = {
+                flank_has_tactic = encircled
+            } }
+        }
+
+        mult_modifier = {
+            factor = 4
+            leader = {
+                martial >= 13
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                religion = neo_feudal
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = flanker
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = pursuit_specialist
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = aggressive_leader
+            }
+        }
+    }
+
+    light_infantry_offensive = 2.6
+    light_infantry_defensive = 0.6
+    heavy_infantry_offensive = -1.0
+    heavy_infantry_defensive = 2.0
+    pikemen_offensive = 2.8
+    pikemen_defensive = 0.5
+    light_cavalry_offensive = 1.8
+    light_cavalry_defensive = 1.1
+    knights_offensive = 1.3
+    knights_defensive = 1.6
+    archers_offensive = 0.1
+    archers_defensive = 0.3
+
+
+    enemy = {
+        group = column
+        factor = 1
+    }
+
+    enemy = {
+        group = encircled
+        factor = 2
+    }
+}
+
+defensive_echelon = {
+    sprite = 1
+    days = 3
+
+    trigger = {
+        phase = melee
+        days >= 1
+        is_flanking = yes
+        flank_has_leader = yes
+        leader = {
+            martial >= 13
+            NOT = { trait = pursuit_specialist }
+        }
+    }
+
+    mean_time_to_happen = {
+        days = 100
+
+        additive_modifier = {
+            value = 10
+
+            leader = { enemy = {
+                flank_has_tactic = column
+            } }
+        }
+
+        additive_modifier = {
+            value = 20
+
+            leader = { enemy = {
+                flank_has_tactic = encircled
+            } }
+        }
+
+        mult_modifier = {
+            factor = 4
+            leader = {
+                martial >= 13
+            }
+        }
+        additive_modifier = {
+            value = -30
+            leader = {
+                trait = frigate_pilot
+            }
+        }
+        additive_modifier = {
+            value = -30
+            leader = {
+                trait = aggressive_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = flanker
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = pursuit_specialist
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = aggressive_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = unyielding_leader
+            }
+        }
+    }
+
+    light_infantry_offensive = 0.0
+    light_infantry_defensive = 1.6
+    heavy_infantry_offensive = 0.0
+    heavy_infantry_defensive = 1.5
+    pikemen_offensive = 0.0
+    pikemen_defensive = 1.1
+    light_cavalry_offensive = 0.0
+    light_cavalry_defensive = 1.2
+    knights_offensive = 0.0
+    knights_defensive = 1.4
+    archers_offensive = 0.9
+    archers_defensive = 1.0
+
+
+    enemy = {
+        group = column
+        factor = 1
+    }
+
+    enemy = {
+        group = encircled
+        factor = 2
+    }
 }
 
 boarding_echelon = {
@@ -791,10 +2294,68 @@ boarding_echelon = {
     trigger = {
         phase = melee
         days >= 1
+        is_flanking = yes
+        flank_has_leader = yes
+        leader = {
+            martial >= 13
+        }
     }
 
     mean_time_to_happen = {
         days = 100
+
+        additive_modifier = {
+            value = 10
+
+            leader = { enemy = {
+                flank_has_tactic = column
+            } }
+        }
+
+        additive_modifier = {
+            value = 20
+
+            leader = { enemy = {
+                flank_has_tactic = encircled
+            } }
+        }
+
+        mult_modifier = {
+            factor = 4
+            leader = {
+                martial >= 13
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                religion = neo_feudal
+            }
+        }
+        additive_modifier = {
+            value = -30
+            leader = {
+                trait = defensive_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = flanker
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = pursuit_specialist
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = aggressive_leader
+            }
+        }
     }
 
     light_infantry_offensive = -0.2
@@ -810,6 +2371,268 @@ boarding_echelon = {
     archers_offensive = 4.5
     archers_defensive = 0.1
 
+
+    enemy = {
+        group = column
+        factor = 1
+    }
+
+    enemy = {
+        group = encircled
+        factor = 2
+    }
+}
+
+balanced_cube = {
+    sprite = 1
+    days = 5
+
+    trigger = {
+        phase = melee
+        days >= 1
+    }
+
+    mean_time_to_happen = {
+        days = 100
+
+        additive_modifier = {
+            value = 5.0
+
+            leader = { enemy = {
+                flank_has_tactic = rearattack
+            } }
+        }
+    }
+
+    light_infantry_offensive = -0.3
+    light_infantry_defensive = 0.0
+    heavy_infantry_offensive = -0.1
+    heavy_infantry_defensive = 0.0
+    pikemen_offensive = 0.0
+    pikemen_defensive = 0.0
+    light_cavalry_offensive = -0.1
+    light_cavalry_defensive = 0.0
+    knights_offensive = -0.1
+    knights_defensive = 0.0
+    archers_offensive = -0.3
+    archers_defensive = 0.1
+
+
+    enemy = {
+        group = rearattack
+        factor = 0.5
+    }
+}
+
+laser_cube = {
+    sprite = 1
+    days = 5
+
+    trigger = {
+        phase = melee
+        days >= 1
+        flank_has_leader = yes
+        leader = {
+        }
+    }
+
+    mean_time_to_happen = {
+        days = 100
+
+        additive_modifier = {
+            value = 5.0
+
+            leader = { enemy = {
+                flank_has_tactic = rearattack
+            } }
+        }
+
+        mult_modifier = {
+            factor = 4
+            leader = {
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = organizer
+            }
+        }
+    }
+
+    light_infantry_offensive = -0.8
+    light_infantry_defensive = 0.0
+    heavy_infantry_offensive = 0.8
+    heavy_infantry_defensive = -0.2
+    pikemen_offensive = -0.9
+    pikemen_defensive = 0.0
+    light_cavalry_offensive = -0.4
+    light_cavalry_defensive = -0.1
+    knights_offensive = -0.2
+    knights_defensive = -0.1
+    archers_offensive = -0.5
+    archers_defensive = 0.1
+
+
+    enemy = {
+        group = rearattack
+        factor = 0.5
+    }
+}
+
+kinetic_cube = {
+    sprite = 1
+    days = 5
+
+    trigger = {
+        phase = melee
+        days >= 1
+        flank_has_leader = yes
+        leader = {
+        }
+    }
+
+    mean_time_to_happen = {
+        days = 100
+
+        additive_modifier = {
+            value = 5.0
+
+            leader = { enemy = {
+                flank_has_tactic = rearattack
+            } }
+        }
+
+        mult_modifier = {
+            factor = 4
+            leader = {
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = organizer
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = kinetic_master
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                religion = neo_feudal
+            }
+        }
+    }
+
+    light_infantry_offensive = 0.3
+    light_infantry_defensive = 0.3
+    heavy_infantry_offensive = -1.0
+    heavy_infantry_defensive = 1.6
+    pikemen_offensive = 0.9
+    pikemen_defensive = 0.4
+    light_cavalry_offensive = 0.2
+    light_cavalry_defensive = 0.8
+    knights_offensive = 0.0
+    knights_defensive = 1.2
+    archers_offensive = -0.5
+    archers_defensive = 0.0
+
+
+    enemy = {
+        group = rearattack
+        factor = 0.5
+    }
+}
+
+defensive_cube = {
+    sprite = 1
+    days = 5
+
+    trigger = {
+        phase = melee
+        days >= 1
+        flank_has_leader = yes
+        leader = {
+            NOT = { trait = pursuit_specialist }
+        }
+    }
+
+    mean_time_to_happen = {
+        days = 100
+
+        additive_modifier = {
+            value = 5.0
+
+            leader = { enemy = {
+                flank_has_tactic = rearattack
+            } }
+        }
+
+        mult_modifier = {
+            factor = 4
+            leader = {
+            }
+        }
+        additive_modifier = {
+            value = -30
+            leader = {
+                trait = frigate_pilot
+            }
+        }
+        additive_modifier = {
+            value = -30
+            leader = {
+                trait = aggressive_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = organizer
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = long_range_combat_specialist
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = defensive_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = unyielding_leader
+            }
+        }
+    }
+
+    light_infantry_offensive = -0.6
+    light_infantry_defensive = 1.0
+    heavy_infantry_offensive = -0.6
+    heavy_infantry_defensive = 0.9
+    pikemen_offensive = -0.5
+    pikemen_defensive = 0.8
+    light_cavalry_offensive = -0.6
+    light_cavalry_defensive = 0.8
+    knights_offensive = -0.6
+    knights_defensive = 0.8
+    archers_offensive = -0.1
+    archers_defensive = 0.4
+
+
+    enemy = {
+        group = rearattack
+        factor = 0.5
+    }
 }
 
 boarding_cube = {
@@ -823,6 +2646,14 @@ boarding_cube = {
 
     mean_time_to_happen = {
         days = 100
+
+        additive_modifier = {
+            value = 5.0
+
+            leader = { enemy = {
+                flank_has_tactic = rearattack
+            } }
+        }
     }
 
     light_infantry_offensive = -0.7
@@ -838,4 +2669,373 @@ boarding_cube = {
     archers_offensive = 1.8
     archers_defensive = -0.1
 
+
+    enemy = {
+        group = rearattack
+        factor = 0.5
+    }
+}
+
+balanced_scattered = {
+    sprite = 1
+    days = 5
+
+    trigger = {
+        phase = melee
+        days >= 1
+    }
+
+    mean_time_to_happen = {
+        days = 100
+
+        additive_modifier = {
+            value = 5.0
+
+            leader = { enemy = {
+                flank_has_tactic = rearattack
+            } }
+        }
+
+        additive_modifier = {
+            value = 10
+
+            leader = { enemy = {
+                flank_has_tactic = encircled
+            } }
+        }
+    }
+
+    light_infantry_offensive = 0.3
+    light_infantry_defensive = 0.5
+    heavy_infantry_offensive = 0.3
+    heavy_infantry_defensive = 0.1
+    pikemen_offensive = 0.1
+    pikemen_defensive = 0.4
+    light_cavalry_offensive = 0.2
+    light_cavalry_defensive = 0.2
+    knights_offensive = 0.3
+    knights_defensive = 0.1
+    archers_offensive = -0.3
+    archers_defensive = 0.1
+
+
+    enemy = {
+        group = rearattack
+        factor = 0.5
+    }
+
+    enemy = {
+        group = encircled
+        factor = 1
+    }
+}
+
+laser_scattered = {
+    sprite = 1
+    days = 5
+
+    trigger = {
+        phase = melee
+        days >= 1
+        flank_has_leader = yes
+        leader = {
+            martial >= 14
+        }
+    }
+
+    mean_time_to_happen = {
+        days = 100
+
+        additive_modifier = {
+            value = 5.0
+
+            leader = { enemy = {
+                flank_has_tactic = rearattack
+            } }
+        }
+
+        additive_modifier = {
+            value = 10
+
+            leader = { enemy = {
+                flank_has_tactic = encircled
+            } }
+        }
+
+        mult_modifier = {
+            factor = 4
+            leader = {
+                martial >= 14
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = kinetic_master
+            }
+        }
+    }
+
+    light_infantry_offensive = -0.8
+    light_infantry_defensive = 0.5
+    heavy_infantry_offensive = 1.6
+    heavy_infantry_defensive = 0.0
+    pikemen_offensive = -0.9
+    pikemen_defensive = 0.4
+    light_cavalry_offensive = -0.2
+    light_cavalry_defensive = 0.1
+    knights_offensive = 0.1
+    knights_defensive = 0.0
+    archers_offensive = -0.5
+    archers_defensive = 0.1
+
+
+    enemy = {
+        group = rearattack
+        factor = 0.5
+    }
+
+    enemy = {
+        group = encircled
+        factor = 1
+    }
+}
+
+kinetic_scattered = {
+    sprite = 1
+    days = 5
+
+    trigger = {
+        phase = melee
+        days >= 1
+        flank_has_leader = yes
+        leader = {
+            martial >= 14
+        }
+    }
+
+    mean_time_to_happen = {
+        days = 100
+
+        additive_modifier = {
+            value = 5.0
+
+            leader = { enemy = {
+                flank_has_tactic = rearattack
+            } }
+        }
+
+        additive_modifier = {
+            value = 10
+
+            leader = { enemy = {
+                flank_has_tactic = encircled
+            } }
+        }
+
+        mult_modifier = {
+            factor = 4
+            leader = {
+                martial >= 14
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = kinetic_master
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = kinetic_master
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                religion = neo_feudal
+            }
+        }
+    }
+
+    light_infantry_offensive = 1.4
+    light_infantry_defensive = 0.8
+    heavy_infantry_offensive = -1.0
+    heavy_infantry_defensive = 1.6
+    pikemen_offensive = 1.1
+    pikemen_defensive = 0.7
+    light_cavalry_offensive = 0.6
+    light_cavalry_defensive = 0.8
+    knights_offensive = 0.4
+    knights_defensive = 1.1
+    archers_offensive = -0.5
+    archers_defensive = 0.0
+
+
+    enemy = {
+        group = rearattack
+        factor = 0.5
+    }
+
+    enemy = {
+        group = encircled
+        factor = 1
+    }
+}
+
+defensive_scattered = {
+    sprite = 1
+    days = 5
+
+    trigger = {
+        phase = melee
+        days >= 1
+        flank_has_leader = yes
+        leader = {
+            martial >= 14
+            NOT = { trait = pursuit_specialist }
+        }
+    }
+
+    mean_time_to_happen = {
+        days = 100
+
+        additive_modifier = {
+            value = 5.0
+
+            leader = { enemy = {
+                flank_has_tactic = rearattack
+            } }
+        }
+
+        additive_modifier = {
+            value = 10
+
+            leader = { enemy = {
+                flank_has_tactic = encircled
+            } }
+        }
+
+        mult_modifier = {
+            factor = 4
+            leader = {
+                martial >= 14
+            }
+        }
+        additive_modifier = {
+            value = -30
+            leader = {
+                trait = frigate_pilot
+            }
+        }
+        additive_modifier = {
+            value = -30
+            leader = {
+                trait = aggressive_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = kinetic_master
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = long_range_combat_specialist
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = defensive_leader
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                trait = unyielding_leader
+            }
+        }
+    }
+
+    light_infantry_offensive = -0.3
+    light_infantry_defensive = 2.0
+    heavy_infantry_offensive = -0.3
+    heavy_infantry_defensive = 1.2
+    pikemen_offensive = -0.4
+    pikemen_defensive = 1.5
+    light_cavalry_offensive = -0.4
+    light_cavalry_defensive = 1.1
+    knights_offensive = -0.4
+    knights_defensive = 1.0
+    archers_offensive = -0.1
+    archers_defensive = 0.5
+
+
+    enemy = {
+        group = rearattack
+        factor = 0.5
+    }
+
+    enemy = {
+        group = encircled
+        factor = 1
+    }
+}
+
+boarding_scattered = {
+    sprite = 1
+    days = 5
+
+    trigger = {
+        phase = melee
+        days >= 1
+    }
+
+    mean_time_to_happen = {
+        days = 100
+
+        additive_modifier = {
+            value = 5.0
+
+            leader = { enemy = {
+                flank_has_tactic = rearattack
+            } }
+        }
+
+        additive_modifier = {
+            value = 10
+
+            leader = { enemy = {
+                flank_has_tactic = encircled
+            } }
+        }
+    }
+
+    light_infantry_offensive = -0.5
+    light_infantry_defensive = 0.3
+    heavy_infantry_offensive = -0.5
+    heavy_infantry_defensive = -0.1
+    pikemen_offensive = -0.6
+    pikemen_defensive = 0.3
+    light_cavalry_offensive = -0.5
+    light_cavalry_defensive = 0.0
+    knights_offensive = -0.5
+    knights_defensive = -0.1
+    archers_offensive = 1.5
+    archers_defensive = -0.1
+
+
+    enemy = {
+        group = rearattack
+        factor = 0.5
+    }
+
+    enemy = {
+        group = encircled
+        factor = 1
+    }
 }

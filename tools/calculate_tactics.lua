@@ -5,7 +5,8 @@ local gameUnitName =
     missileships = "pikemen",
     destroyers = "light_cavalry",
     battleships = "knights",
-    trooptransports = "archers"
+    trooptransports = "archers",
+    troops = "troops"
 }
 
 local tacGenData = {
@@ -330,6 +331,16 @@ local tacGenData = {
                 spin = 0.8,
                 pd = 0.8
             },
+            crashing = {
+                kinetic = 0.4,
+                laser = 0.4,
+                missile = 0.4,
+                boarding = 1.5,
+                radiator = 0.8,
+                spin = 0.8,
+                pd = 0.8,
+                armor = 0.2
+            },
 
             --the base movement features should not be mixed
             column = {
@@ -365,7 +376,7 @@ local tacGenData = {
                 radiator = 1.1,
                 armor = 1
             },
-            inverted_cone = {
+            funnel = {
                 kinetic = 2.1,
                 laser = 2.1,
                 missile = 2.1,
@@ -393,6 +404,17 @@ local tacGenData = {
                 missile = 1,
                 boarding = 1
             },
+            scattered = {
+                kinetic = 1.3,
+                laser = 1.3,
+                missile = 1.1,
+                boarding = 0.9,
+                spin = 0.9,
+                pd = 1.3,
+                dodge = 2,
+                radiator = 0.9,
+                armor = 0.9
+            },
             plane = {
                 kinetic = 3,
                 laser = 3,
@@ -415,6 +437,79 @@ local tacGenData = {
                 radiator = 0.5,
                 armor = 0.2
             },
+            wedge = {
+                kinetic = 1,
+                laser = 1,
+                missile = 1,
+                boarding = 1,
+                spin = 0.9,
+                pd = 1,
+                dodge = 0.8,
+                radiator = 1.1,
+                armor = 1
+            },
+            vee = {
+                kinetic = 1,
+                laser = 1,
+                missile = 1,
+                boarding = 1,
+                spin = 0.9,
+                pd = 1,
+                dodge = 0.8,
+                radiator = 1.1,
+                armor = 1
+            },
+            noform = {
+                kinetic = 1.1,
+                laser = 1.1,
+                missile = 1,
+                boarding = 0.8,
+                spin = 0.8,
+                pd = 1.1,
+                dodge = 1.3,
+                radiator = 0.8,
+                armor = 0.8
+            },
+            failfunnel = {
+                kinetic = 2.1,
+                laser = 2.1,
+                missile = 2.1,
+                boarding = 2,
+                spin = 0.4,
+                pd = 1,
+                dodge = 0.3,
+                radiator = 0.5,
+                armor = 0.4
+            },
+            piercethrough = {
+                kinetic = 0.2,
+                laser = 0.2,
+                missile = 0.2,
+                boarding = 0.2,
+                spin = 1.5,
+                pd = 1.8,
+                dodge = 0.8,
+                radiator = 1.2,
+                armor = 3
+            },
+            rearattack = {
+                kinetic = 2.2,
+                laser = 2.2,
+                missile = 2.2,
+                boarding = 2.2,
+                spin = 0.9,
+                pd = 2,
+                dodge = 0.8,
+                radiator = 1.1,
+                armor = 1
+            },
+            encircled = {
+                kinetic = 0.2,
+                laser = 0.2,
+                missile = 0.2,
+                boarding = 0.2,
+            },
+
 
             --special modifier for tactics that are moving AWAY from combat
             --[[retrograde = {
@@ -430,47 +525,163 @@ local tacGenData = {
         -- Here are the special properties and triggers for each tactical decision.
         tacticalWeaponChoices = {
             balanced = {
-                encouraged_trait = {"weapon_master"}
+                encouraged_trait = {"weapon_master", "range_generalist", "unyielding_leader"}
             },
             laser = {
-                encouraged_trait = {"laser_master"}
+                flank_has_leader = true,
+                encouraged_trait = {"laser_master"},
             },
             kinetic = {
+                flank_has_leader = true,
                 encouraged_trait = {"missile_master", "kinetic_master"},
                 encouraged_religion = {"neo_feudal"}
             },
             defensive = {
-                encouraged_trait = {"kinetic_master"}
+                flank_has_leader = true,
+                encouraged_trait = {"missile_master", "long_range_combat_specialist", "defensive_leader", "unyielding_leader"},
+                discouraged_trait = {"frigate_pilot", "aggressive_leader"},
+                forbidden_trait = {"pursuit_specialist"}
             },
             boarding = {
-                --encouraged_trait = {"kinetic_master"}
+                encouraged_religion = {"neo_feudal"},
+                encouraged_trait = {"marine_captain", "army_captain", "pursuit_specialist"},
+                discouraged_trait = {"defensive_leader"}
+            },
+            crashing = { --boarding but terrible
+                flank_has_leader = true,
+                martialMaximum = 10,
+                encouraged_religion = {"neo_feudal"},
+                encouraged_trait = {"marine_captain", "army_captain", "pursuit_specialist"},
+                discouraged_trait = {"defensive_leader"}
+                --  discouraged_martial = {"4","6","8"},
             }
         },
 
         tacticalMovementChoices = {
             column = {
+                group = "column",
                 duration = 4,
+                is_flanking = false,
+                flank_has_leader = true,
+                affinities = {funnel=0.5,plane=1},
+                target_enemy_tactics_mult = {plane=3, twod=2, funnel=4, encircled=1},
+                encouraged_trait = {"short_range_specialist", "defensive_leader"}
             },
             sphere = {
                 duration = 6,
+                flank_has_leader = true,
+                martialMininum = 14,
+                affinities = {rearattack=0.5},
+                encouraged_trait = {"range_generalist", "defensive_leader", "narrow_flank_leader"}
             },
             cone = {
                 duration = 5,
+                flank_has_leader = true,
+                martialMininum = 12,
+                affinities = {plane=1},
+                encouraged_trait = {"experimenter", "unyielding_leader", "omnicidal_maniac"}
             },
-            inverted_cone = {
+            funnel = {
+                group = "funnel",
                 duration = 7,
+                flank_has_leader = true,
+                martialMininum = 15,
+                add_30_troops_more_than_enemy_troops = 1.2,
+                add_40_troops_more_than_enemy_troops = 1.4,
+                add_50_troops_more_than_enemy_troops = 1.6,
+                affinities = {encircled=2},
+                target_enemy_tactics_mult = {cone=8},
+                encouraged_trait = {"short_range_specialist", "aggressive_leader", "shock_leader"}
             },
             echelon = {
                 duration = 3,
+                flank_has_leader = true,
+                is_flanking = true,
+                martialMininum = 13,
+                affinities = {column=1, encircled=2},
+                encouraged_trait = {"flanker", "pursuit_specialist", "aggressive_leader"}
             },
             cube = {
                 duration = 5,
+                affinities = {rearattack=0.5},
+                encouraged_trait = {"organizer"}
             },
+            scattered = {
+                duration = 5,
+                martialMininum = 14,
+                affinities = {encircled=1, rearattack=0.5},
+                encouraged_trait = {"kinetic_master"}
+            },
+
+            -- bad tactics
             plane = {
+                group = "plane",
                 duration = 8,
+                flank_has_leader = true,
+                martialMaximum = 18,
+                affinities = {twod=2, encircled=0.5},
+                encouraged_trait = {"twod_thinking", "trickster", "aggressive_leader", "shock_leader", "omnicidal_maniac"}
             },
             line = {
-                duration = 8
+                group = "twod",
+                duration = 8,
+                flank_has_leader = true,
+                martialMaximum = 18,
+                encouraged_trait = {"twod_thinking"}
+            },
+            wedge = {
+                group = "twod",
+                duration = 8,
+                flank_has_leader = true,
+                martialMaximum = 18,
+                encouraged_trait = {"twod_thinking", "aggressive_leader"}
+            },
+            vee = {
+                group = "twod",
+                duration = 8,
+                flank_has_leader = true,
+                martialMaximum = 18,
+                encouraged_trait = {"twod_thinking", "short_range_specialist", "aggressive_leader"}
+            },
+            noform = {
+                group = "encircled",
+                duration = 8,
+                flank_has_leader = false,
+            },
+            failfunnel = {
+                group = "encircled",
+                duration = 8,
+                flank_has_leader = true,
+                martialMaximum = 25,
+                encouraged_trait = {"short_range_specialist", "trickster", "aggressive_leader"},
+                sub_30_troops_more_than_enemy_troops = 1.2,
+                sub_40_troops_more_than_enemy_troops = 1.4,
+                sub_50_troops_more_than_enemy_troops = 1.6,
+            },
+
+            -- special tactics
+            piercethrough = {
+                duration = 1,
+                flank_has_leader = true,
+                previousTactics = {"column_balanced","column_laser","column_kinetic","column_defensive","column_boarding","column_crashing"},
+                --enemyTactics = {},
+                martialMininum = 4,
+                encouraged_trait = {"trickster", "shock_leader"}
+            },
+            rearattack = {
+                group="rearattack",
+                duration = 6,
+                flank_has_leader = true,
+                previousTactics = {"piercethrough_balanced","piercethrough_laser","piercethrough_kinetic","piercethrough_defensive","piercethrough_boarding","piercethrough_crashing"},
+                martialMininum = 6,
+                affinities = {plane=3, twod=2, funnel=4, encircled=1}
+            },
+            encircled = {
+                group = "encircled",
+                duration = 6,
+                flank_has_leader = true,
+                previousTactics = {"piercethrough_balanced","piercethrough_laser","piercethrough_kinetic","piercethrough_defensive","piercethrough_boarding","piercethrough_crashing"},
+                martialMaximum = 30,
             }
         },
 
@@ -517,6 +728,7 @@ local martialCenter = 12
 
 local function printTactic(phase, tacticName, hasBadVariation, hasGoodVariation)
     local tacticData = tacGenData[phase].tactics[tacticName]
+    if not tacticData then print("tactic data missing for " .. tacticName) end
 
     line("", 0)
     line(tacticName .. " = {", 0)
@@ -527,6 +739,8 @@ local function printTactic(phase, tacticName, hasBadVariation, hasGoodVariation)
     line("trigger = {", 1)
     line("phase = " .. phase, 2)
     line("days >= " .. (tacticData.days or 1), 2)
+    if tacticData.is_retreating then line("is_retreating = " .. tacticData.is_retreating, 2) end
+    if tacticData.is_flanking then line("is_flanking = " .. tacticData.is_flanking, 2) end
     if tacticData.flank_has_leader then line("flank_has_leader = " .. tacticData.flank_has_leader, 2) end
     if tacticData.flank_has_leader and tacticData.flank_has_leader == "yes" then
         line("leader = {", 2)
@@ -558,10 +772,51 @@ local function printTactic(phase, tacticName, hasBadVariation, hasGoodVariation)
         end
         line("}", 2)
     end
+    for pName, pValue in pairs(tacticData) do
+        local outer, operator, ours, inner = string.match(pName, 'trig_(%a+)_(%a+)_than_(%a+)_(%a+)')
+        if outer and ours and inner and operator then
+            if operator == "more" then operator = ">" end
+            if operator == "less" then operator = "<" end
+            if operator == "equal" then operator = "=" end
+            outer = gameUnitName[outer]
+            inner = gameUnitName[inner]
+            line(outer .. " = {", 2)
+            line("who = " .. inner, 3)
+            line("value " .. operator .. " " .. pValue, 3)
+            if ours == "enemy" then
+                line("enemy = yes", 3)
+            end
+            line("}",2)
+        end
+    end
     line("}", 1)
     line("", 0)
     line("mean_time_to_happen = {", 1)
     line("days = " .. tacticData.chance, 2)
+    if tacticData.target_enemy_tactics_mult then
+        for targetTactic, tValue in pairs(tacticData.target_enemy_tactics_mult) do
+            line("", 0)
+            line("mult_modifier = {", 2)
+            line("factor = " .. tValue, 3)
+            line("", 0)
+            line("leader = { enemy = {", 3)
+            line("flank_has_tactic = " .. targetTactic, 4)
+            line("} }", 3)
+            line("}", 2)
+        end
+    end
+    if tacticData.target_enemy_tactics_add then
+        for targetTactic, tValue in pairs(tacticData.target_enemy_tactics_add) do
+            line("", 0)
+            line("additive_modifier = {", 2)
+            line("value = " .. tValue, 3)
+            line("", 0)
+            line("leader = { enemy = {", 3)
+            line("flank_has_tactic = " .. targetTactic, 4)
+            line("} }", 3)
+            line("}", 2)
+        end
+    end
     if tacticData.flank_has_leader and tacticData.flank_has_leader == "yes" then
         line("", 0)
         line("mult_modifier = {", 2)
@@ -576,6 +831,7 @@ local function printTactic(phase, tacticName, hasBadVariation, hasGoodVariation)
             local discourageType = string.match(pName, 'discouraged_(%a+)')
             if encourageType then
                 for _, traitName in pairs(pValue) do
+                    --line("# " .. tacticName .." ".. encourageType, 2)
                     line("additive_modifier = {", 2)
                     line("value = 30", 3)
                     line("leader = {", 3)
@@ -586,6 +842,7 @@ local function printTactic(phase, tacticName, hasBadVariation, hasGoodVariation)
             end
             if discourageType then
                 for _, traitName in pairs(pValue) do
+                    --line("# " .. tacticName .." ".. discourageType, 2)
                     line("additive_modifier = {", 2)
                     line("value = -30", 3)
                     line("leader = {", 3)
@@ -593,6 +850,34 @@ local function printTactic(phase, tacticName, hasBadVariation, hasGoodVariation)
                     line("}", 3)
                     line("}", 2)
                 end
+            end
+        end
+        for pName, pValue in pairs(tacticData) do
+            local mtthtype, enc, outer, operator, ours, inner = string.match(pName, '(%a+)_(%d+)_(%a+)_(%a+)_than_(%a+)_(%a+)')
+            if mtthtype and enc and outer and ours and inner and operator then
+                if operator == "more" then operator = ">" end
+                if operator == "less" then operator = "<" end
+                if operator == "equal" then operator = "=" end
+                outer = gameUnitName[outer]
+                inner = gameUnitName[inner]
+                if mtthtype == "add" then
+                    line("additive_modifier = {", 2)
+                    line("value = " .. enc, 3)
+                elseif mtthtype == "mul" then
+                    line("mult_modifier = {", 2)
+                    line("factor = " .. enc, 3)
+                elseif mtthtype == "sub" then
+                    line("additive_modifier = {", 2)
+                    line("value = " .. -enc, 3)
+                end
+                line(outer .. " = {", 3)
+                line("who = " .. inner, 4)
+                line("value " .. operator .. " " .. pValue, 4)
+                if ours == "enemy" then
+                    line("enemy = yes", 4)
+                end
+                line("}",3)
+                line("}",2)
             end
         end
     end
@@ -612,6 +897,15 @@ local function printTactic(phase, tacticName, hasBadVariation, hasGoodVariation)
     line(gameUnitName["trooptransports"] .. "_defensive = " .. toPct(tacticData.defensebonus["trooptransports"])/100, 1)
     line("", 0)
     if tacticData.change_phase_to then line("change_phase_to = " .. tacticData.change_phase_to, 1) end
+    if tacticData.affinities then
+        for affinityName, affinityValue in pairs(tacticData.affinities) do
+            line("", 0)
+            line("enemy = {", 1)
+            line("group = " .. affinityName, 2)
+            line("factor = " .. affinityValue, 2)
+            line("}", 1)
+        end
+    end
     line("}", 0)
 
     if hasBadVariation then
@@ -701,25 +995,39 @@ local function calculateTactics(phase)
             --merge table properties
             for propertyName, propertyValue in pairs(choiceValue) do
                 if type(propertyValue) == "table" then
-                    --print(propertyName, propertyValue)
-                    if not generatedTactic[propertyName] then generatedTactic[propertyName] = propertyValue
-                    else
-                        for subPName, subPValue in pairs(propertyValue) do
-                            table.insert(generatedTactic[propertyName], subPValue)
-                        end
+                    --print(choiceName.."_"..movementName, propertyName, propertyValue)
+                    if not generatedTactic[propertyName] then generatedTactic[propertyName] = {} end
+                    for subPName, subPValue in pairs(propertyValue) do
+                        generatedTactic[propertyName][subPName] = subPValue
                     end
+                elseif type(propertyValue) == "boolean" then
+                    if not generatedTactic[propertyName] then generatedTactic[propertyName] = propertyValue end
+                    generatedTactic[propertyName] = (generatedTactic[propertyName] and propertyValue)
+                elseif type(propertyValue) == "number" then
+                    if not generatedTactic[propertyName] then generatedTactic[propertyName] = propertyValue end
+                    generatedTactic[propertyName] = math.max(generatedTactic[propertyName], propertyValue)
+                elseif type(propertyValue) == "string" and propertyName ~= "target" then
+                    if not generatedTactic[propertyName] then generatedTactic[propertyName] = propertyValue
+                    else generatedTactic[propertyName] = generatedTactic[propertyName] .. "_" .. propertyValue end
                 end
             end
 
             for propertyName, propertyValue in pairs(movementValue) do
                 if type(propertyValue) == "table" then
-                    --print(propertyName, propertyValue)
-                    if not generatedTactic[propertyName] then generatedTactic[propertyName] = propertyValue
-                    else
-                        for subPName, subPValue in pairs(propertyValue) do
-                            table.insert(generatedTactic[propertyName], subPValue)
-                        end
+                    --print(choiceName.."_"..movementName, propertyName, propertyValue)
+                    if not generatedTactic[propertyName] then generatedTactic[propertyName] = {} end
+                    for subPName, subPValue in pairs(propertyValue) do
+                        generatedTactic[propertyName][subPName] = subPValue
                     end
+                elseif type(propertyValue) == "boolean" then
+                    if not generatedTactic[propertyName] then generatedTactic[propertyName] = propertyValue end
+                    generatedTactic[propertyName] = (generatedTactic[propertyName] and propertyValue)
+                elseif type(propertyValue) == "number" then
+                    if not generatedTactic[propertyName] then generatedTactic[propertyName] = propertyValue end
+                    generatedTactic[propertyName] = math.max(generatedTactic[propertyName], propertyValue)
+                elseif type(propertyValue) == "string" and propertyName ~= "target" then
+                    if not generatedTactic[propertyName] then generatedTactic[propertyName] = propertyValue
+                    else generatedTactic[propertyName] = generatedTactic[propertyName] .. "_" .. propertyValue end
                 end
             end
 
@@ -734,12 +1042,19 @@ local function calculateTactics(phase)
 
                 for propertyName, propertyValue in pairs(extraValue) do
                     if type(propertyValue) == "table" then
-                        if not newTactic[propertyName] then newTactic[propertyName] = propertyValue
-                        else
-                            for subPName, subPValue in pairs(propertyValue) do
-                                table.insert(generatedTactic[propertyName], subPValue)
-                            end
+                        if not generatedTactic[propertyName] then generatedTactic[propertyName] = {} end
+                        for subPName, subPValue in pairs(propertyValue) do
+                            generatedTactic[propertyName][subPName] = subPValue
                         end
+                    elseif type(propertyValue) == "boolean" then
+                        if not generatedTactic[propertyName] then generatedTactic[propertyName] = propertyValue end
+                        generatedTactic[propertyName] = (generatedTactic[propertyName] and propertyValue)
+                    elseif type(propertyValue) == "number" then
+                        if not generatedTactic[propertyName] then generatedTactic[propertyName] = propertyValue end
+                        generatedTactic[propertyName] = math.max(generatedTactic[propertyName], propertyValue)
+                    elseif type(propertyValue) == "string" and propertyName ~= "target" then
+                        if not generatedTactic[propertyName] then generatedTactic[propertyName] = propertyValue
+                        else generatedTactic[propertyName] = generatedTactic[propertyName] .. "_" .. propertyValue end
                     end
                 end
             end
@@ -757,6 +1072,37 @@ local function calculateTactics(phase)
             table.insert(tacGenData[phase].fromTo[tacticData.target], tacticName .. "_good")
         end
     end
+
+    -- convert booleans to text
+    for tacticName, tacticData in pairs(tacGenData[phase].tactics) do
+        for propertyName, propertyValue in pairs(tacticData) do
+            if type(propertyValue) == "boolean" then
+                if propertyValue == false then tacGenData[phase].tactics[tacticName][propertyName] = "no"
+                elseif propertyValue == true then tacGenData[phase].tactics[tacticName][propertyName] = "yes" end
+            end
+        end
+    end
+
+    -- fix impossible requeriments
+    for tacticName, tacticData in pairs(tacGenData[phase].tactics) do
+        if tacticData.martialMininum and tacticData.martialMaximum then
+            if tacticData.martialMininum >= tacticData.martialMaximum then tacticData.martialMininum = nil end
+        end
+    end
+
+    -- take affinities into account when choosing a tactic
+    --target_enemy_tactics_add
+    for tacticName, tacticData in pairs(tacGenData[phase].tactics) do
+        if tacticData.affinities then
+            for affinityName, affinityValue in pairs(tacticData.affinities) do
+                --print(affinityName, affinityValue)
+                if not tacticData.target_enemy_tactics_add then tacticData.target_enemy_tactics_add = {} end
+                if not tacticData.target_enemy_tactics_add[affinityName] then tacticData.target_enemy_tactics_add[affinityName] = 0 end
+                tacticData.target_enemy_tactics_add[affinityName] = tacticData.target_enemy_tactics_add[affinityName] + affinityValue*10
+            end
+        end
+    end
+
 
     for targetName, sourceTactics in pairs(tacGenData[phase].fromTo) do
         --print(targetName, sourceTactics)
@@ -850,35 +1196,111 @@ file = io.open("../confederation at crisis/common/combat_tactics/melee_normal.tx
 io.output(file)
 printHeader()
 printTactic("melee", "balanced_column", false, false)
-printTactic("melee", "balanced_sphere", false, false)
-printTactic("melee", "balanced_cone", false, false)
-printTactic("melee", "balanced_inverted_cone", false, false)
-printTactic("melee", "balanced_echelon", false, false)
-printTactic("melee", "balanced_cube", false, false)
 printTactic("melee", "laser_column", false, false)
-printTactic("melee", "laser_sphere", false, false)
-printTactic("melee", "laser_cone", false, false)
-printTactic("melee", "laser_inverted_cone", false, false)
-printTactic("melee", "laser_echelon", false, false)
-printTactic("melee", "laser_cube", false, false)
 printTactic("melee", "kinetic_column", false, false)
-printTactic("melee", "kinetic_sphere", false, false)
-printTactic("melee", "kinetic_cone", false, false)
-printTactic("melee", "kinetic_inverted_cone", false, false)
-printTactic("melee", "kinetic_echelon", false, false)
-printTactic("melee", "kinetic_cube", false, false)
 printTactic("melee", "defensive_column", false, false)
-printTactic("melee", "defensive_sphere", false, false)
-printTactic("melee", "defensive_cone", false, false)
-printTactic("melee", "defensive_inverted_cone", false, false)
-printTactic("melee", "defensive_echelon", false, false)
-printTactic("melee", "defensive_cube", false, false)
 printTactic("melee", "boarding_column", false, false)
+printTactic("melee", "balanced_sphere", false, false)
+printTactic("melee", "laser_sphere", false, false)
+printTactic("melee", "kinetic_sphere", false, false)
+printTactic("melee", "defensive_sphere", false, false)
 printTactic("melee", "boarding_sphere", false, false)
+printTactic("melee", "balanced_cone", false, false)
+printTactic("melee", "laser_cone", false, false)
+printTactic("melee", "kinetic_cone", false, false)
+printTactic("melee", "defensive_cone", false, false)
 printTactic("melee", "boarding_cone", false, false)
-printTactic("melee", "boarding_inverted_cone", false, false)
+printTactic("melee", "balanced_funnel", false, false)
+printTactic("melee", "laser_funnel", false, false)
+printTactic("melee", "kinetic_funnel", false, false)
+printTactic("melee", "defensive_funnel", false, false)
+printTactic("melee", "boarding_funnel", false, false)
+printTactic("melee", "balanced_echelon", false, false)
+printTactic("melee", "laser_echelon", false, false)
+printTactic("melee", "kinetic_echelon", false, false)
+printTactic("melee", "defensive_echelon", false, false)
 printTactic("melee", "boarding_echelon", false, false)
+printTactic("melee", "balanced_cube", false, false)
+printTactic("melee", "laser_cube", false, false)
+printTactic("melee", "kinetic_cube", false, false)
+printTactic("melee", "defensive_cube", false, false)
 printTactic("melee", "boarding_cube", false, false)
+printTactic("melee", "balanced_scattered", false, false)
+printTactic("melee", "laser_scattered", false, false)
+printTactic("melee", "kinetic_scattered", false, false)
+printTactic("melee", "defensive_scattered", false, false)
+printTactic("melee", "boarding_scattered", false, false)
+io.close(file)
+
+file = io.open("../confederation at crisis/common/combat_tactics/melee_bad.txt", "w")
+io.output(file)
+printHeader()
+printTactic("melee", "crashing_column", false, false)
+printTactic("melee", "crashing_sphere", false, false)
+printTactic("melee", "crashing_cone", false, false)
+printTactic("melee", "crashing_funnel", false, false)
+printTactic("melee", "crashing_echelon", false, false)
+printTactic("melee", "crashing_cube", false, false)
+printTactic("melee", "crashing_scattered", false, false)
+printTactic("melee", "crashing_piercethrough", false, false)
+printTactic("melee", "crashing_rearattack", false, false)
+printTactic("melee", "crashing_encircled", false, false)
+printTactic("melee", "balanced_plane", false, false)
+printTactic("melee", "laser_plane", false, false)
+printTactic("melee", "kinetic_plane", false, false)
+printTactic("melee", "defensive_plane", false, false)
+printTactic("melee", "boarding_plane", false, false)
+printTactic("melee", "crashing_plane", false, false)
+printTactic("melee", "balanced_line", false, false)
+printTactic("melee", "laser_line", false, false)
+printTactic("melee", "kinetic_line", false, false)
+printTactic("melee", "defensive_line", false, false)
+printTactic("melee", "boarding_line", false, false)
+printTactic("melee", "crashing_line", false, false)
+printTactic("melee", "balanced_wedge", false, false)
+printTactic("melee", "laser_wedge", false, false)
+printTactic("melee", "kinetic_wedge", false, false)
+printTactic("melee", "defensive_wedge", false, false)
+printTactic("melee", "boarding_wedge", false, false)
+printTactic("melee", "crashing_wedge", false, false)
+printTactic("melee", "balanced_vee", false, false)
+printTactic("melee", "laser_vee", false, false)
+printTactic("melee", "kinetic_vee", false, false)
+printTactic("melee", "defensive_vee", false, false)
+printTactic("melee", "boarding_vee", false, false)
+printTactic("melee", "crashing_vee", false, false)
+printTactic("melee", "balanced_noform", false, false)
+printTactic("melee", "laser_noform", false, false)
+printTactic("melee", "kinetic_noform", false, false)
+printTactic("melee", "defensive_noform", false, false)
+printTactic("melee", "boarding_noform", false, false)
+printTactic("melee", "crashing_noform", false, false)
+printTactic("melee", "balanced_failfunnel", false, false)
+printTactic("melee", "laser_failfunnel", false, false)
+printTactic("melee", "kinetic_failfunnel", false, false)
+printTactic("melee", "defensive_failfunnel", false, false)
+printTactic("melee", "boarding_failfunnel", false, false)
+printTactic("melee", "crashing_failfunnel", false, false)
+io.close(file)
+
+file = io.open("../confederation at crisis/common/combat_tactics/melee_autogen_special.txt", "w")
+io.output(file)
+printHeader()
+printTactic("melee", "balanced_piercethrough", false, false)
+printTactic("melee", "laser_piercethrough", false, false)
+printTactic("melee", "kinetic_piercethrough", false, false)
+printTactic("melee", "defensive_piercethrough", false, false)
+printTactic("melee", "boarding_piercethrough", false, false)
+printTactic("melee", "balanced_rearattack", false, false)
+printTactic("melee", "laser_rearattack", false, false)
+printTactic("melee", "kinetic_rearattack", false, false)
+printTactic("melee", "defensive_rearattack", false, false)
+printTactic("melee", "boarding_rearattack", false, false)
+printTactic("melee", "balanced_encircled", false, false)
+printTactic("melee", "laser_encircled", false, false)
+printTactic("melee", "kinetic_encircled", false, false)
+printTactic("melee", "defensive_encircled", false, false)
+printTactic("melee", "boarding_encircled", false, false)
 io.close(file)
 
 --tactic_name = {                             # Tactic name, localised
