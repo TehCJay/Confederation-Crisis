@@ -16,6 +16,31 @@ e_terran_confederation = {
 
 	has_top_de_jure_capital = yes
 
+	gain_effect = {
+		if = {
+			limit = {
+				religion = terran_imperial
+				d_terran_imperial_head = { NOT = { holder = ROOT } }
+			}
+			activate_title = {
+				title = d_terran_imperial_head
+				status = yes
+			}
+			d_terran_imperial_head = { usurp_title = ROOT }
+		}
+		if = {
+			limit = {
+				religion = terran_imperial_cult
+				d_terran_imperial_head = { NOT = { holder = ROOT } }
+			}
+			activate_title = {
+				title = d_terran_augustus_emperor
+				status = yes
+			}
+			d_terran_augustus_emperor = { usurp_title = ROOT }
+		}
+	}
+
 	# Navy
 	k_terran_navy = {
 		landless = yes
@@ -110,7 +135,7 @@ e_terran_confederation = {
 		short_name = yes
 		dynasty_title_names = no
 
-		controls_religion = terran_imperial
+		#controls_religion = terran_imperial
 
 		d_terran_commonwealth_fleet = {
 			landless = yes

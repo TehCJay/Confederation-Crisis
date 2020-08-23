@@ -1,0 +1,195 @@
+# All triggers on this file, without exception, should be about the opinions of ideologies toward something.
+
+#space_pirate 2
+#mobster 3
+#terran_federalist 2
+#terran_republican 4
+#terran_imperial 2
+#colonial_separatist 0
+#neo_feudal 2
+#neo_socialist 3
+#astrist 3
+#orthodox n/a
+#pilgrim n/a
+#solarian n/a
+#solar_cultist n/a
+#adoptionist 1
+#adoptionist_cultist 1
+#xenoterran ?????
+#imperial_cult 3
+#cyberneticist n/a
+#machine_cultist 3
+#hiver 4
+#bio_directionist 2
+
+#the names are kinda bad... so to explain
+#centralization 0, mininum
+ideology_is_pro_coalition = {
+    custom_tooltip =  {
+        text = "ideology_is_pro_coalition"
+        hidden_tooltip = {
+            religion = colonial_separatist
+        }
+    }
+
+}
+
+#centralization 1
+ideology_is_pro_confederation = {
+    custom_tooltip =  {
+        text = "ideology_is_pro_confederation"
+        hidden_tooltip = {
+            OR = {
+                religion = adoptionist
+                religion = adoptionist_cultist
+            }
+        }
+    }
+}
+
+#centralization 2, middle.
+ideology_is_pro_federation = {
+    custom_tooltip =  {
+        text = "ideology_is_pro_federation"
+        hidden_tooltip = {
+            OR = {
+                religion = space_pirate
+                religion = terran_federalist
+                religion = terran_imperial
+                religion = neo_feudal
+                religion = bio_directionist
+            }
+        }
+    }
+}
+
+#centralization 3
+ideology_is_pro_hegemony = {
+    OR = {
+        religion = neo_socialist
+        religion = imperial_cult
+        religion = machine_cultist
+        religion = astrist
+    }
+}
+
+#centralization 4, max
+ideology_is_pro_unitarian = {
+    OR = {
+        religion = terran_republican
+        religion = terran_imperial_cult
+        religion = hiver
+    }
+}
+
+
+#Ideology that doesn't want max order so vassals can initiate wars
+ideology_is_expansionist = {
+    OR = {
+        religion = terran_imperial
+        religion = terran_imperial_cult
+        religion = neo_feudal
+        religion = hiver
+        religion = neo_socialist
+    }
+}
+
+
+
+#Note for autocracy: it is NOT pro or against nobility, all that matters it is pro-ruler power.
+ideology_is_pro_autocratic = {
+    OR = {
+        religion = astrist
+        religion = xenoterran
+        religion = imperial_cult
+        religion = terran_imperial_cult
+        religion = machine_cultist
+        religion = hiver
+    }
+}
+ideology_is_pro_aristocratic = {
+    OR = {
+        religion = mobster
+        religion = terran_imperial
+        religion = neo_feudal
+        religion = cyberneticist
+        religion = bio_directionist
+
+    }
+}
+ideology_is_pro_democratic = {
+    OR = {
+        religion = terran_federalist
+        religion = terran_republican
+        religion = colonial_separatist
+        religion = adoptionist
+        religion = adoptionist_cultist
+        religion = space_pirate
+    }
+}
+ideology_is_pro_prolecratic = {
+    religion = neo_socialist
+}
+
+ideology_is_anti_autocratic = {
+    OR = {
+        ideology_is_pro_aristocratic = yes
+        ideology_is_pro_democratic = yes
+        ideology_is_pro_prolecratic = yes
+    }
+}
+ideology_is_anti_aristocratic = {
+    OR = {
+        ideology_is_pro_autocratic = yes
+        ideology_is_pro_democratic = yes
+        ideology_is_pro_prolecratic = yes
+    }
+}
+ideology_is_anti_democratic = {
+    OR = {
+        ideology_is_pro_autocratic = yes
+        ideology_is_pro_aristocratic = yes
+        ideology_is_pro_prolecratic = yes
+    }
+}
+ideology_is_anti_prolecratic = {
+    OR = {
+        ideology_is_pro_autocratic = yes
+        ideology_is_pro_aristocratic = yes
+        ideology_is_pro_democratic = yes
+    }
+}
+
+#This includes allowing nepotism, dictatorships with nepotism or elective among dynasty
+ideology_is_hereditary = {
+    OR = {
+        religion = mobster
+        religion = terran_imperial
+        religion = neo_feudal
+        religion = bio_directionist
+    }
+}
+
+#This is mostly about allowing elections by the population in some way, NOT hereditary.
+ideology_is_elective = {
+    OR = {
+        religion = space_pirate
+        religion = terran_federalist
+        religion = terran_republican
+        religion = colonial_separatist
+        religion = astrist
+        religion = xenoterran
+        religion = hiver #Kinda? well... averating the entire population opinion counts?
+    }
+}
+
+#This is about appointments, and also non-hereditary dictatorships.
+ideology_is_bureaucratic = {
+    OR = {
+        religion = terran_republican #yes, they are also pro-elections
+        religion = neo_socialist
+        religion = imperial_cult
+        religion = terran_imperial_cult
+        religion = machine_cultist
+    }
+}

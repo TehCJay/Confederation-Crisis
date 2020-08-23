@@ -28,6 +28,9 @@ replace_path="common/council_positions"
 replace_path="common/council_voting"
 replace_path="common/traits"
 
+replace_path = "localisation"
+#replace_path = "localisation/customizable_localisation"
+
 #disable DLC stuff we won't use
 replace_path="common/offmap_powers"
 replace_path="history/offmap_powers"

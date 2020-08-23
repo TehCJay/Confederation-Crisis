@@ -2,6 +2,70 @@
 
 feudal_governments = {
 
+	    holy_terran_government = {
+        preferred_holdings = { CASTLE }
+        allowed_holdings = {
+            CASTLE
+            CITY
+            TEMPLE
+            TRADE_POST
+            FORT
+            HOSPITAL
+        }
+        accepts_liege_governments = {
+        }
+        potential = {
+            NOT = { trait = hiver_implant }
+            holy_order = no
+            tier = EMPEROR
+            e_terran_confederation = { holder = PREV }
+            c_sol = { holder = PREV }
+            b_earth = { holder = PREV }
+            religion = terran_imperial_cult
+        }
+
+        forced_contract = {
+            military_base_government
+        }
+        no_vassal_tax = {
+            military_base_government
+            military_command
+        }
+        vassal_call_to_arms = {
+            hivemind_government
+            merchant_republic_government
+            neofeudal_government
+            pirate_kingdom
+            pirate_republic
+            military_command
+            military_government
+            imperialistic_government
+            npc_civil_government
+            pc_civil_government
+            npc_technocratic_government
+            pc_technocratic_government
+            npc_rectorial_government
+            pc_rectorial_government
+            npc_theocratic_government
+            pc_theocratic_government
+        }
+
+        #frame_suffix = "_republic"
+        title_prefix = "military_"
+        color = { 255 0 127 }
+
+        barons_need_dynasty = no
+        can_build_tribal = no
+        uses_piety_for_law_change = yes
+        uses_jizya_tax = yes
+        allow_title_revokation = yes
+        allow_looting = yes
+        can_imprison_without_reason = yes
+        can_revoke_without_reason = yes
+        free_retract_vassalage = yes
+        aggression = 3
+    }
+
 	neofeudal_government = {
 		preferred_holdings = { CASTLE }
 		allowed_holdings = {
@@ -110,6 +174,7 @@ republic_governments = {
 			NOR = {
 				is_government_potential = hivemind_government
 				is_government_potential = pirate_republic
+				is_government_potential = holy_terran_government
 			}
 
 			OR = {
@@ -125,7 +190,10 @@ republic_governments = {
 						has_game_started = no
 					}
 
-
+                    NOT = { religion = neo_socialist }
+                    NOT = { religion = neo_feudal }
+                    NOT = { religion = terran_imperial }
+                    NOT = { religion = terran_imperial_cult }
 					higher_real_tier_than = COUNT
 					num_of_count_titles >= 1
 					capital_holding = {

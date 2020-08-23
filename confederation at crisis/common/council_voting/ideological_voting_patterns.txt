@@ -1,0 +1,200 @@
+ideological_for = {
+    icon = 12
+    pattern_type = for
+
+    # Crown Laws
+
+    centralization_0 = { ideology_is_pro_coalition = yes }
+    centralization_1 = {
+        OR = {
+            AND = {
+                FROMFROM = { has_law = centralization_2 }
+                ideology_is_pro_coalition = yes
+            }
+            ideology_is_pro_confederation = yes
+            AND = {
+                FROMFROM = { has_law = centralization_0 }
+                OR = {
+                    ideology_is_pro_federation = yes
+                    ideology_is_pro_hegemony = yes
+                    ideology_is_pro_unitarian = yes
+                }
+            }
+        }
+    }
+    centralization_2 = {
+        OR = {
+            AND = {
+                FROMFROM = { has_law = centralization_3 }
+                OR = {
+                    ideology_is_pro_coalition = yes
+                    ideology_is_pro_confederation = yes
+                }
+            }
+            ideology_is_pro_federation = yes
+            AND = {
+                FROMFROM = { has_law = centralization_1 }
+                OR = {
+                    ideology_is_pro_hegemony = yes
+                    ideology_is_pro_unitarian = yes
+                }
+            }
+        }
+    }
+    centralization_3 = {
+        OR = {
+            AND = {
+                FROMFROM = { has_law = centralization_4 }
+                OR = {
+                    ideology_is_pro_coalition = yes
+                    ideology_is_pro_confederation = yes
+                    ideology_is_pro_federation = yes
+                }
+            }
+            ideology_is_pro_hegemony = yes
+            AND = {
+                FROMFROM = { has_law = centralization_2 }
+                ideology_is_pro_unitarian = yes
+            }
+        }
+    }
+    centralization_4 = { ideology_is_pro_unitarian = yes }
+
+
+    public_order_0 = { always = no }
+    public_order_1 = {
+        OR = {
+            AND = {
+                FROMFROM = { has_law = public_order_0 }
+                always = yes
+            }
+            AND = {
+                FROMFROM = { has_law = public_order_2 }
+                ideology_is_expansionist = yes
+            }
+        }
+    }
+    public_order_2 = { always = yes }
+
+    # Legitimacy Laws
+    military_vassal_legitimacy_0 = { ideology_is_hereditary = yes }
+    military_vassal_legitimacy_1 = { ideology_is_elective = yes }
+    military_vassal_legitimacy_2 = { ideology_is_bureaucratic = yes }
+
+    republic_vassal_legitimacy_0 = { ideology_is_hereditary = yes }
+    republic_vassal_legitimacy_1 = { ideology_is_elective = yes }
+    republic_vassal_legitimacy_2 = { ideology_is_bureaucratic = yes }
+
+    theocracy_vassal_legitimacy_0 = { ideology_is_hereditary = yes }
+    theocracy_vassal_legitimacy_1 = { ideology_is_elective = yes }
+    theocracy_vassal_legitimacy_2 = { ideology_is_bureaucratic = yes }
+
+
+
+    out_of_realm_inheritance_law_0 = { ideology_is_pro_coalition = yes }
+    out_of_realm_inheritance_law_1 = { NOT = { ideology_is_pro_coalition = yes } }
+
+
+    # Demesne Laws
+    legislative_type_autocratic = { ideology_is_pro_autocratic = yes }
+    legislative_type_aristocratic = { ideology_is_pro_aristocratic = yes }
+    legislative_type_democratic = { ideology_is_pro_democratic = yes }
+    legislative_type_prolecratic = { ideology_is_pro_prolecratic = yes }
+
+    # Council Laws
+    local_main_government_type_0 = { FROM = { smerg = yes} FROMFROM = { smorg = yes } ROOT = { smurg = yes } }
+}
+
+ideological_against = {
+    icon = 13
+    pattern_type = against
+
+    centralization_0 = {
+        OR = {
+            ideology_is_pro_unitarian = yes
+            ideology_is_pro_hegemony = yes
+            ideology_is_pro_federation = yes
+            ideology_is_pro_confederation = yes
+        }
+    }
+    centralization_1 = {
+        OR = {
+            AND = {
+                FROMFROM = { has_law = centralization_2 }
+                ideology_is_pro_unitarian = yes
+                ideology_is_pro_hegemony = yes
+                ideology_is_pro_federation = yes
+            }
+            AND = {
+                FROMFROM = { has_law = centralization_0 }
+                ideology_is_pro_coalition = yes
+            }
+        }
+    }
+    centralization_2 = {
+        OR = {
+            AND = {
+                FROMFROM = { has_law = centralization_3 }
+                ideology_is_pro_unitarian = yes
+                ideology_is_pro_hegemony = yes
+            }
+            AND = {
+                FROMFROM = { has_law = centralization_1 }
+                OR = {
+                    ideology_is_pro_confederation = yes
+                    ideology_is_pro_coalition = yes
+                }
+            }
+        }
+    }
+    centralization_3 = {
+        OR = {
+            AND = {
+                FROMFROM = { has_law = centralization_4 }
+                ideology_is_pro_unitarian = yes
+            }
+            AND = {
+                FROMFROM = { has_law = centralization_2 }
+                OR = {
+                    ideology_is_pro_federation = yes
+                    ideology_is_pro_confederation = yes
+                    ideology_is_pro_coalition = yes
+                }
+            }
+        }
+    }
+    centralization_4 = {
+        OR = {
+            ideology_is_pro_hegemony = yes
+            ideology_is_pro_federation = yes
+            ideology_is_pro_confederation = yes
+            ideology_is_pro_coalition = yes
+        }
+    }
+
+    public_order_0 = { always = yes }
+    public_order_1 = {
+        OR = {
+            AND = {
+                FROMFROM = { has_law = public_order_0 }
+                always = no
+            }
+            AND = {
+                FROMFROM = { has_law = public_order_2 }
+                NOT = { ideology_is_expansionist = yes }
+            }
+        }
+    }
+    public_order_2 = { ideology_is_expansionist = yes }
+
+
+
+    out_of_realm_inheritance_law_0 = { NOT = { ideology_is_pro_coalition = yes } }
+    out_of_realm_inheritance_law_1 = { ideology_is_pro_coalition = yes }
+
+    # Demesne Laws
+    legislative_type_autocratic = { ideology_is_anti_autocratic = yes }
+    legislative_type_aristocratic = { ideology_is_anti_aristocratic = yes }
+    legislative_type_democratic = { ideology_is_anti_democratic = yes }
+    legislative_type_prolecratic = { ideology_is_anti_prolecratic = yes }
+}
