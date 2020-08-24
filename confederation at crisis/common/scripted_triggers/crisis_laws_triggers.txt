@@ -102,9 +102,9 @@ is_dictatorship_trigger = {
     custom_tooltip = {
         text = "ISDICTATORSHIP"
         hidden_tooltip = {
-            OR = {
+            #OR = {
                 has_law = succ_dictatorship
-            }
+            #}
         }
     }
 }
@@ -118,24 +118,6 @@ is_elective_trigger = {
                 #government = administrative_republic
                 #government = merchant_republic_government
                 #government = pirate_republic
-                has_law = succ_eldership
-                has_law = succ_byzantine_elective #pirate elective it seems
-                has_law = succ_tanistry
-                has_law = succ_papal_succession
-                has_law = succ_open_elective
-                has_law = succ_patrician_elective
-                has_law = succ_open_elective_crisis
-            }
-        }
-    }
-}
-
-#unfinished
-is_senate_voted_succession = {
-    custom_tooltip = {
-        text = "ISSENATEAPPOINTED"
-        hidden_tooltip = {
-            OR = {
                 has_law = succ_eldership
                 has_law = succ_byzantine_elective #pirate elective it seems
                 has_law = succ_tanistry
@@ -342,14 +324,15 @@ liege_allows_appointment = {
 }
 
 senate_allows_taking_succession_control_from_them = {
-    trigger_if = {
-        limit = {
-            has_dlc = "Conclave"
-            is_senate_voted_succession = yes
-        }
-
-        has_law = succession_voting_power_0
-    }
+    #trigger_if = {
+    #    limit = {
+    #        has_dlc = "Conclave"
+    #        #is_senate_voted_succession = yes
+    #    }
+    #
+    #    has_law = succession_voting_power_0
+    #}
+    always = yes
 }
 
 base_requeriment_for_succession_change = {
@@ -506,5 +489,23 @@ parent_for_elective_succession_trigger = {
         trait = bastard
         trait = cat
         trait = horse
+    }
+}
+
+# Used in council votes
+# Scopes are detailed in the folder there
+# But what matters here: THIS: voter. FROMFROM: can be title with a vote on it, OR the owner of that title.
+
+# The purpose of this trigger if know if the title with a law vote, is the "top title" of sorts.
+voting_for_top_laws = {
+    liege = {
+        crownlaw_title = {
+            OR = {
+                title = FROMFROM
+                FROMFROM = {
+                    primary_title = { title = PREV }
+                }
+            }
+        }
     }
 }

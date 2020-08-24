@@ -12,6 +12,51 @@ generate_random_highborn_adult_from_realm_effect = {
     }
 }
 
+generate_random_soldier_adult_from_realm_effect = {
+    random_realm_province = {
+        generate_random_soldier_adult_from_province_effect = yes
+    }
+}
+
+generate_random_soldier_adult_from_province_effect = {
+    hidden_tooltip = {
+        create_random_soldier = {
+            age = 27
+            random_traits = yes
+            religion = THIS
+            culture = THIS
+            employer = PREV
+            dynasty = actually_culture
+            female = 20
+        }
+        roll1d60 = yes
+        new_character = {
+            add_age = dice1d60
+        }
+        random = {
+            chance = 1
+            new_character = {
+                add_trait = ambitious
+                remove_trait = imbecile
+                remove_trait = slow
+                remove_trait = quick
+                add_trait = genius
+                remove_trait = fair
+                remove_trait = homely
+                remove_trait = ugly
+                add_trait = beautiful
+                remove_trait = dwarf
+                add_trait = tall
+                change_diplomacy = 5
+                change_learning = 3
+                change_martial = 3
+                change_stewardship = 1
+            }
+        }
+    }
+    custom_tooltip = { text = generate_lowborn_senator_tooltip }
+}
+
 generate_random_lowborn_adult_from_province_effect = {
     hidden_tooltip = {
         create_character = {
@@ -230,10 +275,10 @@ replace_senators_effect = {
                 NOT = { has_character_flag = processing_senate }
                 had_character_flag = { flag = processing_senate days = 30 }
             }
-
         }
 
         set_character_flag = processing_senate
+        log = "Processing senate for [This.GetBestName]"
 
         fill_seats_with_courtiers = yes
         fill_seats_with_realm_characters = yes
@@ -254,6 +299,8 @@ replace_senators_effect = {
 
             count_senator_seats_to_fill = yes
 
+            log = "Generating characters for [This.empty_seats.GetValue] seats"
+
             while = {
                 limit = { check_variable = { which = empty_seats value > 0 } }
                 if = {
@@ -261,11 +308,15 @@ replace_senators_effect = {
                     generate_random_highborn_adult_from_realm_effect = yes
                 }
                 else_if = {
-                    limit = { has_law = legislative_type_aristocratic }
+                    limit = { has_law = legislative_type_democratic }
                     random_list = {
                         10 = { generate_random_highborn_adult_from_realm_effect = yes }
                         10 = { generate_random_lowborn_adult_from_realm_effect = yes }
                     }
+                }
+                else_if =  {
+                    limit = { has_law = legislative_type_stratocratic }
+                    generate_random_soldier_adult_from_realm_effect = yes
                 }
                 else = {
                     generate_random_lowborn_adult_from_realm_effect = yes

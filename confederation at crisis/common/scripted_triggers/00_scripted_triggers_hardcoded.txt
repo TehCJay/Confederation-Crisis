@@ -28,19 +28,20 @@ can_be_mercenary_leader_potential_trigger = {
 				}
 			}
 		}
+		always = no
+	}
 
-		trigger_if = {
-			limit = { religion = cathar }
-			FROM = { religion = cathar }
+	trigger_if = {
+		limit = {
+			is_female = no
+			FROM = {
+				OR = {
+					has_law = enatic_succession
+					has_law = enatic_cognatic_succession
+				}
+			}
 		}
-		trigger_else_if = {
-			limit = { religion = messalian }
-			FROM = { religion = messalian }
-		}
-		trigger_else = {
-			always = no
-		}
-
+		always = no
 	}
 
 	prisoner = no

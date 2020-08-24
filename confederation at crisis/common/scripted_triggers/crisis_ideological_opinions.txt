@@ -5,6 +5,7 @@
 #terran_federalist 2
 #terran_republican 4
 #terran_imperial 2
+#terran_imperial_cult 4
 #colonial_separatist 0
 #neo_feudal 2
 #neo_socialist 3
@@ -99,7 +100,6 @@ ideology_is_expansionist = {
 #Note for autocracy: it is NOT pro or against nobility, all that matters it is pro-ruler power.
 ideology_is_pro_autocratic = {
     OR = {
-        religion = astrist
         religion = xenoterran
         religion = imperial_cult
         religion = terran_imperial_cult
@@ -130,12 +130,16 @@ ideology_is_pro_democratic = {
 ideology_is_pro_prolecratic = {
     religion = neo_socialist
 }
+ideology_is_pro_stratocratic = {
+    religion = astrist
+}
 
 ideology_is_anti_autocratic = {
     OR = {
         ideology_is_pro_aristocratic = yes
         ideology_is_pro_democratic = yes
         ideology_is_pro_prolecratic = yes
+        ideology_is_pro_stratocratic = yes
     }
 }
 ideology_is_anti_aristocratic = {
@@ -143,6 +147,7 @@ ideology_is_anti_aristocratic = {
         ideology_is_pro_autocratic = yes
         ideology_is_pro_democratic = yes
         ideology_is_pro_prolecratic = yes
+        ideology_is_pro_stratocratic = yes
     }
 }
 ideology_is_anti_democratic = {
@@ -150,6 +155,7 @@ ideology_is_anti_democratic = {
         ideology_is_pro_autocratic = yes
         ideology_is_pro_aristocratic = yes
         ideology_is_pro_prolecratic = yes
+        ideology_is_pro_stratocratic = yes
     }
 }
 ideology_is_anti_prolecratic = {
@@ -157,6 +163,15 @@ ideology_is_anti_prolecratic = {
         ideology_is_pro_autocratic = yes
         ideology_is_pro_aristocratic = yes
         ideology_is_pro_democratic = yes
+        ideology_is_pro_stratocratic = yes
+    }
+}
+ideology_is_anti_stratocratic = {
+    OR = {
+        ideology_is_pro_autocratic = yes
+        ideology_is_pro_aristocratic = yes
+        ideology_is_pro_democratic = yes
+        ideology_is_pro_prolecratic = yes
     }
 }
 
@@ -191,5 +206,94 @@ ideology_is_bureaucratic = {
         religion = imperial_cult
         religion = terran_imperial_cult
         religion = machine_cultist
+    }
+}
+
+ideology_is_militaristic = {
+    custom_tooltip =  {
+        text = "ideology_is_militaristic"
+        hidden_tooltip = {
+            OR = {
+                religion = space_pirate
+                religion = terran_republican
+                religion = terran_imperial
+                religion = terran_imperial_cult
+                religion = neo_feudal
+                religion = neo_socialist
+                religion = astrist
+                religion = solarian
+                religion = solar_cultist
+                religion = xenoterran
+                religion = imperial_cult
+                religion = hiver
+            }
+        }
+    }
+}
+ideology_is_civilian = {
+    custom_tooltip =  {
+        text = "ideology_is_civilian"
+        hidden_tooltip = {
+            OR = {
+                religion = space_pirate
+                religion = mobster
+                religion = terran_federalist
+                religion = terran_republican
+                religion = terran_imperial
+                religion = terran_imperial_cult
+                religion = colonial_separatist
+                religion = neo_socialist
+                religion = adoptionist
+                religion = adoptionist_cultist
+                religion = cyberneticist
+            }
+        }
+    }
+}
+ideology_is_rectorial = {
+    custom_tooltip =  {
+        text = "ideology_is_rectorial"
+        hidden_tooltip = {
+            OR = {
+                religion = terran_federalist
+                religion = terran_imperial_cult
+                religion = colonial_separatist
+                religion = orthodox
+                religion = pilgrim
+                religion = solarian
+                religion = solar_cultist
+                religion = adoptionist
+                religion = adoptionist_cultist
+                religion = imperial_cult
+                religion = cyberneticist
+                religion = machine_cultist
+                religion = hiver
+                religion = bio_directionist
+            }
+        }
+    }
+}
+ideology_is_not_militaristic = {
+    custom_tooltip = {
+        text = "ideology_is_not_militaristic"
+        hidden_tooltip = {
+            NOT = { ideology_is_militaristic = yes }
+        }
+    }
+}
+ideology_is_not_civilian = {
+    custom_tooltip = {
+        text = "ideology_is_not_civilian"
+        hidden_tooltip = {
+            NOT = { ideology_is_civilian = yes }
+        }
+    }
+}
+ideology_is_not_rectorial = {
+    custom_tooltip = {
+        text = "ideology_is_not_rectorial"
+        hidden_tooltip = {
+            NOT = { ideology_is_rectorial = yes }
+        }
     }
 }

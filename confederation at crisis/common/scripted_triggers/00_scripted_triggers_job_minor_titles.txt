@@ -22,18 +22,15 @@ change_council_job_potential_trigger = {
 
 	trigger_if = {
 		limit = {
-			has_job_title = job_spiritual
-			liege = { religion_group = muslim }
-		}
-
-		NOT = { religion = FROM }
-	}
-
-	trigger_if = {
-		limit = {
 			OR = {
-				has_minor_title = title_councilmember_king
-				has_minor_title = title_councilmember_emperor
+				has_minor_title = title_senatorduke
+				has_minor_title = title_senatorking
+				has_minor_title = title_senatoremperor
+				has_minor_title = title_senatorbigrealm1
+				has_minor_title = title_senatorbigrealm2
+				has_minor_title = title_senatorbigrealm3
+				has_minor_title = title_senatorbigrealm4
+				has_minor_title = title_senatorbigrealm5
 			}
 		}
 
@@ -42,11 +39,7 @@ change_council_job_potential_trigger = {
 			can_be_marshal_trigger = yes
 			can_be_treasurer_trigger = yes
 			can_be_spymaster_trigger = yes
-
-			AND = {
-				can_be_spiritual_trigger = yes
-				ROOT = { NOT = { religion_group = muslim } }
-			}
+			can_be_spiritual_trigger = yes
 		}
 	}
 	trigger_else = {
