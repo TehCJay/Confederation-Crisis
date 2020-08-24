@@ -105,6 +105,7 @@ ideology_is_pro_autocratic = {
         religion = terran_imperial_cult
         religion = machine_cultist
         religion = hiver
+        religion = astrist
     }
 }
 ideology_is_pro_aristocratic = {
@@ -114,7 +115,8 @@ ideology_is_pro_aristocratic = {
         religion = neo_feudal
         religion = cyberneticist
         religion = bio_directionist
-
+        religion = imperial_cult
+        religion = terran_imperial_cult
     }
 }
 ideology_is_pro_democratic = {
@@ -128,13 +130,21 @@ ideology_is_pro_democratic = {
     }
 }
 ideology_is_pro_prolecratic = {
-    religion = neo_socialist
+    OR = {
+        religion = neo_socialist
+        religion = xenoterran
+    }
 }
 ideology_is_pro_stratocratic = {
-    religion = astrist
+    OR = {
+        religion = astrist
+        religion = xenoterran
+        religion = terran_imperial_cult
+    }
 }
 
 ideology_is_anti_autocratic = {
+    ideology_is_autocratic = no
     OR = {
         ideology_is_pro_aristocratic = yes
         ideology_is_pro_democratic = yes
@@ -143,6 +153,7 @@ ideology_is_anti_autocratic = {
     }
 }
 ideology_is_anti_aristocratic = {
+    ideology_is_aristocratic = no
     OR = {
         ideology_is_pro_autocratic = yes
         ideology_is_pro_democratic = yes
@@ -151,6 +162,7 @@ ideology_is_anti_aristocratic = {
     }
 }
 ideology_is_anti_democratic = {
+    ideology_is_democratic = no
     OR = {
         ideology_is_pro_autocratic = yes
         ideology_is_pro_aristocratic = yes
@@ -159,6 +171,7 @@ ideology_is_anti_democratic = {
     }
 }
 ideology_is_anti_prolecratic = {
+    ideology_is_prolecratic = no
     OR = {
         ideology_is_pro_autocratic = yes
         ideology_is_pro_aristocratic = yes
@@ -167,12 +180,26 @@ ideology_is_anti_prolecratic = {
     }
 }
 ideology_is_anti_stratocratic = {
+    ideology_is_stratocratic = no
     OR = {
         ideology_is_pro_autocratic = yes
         ideology_is_pro_aristocratic = yes
         ideology_is_pro_democratic = yes
         ideology_is_pro_prolecratic = yes
     }
+}
+
+ideology_is_pro_efficiency = {
+    OR = {
+        ideology_is_pro_autocratic = yes
+        ideology_is_pro_aristocratic = yes
+    }
+    ideology_is_pro_democratic = no
+}
+
+ideology_is_pro_representation = {
+    ideology_is_pro_democratic = yes
+    ideology_is_pro_autocratic = no
 }
 
 #This includes allowing nepotism, dictatorships with nepotism or elective among dynasty
@@ -294,6 +321,83 @@ ideology_is_not_rectorial = {
         text = "ideology_is_not_rectorial"
         hidden_tooltip = {
             NOT = { ideology_is_rectorial = yes }
+        }
+    }
+}
+
+ideology_is_despotic = {
+    custom_tooltip =  {
+        text = "ideology_is_despotic"
+        hidden_tooltip = {
+            OR = {
+                religion = terran_imperial
+                religion = terran_imperial_cult
+                religion = astrist
+                religion = imperial_cult
+            }
+        }
+    }
+}
+
+ideology_is_not_despotic = {
+    custom_tooltip =  {
+        text = "ideology_is_not_despotic"
+        hidden_tooltip = {
+            NOR = {
+                religion = terran_imperial
+                religion = terran_imperial_cult
+                religion = astrist
+                religion = imperial_cult
+            }
+        }
+    }
+}
+
+ideology_is_rule_of_law = {
+    custom_tooltip =  {
+        text = "ideology_is_rule_of_law"
+        hidden_tooltip = {
+            OR = {
+                religion = mobster
+                religion = terran_federalist
+                religion = terran_republican
+                religion = terran_imperial
+                religion = neo_socialist
+                religion = astrist
+                religion = cyberneticist
+            }
+        }
+    }
+}
+
+ideology_is_pro_state_property = {
+    custom_tooltip =  {
+        text = "ideology_is_pro_state_property"
+        hidden_tooltip = {
+            OR = {
+                religion = terran_imperial
+                religion = neo_socialist
+                religion = astrist
+                religion = cyberneticist
+                religion = hiver
+                religion = machine_cultist
+                religion = bio_directionist
+            }
+        }
+    }
+}
+
+ideology_is_pro_private_property = {
+    custom_tooltip =  {
+        text = "ideology_is_pro_private_property"
+        hidden_tooltip = {
+            OR = {
+                religion = space_pirate
+                religion = terran_federalist
+                religion = terran_republican
+                religion = colonial_separatist
+                religion = neo_feudal
+            }
         }
     }
 }
