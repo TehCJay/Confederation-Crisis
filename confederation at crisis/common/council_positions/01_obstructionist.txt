@@ -1,18 +1,16 @@
-loyalist = {
-	icon = 1
-
-	may_request_law_change = no
+obstructionist = {
+	icon = 2
 
 	# The player also needs to obey the potential triggers when choosing a position
 	potential = {
 		opinion = {
 			who = liege
-			value >= 0
+			value <= 0
 		}
 	}
 
 	default_selection = {
-		value = 1
+		value = 0
 	}
 
 	selection = {
@@ -20,17 +18,17 @@ loyalist = {
 
 		additive_opinion_modifier = {
 			who = liege
-			factor = 1
+			factor = -1
 		}
 
 		additive_modifier = {
-			value = 10
-			is_friend = liege
+			value = 5
+			trait = ambitious
 		}
 
 		additive_modifier = {
-			value = 10
-			is_lover = liege
+			value = 20
+			is_rival = liege
 		}
 
 		#Idea here is "cap" to 50 the chances here unless the character is quite dumb and thus easily manipulated.
@@ -42,15 +40,6 @@ loyalist = {
 				stewardship >= 4
 			}
 		}
-
-		additive_modifier = {
-			value = 15
-			liege = {
-				any_owned_bloodline = {
-					has_bloodline_flag = bloodline_loyalist
-				}
-			}
-		}
 	}
 
 	voting_patterns = {
@@ -60,7 +49,7 @@ loyalist = {
 		selfish_pattern_against
 		family_pattern_for
 		family_pattern_against
-		loyalist_pattern_for
+		malcontent_pattern_against
 		ideological_for
 		ideological_against
 		interaction_pattern_for

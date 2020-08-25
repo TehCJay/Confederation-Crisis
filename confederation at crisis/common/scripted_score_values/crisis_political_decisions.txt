@@ -1,0 +1,355 @@
+########################################################################
+##                                                                    ##
+## AI Personality: scores here are supposed to range from -100 to 100 ##
+##                                                                    ##
+########################################################################
+
+## Scores to evalute AI beliefs in their ideology:
+
+# Ideologue
+ai_zealous_score = {
+	additive_exported_value_modifier = {
+		factor = 0.7
+		value = ai_zeal
+		who = THIS
+	}
+	additive_exported_value_modifier = {
+		factor = 0.3
+		value = ai_honor
+		who = THIS
+	}
+	additive_modifier = {
+		value = 1
+		trait = spiritual
+	}
+	additive_modifier = {
+		value = 1
+		trait = radical
+	}
+	additive_modifier = {
+		value = 1
+		trait = close_minded
+	}
+}
+
+# Corrupt Fisiologist
+ai_corruption_score = {
+	additive_exported_value_modifier = {
+		factor = -0.8
+		value = ai_honor
+		who = THIS
+	}
+	additive_exported_value_modifier = {
+		factor = -0.2
+		value = ai_zeal
+		who = THIS
+	}
+
+
+	additive_exported_value_modifier = {
+		factor = 0.5
+		value = ai_greed
+		who = THIS
+	}
+
+	additive_exported_value_modifier = {
+		factor = 0.25
+		value = ai_ambition
+		who = THIS
+	}
+
+	additive_exported_value_modifier = {
+		factor = 0.25
+		value = ai_rationality
+		who = THIS
+	}
+	additive_modifier = {
+		value = 1
+		trait = deceitful
+	}
+	additive_modifier = {
+		value = 1
+		trait = amoral
+	}
+	additive_modifier = {
+		value = 1
+		trait = arbitrary
+	}
+	additive_modifier = {
+		value = 1
+		trait = skeptical
+	}
+}
+
+# Moderate: Balances his ideology with the practicality
+ai_zealous_reason_score = {
+	additive_exported_value_modifier = {
+		factor = 0.4
+		value = ai_zeal
+		who = THIS
+	}
+	additive_exported_value_modifier = {
+		factor = 0.5
+		value = ai_rationality
+		who = THIS
+	}
+	additive_exported_value_modifier = {
+		factor = 0.1
+		value = ai_honor
+		who = THIS
+	}
+	additive_modifier = {
+		value = 1
+		trait = spiritual
+	}
+	additive_modifier = {
+		value = 1
+		trait = radical
+	}
+	additive_modifier = {
+		value = 1
+		trait = pragmatic
+	}
+	additive_modifier = {
+		value = 1
+		trait = open_minded
+	}
+}
+
+## Scores to evalute AI beliefs in their methods to achieve power:
+
+# Warhawk: believes military conflict is the way to go.
+# Econohawk: believes in economic power.
+# Technohawk: believes superior technology is what matters.
+# Diplohawk: believes diplomacy ( and intelligence ) is the solution for problems.
+
+ai_war_ambition_score = {
+	additive_modifier = {
+		value = -20
+	}
+	additive_modifier = {
+		value = 1
+		trait = ambitious
+	}
+	additive_exported_value_modifier = {
+		factor = 0.8
+		value = ai_ambition
+		who = THIS
+	}
+	additive_exported_value_modifier = {
+		factor = 0.2
+		value = ai_greed
+		who = THIS
+	}
+	additive_exported_value_modifier = {
+		factor = 4
+		value = martial
+		who = THIS
+	}
+	additive_exported_value_modifier = {
+		factor = -1
+		value = intrigue
+		who = THIS
+	}
+	additive_exported_value_modifier = {
+		factor = -1
+		value = diplomacy
+		who = THIS
+	}
+	additive_exported_value_modifier = {
+		factor = -1
+		value = learning
+		who = THIS
+	}
+	additive_exported_value_modifier = {
+		factor = -1
+		value = stewardship
+		who = THIS
+	}
+}
+
+ai_economic_ambition_score = {
+	additive_modifier = {
+		value = -20
+	}
+	additive_modifier = {
+		value = 1
+		trait = ambitious
+	}
+	additive_exported_value_modifier = {
+		factor = 0.2
+		value = ai_ambition
+		who = THIS
+	}
+	additive_exported_value_modifier = {
+		factor = 0.7
+		value = ai_greed
+		who = THIS
+	}
+	additive_exported_value_modifier = {
+		factor = 4
+		value = stewardship
+		who = THIS
+	}
+	additive_exported_value_modifier = {
+		factor = -1
+		value = intrigue
+		who = THIS
+	}
+	additive_exported_value_modifier = {
+		factor = -1
+		value = diplomacy
+		who = THIS
+	}
+	additive_exported_value_modifier = {
+		factor = -1
+		value = learning
+		who = THIS
+	}
+	additive_exported_value_modifier = {
+		factor = -1
+		value = martial
+		who = THIS
+	}
+}
+
+ai_diplomatic_ambition_score = {
+	additive_modifier = {
+		value = -20
+	}
+	additive_modifier = {
+		value = 1
+		trait = ambitious
+	}
+	additive_exported_value_modifier = {
+		factor = 0.4
+		value = ai_ambition
+		who = THIS
+	}
+	additive_exported_value_modifier = {
+		factor = 0.4
+		value = ai_greed
+		who = THIS
+	}
+	additive_exported_value_modifier = {
+		factor = 0.2
+		value = ai_rationality
+		who = THIS
+	}
+	additive_exported_value_modifier = {
+		factor = 2
+		value = diplomacy
+		who = THIS
+	}
+	additive_exported_value_modifier = {
+		factor = 1
+		value = intrigue
+		who = THIS
+	}
+	additive_exported_value_modifier = {
+		factor = -1
+		value = stewardship
+		who = THIS
+	}
+	additive_exported_value_modifier = {
+		factor = -1
+		value = learning
+		who = THIS
+	}
+	additive_exported_value_modifier = {
+		factor = -1
+		value = martial
+		who = THIS
+	}
+}
+
+ai_tech_ambition_score = {
+	additive_modifier = {
+		value = -20
+	}
+	additive_modifier = {
+		value = 1
+		trait = ambitious
+	}
+	additive_exported_value_modifier = {
+		factor = 0.6
+		value = ai_ambition
+		who = THIS
+	}
+	additive_exported_value_modifier = {
+		factor = 0.1
+		value = ai_greed
+		who = THIS
+	}
+	additive_exported_value_modifier = {
+		factor = 0.3
+		value = ai_rationality
+		who = THIS
+	}
+	additive_exported_value_modifier = {
+		factor = 4
+		value = learning
+		who = THIS
+	}
+	additive_exported_value_modifier = {
+		factor = -1
+		value = intrigue
+		who = THIS
+	}
+	additive_exported_value_modifier = {
+		factor = -1
+		value = diplomacy
+		who = THIS
+	}
+	additive_exported_value_modifier = {
+		factor = -1
+		value = stewardship
+		who = THIS
+	}
+	additive_exported_value_modifier = {
+		factor = -1
+		value = martial
+		who = THIS
+	}
+}
+
+## Score to evaluate AI belief in need for stability:
+
+# Stable: believes the realm should strive to be the most stable possible, favors making population happy.
+
+ai_stability_score = {
+	additive_exported_value_modifier = {
+		factor = -0.4
+		value = ai_ambition
+		who = THIS
+	}
+	additive_exported_value_modifier = {
+		factor = -0.4
+		value = ai_greed
+		who = THIS
+	}
+	additive_exported_value_modifier = {
+		factor = -0.2
+		value = ai_zeal
+		who = THIS
+	}
+
+	additive_exported_value_modifier = {
+		factor = 0.4
+		value = ai_tech_ambition_score
+		who = THIS
+	}
+	additive_exported_value_modifier = {
+		factor = 0.6
+		value = ai_rationality
+		who = THIS
+	}
+	additive_modifier = {
+		value = 1
+		trait = neurotic
+	}
+	additive_modifier = {
+		value = 1
+		trait = craven
+	}
+}
