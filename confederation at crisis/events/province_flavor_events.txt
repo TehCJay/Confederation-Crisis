@@ -1260,309 +1260,309 @@ province_event = {
 	}
 }
 # Economic recession ends
-province_event = {
-	id = flavor.650
-	desc = "EVTDESCFLAVOR650"
-	picture = GFX_evt_recession
-	border = GFX_event_normal_frame_economy
-	trigger = {
-		has_province_modifier = economic_recession
-	}
-
-	mean_time_to_happen = {
-		months = 120
-		# Neighboring provinces
-		modifier = {
-			factor = 2
-			any_neighbor_province = { has_province_modifier = economic_recession }
-		}
-		modifier = {
-			factor = 2
-			any_neighbor_province = {
-				has_province_modifier = economic_recession
-				count = 2
-			}
-		}
-		modifier = {
-			factor = 2
-			any_neighbor_province = {
-				has_province_modifier = economic_recession
-				count = 3
-			}
-		}
-		modifier = {
-			factor = 2
-			trade_post_owner = { any_trade_post = { location = { has_province_modifier = economic_recession } } }
-		}
-		modifier = {
-			factor = 2
-			trade_post_owner = {
-				any_trade_post = {
-					location = { has_province_modifier = economic_recession }
-					count = 2
-				}
-			}
-		}
-		modifier = {
-			factor = 2
-			trade_post_owner = {
-				any_trade_post = {
-					location = { has_province_modifier = economic_recession }
-					count = 3
-				}
-			}
-		}
-		modifier = {
-			factor = 0.5
-			any_neighbor_province = { has_province_modifier = economic_boom }
-		}
-		modifier = {
-			factor = 0.5
-			any_neighbor_province = {
-				has_province_modifier = economic_boom
-				count = 2
-			}
-		}
-		modifier = {
-			factor = 0.5
-			any_neighbor_province = {
-				has_province_modifier = economic_boom
-				count = 3
-			}
-		}
-		modifier = {
-			factor = 0.5
-			trade_post_owner = { any_trade_post = { location = { has_province_modifier = economic_boom } } }
-		}
-		modifier = {
-			factor = 0.5
-			trade_post_owner = {
-				any_trade_post = {
-					location = { has_province_modifier = economic_boom }
-					count = 2
-				}
-			}
-		}
-		modifier = {
-			factor = 0.5
-			trade_post_owner = {
-				any_trade_post = {
-					location = { has_province_modifier = economic_boom }
-					count = 3
-				}
-			}
-		}
-	}
-
-	option = {
-		name = "EVTOPTCONFIRM"
-		remove_province_modifier = economic_recession
-		owner = { prestige = 50 }
-	}
-}
-# Economic boom begins
-province_event = {
-	id = flavor.700
-	desc = "EVTDESCFLAVOR700"
-	picture = GFX_evt_recession
-	border = GFX_event_normal_frame_economy
-	trigger = {
-		NOT = { has_province_modifier = economic_boom }
-		NOT = { has_province_modifier = economic_recession }
-	}
-
-	mean_time_to_happen = {
-		months = 480
-		# Neighboring provinces
-		modifier = {
-			factor = 0.5
-			any_neighbor_province = { has_province_modifier = economic_boom }
-		}
-		modifier = {
-			factor = 0.5
-			any_neighbor_province = {
-				has_province_modifier = economic_boom
-				count = 2
-			}
-		}
-		modifier = {
-			factor = 0.5
-			any_neighbor_province = {
-				has_province_modifier = economic_boom
-				count = 3
-			}
-		}
-		modifier = {
-			factor = 0.5
-			trade_post_owner = { any_trade_post = { location = { has_province_modifier = economic_boom } } }
-		}
-		modifier = {
-			factor = 0.5
-			trade_post_owner = {
-				any_trade_post = {
-					location = { has_province_modifier = economic_boom }
-					count = 2
-				}
-			}
-		}
-		modifier = {
-			factor = 0.5
-			trade_post_owner = {
-				any_trade_post = {
-					location = { has_province_modifier = economic_boom }
-					count = 3
-				}
-			}
-		}
-		modifier = {
-			factor = 2
-			any_neighbor_province = { has_province_modifier = economic_recession }
-		}
-		modifier = {
-			factor = 2
-			any_neighbor_province = {
-				has_province_modifier = economic_recession
-				count = 2
-			}
-		}
-		modifier = {
-			factor = 2
-			any_neighbor_province = {
-				has_province_modifier = economic_recession
-				count = 3
-			}
-		}
-		modifier = {
-			factor = 2
-			trade_post_owner = { any_trade_post = { location = { has_province_modifier = economic_recession } } }
-		}
-		modifier = {
-			factor = 2
-			trade_post_owner = {
-				any_trade_post = {
-					location = { has_province_modifier = economic_recession }
-					count = 2
-				}
-			}
-		}
-		modifier = {
-			factor = 2
-			trade_post_owner = {
-				any_trade_post = {
-					location = { has_province_modifier = economic_recession }
-					count = 3
-				}
-			}
-		}
-	}
-
-	option = {
-		name = "EVTOPTCONFIRM"
-		add_province_modifier = { name = economic_boom duration = -1 }
-		owner = { prestige = 100 }
-	}
-}
-# Economic boom ends
-province_event = {
-	id = flavor.750
-	desc = "EVTDESCFLAVOR750"
-	picture = GFX_evt_recession
-	border = GFX_event_normal_frame_economy
-	trigger = {
-		has_province_modifier = economic_boom
-	}
-
-	mean_time_to_happen = {
-		months = 120
-		# Neighboring provinces
-		modifier = {
-			factor = 2
-			any_neighbor_province = { has_province_modifier = economic_boom }
-		}
-		modifier = {
-			factor = 2
-			any_neighbor_province = {
-				has_province_modifier = economic_boom
-				count = 2
-			}
-		}
-		modifier = {
-			factor = 2
-			any_neighbor_province = {
-				has_province_modifier = economic_boom
-				count = 3
-			}
-		}
-		modifier = {
-			factor = 2
-			trade_post_owner = { any_trade_post = { location = { has_province_modifier = economic_boom } } }
-		}
-		modifier = {
-			factor = 2
-			trade_post_owner = {
-				any_trade_post = {
-					location = { has_province_modifier = economic_boom }
-					count = 2
-				}
-			}
-		}
-		modifier = {
-			factor = 2
-			trade_post_owner = {
-				any_trade_post = {
-					location = { has_province_modifier = economic_boom }
-					count = 3
-				}
-			}
-		}
-		modifier = {
-			factor = 0.5
-			any_neighbor_province = { has_province_modifier = economic_recession }
-		}
-		modifier = {
-			factor = 0.5
-			any_neighbor_province = {
-				has_province_modifier = economic_recession
-				count = 2
-			}
-		}
-		modifier = {
-			factor = 0.5
-			any_neighbor_province = {
-				has_province_modifier = economic_recession
-				count = 3
-			}
-		}
-		modifier = {
-			factor = 0.5
-			trade_post_owner = { any_trade_post = { location = { has_province_modifier = economic_recession } } }
-		}
-		modifier = {
-			factor = 0.5
-			trade_post_owner = {
-				any_trade_post = {
-					location = { has_province_modifier = economic_recession }
-					count = 2
-				}
-			}
-		}
-		modifier = {
-			factor = 0.5
-			trade_post_owner = {
-				any_trade_post = {
-					location = { has_province_modifier = economic_recession }
-					count = 3
-				}
-			}
-		}
-	}
-
-	option = {
-		name = "EVTOPTCONFIRM"
-		remove_province_modifier = economic_boom
-		owner = { prestige = -50 }
-	}
-}
+#province_event = {
+#	id = flavor.650
+#	desc = "EVTDESCFLAVOR650"
+#	picture = GFX_evt_recession
+#	border = GFX_event_normal_frame_economy
+#	trigger = {
+#		has_province_modifier = economic_recession
+#	}
+#
+#	mean_time_to_happen = {
+#		months = 120
+#		# Neighboring provinces
+#		modifier = {
+#			factor = 2
+#			any_neighbor_province = { has_province_modifier = economic_recession }
+#		}
+#		modifier = {
+#			factor = 2
+#			any_neighbor_province = {
+#				has_province_modifier = economic_recession
+#				count = 2
+#			}
+#		}
+#		modifier = {
+#			factor = 2
+#			any_neighbor_province = {
+#				has_province_modifier = economic_recession
+#				count = 3
+#			}
+#		}
+#		modifier = {
+#			factor = 2
+#			trade_post_owner = { any_trade_post = { location = { has_province_modifier = economic_recession } } }
+#		}
+#		modifier = {
+#			factor = 2
+#			trade_post_owner = {
+#				any_trade_post = {
+#					location = { has_province_modifier = economic_recession }
+#					count = 2
+#				}
+#			}
+#		}
+#		modifier = {
+#			factor = 2
+#			trade_post_owner = {
+#				any_trade_post = {
+#					location = { has_province_modifier = economic_recession }
+#					count = 3
+#				}
+#			}
+#		}
+#		modifier = {
+#			factor = 0.5
+#			any_neighbor_province = { has_province_modifier = economic_boom }
+#		}
+#		modifier = {
+#			factor = 0.5
+#			any_neighbor_province = {
+#				has_province_modifier = economic_boom
+#				count = 2
+#			}
+#		}
+#		modifier = {
+#			factor = 0.5
+#			any_neighbor_province = {
+#				has_province_modifier = economic_boom
+#				count = 3
+#			}
+#		}
+#		modifier = {
+#			factor = 0.5
+#			trade_post_owner = { any_trade_post = { location = { has_province_modifier = economic_boom } } }
+#		}
+#		modifier = {
+#			factor = 0.5
+#			trade_post_owner = {
+#				any_trade_post = {
+#					location = { has_province_modifier = economic_boom }
+#					count = 2
+#				}
+#			}
+#		}
+#		modifier = {
+#			factor = 0.5
+#			trade_post_owner = {
+#				any_trade_post = {
+#					location = { has_province_modifier = economic_boom }
+#					count = 3
+#				}
+#			}
+#		}
+#	}
+#
+#	option = {
+#		name = "EVTOPTCONFIRM"
+#		remove_province_modifier = economic_recession
+#		owner = { prestige = 50 }
+#	}
+#}
+## Economic boom begins
+#province_event = {
+#	id = flavor.700
+#	desc = "EVTDESCFLAVOR700"
+#	picture = GFX_evt_recession
+#	border = GFX_event_normal_frame_economy
+#	trigger = {
+#		NOT = { has_province_modifier = economic_boom }
+#		NOT = { has_province_modifier = economic_recession }
+#	}
+#
+#	mean_time_to_happen = {
+#		months = 480
+#		# Neighboring provinces
+#		modifier = {
+#			factor = 0.5
+#			any_neighbor_province = { has_province_modifier = economic_boom }
+#		}
+#		modifier = {
+#			factor = 0.5
+#			any_neighbor_province = {
+#				has_province_modifier = economic_boom
+#				count = 2
+#			}
+#		}
+#		modifier = {
+#			factor = 0.5
+#			any_neighbor_province = {
+#				has_province_modifier = economic_boom
+#				count = 3
+#			}
+#		}
+#		modifier = {
+#			factor = 0.5
+#			trade_post_owner = { any_trade_post = { location = { has_province_modifier = economic_boom } } }
+#		}
+#		modifier = {
+#			factor = 0.5
+#			trade_post_owner = {
+#				any_trade_post = {
+#					location = { has_province_modifier = economic_boom }
+#					count = 2
+#				}
+#			}
+#		}
+#		modifier = {
+#			factor = 0.5
+#			trade_post_owner = {
+#				any_trade_post = {
+#					location = { has_province_modifier = economic_boom }
+#					count = 3
+#				}
+#			}
+#		}
+#		modifier = {
+#			factor = 2
+#			any_neighbor_province = { has_province_modifier = economic_recession }
+#		}
+#		modifier = {
+#			factor = 2
+#			any_neighbor_province = {
+#				has_province_modifier = economic_recession
+#				count = 2
+#			}
+#		}
+#		modifier = {
+#			factor = 2
+#			any_neighbor_province = {
+#				has_province_modifier = economic_recession
+#				count = 3
+#			}
+#		}
+#		modifier = {
+#			factor = 2
+#			trade_post_owner = { any_trade_post = { location = { has_province_modifier = economic_recession } } }
+#		}
+#		modifier = {
+#			factor = 2
+#			trade_post_owner = {
+#				any_trade_post = {
+#					location = { has_province_modifier = economic_recession }
+#					count = 2
+#				}
+#			}
+#		}
+#		modifier = {
+#			factor = 2
+#			trade_post_owner = {
+#				any_trade_post = {
+#					location = { has_province_modifier = economic_recession }
+#					count = 3
+#				}
+#			}
+#		}
+#	}
+#
+#	option = {
+#		name = "EVTOPTCONFIRM"
+#		add_province_modifier = { name = economic_boom duration = -1 }
+#		owner = { prestige = 100 }
+#	}
+#}
+## Economic boom ends
+#province_event = {
+#	id = flavor.750
+#	desc = "EVTDESCFLAVOR750"
+#	picture = GFX_evt_recession
+#	border = GFX_event_normal_frame_economy
+#	trigger = {
+#		has_province_modifier = economic_boom
+#	}
+#
+#	mean_time_to_happen = {
+#		months = 120
+#		# Neighboring provinces
+#		modifier = {
+#			factor = 2
+#			any_neighbor_province = { has_province_modifier = economic_boom }
+#		}
+#		modifier = {
+#			factor = 2
+#			any_neighbor_province = {
+#				has_province_modifier = economic_boom
+#				count = 2
+#			}
+#		}
+#		modifier = {
+#			factor = 2
+#			any_neighbor_province = {
+#				has_province_modifier = economic_boom
+#				count = 3
+#			}
+#		}
+#		modifier = {
+#			factor = 2
+#			trade_post_owner = { any_trade_post = { location = { has_province_modifier = economic_boom } } }
+#		}
+#		modifier = {
+#			factor = 2
+#			trade_post_owner = {
+#				any_trade_post = {
+#					location = { has_province_modifier = economic_boom }
+#					count = 2
+#				}
+#			}
+#		}
+#		modifier = {
+#			factor = 2
+#			trade_post_owner = {
+#				any_trade_post = {
+#					location = { has_province_modifier = economic_boom }
+#					count = 3
+#				}
+#			}
+#		}
+#		modifier = {
+#			factor = 0.5
+#			any_neighbor_province = { has_province_modifier = economic_recession }
+#		}
+#		modifier = {
+#			factor = 0.5
+#			any_neighbor_province = {
+#				has_province_modifier = economic_recession
+#				count = 2
+#			}
+#		}
+#		modifier = {
+#			factor = 0.5
+#			any_neighbor_province = {
+#				has_province_modifier = economic_recession
+#				count = 3
+#			}
+#		}
+#		modifier = {
+#			factor = 0.5
+#			trade_post_owner = { any_trade_post = { location = { has_province_modifier = economic_recession } } }
+#		}
+#		modifier = {
+#			factor = 0.5
+#			trade_post_owner = {
+#				any_trade_post = {
+#					location = { has_province_modifier = economic_recession }
+#					count = 2
+#				}
+#			}
+#		}
+#		modifier = {
+#			factor = 0.5
+#			trade_post_owner = {
+#				any_trade_post = {
+#					location = { has_province_modifier = economic_recession }
+#					count = 3
+#				}
+#			}
+#		}
+#	}
+#
+#	option = {
+#		name = "EVTOPTCONFIRM"
+#		remove_province_modifier = economic_boom
+#		owner = { prestige = -50 }
+#	}
+#}
 # Passenger ship in distress
 province_event = {
 	id = flavor.800
