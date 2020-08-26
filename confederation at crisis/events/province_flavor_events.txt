@@ -2447,423 +2447,423 @@ province_event = {
 	}
 }
 # AI
-province_event = {
-	id = flavor.1300
-	desc = "EVTDESCFLAVOR1300"
-	picture = GFX_evt_cybernetics
-	border = GFX_event_normal_frame_religion
-	is_triggered_only = yes
-
-	trigger = {
-		OR = {
-			religion = cyberneticist
-			religion = machine_cultist
-			religion = hiver
-		}
-		NOT = { TECH_AI = 8 }
-		NOT = { revolt_risk = 0.25 }
-		county = { can_be_given_away = yes }
-	}
-
-	mean_time_to_happen = {
-		months = 1200
-		# Revolt risk makes things difficult
-		modifier = {
-			factor = 2
-			revolt_risk = 0.05
-		}
-		modifier = {
-			factor = 2
-			revolt_risk = 0.1
-		}
-		modifier = {
-			factor = 2
-			revolt_risk = 0.15
-		}
-		modifier = {
-			factor = 2
-			revolt_risk = 0.2
-		}
-		# Higher levels are more difficult
-		modifier = {
-			factor = 3
-			TECH_AI = 1
-		}
-		modifier = {
-			factor = 3
-			TECH_AI = 2
-		}
-		modifier = {
-			factor = 3
-			TECH_AI = 3
-		}
-		modifier = {
-			factor = 3
-			TECH_AI = 4
-		}
-		modifier = {
-			factor = 3
-			TECH_AI = 5
-		}
-		modifier = {
-			factor = 3
-			TECH_AI = 6
-		}
-		modifier = {
-			factor = 3
-			TECH_AI = 7
-		}
-		# Learning from neighboring provinces
-		modifier = {
-			factor = 0.8
-			any_neighbor_province = { TECH_AI = 1 }
-		}
-		modifier = {
-			factor = 0.8
-			any_neighbor_province = { TECH_AI = 2 }
-		}
-		modifier = {
-			factor = 0.8
-			any_neighbor_province = { TECH_AI = 3 }
-		}
-		modifier = {
-			factor = 0.8
-			any_neighbor_province = { TECH_AI = 4 }
-		}
-		modifier = {
-			factor = 0.8
-			any_neighbor_province = { TECH_AI = 5 }
-		}
-		modifier = {
-			factor = 0.8
-			any_neighbor_province = { TECH_AI = 6 }
-		}
-		modifier = {
-			factor = 0.8
-			any_neighbor_province = { TECH_AI = 7 }
-		}
-		modifier = {
-			factor = 0.8
-			any_neighbor_province = { TECH_AI = 8 }
-		}
-		# Learning from trade partners
-		modifier = {
-			factor = 0.8
-			trade_post_owner = {
-				any_trade_post = {
-					location = {
-						NOT = { province_id = ROOT }
-						TECH_AI = 1
-					}
-				}
-			}
-		}
-		modifier = {
-			factor = 0.8
-			trade_post_owner = {
-				any_trade_post = {
-					location = {
-						NOT = { province_id = ROOT }
-						TECH_AI = 2
-					}
-				}
-			}
-		}
-		modifier = {
-			factor = 0.8
-			trade_post_owner = {
-				any_trade_post = {
-					location = {
-						NOT = { province_id = ROOT }
-						TECH_AI = 3
-					}
-				}
-			}
-		}
-		modifier = {
-			factor = 0.8
-			trade_post_owner = {
-				any_trade_post = {
-					location = {
-						NOT = { province_id = ROOT }
-						TECH_AI = 4
-					}
-				}
-			}
-		}
-		modifier = {
-			factor = 0.8
-			trade_post_owner = {
-				any_trade_post = {
-					location = {
-						NOT = { province_id = ROOT }
-						TECH_AI = 5
-					}
-				}
-			}
-		}
-		modifier = {
-			factor = 0.8
-			trade_post_owner = {
-				any_trade_post = {
-					location = {
-						NOT = { province_id = ROOT }
-						TECH_AI = 6
-					}
-				}
-			}
-		}
-		modifier = {
-			factor = 0.8
-			trade_post_owner = {
-				any_trade_post = {
-					location = {
-						NOT = { province_id = ROOT }
-						TECH_AI = 7
-					}
-				}
-			}
-		}
-		modifier = {
-			factor = 0.8
-			trade_post_owner = {
-				any_trade_post = {
-					location = {
-						NOT = { province_id = ROOT }
-						TECH_AI = 8
-					}
-				}
-			}
-		}
-		# Learning from demesne provinces
-		modifier = {
-			factor = 0.8
-			any_province_lord = {
-				any_demesne_province = {
-					NOT = { province_id = ROOT }
-					TECH_AI = 1
-				}
-			}
-		}
-		modifier = {
-			factor = 0.8
-			any_province_lord = {
-				any_demesne_province = {
-					NOT = { province_id = ROOT }
-					TECH_AI = 2
-				}
-			}
-		}
-		modifier = {
-			factor = 0.8
-			any_province_lord = {
-				any_demesne_province = {
-					NOT = { province_id = ROOT }
-					TECH_AI = 3
-				}
-			}
-		}
-		modifier = {
-			factor = 0.8
-			any_province_lord = {
-				any_demesne_province = {
-					NOT = { province_id = ROOT }
-					TECH_AI = 4
-				}
-			}
-		}
-		modifier = {
-			factor = 0.8
-			any_province_lord = {
-				any_demesne_province = {
-					NOT = { province_id = ROOT }
-					TECH_AI = 5
-				}
-			}
-		}
-		modifier = {
-			factor = 0.8
-			any_province_lord = {
-				any_demesne_province = {
-					NOT = { province_id = ROOT }
-					TECH_AI = 6
-				}
-			}
-		}
-		modifier = {
-			factor = 0.8
-			any_province_lord = {
-				any_demesne_province = {
-					NOT = { province_id = ROOT }
-					TECH_AI = 7
-				}
-			}
-		}
-		modifier = {
-			factor = 0.8
-			any_province_lord = {
-				any_demesne_province = {
-					NOT = { province_id = ROOT }
-					TECH_AI = 8
-				}
-			}
-		}
-		# Learning from realm provinces
-		modifier = {
-			factor = 0.8
-			any_province_lord = {
-				any_realm_province = {
-					NOT = { province_id = ROOT }
-					TECH_AI = 1
-				}
-			}
-		}
-		modifier = {
-			factor = 0.8
-			any_province_lord = {
-				any_realm_province = {
-					NOT = { province_id = ROOT }
-					TECH_AI = 2
-				}
-			}
-		}
-		modifier = {
-			factor = 0.8
-			any_province_lord = {
-				any_realm_province = {
-					NOT = { province_id = ROOT }
-					TECH_AI = 3
-				}
-			}
-		}
-		modifier = {
-			factor = 0.8
-			any_province_lord = {
-				any_realm_province = {
-					NOT = { province_id = ROOT }
-					TECH_AI = 4
-				}
-			}
-		}
-		modifier = {
-			factor = 0.8
-			any_province_lord = {
-				any_realm_province = {
-					NOT = { province_id = ROOT }
-					TECH_AI = 5
-				}
-			}
-		}
-		modifier = {
-			factor = 0.8
-			any_province_lord = {
-				any_realm_province = {
-					NOT = { province_id = ROOT }
-					TECH_AI = 6
-				}
-			}
-		}
-		modifier = {
-			factor = 0.8
-			any_province_lord = {
-				any_realm_province = {
-					NOT = { province_id = ROOT }
-					TECH_AI = 7
-				}
-			}
-		}
-		modifier = {
-			factor = 0.8
-			any_province_lord = {
-				any_realm_province = {
-					NOT = { province_id = ROOT }
-					TECH_AI = 8
-				}
-			}
-		}
-		# Learning from foreign locations
-		modifier = {
-			factor = 0.8
-			any_province_lord = {
-				location = {
-					NOT = { province_id = ROOT }
-					TECH_AI = 1
-				}
-			}
-		}
-		modifier = {
-			factor = 0.8
-			any_province_lord = {
-				location = {
-					NOT = { province_id = ROOT }
-					TECH_AI = 2
-				}
-			}
-		}
-		modifier = {
-			factor = 0.8
-			any_province_lord = {
-				location = {
-					NOT = { province_id = ROOT }
-					TECH_AI = 3
-				}
-			}
-		}
-		modifier = {
-			factor = 0.8
-			any_province_lord = {
-				location = {
-					NOT = { province_id = ROOT }
-					TECH_AI = 4
-				}
-			}
-		}
-		modifier = {
-			factor = 0.8
-			any_province_lord = {
-				location = {
-					NOT = { province_id = ROOT }
-					TECH_AI = 5
-				}
-			}
-		}
-		modifier = {
-			factor = 0.8
-			any_province_lord = {
-				location = {
-					NOT = { province_id = ROOT }
-					TECH_AI = 6
-				}
-			}
-		}
-		modifier = {
-			factor = 0.8
-			any_province_lord = {
-				location = {
-					NOT = { province_id = ROOT }
-					TECH_AI = 7
-				}
-			}
-		}
-		modifier = {
-			factor = 0.8
-			any_province_lord = {
-				location = {
-					NOT = { province_id = ROOT }
-					TECH_AI = 8
-				}
-			}
-		}
-	}
-
-	option = {
-		name = "EVTOPTCONFIRM"
-		change_tech = {
-			technology = TECH_AI
-			value = 1
-		}
-	}
-}
+#province_event = {
+#	id = flavor.1300
+#	desc = "EVTDESCFLAVOR1300"
+#	picture = GFX_evt_cybernetics
+#	border = GFX_event_normal_frame_religion
+#	is_triggered_only = yes
+#
+#	trigger = {
+#		OR = {
+#			religion = cyberneticist
+#			religion = machine_cultist
+#			religion = hiver
+#		}
+#		NOT = { TECH_SOCIOLOGY = 8 }
+#		NOT = { revolt_risk = 0.25 }
+#		county = { can_be_given_away = yes }
+#	}
+#
+#	mean_time_to_happen = {
+#		months = 1200
+#		# Revolt risk makes things difficult
+#		modifier = {
+#			factor = 2
+#			revolt_risk = 0.05
+#		}
+#		modifier = {
+#			factor = 2
+#			revolt_risk = 0.1
+#		}
+#		modifier = {
+#			factor = 2
+#			revolt_risk = 0.15
+#		}
+#		modifier = {
+#			factor = 2
+#			revolt_risk = 0.2
+#		}
+#		# Higher levels are more difficult
+#		modifier = {
+#			factor = 3
+#			TECH_SOCIOLOGY = 1
+#		}
+#		modifier = {
+#			factor = 3
+#			TECH_SOCIOLOGY = 2
+#		}
+#		modifier = {
+#			factor = 3
+#			TECH_SOCIOLOGY = 3
+#		}
+#		modifier = {
+#			factor = 3
+#			TECH_SOCIOLOGY = 4
+#		}
+#		modifier = {
+#			factor = 3
+#			TECH_SOCIOLOGY = 5
+#		}
+#		modifier = {
+#			factor = 3
+#			TECH_SOCIOLOGY = 6
+#		}
+#		modifier = {
+#			factor = 3
+#			TECH_SOCIOLOGY = 7
+#		}
+#		# Learning from neighboring provinces
+#		modifier = {
+#			factor = 0.8
+#			any_neighbor_province = { TECH_SOCIOLOGY = 1 }
+#		}
+#		modifier = {
+#			factor = 0.8
+#			any_neighbor_province = { TECH_SOCIOLOGY = 2 }
+#		}
+#		modifier = {
+#			factor = 0.8
+#			any_neighbor_province = { TECH_SOCIOLOGY = 3 }
+#		}
+#		modifier = {
+#			factor = 0.8
+#			any_neighbor_province = { TECH_SOCIOLOGY = 4 }
+#		}
+#		modifier = {
+#			factor = 0.8
+#			any_neighbor_province = { TECH_SOCIOLOGY = 5 }
+#		}
+#		modifier = {
+#			factor = 0.8
+#			any_neighbor_province = { TECH_SOCIOLOGY = 6 }
+#		}
+#		modifier = {
+#			factor = 0.8
+#			any_neighbor_province = { TECH_SOCIOLOGY = 7 }
+#		}
+#		modifier = {
+#			factor = 0.8
+#			any_neighbor_province = { TECH_SOCIOLOGY = 8 }
+#		}
+#		# Learning from trade partners
+#		modifier = {
+#			factor = 0.8
+#			trade_post_owner = {
+#				any_trade_post = {
+#					location = {
+#						NOT = { province_id = ROOT }
+#						TECH_SOCIOLOGY = 1
+#					}
+#				}
+#			}
+#		}
+#		modifier = {
+#			factor = 0.8
+#			trade_post_owner = {
+#				any_trade_post = {
+#					location = {
+#						NOT = { province_id = ROOT }
+#						TECH_SOCIOLOGY = 2
+#					}
+#				}
+#			}
+#		}
+#		modifier = {
+#			factor = 0.8
+#			trade_post_owner = {
+#				any_trade_post = {
+#					location = {
+#						NOT = { province_id = ROOT }
+#						TECH_SOCIOLOGY = 3
+#					}
+#				}
+#			}
+#		}
+#		modifier = {
+#			factor = 0.8
+#			trade_post_owner = {
+#				any_trade_post = {
+#					location = {
+#						NOT = { province_id = ROOT }
+#						TECH_SOCIOLOGY = 4
+#					}
+#				}
+#			}
+#		}
+#		modifier = {
+#			factor = 0.8
+#			trade_post_owner = {
+#				any_trade_post = {
+#					location = {
+#						NOT = { province_id = ROOT }
+#						TECH_SOCIOLOGY = 5
+#					}
+#				}
+#			}
+#		}
+#		modifier = {
+#			factor = 0.8
+#			trade_post_owner = {
+#				any_trade_post = {
+#					location = {
+#						NOT = { province_id = ROOT }
+#						TECH_SOCIOLOGY = 6
+#					}
+#				}
+#			}
+#		}
+#		modifier = {
+#			factor = 0.8
+#			trade_post_owner = {
+#				any_trade_post = {
+#					location = {
+#						NOT = { province_id = ROOT }
+#						TECH_SOCIOLOGY = 7
+#					}
+#				}
+#			}
+#		}
+#		modifier = {
+#			factor = 0.8
+#			trade_post_owner = {
+#				any_trade_post = {
+#					location = {
+#						NOT = { province_id = ROOT }
+#						TECH_SOCIOLOGY = 8
+#					}
+#				}
+#			}
+#		}
+#		# Learning from demesne provinces
+#		modifier = {
+#			factor = 0.8
+#			any_province_lord = {
+#				any_demesne_province = {
+#					NOT = { province_id = ROOT }
+#					TECH_SOCIOLOGY = 1
+#				}
+#			}
+#		}
+#		modifier = {
+#			factor = 0.8
+#			any_province_lord = {
+#				any_demesne_province = {
+#					NOT = { province_id = ROOT }
+#					TECH_SOCIOLOGY = 2
+#				}
+#			}
+#		}
+#		modifier = {
+#			factor = 0.8
+#			any_province_lord = {
+#				any_demesne_province = {
+#					NOT = { province_id = ROOT }
+#					TECH_SOCIOLOGY = 3
+#				}
+#			}
+#		}
+#		modifier = {
+#			factor = 0.8
+#			any_province_lord = {
+#				any_demesne_province = {
+#					NOT = { province_id = ROOT }
+#					TECH_SOCIOLOGY = 4
+#				}
+#			}
+#		}
+#		modifier = {
+#			factor = 0.8
+#			any_province_lord = {
+#				any_demesne_province = {
+#					NOT = { province_id = ROOT }
+#					TECH_SOCIOLOGY = 5
+#				}
+#			}
+#		}
+#		modifier = {
+#			factor = 0.8
+#			any_province_lord = {
+#				any_demesne_province = {
+#					NOT = { province_id = ROOT }
+#					TECH_SOCIOLOGY = 6
+#				}
+#			}
+#		}
+#		modifier = {
+#			factor = 0.8
+#			any_province_lord = {
+#				any_demesne_province = {
+#					NOT = { province_id = ROOT }
+#					TECH_SOCIOLOGY = 7
+#				}
+#			}
+#		}
+#		modifier = {
+#			factor = 0.8
+#			any_province_lord = {
+#				any_demesne_province = {
+#					NOT = { province_id = ROOT }
+#					TECH_SOCIOLOGY = 8
+#				}
+#			}
+#		}
+#		# Learning from realm provinces
+#		modifier = {
+#			factor = 0.8
+#			any_province_lord = {
+#				any_realm_province = {
+#					NOT = { province_id = ROOT }
+#					TECH_SOCIOLOGY = 1
+#				}
+#			}
+#		}
+#		modifier = {
+#			factor = 0.8
+#			any_province_lord = {
+#				any_realm_province = {
+#					NOT = { province_id = ROOT }
+#					TECH_SOCIOLOGY = 2
+#				}
+#			}
+#		}
+#		modifier = {
+#			factor = 0.8
+#			any_province_lord = {
+#				any_realm_province = {
+#					NOT = { province_id = ROOT }
+#					TECH_SOCIOLOGY = 3
+#				}
+#			}
+#		}
+#		modifier = {
+#			factor = 0.8
+#			any_province_lord = {
+#				any_realm_province = {
+#					NOT = { province_id = ROOT }
+#					TECH_SOCIOLOGY = 4
+#				}
+#			}
+#		}
+#		modifier = {
+#			factor = 0.8
+#			any_province_lord = {
+#				any_realm_province = {
+#					NOT = { province_id = ROOT }
+#					TECH_SOCIOLOGY = 5
+#				}
+#			}
+#		}
+#		modifier = {
+#			factor = 0.8
+#			any_province_lord = {
+#				any_realm_province = {
+#					NOT = { province_id = ROOT }
+#					TECH_SOCIOLOGY = 6
+#				}
+#			}
+#		}
+#		modifier = {
+#			factor = 0.8
+#			any_province_lord = {
+#				any_realm_province = {
+#					NOT = { province_id = ROOT }
+#					TECH_SOCIOLOGY = 7
+#				}
+#			}
+#		}
+#		modifier = {
+#			factor = 0.8
+#			any_province_lord = {
+#				any_realm_province = {
+#					NOT = { province_id = ROOT }
+#					TECH_SOCIOLOGY = 8
+#				}
+#			}
+#		}
+#		# Learning from foreign locations
+#		modifier = {
+#			factor = 0.8
+#			any_province_lord = {
+#				location = {
+#					NOT = { province_id = ROOT }
+#					TECH_SOCIOLOGY = 1
+#				}
+#			}
+#		}
+#		modifier = {
+#			factor = 0.8
+#			any_province_lord = {
+#				location = {
+#					NOT = { province_id = ROOT }
+#					TECH_SOCIOLOGY = 2
+#				}
+#			}
+#		}
+#		modifier = {
+#			factor = 0.8
+#			any_province_lord = {
+#				location = {
+#					NOT = { province_id = ROOT }
+#					TECH_SOCIOLOGY = 3
+#				}
+#			}
+#		}
+#		modifier = {
+#			factor = 0.8
+#			any_province_lord = {
+#				location = {
+#					NOT = { province_id = ROOT }
+#					TECH_SOCIOLOGY = 4
+#				}
+#			}
+#		}
+#		modifier = {
+#			factor = 0.8
+#			any_province_lord = {
+#				location = {
+#					NOT = { province_id = ROOT }
+#					TECH_SOCIOLOGY = 5
+#				}
+#			}
+#		}
+#		modifier = {
+#			factor = 0.8
+#			any_province_lord = {
+#				location = {
+#					NOT = { province_id = ROOT }
+#					TECH_SOCIOLOGY = 6
+#				}
+#			}
+#		}
+#		modifier = {
+#			factor = 0.8
+#			any_province_lord = {
+#				location = {
+#					NOT = { province_id = ROOT }
+#					TECH_SOCIOLOGY = 7
+#				}
+#			}
+#		}
+#		modifier = {
+#			factor = 0.8
+#			any_province_lord = {
+#				location = {
+#					NOT = { province_id = ROOT }
+#					TECH_SOCIOLOGY = 8
+#				}
+#			}
+#		}
+#	}
+#
+#	option = {
+#		name = "EVTOPTCONFIRM"
+#		change_tech = {
+#			technology = TECH_SOCIOLOGY
+#			value = 1
+#		}
+#	}
+#}
 # Medicine
 province_event = {
 	id = flavor.1400
@@ -3288,7 +3288,7 @@ province_event = {
 
 	trigger = {
 		religion = bio_directionist
-		NOT = { TECH_BIOTECH = 8 }
+		NOT = { TECH_MEDICINE = 8 }
 		NOT = { revolt_risk = 0.25 }
 		county = { can_be_given_away = yes }
 	}
@@ -3315,64 +3315,64 @@ province_event = {
 		# Higher levels are more difficult
 		modifier = {
 			factor = 3
-			TECH_BIOTECH = 1
+			TECH_MEDICINE = 1
 		}
 		modifier = {
 			factor = 3
-			TECH_BIOTECH = 2
+			TECH_MEDICINE = 2
 		}
 		modifier = {
 			factor = 3
-			TECH_BIOTECH = 3
+			TECH_MEDICINE = 3
 		}
 		modifier = {
 			factor = 3
-			TECH_BIOTECH = 4
+			TECH_MEDICINE = 4
 		}
 		modifier = {
 			factor = 3
-			TECH_BIOTECH = 5
+			TECH_MEDICINE = 5
 		}
 		modifier = {
 			factor = 3
-			TECH_BIOTECH = 6
+			TECH_MEDICINE = 6
 		}
 		modifier = {
 			factor = 3
-			TECH_BIOTECH = 7
+			TECH_MEDICINE = 7
 		}
 		# Learning from neighboring provinces
 		modifier = {
 			factor = 0.8
-			any_neighbor_province = { TECH_BIOTECH = 1 }
+			any_neighbor_province = { TECH_MEDICINE = 1 }
 		}
 		modifier = {
 			factor = 0.8
-			any_neighbor_province = { TECH_BIOTECH = 2 }
+			any_neighbor_province = { TECH_MEDICINE = 2 }
 		}
 		modifier = {
 			factor = 0.8
-			any_neighbor_province = { TECH_BIOTECH = 3 }
+			any_neighbor_province = { TECH_MEDICINE = 3 }
 		}
 		modifier = {
 			factor = 0.8
-			any_neighbor_province = { TECH_BIOTECH = 4 }
+			any_neighbor_province = { TECH_MEDICINE = 4 }
 		}
 		modifier = {
 			factor = 0.8
-			any_neighbor_province = { TECH_BIOTECH = 5 }
+			any_neighbor_province = { TECH_MEDICINE = 5 }
 		}
 		modifier = {
 			factor = 0.8
-			any_neighbor_province = { TECH_BIOTECH = 6 }
+			any_neighbor_province = { TECH_MEDICINE = 6 }
 		}
 		modifier = {
 			factor = 0.8
-			any_neighbor_province = { TECH_BIOTECH = 7 }
+			any_neighbor_province = { TECH_MEDICINE = 7 }
 		}
 		modifier = {
 			factor = 0.8
-			any_neighbor_province = { TECH_BIOTECH = 8 }
+			any_neighbor_province = { TECH_MEDICINE = 8 }
 		}
 		# Learning from trade partners
 		modifier = {
@@ -3381,7 +3381,7 @@ province_event = {
 				any_trade_post = {
 					location = {
 						NOT = { province_id = ROOT }
-						TECH_BIOTECH = 1
+						TECH_MEDICINE = 1
 					}
 				}
 			}
@@ -3392,7 +3392,7 @@ province_event = {
 				any_trade_post = {
 					location = {
 						NOT = { province_id = ROOT }
-						TECH_BIOTECH = 2
+						TECH_MEDICINE = 2
 					}
 				}
 			}
@@ -3403,7 +3403,7 @@ province_event = {
 				any_trade_post = {
 					location = {
 						NOT = { province_id = ROOT }
-						TECH_BIOTECH = 3
+						TECH_MEDICINE = 3
 					}
 				}
 			}
@@ -3414,7 +3414,7 @@ province_event = {
 				any_trade_post = {
 					location = {
 						NOT = { province_id = ROOT }
-						TECH_BIOTECH = 4
+						TECH_MEDICINE = 4
 					}
 				}
 			}
@@ -3425,7 +3425,7 @@ province_event = {
 				any_trade_post = {
 					location = {
 						NOT = { province_id = ROOT }
-						TECH_BIOTECH = 5
+						TECH_MEDICINE = 5
 					}
 				}
 			}
@@ -3436,7 +3436,7 @@ province_event = {
 				any_trade_post = {
 					location = {
 						NOT = { province_id = ROOT }
-						TECH_BIOTECH = 6
+						TECH_MEDICINE = 6
 					}
 				}
 			}
@@ -3447,7 +3447,7 @@ province_event = {
 				any_trade_post = {
 					location = {
 						NOT = { province_id = ROOT }
-						TECH_BIOTECH = 7
+						TECH_MEDICINE = 7
 					}
 				}
 			}
@@ -3458,7 +3458,7 @@ province_event = {
 				any_trade_post = {
 					location = {
 						NOT = { province_id = ROOT }
-						TECH_BIOTECH = 8
+						TECH_MEDICINE = 8
 					}
 				}
 			}
@@ -3469,7 +3469,7 @@ province_event = {
 			any_province_lord = {
 				any_demesne_province = {
 					NOT = { province_id = ROOT }
-					TECH_BIOTECH = 1
+					TECH_MEDICINE = 1
 				}
 			}
 		}
@@ -3478,7 +3478,7 @@ province_event = {
 			any_province_lord = {
 				any_demesne_province = {
 					NOT = { province_id = ROOT }
-					TECH_BIOTECH = 2
+					TECH_MEDICINE = 2
 				}
 			}
 		}
@@ -3487,7 +3487,7 @@ province_event = {
 			any_province_lord = {
 				any_demesne_province = {
 					NOT = { province_id = ROOT }
-					TECH_BIOTECH = 3
+					TECH_MEDICINE = 3
 				}
 			}
 		}
@@ -3496,7 +3496,7 @@ province_event = {
 			any_province_lord = {
 				any_demesne_province = {
 					NOT = { province_id = ROOT }
-					TECH_BIOTECH = 4
+					TECH_MEDICINE = 4
 				}
 			}
 		}
@@ -3505,7 +3505,7 @@ province_event = {
 			any_province_lord = {
 				any_demesne_province = {
 					NOT = { province_id = ROOT }
-					TECH_BIOTECH = 5
+					TECH_MEDICINE = 5
 				}
 			}
 		}
@@ -3514,7 +3514,7 @@ province_event = {
 			any_province_lord = {
 				any_demesne_province = {
 					NOT = { province_id = ROOT }
-					TECH_BIOTECH = 6
+					TECH_MEDICINE = 6
 				}
 			}
 		}
@@ -3523,7 +3523,7 @@ province_event = {
 			any_province_lord = {
 				any_demesne_province = {
 					NOT = { province_id = ROOT }
-					TECH_BIOTECH = 7
+					TECH_MEDICINE = 7
 				}
 			}
 		}
@@ -3532,7 +3532,7 @@ province_event = {
 			any_province_lord = {
 				any_demesne_province = {
 					NOT = { province_id = ROOT }
-					TECH_BIOTECH = 8
+					TECH_MEDICINE = 8
 				}
 			}
 		}
@@ -3542,7 +3542,7 @@ province_event = {
 			any_province_lord = {
 				any_realm_province = {
 					NOT = { province_id = ROOT }
-					TECH_BIOTECH = 1
+					TECH_MEDICINE = 1
 				}
 			}
 		}
@@ -3551,7 +3551,7 @@ province_event = {
 			any_province_lord = {
 				any_realm_province = {
 					NOT = { province_id = ROOT }
-					TECH_BIOTECH = 2
+					TECH_MEDICINE = 2
 				}
 			}
 		}
@@ -3560,7 +3560,7 @@ province_event = {
 			any_province_lord = {
 				any_realm_province = {
 					NOT = { province_id = ROOT }
-					TECH_BIOTECH = 3
+					TECH_MEDICINE = 3
 				}
 			}
 		}
@@ -3569,7 +3569,7 @@ province_event = {
 			any_province_lord = {
 				any_realm_province = {
 					NOT = { province_id = ROOT }
-					TECH_BIOTECH = 4
+					TECH_MEDICINE = 4
 				}
 			}
 		}
@@ -3578,7 +3578,7 @@ province_event = {
 			any_province_lord = {
 				any_realm_province = {
 					NOT = { province_id = ROOT }
-					TECH_BIOTECH = 5
+					TECH_MEDICINE = 5
 				}
 			}
 		}
@@ -3587,7 +3587,7 @@ province_event = {
 			any_province_lord = {
 				any_realm_province = {
 					NOT = { province_id = ROOT }
-					TECH_BIOTECH = 6
+					TECH_MEDICINE = 6
 				}
 			}
 		}
@@ -3596,7 +3596,7 @@ province_event = {
 			any_province_lord = {
 				any_realm_province = {
 					NOT = { province_id = ROOT }
-					TECH_BIOTECH = 7
+					TECH_MEDICINE = 7
 				}
 			}
 		}
@@ -3605,7 +3605,7 @@ province_event = {
 			any_province_lord = {
 				any_realm_province = {
 					NOT = { province_id = ROOT }
-					TECH_BIOTECH = 8
+					TECH_MEDICINE = 8
 				}
 			}
 		}
@@ -3615,7 +3615,7 @@ province_event = {
 			any_province_lord = {
 				location = {
 					NOT = { province_id = ROOT }
-					TECH_BIOTECH = 1
+					TECH_MEDICINE = 1
 				}
 			}
 		}
@@ -3624,7 +3624,7 @@ province_event = {
 			any_province_lord = {
 				location = {
 					NOT = { province_id = ROOT }
-					TECH_BIOTECH = 2
+					TECH_MEDICINE = 2
 				}
 			}
 		}
@@ -3633,7 +3633,7 @@ province_event = {
 			any_province_lord = {
 				location = {
 					NOT = { province_id = ROOT }
-					TECH_BIOTECH = 3
+					TECH_MEDICINE = 3
 				}
 			}
 		}
@@ -3642,7 +3642,7 @@ province_event = {
 			any_province_lord = {
 				location = {
 					NOT = { province_id = ROOT }
-					TECH_BIOTECH = 4
+					TECH_MEDICINE = 4
 				}
 			}
 		}
@@ -3651,7 +3651,7 @@ province_event = {
 			any_province_lord = {
 				location = {
 					NOT = { province_id = ROOT }
-					TECH_BIOTECH = 5
+					TECH_MEDICINE = 5
 				}
 			}
 		}
@@ -3660,7 +3660,7 @@ province_event = {
 			any_province_lord = {
 				location = {
 					NOT = { province_id = ROOT }
-					TECH_BIOTECH = 6
+					TECH_MEDICINE = 6
 				}
 			}
 		}
@@ -3669,7 +3669,7 @@ province_event = {
 			any_province_lord = {
 				location = {
 					NOT = { province_id = ROOT }
-					TECH_BIOTECH = 7
+					TECH_MEDICINE = 7
 				}
 			}
 		}
@@ -3678,7 +3678,7 @@ province_event = {
 			any_province_lord = {
 				location = {
 					NOT = { province_id = ROOT }
-					TECH_BIOTECH = 8
+					TECH_MEDICINE = 8
 				}
 			}
 		}
@@ -3687,7 +3687,7 @@ province_event = {
 	option = {
 		name = "EVTOPTCONFIRM"
 		change_tech = {
-			technology = TECH_BIOTECH
+			technology = TECH_MEDICINE
 			value = 1
 		}
 	}

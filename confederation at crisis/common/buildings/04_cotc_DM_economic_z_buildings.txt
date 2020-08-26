@@ -6,11 +6,14 @@
 ###############################################################
 
 city = {
+
+	# Actual Settlement, representing population
 	ct_primary_q_0 = {
 		desc = ct_primary_q_0_desc
-		trigger = { TECH_TERRAFORMING = 0 }
-		potential = { }
-		prerequisites = { ct_environment_0 }
+		trigger = {
+			TECH_CONSTRUCTION = 0
+		}
+		potential = {  }
 		gold_cost = 0
 		build_time = 0
 
@@ -20,9 +23,9 @@ city = {
 	ct_primary_q_1 = {
 		desc = ct_primary_q_1_desc
 		trigger = {
-			TECH_TERRAFORMING = 0
+			TECH_CONSTRUCTION = 1
 		}
-		potential = { FROMFROM = { NOT = { has_holding_modifier = space_station } } }
+		potential = { }
 		prerequisites = { ct_environment_0 }
 		upgrades_from = ct_primary_q_0
 		gold_cost = 1000
@@ -33,15 +36,14 @@ city = {
 		ai_creation_factor = 50
 		extra_tech_building_start = 10.0
 	}
-
 	ct_primary_q_2 = {
 		desc = ct_primary_q_2_desc
 		trigger = {
-			always = yes
+			TECH_CONSTRUCTION = 3
 		}
-		potential = { FROMFROM = { NOT = { has_holding_modifier = space_station } } }
+		potential = { }
 		prerequisites = { ct_environment_1 }
-		upgrades_from = ct_primary_q_1	#Make sure all planets upgrade from each other in order
+		upgrades_from = ct_primary_q_1
 		gold_cost = 2000
 		build_time = 730
 
@@ -54,9 +56,9 @@ city = {
 	ct_primary_q_3 = {
 		desc = ct_primary_q_3_desc
 		trigger = {
-			always = yes
+			TECH_CONSTRUCTION = 5
 		}
-		potential = { FROMFROM = { NOT = { has_holding_modifier = space_station } } }
+		potential = { }
 		prerequisites = { ct_environment_2 }
 		upgrades_from = ct_primary_q_2
 		gold_cost = 3000
@@ -71,9 +73,9 @@ city = {
 	ct_primary_q_4 = {
 		desc = ct_primary_q_4_desc
 		trigger = {
-			always = yes
+			TECH_CONSTRUCTION = 6
 		}
-		potential = { FROMFROM = { NOT = { has_holding_modifier = space_station } } }
+		potential = { }
 		prerequisites = { ct_environment_3 }
 		upgrades_from = ct_primary_q_3
 		gold_cost = 4000
@@ -88,9 +90,9 @@ city = {
 	ct_primary_q_5 = {
 		desc = ct_primary_q_5_desc
 		trigger = {
-			always = yes
+			TECH_CONSTRUCTION = 8
 		}
-		potential = { FROMFROM = { NOT = { has_holding_modifier = space_station } } }
+		potential = { }
 		prerequisites = { ct_environment_4 }
 		upgrades_from = ct_primary_q_4
 		gold_cost = 5000
@@ -103,11 +105,11 @@ city = {
 		extra_tech_building_start = 10.0
 	}
 
-	#space habitat
+	# Space Habitat, same as "primary" but in space.
 	ct_space_station_q_1 = {
-		desc = ct_space_station_q_1
+		desc = cu_space_station_q_1_desc
 		trigger = {
-			TECH_NAVAL = 0
+			TECH_SPACE_CONSTRUCTION = 2
 		}
 		prerequisites = {
 			ct_space_dock_q_1
@@ -122,9 +124,9 @@ city = {
 		extra_tech_building_start = 1
 	}
 	ct_space_station_q_2 = {
-		desc = ct_space_station_q_2
+		desc = cu_space_station_q_2_desc
 		trigger = {
-			TECH_NAVAL = 0
+			TECH_SPACE_CONSTRUCTION = 3
 		}
 		prerequisites = {
 			ct_space_dock_q_2
@@ -141,9 +143,9 @@ city = {
 		extra_tech_building_start = 1
 	}
 	ct_space_station_q_3 = {
-		desc = ct_space_station_q_3
+		desc = cu_space_station_q_3_desc
 		trigger = {
-			TECH_NAVAL = 0
+			TECH_SPACE_CONSTRUCTION = 5
 		}
 		prerequisites = {
 			ct_space_dock_q_3
@@ -160,9 +162,9 @@ city = {
 		extra_tech_building_start = 1
 	}
 	ct_space_station_q_4 = {
-		desc = ct_space_station_q_4
+		desc = cu_space_station_q_4_desc
 		trigger = {
-			TECH_NAVAL = 0
+			TECH_SPACE_CONSTRUCTION = 7
 		}
 		prerequisites = {
 			ct_space_dock_q_4
@@ -179,9 +181,9 @@ city = {
 		extra_tech_building_start = 1
 	}
 	ct_space_station_q_5 = {
-		desc = ct_space_station_q_5
+		desc = cu_space_station_q_5_desc
 		trigger = {
-			TECH_NAVAL = 0
+			TECH_SPACE_CONSTRUCTION = 8
 		}
 		prerequisites = {
 			ct_space_dock_q_5
@@ -200,9 +202,9 @@ city = {
 
 	# Space Dock
 	ct_space_dock_q_1 = {
-		desc = ct_space_dock_q_1_desc
+		desc = cu_space_dock_q_1_desc
 		trigger = {
-			TECH_NAVAL = 1
+			TECH_SPACE_CONSTRUCTION = 1
 			FROMFROM = {
 				OR = {
 					has_building = ct_energy_1
@@ -222,9 +224,9 @@ city = {
 		extra_tech_building_start = 1
 	}
 	ct_space_dock_q_2 = {
-		desc = ct_space_dock_q_2_desc
+		desc = cu_space_dock_q_2_desc
 		trigger = {
-			TECH_NAVAL = 2
+			TECH_SPACE_CONSTRUCTION = 2
 			FROMFROM = {
 				OR = {
 					has_building = ct_energy_2
@@ -244,9 +246,9 @@ city = {
 		extra_tech_building_start = 1
 	}
 	ct_space_dock_q_3 = {
-		desc = ct_space_dock_q_3_desc
+		desc = cu_space_dock_q_3_desc
 		trigger = {
-			TECH_NAVAL = 3
+			TECH_SPACE_CONSTRUCTION = 4
 			FROMFROM = {
 				OR = {
 					has_building = ct_energy_3
@@ -266,9 +268,9 @@ city = {
 		extra_tech_building_start = 1
 	}
 	ct_space_dock_q_4 = {
-		desc = ct_space_dock_q_4_desc
+		desc = cu_space_dock_q_4_desc
 		trigger = {
-			TECH_NAVAL = 4
+			TECH_SPACE_CONSTRUCTION = 6
 			FROMFROM = {
 				OR = {
 					has_building = ct_energy_4
@@ -288,9 +290,9 @@ city = {
 		extra_tech_building_start = 1
 	}
 	ct_space_dock_q_5 = {
-		desc = ct_space_dock_q_5_desc
+		desc = cu_space_dock_q_5_desc
 		trigger = {
-			TECH_NAVAL = 5
+			TECH_SPACE_CONSTRUCTION = 7
 		}
 		prerequisites = {
 			ct_energy_3
@@ -308,719 +310,7 @@ city = {
 		extra_tech_building_start = 1
 	}
 
-
-
-	ct_police_patrols_q_1 = {
-		desc = ct_police_patrols_q_1_desc
-		trigger = {
-			TECH_NAVAL = 0
-		}
-		gold_cost = 75
-		build_time = 183
-
-		fort_level = 0.1
-		light_infantry = 7
-		local_revolt_risk = -0.004 #reduces crime
-
-		ai_creation_factor = 100
-		extra_tech_building_start = 0.5
-	}
-	ct_police_patrols_q_2 = {
-		desc = ct_police_patrols_q_2_desc
-
-		trigger = {
-			TECH_NAVAL = 1
-			FROMFROM = {
-				OR = {
-					has_building = ct_space_station_q_1
-					has_building = ct_primary_q_1
-				}
-			}
-		}
-		upgrades_from = ct_police_patrols_q_1
-		gold_cost = 90
-		build_time = 183
-
-		fort_level = 0.1
-		light_infantry = 7
-		local_revolt_risk = -0.004 #reduces crime
-
-		ai_creation_factor = 100
-		extra_tech_building_start = 0.8
-	}
-	ct_police_patrols_q_3 = {
-		desc = ct_police_patrols_q_3_desc
-
-		trigger = {
-			TECH_NAVAL = 3
-			FROMFROM = {
-				OR = {
-					has_building = ct_space_station_q_2
-					has_building = ct_primary_q_2
-				}
-			}
-		}
-		upgrades_from = ct_police_patrols_q_2
-		gold_cost = 110
-		build_time = 365
-
-		fort_level = 0.1
-		light_infantry = 7
-		local_revolt_risk = -0.004 #reduces crime
-
-		ai_creation_factor = 100
-		extra_tech_building_start = 0.8
-	}
-	ct_police_patrols_q_4 = {
-		desc = ct_police_patrols_q_4_desc
-
-		trigger = {
-			TECH_NAVAL = 5
-			FROMFROM = {
-				OR = {
-					has_building = ct_space_station_q_3
-					has_building = ct_primary_q_3
-				}
-			}
-		}
-		upgrades_from = ct_police_patrols_q_3
-		gold_cost = 140
-		build_time = 365
-
-		fort_level = 0.1
-		light_infantry = 7
-		local_revolt_risk = -0.004 #reduces crime
-
-		ai_creation_factor = 100
-		extra_tech_building_start = 0.8
-	}
-	ct_police_patrols_q_5 = {
-		desc = ct_police_patrols_q_5_desc
-
-		trigger = {
-			TECH_NAVAL = 7
-			FROMFROM = {
-				OR = {
-					has_building = ct_space_station_q_4
-					has_building = ct_primary_q_4
-				}
-			}
-		}
-		upgrades_from = ct_police_patrols_q_4
-		gold_cost = 180
-		build_time = 548
-
-		fort_level = 0.1
-		light_infantry = 7
-		local_revolt_risk = -0.004 #reduces crime
-
-		ai_creation_factor = 100
-		extra_tech_building_start = 0.8
-	}
-
-	ct_bomb_shelters_q_1 = {
-		desc = ct_bomb_shelters_q_1_desc
-		trigger = {
-			TECH_NAVAL = 0
-		}
-		gold_cost = 75
-		build_time = 183
-
-		fort_level = 1
-
-		ai_creation_factor = 110
-		extra_tech_building_start = 0.5
-	}
-	ct_bomb_shelters_q_2 = {
-		desc = ct_bomb_shelters_q_2_desc
-		trigger = {
-			TECH_NAVAL = 2
-		}
-		upgrades_from = ct_bomb_shelters_q_1
-		prerequisites = { ct_materials_1 }
-		gold_cost = 90
-		build_time = 183
-
-		fort_level = 1
-
-		ai_creation_factor = 110
-		extra_tech_building_start = 0.8
-	}
-	ct_bomb_shelters_q_3 = {
-		desc = ct_bomb_shelters_q_3_desc
-		trigger = {
-			TECH_NAVAL = 4
-		}
-		upgrades_from = ct_bomb_shelters_q_2
-		prerequisites = { ct_materials_2 }
-		gold_cost = 110
-		build_time = 365
-
-		fort_level = 1
-
-		ai_creation_factor = 110
-		extra_tech_building_start = 0.8
-	}
-	ct_bomb_shelters_q_4 = {
-		desc = ct_bomb_shelters_q_4_desc
-		trigger = {
-			TECH_NAVAL = 6
-		}
-		upgrades_from = ct_bomb_shelters_q_3
-		prerequisites = { ct_materials_3 }
-		gold_cost = 140
-		build_time = 365
-
-		fort_level = 1
-
-		ai_creation_factor = 110
-		extra_tech_building_start = 0.8
-	}
-	ct_bomb_shelters_q_5 = {
-		desc = ct_bomb_shelters_q_5_desc
-		trigger = {
-			TECH_NAVAL = 8
-		}
-		upgrades_from = ct_bomb_shelters_q_4
-		prerequisites = { ct_materials_4 }
-		gold_cost = 180
-		build_time = 548
-
-		fort_level = 1
-
-		ai_creation_factor = 110
-		extra_tech_building_start = 0.8
-	}
-
-	ct_recruitment_center_q_1 = {
-		desc = ct_recruitment_center_q_1_desc
-
-		trigger = {
-			TECH_NAVAL = 0
-			FROMFROM = {
-				OR = {
-					has_building = ct_space_station_q_1
-					has_building = ct_primary_q_1
-				}
-			}
-		}
-		gold_cost = 120
-		build_time = 365
-
-		garrison_size = 1
-		archers = 2
-		levy_reinforce_rate = 0.1
-
-		ai_creation_factor = 100
-		extra_tech_building_start = 0.8
-	}
-	ct_recruitment_center_q_2 = {
-		desc = ct_recruitment_center_q_2_desc
-
-		trigger = {
-			TECH_NAVAL = 0
-			FROMFROM = {
-				OR = {
-					has_building = ct_space_station_q_1
-					has_building = ct_primary_q_1
-				}
-			}
-		}
-		upgrades_from = ct_recruitment_center_q_1
-		gold_cost = 150
-		build_time = 365
-
-		garrison_size = 1
-		archers = 2
-		levy_reinforce_rate = 0.1
-
-		ai_creation_factor = 100
-		extra_tech_building_start = 0.8
-	}
-	ct_recruitment_center_q_3 = {
-		desc = ct_recruitment_center_q_3_desc
-
-		trigger = {
-			TECH_NAVAL = 1
-			FROMFROM = {
-				OR = {
-					has_building = ct_space_station_q_2
-					has_building = ct_primary_q_2
-				}
-			}
-		}
-		upgrades_from = ct_recruitment_center_q_2
-		gold_cost = 200
-		build_time = 730
-
-		garrison_size = 1
-		archers = 2
-		levy_reinforce_rate = 0.1
-
-		ai_creation_factor = 100
-		extra_tech_building_start = 0.8
-	}
-	ct_recruitment_center_q_4 = {
-		desc = ct_recruitment_center_q_4_desc
-
-		trigger = {
-			TECH_NAVAL = 3
-			FROMFROM = {
-				OR = {
-					has_building = ct_space_station_q_3
-					has_building = ct_primary_q_3
-				}
-			}
-		}
-		upgrades_from = ct_recruitment_center_q_3
-		gold_cost = 280
-		build_time = 730
-
-		garrison_size = 1
-		archers = 2
-		levy_reinforce_rate = 0.1
-
-		ai_creation_factor = 100
-		extra_tech_building_start = 0.8
-	}
-	ct_recruitment_center_q_5 = {
-		desc = ct_recruitment_center_q_5_desc
-
-		trigger = {
-			TECH_NAVAL = 5
-			FROMFROM = {
-				OR = {
-					has_building = ct_space_station_q_4
-					has_building = ct_primary_q_4
-				}
-			}
-		}
-		upgrades_from = ct_recruitment_center_q_4
-		gold_cost = 400
-		build_time = 1095
-
-		garrison_size = 1
-		archers = 2
-		levy_reinforce_rate = 0.1
-
-		ai_creation_factor = 100
-		extra_tech_building_start = 0.8
-	}
-	ct_recruitment_center_q_6 = {
-		desc = ct_recruitment_center_q_6_desc
-
-		trigger = {
-			TECH_NAVAL = 7
-			FROMFROM = {
-				OR = {
-					has_building = ct_space_station_q_5
-					has_building = ct_primary_q_5
-				}
-			}
-		}
-		upgrades_from = ct_recruitment_center_q_5
-		gold_cost = 600
-		build_time = 1095
-
-		garrison_size = 1
-		archers = 2
-		levy_reinforce_rate = 0.1
-
-		ai_creation_factor = 100
-		extra_tech_building_start = 0.8
-	}
-
-	ct_emergency_reserve_q_1 = {
-		desc = ct_emergency_reserve_q_1_desc
-
-		trigger = {
-			TECH_SOCIOLOGY = 0
-			FROMFROM = {
-				OR = {
-					has_building = ct_space_station_q_1
-					has_building = ct_primary_q_1
-				}
-			}
-		}
-		gold_cost = 100
-		build_time = 365
-
-		light_infantry = 5
-		heavy_infantry = 5
-		pikemen = 5
-		light_cavalry = 3
-
-		ai_creation_factor = 100
-		extra_tech_building_start = 0.8
-	}
-	ct_emergency_reserve_q_2 = {
-		desc = ct_emergency_reserve_q_2_desc
-
-		trigger = {
-			TECH_SOCIOLOGY = 2
-			FROMFROM = {
-				has_building = ct_materials_1
-				OR = {
-					has_building = ct_space_station_q_2
-					has_building = ct_primary_q_2
-				}
-			}
-		}
-		upgrades_from = ct_emergency_reserve_q_1
-		gold_cost = 120
-		build_time = 365
-
-		light_infantry = 5
-		heavy_infantry = 5
-		pikemen = 5
-		light_cavalry = 3
-
-		ai_creation_factor = 100
-		extra_tech_building_start = 0.8
-	}
-	ct_emergency_reserve_q_3 = {
-		desc = ct_emergency_reserve_q_3_desc
-
-		trigger = {
-			TECH_SOCIOLOGY = 2
-			FROMFROM = {
-				has_building = ct_materials_2
-				OR = {
-					has_building = ct_space_station_q_3
-					has_building = ct_primary_q_3
-				}
-			}
-		}
-		upgrades_from = ct_emergency_reserve_q_2
-		gold_cost = 180
-		build_time = 548
-
-		light_infantry = 5
-		heavy_infantry = 5
-		pikemen = 5
-		light_cavalry = 3
-
-		ai_creation_factor = 100
-		extra_tech_building_start = 0.8
-	}
-	ct_emergency_reserve_q_4 = {
-		desc = ct_emergency_reserve_q_4_desc
-
-		trigger = {
-			TECH_SOCIOLOGY = 2
-			FROMFROM = {
-				has_building = ct_materials_2
-				OR = {
-					has_building = ct_space_station_q_4
-					has_building = ct_primary_q_4
-				}
-			}
-		}
-		upgrades_from = ct_emergency_reserve_q_3
-		gold_cost = 280
-		build_time = 730
-
-		light_infantry = 5
-		heavy_infantry = 5
-		pikemen = 5
-		light_cavalry = 3
-
-		ai_creation_factor = 100
-		extra_tech_building_start = 0.8
-	}
-	ct_emergency_reserve_q_5 = {
-		desc = ct_emergency_reserve_q_5_desc
-
-		trigger = {
-			TECH_SOCIOLOGY = 2
-			FROMFROM = {
-				has_building = ct_materials_3
-				OR = {
-					has_building = ct_space_station_q_5
-					has_building = ct_primary_q_5
-				}
-			}
-		}
-		upgrades_from = ct_emergency_reserve_q_4
-		gold_cost = 400
-		build_time = 730
-
-		light_infantry = 5
-		heavy_infantry = 5
-		pikemen = 5
-		light_cavalry = 3
-		knights = 1
-
-		ai_creation_factor = 100
-		extra_tech_building_start = 0.8
-	}
-	ct_robotics_infrastructure_q_1 = {
-		desc = ct_robotics_infrastructure_q_1_desc
-		trigger = {
-			TECH_AI = 0
-		}
-		prerequisites = { ct_energy_1 }
-		gold_cost = 200
-		build_time = 548
-
-		tax_income = 2
-		fort_level = 0.1
-
-		ai_creation_factor = 100
-		extra_tech_building_start = 0.8
-	}
-	ct_robotics_infrastructure_q_2 = {
-		desc = ct_robotics_infrastructure_q_2_desc
-		trigger = {
-			TECH_AI = 1
-		}
-		upgrades_from = ct_robotics_infrastructure_q_1
-		prerequisites = { ct_energy_2 }
-		gold_cost = 280
-		build_time = 730
-		tax_income = 2
-		ai_creation_factor = 100
-		extra_tech_building_start = 0.8
-	}
-	ct_robotics_infrastructure_q_3 = {
-		desc = ct_robotics_infrastructure_q_3_desc
-		trigger = {
-			TECH_AI = 3
-		}
-		upgrades_from = ct_robotics_infrastructure_q_2
-		prerequisites = { ct_energy_3 }
-		gold_cost = 400
-		build_time = 730
-
-		tax_income = 2
-		fort_level = 0.1
-
-		ai_creation_factor = 100
-		extra_tech_building_start = 0.8
-	}
-	ct_robotics_infrastructure_q_4 = {
-		desc = ct_robotics_infrastructure_q_4_desc
-		trigger = {
-			TECH_AI = 5
-		}
-		upgrades_from = ct_robotics_infrastructure_q_3
-		prerequisites = { ct_energy_4 }
-		gold_cost = 560
-		build_time = 1095
-
-		tax_income = 2
-		fort_level = 0.1
-
-		ai_creation_factor = 100
-		extra_tech_building_start = 0.8
-	}
-	ct_robotics_infrastructure_q_5 = {
-		desc = ct_robotics_infrastructure_q_5_desc
-		trigger = {
-			TECH_AI = 7
-		}
-		upgrades_from = ct_robotics_infrastructure_q_4
-		prerequisites = { ct_energy_4 }
-		gold_cost = 760
-		build_time = 1095
-
-		tax_income = 2
-		fort_level = 0.1
-
-		ai_creation_factor = 100
-		extra_tech_building_start = 0.8
-	}
-
-	ct_factories_q_1 = {
-		desc = ct_factories_q_1_desc
-
-		trigger = {
-			TECH_CIVIL_ENGINEERING = 1
-			FROMFROM = {
-				OR = {
-					has_building = ct_space_station_q_1
-					has_building = ct_primary_q_1
-				}
-			}
-		}
-		gold_cost = 200
-		build_time = 365
-
-		tax_income = 3
-		#warning: supply limit here is for TOOLTIP ONLY, it DOES NOT improve the province.
-		supply_limit = 0.5
-
-		ai_creation_factor = 100
-		extra_tech_building_start = 0.8
-	}
-	ct_factories_q_2 = {
-		desc = ct_factories_q_2_desc
-
-		trigger = {
-			TECH_CIVIL_ENGINEERING = 2
-			FROMFROM = {
-				has_building = ct_materials_1
-				OR = {
-					has_building = ct_space_station_q_1
-					has_building = ct_primary_q_1
-				}
-			}
-		}
-		upgrades_from = ct_factories_q_1
-		gold_cost = 220
-		build_time = 365
-
-		tax_income = 3
-		#warning: supply limit here is for TOOLTIP ONLY, it DOES NOT improve the province.
-		supply_limit = 0.5
-
-		ai_creation_factor = 100
-		extra_tech_building_start = 0.8
-	}
-	ct_factories_q_3 = {
-		desc = ct_factories_q_3_desc
-
-		trigger = {
-			TECH_CIVIL_ENGINEERING = 3
-			FROMFROM = {
-				has_building = ct_materials_1
-				OR = {
-					has_building = ct_space_station_q_2
-					has_building = ct_primary_q_2
-				}
-			}
-		}
-		upgrades_from = ct_factories_q_2
-		gold_cost = 240
-		build_time = 365
-
-		tax_income = 3
-		#warning: supply limit here is for TOOLTIP ONLY, it DOES NOT improve the province.
-		supply_limit = 0.5
-
-		ai_creation_factor = 100
-		extra_tech_building_start = 0.8
-	}
-	ct_factories_q_4 = {
-		desc = ct_factories_q_4_desc
-
-		trigger = {
-			TECH_CIVIL_ENGINEERING = 4
-			FROMFROM = {
-				has_building = ct_materials_2
-				OR = {
-					has_building = ct_space_station_q_2
-					has_building = ct_primary_q_2
-				}
-			}
-		}
-		upgrades_from = ct_factories_q_3
-		gold_cost = 260
-		build_time = 548
-
-		tax_income = 3
-		#warning: supply limit here is for TOOLTIP ONLY, it DOES NOT improve the province.
-		supply_limit = 0.5
-
-		ai_creation_factor = 100
-		extra_tech_building_start = 0.8
-	}
-	ct_factories_q_5 = {
-		desc = ct_factories_q_5_desc
-
-		trigger = {
-			TECH_CIVIL_ENGINEERING = 5
-			FROMFROM = {
-				has_building = ct_materials_2
-				OR = {
-					has_building = ct_space_station_q_3
-					has_building = ct_primary_q_3
-				}
-			}
-		}
-		upgrades_from = ct_factories_q_4
-		gold_cost = 280
-		build_time = 548
-
-		tax_income = 3
-		#warning: supply limit here is for TOOLTIP ONLY, it DOES NOT improve the province.
-		supply_limit = 0.5
-
-		ai_creation_factor = 100
-		extra_tech_building_start = 0.8
-	}
-	ct_factories_q_6 = {
-		desc = ct_factories_q_6_desc
-
-		trigger = {
-			TECH_CIVIL_ENGINEERING = 6
-			FROMFROM = {
-				has_building = ct_materials_3
-				OR = {
-					has_building = ct_space_station_q_4
-					has_building = ct_primary_q_4
-				}
-			}
-		}
-		upgrades_from = ct_factories_q_5
-		gold_cost = 300
-		build_time = 548
-
-		tax_income = 3
-		#warning: supply limit here is for TOOLTIP ONLY, it DOES NOT improve the province.
-		supply_limit = 0.5
-
-		ai_creation_factor = 100
-		extra_tech_building_start = 0.8
-	}
-	ct_factories_q_7 = {
-		desc = ct_factories_q_7_desc
-
-		trigger = {
-			TECH_CIVIL_ENGINEERING = 7
-			FROMFROM = {
-				has_building = ct_materials_4
-				OR = {
-					has_building = ct_space_station_q_4
-					has_building = ct_primary_q_4
-				}
-			}
-		}
-		upgrades_from = ct_factories_q_6
-		gold_cost = 320
-		build_time = 730
-
-		tax_income = 3
-		#warning: supply limit here is for TOOLTIP ONLY, it DOES NOT improve the province.
-		supply_limit = 0.5
-
-		ai_creation_factor = 100
-		extra_tech_building_start = 0.8
-	}
-	ct_factories_q_8 = {
-		desc = ct_factories_q_8_desc
-
-		trigger = {
-			TECH_NAVAL = 8
-			FROMFROM = {
-				has_building = ct_materials_4
-				OR = {
-					has_building = ct_space_station_q_5
-					has_building = ct_primary_q_5
-				}
-			}
-		}
-		upgrades_from = ct_factories_q_7
-		gold_cost = 340
-		build_time = 730
-
-		tax_income = 3
-		#warning: supply limit here is for TOOLTIP ONLY, it DOES NOT improve the province.
-		supply_limit = 0.5
-
-		ai_creation_factor = 100
-		extra_tech_building_start = 0.8
-	}
+	# Section: Tax-Generating buildings
 
 	ct_trade_center_q_1 = {
 		desc = ct_trade_center_q_1_desc
@@ -1144,14 +434,14 @@ city = {
 	ct_virtual_reality_q_1 = {
 		desc = ct_virtual_reality_q_1_desc
 		trigger = {
-			TECH_CIVIL_ENGINEERING = 0
+			TECH_PUBLIC_SERVICE = 0
 		}
 		gold_cost = 100
 		build_time = 365
 
 		tax_income = 0.5
 		garrison_size = 0.1
-		fertility = 0.05 #dunno if it actually works, but the ENTERTAINMENT is quite amusing
+		fertility = 0.05 #doesn't work sadly, so giving a small modifier just for the flavor.
 
 		ai_creation_factor = 100
 		extra_tech_building_start = 0.8
@@ -1159,7 +449,7 @@ city = {
 	ct_virtual_reality_q_2 = {
 		desc = ct_virtual_reality_q_2_desc
 		trigger = {
-			TECH_CIVIL_ENGINEERING = 1
+			TECH_PUBLIC_SERVICE = 1
 		}
 		upgrades_from = ct_virtual_reality_q_1
 		prerequisites = { ct_energy_1 }
@@ -1168,7 +458,7 @@ city = {
 
 		tax_income = 0.5
 		garrison_size = 0.1
-		fertility = 0.05 #dunno if it actually works, but the ENTERTAINMENT is quite amusing
+		fertility = 0.05 #doesn't work sadly, so giving a small modifier just for the flavor.
 
 		ai_creation_factor = 100
 		extra_tech_building_start = 0.8
@@ -1176,7 +466,7 @@ city = {
 	ct_virtual_reality_q_3 = {
 		desc = ct_virtual_reality_q_3_desc
 		trigger = {
-			TECH_CIVIL_ENGINEERING = 3
+			TECH_PUBLIC_SERVICE = 3
 		}
 		upgrades_from = ct_virtual_reality_q_2
 		prerequisites = { ct_energy_2 }
@@ -1185,7 +475,7 @@ city = {
 
 		tax_income = 0.5
 		garrison_size = 0.1
-		fertility = 0.05 #dunno if it actually works, but the ENTERTAINMENT is quite amusing
+		fertility = 0.05 #doesn't work sadly, so giving a small modifier just for the flavor.
 
 		ai_creation_factor = 100
 		extra_tech_building_start = 0.8
@@ -1193,7 +483,7 @@ city = {
 	ct_virtual_reality_q_4 = {
 		desc = ct_virtual_reality_q_4_desc
 		trigger = {
-			TECH_CIVIL_ENGINEERING = 5
+			TECH_PUBLIC_SERVICE = 5
 		}
 		upgrades_from = ct_virtual_reality_q_3
 		prerequisites = { ct_energy_3 }
@@ -1209,7 +499,7 @@ city = {
 	ct_virtual_reality_q_5 = {
 		desc = ct_virtual_reality_q_5_desc
 		trigger = {
-			TECH_CIVIL_ENGINEERING = 7
+			TECH_PUBLIC_SERVICE = 7
 		}
 		upgrades_from = ct_virtual_reality_q_4
 		prerequisites = { ct_energy_4 }
@@ -1218,11 +508,821 @@ city = {
 
 		tax_income = 0.5
 		garrison_size = 0.1
-		fertility = 0.05 #dunno if it actually works, but the ENTERTAINMENT is quite amusing
+		fertility = 0.05 #doesn't work sadly, so giving a small modifier just for the flavor.
 
 		ai_creation_factor = 100
 		extra_tech_building_start = 0.8
 	}
+
+	ct_agriculture_q_1 = {
+		desc = ct_agriculture_q_1_desc
+		trigger = {
+			TECH_TERRAFORMING = 1
+		}
+		gold_cost = 100
+		build_time = 100
+
+		tax_income = 1
+		garrison_size = 0.1
+		#warning: supply limit here is for TOOLTIP ONLY, it DOES NOT improve the province.
+		supply_limit = 1
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 1.0
+	}
+	ct_agriculture_q_2 = {
+		desc = ct_agriculture_q_2_desc
+		trigger = {
+			TECH_TERRAFORMING = 2
+		}
+		prerequisites = { ct_environment_1 }
+		upgrades_from = ct_agriculture_q_1
+		gold_cost = 125
+		build_time = 125
+
+		tax_income = 1
+		garrison_size = 0.1
+		#warning: supply limit here is for TOOLTIP ONLY, it DOES NOT improve the province.
+		supply_limit = 1
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 2.0
+	}
+	ct_agriculture_q_3 = {
+		desc = ct_agriculture_q_3_desc
+		trigger = {
+			TECH_TERRAFORMING = 3
+		}
+		prerequisites = { ct_environment_2 }
+		upgrades_from = ct_agriculture_q_2
+		gold_cost = 150
+		build_time = 150
+
+		tax_income = 1.5
+		garrison_size = 0.1
+		#warning: supply limit here is for TOOLTIP ONLY, it DOES NOT improve the province.
+		supply_limit = 1
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 3.0
+	}
+	ct_agriculture_q_4 = {
+		desc = ct_agriculture_q_4_desc
+		trigger = {
+			TECH_TERRAFORMING = 4
+		}
+		prerequisites = { ct_environment_3 }
+		upgrades_from = ct_agriculture_q_3
+		gold_cost = 175
+		build_time = 175
+
+		tax_income = 1.5
+		garrison_size = 0.1
+		#warning: supply limit here is for TOOLTIP ONLY, it DOES NOT improve the province.
+		supply_limit = 1
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 4.0
+	}
+	ct_agriculture_q_5 = {
+		desc = ct_agriculture_q_5_desc
+		trigger = {
+			TECH_TERRAFORMING = 5
+		}
+		prerequisites = { ct_environment_4 }
+		upgrades_from = ct_agriculture_q_4
+		gold_cost = 200
+		build_time = 200
+
+		tax_income = 2
+		garrison_size = 0.1
+		#warning: supply limit here is for TOOLTIP ONLY, it DOES NOT improve the province.
+		supply_limit = 1
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 4.0
+	}
+
+	ct_mining_infrastructure_q_1 = {
+		desc = ct_mining_infrastructure_q_1_desc
+		trigger = {
+			TECH_ECONOMICS = 1
+		}
+		prerequisites = { ct_energy_1 }
+		gold_cost = 200
+		build_time = 548
+
+		tax_income = 2
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	ct_mining_infrastructure_q_2 = {
+		desc = ct_mining_infrastructure_q_2_desc
+		trigger = {
+			TECH_ECONOMICS = 2
+		}
+		upgrades_from = ct_mining_infrastructure_q_1
+		prerequisites = { ct_energy_2 }
+		gold_cost = 280
+		build_time = 730
+
+		tax_income = 2
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	ct_mining_infrastructure_q_3 = {
+		desc = ct_mining_infrastructure_q_3_desc
+		trigger = {
+			TECH_ECONOMICS = 4
+		}
+		upgrades_from = ct_mining_infrastructure_q_2
+		prerequisites = { ct_energy_3 }
+		gold_cost = 400
+		build_time = 730
+
+		tax_income = 2
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	ct_mining_infrastructure_q_4 = {
+		desc = ct_mining_infrastructure_q_4_desc
+		trigger = {
+			TECH_ECONOMICS = 5
+		}
+		upgrades_from = ct_mining_infrastructure_q_3
+		prerequisites = { ct_energy_4 }
+		gold_cost = 560
+		build_time = 1095
+
+		tax_income = 2
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	ct_mining_infrastructure_q_5 = {
+		desc = ct_mining_infrastructure_q_5_desc
+		trigger = {
+			TECH_ECONOMICS = 7
+		}
+		upgrades_from = ct_mining_infrastructure_q_4
+		prerequisites = { ct_energy_4 }
+		gold_cost = 760
+		build_time = 1095
+
+		tax_income = 2
+		custom_modifier_text = unlocks_partially_battleship_retinue_tt
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+
+	ct_factories_q_1 = {
+		desc = ct_factories_q_1_desc
+
+		trigger = {
+			TECH_ECONOMICS = 1
+			FROMFROM = {
+				OR = {
+					has_building = ct_space_station_q_1
+					has_building = ct_primary_q_1
+				}
+			}
+		}
+		gold_cost = 200
+		build_time = 365
+
+		tax_income = 3
+		#warning: supply limit here is for TOOLTIP ONLY, it DOES NOT improve the province.
+		supply_limit = 0.5
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	ct_factories_q_2 = {
+		desc = ct_factories_q_2_desc
+
+		trigger = {
+			TECH_ECONOMICS = 2
+			FROMFROM = {
+				has_building = ct_materials_1
+				OR = {
+					has_building = ct_space_station_q_1
+					has_building = ct_primary_q_1
+				}
+			}
+		}
+		upgrades_from = ct_factories_q_1
+		gold_cost = 220
+		build_time = 365
+
+		tax_income = 3
+		#warning: supply limit here is for TOOLTIP ONLY, it DOES NOT improve the province.
+		supply_limit = 0.5
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	ct_factories_q_3 = {
+		desc = ct_factories_q_3_desc
+
+		trigger = {
+			TECH_ECONOMICS = 3
+			FROMFROM = {
+				has_building = ct_materials_1
+				OR = {
+					has_building = ct_space_station_q_2
+					has_building = ct_primary_q_2
+				}
+			}
+		}
+		upgrades_from = ct_factories_q_2
+		gold_cost = 240
+		build_time = 365
+
+		tax_income = 3
+		#warning: supply limit here is for TOOLTIP ONLY, it DOES NOT improve the province.
+		supply_limit = 0.5
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	ct_factories_q_4 = {
+		desc = ct_factories_q_4_desc
+
+		trigger = {
+			TECH_ECONOMICS = 4
+			FROMFROM = {
+				has_building = ct_materials_2
+				OR = {
+					has_building = ct_space_station_q_2
+					has_building = ct_primary_q_2
+				}
+			}
+		}
+		upgrades_from = ct_factories_q_3
+		gold_cost = 260
+		build_time = 548
+
+		tax_income = 3
+		#warning: supply limit here is for TOOLTIP ONLY, it DOES NOT improve the province.
+		supply_limit = 0.5
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	ct_factories_q_5 = {
+		desc = ct_factories_q_5_desc
+
+		trigger = {
+			TECH_ECONOMICS = 5
+			FROMFROM = {
+				has_building = ct_materials_2
+				OR = {
+					has_building = ct_space_station_q_3
+					has_building = ct_primary_q_3
+				}
+			}
+		}
+		upgrades_from = ct_factories_q_4
+		gold_cost = 280
+		build_time = 548
+
+		tax_income = 3
+		#warning: supply limit here is for TOOLTIP ONLY, it DOES NOT improve the province.
+		supply_limit = 0.5
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	ct_factories_q_6 = {
+		desc = ct_factories_q_6_desc
+
+		trigger = {
+			TECH_ECONOMICS = 6
+			FROMFROM = {
+				has_building = ct_materials_3
+				OR = {
+					has_building = ct_space_station_q_4
+					has_building = ct_primary_q_4
+				}
+			}
+		}
+		upgrades_from = ct_factories_q_5
+		gold_cost = 300
+		build_time = 548
+
+		tax_income = 3
+		#warning: supply limit here is for TOOLTIP ONLY, it DOES NOT improve the province.
+		supply_limit = 0.5
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	ct_factories_q_7 = {
+		desc = ct_factories_q_7_desc
+
+		trigger = {
+			TECH_ECONOMICS = 7
+			FROMFROM = {
+				has_building = ct_materials_4
+				OR = {
+					has_building = ct_space_station_q_4
+					has_building = ct_primary_q_4
+				}
+			}
+		}
+		upgrades_from = ct_factories_q_6
+		gold_cost = 320
+		build_time = 730
+
+		tax_income = 3
+		#warning: supply limit here is for TOOLTIP ONLY, it DOES NOT improve the province.
+		supply_limit = 0.5
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	ct_factories_q_8 = {
+		desc = ct_factories_q_8_desc
+
+		trigger = {
+			TECH_ECONOMICS = 8
+			FROMFROM = {
+				has_building = ct_materials_4
+				OR = {
+					has_building = ct_space_station_q_5
+					has_building = ct_primary_q_5
+				}
+			}
+		}
+		upgrades_from = ct_factories_q_7
+		gold_cost = 340
+		build_time = 730
+
+		tax_income = 3
+		#warning: supply limit here is for TOOLTIP ONLY, it DOES NOT improve the province.
+		supply_limit = 0.5
+		custom_modifier_text = unlocks_partially_battleship_retinue_tt
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+
+	# Section: Military Buildings
+
+	ct_police_patrols_q_1 = {
+		desc = ct_police_patrols_q_1_desc
+		trigger = {
+			TECH_PUBLIC_SERVICE = 1
+		}
+		gold_cost = 75
+		build_time = 183
+
+		fort_level = 0.1
+		light_infantry = 7
+		local_revolt_risk = -0.004 #reduces crime
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.5
+	}
+	ct_police_patrols_q_2 = {
+		desc = ct_police_patrols_q_2_desc
+
+		trigger = {
+			TECH_PUBLIC_SERVICE = 3
+			FROMFROM = {
+				OR = {
+					has_building = ct_space_station_q_1
+					has_building = ct_primary_q_1
+				}
+			}
+		}
+		upgrades_from = ct_police_patrols_q_1
+		gold_cost = 90
+		build_time = 183
+
+		fort_level = 0.1
+		light_infantry = 7
+		local_revolt_risk = -0.004 #reduces crime
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	ct_police_patrols_q_3 = {
+		desc = ct_police_patrols_q_3_desc
+
+		trigger = {
+			TECH_PUBLIC_SERVICE = 5
+			FROMFROM = {
+				OR = {
+					has_building = ct_space_station_q_2
+					has_building = ct_primary_q_2
+				}
+			}
+		}
+		upgrades_from = ct_police_patrols_q_2
+		gold_cost = 110
+		build_time = 365
+
+		fort_level = 0.1
+		light_infantry = 7
+		local_revolt_risk = -0.004 #reduces crime
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	ct_police_patrols_q_4 = {
+		desc = ct_police_patrols_q_4_desc
+
+		trigger = {
+			TECH_PUBLIC_SERVICE = 7
+			FROMFROM = {
+				OR = {
+					has_building = ct_space_station_q_3
+					has_building = ct_primary_q_3
+				}
+			}
+		}
+		upgrades_from = ct_police_patrols_q_3
+		gold_cost = 140
+		build_time = 365
+
+		fort_level = 0.1
+		light_infantry = 7
+		local_revolt_risk = -0.004 #reduces crime
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	ct_police_patrols_q_5 = {
+		desc = ct_police_patrols_q_5_desc
+
+		trigger = {
+			TECH_PUBLIC_SERVICE = 8
+			FROMFROM = {
+				OR = {
+					has_building = ct_space_station_q_4
+					has_building = ct_primary_q_4
+				}
+			}
+		}
+		upgrades_from = ct_police_patrols_q_4
+		gold_cost = 180
+		build_time = 548
+
+		fort_level = 0.1
+		light_infantry = 7
+		local_revolt_risk = -0.004 #reduces crime
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+
+	ct_bomb_shelters_q_1 = {
+		desc = ct_bomb_shelters_q_1_desc
+		trigger = {
+			TECH_CONSTRUCTION = 0
+		}
+		gold_cost = 75
+		build_time = 183
+
+		fort_level = 1
+
+		ai_creation_factor = 110
+		extra_tech_building_start = 0.5
+	}
+	ct_bomb_shelters_q_2 = {
+		desc = ct_bomb_shelters_q_2_desc
+		trigger = {
+			TECH_CONSTRUCTION = 2
+		}
+		upgrades_from = ct_bomb_shelters_q_1
+		prerequisites = { ct_materials_1 }
+		gold_cost = 90
+		build_time = 183
+
+		fort_level = 1
+
+		ai_creation_factor = 110
+		extra_tech_building_start = 0.8
+	}
+	ct_bomb_shelters_q_3 = {
+		desc = ct_bomb_shelters_q_3_desc
+		trigger = {
+			TECH_CONSTRUCTION = 4
+		}
+		upgrades_from = ct_bomb_shelters_q_2
+		prerequisites = { ct_materials_2 }
+		gold_cost = 110
+		build_time = 365
+
+		fort_level = 1
+
+		ai_creation_factor = 110
+		extra_tech_building_start = 0.8
+	}
+	ct_bomb_shelters_q_4 = {
+		desc = ct_bomb_shelters_q_4_desc
+		trigger = {
+			TECH_CONSTRUCTION = 6
+		}
+		upgrades_from = ct_bomb_shelters_q_3
+		prerequisites = { ct_materials_3 }
+		gold_cost = 140
+		build_time = 365
+
+		fort_level = 1
+
+		ai_creation_factor = 110
+		extra_tech_building_start = 0.8
+	}
+	ct_bomb_shelters_q_5 = {
+		desc = ct_bomb_shelters_q_5_desc
+		trigger = {
+			TECH_CONSTRUCTION = 8
+		}
+		upgrades_from = ct_bomb_shelters_q_4
+		prerequisites = { ct_materials_4 }
+		gold_cost = 180
+		build_time = 548
+
+		fort_level = 1
+
+		ai_creation_factor = 110
+		extra_tech_building_start = 0.8
+	}
+
+	ct_recruitment_center_q_1 = {
+		desc = ct_recruitment_center_q_1_desc
+
+		trigger = {
+			TECH_RECRUITMENT = 0
+			FROMFROM = {
+				OR = {
+					has_building = ct_space_station_q_1
+					has_building = ct_primary_q_1
+				}
+			}
+		}
+		gold_cost = 120
+		build_time = 365
+
+		garrison_size = 1
+		archers = 2
+		levy_reinforce_rate = 0.1
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	ct_recruitment_center_q_2 = {
+		desc = ct_recruitment_center_q_2_desc
+
+		trigger = {
+			TECH_RECRUITMENT = 1
+			FROMFROM = {
+				OR = {
+					has_building = ct_space_station_q_1
+					has_building = ct_primary_q_1
+				}
+			}
+		}
+		upgrades_from = ct_recruitment_center_q_1
+		gold_cost = 150
+		build_time = 365
+
+		garrison_size = 1
+		archers = 2
+		levy_reinforce_rate = 0.1
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	ct_recruitment_center_q_3 = {
+		desc = ct_recruitment_center_q_3_desc
+
+		trigger = {
+			TECH_RECRUITMENT = 2
+			FROMFROM = {
+				OR = {
+					has_building = ct_space_station_q_2
+					has_building = ct_primary_q_2
+				}
+			}
+		}
+		upgrades_from = ct_recruitment_center_q_2
+		gold_cost = 200
+		build_time = 730
+
+		garrison_size = 1
+		archers = 2
+		levy_reinforce_rate = 0.1
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	ct_recruitment_center_q_4 = {
+		desc = ct_recruitment_center_q_4_desc
+
+		trigger = {
+			TECH_RECRUITMENT = 4
+			FROMFROM = {
+				OR = {
+					has_building = ct_space_station_q_3
+					has_building = ct_primary_q_3
+				}
+			}
+		}
+		upgrades_from = ct_recruitment_center_q_3
+		gold_cost = 280
+		build_time = 730
+
+		garrison_size = 1
+		archers = 2
+		levy_reinforce_rate = 0.1
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	ct_recruitment_center_q_5 = {
+		desc = ct_recruitment_center_q_5_desc
+
+		trigger = {
+			TECH_RECRUITMENT = 6
+			FROMFROM = {
+				OR = {
+					has_building = ct_space_station_q_4
+					has_building = ct_primary_q_4
+				}
+			}
+		}
+		upgrades_from = ct_recruitment_center_q_4
+		gold_cost = 400
+		build_time = 1095
+
+		garrison_size = 1
+		archers = 2
+		levy_reinforce_rate = 0.1
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	ct_recruitment_center_q_6 = {
+		desc = ct_recruitment_center_q_6_desc
+
+		trigger = {
+			TECH_RECRUITMENT = 7
+			FROMFROM = {
+				OR = {
+					has_building = ct_space_station_q_5
+					has_building = ct_primary_q_5
+				}
+			}
+		}
+		upgrades_from = ct_recruitment_center_q_5
+		gold_cost = 600
+		build_time = 1095
+
+		garrison_size = 1
+		archers = 2
+		levy_reinforce_rate = 0.1
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+
+	ct_emergency_reserve_q_1 = {
+		desc = ct_emergency_reserve_q_1_desc
+
+		trigger = {
+			TECH_NAVAL = 2
+			FROMFROM = {
+				OR = {
+					has_building = ct_space_station_q_1
+					has_building = ct_primary_q_1
+				}
+			}
+		}
+		gold_cost = 100
+		build_time = 365
+
+		light_infantry = 5
+		heavy_infantry = 5
+		pikemen = 5
+		light_cavalry = 3
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	ct_emergency_reserve_q_2 = {
+		desc = ct_emergency_reserve_q_2_desc
+
+		trigger = {
+			TECH_NAVAL = 2
+			FROMFROM = {
+				has_building = ct_materials_1
+				OR = {
+					has_building = ct_space_station_q_2
+					has_building = ct_primary_q_2
+				}
+			}
+		}
+		upgrades_from = ct_emergency_reserve_q_1
+		gold_cost = 120
+		build_time = 365
+
+		light_infantry = 5
+		heavy_infantry = 5
+		pikemen = 5
+		light_cavalry = 3
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	ct_emergency_reserve_q_3 = {
+		desc = ct_emergency_reserve_q_3_desc
+
+		trigger = {
+			TECH_NAVAL = 2
+			FROMFROM = {
+				has_building = ct_materials_2
+				OR = {
+					has_building = ct_space_station_q_3
+					has_building = ct_primary_q_3
+				}
+			}
+		}
+		upgrades_from = ct_emergency_reserve_q_2
+		gold_cost = 180
+		build_time = 548
+
+		light_infantry = 5
+		heavy_infantry = 5
+		pikemen = 5
+		light_cavalry = 3
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	ct_emergency_reserve_q_4 = {
+		desc = ct_emergency_reserve_q_4_desc
+
+		trigger = {
+			TECH_NAVAL = 2
+			FROMFROM = {
+				has_building = ct_materials_2
+				OR = {
+					has_building = ct_space_station_q_4
+					has_building = ct_primary_q_4
+				}
+			}
+		}
+		upgrades_from = ct_emergency_reserve_q_3
+		gold_cost = 280
+		build_time = 730
+
+		light_infantry = 5
+		heavy_infantry = 5
+		pikemen = 5
+		light_cavalry = 3
+		custom_modifier_text = unlocks_destroyer_retinue_tt
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+	ct_emergency_reserve_q_5 = {
+		desc = ct_emergency_reserve_q_5_desc
+
+		trigger = {
+			TECH_NAVAL = 8
+			FROMFROM = {
+				has_building = ct_materials_3
+				OR = {
+					has_building = ct_space_station_q_5
+					has_building = ct_primary_q_5
+				}
+			}
+		}
+		upgrades_from = ct_emergency_reserve_q_4
+		gold_cost = 400
+		build_time = 730
+
+		light_infantry = 5
+		heavy_infantry = 5
+		pikemen = 5
+		light_cavalry = 3
+		knights = 1
+		custom_modifier_text = unlocks_partially_battleship_retinue_tt
+
+		ai_creation_factor = 100
+		extra_tech_building_start = 0.8
+	}
+
+
+
+	# Section: Support Buildings
 
 	ct_public_schools_q_1 = {
 		desc = ct_public_schools_q_1_desc
@@ -1510,99 +1610,11 @@ city = {
 		extra_tech_building_start = 0.8
 	}
 
-	ct_agriculture_q_1 = {
-		desc = ct_agriculture_q_1_desc
-		trigger = {
-			TECH_CIVIL_ENGINEERING = 0
-		}
-		gold_cost = 100
-		build_time = 100
-
-		tax_income = 1
-		garrison_size = 0.1
-		#warning: supply limit here is for TOOLTIP ONLY, it DOES NOT improve the province.
-		supply_limit = 1
-
-		ai_creation_factor = 100
-		extra_tech_building_start = 1.0
-	}
-	ct_agriculture_q_2 = {
-		desc = ct_agriculture_q_2_desc
-		trigger = {
-			TECH_CIVIL_ENGINEERING = 0
-		}
-		prerequisites = { ct_environment_1 }
-		upgrades_from = ct_agriculture_q_1
-		gold_cost = 125
-		build_time = 125
-
-		tax_income = 1
-		garrison_size = 0.1
-		#warning: supply limit here is for TOOLTIP ONLY, it DOES NOT improve the province.
-		supply_limit = 1
-
-		ai_creation_factor = 100
-		extra_tech_building_start = 2.0
-	}
-	ct_agriculture_q_3 = {
-		desc = ct_agriculture_q_3_desc
-		trigger = {
-			TECH_CIVIL_ENGINEERING = 0
-		}
-		prerequisites = { ct_environment_2 }
-		upgrades_from = ct_agriculture_q_2
-		gold_cost = 150
-		build_time = 150
-
-		tax_income = 1.5
-		garrison_size = 0.1
-		#warning: supply limit here is for TOOLTIP ONLY, it DOES NOT improve the province.
-		supply_limit = 1
-
-		ai_creation_factor = 100
-		extra_tech_building_start = 3.0
-	}
-	ct_agriculture_q_4 = {
-		desc = ct_agriculture_q_4_desc
-		trigger = {
-			TECH_CIVIL_ENGINEERING = 0
-		}
-		prerequisites = { ct_environment_3 }
-		upgrades_from = ct_agriculture_q_3
-		gold_cost = 175
-		build_time = 175
-
-		tax_income = 1.5
-		garrison_size = 0.1
-		#warning: supply limit here is for TOOLTIP ONLY, it DOES NOT improve the province.
-		supply_limit = 1
-
-		ai_creation_factor = 100
-		extra_tech_building_start = 4.0
-	}
-	ct_agriculture_q_5 = {
-		desc = ct_agriculture_q_5_desc
-		trigger = {
-			TECH_CIVIL_ENGINEERING = 0
-		}
-		prerequisites = { ct_environment_4 }
-		upgrades_from = ct_agriculture_q_4
-		gold_cost = 200
-		build_time = 200
-
-		tax_income = 2
-		garrison_size = 0.1
-		#warning: supply limit here is for TOOLTIP ONLY, it DOES NOT improve the province.
-		supply_limit = 1
-
-		ai_creation_factor = 100
-		extra_tech_building_start = 4.0
-	}
-
-
 	#administrative buildings
 	ct_trade_forum_q_1 = {
 		desc = ct_trade_forum_q_1_desc
+
+		potential = { always = no } # building is broken and I don't have time to fix it now.
 
 		trigger = {
 			TECH_TRADE_PRACTICES = 0
@@ -1631,6 +1643,7 @@ city = {
 				}
 				is_merchant_republic = yes
 			}
+			always = no # building is broken and I don't have time to fix it now.
 		}
 		trigger = {
 			TECH_NAVAL = 0
@@ -1648,6 +1661,8 @@ city = {
 	ct_palace_of_justice_q_1 = {
 		desc = ct_palace_of_justice_q_1_desc
 
+		potential = { always = no } # building is broken and I don't have time to fix it now.
+
 		trigger = {
 			TECH_NAVAL = 0
 			FROMFROM = {
@@ -1662,7 +1677,6 @@ city = {
 		build_time = 730
 
 		liege_piety = 0.5
-		local_tax_modifier = 0.01 #better justice attracts investments
 		local_revolt_risk = -0.1 #reduces crime
 
 		ai_creation_factor = 100

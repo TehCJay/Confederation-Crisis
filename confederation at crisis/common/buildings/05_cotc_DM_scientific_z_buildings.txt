@@ -6,11 +6,14 @@
 ###############################################################
 
 temple = {
+
+	# Actual Settlement, representing population
 	tp_primary_q_0 = {
 		desc = tp_primary_q_0_desc
-		trigger = { TECH_TERRAFORMING = 0 }
-		potential = { }
-		prerequisites = { tp_environment_0 }
+		trigger = {
+			TECH_CONSTRUCTION = 0
+		}
+		potential = {  }
 		gold_cost = 0
 		build_time = 0
 
@@ -20,9 +23,9 @@ temple = {
 	tp_primary_q_1 = {
 		desc = tp_primary_q_1_desc
 		trigger = {
-			TECH_TERRAFORMING = 0
+			TECH_CONSTRUCTION = 1
 		}
-		potential = { FROMFROM = { NOT = { has_holding_modifier = space_station } } }
+		potential = { }
 		prerequisites = { tp_environment_0 }
 		upgrades_from = tp_primary_q_0
 		gold_cost = 1000
@@ -33,15 +36,14 @@ temple = {
 		ai_creation_factor = 50
 		extra_tech_building_start = 10.0
 	}
-
 	tp_primary_q_2 = {
 		desc = tp_primary_q_2_desc
 		trigger = {
-			always = yes
+			TECH_CONSTRUCTION = 3
 		}
-		potential = { FROMFROM = { NOT = { has_holding_modifier = space_station } } }
+		potential = { }
 		prerequisites = { tp_environment_1 }
-		upgrades_from = tp_primary_q_1	#Make sure all planets upgrade from each other in order
+		upgrades_from = tp_primary_q_1
 		gold_cost = 2000
 		build_time = 730
 
@@ -54,9 +56,9 @@ temple = {
 	tp_primary_q_3 = {
 		desc = tp_primary_q_3_desc
 		trigger = {
-			always = yes
+			TECH_CONSTRUCTION = 5
 		}
-		potential = { FROMFROM = { NOT = { has_holding_modifier = space_station } } }
+		potential = { }
 		prerequisites = { tp_environment_2 }
 		upgrades_from = tp_primary_q_2
 		gold_cost = 3000
@@ -71,9 +73,9 @@ temple = {
 	tp_primary_q_4 = {
 		desc = tp_primary_q_4_desc
 		trigger = {
-			always = yes
+			TECH_CONSTRUCTION = 6
 		}
-		potential = { FROMFROM = { NOT = { has_holding_modifier = space_station } } }
+		potential = { }
 		prerequisites = { tp_environment_3 }
 		upgrades_from = tp_primary_q_3
 		gold_cost = 4000
@@ -88,9 +90,9 @@ temple = {
 	tp_primary_q_5 = {
 		desc = tp_primary_q_5_desc
 		trigger = {
-			always = yes
+			TECH_CONSTRUCTION = 8
 		}
-		potential = { FROMFROM = { NOT = { has_holding_modifier = space_station } } }
+		potential = { }
 		prerequisites = { tp_environment_4 }
 		upgrades_from = tp_primary_q_4
 		gold_cost = 5000
@@ -103,11 +105,11 @@ temple = {
 		extra_tech_building_start = 10.0
 	}
 
-	#space habitat
+	# Space Habitat, same as "primary" but in space.
 	tp_space_station_q_1 = {
-		desc = tp_space_station_q_1
+		desc = cu_space_station_q_1_desc
 		trigger = {
-			TECH_NAVAL = 0
+			TECH_SPACE_CONSTRUCTION = 2
 		}
 		prerequisites = {
 			tp_space_dock_q_1
@@ -122,9 +124,9 @@ temple = {
 		extra_tech_building_start = 1
 	}
 	tp_space_station_q_2 = {
-		desc = tp_space_station_q_2
+		desc = cu_space_station_q_2_desc
 		trigger = {
-			TECH_NAVAL = 0
+			TECH_SPACE_CONSTRUCTION = 3
 		}
 		prerequisites = {
 			tp_space_dock_q_2
@@ -141,9 +143,9 @@ temple = {
 		extra_tech_building_start = 1
 	}
 	tp_space_station_q_3 = {
-		desc = tp_space_station_q_3
+		desc = cu_space_station_q_3_desc
 		trigger = {
-			TECH_NAVAL = 0
+			TECH_SPACE_CONSTRUCTION = 5
 		}
 		prerequisites = {
 			tp_space_dock_q_3
@@ -160,9 +162,9 @@ temple = {
 		extra_tech_building_start = 1
 	}
 	tp_space_station_q_4 = {
-		desc = tp_space_station_q_4
+		desc = cu_space_station_q_4_desc
 		trigger = {
-			TECH_NAVAL = 0
+			TECH_SPACE_CONSTRUCTION = 7
 		}
 		prerequisites = {
 			tp_space_dock_q_4
@@ -179,9 +181,9 @@ temple = {
 		extra_tech_building_start = 1
 	}
 	tp_space_station_q_5 = {
-		desc = tp_space_station_q_5
+		desc = cu_space_station_q_5_desc
 		trigger = {
-			TECH_NAVAL = 0
+			TECH_SPACE_CONSTRUCTION = 8
 		}
 		prerequisites = {
 			tp_space_dock_q_5
@@ -200,9 +202,9 @@ temple = {
 
 	# Space Dock
 	tp_space_dock_q_1 = {
-		desc = tp_space_dock_q_1_desc
+		desc = cu_space_dock_q_1_desc
 		trigger = {
-			TECH_NAVAL = 1
+			TECH_SPACE_CONSTRUCTION = 1
 			FROMFROM = {
 				OR = {
 					has_building = tp_energy_1
@@ -222,9 +224,9 @@ temple = {
 		extra_tech_building_start = 1
 	}
 	tp_space_dock_q_2 = {
-		desc = tp_space_dock_q_2_desc
+		desc = cu_space_dock_q_2_desc
 		trigger = {
-			TECH_NAVAL = 2
+			TECH_SPACE_CONSTRUCTION = 2
 			FROMFROM = {
 				OR = {
 					has_building = tp_energy_2
@@ -244,9 +246,9 @@ temple = {
 		extra_tech_building_start = 1
 	}
 	tp_space_dock_q_3 = {
-		desc = tp_space_dock_q_3_desc
+		desc = cu_space_dock_q_3_desc
 		trigger = {
-			TECH_NAVAL = 3
+			TECH_SPACE_CONSTRUCTION = 4
 			FROMFROM = {
 				OR = {
 					has_building = tp_energy_3
@@ -266,9 +268,9 @@ temple = {
 		extra_tech_building_start = 1
 	}
 	tp_space_dock_q_4 = {
-		desc = tp_space_dock_q_4_desc
+		desc = cu_space_dock_q_4_desc
 		trigger = {
-			TECH_NAVAL = 4
+			TECH_SPACE_CONSTRUCTION = 6
 			FROMFROM = {
 				OR = {
 					has_building = tp_energy_4
@@ -288,9 +290,9 @@ temple = {
 		extra_tech_building_start = 1
 	}
 	tp_space_dock_q_5 = {
-		desc = tp_space_dock_q_5_desc
+		desc = cu_space_dock_q_5_desc
 		trigger = {
-			TECH_NAVAL = 5
+			TECH_SPACE_CONSTRUCTION = 7
 		}
 		prerequisites = {
 			tp_energy_3
@@ -316,6 +318,7 @@ temple = {
 		gold_cost = 200
 		build_time = 365
 		disease_defence = 0.15
+		tax_income = 1
 		ai_creation_factor = 200
 		extra_tech_building_start = 0.8
 	}
@@ -329,6 +332,7 @@ temple = {
 		gold_cost = 400
 		build_time = 730
 		disease_defence = 0.15
+		tax_income = 1
 		ai_creation_factor = 100
 		extra_tech_building_start = 0.8
 	}
@@ -342,13 +346,15 @@ temple = {
 		gold_cost = 600
 		build_time = 1095
 		disease_defence = 0.15
+		tax_income = 1
 		ai_creation_factor = 100
 		extra_tech_building_start = 0.8
 	}
+
 	tp_cybernetics_lab_q_1 = {
 		desc = tp_cybernetics_lab_q_1_desc
 		trigger = {
-			TECH_CYBERNETICS = 0
+			TECH_CYBERNETICS = 1
 		}
 		prerequisites = {
 			tp_hospital_q_1
@@ -376,7 +382,7 @@ temple = {
 			tp_hospital_q_2
 			tp_energy_3
 		}
-		tech_growth_modifier_culture = 0.5
+		tech_growth_modifier_culture = 0.15
 		culture_techpoints = 0.15
 		gold_cost = 600
 		build_time = 730
@@ -401,7 +407,7 @@ temple = {
 			tp_hospital_q_3
 			tp_energy_4
 		}
-		tech_growth_modifier_culture = 0.5
+		tech_growth_modifier_culture = 0.15
 		culture_techpoints = 0.15
 		gold_cost = 900
 		build_time = 1095
@@ -412,7 +418,7 @@ temple = {
 	tp_biogenetics_lab_q_1 = {
 		desc = tp_biogenetics_lab_q_1_desc
 		trigger = {
-			TECH_BIOTECH = 0
+			TECH_MEDICINE = 0
 		}
 		prerequisites = {
 			tp_energy_1
@@ -426,14 +432,14 @@ temple = {
 		desc = tp_biogenetics_lab_q_2_desc
 		potential = {}
 		trigger = {
-			TECH_BIOTECH = 3
+			TECH_MEDICINE = 3
 		}
 		upgrades_from = tp_biogenetics_lab_q_1
 		prerequisites = {
 			tp_hospital_q_1
 			tp_energy_3
 		}
-		tech_growth_modifier_culture = 0.5
+		tech_growth_modifier_culture = 0.15
 		gold_cost = 600
 		build_time = 730
 		liege_piety = 0.2
@@ -446,24 +452,25 @@ temple = {
 			religion = bio_directionist
 		}
 		trigger = {
-			TECH_BIOTECH = 6
+			TECH_MEDICINE = 6
 		}
 		upgrades_from = tp_biogenetics_lab_q_2
 		prerequisites = {
 			tp_hospital_q_2
 			tp_energy_4
 		}
-		tech_growth_modifier_culture = 0.5
+		tech_growth_modifier_culture = 0.15
 		gold_cost = 900
 		build_time = 1095
 		liege_piety = 0.2
 		ai_creation_factor = 125
 		extra_tech_building_start = 0.8
 	}
+
 	tp_social_sciences_lab_q_1 = {
 		desc = tp_social_sciences_lab_q_1_desc
 		trigger = {
-			TECH_EDUCATION = 0
+			TECH_SOCIOLOGY = 0
 			FROMFROM = {
 				has_building = tp_energy_1
 				OR = {
@@ -472,17 +479,19 @@ temple = {
 				}
 			}
 		}
-
 		gold_cost = 300
 		build_time = 365
+
+		economy_techpoints = 0.05
 		liege_prestige = 0.2
+
 		ai_creation_factor = 100
 		extra_tech_building_start = 0.8
 	}
 	tp_social_sciences_lab_q_2 = {
 		desc = tp_social_sciences_lab_q_2_desc
 		trigger = {
-			TECH_EDUCATION = 3
+			TECH_SOCIOLOGY = 2
 			FROMFROM = {
 				has_building = tp_energy_2
 				OR = {
@@ -492,18 +501,19 @@ temple = {
 			}
 		}
 		upgrades_from = tp_social_sciences_lab_q_1
-
-		economy_techpoints = 0.15
 		gold_cost = 600
 		build_time = 730
+
+		economy_techpoints = 0.10
 		liege_prestige = 0.2
+
 		ai_creation_factor = 100
 		extra_tech_building_start = 0.8
 	}
 	tp_social_sciences_lab_q_3 = {
 		desc = tp_social_sciences_lab_q_3_desc
 		trigger = {
-			TECH_EDUCATION = 6
+			TECH_SOCIOLOGY = 6
 			FROMFROM = {
 				has_building = tp_energy_3
 				OR = {
@@ -513,18 +523,20 @@ temple = {
 			}
 		}
 		upgrades_from = tp_social_sciences_lab_q_2
-
-		economy_techpoints = 0.15
 		gold_cost = 900
 		build_time = 1095
+
+		economy_techpoints = 0.05
 		liege_prestige = 0.2
+
 		ai_creation_factor = 100
 		extra_tech_building_start = 0.8
 	}
+
 	tp_theological_school_q_1 = {
 		desc = tp_theological_school_q_1_desc
 		trigger = {
-			TECH_EDUCATION = 0
+			TECH_SOCIOLOGY = 0
 			FROMFROM = {
 				has_building = tp_energy_1
 				OR = {
@@ -536,7 +548,8 @@ temple = {
 		gold_cost = 300
 		build_time = 365
 
-		liege_piety = 0.2
+		liege_piety = 0.3
+		economy_techpoints = 0.10
 
 		ai_creation_factor = 100
 		extra_tech_building_start = 0.8
@@ -544,7 +557,7 @@ temple = {
 	tp_theological_school_q_2 = {
 		desc = tp_theological_school_q_2_desc
 		trigger = {
-			TECH_EDUCATION = 3
+			TECH_SOCIOLOGY = 3
 			FROMFROM = {
 				has_building = tp_energy_2
 				OR = {
@@ -554,11 +567,11 @@ temple = {
 			}
 		}
 		upgrades_from = tp_theological_school_q_1
-		culture_techpoints = 0.15
 		gold_cost = 600
 		build_time = 730
 
-		liege_piety = 0.2
+		liege_piety = 0.3
+		economy_techpoints = 0.05
 
 		ai_creation_factor = 100
 		extra_tech_building_start = 0.8
@@ -566,7 +579,7 @@ temple = {
 	tp_theological_school_q_3 = {
 		desc = tp_theological_school_q_3_desc
 		trigger = {
-			TECH_EDUCATION = 6
+			TECH_SOCIOLOGY = 5
 			FROMFROM = {
 				has_building = tp_energy_3
 				OR = {
@@ -576,89 +589,94 @@ temple = {
 			}
 		}
 		upgrades_from = tp_theological_school_q_2
-		culture_techpoints = 0.15
 		gold_cost = 900
 		build_time = 1095
 
-		liege_piety = 0.2
+		liege_piety = 0.3
+		culture_techpoints = 0.10
 
 		ai_creation_factor = 100
 		extra_tech_building_start = 0.8
 	}
 
 	#Heavy Weapons Lab
-	tp_robotics_lab_q_1 = {
-		desc = tp_robotics_lab_q_1_desc
+	tp_heavy_weapons_lab_q_1 = {
+		desc = tp_heavy_weapons_lab_q_1_desc
 		trigger = {
-			TECH_AI = 0
+			TECH_NAVAL = 1
 		}
 		gold_cost = 100
 		build_time = 365
 
+		tech_growth_modifier_military = 0.1
 		light_cavalry = 6
 
 		ai_creation_factor = 100
 		extra_tech_building_start = 0.8
 	}
-	tp_robotics_lab_q_2 = {
-		desc = tp_robotics_lab_q_2_desc
+	tp_heavy_weapons_lab_q_2 = {
+		desc = tp_heavy_weapons_lab_q_2_desc
 		trigger = {
-			TECH_AI = 2
+			TECH_NAVAL = 2
 		}
-		upgrades_from = tp_robotics_lab_q_1
+		upgrades_from = tp_heavy_weapons_lab_q_1
 		prerequisites = { tp_energy_1 tp_materials_1 }
 		gold_cost = 120
 		build_time = 365
-		ai_creation_factor = 100
 
+		tech_growth_modifier_military = 0.1
 		light_cavalry = 6
 
+		ai_creation_factor = 100
 		extra_tech_building_start = 0.8
 	}
-	tp_robotics_lab_q_3 = {
-		desc = tp_robotics_lab_q_3_desc
+	tp_heavy_weapons_lab_q_3 = {
+		desc = tp_heavy_weapons_lab_q_3_desc
 		trigger = {
-			TECH_AI = 4
+			TECH_NAVAL = 3
 		}
-		upgrades_from = tp_robotics_lab_q_2
+		upgrades_from = tp_heavy_weapons_lab_q_2
 		prerequisites = { tp_energy_2 tp_materials_2 }
-		military_techpoints = 0.15
 		gold_cost = 180
 		build_time = 365
-		ai_creation_factor = 100
 
+		tech_growth_modifier_military = 0.1
 		light_cavalry = 6
+		custom_modifier_text = unlocks_destroyer_retinue_tt
 
+		ai_creation_factor = 100
 		extra_tech_building_start = 0.8
 	}
-	tp_robotics_lab_q_4 = {
-		desc = tp_robotics_lab_q_4_desc
+	tp_heavy_weapons_lab_q_4 = {
+		desc = tp_heavy_weapons_lab_q_4_desc
 		trigger = {
-			TECH_AI = 6
+			TECH_NAVAL = 4
 		}
-		upgrades_from = tp_robotics_lab_q_3
+		upgrades_from = tp_heavy_weapons_lab_q_3
 		prerequisites = { tp_energy_3 tp_materials_3 }
-		military_techpoints = 0.15
 		gold_cost = 280
 		build_time = 548
-		ai_creation_factor = 100
 
+		tech_growth_modifier_military = 0.1
 		light_cavalry = 6
 
+		ai_creation_factor = 100
 		extra_tech_building_start = 0.8
 	}
-	tp_robotics_lab_q_5 = {
-		desc = tp_robotics_lab_q_5_desc
+	tp_heavy_weapons_lab_q_5 = {
+		desc = tp_heavy_weapons_lab_q_5_desc
 		trigger = {
-			TECH_AI = 8
+			TECH_NAVAL = 5
 		}
-		upgrades_from = tp_robotics_lab_q_4
+		upgrades_from = tp_heavy_weapons_lab_q_4
 		prerequisites = { tp_energy_4 tp_materials_4 }
 		gold_cost = 400
 		build_time = 730
 
+		tech_growth_modifier_military = 0.1
 		light_cavalry = 6
 		knights = 1 #an experimental battleship!
+		custom_modifier_text = unlocks_partially_battleship_retinue_tt
 
 		ai_creation_factor = 100
 		extra_tech_building_start = 0.8
@@ -667,7 +685,7 @@ temple = {
 	tp_security_q_1 = {
 		desc = tp_security_q_1_desc
 		trigger = {
-			TECH_NAVAL = 0
+			TECH_PUBLIC_SERVICE = 1
 			FROMFROM = {
 				OR = {
 					has_building = tp_space_station_q_1
@@ -690,7 +708,7 @@ temple = {
 	tp_security_q_2 = {
 		desc = tp_security_q_2_desc
 		trigger = {
-			TECH_NAVAL = 1
+			TECH_PUBLIC_SERVICE = 2
 			FROMFROM = {
 				has_building = tp_materials_1
 				OR = {
@@ -715,7 +733,7 @@ temple = {
 	tp_security_q_3 = {
 		desc = tp_security_q_3_desc
 		trigger = {
-			TECH_NAVAL = 3
+			TECH_PUBLIC_SERVICE = 3
 			FROMFROM = {
 				has_building = tp_materials_1
 				OR = {
@@ -740,7 +758,7 @@ temple = {
 	tp_security_q_4 = {
 		desc = tp_security_q_4_desc
 		trigger = {
-			TECH_NAVAL = 5
+			TECH_PUBLIC_SERVICE = 5
 			FROMFROM = {
 				has_building = tp_materials_2
 				OR = {
@@ -765,7 +783,7 @@ temple = {
 	tp_security_q_5 = {
 		desc = tp_security_q_5_desc
 		trigger = {
-			TECH_NAVAL = 7
+			TECH_PUBLIC_SERVICE = 7
 			FROMFROM = {
 				has_building = tp_materials_3
 				OR = {
@@ -787,17 +805,17 @@ temple = {
 		ai_creation_factor = 100
 		extra_tech_building_start = 0.8
 	}
+
 	tp_digital_economics_q_1 = {
 		desc = tp_digital_economics_q_1_desc
 		trigger = {
-			TECH_EDUCATION = 0
+			TECH_ECONOMICS = 0
 		}
 		prerequisites = { tp_energy_1 }
 		gold_cost = 150
 		build_time = 365
 
-		economy_techpoints = 0.15
-		local_tax_modifier = 0.01
+		economy_techpoints = 0.10
 
 		ai_creation_factor = 100
 		extra_tech_building_start = 0.8
@@ -805,15 +823,14 @@ temple = {
 	tp_digital_economics_q_2 = {
 		desc = tp_digital_economics_q_2_desc
 		trigger = {
-			TECH_EDUCATION = 0
+			TECH_ECONOMICS = 1
 		}
 		upgrades_from = tp_digital_economics_q_1
 		prerequisites = { tp_energy_1 }
 		gold_cost = 200
 		build_time = 548
 
-		economy_techpoints = 0.15
-		local_tax_modifier = 0.01
+		economy_techpoints = 0.10
 
 		ai_creation_factor = 100
 		extra_tech_building_start = 0.8
@@ -821,15 +838,14 @@ temple = {
 	tp_digital_economics_q_3 = {
 		desc = tp_digital_economics_q_3_desc
 		trigger = {
-			TECH_EDUCATION = 2
+			TECH_ECONOMICS = 2
 		}
 		upgrades_from = tp_digital_economics_q_2
 		prerequisites = { tp_energy_2 }
 		gold_cost = 260
 		build_time = 548
 
-		economy_techpoints = 0.15
-		local_tax_modifier = 0.01
+		economy_techpoints = 0.10
 
 		ai_creation_factor = 100
 		extra_tech_building_start = 0.8
@@ -837,15 +853,14 @@ temple = {
 	tp_digital_economics_q_4 = {
 		desc = tp_digital_economics_q_4_desc
 		trigger = {
-			TECH_EDUCATION = 4
+			TECH_ECONOMICS = 3
 		}
 		upgrades_from = tp_digital_economics_q_3
 		prerequisites = { tp_energy_2 }
 		gold_cost = 330
 		build_time = 730
 
-		economy_techpoints = 0.15
-		local_tax_modifier = 0.01
+		economy_techpoints = 0.10
 
 		ai_creation_factor = 100
 		extra_tech_building_start = 0.8
@@ -853,15 +868,14 @@ temple = {
 	tp_digital_economics_q_5 = {
 		desc = tp_digital_economics_q_5_desc
 		trigger = {
-			TECH_EDUCATION = 6
+			TECH_ECONOMICS = 4
 		}
 		upgrades_from = tp_digital_economics_q_4
 		prerequisites = { tp_energy_3 }
 		gold_cost = 400
 		build_time = 730
 
-		economy_techpoints = 0.15
-		local_tax_modifier = 0.01
+		economy_techpoints = 0.10
 
 		ai_creation_factor = 100
 		extra_tech_building_start = 0.8
@@ -869,23 +883,23 @@ temple = {
 	tp_digital_economics_q_6 = {
 		desc = tp_digital_economics_q_6_desc
 		trigger = {
-			TECH_EDUCATION = 8
+			TECH_ECONOMICS = 6
 		}
 		upgrades_from = tp_digital_economics_q_5
 		prerequisites = { tp_energy_4 }
 		gold_cost = 480
 		build_time = 730
 
-		economy_techpoints = 0.15
-		local_tax_modifier = 0.01
+		economy_techpoints = 0.10
 
 		ai_creation_factor = 100
 		extra_tech_building_start = 0.8
 	}
+
 	tp_theoretical_physics_q_1 = {
 		desc = tp_theoretical_physics_q_1_desc
 		trigger = {
-			TECH_EDUCATION = 0
+			TECH_EDUCATION = 1
 		}
 		prerequisites = { tp_energy_1 }
 		gold_cost = 150
@@ -897,7 +911,7 @@ temple = {
 	tp_theoretical_physics_q_2 = {
 		desc = tp_theoretical_physics_q_2_desc
 		trigger = {
-			TECH_EDUCATION = 0
+			TECH_EDUCATION = 2
 		}
 		upgrades_from = tp_theoretical_physics_q_1
 		prerequisites = { tp_energy_1 }
@@ -910,7 +924,7 @@ temple = {
 	tp_theoretical_physics_q_3 = {
 		desc = tp_theoretical_physics_q_3_desc
 		trigger = {
-			TECH_EDUCATION = 2
+			TECH_EDUCATION = 3
 		}
 		upgrades_from = tp_theoretical_physics_q_2
 		prerequisites = { tp_energy_2 }
@@ -936,7 +950,7 @@ temple = {
 	tp_theoretical_physics_q_5 = {
 		desc = tp_theoretical_physics_q_5_desc
 		trigger = {
-			TECH_EDUCATION = 6
+			TECH_EDUCATION = 5
 		}
 		upgrades_from = tp_theoretical_physics_q_4
 		prerequisites = { tp_energy_3 }
@@ -949,7 +963,7 @@ temple = {
 	tp_theoretical_physics_q_6 = {
 		desc = tp_theoretical_physics_q_6_desc
 		trigger = {
-			TECH_EDUCATION = 8
+			TECH_EDUCATION = 6
 		}
 		upgrades_from = tp_theoretical_physics_q_5
 		prerequisites = { tp_energy_4 }
@@ -963,7 +977,7 @@ temple = {
 	tp_military_mathematics_q_1 = {
 		desc = tp_military_mathematics_q_1_desc
 		trigger = {
-			TECH_EDUCATION = 0
+			TECH_EDUCATION = 1
 		}
 		prerequisites = { tp_energy_1 }
 		gold_cost = 150
@@ -979,7 +993,7 @@ temple = {
 	tp_military_mathematics_q_2 = {
 		desc = tp_military_mathematics_q_2_desc
 		trigger = {
-			TECH_EDUCATION = 0
+			TECH_EDUCATION = 2
 		}
 		upgrades_from = tp_military_mathematics_q_1
 		prerequisites = { tp_energy_1 }
@@ -996,7 +1010,7 @@ temple = {
 	tp_military_mathematics_q_3 = {
 		desc = tp_military_mathematics_q_3_desc
 		trigger = {
-			TECH_EDUCATION = 2
+			TECH_EDUCATION = 3
 		}
 		upgrades_from = tp_military_mathematics_q_2
 		prerequisites = { tp_energy_2 }
@@ -1030,7 +1044,7 @@ temple = {
 	tp_military_mathematics_q_5 = {
 		desc = tp_military_mathematics_q_5_desc
 		trigger = {
-			TECH_EDUCATION = 6
+			TECH_EDUCATION = 5
 		}
 		upgrades_from = tp_military_mathematics_q_4
 		prerequisites = { tp_energy_3 }
@@ -1047,7 +1061,7 @@ temple = {
 	tp_military_mathematics_q_6 = {
 		desc = tp_military_mathematics_q_6_desc
 		trigger = {
-			TECH_EDUCATION = 8
+			TECH_EDUCATION = 6
 		}
 		upgrades_from = tp_military_mathematics_q_5
 		prerequisites = { tp_energy_4 }
@@ -1057,6 +1071,7 @@ temple = {
 		military_techpoints = 0.15
 		land_morale = 0.1
 		supply_limit = 1
+		custom_modifier_text = unlocks_partially_battleship_retinue_tt
 
 		ai_creation_factor = 100
 		extra_tech_building_start = 0.8
@@ -1065,7 +1080,7 @@ temple = {
 	tp_archive_q_1 = {
 		desc = tp_archive_q_1_desc
 		trigger = {
-			TECH_CIVIL_ENGINEERING = 1
+			TECH_CONSTRUCTION = 1
 			FROMFROM = {
 				OR = {
 					has_building = tp_space_station_q_1
@@ -1084,7 +1099,7 @@ temple = {
 	tp_archive_q_2 = {
 		desc = tp_archive_q_2_desc
 		trigger = {
-			TECH_CIVIL_ENGINEERING = 2
+			TECH_CONSTRUCTION = 2
 			FROMFROM = {
 				OR = {
 					has_building = tp_space_station_q_1
@@ -1104,7 +1119,7 @@ temple = {
 	tp_archive_q_3 = {
 		desc = tp_archive_q_3_desc
 		trigger = {
-			TECH_CIVIL_ENGINEERING = 3
+			TECH_CONSTRUCTION = 3
 			FROMFROM = {
 				OR = {
 					has_building = tp_space_station_q_1
@@ -1124,7 +1139,7 @@ temple = {
 	tp_archive_q_4 = {
 		desc = tp_archive_q_4_desc
 		trigger = {
-			TECH_CIVIL_ENGINEERING = 4
+			TECH_CONSTRUCTION = 4
 			FROMFROM = {
 				OR = {
 					has_building = tp_space_station_q_1
@@ -1144,7 +1159,7 @@ temple = {
 	tp_archive_q_5 = {
 		desc = tp_archive_q_5_desc
 		trigger = {
-			TECH_CIVIL_ENGINEERING = 5
+			TECH_CONSTRUCTION = 5
 			FROMFROM = {
 				OR = {
 					has_building = tp_space_station_q_1
@@ -1164,7 +1179,7 @@ temple = {
 	tp_archive_q_6 = {
 		desc = tp_archive_q_6_desc
 		trigger = {
-			TECH_CIVIL_ENGINEERING = 6
+			TECH_CONSTRUCTION = 6
 			FROMFROM = {
 				OR = {
 					has_building = tp_space_station_q_1
@@ -1184,7 +1199,7 @@ temple = {
 	tp_archive_q_7 = {
 		desc = tp_archive_q_7_desc
 		trigger = {
-			TECH_CIVIL_ENGINEERING = 7
+			TECH_CONSTRUCTION = 7
 			FROMFROM = {
 				OR = {
 					has_building = tp_space_station_q_1
@@ -1204,7 +1219,7 @@ temple = {
 	tp_archive_q_8 = {
 		desc = tp_archive_q_8_desc
 		trigger = {
-			TECH_CIVIL_ENGINEERING = 8
+			TECH_CONSTRUCTION = 8
 			FROMFROM = {
 				OR = {
 					has_building = tp_space_station_q_1
@@ -1225,7 +1240,7 @@ temple = {
 	tp_administrative_sector_q_1 = {
 		desc = tp_administrative_sector_q_1_desc
 		trigger = {
-			TECH_CIVIL_ENGINEERING = 1
+			TECH_PUBLIC_SERVICE = 1
 		}
 		gold_cost = 200
 		build_time = 548
@@ -1239,7 +1254,7 @@ temple = {
 	tp_administrative_sector_q_2 = {
 		desc = tp_administrative_sector_q_2_desc
 		trigger = {
-			TECH_CIVIL_ENGINEERING = 2
+			TECH_PUBLIC_SERVICE = 2
 			FROMFROM = {
 				OR = {
 					has_building = tp_space_station_q_1
@@ -1260,7 +1275,7 @@ temple = {
 	tp_administrative_sector_q_3 = {
 		desc = tp_administrative_sector_q_3_desc
 		trigger = {
-			TECH_CIVIL_ENGINEERING = 3
+			TECH_PUBLIC_SERVICE = 3
 			FROMFROM = {
 				OR = {
 					has_building = tp_space_station_q_2
@@ -1281,7 +1296,7 @@ temple = {
 	tp_administrative_sector_q_4 = {
 		desc = tp_administrative_sector_q_4_desc
 		trigger = {
-			TECH_CIVIL_ENGINEERING = 4
+			TECH_PUBLIC_SERVICE = 4
 			FROMFROM = {
 				OR = {
 					has_building = tp_space_station_q_3
@@ -1302,7 +1317,7 @@ temple = {
 	tp_administrative_sector_q_5 = {
 		desc = tp_administrative_sector_q_5_desc
 		trigger = {
-			TECH_CIVIL_ENGINEERING = 5
+			TECH_PUBLIC_SERVICE = 5
 			FROMFROM = {
 				OR = {
 					has_building = tp_space_station_q_3
@@ -1323,7 +1338,7 @@ temple = {
 	tp_administrative_sector_q_6 = {
 		desc = tp_administrative_sector_q_6_desc
 		trigger = {
-			TECH_CIVIL_ENGINEERING = 6
+			TECH_PUBLIC_SERVICE = 6
 			FROMFROM = {
 				OR = {
 					has_building = tp_space_station_q_4
@@ -1344,7 +1359,7 @@ temple = {
 	tp_administrative_sector_q_7 = {
 		desc = tp_administrative_sector_q_7_desc
 		trigger = {
-			TECH_CIVIL_ENGINEERING = 7
+			TECH_PUBLIC_SERVICE = 7
 			FROMFROM = {
 				OR = {
 					has_building = tp_space_station_q_4
@@ -1365,7 +1380,7 @@ temple = {
 	tp_administrative_sector_q_8 = {
 		desc = tp_administrative_sector_q_8_desc
 		trigger = {
-			TECH_CIVIL_ENGINEERING = 8
+			TECH_PUBLIC_SERVICE = 8
 			FROMFROM = {
 				OR = {
 					has_building = tp_space_station_q_5
@@ -1387,10 +1402,11 @@ temple = {
 	tp_classrooms_q_1 = {
 		desc = tp_classrooms_q_1_desc
 		trigger = {
-			TECH_CIVIL_ENGINEERING = 0
+			TECH_TERRAFORMING = 0
 		}
 		gold_cost = 100
 		build_time = 365
+		tech_growth_modifier = 0.1
 		tax_income = 4
 		ai_creation_factor = 100
 		extra_tech_building_start = 0.8
@@ -1398,7 +1414,7 @@ temple = {
 	tp_classrooms_q_2 = {
 		desc = tp_classrooms_q_2_desc
 		trigger = {
-			TECH_CIVIL_ENGINEERING = 0
+			TECH_TERRAFORMING = 1
 			FROMFROM = {
 				OR = {
 					has_building = tp_space_station_q_1
@@ -1410,6 +1426,7 @@ temple = {
 
 		gold_cost = 120
 		build_time = 365
+		tech_growth_modifier = 0.1
 		tax_income = 4
 		ai_creation_factor = 100
 		extra_tech_building_start = 0.8
@@ -1417,7 +1434,7 @@ temple = {
 	tp_classrooms_q_3 = {
 		desc = tp_classrooms_q_3_desc
 		trigger = {
-			TECH_CIVIL_ENGINEERING = 1
+			TECH_TERRAFORMING = 2
 			FROMFROM = {
 				OR = {
 					has_building = tp_space_station_q_2
@@ -1437,7 +1454,7 @@ temple = {
 	tp_classrooms_q_4 = {
 		desc = tp_classrooms_q_4_desc
 		trigger = {
-			TECH_CIVIL_ENGINEERING = 3
+			TECH_TERRAFORMING = 3
 			FROMFROM = {
 				OR = {
 					has_building = tp_space_station_q_3
@@ -1457,7 +1474,7 @@ temple = {
 	tp_classrooms_q_5 = {
 		desc = tp_classrooms_q_5_desc
 		trigger = {
-			TECH_CIVIL_ENGINEERING = 5
+			TECH_TERRAFORMING = 4
 			FROMFROM = {
 				OR = {
 					has_building = tp_space_station_q_4
@@ -1477,7 +1494,7 @@ temple = {
 	tp_classrooms_q_6 = {
 		desc = tp_classrooms_q_6_desc
 		trigger = {
-			TECH_CIVIL_ENGINEERING = 7
+			TECH_TERRAFORMING = 6
 			FROMFROM = {
 				OR = {
 					has_building = tp_space_station_q_5
@@ -1489,7 +1506,7 @@ temple = {
 
 		gold_cost = 480
 		build_time = 730
-		tech_growth_modifier = 0.5
+		tech_growth_modifier = 0.1
 		tax_income = 4
 		ai_creation_factor = 100
 		extra_tech_building_start = 0.8
@@ -1498,7 +1515,7 @@ temple = {
 	tp_exotic_research_q_1 = {
 		desc = tp_exotic_research_q_1_desc
 		trigger = {
-			TECH_NAVAL = 0
+			TECH_LASER = 0
 		}
 		prerequisites = {
 			tp_energy_1
@@ -1507,7 +1524,7 @@ temple = {
 		build_time = 365
 
 		tax_income = 0.5
-		tech_growth_modifier = 0.5
+		tech_growth_modifier = 0.05
 		heavy_infantry = 10
 
 		ai_creation_factor = 100
@@ -1516,7 +1533,7 @@ temple = {
 	tp_exotic_research_q_2 = {
 		desc = tp_exotic_research_q_2_desc
 		trigger = {
-			TECH_NAVAL = 2
+			TECH_LASER = 2
 			FROMFROM = {
 				has_building = tp_energy_2
 				OR = {
@@ -1530,7 +1547,7 @@ temple = {
 		build_time = 548
 
 		tax_income = 0.5
-		tech_growth_modifier = 0.5
+		tech_growth_modifier = 0.05
 		heavy_infantry = 10
 
 		ai_creation_factor = 100
@@ -1539,7 +1556,7 @@ temple = {
 	tp_exotic_research_q_3 = {
 		desc = tp_exotic_research_q_3_desc
 		trigger = {
-			TECH_NAVAL = 4
+			TECH_LASER = 4
 			FROMFROM = {
 				has_building = tp_energy_3
 				OR = {
@@ -1553,7 +1570,7 @@ temple = {
 		build_time = 730
 
 		tax_income = 0.5
-		tech_growth_modifier = 0.5
+		tech_growth_modifier = 0.05
 		heavy_infantry = 10
 
 		ai_creation_factor = 100
@@ -1562,7 +1579,7 @@ temple = {
 	tp_exotic_research_q_4 = {
 		desc = tp_exotic_research_q_4_desc
 		trigger = {
-			TECH_NAVAL = 6
+			TECH_LASER = 6
 			FROMFROM = {
 				has_building = tp_energy_4
 				OR = {
@@ -1576,7 +1593,7 @@ temple = {
 		build_time = 730
 
 		tax_income = 0.5
-		tech_growth_modifier = 0.5
+		tech_growth_modifier = 0.05
 		heavy_infantry = 10
 
 		ai_creation_factor = 100
@@ -1585,7 +1602,7 @@ temple = {
 	tp_exotic_research_q_5 = {
 		desc = tp_exotic_research_q_5_desc
 		trigger = {
-			TECH_NAVAL = 8
+			TECH_LASER = 8
 			FROMFROM = {
 				has_building = tp_energy_4
 				OR = {
@@ -1599,7 +1616,7 @@ temple = {
 		build_time = 1095
 
 		tax_income = 0.5
-		tech_growth_modifier = 0.5
+		tech_growth_modifier = 0.05
 		heavy_infantry = 10
 
 		ai_creation_factor = 100
@@ -1609,7 +1626,7 @@ temple = {
 	tp_super_computer_q_1 = {
 		desc = tp_super_computer_q_1_desc
 		trigger = {
-			TECH_AI = 1
+			TECH_INTEL_N_SENSORS = 1
 			FROMFROM = {
 				has_building = tp_energy_1
 				OR = {
@@ -1621,7 +1638,7 @@ temple = {
 		gold_cost = 200
 		build_time = 548
 
-		tech_growth_modifier = 1
+		tech_growth_modifier = 0.1
 		military_techpoints = 0.15
 		economy_techpoints = 0.15
 		culture_techpoints = 0.15
@@ -1632,7 +1649,7 @@ temple = {
 	tp_super_computer_q_2 = {
 		desc = tp_super_computer_q_2_desc
 		trigger = {
-			TECH_AI = 3
+			TECH_INTEL_N_SENSORS = 3
 			FROMFROM = {
 				has_building = tp_energy_2
 				OR = {
@@ -1645,7 +1662,7 @@ temple = {
 		gold_cost = 220
 		build_time = 548
 
-		tech_growth_modifier = 1
+		tech_growth_modifier = 0.1
 		military_techpoints = 0.15
 		economy_techpoints = 0.15
 		culture_techpoints = 0.15
@@ -1656,7 +1673,7 @@ temple = {
 	tp_super_computer_q_3 = {
 		desc = tp_super_computer_q_3_desc
 		trigger = {
-			TECH_AI = 5
+			TECH_INTEL_N_SENSORS = 5
 			FROMFROM = {
 				has_building = tp_energy_3
 				OR = {
@@ -1669,7 +1686,7 @@ temple = {
 		gold_cost = 240
 		build_time = 548
 
-		tech_growth_modifier = 1
+		tech_growth_modifier = 0.1
 		military_techpoints = 0.15
 		economy_techpoints = 0.15
 		culture_techpoints = 0.15
@@ -1680,7 +1697,7 @@ temple = {
 	tp_super_computer_q_4 = {
 		desc = tp_super_computer_q_4_desc
 		trigger = {
-			TECH_AI = 7
+			TECH_INTEL_N_SENSORS = 7
 			FROMFROM = {
 				has_building = tp_energy_4
 				OR = {
@@ -1693,7 +1710,7 @@ temple = {
 		gold_cost = 260
 		build_time = 548
 
-		tech_growth_modifier = 1
+		tech_growth_modifier = 0.1
 		military_techpoints = 0.15
 		economy_techpoints = 0.15
 		culture_techpoints = 0.15

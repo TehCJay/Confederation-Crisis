@@ -217,18 +217,20 @@ castle = {
 }
 
 city = {
-	ct_homeworld = { # Earth-That-Was
+	ct_homeworld_0 = { # Earth-That-Was
 		desc = ct_earth_that_was_desc
 		trigger = { always = yes }
-		potential = { FROMFROM = { title = b_earth } } # unique to earth
+		potential = { FROMFROM = { title = b_earth } FROMFROM = { NOT = { has_building = ct_homeworld_1 } } } # unique to earth
+		#is_active_trigger = {  }
 
 		# This isn't really something that should be possible to destroy
-		gold_cost = 1
-		build_time = 1
+		gold_cost = 0
+		build_time = 0
+		add_number_to_name = no
 
 		# This penalty will actually be compensated for by the next building up
 		# If you can see THIS building, it means that something really bad has happened!
-		tax_income = -5
+		tax_income = -30
 
 		liege_prestige = 0.1
 	}
@@ -237,16 +239,17 @@ city = {
 		trigger = { always = yes }
 		potential = { FROMFROM = { title = b_earth } } # unique to earth
 
-		upgrades_from = ct_homeworld
+		#upgrades_from = ct_homeworld
 
 		# Rebuilding Earth would be very, very hard
-		gold_cost = 1000
-		build_time = 2000
+		gold_cost = 10000
+		build_time = 20000
+		add_number_to_name = no
 
 		ai_creation_factor = 200
 
 		garrison_size = 0.2
-		tax_income = 8
+		tax_income = 3
 		liege_prestige = 0.9
 	}
 
