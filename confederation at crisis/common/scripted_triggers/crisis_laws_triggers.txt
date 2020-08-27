@@ -509,3 +509,47 @@ voting_for_top_laws = {
         }
     }
 }
+
+
+#Election type checks
+#succ_elective_gavelkind
+#succ_feudal_elective
+#succ_byzantine_elective
+#succ_tanistry
+#succ_open_elective_crisis
+
+laws_allow_popular_vote = {
+    NOR = {
+        has_law = succ_feudal_elective
+        has_law = succ_tanistry
+    }
+}
+
+laws_allow_senate_vote = {
+    NOR = {
+        has_law = succ_feudal_elective
+        has_law = succ_tanistry
+        has_law = succ_open_elective_crisis
+    }
+}
+
+laws_allow_indirect_vassals_vote = {
+    NOR = {
+        has_law = succ_feudal_elective
+        has_law = succ_tanistry
+        has_law = succ_open_elective_crisis
+    }
+}
+
+laws_allow_vassals_vote = {
+    NOT = {
+        has_law = succ_open_elective_crisis
+    }
+}
+
+laws_allow_candidate_vote = {
+    NOR = {
+        has_law = succ_feudal_elective
+        has_law = succ_tanistry
+    }
+}

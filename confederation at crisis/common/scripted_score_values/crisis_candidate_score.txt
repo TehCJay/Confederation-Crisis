@@ -1,0 +1,1369 @@
+# ROOT          Voter, the character voting in the election
+# FROM          Candidate, character considered for the title
+# FROMFROM      The title the nomination is for
+# FROMFROMFROM  The title owner's candidate
+
+# This file defines who will get voted for.
+
+basic_universal_reasons = {
+    additive_exported_value_modifier = {
+        localisation_key = election_age_tt
+        factor = 0.3
+        value = age
+        max = 60
+        who = FROM
+    }
+
+    additive_exported_value_modifier = {
+        localisation_key = election_martial_tt
+        factor = 1.5
+        value = martial
+        who = FROM
+    }
+
+    additive_exported_value_modifier = {
+        localisation_key = election_diplomacy_tt
+        factor = 1.7
+        value = diplomacy
+        who = FROM
+    }
+
+    additive_exported_value_modifier = {
+        localisation_key = election_intrigue_tt
+        factor = 1.4
+        value = intrigue
+        who = FROM
+    }
+
+    additive_exported_value_modifier = {
+        localisation_key = election_stewardship_tt
+        factor = 1.5
+        value = stewardship
+        who = FROM
+    }
+
+    additive_exported_value_modifier = {
+        localisation_key = election_learning_tt
+        factor = 1.5
+        value = learning
+        who = FROM
+    }
+
+    additive_exported_value_modifier = {
+        localisation_key = election_piety_tt
+        factor = 0.1
+        value = piety
+        who = FROM
+    }
+
+    additive_exported_value_modifier = {
+        localisation_key = election_prestige_tt
+        factor = 0.1
+        value = prestige
+        who = FROM
+    }
+}
+
+ruler_votes_for_heir = {
+    additive_modifier = { # Current ruler will always try to elect his player heir
+        value = 50
+        localisation_key = tooltip_feudal_elector_vote_player_heir
+
+        player_heir = {
+            character = FROM
+            NOT = { character = ROOT }
+        }
+
+        FROMFROM = {
+            holder_scope = {
+                character = PREVPREV
+                NOT = { is_rival = FROM } # Unless rival
+            }
+        }
+    }
+}
+
+elector_votes_for_himself = {
+    additive_modifier = {
+        value = 15
+        localisation_key = tooltip_feudal_elector_vote_myself
+        character = FROM
+        is_ai_content = no
+        NOT = {
+            FROMFROM = {
+                holder_scope = {
+                    is_parent_of = ROOT
+                }
+            }
+        }
+    }
+    additive_modifier = {
+        value = -25
+        localisation_key = tooltip_feudal_elector_vote_not_myself
+        character = FROM
+        is_ai_ambitious = no
+        is_ai_content = yes
+    }
+    additive_modifier = {
+        value = 40
+        localisation_key = tooltip_feudal_elector_vote_myself_heir
+        character = FROM
+        is_ai_content = no
+        FROMFROM = {
+            holder_scope = {
+                is_parent_of = ROOT
+            }
+        }
+    }
+    additive_modifier = {
+        value = 40
+        localisation_key = tooltip_feudal_elector_vote_myself_ambitious
+        character = FROM
+        is_ai_ambitious = yes
+        is_adult = yes
+    }
+}
+
+crazy_ai_reasons = {
+    additive_exported_value_modifier = {
+        localisation_key = tooltip_what_you_looking_at_i_vote_to_whoever_i_want
+        value = ai_ambition
+        factor = 2
+        who = FROM
+            is_ai_batshit_crazy = yes
+            month = 0
+            NOT = { month = 1 }
+    }
+    additive_exported_value_modifier = {
+        localisation_key = tooltip_what_you_looking_at_i_vote_to_whoever_i_want
+        value = martial
+        factor = 2
+        who = FROM
+            is_ai_batshit_crazy = yes
+            month = 1
+            NOT = { month = 2 }
+    }
+    additive_exported_value_modifier = {
+        localisation_key = tooltip_what_you_looking_at_i_vote_to_whoever_i_want
+        value = ai_greed
+        factor = 2
+        who = FROM
+            is_ai_batshit_crazy = yes
+            month = 2
+            NOT = { month = 3 }
+    }
+    additive_exported_value_modifier = {
+        localisation_key = tooltip_what_you_looking_at_i_vote_to_whoever_i_want
+        value = decadence
+        factor = 3
+        who = FROM
+            is_ai_batshit_crazy = yes
+            month = 3
+            NOT = { month = 4 }
+    }
+    additive_exported_value_modifier = {
+        localisation_key = tooltip_what_you_looking_at_i_vote_to_whoever_i_want
+        value = ai_honor
+        factor = 2
+        who = FROM
+            is_ai_batshit_crazy = yes
+            month = 4
+            NOT = { month = 5 }
+    }
+    additive_exported_value_modifier = {
+        localisation_key = tooltip_what_you_looking_at_i_vote_to_whoever_i_want
+        value = combat_rating
+        factor = 2
+        who = FROM
+            is_ai_batshit_crazy = yes
+            month = 5
+            NOT = { month = 6 }
+    }
+    additive_exported_value_modifier = {
+        localisation_key = tooltip_what_you_looking_at_i_vote_to_whoever_i_want
+        value = fertility
+        factor = 20
+        who = FROM
+            is_ai_batshit_crazy = yes
+            month = 6
+            NOT = { month = 7 }
+    }
+    additive_exported_value_modifier = {
+        localisation_key = tooltip_what_you_looking_at_i_vote_to_whoever_i_want
+        value = num_of_rivals
+        factor = 20
+        who = FROM
+            is_ai_batshit_crazy = yes
+            month = 7
+            NOT = { month = 8 }
+    }
+    additive_exported_value_modifier = {
+        localisation_key = tooltip_what_you_looking_at_i_vote_to_whoever_i_want
+        value = personality_traits
+        factor = 20
+        who = FROM
+            is_ai_batshit_crazy = yes
+            month = 8
+            NOT = { month = 9 }
+    }
+    additive_exported_value_modifier = {
+        localisation_key = tooltip_what_you_looking_at_i_vote_to_whoever_i_want
+        value = age
+        factor = 1.5
+        who = FROM
+            is_ai_batshit_crazy = yes
+            month = 9
+            NOT = { month = 10 }
+    }
+    additive_exported_value_modifier = {
+        localisation_key = tooltip_what_you_looking_at_i_vote_to_whoever_i_want
+        value = learning
+        factor = 2
+        who = FROM
+            is_ai_batshit_crazy = yes
+            month = 10
+            NOT = { month = 11 }
+    }
+    additive_exported_value_modifier = {
+        localisation_key = tooltip_what_you_looking_at_i_vote_to_whoever_i_want
+        value = ai_rationality
+        factor = 4
+        who = FROM
+            is_ai_batshit_crazy = yes
+            month = 11
+    }
+}
+
+gender_bias_reasons = {
+    additive_modifier = {
+        value = -60
+        FROM = {
+            is_female = yes
+        }
+        FROMFROM = {
+            has_law = gender_status_1
+        }
+    }
+
+    additive_modifier = {
+        value = 60
+        FROM = {
+            is_female = yes
+        }
+        FROMFROM = {
+            has_law = gender_status_3
+        }
+    }
+}
+
+cultural_bias_reasons = {
+    additive_modifier = {
+        value = 10
+        localisation_key = tooltip_feudal_elector_vote_fellow_culture
+        NOT = { character = FROM }
+        culture = FROM
+    }
+    additive_modifier = {
+        value = -15
+        localisation_key = tooltip_feudal_elector_vote_stranger
+        FROMFROM = { holder_scope = { culture = ROOT } } #Only a concern if Elector and current ruler share culture.
+        NOT = { culture = FROM }
+    }
+    additive_modifier = {
+        value = -30
+        localisation_key = tooltip_feudal_elector_vote_foreigner
+        FROMFROM = { holder_scope = { culture = ROOT } } #Only a concern if Elector and current ruler share culture.
+        NOT = { culture_group = FROM }
+    }
+    additive_modifier = { #Candidate is a foreigner's pet
+        value = -10
+        localisation_key = tooltip_feudal_elector_vote_strangers_pet
+        FROM = {
+            character = ROOT_FROMFROMFROM
+            culture = ROOT
+        }
+        FROMFROM = { holder_scope = { NOT = { culture = ROOT_FROM } } }
+    }
+    additive_modifier = { #Candidate is a foreigner's pet
+        value = -15
+        localisation_key = tooltip_feudal_elector_vote_foreigners_pet
+        FROM = {
+            character = ROOT_FROMFROMFROM
+            culture = ROOT
+        }
+        FROMFROM = { holder_scope = { NOT = { culture_group = ROOT_FROM } } }
+    }
+    additive_modifier = { #If candidate is elected, he will rule from a capital outside this dejure.
+        value = -15
+        localisation_key = tooltip_feudal_elector_vote_political_concerns
+        capital_scope = { de_jure_liege = FROMFROM }
+        FROM = {
+            is_ruler = yes
+            vassal_of = FROMFROM
+            capital_scope = { NOT = { de_jure_liege = ROOT_FROMFROM } }
+        }
+    }
+    additive_modifier = { #Candidate is a foreign ruler.
+        value = -30
+        localisation_key = tooltip_feudal_elector_vote_encroaching_foreigner
+        capital_scope = { de_jure_liege = FROMFROM }
+        FROM = {
+            is_ruler = yes
+            NOT = { is_vassal_or_below_of = ROOT_FROMFROM }
+        }
+    }
+    additive_modifier = { #Candidate is a foreign non-dejure ruler.
+        value = -500
+        localisation_key = tooltip_feudal_elector_vote_encroaching_foreigner
+        NOT = { capital_scope = { de_jure_liege = FROMFROM } }
+        FROM = {
+            is_ruler = yes
+            NOT = { is_vassal_or_below_of = ROOT_FROMFROM }
+        }
+    }
+}
+
+ideology_bias_reasons = {
+    additive_modifier = { #Infidel
+        value = -25
+        localisation_key = tooltip_feudal_elector_vote_infidel
+        NOT = { has_religion_feature = religion_cosmopolitan }
+        NOT = { has_religion_feature = religion_dogmatic }
+        FROM = {
+            religion_group = ROOT
+            NOT = { religion = ROOT }
+            NOT = { is_heresy_of = ROOT }
+        }
+    }
+    additive_modifier = { #Heathen
+        value = -50
+        localisation_key = tooltip_feudal_elector_vote_heathen
+        NOT = { has_religion_feature = religion_cosmopolitan }
+        NOT = { has_religion_feature = religion_dogmatic }
+        OR = {
+            AND = {
+                religion_group = political_terran_group
+                OR = {
+                    FROM = { religion_group = religious_terran_group }
+                    FROM = { religion_group = political_group }
+                }
+            }
+            AND = {
+                religion_group = political_group
+                OR = {
+                    FROM = { religion_group = religious_group }
+                    FROM = { religion_group = political_terran_group }
+                }
+            }
+            AND = {
+                religion_group = religious_terran_group
+                OR = {
+                    FROM = { religion_group = political_terran_group }
+                }
+            }
+            AND = {
+                religion_group = religious_group
+                OR = {
+                    FROM = { religion_group = political_group }
+                }
+            }
+        }
+        FROM = {
+            NOT = { religion_group = ROOT }
+            NOT = { is_heresy_of = ROOT }
+        }
+    }
+    additive_modifier = { #Super Heathen
+        value = -100
+        localisation_key = tooltip_feudal_elector_vote_heathen
+        NOT = { has_religion_feature = religion_cosmopolitan }
+        NOT = { has_religion_feature = religion_dogmatic }
+        NOR = {
+            AND = {
+                religion_group = political_terran_group
+                OR = {
+                    FROM = { religion_group = religious_terran_group }
+                    FROM = { religion_group = political_group }
+                }
+            }
+            AND = {
+                religion_group = political_group
+                OR = {
+                    FROM = { religion_group = religious_group }
+                    FROM = { religion_group = political_terran_group }
+                }
+            }
+            AND = {
+                religion_group = religious_terran_group
+                OR = {
+                    FROM = { religion_group = political_terran_group }
+                }
+            }
+            AND = {
+                religion_group = religious_group
+                OR = {
+                    FROM = { religion_group = political_group }
+                }
+            }
+        }
+        FROM = {
+            NOT = { religion_group = ROOT }
+            NOT = { is_heresy_of = ROOT }
+        }
+    }
+    additive_modifier = { #Heretic
+        value = -50
+        localisation_key = tooltip_feudal_elector_vote_heretic
+        NOT = { has_religion_feature = religion_cosmopolitan }
+        NOT = { has_religion_feature = religion_dogmatic }
+        FROM = { is_heresy_of = ROOT }
+    }
+    additive_modifier = { #Dogmatics will hardly ever pick an infidel.
+        value = -100
+        localisation_key = tooltip_feudal_elector_vote_heathen_dogmatic
+        has_religion_feature = religion_dogmatic
+        FROM = { NOT = { religion = ROOT } }
+    }
+    additive_modifier = {
+        value = -1000
+        localization_key = will_not_vote_for_filthy_xenoterrans
+        is_ai_zealous = yes
+        OR = {
+            religion_group = political_terran_group
+            religion_gorup = religious_terran_group
+        }
+        FROM = { religion = xenoterran }
+    }
+    additive_modifier = {
+        value = -1000
+        localization_key = will_not_vote_for_filthy_terrans
+        is_ai_zealous = yes
+        religion = xenoterran
+        FROM = {
+            OR = {
+                religion_group = political_terran_group
+                religion_gorup = religious_terran_group
+            }
+        }
+    }
+    additive_modifier = {
+        value = 100
+        localisation_key = tooltip_feudal_elector_vote_born_in_the_purple
+        OR = {
+            religion_group = political_terran_group
+            religion_gorup = religious_terran_group
+        }
+        FROM = {
+            trait = born_in_the_purple
+        }
+    }
+}
+
+nepotism_reasons = {
+    additive_modifier = {
+        value = 10
+        localisation_key = tooltip_feudal_elector_vote_dynasty
+        NOT = {
+            character = FROM
+        }
+        FROM = {
+            dynasty = ROOT
+            NOT = {
+                is_close_relative = ROOT
+            }
+        }
+    }
+    additive_modifier = {
+        value = 20
+        localisation_key = tooltip_feudal_elector_vote_relative
+        NOT = {
+            character = FROM
+        }
+        FROM = {
+            is_close_relative = ROOT
+            NOT = {
+                is_child_of = ROOT
+            }
+        }
+    }
+    additive_modifier = {
+        value = 30
+        localisation_key = tooltip_feudal_elector_vote_parent
+        NOT = {
+            character = FROM
+        }
+        FROM = {
+            is_child_of = ROOT
+        }
+        NOT = {
+            FROMFROM = {
+                holder_scope = {
+                    character = ROOT
+                }
+            }
+        }
+    }
+    additive_modifier = { #Current Ruler should tend to often pick one of his own children as potential heirs.
+        value = 60
+        localisation_key = tooltip_feudal_elector_vote_parent
+        NOT = {
+            character = FROM
+        }
+        FROM = {
+            is_child_of = ROOT
+        }
+        FROMFROM = {
+            holder_scope = {
+                character = ROOT
+            }
+        }
+    }
+}
+
+claimants_reasons = {
+    #Claims
+    additive_modifier = {
+        value = 30
+        localisation_key = tooltip_feudal_elector_vote_strong_claimant
+        FROM = {
+            has_claim = FROMFROM
+        }
+    }
+    additive_modifier = {
+        value = 15
+        localisation_key = tooltip_feudal_elector_vote_weak_claimant
+        FROM = {
+            has_weak_claim = FROMFROM
+        }
+    }
+}
+
+dislike_kinslayers_reasons = {
+    #Kinslayer - From stranger's perspective
+    additive_modifier = {
+        value = -10
+        localisation_key = tooltip_feudal_elector_vote_kinslayer_1_stranger
+        NOT = { character = FROM } #Do not judge yourself.
+        NOT = { dynasty = FROM }
+        OR = {
+            NOR = {
+                trait = dynastic_kinslayer
+                trait = familial_kinslayer
+                trait = kinslayer
+            }
+            is_ai_irrational_or_arbitrary = yes
+            is_ai_batshit_crazy = yes
+        }
+        FROM = {
+            trait = dynastic_kinslayer
+        }
+    }
+    additive_modifier = {
+        value = -15
+        localisation_key = tooltip_feudal_elector_vote_kinslayer_2_stranger
+        NOT = { character = FROM } #Do not judge yourself.
+        NOT = { dynasty = FROM }
+        OR = {
+            NOR = {
+                trait = dynastic_kinslayer
+                trait = familial_kinslayer
+                trait = kinslayer
+            }
+            is_ai_irrational_or_arbitrary = yes
+            is_ai_batshit_crazy = yes
+        }
+        FROM = {
+            trait = familial_kinslayer
+        }
+    }
+    additive_modifier = {
+        value = -20
+        localisation_key = tooltip_feudal_elector_vote_kinslayer_3_stranger
+        NOT = { character = FROM } #Do not judge yourself.
+        NOT = { dynasty = FROM }
+        OR = {
+            NOR = {
+                trait = dynastic_kinslayer
+                trait = familial_kinslayer
+                trait = kinslayer
+            }
+            is_ai_irrational_or_arbitrary = yes
+            is_ai_batshit_crazy = yes
+        }
+        FROM = {
+            trait = kinslayer
+        }
+    }
+    #Kinslayer - From a far relative's perspective
+    additive_modifier = {
+        value = -15
+        localisation_key = tooltip_feudal_elector_vote_kinslayer_1_dynast
+        NOT = { character = FROM } #Do not judge yourself.
+        NOT = { is_close_relative = FROM }
+        dynasty = FROM
+        OR = {
+            NOR = {
+                trait = dynastic_kinslayer
+                trait = familial_kinslayer
+                trait = kinslayer
+            }
+            is_ai_irrational_or_arbitrary = yes
+            is_ai_batshit_crazy = yes
+        }
+        FROM = {
+            trait = dynastic_kinslayer
+        }
+    }
+    additive_modifier = {
+        value = -20
+        localisation_key = tooltip_feudal_elector_vote_kinslayer_2_dynast
+        NOT = { character = FROM } #Do not judge yourself.
+        NOT = { is_close_relative = FROM }
+        dynasty = FROM
+        OR = {
+            NOR = {
+                trait = dynastic_kinslayer
+                trait = familial_kinslayer
+                trait = kinslayer
+            }
+            is_ai_irrational_or_arbitrary = yes
+            is_ai_batshit_crazy = yes
+        }
+        FROM = {
+            trait = familial_kinslayer
+        }
+    }
+    additive_modifier = {
+        value = -25
+        localisation_key = tooltip_feudal_elector_vote_kinslayer_3_dynast
+        NOT = { character = FROM } #Do not judge yourself.
+        NOT = { is_close_relative = FROM }
+        dynasty = FROM
+        OR = {
+            NOR = {
+                trait = dynastic_kinslayer
+                trait = familial_kinslayer
+                trait = kinslayer
+            }
+            is_ai_irrational_or_arbitrary = yes
+            is_ai_batshit_crazy = yes
+        }
+        FROM = {
+            trait = kinslayer
+        }
+    }
+    #Kinslayer - From a close relative's perspective
+    additive_modifier = {
+        value = -20
+        localisation_key = tooltip_feudal_elector_vote_kinslayer_1_dynast
+        NOT = { character = FROM } #Do not judge yourself.
+        is_close_relative = FROM
+        OR = {
+            NOR = {
+                trait = dynastic_kinslayer
+                trait = familial_kinslayer
+                trait = kinslayer
+            }
+            is_ai_irrational_or_arbitrary = yes
+            is_ai_batshit_crazy = yes
+        }
+        FROM = {
+            trait = dynastic_kinslayer
+        }
+    }
+    additive_modifier = {
+        value = -25
+        localisation_key = tooltip_feudal_elector_vote_kinslayer_2_dynast
+        NOT = { character = FROM } #Do not judge yourself.
+        is_close_relative = FROM
+        dynasty = FROM
+        OR = {
+            NOR = {
+                trait = dynastic_kinslayer
+                trait = familial_kinslayer
+                trait = kinslayer
+            }
+            is_ai_irrational_or_arbitrary = yes
+            is_ai_batshit_crazy = yes
+        }
+        FROM = {
+            trait = familial_kinslayer
+        }
+    }
+    additive_modifier = {
+        value = -30
+        localisation_key = tooltip_feudal_elector_vote_kinslayer_3_dynast
+        NOT = { character = FROM } #Do not judge yourself.
+        is_close_relative = FROM
+        dynasty = FROM
+        OR = {
+            NOR = {
+                trait = dynastic_kinslayer
+                trait = familial_kinslayer
+                trait = kinslayer
+            }
+            is_ai_irrational_or_arbitrary = yes
+            is_ai_batshit_crazy = yes
+        }
+        FROM = {
+            trait = kinslayer
+        }
+    }
+}
+
+ruler_pick_reasons = {
+    #Ruler is irrational, vote against his pick
+    additive_modifier = {
+        value = -10
+        localisation_key = tooltip_feudal_elector_anti_vote_ruler_lunatic
+        FROM = { character = ROOT_FROMFROMFROM }
+        NOT = { character = FROM } #But not if it's me.
+        NOR = { is_ai_irrational_or_arbitrary = yes is_ai_batshit_crazy = yes }
+        FROMFROM = {
+            holder_scope = {
+                is_ai_irrational_or_arbitrary = yes
+            }
+        }
+    }
+
+    additive_modifier = {
+        value = -50
+        localisation_key = tooltip_feudal_elector_anti_vote_ruler_lunatic
+        FROM = { character = ROOT_FROMFROMFROM }
+        NOT = { character = FROM } #But not if it's me.
+        NOR = { is_ai_irrational_or_arbitrary = yes is_ai_batshit_crazy = yes }
+        FROMFROM = {
+            holder_scope = {
+                is_ai_batshit_crazy = yes
+            }
+        }
+    }
+
+    #Ruler is just, trust his pick
+    additive_modifier = {
+        value = 25
+        localisation_key = tooltip_feudal_elector_pro_vote_ruler_just
+        FROM = { character = ROOT_FROMFROMFROM }
+        NOT = { character = FROM } #But not if it's me.
+        NOR = { is_ai_irrational_or_arbitrary = yes is_ai_batshit_crazy = yes }
+        FROMFROM = {
+            holder_scope = {
+                trait = just
+            }
+        }
+    }
+
+    #Ruler is a Tyrant (Opinion), vote against his pick
+    additive_modifier = {
+        value = -25
+        localisation_key = tooltip_feudal_elector_anti_vote_ruler_tyrant
+        FROM = { character = ROOT_FROMFROMFROM }
+        NOT = { character = FROM } #But not if it's me.
+        NOR = { is_ai_irrational_or_arbitrary = yes is_ai_batshit_crazy = yes }
+        FROMFROM = {
+            holder_scope = {
+                ROOT = {
+                    has_opinion_modifier = {
+                        modifier = opinion_tyrant
+                        who = PREV
+                    }
+                }
+            }
+        }
+    }
+}
+
+opinion_reasons = {
+    additive_modifier = {
+        value = -150
+        localisation_key = tooltip_feudal_elector_vote_opinion_negative
+        NOT = { character = FROM } #But not if it's me.
+        is_rival = FROM
+    }
+    additive_modifier = {
+        value = -100
+        localisation_key = tooltip_feudal_elector_vote_opinion_negative
+        NOT = { character = FROM } #But not if it's me.
+        NOT = { is_rival = FROM } #Special case
+        NOT = {
+            opinion = {
+                who = FROM
+                value = -75
+            }
+        }
+    }
+    additive_modifier = {
+        value = -50
+        localisation_key = tooltip_feudal_elector_vote_opinion_negative
+        NOT = { character = FROM } #But not if it's me.
+        NOT = { is_rival = FROM } #Special case
+        NOT = {
+            opinion = {
+                who = FROM
+                value = -50
+            }
+        }
+        opinion = {
+            who = FROM
+            value = -75
+        }
+    }
+    additive_modifier = {
+        value = -30
+        localisation_key = tooltip_feudal_elector_vote_opinion_negative
+        NOT = { character = FROM } #But not if it's me.
+        NOT = { is_rival = FROM } #Special case
+        NOT = {
+            opinion = {
+                who = FROM
+                value = -25
+            }
+        }
+        opinion = {
+            who = FROM
+            value = -50
+        }
+    }
+    additive_modifier = {
+        value = -15
+        localisation_key = tooltip_feudal_elector_vote_opinion_negative
+        NOT = { character = FROM } #But not if it's me.
+        NOT = { is_rival = FROM } #Special case
+        NOT = {
+            opinion = {
+                who = FROM
+                value = 0
+            }
+        }
+        opinion = {
+            who = FROM
+            value = -25
+        }
+    }
+    additive_modifier = {
+        value = 15
+        localisation_key = tooltip_feudal_elector_vote_opinion_positive
+        NOT = { character = FROM } #But not if it's me.
+        NOT = { is_rival = FROM } #Special case
+        opinion = {
+            who = FROM
+            value = 0
+        }
+        NOT = {
+            opinion = {
+                who = FROM
+                value = 25
+            }
+        }
+    }
+    additive_modifier = {
+        value = 30
+        localisation_key = tooltip_feudal_elector_vote_opinion_positive
+        NOT = { character = FROM } #But not if it's me.
+        NOT = { is_rival = FROM } #Special case
+        opinion = {
+            who = FROM
+            value = 25
+        }
+        NOT = {
+            opinion = {
+                who = FROM
+                value = 50
+            }
+        }
+    }
+    additive_modifier = {
+        value = 50
+        localisation_key = tooltip_feudal_elector_vote_opinion_positive
+        NOT = { character = FROM } #But not if it's me.
+        NOT = { is_rival = FROM } #Special case
+        opinion = {
+            who = FROM
+            value = 50
+        }
+        NOT = {
+            opinion = {
+                who = FROM
+                value = 75
+            }
+        }
+    }
+    additive_modifier = {
+        value = 70
+        localisation_key = tooltip_feudal_elector_vote_opinion_positive
+        NOT = { character = FROM } #But not if it's me.
+        NOT = { is_rival = FROM } #Special case
+        opinion = {
+            who = FROM
+            value = 75
+        }
+    }
+
+    additive_modifier = { #Vassal hates ruler, therefore votes against the ruler's candidate (FROMFROMFROM)
+        value = -30
+        localisation_key = tooltip_feudal_elector_anti_vote_ruler_opinion_negative
+        FROM = { character = ROOT_FROMFROMFROM }
+        NOT = { character = FROM } #But not if it's me.
+        FROMFROM = {
+            holder_scope = {
+                NOT = { character = ROOT } #Of course you trust your own opinion of your candidate...
+                NOT = {
+                    reverse_opinion = { who = ROOT value = -75 }
+                }
+            }
+        }
+    }
+    additive_modifier = { #Vassal hates ruler, therefore votes against the ruler's candidate (FROMFROMFROM)
+        value = -20
+        localisation_key = tooltip_feudal_elector_anti_vote_ruler_opinion_negative
+        FROM = { character = ROOT_FROMFROMFROM }
+        NOT = { character = FROM } #But not if it's me.
+        FROMFROM = {
+            holder_scope = {
+                NOT = { character = ROOT } #Of course you trust your own opinion of your candidate...
+                NOT = {
+                    reverse_opinion = { who = ROOT value = -50 }
+                }
+                reverse_opinion = { who = ROOT value = -75 }
+            }
+        }
+    }
+    additive_modifier = { #Vassal hates ruler, therefore votes against the ruler's candidate (FROMFROMFROM)
+        value = -10
+        localisation_key = tooltip_feudal_elector_anti_vote_ruler_opinion_negative
+        FROM = { character = ROOT_FROMFROMFROM }
+        NOT = { character = FROM } #But not if it's me.
+        FROMFROM = {
+            holder_scope = {
+                NOT = { character = ROOT } #Of course you trust your own opinion of your candidate...
+                NOT = {
+                    reverse_opinion = { who = ROOT value = -25 }
+                }
+                reverse_opinion = { who = ROOT value = -50 }
+            }
+        }
+    }
+    additive_modifier = { #Vassal hates ruler, therefore votes against the ruler's candidate (FROMFROMFROM)
+        value = -5
+        localisation_key = tooltip_feudal_elector_anti_vote_ruler_opinion_negative
+        FROM = { character = ROOT_FROMFROMFROM }
+        NOT = { character = FROM } #But not if it's me.
+        FROMFROM = {
+            holder_scope = {
+                NOT = { character = ROOT } #Of course you trust your own opinion of your candidate...
+                NOT = {
+                    reverse_opinion = { who = ROOT value = 0 }
+                }
+                reverse_opinion = { who = ROOT value = -25 }
+            }
+        }
+    }
+    additive_modifier = { #Vassal loves ruler, therefore votes for the ruler's candidate (FROMFROMFROM)
+        value = 5
+        localisation_key = tooltip_feudal_elector_pro_vote_ruler_opinion_positive
+        FROM = { character = ROOT_FROMFROMFROM }
+        NOT = { character = FROM } #But not if it's me.
+        FROMFROM = {
+            holder_scope = {
+                NOT = { character = ROOT } #Of course you trust your own opinion of your candidate...
+                reverse_opinion = { who = ROOT value = 0 }
+                NOT = {
+                    reverse_opinion = { who = ROOT value = 25 }
+                }
+            }
+        }
+    }
+    additive_modifier = { #Vassal loves ruler, therefore votes for the ruler's candidate (FROMFROMFROM)
+        value = 20
+        localisation_key = tooltip_feudal_elector_pro_vote_ruler_opinion_positive
+        FROM = { character = ROOT_FROMFROMFROM }
+        NOT = { character = FROM } #But not if it's me.
+        FROMFROM = {
+            holder_scope = {
+                NOT = { character = ROOT } #Of course you trust your own opinion of your candidate...
+                reverse_opinion = { who = ROOT value = 25 }
+                NOT = {
+                    reverse_opinion = { who = ROOT value = 50 }
+                }
+            }
+        }
+    }
+    additive_modifier = { #Vassal loves ruler, therefore votes for the ruler's candidate (FROMFROMFROM)
+        value = 40
+        localisation_key = tooltip_feudal_elector_pro_vote_ruler_opinion_positive
+        FROM = { character = ROOT_FROMFROMFROM }
+        NOT = { character = FROM } #But not if it's me.
+        FROMFROM = {
+            holder_scope = {
+                NOT = { character = ROOT } #Of course you trust your own opinion of your candidate...
+                reverse_opinion = { who = ROOT value = 50 }
+                NOT = {
+                    reverse_opinion = { who = ROOT value = 75 }
+                }
+            }
+        }
+    }
+    additive_modifier = { #Vassal loves ruler, therefore votes for the ruler's candidate (FROMFROMFROM)
+        value = 60
+        localisation_key = tooltip_feudal_elector_pro_vote_ruler_opinion_positive
+        FROM = { character = ROOT_FROMFROMFROM }
+        NOT = { character = FROM } #But not if it's me.
+        FROMFROM = {
+            holder_scope = {
+                NOT = { character = ROOT } #Of course you trust your own opinion of your candidate...
+                reverse_opinion = { who = ROOT value = 75 }
+            }
+        }
+    }
+}
+
+personality_reasons = {
+    additive_exported_value_modifier = {
+        localisation_key = honesty_is_good_tt
+        factor = 0.3
+        value = ai_honor
+        who = FROM
+        ai_honor >= 20
+        ai_honor < 50
+    }
+    additive_exported_value_modifier = {
+        localisation_key = honesty_is_important_tt
+        factor = 0.7
+        value = ai_honor
+        who = FROM
+        ai_honor >= 50
+        ai_honor < 85
+    }
+    additive_exported_value_modifier = {
+        localisation_key = honesty_is_essential_tt
+        factor = 1.2
+        value = ai_honor
+        who = FROM
+        ai_honor >= 85
+    }
+    additive_exported_value_modifier = {
+        localisation_key = dishonesty_is_good_tt
+        factor = -0.3
+        value = ai_honor
+        who = FROM
+        ai_honor <= -20
+        ai_honor > -50
+        NOT = { is_rival = FROM }
+        NOT = { opinion = { who = FROM value = -25 } }
+    }
+    additive_exported_value_modifier = {
+        localisation_key = dishonesty_is_important_tt
+        factor = -0.7
+        value = ai_honor
+        who = FROM
+        ai_honor <= -50
+        ai_honor > -85
+        NOT = { is_rival = FROM }
+        NOT = { opinion = { who = FROM value = -25 } }
+    }
+    additive_exported_value_modifier = {
+        localisation_key = dishonesty_is_essential_tt
+        factor = 1.2
+        value = ai_honor
+        who = FROM
+        ai_honor < -85
+        NOT = { is_rival = FROM }
+        NOT = { opinion = { who = FROM value = -25 } }
+    }
+
+
+    additive_exported_value_modifier = {
+        localisation_key = reason_is_good_tt
+        factor = 0.3
+        value = ai_rationality
+        who = FROM
+        ai_rationality >= 20
+        ai_rationality < 50
+    }
+    additive_exported_value_modifier = {
+        localisation_key = reason_is_important_tt
+        factor = 0.7
+        value = ai_rationality
+        who = FROM
+        ai_rationality >= 50
+        ai_rationality < 85
+    }
+    additive_exported_value_modifier = {
+        localisation_key = reason_is_essential_tt
+        factor = 1.2
+        value = ai_rationality
+        who = FROM
+        ai_rationality >= 85
+    }
+    additive_exported_value_modifier = {
+        localisation_key = disreason_is_good_tt
+        factor = -0.3
+        value = ai_rationality
+        who = FROM
+        ai_rationality <= -20
+        ai_rationality > -50
+        NOT = { is_rival = FROM }
+        NOT = { opinion = { who = FROM value = -25 } }
+    }
+    additive_exported_value_modifier = {
+        localisation_key = disreason_is_important_tt
+        factor = -0.7
+        value = ai_rationality
+        who = FROM
+        ai_rationality <= -50
+        ai_rationality > -85
+        NOT = { is_rival = FROM }
+        NOT = { opinion = { who = FROM value = -25 } }
+    }
+    additive_exported_value_modifier = {
+        localisation_key = disreason_is_essential_tt
+        factor = 1.2
+        value = ai_rationality
+        who = FROM
+        ai_rationality < -85
+        NOT = { is_rival = FROM }
+        NOT = { opinion = { who = FROM value = -25 } }
+    }
+
+
+    additive_exported_value_modifier = {
+        localisation_key = ambition_is_good_tt
+        factor = 0.3
+        value = ai_ambition
+        who = FROM
+        ai_ambition >= 20
+        ai_ambition < 50
+        NOT = { is_rival = FROM }
+        NOT = { opinion = { who = FROM value = -25 } }
+    }
+    additive_exported_value_modifier = {
+        localisation_key = ambition_is_important_tt
+        factor = 0.7
+        value = ai_ambition
+        who = FROM
+        ai_ambition >= 50
+        ai_ambition < 85
+        NOT = { is_rival = FROM }
+        NOT = { opinion = { who = FROM value = -25 } }
+    }
+    additive_exported_value_modifier = {
+        localisation_key = ambition_is_essential_tt
+        factor = 1.2
+        value = ai_ambition
+        who = FROM
+        ai_ambition >= 85
+        NOT = { is_rival = FROM }
+        NOT = { opinion = { who = FROM value = -25 } }
+    }
+    additive_exported_value_modifier = {
+        localisation_key = disambition_is_good_tt
+        factor = -0.3
+        value = ai_ambition
+        who = FROM
+        ai_ambition <= -20
+        ai_ambition > -50
+    }
+    additive_exported_value_modifier = {
+        localisation_key = disambition_is_important_tt
+        factor = -0.7
+        value = ai_ambition
+        who = FROM
+        ai_ambition <= -50
+        ai_ambition > -85
+    }
+    additive_exported_value_modifier = {
+        localisation_key = disambition_is_essential_tt
+        factor = 1.2
+        value = ai_ambition
+        who = FROM
+        ai_ambition < -85
+    }
+
+    additive_exported_value_modifier = {
+        localisation_key = greed_is_good_tt
+        factor = 0.3
+        value = ai_greed
+        who = FROM
+        ai_greed >= 20
+        ai_greed < 50
+        NOT = { is_rival = FROM }
+        NOT = { opinion = { who = FROM value = -25 } }
+    }
+    additive_exported_value_modifier = {
+        localisation_key = greed_is_important_tt
+        factor = 0.7
+        value = ai_greed
+        who = FROM
+        ai_greed >= 50
+        ai_greed < 85
+        NOT = { is_rival = FROM }
+        NOT = { opinion = { who = FROM value = -25 } }
+    }
+    additive_exported_value_modifier = {
+        localisation_key = greed_is_essential_tt
+        factor = 1.2
+        value = ai_greed
+        who = FROM
+        ai_greed >= 85
+        NOT = { is_rival = FROM }
+        NOT = { opinion = { who = FROM value = -25 } }
+    }
+    additive_exported_value_modifier = {
+        localisation_key = disgreed_is_good_tt
+        factor = -0.3
+        value = ai_greed
+        who = FROM
+        ai_greed <= -20
+        ai_greed > -50
+    }
+    additive_exported_value_modifier = {
+        localisation_key = disgreed_is_important_tt
+        factor = -0.7
+        value = ai_greed
+        who = FROM
+        ai_greed <= -50
+        ai_greed > -85
+    }
+    additive_exported_value_modifier = {
+        localisation_key = disgreed_is_essential_tt
+        factor = 1.2
+        value = ai_greed
+        who = FROM
+        ai_greed < -85
+    }
+}
+
+voting_styles_reasons = {
+    additive_modifier = {
+        value = 60
+        localisation_key = loyalist_election_vote_tt
+        has_position = loyalist
+        FROMFROM = { holder_scope = { is_liege_of = ROOT } }
+        FROMFROMFROM = { character = FROM }
+    }
+
+    additive_modifier = {
+        value = -60
+        localisation_key = obstructionist_election_vote_tt
+        has_position = obstructionist
+        FROMFROM = { holder_scope = { is_liege_of = ROOT } }
+        FROMFROMFROM = { character = FROM }
+    }
+
+    additive_exported_value_modifier = {
+        localisation_key = warhawk_election_vote_trait_tt
+        factor = 5
+        value = martial
+        who = FROM
+        has_position = warhawk
+    }
+
+    additive_exported_value_modifier = {
+        localisation_key = warhawk_election_vote_success_tt
+        factor = 1
+        value = combat_rating
+        who = FROM
+        has_position = warhawk
+    }
+
+    additive_exported_value_modifier = {
+        localisation_key = econhawk_election_vote_trait_tt
+        factor = 5
+        value = stewardship
+        who = FROM
+        has_position = econhawk
+    }
+
+    additive_exported_value_modifier = {
+        localisation_key = econhawk_election_vote_success_tt
+        factor = 1
+        value = yearly_income
+        max = 200
+        who = FROM
+        has_position = econhawk
+    }
+
+    additive_exported_value_modifier = {
+        localisation_key = techhawk_election_vote_trait_tt
+        factor = 5
+        value = learning
+        who = FROM
+        has_position = techhawk
+    }
+
+    additive_exported_value_modifier = {
+        localisation_key = techhawk_election_vote_success_tt
+        factor = 10
+        value = num_of_subrealm_temples
+        max = 200
+        who = FROM
+        has_position = techhawk
+    }
+
+    additive_exported_value_modifier = {
+        localisation_key = diplohawk_election_vote_trait_tt
+        factor = 5
+        value = diplomacy
+        who = FROM
+        has_position = diplohawk
+    }
+
+    additive_exported_value_modifier = {
+        localisation_key = diplohawk_election_vote_success_tt
+        factor = 0.1
+        value = prestige
+        max = 200
+        who = FROM
+        has_position = diplohawk
+    }
+
+    additive_exported_value_modifier = {
+        localisation_key = stability_election_vote_trait_tt
+        factor = 5
+        value = intrigue
+        who = FROM
+        has_position = stability
+    }
+
+    additive_exported_value_modifier = {
+        localisation_key = stability_election_vote_success_tt
+        factor = 5
+        value = ruled_years
+        max = 200
+        who = FROM
+        has_position = stability
+    }
+
+    additive_modifier = {
+        value = 300
+        localisation_key = fisiologist_election_vote_tt
+        has_position = fisiologist
+        FROM = { opinion = { who = ROOT value > 70 } }
+        NOT = { FROM = { character = ROOT } }
+    }
+
+    additive_modifier = {
+        value = 100
+        localisation_key = fisiologist_election_vote_tt
+        has_position = fisiologist
+        FROM = { opinion = { who = ROOT value > 40 } opinion = { who = ROOT value <= 70 } }
+        NOT = { FROM = { character = ROOT } }
+    }
+
+    additive_modifier = {
+        value = 50
+        localisation_key = fisiologist_election_vote_tt
+        has_position = fisiologist
+        FROM = { opinion = { who = ROOT value > 10 } opinion = { who = ROOT value <= 40 } }
+        NOT = { FROM = { character = ROOT } }
+    }
+}
+
+ideology_reasons = {
+    additive_modifier = {
+        value = 100
+        localisation_key = ideologist_election_vote_tt
+        has_position = ideologist
+        religion = FROM
+    }
+}

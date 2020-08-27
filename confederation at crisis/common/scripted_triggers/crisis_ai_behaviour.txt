@@ -1,0 +1,38 @@
+# triggers to put all in one place easy to update behaviour of the AI based on personality scores or traits.
+
+is_ai_ambitious = {
+    OR = {
+        ai_ambition >= 30
+        ai_greed >= 20
+        AND = {
+            ai_ambition >= 1
+            ai_greed >= 1
+        }
+    }
+    ai_honor <= 50
+}
+
+is_ai_content = {
+    ai_ambition <= 0
+    ai_greed <= 0
+}
+
+is_ai_zealous = {
+    ai_zeal > 0
+    ai_rationality > -20
+}
+
+is_ai_irrational_or_arbitrary = {
+    OR = {
+        trait = arbitrary
+        ai_rationality < -30
+    }
+}
+
+is_ai_batshit_crazy = {
+    OR = {
+        trait = lunatic
+        trait = possessed
+        ai_rationality < -80
+    }
+}

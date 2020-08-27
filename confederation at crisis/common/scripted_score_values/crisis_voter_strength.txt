@@ -1,0 +1,205 @@
+# ROOT          Voter, the character voting in the election
+# FROM          Candidate, character considered for the title
+# FROMFROM      The title the nomination is for
+# FROMFROMFROM  The title owner's candidate
+
+# This files doesn't decide who gets to vote, only how many votes the voter have.
+
+# Types of number of votes:
+# 1 per capita (represented in game with special characters + buildings that provide housing)
+# 1 per voter
+# 1 per holding
+# 1 per province
+
+one_vote_per_voter = {
+    additive_modifier = {
+        value = 1
+    }
+}
+
+one_vote_per_holding = {
+    additive_modifier = {
+        value = 1
+        persistent_event_target:representative_of = {
+            always = yes
+        }
+    }
+}
+
+one_vote_per_province = {
+    additive_modifier = {
+        value = 1
+        persistent_event_target:representative_of = {
+            TIER = COUNT
+        }
+    }
+}
+
+votes_per_population = {
+    additive_modifier = {
+        localisation_key = votes_from_population_tt
+        value = 1
+        persistent_event_target:representative_of = {
+            OR = {
+                has_building = ca_primary_q_0
+                has_building = ct_primary_q_0
+                has_building = tp_primary_q_0
+            }
+            NOR = {
+                has_building = ca_primary_q_1
+                has_building = ct_primary_q_1
+                has_building = tp_primary_q_1
+            }
+        }
+    }
+    additive_modifier = {
+        localisation_key = votes_from_population_tt
+        value = 3
+        persistent_event_target:representative_of = {
+            OR = {
+                has_building = ca_primary_q_1
+                has_building = ct_primary_q_1
+                has_building = tp_primary_q_1
+            }
+            NOR = {
+                has_building = ca_primary_q_2
+                has_building = ct_primary_q_2
+                has_building = tp_primary_q_2
+            }
+        }
+    }
+    additive_modifier = {
+        localisation_key = votes_from_population_tt
+        value = 6
+        persistent_event_target:representative_of = {
+            OR = {
+                has_building = ca_primary_q_2
+                has_building = ct_primary_q_2
+                has_building = tp_primary_q_2
+            }
+            NOR = {
+                has_building = ca_primary_q_3
+                has_building = ct_primary_q_3
+                has_building = tp_primary_q_3
+            }
+        }
+    }
+    additive_modifier = {
+        localisation_key = votes_from_population_tt
+        value = 10
+        persistent_event_target:representative_of = {
+            OR = {
+                has_building = ca_primary_q_3
+                has_building = ct_primary_q_3
+                has_building = tp_primary_q_3
+            }
+            NOR = {
+                has_building = ca_primary_q_4
+                has_building = ct_primary_q_4
+                has_building = tp_primary_q_4
+            }
+        }
+    }
+    additive_modifier = {
+        localisation_key = votes_from_population_tt
+        value = 15
+        persistent_event_target:representative_of = {
+            OR = {
+                has_building = ca_primary_q_4
+                has_building = ct_primary_q_4
+                has_building = tp_primary_q_4
+            }
+            NOR = {
+                has_building = ca_primary_q_5
+                has_building = ct_primary_q_5
+                has_building = tp_primary_q_5
+            }
+        }
+    }
+    additive_modifier = {
+        localisation_key = votes_from_population_tt
+        value = 27
+        persistent_event_target:representative_of = {
+            OR = {
+                has_building = ca_primary_q_5
+                has_building = ct_primary_q_5
+                has_building = tp_primary_q_5
+            }
+        }
+    }
+    additive_modifier = {
+        localisation_key = votes_from_population_space_tt
+        value = 3
+        persistent_event_target:representative_of = {
+            OR = {
+                has_building = ca_space_station_q_1
+                has_building = ct_space_station_q_1
+                has_building = tp_space_station_q_1
+            }
+            NOR = {
+                has_building = ca_space_station_q_2
+                has_building = ct_space_station_q_2
+                has_building = tp_space_station_q_2
+            }
+        }
+    }
+    additive_modifier = {
+        localisation_key = votes_from_population_space_tt
+        value = 6
+        persistent_event_target:representative_of = {
+            OR = {
+                has_building = ca_space_station_q_2
+                has_building = ct_space_station_q_2
+                has_building = tp_space_station_q_2
+            }
+            NOR = {
+                has_building = ca_space_station_q_3
+                has_building = ct_space_station_q_3
+                has_building = tp_space_station_q_3
+            }
+        }
+    }
+    additive_modifier = {
+        localisation_key = votes_from_population_space_tt
+        value = 10
+        persistent_event_target:representative_of = {
+            OR = {
+                has_building = ca_space_station_q_3
+                has_building = ct_space_station_q_3
+                has_building = tp_space_station_q_3
+            }
+            NOR = {
+                has_building = ca_space_station_q_4
+                has_building = ct_space_station_q_4
+                has_building = tp_space_station_q_4
+            }
+        }
+    }
+    additive_modifier = {
+        localisation_key = votes_from_population_space_tt
+        value = 15
+        persistent_event_target:representative_of = {
+            OR = {
+                has_building = ca_space_station_q_4
+                has_building = ct_space_station_q_4
+                has_building = tp_space_station_q_4
+            }
+            NOR = {
+                has_building = ca_space_station_q_5
+                has_building = ct_space_station_q_5
+                has_building = tp_space_station_q_5
+            }
+        }
+    }
+    additive_modifier = {
+        localisation_key = votes_from_population_space_tt
+        value = 27
+        persistent_event_target:representative_of = {
+            OR = {
+                has_building = ca_space_station_q_5
+                has_building = ct_space_station_q_5
+                has_building = tp_space_station_q_5
+            }
+        }
+    }
+}

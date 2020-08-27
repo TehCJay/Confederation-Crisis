@@ -1,0 +1,44 @@
+# ROOT is current title holder
+# FROM is candidate
+# FROMFROM is title
+# FROMFROMFROM is null
+
+# This file purpose is to define who is allowed to be candidate in an election.
+
+# Possible candidates are:
+
+title_exists_trigger = {
+    FROMFROM = {
+        has_holder = yes
+    }
+}
+
+
+# Triggers below here are called from inside FROM, pay attention to that!
+has_mininum_age = {
+    age = 18
+}
+
+is_not_landed_foreigner = {
+    OR = {
+        same_realm = ROOT
+        is_ruler = no
+
+        ROOT_FROMFROM = {
+            OR = {
+                holder_scope = {
+                    independent = yes
+                }
+
+                NOR = {
+                    has_law = out_of_realm_inheritance_law_1
+                }
+            }
+        }
+    }
+}
+
+disqualifications = {
+    NOT = { trait = disinherited }
+    #Insert here any cultural reasons someone can't inherit... for example cultures that don't like people with blue eyes or something.
+}

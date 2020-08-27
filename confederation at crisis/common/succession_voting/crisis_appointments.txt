@@ -6,11 +6,11 @@
 # The voter will vote for the top score candidate calculated from this script
 
 self_appointment = {
-	elector_vote_strength = {							# Affects the voting strength of each elector
-		days = 1										# 1 elector = 1 vote
+	elector_vote_strength = {
+		days = 0
 		additive_modifier = {
 			FROMFROM = { holder_scope = { character = ROOT } }
-			value = 998									# Ex: An Elector with the humble trait is worth an addtional 3 votes
+			value = 999
 		}
 	}
 
@@ -18,39 +18,14 @@ self_appointment = {
 		#max_amount = 2
 		days = -5
 
-		additive_modifier = {
-			value = -1000
-
-			# The title must currently exist
-			FROMFROM = {
-				has_holder = no
-			}
-		}
+		title_existence_check = yes
 
 		additive_modifier = {
 			value = 6
 			character = FROM
 		}
 
-		additive_modifier = { # Current ruler is always an elector
-			value = 10
-
-			FROMFROM = { # Either title is higher than Duke-tier, or must be primary
-				holder_scope = {
-					character = PREVPREV
-				}
-
-				OR = {
-					higher_tier_than = DUKE
-
-					holder_scope = {
-						primary_title = {
-							title = PREVPREV
-						}
-					}
-				}
-			}
-		}
+		current_ruler_voter_score = yes
 	}
 
 	# ROOT is current title holder
@@ -207,7 +182,6 @@ self_appointment = {
 				trait = humble
 				trait = content
 				trait = craven
-				trait = slothful
 				trait = stressed
 				trait = depressed
 				trait = ambitious
@@ -224,86 +198,81 @@ self_appointment = {
 
 appointment = {
 	elector_vote_strength = {							# Affects the voting strength of each elector
-		days = 1
-											# 1 elector = 1 vote
+		days = 0
+
 		additive_modifier = {
 			FROMFROM = { holder_scope = { liege = { character = ROOT } } }
 			value = 98
 		}
 
-		additive_modifier = {
-			value = 9
-			FROMFROM = {
-				#NOT = { has_law = legislative_type_autocratic }
-				holder_scope = {
-					liege = {
-						any_courtier_or_vassal = {
-							character = ROOT
-							is_voter = yes
-						}
-					}
-				}
-			}
-		}
+		#additive_modifier = {
+		#	value = 9
+		#	FROMFROM = {
+		#		#NOT = { has_law = legislative_type_autocratic }
+		#		holder_scope = {
+		#			liege = {
+		#				any_courtier_or_vassal = {
+		#					character = ROOT
+		#					is_voter = yes
+		#				}
+		#			}
+		#		}
+		#	}
+		#}
+
+		votes_per_population = yes
 	}
 
 	elector_selection = {
 		#max_amount = 2
 		days = -5
 
-		additive_modifier = {
-			value = -1000
+		title_existence_check = yes
 
-			# The title must currently exist
-			FROMFROM = {
-				has_holder = no
-			}
-		}
-
-		additive_modifier = {
-			value = 6
-			character = FROM
-		}
+		#additive_modifier = {
+		#	value = 6
+		#	character = FROM
+		#}
 
 		additive_modifier = {
 			FROMFROM = { holder_scope = { liege = { character = ROOT } } }
 			value = 99
 		}
 
-		additive_modifier = {
-			value = 15
-			FROMFROM = {
-				#NOT = { has_law = legislative_type_autocratic }
-				holder_scope = {
-					liege = {
-						any_courtier_or_vassal = {
-							character = ROOT
-							is_voter = yes
-						}
-					}
-				}
-			}
-		}
-
-		additive_modifier = { # Current ruler is always an elector
-			value = 10
-
-			FROMFROM = { # Either title is higher than Duke-tier, or must be primary
-				holder_scope = {
-					character = PREVPREV
-				}
-
-				OR = {
-					higher_tier_than = DUKE
-
-					holder_scope = {
-						primary_title = {
-							title = PREVPREV
-						}
-					}
-				}
-			}
-		}
+		#additive_modifier = {
+		#	value = 15
+		#	FROMFROM = {
+		#		#NOT = { has_law = legislative_type_autocratic }
+		#		holder_scope = {
+		#			liege = {
+		#				any_courtier_or_vassal = {
+		#					character = ROOT
+		#					is_voter = yes
+		#				}
+		#			}
+		#		}
+		#	}
+		#}
+		#
+		#additive_modifier = { # Current ruler is always an elector
+		#	value = 10
+		#
+		#	FROMFROM = { # Either title is higher than Duke-tier, or must be primary
+		#		holder_scope = {
+		#			character = PREVPREV
+		#		}
+		#
+		#		OR = {
+		#			higher_tier_than = DUKE
+		#
+		#			holder_scope = {
+		#				primary_title = {
+		#					title = PREVPREV
+		#				}
+		#			}
+		#		}
+		#	}
+		#}
 	}
 
 	# ROOT is current title holder
@@ -368,6 +337,8 @@ appointment = {
 						}
 					}
 				}
+
+
 			}
 
 			NOR = {
@@ -430,7 +401,6 @@ appointment = {
 				trait = humble
 				trait = content
 				trait = craven
-				trait = slothful
 				trait = stressed
 				trait = depressed
 				trait = ambitious
