@@ -66,8 +66,30 @@ character_event = {
 		any_province = {
 			fn_crisis_recalcsupply_in_province = yes
 			fn_crisis_recalctrade_in_province = yes
+			if = { limit = { terrain = main_sequence NOT = { has_province_modifier = main_sequence } }
+				add_province_modifier = { name = main_sequence duration = -1 } }
+			if = { limit = { terrain = debris_disk NOT = { has_province_modifier = debris_disk } }
+				add_province_modifier = { name = debris_disk duration = -1 } }
+			if = { limit = { terrain = red_giant NOT = { has_province_modifier = red_giant } }
+				add_province_modifier = { name = red_giant duration = -1 } }
+			if = { limit = { terrain = white_dwarf NOT = { has_province_modifier = white_dwarf } }
+				add_province_modifier = { name = white_dwarf duration = -1 } }
 			if = { limit = { terrain = neutron_star NOT = { has_province_modifier = neutron_star } }
-				add_province_modifier = { name = neutron_star_tooltip duration = -1 } }
+				add_province_modifier = { name = neutron_star duration = -1 } }
+			if = { limit = { terrain = black_hole NOT = { has_province_modifier = black_hole } }
+				add_province_modifier = { name = black_hole duration = -1 } }
+			if = { limit = { terrain = pulsar NOT = { has_province_modifier = pulsar } }
+				add_province_modifier = { name = pulsar duration = -1 } }
+			if = { limit = { terrain = nebula NOT = { has_province_modifier = nebula } }
+				add_province_modifier = { name = nebula duration = -1 } }
+			if = { limit = { terrain = protostar NOT = { has_province_modifier = protostar } }
+				add_province_modifier = { name = protostar duration = -1 } }
+			if = { limit = { terrain = sparse_system NOT = { has_province_modifier = sparse_system } }
+				add_province_modifier = { name = sparse_system duration = -1 } }
+			if = { limit = { terrain = goldilocks_star NOT = { has_province_modifier = goldilocks_star } }
+				add_province_modifier = { name = goldilocks_star duration = -1 } }
+			if = { limit = { terrain = supergiant NOT = { has_province_modifier = supergiant } }
+				add_province_modifier = { name = supergiant duration = -1 } }
 		}
 	}
 }

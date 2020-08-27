@@ -46,15 +46,15 @@ representative_voter_score = {
         value = 10
         trigger_if = {
             limit = { persistent_event_target:representative_of = { always = yes persistent_event_target:representative = { NOT = { character = ROOT } always = yes } } }
-            Log = "Representative [This.GetBestName] of [representative_of.GetName]"
-            Log = "Representative is not ROOT somehow"
+            log = "Representative [This.GetBestName] of [representative_of.GetName]"
+            log = "Representative is not ROOT somehow"
             always = yes
         }
 
         trigger_if = {
             limit = { persistent_event_target:representative_of = { persistent_event_target:representative = { character = ROOT } } }
-            Log = "Representative [This.GetBestName] of [representative_of.GetName]"
-            Log = "Representative is ROOT"
+            log = "Representative [This.GetBestName] of [representative_of.GetName]"
+            log = "Representative is ROOT"
             always = yes
         }
         persistent_event_target:representative_of = { always = yes }
