@@ -36,21 +36,65 @@ candidate_voter_score = {
     additive_modifier = {
         value = 6
         character = FROM
-        laws_allow_candidate_vote = yes
+        FROMFROM = { laws_allow_candidate_vote = yes }
     }
 }
 
+#only get population of title being voted for.
 representative_voter_score = {
     additive_modifier = {
         value = 10
-        laws_allow_popular_vote = yes
+        trigger_if = {
+            limit = { persistent_event_target:representative_of = { always = yes persistent_event_target:representative = { NOT = { character = ROOT } always = yes } } }
+            Log = "Representative [This.GetBestName] of [representative_of.GetName]"
+            Log = "Representative is not ROOT somehow"
+            always = yes
+        }
+
+        trigger_if = {
+            limit = { persistent_event_target:representative_of = { persistent_event_target:representative = { character = ROOT } } }
+            Log = "Representative [This.GetBestName] of [representative_of.GetName]"
+            Log = "Representative is ROOT"
+            always = yes
+        }
+        persistent_event_target:representative_of = { always = yes }
+        #FROMFROM = {
+        #    #laws_allow_popular_vote = yes
+        #    holder_scope = {
+        #        ROOT = {
+        #            persistent_event_target:representative_of = {
+        #                always = yes
+        #                #log = "Checking if voter is representative of a [This.GetID] in elections for [FromFrom.GetID]"
+        #                #holder_scope = {
+        #                #    #log = "Checking if voter is representative of a province"
+        #                #    log = "R:[Root.GetBestName] T:[This.GetBestName] PPP:[PrevPrevPrev.GetBestName]"
+        #                #    OR = {
+        #                #        de_jure_liege_or_above = PREVPREVPREV
+        #                #        is_vassal_or_below_of = PREVPREVPREV
+        #                #    }
+        #                #}
+        #            }
+        #        }
+        #    }
+        #}
+    }
+}
+
+#gets the population of the liege of that title too. Intended for appointment-style elections.
+representative_voter_during_appointment_score = {
+    additive_modifier = {
+        value = 10
         FROMFROM = {
+            laws_allow_popular_vote = yes
             holder_scope = {
                 liege = {
                     ROOT = {
                         persistent_event_target:representative_of = {
-                            owner = {
-                                is_vassal_or_below_of = PREVPREVPREV
+                            holder_scope = {
+                                OR = {
+                                    de_jure_liege_or_above = PREVPREVPREV
+                                    is_vassal_or_below_of = PREVPREVPREV
+                                }
                             }
                         }
                     }
@@ -60,27 +104,66 @@ representative_voter_score = {
     }
 }
 
+#title senate score
 senator_voter_score = {
     additive_modifier = {
         value = 10
         is_voter = yes
-        laws_allow_senate_vote = yes
+        FROMFROM = {
+            laws_allow_senate_vote = yes
+            holder_scope = {
+                is_liege_of = ROOT
+            }
+        }
+    }
+}
+
+#liege senate score
+senator_voter_appointment_score = {
+    additive_modifier = {
+        value = 10
+        is_voter = yes
+        FROMFROM = {
+            laws_allow_senate_vote = yes
+            holder_scope = {
+                liege = {
+                    is_liege_of = ROOT
+                }
+            }
+        }
     }
 }
 
 direct_vassal_voter_score = {
     additive_modifier = {
         value = 10
-        vassal_of = ROOT
-        laws_allow_vassals_vote = yes
+        is_ruler = yes
+        FROMFROM = {
+            laws_allow_vassals_vote = yes
+            holder_scope = {
+                OR = {
+                    is_liege_of = ROOT
+                    ROOT = { de_jure_liege = PREV }
+                }
+
+            }
+        }
     }
 }
 
 any_vassal_voter_score = {
     additive_modifier = {
         value = 10
-        is_vassal_or_below_of = ROOT
-        laws_allow_indirect_vassals_vote = yes
+        is_ruler = yes
+        FROMFROM = {
+            laws_allow_indirect_vassals_vote = yes
+            holder_scope = {
+                OR = {
+                    is_vassal_or_below = ROOT
+                    de_jure_vassal_or_below = ROOT
+                }
+            }
+        }
     }
 }
 

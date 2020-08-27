@@ -21,6 +21,8 @@ generic_election_rules = {
 
         #votes_per_population = yes
         one_vote_per_voter = yes
+        #one_vote_per_holding = yes
+        #one_vote_per_province = yes
     }
 
     elector_selection = {
@@ -50,9 +52,9 @@ generic_election_rules = {
 
             has_mininum_age = yes
 
-            is_not_landed_foreigner = yes
+            #is_not_landed_foreigner = yes
 
-            disqualifications = yes
+            #disqualifications = yes
         }
 
         FROM = {
@@ -75,43 +77,45 @@ generic_election_rules = {
                     }
                 }
 
-                trigger_if = {
-                    limit = {
-                        # Either defacto direct vassal, or independent ruler who is dejure vassal
-                        OR = {
-                            vassal_of = ROOT
-                            character = ROOT
+                always = yes
 
-                            AND = {
-                                independent = yes
-
-                                any_dejure_liege = {
-                                    title = FROMFROM
-                                }
-                            }
-                        }
-                    }
-
-                    # Tier requirements
-                    #OR = {
-                    #   # Or Duke-tier...
-                    #   higher_real_tier_than = COUNT
-                    #
-                    #   #...Or Count-tier under a Duchy...
-                    #   trigger_if = {
-                    #       limit = { ROOT = { real_tier = DUKE } }
-                    #       higher_real_tier_than = BARON
-                    #   }
-                    #
-                    #   #...Or Baron-tier under a County
-                    #   trigger_if = {
-                    #       limit = { ROOT = { lower_real_tier_than = DUKE } }
-                    #
-                    #       is_landed = yes
-                    #       is_ruler = yes
-                    #   }
-                    #}
-                }
+                #trigger_if = {
+                #    limit = {
+                #        # Either defacto direct vassal, or independent ruler who is dejure vassal
+                #        OR = {
+                #            vassal_of = ROOT
+                #            character = ROOT
+                #
+                #            AND = {
+                #                independent = yes
+                #
+                #                any_dejure_liege = {
+                #                    title = FROMFROM
+                #                }
+                #            }
+                #        }
+                #    }
+                #
+                #    # Tier requirements
+                #    #OR = {
+                #    #   # Or Duke-tier...
+                #    #   higher_real_tier_than = COUNT
+                #    #
+                #    #   #...Or Count-tier under a Duchy...
+                #    #   trigger_if = {
+                #    #       limit = { ROOT = { real_tier = DUKE } }
+                #    #       higher_real_tier_than = BARON
+                #    #   }
+                #    #
+                #    #   #...Or Baron-tier under a County
+                #    #   trigger_if = {
+                #    #       limit = { ROOT = { lower_real_tier_than = DUKE } }
+                #    #
+                #    #       is_landed = yes
+                #    #       is_ruler = yes
+                #    #   }
+                #    #}
+                #}
             }
         }
     }

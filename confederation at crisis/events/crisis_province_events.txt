@@ -16,86 +16,99 @@ character_event = {
     }
 }
 
-province_event = {
-    id = cotcprovince.10
-    hide_window =  yes
-
-    mean_time_to_happen = {
-        months = 6
-    }
-
-    trigger = {
-        has_owner = yes
-        any_province_holding = {
-            trigger_if = {
-                limit = { persistent_event_target:representative = { always = yes } }
-                persistent_event_target:representative = {
-                    NAND = {
-                        is_alive = yes
-                        prisoner = no
-                        is_incapable = no
-                        is_adult = yes
-                        religion = ROOT
-                        culture = ROOT
-                        ai = yes
-                        is_ruler = no
-                        is_heir = no
-                    }
-                    log = "Evaluating representative [This.GetBestName] of [Root.GetName]"
-                    if = { limit = { is_alive = no } log = "Representative is dead" }
-                    if = { limit = { is_incapable = yes } log = "Representative is incapable" }
-                    if = { limit = { is_adult = no } log = "Representative is not adult" }
-                    if = { limit = { prisoner = yes } log = "Representative is prisoner" }
-                    if = { limit = { NOT = { religion = ROOT } } log = "Representative is wrong religion" }
-                    if = { limit = { NOT = { culture = ROOT } } log = "Representative is wrong culture" }
-                }
-            }
-            trigger_else = {
-                always = yes
-                log = "Representative for [Root.GetName] is missing?"
-            }
-        }
-    }
-
-    immediate = {
-        any_province_holding = {
-            limit = {
-                OR = {
-                    persistent_event_target:representative = {
-                        NAND = {
-                            is_alive = yes
-                            prisoner = no
-                            is_incapable = no
-                            is_adult = yes
-                            religion = ROOT
-                            culture = ROOT
-                            ai = yes
-                            is_ruler = no
-                            is_heir = no
-                        }
-                    }
-                    NOT = { persistent_event_target:representative = { always = yes } }
-                }
-            }
-            persistent_event_target:representative = {
-                clear_persistent_event_target = representative_of
-            }
-            clear_persistent_event_target = representative
-
-            create_character = {
-                dynasty = none
-                culture = ROOT
-                religion = ROOT
-                female = 60
-            }
-            new_character = {
-                add_age = 10
-                save_persistent_event_target = { name = representative_of scope = PREV }
-            }
-            save_persistent_event_target = { name = representative scope = new_character }
-            log = "Representative of [This.GetName] is [representative.GetBestName] age is [representative.GetAgeYears]"
-            log = "Cultures: Root: [This.Culture.GetName] Rep: [representative.Culture.GetName]"
-            log = "Religions: Root: [This.Religion.GetName] Rep: [representative.Religion.GetName]"
-        }
-    }
-}
+#province_event = {
+#    id = cotcprovince.10
+#    hide_window =  yes
+#
+#    mean_time_to_happen = {
+#        months = 6
+#    }
+#
+#    trigger = {
+#        has_owner = yes
+#        any_province_holding = {
+#            trigger_if = {
+#                limit = { persistent_event_target:representative = { always = yes } }
+#                persistent_event_target:representative = {
+#                    log = "Evaluating representative [This.GetBestName] of [representative_of.GetName]"
+#                    trigger_if = { limit = { is_alive = no } log = "Representative is dead" alive = yes }
+#                    trigger_if = { limit = { is_incapable = yes } log = "Representative is incapable" is_incapable = no }
+#                    trigger_if = { limit = { is_adult = no } log = "Representative is not adult" is_adult = yes }
+#                    trigger_if = { limit = { prisoner = yes } log = "Representative is prisoner" prisoner = no }
+#                    trigger_if = { limit = { NOT = { religion = ROOT } } log = "Representative is wrong religion" religion# = ROOT }
+#                    trigger_if = { limit = { NOT = { culture = ROOT } } log = "Representative is wrong culture" culture = #ROOT }
+#                    trigger_if = { limit = { is_ruler = yes } log = "Representative became ruler" is_ruler = no }
+#                    trigger_if = { limit = { is_heir = yes } log = "Representative became heir" is_heir = no }
+#                    trigger_if = { limit = { NOT = { at_location = persistent_event_target:representative_of } } log = #"Representative moved" at_location = persistent_event_target:representative_of }
+#                    log = "Evaluation ended"
+#                    #NAND = {
+#                    #    is_alive = yes
+#                    #    prisoner = no
+#                    #    is_incapable = no
+#                    #    is_adult = yes
+#                    #    religion = ROOT
+#                    #    culture = ROOT
+#                    #    ai = yes
+#                    #    is_ruler = no
+#                    #    is_heir = no
+#                    #    at_location = persistent_event_target:representative_of
+#                    #}
+#                }
+#            }
+#            trigger_else = {
+#                always = yes
+#                log = "Representative for [This.GetName] is missing?"
+#            }
+#        }
+#    }
+#
+#    immediate = {
+#        any_province_holding = {
+#            limit = {
+#                OR = {
+#                    persistent_event_target:representative = {
+#                        NAND = {
+#                            is_alive = yes
+#                            prisoner = no
+#                            is_incapable = no
+#                            is_adult = yes
+#                            religion = ROOT
+#                            culture = ROOT
+#                            ai = yes
+#                            is_ruler = no
+#                            is_heir = no
+#                            at_location = persistent_event_target:representative_of
+#                        }
+#                    }
+#                    NOT = { persistent_event_target:representative = { always = yes } }
+#                }
+#            }
+#            persistent_event_target:representative = {
+#                clear_persistent_event_target = representative_of
+#            }
+#            clear_persistent_event_target = representative
+#            create_character = {
+#                dynasty = none
+#                culture = ROOT
+#                religion = ROOT
+#                female = 60
+#                fertility = 0
+#            }
+#            new_character = {
+#                add_age = 10
+#                set_character_flag = ai_flag_never_transfer
+#                set_character_flag = no_court_invites
+#                set_character_flag = ai_flag_refuse_marriage
+#                set_character_flag = ai_flag_refuse_concubinage
+#                set_character_flag = ai_flag_refuse_conversion
+#                dipomatic_immunity = yes
+#                save_persistent_event_target = { name = representative_of scope = PREV }
+#                give_minor_title = title_representative
+#            }
+#            save_persistent_event_target = { name = representative scope = new_character }
+#            log = "Representative of [This.GetName] is [representative.GetBestName] age is [representative.GetAgeYears]"
+#            log = "Cultures: Root: [This.Culture.GetName] Rep: [representative.Culture.GetName]"
+#            log = "Religions: Root: [This.Religion.GetName] Rep: [representative.Religion.GetName]"
+#        }
+#    }
+#}
