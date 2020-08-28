@@ -1367,3 +1367,69 @@ ideology_reasons = {
         religion = FROM
     }
 }
+
+appointment_reasons = {
+    additive_exported_value_modifier = {
+        localisation_key = profession_requisites_vote_tt
+        factor = 5
+        value = martial
+        who = FROM
+        ai_rationality > -10
+        learning > 5
+        FROM = {
+            OR = {
+                has_education_martial_trigger = yes
+                has_lifestyle_martial_trigger = yes
+            }
+        }
+        FROMFROM = {
+            OR = {
+                government = military_command
+                government = military_base_government
+            }
+        }
+    }
+
+    additive_exported_value_modifier = {
+        localisation_key = profession_requisites_vote_tt
+        factor = 1
+        value = combat_rating
+        who = FROM
+        ai_rationality > -10
+        learning > 5
+        FROM = {
+            OR = {
+                has_education_martial_trigger = yes
+                has_lifestyle_martial_trigger = yes
+            }
+        }
+        FROMFROM = {
+            OR = {
+                government = military_command
+                government = military_base_government
+            }
+        }
+    }
+
+    additive_exported_value_modifier = {
+        localisation_key = profession_requisites_vote_tt
+        factor = 5
+        value = learning
+        who = FROM
+        ai_rationality > -10
+        learning > 5
+        FROM = {
+            OR = {
+                has_education_learning_trigger = yes
+                has_lifestyle_learning_trigger = yes
+                is_learned_trigger = yes
+            }
+        }
+        FROMFROM = {
+            OR = {
+                government = npc_rectorial
+                government = pc_rectorial
+            }
+        }
+    }
+}

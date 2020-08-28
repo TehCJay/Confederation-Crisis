@@ -205,20 +205,20 @@ appointment = {
 			value = 98
 		}
 
-		#additive_modifier = {
-		#	value = 9
-		#	FROMFROM = {
-		#		#NOT = { has_law = legislative_type_autocratic }
-		#		holder_scope = {
-		#			liege = {
-		#				any_courtier_or_vassal = {
-		#					character = ROOT
-		#					is_voter = yes
-		#				}
-		#			}
-		#		}
-		#	}
-		#}
+		additive_modifier = {
+			value = 9
+			FROMFROM = {
+				#NOT = { has_law = legislative_type_autocratic }
+				holder_scope = {
+					liege = {
+						any_courtier_or_vassal = {
+							character = ROOT
+							is_voter = yes
+						}
+					}
+				}
+			}
+		}
 
 		votes_per_population = yes
 	}
@@ -229,50 +229,50 @@ appointment = {
 
 		title_existence_check = yes
 
-		#additive_modifier = {
-		#	value = 6
-		#	character = FROM
-		#}
+		additive_modifier = {
+			value = 6
+			character = FROM
+		}
 
 		additive_modifier = {
 			FROMFROM = { holder_scope = { liege = { character = ROOT } } }
 			value = 99
 		}
 
-		#additive_modifier = {
-		#	value = 15
-		#	FROMFROM = {
-		#		#NOT = { has_law = legislative_type_autocratic }
-		#		holder_scope = {
-		#			liege = {
-		#				any_courtier_or_vassal = {
-		#					character = ROOT
-		#					is_voter = yes
-		#				}
-		#			}
-		#		}
-		#	}
-		#}
-		#
-		#additive_modifier = { # Current ruler is always an elector
-		#	value = 10
-		#
-		#	FROMFROM = { # Either title is higher than Duke-tier, or must be primary
-		#		holder_scope = {
-		#			character = PREVPREV
-		#		}
-		#
-		#		OR = {
-		#			higher_tier_than = DUKE
-		#
-		#			holder_scope = {
-		#				primary_title = {
-		#					title = PREVPREV
-		#				}
-		#			}
-		#		}
-		#	}
-		#}
+		additive_modifier = {
+			value = 15
+			FROMFROM = {
+				#NOT = { has_law = legislative_type_autocratic }
+				holder_scope = {
+					liege = {
+						any_courtier_or_vassal = {
+							character = ROOT
+							is_voter = yes
+						}
+					}
+				}
+			}
+		}
+
+		additive_modifier = { # Current ruler is always an elector
+			value = 10
+
+			FROMFROM = { # Either title is higher than Duke-tier, or must be primary
+				holder_scope = {
+					character = PREVPREV
+				}
+
+				OR = {
+					higher_tier_than = DUKE
+
+					holder_scope = {
+						primary_title = {
+							title = PREVPREV
+						}
+					}
+				}
+			}
+		}
 	}
 
 	# ROOT is current title holder
@@ -368,49 +368,23 @@ appointment = {
 	}
 
 	candidate_vote_score = {
-		days = 0
+        days = 0
 
-		### Candidate ###
-
-		# Heir
-		additive_modifier = { # Current ruler will always try to elect his player heir
-			value = 50
-			localisation_key = tooltip_feudal_elector_vote_player_heir
-
-			player_heir = {
-				character = FROM
-				NOT = { character = ROOT }
-			}
-
-			FROMFROM = {
-				holder_scope = {
-					character = PREVPREV
-					NOT = { is_rival = FROM } # Unless rival
-				}
-			}
-		}
-
-		### Elector voting himself ###
-		additive_modifier = {
-			value = 15
-			localisation_key = tooltip_feudal_elector_vote_myself
-
-			character = FROM
-
-			NOR = {
-				trait = humble
-				trait = content
-				trait = craven
-				trait = stressed
-				trait = depressed
-				trait = ambitious
-			}
-
-			FROMFROM = {
-				holder_scope = {
-					NOT = { is_parent_of = ROOT }
-				}
-			}
-		}
-	}
+        basic_universal_reasons = yes
+        ruler_votes_for_heir = yes
+        elector_votes_for_himself = yes
+        gender_bias_reasons = yes
+        cultural_bias_reasons = yes
+        ideology_bias_reasons = yes
+        nepotism_reasons = yes
+        claimants_reasons = yes
+        dislike_kinslayers_reasons = yes
+        crazy_ai_reasons = yes
+        opinion_reasons = yes
+        ruler_pick_reasons = yes
+        personality_reasons = yes
+        voting_styles_reasons = yes
+        ideology_reasons = yes
+        appointment_reasons = yes
+    }
 }

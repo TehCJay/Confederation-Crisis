@@ -48,3 +48,15 @@ character_event = {
         custom_tooltip = { text = fill_x_empty_senator_seats }
 	}
 }
+
+character_event = {
+	id = parliaments.10
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		log_scopes = yes
+		if = { limit = { data = local_main_government_type_1 } log = "success reading data!" }
+		if = { limit = { event_target:data = local_main_government_type_1 } log = "success reading evt:data!" }
+	}
+}

@@ -7,6 +7,7 @@ decisions = {
         potential = {
             e_terran_confederation = { holder = ROOT }
             d_terran_imperial_head = { NOT = { holder = ROOT} }
+            NOT = { religion =terran_imperial_cult }
         }
 
         allow = {
@@ -32,6 +33,7 @@ decisions = {
         potential = {
             e_terran_confederation = { holder = ROOT }
             d_terran_augustus_emperor = { NOT = { holder = ROOT } }
+            religion = terran_imperial_cult
         }
 
         allow = {
@@ -59,11 +61,13 @@ decisions = {
             d_terran_imperial_head = { holder = ROOT }
             d_terran_augustus_emperor = { NOT = { holder = ROOT } }
             religion = terran_imperial
-            #ruled_years = 1
+            ruled_years = 1
         }
 
         allow = {
             is_monarchy = yes
+            ruled_years = 10
+            piety = 10000
         }
 
         effect = {
@@ -81,7 +85,11 @@ decisions = {
                 d_terran_imperial_head = { unsafe_destroy_landed_title = THIS }
             }
 
+            religion_authority = { modifier = another_imperial_nutty_self_declared_augustus }
+
             unsafe_religion = terran_imperial_cult
+
+            religion_authority = { modifier = another_nutty_self_declared_augustus }
 
             activate_title = {
                 title = d_terran_augustus_emperor
@@ -90,6 +98,11 @@ decisions = {
             d_terran_augustus_emperor = {
                 usurp_title = ROOT
             }
+            piety = -5000
+        }
+
+        ai_will_do = {
+            factor = 0
         }
     }
 }

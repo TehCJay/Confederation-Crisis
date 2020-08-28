@@ -143,56 +143,80 @@ count_senator_seats_to_fill = {
                 change_variable = { which = empty_seats value = 5 }
                 any_courtier_or_vassal = {
                     limit = { has_minor_title = title_senatorduke }
-                    PREV = { subtract_variable = { which = empty_seats value = 1 } }
+                    PREV = {
+                        subtract_variable = { which = empty_seats value = 1 }
+                        change_variable = { which = title_senatorduke_granted value = 1 }
+                    }
                 }
             }
             if = { limit = { can_grant_title = title_senatorking }
                 change_variable = { which = empty_seats value = 5 }
                 any_courtier_or_vassal = {
                     limit = { has_minor_title = title_senatorking }
-                    PREV = { subtract_variable = { which = empty_seats value = 1 } }
+                    PREV = {
+                        subtract_variable = { which = empty_seats value = 1 }
+                        change_variable = { which = title_senatorking_granted value = 1 }
+                    }
                 }
             }
             if = { limit = { can_grant_title = title_senatoremperor }
                 change_variable = { which = empty_seats value = 10 }
                 any_courtier_or_vassal = {
                     limit = { has_minor_title = title_senatoremperor }
-                    PREV = { subtract_variable = { which = empty_seats value = 1 } }
+                    PREV = {
+                        subtract_variable = { which = empty_seats value = 1 }
+                        change_variable = { which = title_senatoremperor_granted value = 1 }
+                    }
                 }
             }
             if = { limit = { can_grant_title = title_senatorbigrealm1 }
                 change_variable = { which = empty_seats value = 5 }
                 any_courtier_or_vassal = {
                     limit = { has_minor_title = title_senatorbigrealm1 }
-                    PREV = { subtract_variable = { which = empty_seats value = 1 } }
+                    PREV = {
+                        subtract_variable = { which = empty_seats value = 1 }
+                        change_variable = { which = title_senatorbigrealm1_granted value = 1 }
+                    }
                 }
             }
             if = { limit = { can_grant_title = title_senatorbigrealm2 }
                 change_variable = { which = empty_seats value = 5 }
                 any_courtier_or_vassal = {
                     limit = { has_minor_title = title_senatorbigrealm2 }
-                    PREV = { subtract_variable = { which = empty_seats value = 1 } }
+                    PREV = {
+                        subtract_variable = { which = empty_seats value = 1 }
+                        change_variable = { which = title_senatorbigrealm2_granted value = 1 }
+                    }
                 }
             }
             if = { limit = { can_grant_title = title_senatorbigrealm3 }
                 change_variable = { which = empty_seats value = 5 }
                 any_courtier_or_vassal = {
                     limit = { has_minor_title = title_senatorbigrealm3 }
-                    PREV = { subtract_variable = { which = empty_seats value = 1 } }
+                    PREV = {
+                        subtract_variable = { which = empty_seats value = 1 }
+                        change_variable = { which = title_senatorbigrealm3_granted value = 1 }
+                    }
                 }
             }
             if = { limit = { can_grant_title = title_senatorbigrealm4 }
                 change_variable = { which = empty_seats value = 10 }
                 any_courtier_or_vassal = {
                     limit = { has_minor_title = title_senatorbigrealm4 }
-                    PREV = { subtract_variable = { which = empty_seats value = 1 } }
+                    PREV = {
+                        subtract_variable = { which = empty_seats value = 1 }
+                        change_variable = { which = title_senatorbigrealm4_granted value = 1 }
+                    }
                 }
             }
             if = { limit = { can_grant_title = title_senatorbigrealm5 }
                 change_variable = { which = empty_seats value = 25 }
                 any_courtier_or_vassal = {
                     limit = { has_minor_title = title_senatorbigrealm5 }
-                    PREV = { subtract_variable = { which = empty_seats value = 1 } }
+                    PREV = {
+                        subtract_variable = { which = empty_seats value = 1 }
+                        change_variable = { which = title_senatorbigrealm5_granted value = 1 }
+                    }
                 }
             }
         }
@@ -261,6 +285,33 @@ fill_seats_with_realm_characters = {
             PREV = { can_grant_title = title_senatorbigrealm5 }}
                 move_character = PREV give_minor_title = title_senatorbigrealm5 }
         }
+    }
+}
+
+#fire_extra_senators_effect = {
+#    if = {
+#        limit = {
+#            has_assigned_minor_title = {
+#                title = title_senatorduke
+#                count > 5
+#            }
+#        }
+#        random_courtier = {
+#            limit = { has_title = title_senatorduke }
+#        }
+#    }
+#}
+
+fire_all_senators_effect = {
+    any_courtier_or_vassal = {
+        remove_title = title_senatorduke
+        remove_title = title_senatorking
+        remove_title = title_senatoremperor
+        remove_title = title_senatorbigrealm1
+        remove_title = title_senatorbigrealm2
+        remove_title = title_senatorbigrealm3
+        remove_title = title_senatorbigrealm4
+        remove_title = title_senatorbigrealm5
     }
 }
 

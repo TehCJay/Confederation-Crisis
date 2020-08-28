@@ -250,6 +250,8 @@ NDefines.NMilitary.ARCHERS_PHASE_PURSUE_ATTACK = 0/transportMultiplier
 NDefines.NMilitary.ARCHERS_PHASE_PURSUE_DEFENSE = 5/transportMultiplier
 NDefines.NMilitary.ARCHERS_GRAPHICAL_FACTOR = 1/transportMultiplier
 
+NDefines.NMilitary.GALLEYS_MAINTENANCE = 10
+
 NDefines.NTechnology.DONT_EXECUTE_TECH_BEFORE = 2000
 NDefines.NTechnology.IDEAL_YEAR_LEVEL_0 = 2998
 NDefines.NTechnology.IDEAL_YEAR_LEVEL_8 = 4000

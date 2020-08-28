@@ -1,0 +1,51 @@
+moderate_pattern_for = {
+    icon = 14
+    pattern_type = for
+
+    legislative_efficiency_0 = { liege = { wealth < 0 } has_law = legislative_efficiency_1 }
+    legislative_efficiency_1 = {
+        OR = {
+            AND = { FROMFROM = { has_law = legislative_efficiency_0 } OR = { liege = { wealth > 1000 } liege = { any_demesne_province = { revolt_risk > 0.2 } } } }
+            AND = { FROMFROM = { has_law = legislative_efficiency_2 } liege = { wealth < 0 } }
+        }
+    }
+    legislative_efficiency_2 = {
+        OR = {
+            AND = { FROMFROM = { has_law = legislative_efficiency_1 } OR = { liege = { wealth > 1000 } liege = { any_demesne_province = { revolt_risk > 0.2 } } } }
+            AND = { FROMFROM = { has_law = legislative_efficiency_3 } liege = { wealth < 0 } }
+        }
+    }
+    legislative_efficiency_3 = {
+        OR = {
+            AND = { FROMFROM = { has_law = legislative_efficiency_2 } OR = { liege = { wealth > 1000 } liege = { any_demesne_province = { revolt_risk > 0.2 } } } }
+            AND = { FROMFROM = { has_law = legislative_efficiency_4 } liege = { wealth < 0 } }
+        }
+    }
+    legislative_efficiency_4 = { OR = { liege = { wealth > 1000 } liege = { any_demesne_province = { revolt_risk > 0.2 } } } has_law = legislative_efficiency_3 }
+}
+
+moderate_pattern_against = {
+    icon = 15
+    pattern_type = against
+
+    legislative_efficiency_0 = { liege = { wealth > 10000 } has_law = legislative_efficiency_1 }
+    legislative_efficiency_1 = {
+        OR = {
+            AND = { FROMFROM = { has_law = legislative_efficiency_0 } OR = { liege = { wealth < 200 } liege = { any_demesne_province = { revolt_risk < 0.01 } } } }
+            AND = { FROMFROM = { has_law = legislative_efficiency_2 } liege = { wealth > 10000 } }
+        }
+    }
+    legislative_efficiency_2 = {
+        OR = {
+            AND = { FROMFROM = { has_law = legislative_efficiency_1 } OR = { liege = { wealth < 200 } liege = { any_demesne_province = { revolt_risk < 0.01 } } } }
+            AND = { FROMFROM = { has_law = legislative_efficiency_3 } liege = { wealth > 10000 } }
+        }
+    }
+    legislative_efficiency_3 = {
+        OR = {
+            AND = { FROMFROM = { has_law = legislative_efficiency_2 } OR = { liege = { wealth < 200 } liege = { any_demesne_province = { revolt_risk < 0.01 } } } }
+            AND = { FROMFROM = { has_law = legislative_efficiency_4 } liege = { wealth > 10000 } }
+        }
+    }
+    legislative_efficiency_4 = { OR = { liege = { wealth < 200 } liege = { any_demesne_province = { revolt_risk < 0.01 } } } has_law = legislative_efficiency_3 }
+}

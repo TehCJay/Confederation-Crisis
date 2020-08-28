@@ -20,6 +20,7 @@ republic_governments = {
 		frame_suffix = "_merchantrepublic"
 		title_prefix = "pirate_republic_"
 		potential = {
+			always = no
 			NOT = { is_government_potential = hivemind_government }
 			religion_group = outlaw_group
 
@@ -29,6 +30,13 @@ republic_governments = {
 					# Require at least one province and be Duke tier or higher
 					higher_real_tier_than = COUNT
 					num_of_count_titles >= 1
+					capital_holding = {
+						holding_type = city
+					}
+                    OR = {
+                        has_law = local_main_government_type_1
+                        has_law = local_secondary_government_type_1
+                    }
 
 					# MR can't be under MR
 					trigger_if = {
@@ -57,6 +65,11 @@ republic_governments = {
 							}
 						}
 					}
+
+					OR = {
+                        has_law = local_main_government_type_1
+                        has_law = local_secondary_government_type_1
+                    }
 				}
 			}
 		}

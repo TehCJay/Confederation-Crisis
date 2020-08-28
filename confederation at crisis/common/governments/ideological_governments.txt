@@ -171,10 +171,10 @@ republic_governments = {
 		}
 		frame_suffix = "_merchantrepublic"
 		potential = {
+            always = no
 			NOR = {
 				is_government_potential = hivemind_government
 				is_government_potential = pirate_republic
-				is_government_potential = holy_terran_government
 			}
 
 			OR = {
@@ -199,6 +199,10 @@ republic_governments = {
 					capital_holding = {
 						holding_type = city
 					}
+                    OR = {
+                        has_law = local_main_government_type_1
+                        has_law = local_secondary_government_type_1
+                    }
 
 					# MR can't be under MR
 					trigger_if = {
@@ -227,6 +231,11 @@ republic_governments = {
 							}
 						}
 					}
+
+                    OR = {
+                        has_law = local_main_government_type_1
+                        has_law = local_secondary_government_type_1
+                    }
 				}
 			}
 		}

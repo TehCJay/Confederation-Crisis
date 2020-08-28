@@ -1,7 +1,6 @@
 #character
 on_startup = {
 	events = {
-		maintenance.400 # Clean up government traits
 		maintenance.16 # Princes and princesses
 		# maintenance.17 # Surnames # Disabled on 6/17/20 because it was causing weird issues when loading mid/late game.  Many characters would vanish without a trace, including decendants and siblings of landed characters who never received the'flag_valid_surname'.  Characters without a dynasty still receive a dynasty when they are given a title.
 		parliaments.001
@@ -2517,5 +2516,11 @@ on_wonder_restore_finish = {
 on_holding_building_start = {
 	events = {
 		cotcprovince.1
+	}
+}
+
+on_law_vote_passed = {
+	events = {
+		parliaments.10
 	}
 }
