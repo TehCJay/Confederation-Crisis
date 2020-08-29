@@ -5,14 +5,31 @@ decisions = {
         ai_check_interval = 12
 
         potential = {
-            e_terran_confederation = { holder = ROOT }
-            d_terran_imperial_head = { NOT = { holder = ROOT} }
-            NOT = { religion =terran_imperial_cult }
+            religion = terran_imperial
+            OR = {
+                AND = {
+                    e_terran_confederation = { holder = ROOT }
+                    d_terran_imperial_head = { NOT = { holder = ROOT} }
+                }
+                AND = {
+                    has_claim = e_terran_confederation
+                    NOT = { e_terran_confederation = { holder = ROOT } }
+                    e_terran_confederation = {
+                        holder_scope = {
+                            NOT = { religion = terran_imperial }
+                            d_terran_imperial_head = { holder = PREV }
+                        }
+                    }
+                }
+            }
+
         }
 
         allow = {
-            religion = terran_imperial
-            is_monarchy = yes
+            OR = {
+                is_monarchy = yes
+                independent = no
+            }
         }
 
         effect = {
@@ -31,14 +48,30 @@ decisions = {
         ai_check_interval = 12
 
         potential = {
-            e_terran_confederation = { holder = ROOT }
-            d_terran_augustus_emperor = { NOT = { holder = ROOT } }
             religion = terran_imperial_cult
+            OR = {
+                AND = {
+                    e_terran_confederation = { holder = ROOT }
+                    d_terran_augustus_emperor = { NOT = { holder = ROOT } }
+                }
+                AND = {
+                    has_claim = e_terran_confederation
+                    NOT = { e_terran_confederation = { holder = ROOT } }
+                    e_terran_confederation = {
+                        holder_scope = {
+                            NOT = { religion = terran_imperial_cult }
+                            d_terran_augustus_emperor = { holder = PREV }
+                        }
+                    }
+                }
+            }
         }
 
         allow = {
-            religion = terran_imperial_cult
-            is_monarchy = yes
+            OR = {
+                is_monarchy = yes
+                independent = no
+            }
         }
 
         effect = {
@@ -66,14 +99,20 @@ decisions = {
 
         allow = {
             is_monarchy = yes
-            ruled_years = 10
-            piety = 10000
+            #ruled_years = 10
+            #piety = 10000
         }
 
         effect = {
             e_terran_confederation = {
                 any_claimant = {
                     limit = { NOT = { is_close_relative = ROOT } religion = terran_imperial }
+                    score_value = {
+                        value = 1
+
+                        highest_prestige_piety_and_wealth = yes
+                    }
+                    count = 1
                     d_terran_imperial_head = {
                         usurp_title = PREV
                     }
@@ -98,7 +137,7 @@ decisions = {
             d_terran_augustus_emperor = {
                 usurp_title = ROOT
             }
-            piety = -5000
+            #piety = -5000
         }
 
         ai_will_do = {

@@ -1,3 +1,5 @@
+# note: I disabled all foa_female because validator was complaining and I needed to see other errors.
+# if there is no validator errors, feel free to re-enable it. I have no idea if it actually works though.
 
 e_terran_confederation = {
 	color = { 0 128 255 }
@@ -31,17 +33,51 @@ e_terran_confederation = {
 				status = yes
 			}
 			d_terran_imperial_head = { usurp_title = ROOT }
+			if = {
+				limit = { d_terran_augustus_emperor = { holder = ROOT } }
+				e_terran_confederation = {
+	                any_claimant = {
+	                    limit = { NOT = { is_close_relative = ROOT } religion = terran_imperial_cult }
+	                    score_value = {
+	                        value = 1
+
+	                        highest_prestige_piety_and_wealth = yes
+	                    }
+	                    count = 1
+	                    d_terran_augustus_emperor = {
+	                        usurp_title = PREV
+	                    }
+	                }
+	            }
+			}
 		}
 		if = {
 			limit = {
 				religion = terran_imperial_cult
-				d_terran_imperial_head = { NOT = { holder = ROOT } }
+				d_terran_augustus_emperor = { NOT = { holder = ROOT } }
 			}
 			activate_title = {
 				title = d_terran_augustus_emperor
 				status = yes
 			}
 			d_terran_augustus_emperor = { usurp_title = ROOT }
+			if = {
+				limit = { d_terran_imperial_head = { holder = ROOT } }
+				e_terran_confederation = {
+	                any_claimant = {
+	                    limit = { NOT = { is_close_relative = ROOT } religion = terran_imperial }
+	                    score_value = {
+	                        value = 1
+
+	                        highest_prestige_piety_and_wealth = yes
+	                    }
+	                    count = 1
+	                    d_terran_imperial_head = {
+	                        usurp_title = PREV
+	                    }
+	                }
+	            }
+			}
 		}
 	}
 
@@ -59,7 +95,7 @@ e_terran_confederation = {
 		title = "GRANDADMIRAL"
 		title_female = "GRANDADMIRAL_female"
 		foa = "GRANDADMIRALFOA"
-		foa_female = "GRANDADMIRALFOA_female"
+		#foa_female = "GRANDADMIRALFOA_female"
 
 		capital = 202 # Sol
 
@@ -74,7 +110,7 @@ e_terran_confederation = {
 			title = "FLEETADMIRAL"
 			title_female = "FLEETADMIRAL_female"
 			foa = "FLEETADMIRALFOA"
-			foa_female = "FLEETADMIRALFOA_female"
+			#foa_female = "FLEETADMIRALFOA_female"
 			capital = 202
 		}
 		d_terran_second_fleet = {
@@ -88,7 +124,7 @@ e_terran_confederation = {
 			title = "FLEETADMIRAL"
 			title_female = "FLEETADMIRAL_female"
 			foa = "FLEETADMIRALFOA"
-			foa_female = "FLEETADMIRALFOA_female"
+			#foa_female = "FLEETADMIRALFOA_female"
 			capital = 202
 		}
 		d_terran_third_fleet = {
@@ -102,7 +138,7 @@ e_terran_confederation = {
 			title = "FLEETADMIRAL"
 			title_female = "FLEETADMIRAL_female"
 			foa = "FLEETADMIRALFOA"
-			foa_female = "FLEETADMIRALFOA_female"
+			#foa_female = "FLEETADMIRALFOA_female"
 			capital = 202
 		}
 		d_terran_fourth_fleet = {
@@ -116,7 +152,7 @@ e_terran_confederation = {
 			title = "FLEETADMIRAL"
 			title_female = "FLEETADMIRAL_female"
 			foa = "FLEETADMIRALFOA"
-			foa_female = "FLEETADMIRALFOA_female"
+			#foa_female = "FLEETADMIRALFOA_female"
 			capital = 202
 		}
 		d_terran_fifth_fleet = {
@@ -130,7 +166,7 @@ e_terran_confederation = {
 			title = "FLEETADMIRAL"
 			title_female = "FLEETADMIRAL_female"
 			foa = "FLEETADMIRALFOA"
-			foa_female = "FLEETADMIRALFOA_female"
+			#foa_female = "FLEETADMIRALFOA_female"
 			capital = 202
 		}
 	}
@@ -164,7 +200,7 @@ e_terran_confederation = {
 			title = "FLEETADMIRAL"
 			title_female = "FLEETADMIRAL_female"
 			foa = "FLEETADMIRALFOA"
-			foa_female = "FLEETADMIRALFOA_female"
+			#foa_female = "FLEETADMIRALFOA_female"
 			capital = 202
 			#
 		}
@@ -231,6 +267,8 @@ e_terran_confederation = {
 				}
 			}
 			c_alpha_centauri = {
+				color = { 0 64 128 }
+				color2 = { 192 192 192 }
 				b_alpha_centauri_ii = { used_for_dynasty_names = no }
 				b_alpha_centauri_iii = { used_for_dynasty_names = no }
 				b_alpha_centauri_iii_b = { used_for_dynasty_names = no }
@@ -238,9 +276,13 @@ e_terran_confederation = {
 			}
 		}
 		d_sirius = {
+			color = { 0 64 128 }
+			color2 = { 0 192 192 }
 
 			capital = 200 # Sirius
 			c_sirius = {
+				color = { 0 64 128 }
+				color2 = { 0 192 192 }
 				used_for_dynasty_names = no
 				b_sirius_iii = { used_for_dynasty_names = no }
 				b_sirius_iii_b = { used_for_dynasty_names = no }
@@ -249,6 +291,8 @@ e_terran_confederation = {
 				b_sirius_vii_c = { used_for_dynasty_names = no }
 			}
 			c_procyon = {
+				color = { 0 64 128 }
+				color2 = { 0 192 192 }
 				used_for_dynasty_names = no
 				b_procyon_iii_b = { used_for_dynasty_names = no }
 				b_procyon_iii_c = { used_for_dynasty_names = no }
@@ -257,9 +301,13 @@ e_terran_confederation = {
 			}
 		}
 		d_tau_ceti = {
+			color = { 0 64 128 }
+			color2 = { 192 0 192 }
 
 			capital = 205 # Tau Ceti
 			c_tau_ceti = {
+				color = { 0 64 128 }
+				color2 = { 192 0 192 }
 				used_for_dynasty_names = no
 				b_tau_ceti_iv = { used_for_dynasty_names = no }
 				b_tau_ceti_iv_b = { used_for_dynasty_names = no }
@@ -269,6 +317,8 @@ e_terran_confederation = {
 				b_tau_ceti_v_d = { used_for_dynasty_names = no }
 			}
 			c_epsilon_eridani = {
+				color = { 0 64 128 }
+				color2 = { 192 0 192 }
 				used_for_dynasty_names = no
 				b_epsilon_eridani_iii = { used_for_dynasty_names = no }
 				b_epsilon_eridani_iv = { used_for_dynasty_names = no }
@@ -276,6 +326,8 @@ e_terran_confederation = {
 				b_epsilon_eridani_v = { used_for_dynasty_names = no }
 			}
 			c_eta_cassiopeia = {
+				color = { 0 64 128 }
+				color2 = { 192 0 192 }
 				used_for_dynasty_names = no
 				b_eta_cassiopeia_ii = { used_for_dynasty_names = no }
 				b_eta_cassiopeia_ii_b = { used_for_dynasty_names = no }
@@ -284,9 +336,13 @@ e_terran_confederation = {
 			}
 		}
 		d_draconis = {
+			color = { 0 64 128 }
+			color2 = { 192 192 0 }
 
 			capital = 198 # Sigma Draconis
 			c_sigma_draconis = {
+				color = { 0 64 128 }
+				color2 = { 192 192 0 }
 				used_for_dynasty_names = no
 				b_sigma_draconis_vi_c = { used_for_dynasty_names = no }
 				b_sigma_draconis_vi_d = { used_for_dynasty_names = no }
@@ -295,6 +351,8 @@ e_terran_confederation = {
 				b_sigma_draconis_vii_d = { used_for_dynasty_names = no }
 			}
 			c_epsilon_indi = {
+				color = { 0 64 128 }
+				color2 = { 192 192 0 }
 				used_for_dynasty_names = no
 				b_epsilon_indi_iii = { used_for_dynasty_names = no }
 				b_epsilon_indi_iii_b = { used_for_dynasty_names = no }
@@ -302,6 +360,8 @@ e_terran_confederation = {
 				b_epsilon_indi_v = { used_for_dynasty_names = no }
 			}
 			c_beta_hydri = {
+				color = { 0 64 128 }
+				color2 = { 192 192 0 }
 				used_for_dynasty_names = no
 				b_beta_hydri_iii = { used_for_dynasty_names = no }
 				b_beta_hydri_iv = { used_for_dynasty_names = no }
@@ -309,6 +369,8 @@ e_terran_confederation = {
 				b_beta_hydri_v_b = { used_for_dynasty_names = no }
 			}
 			c_delta_pavonis = {
+				color = { 0 64 128 }
+				color2 = { 192 192 0 }
 				used_for_dynasty_names = no
 				b_delta_pavonis_i = { used_for_dynasty_names = no }
 				b_delta_pavonis_ii = { used_for_dynasty_names = no }
@@ -317,9 +379,13 @@ e_terran_confederation = {
 			}
 		}
 		d_altair = {
+			color = { 0 64 128 }
+			color2 = { 170 170 170 }
 
 			capital = 193 # Altair
 			c_altair = {
+				color = { 0 64 128 }
+				color2 = { 170 170 170 }
 				used_for_dynasty_names = no
 				b_altair_iii = { used_for_dynasty_names = no }
 				b_altair_iv = { used_for_dynasty_names = no }
@@ -327,6 +393,8 @@ e_terran_confederation = {
 				b_altair_v_b = { used_for_dynasty_names = no }
 			}
 			c_cygni = {
+				color = { 0 64 128 }
+				color2 = { 170 170 170 }
 				used_for_dynasty_names = no
 				b_cygni_iii = { used_for_dynasty_names = no }
 				b_cygni_iii_b = { used_for_dynasty_names = no }
@@ -353,7 +421,7 @@ e_terran_confederation = {
 			title = "FLEETADMIRAL"
 			title_female = "FLEETADMIRAL_female"
 			foa = "FLEETADMIRALFOA"
-			foa_female = "FLEETADMIRALFOA_female"
+			#foa_female = "FLEETADMIRALFOA_female"
 			capital = 267
 			#
 		}
@@ -591,7 +659,7 @@ e_terran_confederation = {
 			title = "FLEETADMIRAL"
 			title_female = "FLEETADMIRAL_female"
 			foa = "FLEETADMIRALFOA"
-			foa_female = "FLEETADMIRALFOA_female"
+			#foa_female = "FLEETADMIRALFOA_female"
 			capital = 69 # Escudo
 			#
 		}
@@ -891,7 +959,7 @@ e_terran_confederation = {
 			title = "FLEETADMIRAL"
 			title_female = "FLEETADMIRAL_female"
 			foa = "FLEETADMIRALFOA"
-			foa_female = "FLEETADMIRALFOA_female"
+#			foa_female = "FLEETADMIRALFOA_female"
 			capital = 303 # Burj Najmii
 			#
 		}
@@ -977,6 +1045,8 @@ e_terran_confederation = {
 			color = { 16 64 0 }
 			color2 = { 255 255 255 }
 
+			capital = 297
+
 			c_amal = { # Hope
 				color = { 16 64 8 }
 				color2 = { 255 255 255 }
@@ -1012,6 +1082,8 @@ e_terran_confederation = {
 		d_jabraiil = {
 			color = { 24 64 0 }
 			color2 = { 255 255 255 }
+
+			capital = 300
 
 			c_jabraiil = { # The archangel Gabriel
 				color = { 24 64 8 }
@@ -1051,6 +1123,8 @@ e_terran_confederation = {
 			color = { 32 64 0 }
 			color2 = { 255 255 255 }
 
+			capital = 309
+
 			c_al_bawwaaba = { # The Gate
 				color = { 32 64 8 }
 				color2 = { 255 255 255 }
@@ -1088,6 +1162,8 @@ e_terran_confederation = {
 		d_al_hadd = {
 			color = { 40 64 0 }
 			color2 = { 255 255 255 }
+
+			capital = 314
 
 			c_al_hadd = { # The Edge
 				color = { 40 64 8 }
@@ -1152,7 +1228,7 @@ e_terran_confederation = {
 			title = "FLEETADMIRAL"
 			title_female = "FLEETADMIRAL_female"
 			foa = "FLEETADMIRALFOA"
-			foa_female = "FLEETADMIRALFOA_female"
+			#foa_female = "FLEETADMIRALFOA_female"
 			capital = 290 # Upeo wa Macho
 			#
 		}
@@ -1206,6 +1282,8 @@ e_terran_confederation = {
 			color = { 200 255 200 }
 			color2 = { 10 10 10 }
 
+			capital = 295
+
 			c_nyota_mwisho = { # Stars' End
 				color = { 208 255 208 }
 				color2 = { 10 10 10 }
@@ -1243,6 +1321,8 @@ e_terran_confederation = {
 		d_ndia_panda = {
 			color = { 200 200 255 }
 			color2 = { 10 10 10 }
+
+			capital = 292
 
 			c_ndia_panda = { # Crossroads
 				color = { 208 208 255 }
@@ -1282,6 +1362,8 @@ e_terran_confederation = {
 			color = { 255 255 200 }
 			color2 = { 10 10 10 }
 
+			capital = 285
+
 			c_afolayan = {
 				color = { 255 255 208 }
 				color2 = { 10 10 10 }
@@ -1320,6 +1402,8 @@ e_terran_confederation = {
 		d_adwa = {
 			color = { 255 200 255 }
 			color2 = { 10 10 10 }
+
+			capital = 281
 
 			c_addis_adwa = {
 				color = { 255 208 255 }
@@ -1395,7 +1479,7 @@ e_terran_confederation = {
 			title = "FLEETADMIRAL"
 			title_female = "FLEETADMIRAL_female"
 			foa = "FLEETADMIRALFOA"
-			foa_female = "FLEETADMIRALFOA_female"
+			#foa_female = "FLEETADMIRALFOA_female"
 			capital = 86 # Aldrin
 			#
 		}
@@ -1413,7 +1497,7 @@ e_terran_confederation = {
 				holy_site = terran_federalist # Traditional regional capital
 				holy_site = terran_republican
 
-				b_armstrong_iii = { used_for_dynasty_names = no }
+				b_armstrong_iii = { used_for_dynasty_names = no holy_site = terran_imperial_cult }
 				b_armstrong_iii_b = { used_for_dynasty_names = no }
 				b_armstrong_iv = { used_for_dynasty_names = no }
 				b_armstrong_iv_b = { used_for_dynasty_names = no }
@@ -1460,6 +1544,8 @@ e_terran_confederation = {
 			color = { 32 0 255 }
 			color2 = { 255 255 0 }
 
+			capital = 84
+
 			c_apollo = {
 				color = { 32 16 255 }
 				color2 = { 255 255 0 }
@@ -1486,6 +1572,8 @@ e_terran_confederation = {
 		d_shepard = {
 			color = { 48 0 255 }
 			color2 = { 255 255 0 }
+
+			capital = 101
 
 			c_shepard = {
 				color = { 48 16 255 }
@@ -1524,6 +1612,8 @@ e_terran_confederation = {
 		d_ride = {
 			color = { 64 0 255 }
 			color2 = { 255 255 0 }
+
+			capital = 98
 
 			c_ride = {
 				color = { 64 16 255 }
@@ -1584,6 +1674,8 @@ e_terran_confederation = {
 		d_glenn = {
 			color = { 80 0 255 }
 			color2 = { 255 255 0 }
+
+			capital = 90
 
 			c_glenn = {
 				color = { 80 16 255 }
@@ -1648,7 +1740,7 @@ e_terran_confederation = {
 			title = "FLEETADMIRAL"
 			title_female = "FLEETADMIRAL_female"
 			foa = "FLEETADMIRALFOA"
-			foa_female = "FLEETADMIRALFOA_female"
+			#foa_female = "FLEETADMIRALFOA_female"
 			capital = 206 # Gagarin
 			#
 		}
@@ -1785,7 +1877,7 @@ e_terran_confederation = {
 			title = "FLEETADMIRAL"
 			title_female = "FLEETADMIRAL_female"
 			foa = "FLEETADMIRALFOA"
-			foa_female = "FLEETADMIRALFOA_female"
+			#foa_female = "FLEETADMIRALFOA_female"
 			capital = 109 # Port Simon
 			#
 		}
@@ -1911,7 +2003,7 @@ k_xin_zizhiqu = {
 		title = "FLEETADMIRAL"
 		title_female = "FLEETADMIRAL_female"
 		foa = "FLEETADMIRALFOA"
-		foa_female = "FLEETADMIRALFOA_female"
+		#foa_female = "FLEETADMIRALFOA_female"
 		capital = 263
 		#
 	}
@@ -2311,7 +2403,8 @@ k_xin_zizhiqu = {
 	d_wei = {
 		color = { 255 150 0 }
 		color2 = { 255 0 0 }
-		capital = 248 # Wei
+
+		capital = 258 # Wei
 
 		c_wei = {
 			color = { 255 150 100 }
@@ -2356,7 +2449,7 @@ k_novyy_edem = {
 		title = "FLEETADMIRAL"
 		title_female = "FLEETADMIRAL_female"
 		foa = "FLEETADMIRALFOA"
-		foa_female = "FLEETADMIRALFOA_female"
+		#foa_female = "FLEETADMIRALFOA_female"
 		capital = 162
 		#
 	}
@@ -2694,7 +2787,7 @@ k_novyy_edem = {
 				title = "FLEETADMIRAL"
 				title_female = "FLEETADMIRAL_female"
 				foa = "FLEETADMIRALFOA"
-				foa_female = "FLEETADMIRALFOA_female"
+				#foa_female = "FLEETADMIRALFOA_female"
 				capital = 215
 				#
 			}
@@ -2896,7 +2989,7 @@ k_novyy_edem = {
 				title = "FLEETADMIRAL"
 				title_female = "FLEETADMIRAL_female"
 				foa = "FLEETADMIRALFOA"
-				foa_female = "FLEETADMIRALFOA_female"
+				#foa_female = "FLEETADMIRALFOA_female"
 				capital = 25
 				#
 			}
@@ -3220,7 +3313,7 @@ k_novyy_edem = {
 				title = "FLEETADMIRAL"
 				title_female = "FLEETADMIRAL_female"
 				foa = "FLEETADMIRALFOA"
-				foa_female = "FLEETADMIRALFOA_female"
+				#foa_female = "FLEETADMIRALFOA_female"
 				capital = 126
 				#
 			}
@@ -3513,7 +3606,7 @@ k_novyy_edem = {
 				title = "FLEETADMIRAL"
 				title_female = "FLEETADMIRAL_female"
 				foa = "FLEETADMIRALFOA"
-				foa_female = "FLEETADMIRALFOA_female"
+				#foa_female = "FLEETADMIRALFOA_female"
 				capital = 404
 				#
 			}
@@ -3546,7 +3639,7 @@ k_novyy_edem = {
 
 					b_cisne_iii = { used_for_dynasty_names = no }
 					b_cisne_iii_b = { used_for_dynasty_names = no }
-					b_cisne_citadel = { used_for_dynasty_names = no }
+					b_cisne_citadel = { used_for_dynasty_names = no holy_site = terran_imperial_cult }
 					b_cisne_vi_b = { used_for_dynasty_names = no }
 					b_cisne_vi_c = { used_for_dynasty_names = no }
 					b_cisne_vi_d = { used_for_dynasty_names = no }
@@ -3761,10 +3854,6 @@ k_novyy_edem = {
 				c_seldon = {
 					color = { 200 152 152 }
 					color2 = { 255 255 0 }
-					title = "MAYOR"
-					title_female = "MAYOR_female"
-					foa = "MAYORFOA"
-					foa_female = "MAYORFOA_female"
 
 					b_termino = { used_for_dynasty_names = no }
 					b_seldon_observatory = { used_for_dynasty_names = no }
@@ -3861,7 +3950,7 @@ k_novyy_edem = {
 				title = "FLEETADMIRAL"
 				title_female = "FLEETADMIRAL_female"
 				foa = "FLEETADMIRALFOA"
-				foa_female = "FLEETADMIRALFOA_female"
+				#foa_female = "FLEETADMIRALFOA_female"
 				capital = 185
 				#
 			}
@@ -3879,7 +3968,7 @@ k_novyy_edem = {
 					holy_site = bio_directionist
 
 					b_novyy_sol_i = { used_for_dynasty_names = no }
-					b_novyy_sol_ii = { used_for_dynasty_names = no }
+					b_novyy_sol_ii = { used_for_dynasty_names = no holy_site = terran_imperial_cult }
 					b_novyy_sol_iii = { used_for_dynasty_names = no }
 					b_novyy_sol_iv = { used_for_dynasty_names = no }
 					b_novyy_sol_v = { used_for_dynasty_names = no }
@@ -4081,7 +4170,7 @@ k_novyy_edem = {
 				title = "FLEETADMIRAL"
 				title_female = "FLEETADMIRAL_female"
 				foa = "FLEETADMIRALFOA"
-				foa_female = "FLEETADMIRALFOA_female"
+				#foa_female = "FLEETADMIRALFOA_female"
 				capital = 10
 				#
 			}
@@ -4432,12 +4521,8 @@ k_novyy_edem = {
 			title = "FLEETADMIRAL"
 			title_female = "FLEETADMIRAL_female"
 			foa = "FLEETADMIRALFOA"
-			foa_female = "FLEETADMIRALFOA_female"
+			#foa_female = "FLEETADMIRALFOA_female"
 			capital = 55
-			landless = yes
-			can_be_claimed = no
-			can_be_usurped = no
-			#
 		}
 
 		d_shaanxi = {
@@ -4692,7 +4777,7 @@ k_novyy_edem = {
 			title = "FLEETADMIRAL"
 			title_female = "FLEETADMIRAL_female"
 			foa = "FLEETADMIRALFOA"
-			foa_female = "FLEETADMIRALFOA_female"
+			#foa_female = "FLEETADMIRALFOA_female"
 			capital = 331
 			#
 		}
@@ -4829,7 +4914,7 @@ k_novyy_edem = {
 			title = "FLEETADMIRAL"
 			title_female = "FLEETADMIRAL_female"
 			foa = "FLEETADMIRALFOA"
-			foa_female = "FLEETADMIRALFOA_female"
+			#foa_female = "FLEETADMIRALFOA_female"
 			capital = 141 # Legacy
 			#
 		}
@@ -5202,7 +5287,7 @@ k_novyy_edem = {
 			title = "FLEETADMIRAL"
 			title_female = "FLEETADMIRAL_female"
 			foa = "FLEETADMIRALFOA"
-			foa_female = "FLEETADMIRALFOA_female"
+			#foa_female = "FLEETADMIRALFOA_female"
 			capital = 444 # Iserlohn
 			#
 		}
@@ -5437,7 +5522,7 @@ k_novyy_edem = {
 			title = "FLEETADMIRAL"
 			title_female = "FLEETADMIRAL_female"
 			foa = "FLEETADMIRALFOA"
-			foa_female = "FLEETADMIRALFOA_female"
+			#foa_female = "FLEETADMIRALFOA_female"
 			capital = 428
 			#
 		}
@@ -5666,7 +5751,7 @@ k_novyy_edem = {
 			title = "FLEETADMIRAL"
 			title_female = "FLEETADMIRAL_female"
 			foa = "FLEETADMIRALFOA"
-			foa_female = "FLEETADMIRALFOA_female"
+			#foa_female = "FLEETADMIRALFOA_female"
 			capital = 379
 			#
 		}
@@ -5999,7 +6084,7 @@ k_novyy_edem = {
 			title = "FLEETADMIRAL"
 			title_female = "FLEETADMIRAL_female"
 			foa = "FLEETADMIRALFOA"
-			foa_female = "FLEETADMIRALFOA_female"
+			#foa_female = "FLEETADMIRALFOA_female"
 			capital = 347 # Nai Varanasi
 			#
 		}
@@ -6336,7 +6421,7 @@ k_novyy_edem = {
 			title = "FLEETADMIRAL"
 			title_female = "FLEETADMIRAL_female"
 			foa = "FLEETADMIRALFOA"
-			foa_female = "FLEETADMIRALFOA_female"
+			#foa_female = "FLEETADMIRALFOA_female"
 			capital = 363
 			#
 		}
@@ -6353,7 +6438,7 @@ k_novyy_edem = {
 
 				used_for_dynasty_names = no
 
-				b_paraiso_ii = { used_for_dynasty_names = no }
+				b_paraiso_ii = { used_for_dynasty_names = no holy_site = terran_imperial_cult }
 				b_paraiso_iii = { used_for_dynasty_names = no }
 				b_paraiso_iii_b = { used_for_dynasty_names = no }
 				b_paraiso_iv = { used_for_dynasty_names = no }

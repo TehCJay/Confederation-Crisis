@@ -369,6 +369,16 @@ laws = {
 		pass_effect = {
 		}
 		effect = {
+			holder_scope = {
+				show_scope_change = no
+				liege = {
+					show_scope_change = no
+					if = {
+						limit = { has_opinion_modifier = { who = PREV name = opinion_ignoring_my_laws } }
+					}
+					remove_opinion = { who = PREV name = opinion_ignoring_my_laws }
+				}
+			}
 			hidden_tooltip = {
 				revoke_law = disobedience_1
 			}
@@ -386,6 +396,16 @@ laws = {
 		pass_effect = {
 		}
 		effect = {
+			holder_scope = {
+				show_scope_change = no
+				liege = {
+					show_scope_change = no
+					if = {
+						limit = { NOT = { has_opinion_modifier = { who = PREV name = opinion_ignoring_my_laws } } }
+					}
+					opinion = { who = PREV name = opinion_ignoring_my_laws }
+				}
+			}
 			hidden_tooltip = {
 				revoke_law = disobedience_0
 			}

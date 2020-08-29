@@ -12,76 +12,72 @@
 #	message: should fire a message to the its owner when set
 #	The other fields are all character modifiers.
 
-title_ecumenical_councillor = {
-	religion = pilgrim
-	can_elect_head = yes
-	grant_limit = 9
-	
-	realm_in_name = no
-	show_as_title = yes
-	
-	opinion_effect = 10
-	dignity = 0.9
-	
-	monthly_salary = 0.1
-	monthly_prestige = 0.1
-	
-	allow = {
-		religion = pilgrim
-		is_landed = yes
-		OR = {
-			government = administrative_monarchy
-			government = administrative_republic
-			government = administrative_directorate
-		}
-		
-		d_pilgrimage = { holder_scope = { is_within_diplo_range = ROOT } }
-		
-		NOT = {
-			top_liege = {
-				any_vassal = {
-					any_claim = {
-						title = d_pilgrimage
-					}
-				}
-			}
-		}
-	}
-	
-	gain_effect = {
-	}
-	
-	lose_effect = {
-	}
-
-	message = yes
-}
+#title_ecumenical_councillor = {
+#	religion = pilgrim
+#	can_elect_head = yes
+#	grant_limit = 9
+#
+#	realm_in_name = no
+#	show_as_title = yes
+#
+#	opinion_effect = 10
+#	dignity = 0.9
+#
+#	monthly_salary = 0.1
+#	monthly_prestige = 0.1
+#
+#	allow = {
+#		religion = pilgrim
+#		is_landed = yes
+#		OR = {
+#			government = administrative_monarchy
+#			government = administrative_republic
+#			government = administrative_directorate
+#		}
+#
+#		d_pilgrimage = { holder_scope = { is_within_diplo_range = ROOT } }
+#
+#		NOT = {
+#			top_liege = {
+#				any_vassal = {
+#					any_claim = {
+#						title = d_pilgrimage
+#					}
+#				}
+#			}
+#		}
+#	}
+#
+#	gain_effect = {
+#	}
+#
+#	lose_effect = {
+#	}
+#
+#	message = yes
+#}
 
 title_cardinal = {
 	religion = orthodox
 	can_elect_head = yes
 	grant_limit = 9
-	
+
 	realm_in_name = no
 	show_as_title = yes
-	
+
 	opinion_effect = 20
 	dignity = 0.9
-	
+
 	monthly_salary = 0.5
 	monthly_prestige = 0.5
-	
+
 	allow = {
 		religion = orthodox
 		is_landed = yes
-		OR = {
-			government = administrative_monarchy
-			government = administrative_republic
-			government = administrative_directorate
-		}
-		
+		is_theocracy_trigger = yes
+
 		d_orthodoxy = { holder_scope = { is_within_diplo_range = ROOT } }
-		
+
 		NOT = {
 			top_liege = {
 				any_vassal = {
@@ -92,12 +88,94 @@ title_cardinal = {
 			}
 		}
 	}
-	
+
 	gain_effect = {
 	}
-	
+
 	lose_effect = {
 	}
-	
+
+	message = yes
+}
+
+title_need_better_name = {
+	religion = terran_imperial_cult
+	can_elect_head = no
+	grant_limit = 20
+
+	realm_in_name = no
+	show_as_title = yes
+
+	opinion_effect = 20
+	dignity = 0.9
+
+	monthly_salary = 0.5
+	monthly_prestige = 0.5
+
+	allow = {
+		religion = terran_imperial_cult
+		is_landed = yes
+		is_theocracy_trigger = yes
+
+		d_terran_augustus_emperor = { holder_scope = { is_within_diplo_range = ROOT } }
+
+		NOT = {
+			top_liege = {
+				any_vassal = {
+					any_claim = {
+						title = d_terran_augustus_emperor
+					}
+				}
+			}
+		}
+	}
+
+	gain_effect = {
+	}
+
+	lose_effect = {
+	}
+
+	message = yes
+}
+
+title_need_even_better_name = {
+	religion = terran_imperial_cult
+	can_elect_head = no
+	grant_limit = 20
+
+	realm_in_name = no
+	show_as_title = yes
+
+	opinion_effect = 20
+	dignity = 0.9
+
+	monthly_salary = 0.5
+	monthly_prestige = 0.5
+
+	allow = {
+		religion = terran_imperial_cult
+		is_landed = no
+		is_theocracy_trigger = yes
+
+		d_terran_augustus_emperor = { holder_scope = { is_within_diplo_range = ROOT } }
+
+		NOT = {
+			top_liege = {
+				any_vassal = {
+					any_claim = {
+						title = d_terran_augustus_emperor
+					}
+				}
+			}
+		}
+	}
+
+	gain_effect = {
+	}
+
+	lose_effect = {
+	}
+
 	message = yes
 }

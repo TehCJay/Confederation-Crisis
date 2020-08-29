@@ -1,3 +1,18 @@
+########################################################
+# MINOR TITLES
+# Characters can have any number of these
+########################################################
+#	grant_limit: Max number of holders.
+#	realm_in_name: Append the name of the country after the title (Queen [of Sweden])
+#	allowed_to_hold: conditions for the character to hold the title
+#	allowed_to_grant: conditions for a ruler to grant the title
+#	regent: This is the title for regents (not really "minor")
+#	gain_effect: fires when the title is granted
+#	lose_effect: fires when a title is lost if dismissal_trigger evaluates to false
+#	message: should fire a message to the its owner when set
+#	The other fields are all character modifiers.
+
+
 # COURT EDUCATOR
 
 title_court_educator = {
@@ -26,28 +41,7 @@ title_court_educator = {
 		}
 		custom_tooltip = {
 			text = court_physician_tooltip_2
-			OR = {
-				is_female = no
-				AND = {
-					is_feminist_trigger = yes
-					liege = { religion = ROOT }
-				}
-				liege = {
-					OR = {
-						primary_title = {
-							has_law = female_council_law_4
-						}
-						has_game_rule = {
-							name = gender
-							value = all
-						}
-						has_game_rule = {
-							name = gender
-							value = plus
-						}
-					}
-				}
-			}
+			gender_compatible_trigger = yes
 		}
 		custom_tooltip = {
 			text = court_educator_tooltip
@@ -112,19 +106,7 @@ title_court_educator = {
 	message = yes
 }
 
-########################################################
-# MINOR TITLES
-# Characters can have any number of these
-########################################################
-#	grant_limit: Max number of holders.
-#	realm_in_name: Append the name of the country after the title (Queen [of Sweden])
-#	allowed_to_hold: conditions for the character to hold the title
-#	allowed_to_grant: conditions for a ruler to grant the title
-#	regent: This is the title for regents (not really "minor")
-#	gain_effect: fires when the title is granted
-#	lose_effect: fires when a title is lost if dismissal_trigger evaluates to false
-#	message: should fire a message to the its owner when set
-#	The other fields are all character modifiers.
+# The next 8 titles are all the same title, but split into various titles because the game doesn't allow a variable number of people getting the title, thus this hack is necessary, even Vanilla uses it (for Advisors)
 
 title_senatorduke = {
 	dignity = 8.0
@@ -1073,6 +1055,8 @@ title_senatorbigrealm5 = {
 	message = yes
 }
 
+# Experimental title for direct elections...
+
 title_representative = {
 	show_as_title = yes
 	realm_in_name = yes
@@ -1082,3 +1066,5 @@ title_representative = {
 	allowed_to_grant = { always = no }
 	revoke_trigger = { always = no }
 }
+
+#

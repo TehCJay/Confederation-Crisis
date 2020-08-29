@@ -41,6 +41,10 @@ title_court_physician = {
 				primary_title = { temporary = yes }
 			}
 		}
+		custom_tooltip = {
+			text = court_physician_tooltip_2
+			gender_compatible_trigger = yes
+		}
 
 		OR = {
 			learning = 10
@@ -52,10 +56,8 @@ title_court_physician = {
 					trait = mystic
 					trait = genius
 					trait = quick
-					trait = patient
 					trait = erudite
-					trait = disciplined
-					trait = diligent
+					ai_rationality > 60
 				}
 			}
 
@@ -410,7 +412,7 @@ title_speaker = {
 
 	is_unique = yes
 
-	allowed_to_grant = { NOT = { any_demesne_title = { has_law = legislative_type_autocratic } } }
+	allowed_to_grant = { any_demesne_title = { has_law = law_voting_power_1 } NOT = { any_demesne_title = { has_law = legislative_efficiency_0 } } }
 
 	allowed_to_hold = {
 		is_adult = yes
@@ -418,9 +420,7 @@ title_speaker = {
 		has_regent = no
 		NOT = { has_minor_title = title_prime }
 		NOT = { has_minor_title = title_minister_without_portfolio }
-		OR = {
-			is_senator = yes
-		}
+		is_senator = yes
 	}
 
 	gain_effect = { }
@@ -445,7 +445,7 @@ title_minister_without_portfolio = {
 		}
 	}
 
-	allow = {
+	allowed_to_hold = {
 		is_adult = yes
 		prisoner = no
 		has_regent = no
@@ -581,29 +581,6 @@ title_vp_consumer_goods = {
 		OR = {
 			is_landed = no
 			dynasty = FROM
-		}
-		NOT = { higher_tier_than = count }
-		NOT = { has_minor_title = title_vp_industrial_engineering }
-		NOT = { has_minor_title = title_vp_robotics }
-		NOT = { has_minor_title = title_vp_transportation }
-		NOT = { has_minor_title = title_vp_defense_industries }
-		NOT = { has_minor_title = title_vp_biotech }
-		NOT = { has_minor_title = title_vp_financial }
-		NOT = { has_minor_title = title_vp_luxury_goods }
-	}
-
-	allow = {
-		is_adult = yes
-		prisoner = no
-		has_regent = no
-		FROM = {
-			is_patrician = yes
-			family_palace = { has_building = fp_consumer_1 }
-		}
-		is_patrician = no
-		OR = {
-			same_dynasty = FROM
-			is_landed = no
 		}
 		NOT = { higher_tier_than = count }
 		NOT = { has_minor_title = title_vp_industrial_engineering }
@@ -928,7 +905,7 @@ title_prince_royal = {
 		OR = {
 			religion = neo_feudal
 			religion = terran_imperial
-			religion = imperial_cultist
+			religion = imperial_cult
 			government = military_monarchy
 			government = corporate_monarchy
 			government = administrative_monarchy

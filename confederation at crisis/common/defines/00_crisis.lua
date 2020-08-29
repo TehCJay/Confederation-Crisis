@@ -319,8 +319,8 @@ NDefines.NTitle.EMPEROR_AS_VASSAL_PRESTIGE = 1
 
 NDefines.NTitle.ENFORCE_ONE_OF_EACH_HOLDING = 0
 
-NDefines.NDiplomacy.MAX_DUCHIES_LEGALLY_HELD = 3             -- from 2, vanilla=2
-NDefines.NDiplomacy.MAX_ELECTOR_TITLES_LEGALLY_HELD = 3      -- from 1, vanilla=1
+NDefines.NDiplomacy.MAX_DUCHIES_LEGALLY_HELD = 2
+NDefines.NDiplomacy.MAX_ELECTOR_TITLES_LEGALLY_HELD = 1
 NDefines.NDiplomacy.LAW_CHANGE_PRESTIGE_COST = 150
 NDefines.NDiplomacy.CROWN_LAW_CHANGE_PRESTIGE_COST = 300
 
