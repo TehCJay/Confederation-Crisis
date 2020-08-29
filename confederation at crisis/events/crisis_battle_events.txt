@@ -76,11 +76,11 @@ character_event = {
 		name = "crisis_found_enemy_confirm"
 		roll1d100 = yes
 		if = {
-			limit = { check_variable = { which = dice1d100 which <= local_tracking_chance } }
+			limit = { check_variable = { which = local_dice1d100 which <= local_tracking_chance } }
 			log = "found enemy!"
 		}
 		else_if = {
-			limit = { check_variable = { which = dice1d100 which <= local_fail_tracking_chance } }
+			limit = { check_variable = { which = local_dice1d100 which <= local_fail_tracking_chance } }
 			log = "success, but we alerted the enemy!"
 			set_character_flag = fired_during_battle
 		}

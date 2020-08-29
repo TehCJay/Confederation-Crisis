@@ -184,7 +184,7 @@ laws = {
 			factor = 0
 		}
 
-		court_size_maintenance_cost_modifier = -0.5
+		court_size_maintenance_cost_modifier = 0
 		court_size_modifier = -15
 		#monthly_character_wealth = 0 # can't take money, only add.
 		monthly_character_prestige = 1
@@ -224,7 +224,7 @@ laws = {
 			}
 		}
 
-		court_size_maintenance_cost_modifier = -0.3
+		court_size_maintenance_cost_modifier = 1
 		court_size_modifier = -10
 		#monthly_character_wealth = 0 # can't take money, only add.
 		monthly_character_prestige = 0.5
@@ -264,7 +264,7 @@ laws = {
 			}
 		}
 
-		court_size_maintenance_cost_modifier = 0.1
+		court_size_maintenance_cost_modifier = 2
 		court_size_modifier = -5
 		#monthly_character_wealth = 0 # can't take money, only add.
 		monthly_character_prestige = 0.1
@@ -292,7 +292,10 @@ laws = {
 				has_law = legislative_efficiency_2
 				has_law = legislative_efficiency_4
 			}
-
+			OR = {
+				higher_tier_than = COUNT
+				wealth > 10000
+			}
 		}
 		effect = {
 			log = "legislative_efficiency_comission ([This.GetFullBaseName])"
@@ -304,7 +307,7 @@ laws = {
 			#}
 		}
 
-		court_size_maintenance_cost_modifier = 0.2
+		court_size_maintenance_cost_modifier = 5
 		court_size_modifier = 1
 		#monthly_character_wealth = 0 # can't take money, only add.
 		monthly_character_prestige = -0.2
@@ -323,6 +326,10 @@ laws = {
 		pass_effect = { log = "legislative_efficiency_comission pass ([This.GetFullBaseName])" }
 		allow = {
 			has_law = legislative_efficiency_3
+			OR = {
+				higher_tier_than = DUKE
+				wealth > 50000
+			}
 		}
 		effect = {
 			log = "legislative_efficiency_comission ([This.GetFullBaseName])"
@@ -338,7 +345,7 @@ laws = {
 			factor = 100
 		}
 
-		court_size_maintenance_cost_modifier = 0.5
+		court_size_maintenance_cost_modifier = 15
 		court_size_modifier = 10
 		#monthly_character_wealth = 0 # can't take money, only add.
 		monthly_character_prestige = -0.5
@@ -402,6 +409,18 @@ laws = {
 				revoke_law = local_main_government_type_2
 			}
 		}
+		default_selection = {
+			factor = 0
+
+			additive_modifier = {
+				value = 100
+				holder_scope = {
+					capital_holding = {
+						holding_type = castle
+					}
+				}
+			}
+		}
 	}
 	local_main_government_type_1 = {
 		group = local_main_government_type
@@ -419,6 +438,18 @@ laws = {
 				revoke_law = local_main_government_type_2
 			}
 		}
+		default_selection = {
+			factor = 0
+
+			additive_modifier = {
+				value = 100
+				holder_scope = {
+					capital_holding = {
+						holding_type = city
+					}
+				}
+			}
+		}
 	}
 	local_main_government_type_2 = {
 		group = local_main_government_type
@@ -434,6 +465,18 @@ laws = {
 			hidden_tooltip = {
 				revoke_law = local_main_government_type_0
 				revoke_law = local_main_government_type_1
+			}
+		}
+		default_selection = {
+			factor = 0
+
+			additive_modifier = {
+				value = 100
+				holder_scope = {
+					capital_holding = {
+						holding_type = temple
+					}
+				}
 			}
 		}
 	}
@@ -458,6 +501,47 @@ laws = {
 				revoke_law = local_secondary_government_type_2
 			}
 		}
+		default_selection = {
+			factor = 0
+
+			additive_modifier = {
+				value = 100
+				holder_scope = {
+					capital_holding = {
+						holding_type = city
+					}
+					ideology_is_militaristic = yes
+					ideology_is_civilian = yes
+				}
+			}
+
+			additive_modifier = {
+				value = 100
+				holder_scope = {
+					capital_holding = {
+						holding_type = temple
+					}
+					ideology_is_militaristic = yes
+					ideology_is_rectorial = yes
+					OR = {
+						religion_group = religious_group
+						religion_group = religious_terran_group
+						religion = machine_cultist
+					}
+				}
+			}
+
+			additive_modifier = {
+				value = 100
+				holder_scope = {
+					capital_holding = {
+						holding_type = castle
+					}
+					ideology_is_not_rectorial = yes
+					ideology_is_not_civilian = yes
+				}
+			}
+		}
 	}
 	local_secondary_government_type_1 = {
 		group = local_secondary_government_type
@@ -479,6 +563,47 @@ laws = {
 				revoke_law = local_secondary_government_type_2
 			}
 		}
+		default_selection = {
+			factor = 0
+
+			additive_modifier = {
+				value = 100
+				holder_scope = {
+					capital_holding = {
+						holding_type = city
+					}
+					ideology_is_not_militaristic = yes
+					ideology_is_not_rectorial = yes
+				}
+			}
+
+			additive_modifier = {
+				value = 100
+				holder_scope = {
+					capital_holding = {
+						holding_type = temple
+					}
+					ideology_is_civilian = yes
+					ideology_is_rectorial = yes
+					NOR = {
+						religion_group = religious_group
+						religion_group = religious_terran_group
+						religion = machine_cultist
+					}
+				}
+			}
+
+			additive_modifier = {
+				value = 100
+				holder_scope = {
+					capital_holding = {
+						holding_type = castle
+					}
+					ideology_is_militaristic = yes
+					ideology_is_civilian = yes
+				}
+			}
+		}
 	}
 	local_secondary_government_type_2 = {
 		group = local_secondary_government_type
@@ -498,6 +623,52 @@ laws = {
 			hidden_tooltip = {
 				revoke_law = local_secondary_government_type_0
 				revoke_law = local_secondary_government_type_1
+			}
+		}
+		default_selection = {
+			factor = 0
+
+			additive_modifier = {
+				value = 100
+				holder_scope = {
+					capital_holding = {
+						holding_type = city
+					}
+					ideology_is_civilian = yes
+					ideology_is_rectorial = yes
+					NOR = {
+						religion_group = religious_group
+						religion_group = religious_terran_group
+						religion = machine_cultist
+					}
+				}
+			}
+
+			additive_modifier = {
+				value = 100
+				holder_scope = {
+					capital_holding = {
+						holding_type = temple
+					}
+					ideology_is_not_civilian = yes
+					ideology_is_not_militaristic = yes
+				}
+			}
+
+			additive_modifier = {
+				value = 100
+				holder_scope = {
+					capital_holding = {
+						holding_type = castle
+					}
+					ideology_is_militaristic = yes
+					ideology_is_rectorial = yes
+					OR = {
+						religion_group = religious_group
+						religion_group = religious_terran_group
+						religion = machine_cultist
+					}
+				}
 			}
 		}
 	}

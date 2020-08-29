@@ -146,10 +146,18 @@ title_senatorduke = {
 		can_be_councilmember_king_trigger = yes
 
 		FROM = {
-			OR = {
-				has_law = legislative_type_autocratic
-				has_character_flag = processing_senate
+			higher_tier_than = COUNT
+			primary_title = { has_law = law_voting_power_1 NOT = { has_law = legislative_efficiency_0 } }
+		}
+
+		OR = {
+			FROM = {
+				OR = {
+					has_law = legislative_type_autocratic
+					has_character_flag = processing_senate
+				}
 			}
+			has_minor_title = title_senatorduke
 		}
 
 		OR = {
@@ -199,6 +207,10 @@ title_senatorduke = {
 			}
 			opinion = { who = FROM modifier = opinion_fired_from_council }
 			opinion = { who = FROM modifier = opinion_recently_fired }
+			if = {
+				limit = { is_immune_to_pruning = no }
+				death = { death_reason = death_missing }
+			}
 		}
 	}
 	retire_effect = {
@@ -229,10 +241,18 @@ title_senatorking = {
 		can_be_councilmember_king_trigger = yes
 
 		FROM = {
-			OR = {
-				has_law = legislative_type_autocratic
-				has_character_flag = processing_senate
+			higher_tier_than = DUKE
+			primary_title = { has_law = law_voting_power_1 NOT = { has_law = legislative_efficiency_0 } }
+		}
+
+		OR = {
+			FROM = {
+				OR = {
+					has_law = legislative_type_autocratic
+					has_character_flag = processing_senate
+				}
 			}
+			has_minor_title = title_senatorking
 		}
 
 		OR = {
@@ -282,6 +302,10 @@ title_senatorking = {
 			}
 			opinion = { who = FROM modifier = opinion_fired_from_council }
 			opinion = { who = FROM modifier = opinion_recently_fired }
+			if = {
+				limit = { is_immune_to_pruning = no }
+				death = { death_reason = death_missing }
+			}
 		}
 
 	}
@@ -313,10 +337,18 @@ title_senatoremperor = {
 		can_be_councilmember_king_trigger = yes
 
 		FROM = {
-			OR = {
-				has_law = legislative_type_autocratic
-				has_character_flag = processing_senate
+			higher_tier_than = KING
+			primary_title = { has_law = law_voting_power_1 NOT = { has_law = legislative_efficiency_0 } }
+		}
+
+		OR = {
+			FROM = {
+				OR = {
+					has_law = legislative_type_autocratic
+					has_character_flag = processing_senate
+				}
 			}
+			has_minor_title = title_senatoremperor
 		}
 
 		OR = {
@@ -366,6 +398,10 @@ title_senatoremperor = {
 			}
 			opinion = { who = FROM modifier = opinion_fired_from_council }
 			opinion = { who = FROM modifier = opinion_recently_fired }
+			if = {
+				limit = { is_immune_to_pruning = no }
+				death = { death_reason = death_missing }
+			}
 		}
 
 	}
@@ -415,10 +451,36 @@ title_senatorbigrealm1 = {
 		can_be_councilmember_king_trigger = yes
 
 		FROM = {
+			higher_tier_than = COUNT
+			primary_title = { has_law = law_voting_power_1 NOT = { has_law = legislative_efficiency_0 } }
 			OR = {
-				has_law = legislative_type_autocratic
-				has_character_flag = processing_senate
+				AND = {
+					primary_title = { has_law = legislative_efficiency_1 }
+					num_of_count_titles_in_realm = 80
+				}
+				AND = {
+					primary_title = { has_law = legislative_efficiency_2 }
+					num_of_count_titles_in_realm = 40
+				}
+				AND = {
+					primary_title = { has_law = legislative_efficiency_3 }
+					num_of_count_titles_in_realm = 20
+				}
+				AND = {
+					primary_title = { has_law = legislative_efficiency_4 }
+					num_of_count_titles_in_realm = 10
+				}
 			}
+		}
+
+		OR = {
+			FROM = {
+				OR = {
+					has_law = legislative_type_autocratic
+					has_character_flag = processing_senate
+				}
+			}
+			has_minor_title = title_senatorbigrealm1
 		}
 
 		OR = {
@@ -468,6 +530,10 @@ title_senatorbigrealm1 = {
 			}
 			opinion = { who = FROM modifier = opinion_fired_from_council }
 			opinion = { who = FROM modifier = opinion_recently_fired }
+			if = {
+				limit = { is_immune_to_pruning = no }
+				death = { death_reason = death_missing }
+			}
 		}
 
 	}
@@ -517,10 +583,36 @@ title_senatorbigrealm2 = {
 		can_be_councilmember_king_trigger = yes
 
 		FROM = {
+			higher_tier_than = COUNT
+			primary_title = { has_law = law_voting_power_1 NOT = { has_law = legislative_efficiency_0 } }
 			OR = {
-				has_law = legislative_type_autocratic
-				has_character_flag = processing_senate
+				AND = {
+					primary_title = { has_law = legislative_efficiency_1 }
+					num_of_count_titles_in_realm = 160
+				}
+				AND = {
+					primary_title = { has_law = legislative_efficiency_2 }
+					num_of_count_titles_in_realm = 80
+				}
+				AND = {
+					primary_title = { has_law = legislative_efficiency_3 }
+					num_of_count_titles_in_realm = 40
+				}
+				AND = {
+					primary_title = { has_law = legislative_efficiency_4 }
+					num_of_count_titles_in_realm = 20
+				}
 			}
+		}
+
+		OR = {
+			FROM = {
+				OR = {
+					has_law = legislative_type_autocratic
+					has_character_flag = processing_senate
+				}
+			}
+			has_minor_title = title_senatorbigrealm2
 		}
 
 		OR = {
@@ -570,6 +662,10 @@ title_senatorbigrealm2 = {
 			}
 			opinion = { who = FROM modifier = opinion_fired_from_council }
 			opinion = { who = FROM modifier = opinion_recently_fired }
+			if = {
+				limit = { is_immune_to_pruning = no }
+				death = { death_reason = death_missing }
+			}
 		}
 
 	}
@@ -619,10 +715,36 @@ title_senatorbigrealm3 = {
 		can_be_councilmember_king_trigger = yes
 
 		FROM = {
+			higher_tier_than = COUNT
+			primary_title = { has_law = law_voting_power_1 NOT = { has_law = legislative_efficiency_0 } }
 			OR = {
-				has_law = legislative_type_autocratic
-				has_character_flag = processing_senate
+				AND = {
+					primary_title = { has_law = legislative_efficiency_1 }
+					num_of_count_titles_in_realm = 240
+				}
+				AND = {
+					primary_title = { has_law = legislative_efficiency_2 }
+					num_of_count_titles_in_realm = 120
+				}
+				AND = {
+					primary_title = { has_law = legislative_efficiency_3 }
+					num_of_count_titles_in_realm = 60
+				}
+				AND = {
+					primary_title = { has_law = legislative_efficiency_4 }
+					num_of_count_titles_in_realm = 30
+				}
 			}
+		}
+
+		OR = {
+			FROM = {
+				OR = {
+					has_law = legislative_type_autocratic
+					has_character_flag = processing_senate
+				}
+			}
+			has_minor_title = title_senatorbigrealm3
 		}
 
 		OR = {
@@ -672,6 +794,10 @@ title_senatorbigrealm3 = {
 			}
 			opinion = { who = FROM modifier = opinion_fired_from_council }
 			opinion = { who = FROM modifier = opinion_recently_fired }
+			if = {
+				limit = { is_immune_to_pruning = no }
+				death = { death_reason = death_missing }
+			}
 		}
 
 	}
@@ -721,10 +847,36 @@ title_senatorbigrealm4 = {
 		can_be_councilmember_king_trigger = yes
 
 		FROM = {
+			higher_tier_than = COUNT
+			primary_title = { has_law = law_voting_power_1 NOT = { has_law = legislative_efficiency_0 } }
 			OR = {
-				has_law = legislative_type_autocratic
-				has_character_flag = processing_senate
+				AND = {
+					primary_title = { has_law = legislative_efficiency_1 }
+					num_of_count_titles_in_realm = 400
+				}
+				AND = {
+					primary_title = { has_law = legislative_efficiency_2 }
+					num_of_count_titles_in_realm = 200
+				}
+				AND = {
+					primary_title = { has_law = legislative_efficiency_3 }
+					num_of_count_titles_in_realm = 100
+				}
+				AND = {
+					primary_title = { has_law = legislative_efficiency_4 }
+					num_of_count_titles_in_realm = 50
+				}
 			}
+		}
+
+		OR = {
+			FROM = {
+				OR = {
+					has_law = legislative_type_autocratic
+					has_character_flag = processing_senate
+				}
+			}
+			has_minor_title = title_senatorbigrealm4
 		}
 
 		OR = {
@@ -774,6 +926,10 @@ title_senatorbigrealm4 = {
 			}
 			opinion = { who = FROM modifier = opinion_fired_from_council }
 			opinion = { who = FROM modifier = opinion_recently_fired }
+			if = {
+				limit = { is_immune_to_pruning = no }
+				death = { death_reason = death_missing }
+			}
 		}
 
 	}
@@ -799,17 +955,60 @@ title_senatorbigrealm5 = {
 	allowed_to_grant = {
 		higher_tier_than = COUNT
 		primary_title = { has_law = law_voting_power_1 NOT = { has_law = legislative_efficiency_0 } }
-		num_of_count_titles_in_realm = 100
+		OR = {
+			AND = {
+				primary_title = { has_law = legislative_efficiency_1 }
+				num_of_count_titles_in_realm = 800
+			}
+			AND = {
+				primary_title = { has_law = legislative_efficiency_2 }
+				num_of_count_titles_in_realm = 400
+			}
+			AND = {
+				primary_title = { has_law = legislative_efficiency_3 }
+				num_of_count_titles_in_realm = 200
+			}
+			AND = {
+				primary_title = { has_law = legislative_efficiency_4 }
+				num_of_count_titles_in_realm = 100
+			}
+		}
 	}
 
 	allowed_to_hold = {
 		can_be_councilmember_king_trigger = yes
 
 		FROM = {
+			higher_tier_than = COUNT
+			primary_title = { has_law = law_voting_power_1 NOT = { has_law = legislative_efficiency_0 } }
 			OR = {
-				has_law = legislative_type_autocratic
-				has_character_flag = processing_senate
+				AND = {
+					primary_title = { has_law = legislative_efficiency_1 }
+					num_of_count_titles_in_realm = 800
+				}
+				AND = {
+					primary_title = { has_law = legislative_efficiency_2 }
+					num_of_count_titles_in_realm = 400
+				}
+				AND = {
+					primary_title = { has_law = legislative_efficiency_3 }
+					num_of_count_titles_in_realm = 200
+				}
+				AND = {
+					primary_title = { has_law = legislative_efficiency_4 }
+					num_of_count_titles_in_realm = 100
+				}
 			}
+		}
+
+		OR = {
+			FROM = {
+				OR = {
+					has_law = legislative_type_autocratic
+					has_character_flag = processing_senate
+				}
+			}
+			has_minor_title = title_senatorbigrealm5
 		}
 
 		OR = {
@@ -859,6 +1058,10 @@ title_senatorbigrealm5 = {
 			}
 			opinion = { who = FROM modifier = opinion_fired_from_council }
 			opinion = { who = FROM modifier = opinion_recently_fired }
+			if = {
+				limit = { is_immune_to_pruning = no }
+				death = { death_reason = death_missing }
+			}
 		}
 
 	}

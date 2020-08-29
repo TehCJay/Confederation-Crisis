@@ -988,6 +988,99 @@ character_event = {
 			random_independent_ruler = {
 				limit = { religion = space_pirate }
 				reverse_banish = ROOT
+				hidden_tooltip = {
+					random = {
+						chance = 10
+
+						mult_modifier = {
+							factor = 0
+							dynasty = ROOT
+						}
+
+						additive_modifier = {
+							value = 30
+							ROOT = {
+								martial < 10
+							}
+						}
+
+						additive_modifier = {
+							value = 10
+							ROOT = {
+								martial < 20
+							}
+						}
+
+						additive_modifier = {
+							value = 5
+							ROOT = {
+								martial < 30
+							}
+						}
+
+						additive_modifier = {
+							value = -10
+							ROOT = {
+								trait = amoral
+							}
+						}
+
+						additive_modifier = {
+							value = 20
+							ROOT = {
+								ai_honor >= 50
+							}
+						}
+
+						additive_modifier = {
+							value = 30
+							ROOT = {
+								ai_greed <= -20
+							}
+						}
+
+						additive_modifier = {
+							value = 30
+							ROOT = {
+								ai_ambition <= -20
+							}
+						}
+
+						mult_modifier = {
+							factor = 3
+							has_full_court = yes
+						}
+
+						mult_modifier = {
+							factor = 2
+							opinion = {
+								who = ROOT
+								value < -10
+							}
+						}
+
+						mult_modifier = {
+							factor = 2
+							opinion = {
+								who = ROOT
+								value < -50
+							}
+						}
+
+						mult_modifier = {
+							factor = 10
+							is_foe = ROOT
+						}
+
+						ROOT = {
+							death = {
+								death_reason = death_execution
+								killer = PREV
+							}
+						}
+
+					}
+				}
 			}
 		}
 		ai_chance = {

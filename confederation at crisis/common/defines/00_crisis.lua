@@ -100,7 +100,7 @@ NDefines.NMilitary.LIEGE_LEVY_SUBUNIT_SIZE_MIN = 500                            
 NDefines.NMilitary.LIEGE_LEVY_VICE_ROYALTY_MULTIPLIER = 1.0                                   -- Liege levy multiplier for viceroy vassals
 
 
-NDefines.NMilitary.LEVY_MAINTENANCE_FACTOR = 15                 -- how much to multiply the "maintenance" cost of a unit to charge gold per month. Maintenance also affect retinue cap usage.
+NDefines.NMilitary.LEVY_MAINTENANCE_FACTOR = 5                 -- how much to multiply the "maintenance" cost of a unit to charge gold per month. Maintenance also affect retinue cap usage.
 
 -- retinue stuff
 NDefines.NMilitary.RETINUE_FROM_REALMSIZE = 10                  -- for a count. for duke is *1.5, for king is *2, for emperor is *2.5
@@ -295,7 +295,7 @@ NDefines.NEconomy.BASE_COURT_LIMIT_COUNT = 10                                   
 NDefines.NEconomy.BASE_COURT_LIMIT_DUKE = 20
 NDefines.NEconomy.BASE_COURT_LIMIT_KING = 25
 NDefines.NEconomy.BASE_COURT_LIMIT_EMPEROR = 30
-NDefines.NEconomy.OVERSIZED_COURT_UPKEEP_COST = 4.5                                        -- Amount of ducats paid per month for the upkeep of each courtier above the court limit.
+NDefines.NEconomy.OVERSIZED_COURT_UPKEEP_COST = 0.45                                        -- Amount of ducats paid per month for the upkeep of each courtier above the court limit.
 NDefines.NEconomy.OVERSIZED_COURT_PRESTIGE_GAIN = 0.30                                      -- Amount of prestige gained per month for each courtier above the court limit.
 NDefines.NDisease.CROWDED_THRESHOLD_MODIFIER = 40                                            -- How many courtiers in a court to make it crowded and increase chance for disease.
 
@@ -337,7 +337,7 @@ NDefines.NCharacter.CHANGE_SUCC_LAW_YEARS = 10
 
 
 NDefines.NDiplomacy.IMPRISON_CHARACTER_INTERACTION_MONEY = 0
-NDefines.NDiplomacy.IMPRISON_CHARACTER_INTERACTION_PIETY = 20
+NDefines.NDiplomacy.IMPRISON_CHARACTER_INTERACTION_PIETY = 0
 NDefines.NDiplomacy.IMPRISON_CHARACTER_INTERACTION_PRESTIGE = 0
 NDefines.NDiplomacy.IMPRISON_CHARACTER_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.IMPRISON_CHARACTER_INTERACTION_THRESHOLD_FOR_YES = 0
@@ -345,27 +345,27 @@ NDefines.NDiplomacy.IMPRISON_CHARACTER_INTERACTION_MUST_HAVE_COST = 0				-- Is h
 NDefines.NDiplomacy.IMPRISON_CHARACTER_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.RELEASE_FROM_PRISON_INTERACTION_MONEY = 0
-NDefines.NDiplomacy.RELEASE_FROM_PRISON_INTERACTION_PIETY = 5
+NDefines.NDiplomacy.RELEASE_FROM_PRISON_INTERACTION_PIETY = 0
 NDefines.NDiplomacy.RELEASE_FROM_PRISON_INTERACTION_PRESTIGE = 0
 NDefines.NDiplomacy.RELEASE_FROM_PRISON_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.RELEASE_FROM_PRISON_INTERACTION_THRESHOLD_FOR_YES = 0
-NDefines.NDiplomacy.RELEASE_FROM_PRISON_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
+NDefines.NDiplomacy.RELEASE_FROM_PRISON_INTERACTION_MUST_HAVE_COST = 0				-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.RELEASE_FROM_PRISON_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.EXECUTE_IMPRISONED_INTERACTION_MONEY = 0
-NDefines.NDiplomacy.EXECUTE_IMPRISONED_INTERACTION_PIETY = 10
+NDefines.NDiplomacy.EXECUTE_IMPRISONED_INTERACTION_PIETY = 100
 NDefines.NDiplomacy.EXECUTE_IMPRISONED_INTERACTION_PRESTIGE = 0
 NDefines.NDiplomacy.EXECUTE_IMPRISONED_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.EXECUTE_IMPRISONED_INTERACTION_THRESHOLD_FOR_YES = 0
-NDefines.NDiplomacy.EXECUTE_IMPRISONED_INTERACTION_MUST_HAVE_COST = 0				-- Is having prestige/piety >= cost required for this action?
+NDefines.NDiplomacy.EXECUTE_IMPRISONED_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.EXECUTE_IMPRISONED_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.EXILE_IMPRISONED_INTERACTION_MONEY = 0
-NDefines.NDiplomacy.EXILE_IMPRISONED_INTERACTION_PIETY = 15
+NDefines.NDiplomacy.EXILE_IMPRISONED_INTERACTION_PIETY = 10
 NDefines.NDiplomacy.EXILE_IMPRISONED_INTERACTION_PRESTIGE = 0
 NDefines.NDiplomacy.EXILE_IMPRISONED_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.EXILE_IMPRISONED_INTERACTION_THRESHOLD_FOR_YES = 0
-NDefines.NDiplomacy.EXILE_IMPRISONED_INTERACTION_MUST_HAVE_COST = 0				-- Is having prestige/piety >= cost required for this action?
+NDefines.NDiplomacy.EXILE_IMPRISONED_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.EXILE_IMPRISONED_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.RETIRE_TO_MONASTERY_INTERACTION_MONEY = 0
@@ -379,19 +379,21 @@ NDefines.NDiplomacy.RETIRE_TO_MONASTERY_INTERACTION_ENABLED = 1						-- Should t
 NDefines.NDiplomacy.DEMAND_RELIGIOUS_CONVERSION_INTERACTION_MONEY = 0
 NDefines.NDiplomacy.DEMAND_RELIGIOUS_CONVERSION_INTERACTION_PIETY = 5
 NDefines.NDiplomacy.DEMAND_RELIGIOUS_CONVERSION_INTERACTION_PRESTIGE = 5
+NDefines.NDiplomacy.DEMAND_RELIGIOUS_CONVERSION_INTERACTION_THRESHOLD_FOR_NO = 25
+NDefines.NDiplomacy.DEMAND_RELIGIOUS_CONVERSION_INTERACTION_THRESHOLD_FOR_YES = 75
 NDefines.NDiplomacy.DEMAND_RELIGIOUS_CONVERSION_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.DEMAND_RELIGIOUS_CONVERSION_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
-NDefines.NDiplomacy.INVITE_TO_COURT_INTERACTION_MONEY = 0
+NDefines.NDiplomacy.INVITE_TO_COURT_INTERACTION_MONEY = 50
 NDefines.NDiplomacy.INVITE_TO_COURT_INTERACTION_PIETY = 0
 NDefines.NDiplomacy.INVITE_TO_COURT_INTERACTION_PRESTIGE = 50
 NDefines.NDiplomacy.INVITE_TO_COURT_INTERACTION_THRESHOLD_FOR_NO = 0
-NDefines.NDiplomacy.INVITE_TO_COURT_INTERACTION_THRESHOLD_FOR_YES = 0
+NDefines.NDiplomacy.INVITE_TO_COURT_INTERACTION_THRESHOLD_FOR_YES = 20
 NDefines.NDiplomacy.INVITE_TO_COURT_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.INVITE_TO_COURT_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
-NDefines.NDiplomacy.TRANSFER_VASSAL_INTERACTION_MONEY = 0
-NDefines.NDiplomacy.TRANSFER_VASSAL_INTERACTION_PIETY = 15
+NDefines.NDiplomacy.TRANSFER_VASSAL_INTERACTION_MONEY = 5
+NDefines.NDiplomacy.TRANSFER_VASSAL_INTERACTION_PIETY = 5
 NDefines.NDiplomacy.TRANSFER_VASSAL_INTERACTION_PRESTIGE = 0
 NDefines.NDiplomacy.TRANSFER_VASSAL_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.TRANSFER_VASSAL_INTERACTION_THRESHOLD_FOR_YES = 0
@@ -424,15 +426,32 @@ NDefines.NDiplomacy.AWARD_HONORARY_TITLE_INTERACTION_ENABLED = 1						-- Should 
 
 NDefines.NDiplomacy.REVOKE_HONORARY_TITLE_INTERACTION_MONEY = 0
 NDefines.NDiplomacy.REVOKE_HONORARY_TITLE_INTERACTION_PIETY = 5
-NDefines.NDiplomacy.REVOKE_HONORARY_TITLE_INTERACTION_PRESTIGE = 0
+NDefines.NDiplomacy.REVOKE_HONORARY_TITLE_INTERACTION_PRESTIGE = 5
 NDefines.NDiplomacy.REVOKE_HONORARY_TITLE_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.REVOKE_HONORARY_TITLE_INTERACTION_THRESHOLD_FOR_YES = 0
 NDefines.NDiplomacy.REVOKE_HONORARY_TITLE_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.REVOKE_HONORARY_TITLE_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
+NDefines.NDiplomacy.ASSIGN_VOTER_TITLE_INTERACTION_MONEY = 0
+NDefines.NDiplomacy.ASSIGN_VOTER_TITLE_INTERACTION_PIETY = 0
+NDefines.NDiplomacy.ASSIGN_VOTER_TITLE_INTERACTION_PRESTIGE = 0
+NDefines.NDiplomacy.ASSIGN_VOTER_TITLE_INTERACTION_THRESHOLD_FOR_NO = 0
+NDefines.NDiplomacy.ASSIGN_VOTER_TITLE_INTERACTION_THRESHOLD_FOR_YES = 0
+NDefines.NDiplomacy.ASSIGN_VOTER_TITLE_INTERACTION_MUST_HAVE_COST = 0              -- Is having prestige/piety >= cost required for this action?
+NDefines.NDiplomacy.ASSIGN_VOTER_TITLE_INTERACTION_ENABLED = 1                     -- Should this action be used at all?
+
+NDefines.NDiplomacy.REVOKE_VOTER_TITLE_INTERACTION_MONEY = 0
+NDefines.NDiplomacy.REVOKE_VOTER_TITLE_INTERACTION_PIETY = 0
+NDefines.NDiplomacy.REVOKE_VOTER_TITLE_INTERACTION_PRESTIGE = 0
+NDefines.NDiplomacy.REVOKE_VOTER_TITLE_INTERACTION_THRESHOLD_FOR_NO = 0
+NDefines.NDiplomacy.REVOKE_VOTER_TITLE_INTERACTION_THRESHOLD_FOR_YES = 0
+NDefines.NDiplomacy.REVOKE_VOTER_TITLE_INTERACTION_MUST_HAVE_COST = 0              -- Is having prestige/piety >= cost required for this action?
+NDefines.NDiplomacy.REVOKE_VOTER_TITLE_INTERACTION_ENABLED = 1                     -- Should this action be used at all?
+
+
 NDefines.NDiplomacy.SEND_ASSASSIN_INTERACTION_MONEY = 50
 NDefines.NDiplomacy.SEND_ASSASSIN_INTERACTION_PIETY = 0
-NDefines.NDiplomacy.SEND_ASSASSIN_INTERACTION_PRESTIGE = 0
+NDefines.NDiplomacy.SEND_ASSASSIN_INTERACTION_PRESTIGE = 50
 NDefines.NDiplomacy.SEND_ASSASSIN_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.SEND_ASSASSIN_INTERACTION_THRESHOLD_FOR_YES = 0
 NDefines.NDiplomacy.SEND_ASSASSIN_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
@@ -440,86 +459,91 @@ NDefines.NDiplomacy.SEND_ASSASSIN_INTERACTION_ENABLED = 1						-- Should this ac
 
 NDefines.NDiplomacy.DECLARE_WAR_INTERACTION_MONEY = 0
 NDefines.NDiplomacy.DECLARE_WAR_INTERACTION_PIETY = 0
-NDefines.NDiplomacy.DECLARE_WAR_INTERACTION_PRESTIGE = 100
+NDefines.NDiplomacy.DECLARE_WAR_INTERACTION_PRESTIGE = 0
 NDefines.NDiplomacy.DECLARE_WAR_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.DECLARE_WAR_INTERACTION_THRESHOLD_FOR_YES = 0
-NDefines.NDiplomacy.DECLARE_WAR_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
+NDefines.NDiplomacy.DECLARE_WAR_INTERACTION_MUST_HAVE_COST = 0				-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.DECLARE_WAR_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.OFFER_PEACE_INTERACTION_MONEY = 0
 NDefines.NDiplomacy.OFFER_PEACE_INTERACTION_PIETY = 0
-NDefines.NDiplomacy.OFFER_PEACE_INTERACTION_PRESTIGE = 1
+NDefines.NDiplomacy.OFFER_PEACE_INTERACTION_PRESTIGE = 0
 NDefines.NDiplomacy.OFFER_PEACE_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.OFFER_PEACE_INTERACTION_THRESHOLD_FOR_YES = 0
-NDefines.NDiplomacy.OFFER_PEACE_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
+NDefines.NDiplomacy.OFFER_PEACE_INTERACTION_MUST_HAVE_COST = 0				-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.OFFER_PEACE_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
-NDefines.NDiplomacy.SEND_GIFT_INTERACTION_MONEY = 25
-NDefines.NDiplomacy.SEND_GIFT_INTERACTION_PIETY = 5
-NDefines.NDiplomacy.SEND_GIFT_INTERACTION_PRESTIGE = 10
+NDefines.NDiplomacy.SEND_GIFT_INTERACTION_MONEY = 1
+NDefines.NDiplomacy.SEND_GIFT_INTERACTION_PIETY = 0
+NDefines.NDiplomacy.SEND_GIFT_INTERACTION_PRESTIGE = 0
 NDefines.NDiplomacy.SEND_GIFT_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.SEND_GIFT_INTERACTION_THRESHOLD_FOR_YES = 0
 NDefines.NDiplomacy.SEND_GIFT_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.SEND_GIFT_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
+NDefines.NDiplomacy.SEND_GIFT_DIPLOMACY_MULT = 0.2                         -- Diplomacy affects the opinion bonus multiplied with this
+NDefines.NDiplomacy.SEND_GIFT_NOT_LIEGE_BONUS = 7                          -- Not being the liege of the receiver affects the opinon bonus by this much
+NDefines.NDiplomacy.SEND_GIFT_GREED_MULT = 0.25                            -- Changes how much greed affects the opinion
+NDefines.NDiplomacy.SEND_ARTIFACT_GREED_MULT = 0.05                        -- Changes how much greed affects the opinion
+
 NDefines.NDiplomacy.OFFER_VASSALIZATION_INTERACTION_MONEY = 0
-NDefines.NDiplomacy.OFFER_VASSALIZATION_INTERACTION_PIETY = 0
-NDefines.NDiplomacy.OFFER_VASSALIZATION_INTERACTION_PRESTIGE = 100
+NDefines.NDiplomacy.OFFER_VASSALIZATION_INTERACTION_PIETY = 100
+NDefines.NDiplomacy.OFFER_VASSALIZATION_INTERACTION_PRESTIGE = 0
 NDefines.NDiplomacy.OFFER_VASSALIZATION_INTERACTION_THRESHOLD_FOR_NO = 0
-NDefines.NDiplomacy.OFFER_VASSALIZATION_INTERACTION_THRESHOLD_FOR_YES = 0
+NDefines.NDiplomacy.OFFER_VASSALIZATION_INTERACTION_THRESHOLD_FOR_YES = 10
 NDefines.NDiplomacy.OFFER_VASSALIZATION_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.OFFER_VASSALIZATION_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.ASK_FOR_VASSALIZATION_INTERACTION_MONEY = 0
 NDefines.NDiplomacy.ASK_FOR_VASSALIZATION_INTERACTION_PIETY = 0
-NDefines.NDiplomacy.ASK_FOR_VASSALIZATION_INTERACTION_PRESTIGE = 100
+NDefines.NDiplomacy.ASK_FOR_VASSALIZATION_INTERACTION_PRESTIGE = 50
 NDefines.NDiplomacy.ASK_FOR_VASSALIZATION_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.ASK_FOR_VASSALIZATION_INTERACTION_THRESHOLD_FOR_YES = 0
 NDefines.NDiplomacy.ASK_FOR_VASSALIZATION_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.ASK_FOR_VASSALIZATION_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.ARRANGE_BETROTHAL_INTERACTION_MONEY = 0
-NDefines.NDiplomacy.ARRANGE_BETROTHAL_INTERACTION_PIETY = 5
-NDefines.NDiplomacy.ARRANGE_BETROTHAL_INTERACTION_PRESTIGE = 10
+NDefines.NDiplomacy.ARRANGE_BETROTHAL_INTERACTION_PIETY = 0
+NDefines.NDiplomacy.ARRANGE_BETROTHAL_INTERACTION_PRESTIGE = 0
 NDefines.NDiplomacy.ARRANGE_BETROTHAL_INTERACTION_THRESHOLD_FOR_NO = 0
-NDefines.NDiplomacy.ARRANGE_BETROTHAL_INTERACTION_THRESHOLD_FOR_YES = 0
-NDefines.NDiplomacy.ARRANGE_BETROTHAL_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
+NDefines.NDiplomacy.ARRANGE_BETROTHAL_INTERACTION_THRESHOLD_FOR_YES = 10
+NDefines.NDiplomacy.ARRANGE_BETROTHAL_INTERACTION_MUST_HAVE_COST = 0				-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.ARRANGE_BETROTHAL_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
-NDefines.NDiplomacy.BREAK_BETROTHAL_INTERACTION_MONEY = 0
-NDefines.NDiplomacy.BREAK_BETROTHAL_INTERACTION_PIETY = 15
-NDefines.NDiplomacy.BREAK_BETROTHAL_INTERACTION_PRESTIGE = 0
+NDefines.NDiplomacy.BREAK_BETROTHAL_INTERACTION_MONEY = 10
+NDefines.NDiplomacy.BREAK_BETROTHAL_INTERACTION_PIETY = 0
+NDefines.NDiplomacy.BREAK_BETROTHAL_INTERACTION_PRESTIGE = 50
 NDefines.NDiplomacy.BREAK_BETROTHAL_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.BREAK_BETROTHAL_INTERACTION_THRESHOLD_FOR_YES = 0
 NDefines.NDiplomacy.BREAK_BETROTHAL_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.BREAK_BETROTHAL_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.OFFER_SUCCESSION_MARRIGE_INTERACTION_MONEY = 0
-NDefines.NDiplomacy.OFFER_SUCCESSION_MARRIGE_INTERACTION_PIETY = 5
-NDefines.NDiplomacy.OFFER_SUCCESSION_MARRIGE_INTERACTION_PRESTIGE = 10
+NDefines.NDiplomacy.OFFER_SUCCESSION_MARRIGE_INTERACTION_PIETY = 0
+NDefines.NDiplomacy.OFFER_SUCCESSION_MARRIGE_INTERACTION_PRESTIGE = 0
 NDefines.NDiplomacy.OFFER_SUCCESSION_MARRIGE_INTERACTION_THRESHOLD_FOR_NO = 0
-NDefines.NDiplomacy.OFFER_SUCCESSION_MARRIGE_INTERACTION_THRESHOLD_FOR_YES = 0
+NDefines.NDiplomacy.OFFER_SUCCESSION_MARRIGE_INTERACTION_THRESHOLD_FOR_YES = 25
 NDefines.NDiplomacy.OFFER_SUCCESSION_MARRIGE_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.OFFER_SUCCESSION_MARRIGE_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.OFFER_MARRIGE_INTERACTION_MONEY = 0
-NDefines.NDiplomacy.OFFER_MARRIGE_INTERACTION_PIETY = 5
-NDefines.NDiplomacy.OFFER_MARRIGE_INTERACTION_PRESTIGE = 10
+NDefines.NDiplomacy.OFFER_MARRIGE_INTERACTION_PIETY = 0
+NDefines.NDiplomacy.OFFER_MARRIGE_INTERACTION_PRESTIGE = 0
 NDefines.NDiplomacy.OFFER_MARRIGE_INTERACTION_THRESHOLD_FOR_NO = 0
-NDefines.NDiplomacy.OFFER_MARRIGE_INTERACTION_THRESHOLD_FOR_YES = 0
+NDefines.NDiplomacy.OFFER_MARRIGE_INTERACTION_THRESHOLD_FOR_YES = 10
 NDefines.NDiplomacy.OFFER_MARRIGE_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.OFFER_MARRIGE_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.RANSOM_CHARACTER_INTERACTION_MONEY = 0
-NDefines.NDiplomacy.RANSOM_CHARACTER_INTERACTION_PIETY = 5
+NDefines.NDiplomacy.RANSOM_CHARACTER_INTERACTION_PIETY = 10
 NDefines.NDiplomacy.RANSOM_CHARACTER_INTERACTION_PRESTIGE = 10
 NDefines.NDiplomacy.RANSOM_CHARACTER_INTERACTION_THRESHOLD_FOR_NO = 0
-NDefines.NDiplomacy.RANSOM_CHARACTER_INTERACTION_THRESHOLD_FOR_YES = 0
+NDefines.NDiplomacy.RANSOM_CHARACTER_INTERACTION_THRESHOLD_FOR_YES = 25
 NDefines.NDiplomacy.RANSOM_CHARACTER_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.RANSOM_CHARACTER_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
-NDefines.NDiplomacy.EDUCATE_CHARACTER_INTERACTION_MONEY = 0
-NDefines.NDiplomacy.EDUCATE_CHARACTER_INTERACTION_PIETY = 10
+NDefines.NDiplomacy.EDUCATE_CHARACTER_INTERACTION_MONEY = 5
+NDefines.NDiplomacy.EDUCATE_CHARACTER_INTERACTION_PIETY = 0
 NDefines.NDiplomacy.EDUCATE_CHARACTER_INTERACTION_PRESTIGE = 0
 NDefines.NDiplomacy.EDUCATE_CHARACTER_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.EDUCATE_CHARACTER_INTERACTION_THRESHOLD_FOR_YES = 0
@@ -527,39 +551,47 @@ NDefines.NDiplomacy.EDUCATE_CHARACTER_INTERACTION_MUST_HAVE_COST = 1				-- Is ha
 NDefines.NDiplomacy.EDUCATE_CHARACTER_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.ABANDON_AMBITION_INTERACTION_MONEY = 0
-NDefines.NDiplomacy.ABANDON_AMBITION_INTERACTION_PIETY = 15
+NDefines.NDiplomacy.ABANDON_AMBITION_INTERACTION_PIETY = 1
 NDefines.NDiplomacy.ABANDON_AMBITION_INTERACTION_PRESTIGE = 0
 NDefines.NDiplomacy.ABANDON_AMBITION_INTERACTION_THRESHOLD_FOR_NO = 0
-NDefines.NDiplomacy.ABANDON_AMBITION_INTERACTION_THRESHOLD_FOR_YES = 0
+NDefines.NDiplomacy.ABANDON_AMBITION_INTERACTION_THRESHOLD_FOR_YES = 25
 NDefines.NDiplomacy.ABANDON_AMBITION_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.ABANDON_AMBITION_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.STOP_BACKING_AMBITION_INTERACTION_MONEY = 0
-NDefines.NDiplomacy.STOP_BACKING_AMBITION_INTERACTION_PIETY = 15
+NDefines.NDiplomacy.STOP_BACKING_AMBITION_INTERACTION_PIETY = 1
 NDefines.NDiplomacy.STOP_BACKING_AMBITION_INTERACTION_PRESTIGE = 0
 NDefines.NDiplomacy.STOP_BACKING_AMBITION_INTERACTION_THRESHOLD_FOR_NO = 25
 NDefines.NDiplomacy.STOP_BACKING_AMBITION_INTERACTION_THRESHOLD_FOR_YES = 75
 NDefines.NDiplomacy.STOP_BACKING_AMBITION_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.STOP_BACKING_AMBITION_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
-NDefines.NDiplomacy.JOIN_AMBITION_INTERACTION_MONEY = 0
-NDefines.NDiplomacy.JOIN_AMBITION_INTERACTION_PIETY = 15
-NDefines.NDiplomacy.JOIN_AMBITION_INTERACTION_PRESTIGE = 0
+NDefines.NDiplomacy.JOIN_AMBITION_INTERACTION_MONEY = 1
+NDefines.NDiplomacy.JOIN_AMBITION_INTERACTION_PIETY = 0
+NDefines.NDiplomacy.JOIN_AMBITION_INTERACTION_PRESTIGE = 10
 NDefines.NDiplomacy.JOIN_AMBITION_INTERACTION_THRESHOLD_FOR_NO = 0
-NDefines.NDiplomacy.JOIN_AMBITION_INTERACTION_THRESHOLD_FOR_YES = 0
+NDefines.NDiplomacy.JOIN_AMBITION_INTERACTION_THRESHOLD_FOR_YES = 20
 NDefines.NDiplomacy.JOIN_AMBITION_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.JOIN_AMBITION_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.GRANT_LANDED_TITLE_INTERACTION_MONEY = 0
-NDefines.NDiplomacy.GRANT_LANDED_TITLE_INTERACTION_PIETY = 5
-NDefines.NDiplomacy.GRANT_LANDED_TITLE_INTERACTION_PRESTIGE = 5
+NDefines.NDiplomacy.GRANT_LANDED_TITLE_INTERACTION_PIETY = 0
+NDefines.NDiplomacy.GRANT_LANDED_TITLE_INTERACTION_PRESTIGE = 0
 NDefines.NDiplomacy.GRANT_LANDED_TITLE_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.GRANT_LANDED_TITLE_INTERACTION_THRESHOLD_FOR_YES = 0
 NDefines.NDiplomacy.GRANT_LANDED_TITLE_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.GRANT_LANDED_TITLE_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
+NDefines.NDiplomacy.GRANT_VICE_ROYALTY_INTERACTION_MONEY = 0
+NDefines.NDiplomacy.GRANT_VICE_ROYALTY_INTERACTION_PIETY = 0
+NDefines.NDiplomacy.GRANT_VICE_ROYALTY_INTERACTION_PRESTIGE = 0
+NDefines.NDiplomacy.GRANT_VICE_ROYALTY_INTERACTION_THRESHOLD_FOR_NO = 0
+NDefines.NDiplomacy.GRANT_VICE_ROYALTY_INTERACTION_THRESHOLD_FOR_YES = 0
+NDefines.NDiplomacy.GRANT_VICE_ROYALTY_INTERACTION_MUST_HAVE_COST = 1              -- Is having prestige/piety >= cost required for this action?
+NDefines.NDiplomacy.GRANT_VICE_ROYALTY_INTERACTION_ENABLED = 1                     -- Should this action be used at all?
+
 NDefines.NDiplomacy.APPOINT_TO_OFFICE_INTERACTION_MONEY = 0
-NDefines.NDiplomacy.APPOINT_TO_OFFICE_INTERACTION_PIETY = 30
+NDefines.NDiplomacy.APPOINT_TO_OFFICE_INTERACTION_PIETY = 0
 NDefines.NDiplomacy.APPOINT_TO_OFFICE_INTERACTION_PRESTIGE = 0
 NDefines.NDiplomacy.APPOINT_TO_OFFICE_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.APPOINT_TO_OFFICE_INTERACTION_THRESHOLD_FOR_YES = 0
@@ -567,15 +599,15 @@ NDefines.NDiplomacy.APPOINT_TO_OFFICE_INTERACTION_MUST_HAVE_COST = 1				-- Is ha
 NDefines.NDiplomacy.APPOINT_TO_OFFICE_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.RESIGN_FROM_OFFICE_INTERACTION_MONEY = 0
-NDefines.NDiplomacy.RESIGN_FROM_OFFICE_INTERACTION_PIETY = 5
-NDefines.NDiplomacy.RESIGN_FROM_OFFICE_INTERACTION_PRESTIGE = 0
+NDefines.NDiplomacy.RESIGN_FROM_OFFICE_INTERACTION_PIETY = 0
+NDefines.NDiplomacy.RESIGN_FROM_OFFICE_INTERACTION_PRESTIGE = 50
 NDefines.NDiplomacy.RESIGN_FROM_OFFICE_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.RESIGN_FROM_OFFICE_INTERACTION_THRESHOLD_FOR_YES = 0
 NDefines.NDiplomacy.RESIGN_FROM_OFFICE_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.RESIGN_FROM_OFFICE_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.APPOINT_COMMANDER_INTERACTION_MONEY = 0
-NDefines.NDiplomacy.APPOINT_COMMANDER_INTERACTION_PIETY = 5
+NDefines.NDiplomacy.APPOINT_COMMANDER_INTERACTION_PIETY = 0
 NDefines.NDiplomacy.APPOINT_COMMANDER_INTERACTION_PRESTIGE = 0
 NDefines.NDiplomacy.APPOINT_COMMANDER_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.APPOINT_COMMANDER_INTERACTION_THRESHOLD_FOR_YES = 0
@@ -583,7 +615,7 @@ NDefines.NDiplomacy.APPOINT_COMMANDER_INTERACTION_MUST_HAVE_COST = 1				-- Is ha
 NDefines.NDiplomacy.APPOINT_COMMANDER_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.RESIGN_COMMANDER_INTERACTION_MONEY = 0
-NDefines.NDiplomacy.RESIGN_COMMANDER_INTERACTION_PIETY = 5
+NDefines.NDiplomacy.RESIGN_COMMANDER_INTERACTION_PIETY = 10
 NDefines.NDiplomacy.RESIGN_COMMANDER_INTERACTION_PRESTIGE = 0
 NDefines.NDiplomacy.RESIGN_COMMANDER_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.RESIGN_COMMANDER_INTERACTION_THRESHOLD_FOR_YES = 0
@@ -591,7 +623,7 @@ NDefines.NDiplomacy.RESIGN_COMMANDER_INTERACTION_MUST_HAVE_COST = 1				-- Is hav
 NDefines.NDiplomacy.RESIGN_COMMANDER_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.RESIGN_AS_COMMANDER_INTERACTION_MONEY = 0
-NDefines.NDiplomacy.RESIGN_AS_COMMANDER_INTERACTION_PIETY = 5
+NDefines.NDiplomacy.RESIGN_AS_COMMANDER_INTERACTION_PIETY = 0
 NDefines.NDiplomacy.RESIGN_AS_COMMANDER_INTERACTION_PRESTIGE = 0
 NDefines.NDiplomacy.RESIGN_AS_COMMANDER_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.RESIGN_AS_COMMANDER_INTERACTION_THRESHOLD_FOR_YES = 0
@@ -599,34 +631,34 @@ NDefines.NDiplomacy.RESIGN_AS_COMMANDER_INTERACTION_MUST_HAVE_COST = 1				-- Is 
 NDefines.NDiplomacy.RESIGN_AS_COMMANDER_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.ASK_FOR_INVASION_INTERACTION_MONEY = 0
-NDefines.NDiplomacy.ASK_FOR_INVASION_INTERACTION_PIETY = 25
-NDefines.NDiplomacy.ASK_FOR_INVASION_INTERACTION_PRESTIGE = 100
-NDefines.NDiplomacy.ASK_FOR_INVASION_INTERACTION_THRESHOLD_FOR_NO = 50
-NDefines.NDiplomacy.ASK_FOR_INVASION_INTERACTION_THRESHOLD_FOR_YES = 150
+NDefines.NDiplomacy.ASK_FOR_INVASION_INTERACTION_PIETY = 250
+NDefines.NDiplomacy.ASK_FOR_INVASION_INTERACTION_PRESTIGE = 50
+NDefines.NDiplomacy.ASK_FOR_INVASION_INTERACTION_THRESHOLD_FOR_NO = 10
+NDefines.NDiplomacy.ASK_FOR_INVASION_INTERACTION_THRESHOLD_FOR_YES = 100
 NDefines.NDiplomacy.ASK_FOR_INVASION_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.ASK_FOR_INVASION_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
-NDefines.NDiplomacy.ASK_FOR_DIVORCE_INTERACTION_MONEY = 0
+NDefines.NDiplomacy.ASK_FOR_DIVORCE_INTERACTION_MONEY = 1
 NDefines.NDiplomacy.ASK_FOR_DIVORCE_INTERACTION_PIETY = 25
-NDefines.NDiplomacy.ASK_FOR_DIVORCE_INTERACTION_PRESTIGE = 0
+NDefines.NDiplomacy.ASK_FOR_DIVORCE_INTERACTION_PRESTIGE = 20
 NDefines.NDiplomacy.ASK_FOR_DIVORCE_INTERACTION_THRESHOLD_FOR_NO = 35
 NDefines.NDiplomacy.ASK_FOR_DIVORCE_INTERACTION_THRESHOLD_FOR_YES = 75
 NDefines.NDiplomacy.ASK_FOR_DIVORCE_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.ASK_FOR_DIVORCE_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
-NDefines.NDiplomacy.DIVORCE_INTERACTION_MONEY = 1.0 										-- Multiplier of yearly income
-NDefines.NDiplomacy.DIVORCE_INTERACTION_PIETY = 15
-NDefines.NDiplomacy.DIVORCE_INTERACTION_PRESTIGE = 0
+NDefines.NDiplomacy.DIVORCE_INTERACTION_MONEY = 5 										-- Multiplier of yearly income
+NDefines.NDiplomacy.DIVORCE_INTERACTION_PIETY = 0
+NDefines.NDiplomacy.DIVORCE_INTERACTION_PRESTIGE = 50
 NDefines.NDiplomacy.DIVORCE_INTERACTION_THRESHOLD_FOR_NO = 0
-NDefines.NDiplomacy.DIVORCE_INTERACTION_THRESHOLD_FOR_YES = 0
+NDefines.NDiplomacy.DIVORCE_INTERACTION_THRESHOLD_FOR_YES = 50
 NDefines.NDiplomacy.DIVORCE_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.DIVORCE_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.ASK_FOR_EXCOMMUNICATION_INTERACTION_MONEY = 0
 NDefines.NDiplomacy.ASK_FOR_EXCOMMUNICATION_INTERACTION_PIETY = 15
 NDefines.NDiplomacy.ASK_FOR_EXCOMMUNICATION_INTERACTION_PRESTIGE = 0
-NDefines.NDiplomacy.ASK_FOR_EXCOMMUNICATION_INTERACTION_THRESHOLD_FOR_NO = 60
-NDefines.NDiplomacy.ASK_FOR_EXCOMMUNICATION_INTERACTION_THRESHOLD_FOR_YES = 150
+NDefines.NDiplomacy.ASK_FOR_EXCOMMUNICATION_INTERACTION_THRESHOLD_FOR_NO = 10
+NDefines.NDiplomacy.ASK_FOR_EXCOMMUNICATION_INTERACTION_THRESHOLD_FOR_YES = 100
 NDefines.NDiplomacy.ASK_FOR_EXCOMMUNICATION_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.ASK_FOR_EXCOMMUNICATION_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
@@ -646,65 +678,65 @@ NDefines.NDiplomacy.ASK_TO_LIFT_EXCOMMUNICATION_INTERACTION_THRESHOLD_FOR_YES = 
 NDefines.NDiplomacy.ASK_TO_LIFT_EXCOMMUNICATION_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.ASK_TO_LIFT_EXCOMMUNICATION_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
-NDefines.NDiplomacy.ASK_TO_RANSOM_CHARACTER_INTERACTION_MONEY = 0
+NDefines.NDiplomacy.ASK_TO_RANSOM_CHARACTER_INTERACTION_MONEY = 1
 NDefines.NDiplomacy.ASK_TO_RANSOM_CHARACTER_INTERACTION_PIETY = 0
-NDefines.NDiplomacy.ASK_TO_RANSOM_CHARACTER_INTERACTION_PRESTIGE = 30
+NDefines.NDiplomacy.ASK_TO_RANSOM_CHARACTER_INTERACTION_PRESTIGE = 0
 NDefines.NDiplomacy.ASK_TO_RANSOM_CHARACTER_INTERACTION_THRESHOLD_FOR_NO = 0
-NDefines.NDiplomacy.ASK_TO_RANSOM_CHARACTER_INTERACTION_THRESHOLD_FOR_YES = 0
+NDefines.NDiplomacy.ASK_TO_RANSOM_CHARACTER_INTERACTION_THRESHOLD_FOR_YES = 30
 NDefines.NDiplomacy.ASK_TO_RANSOM_CHARACTER_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.ASK_TO_RANSOM_CHARACTER_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.ASK_TO_JOIN_WAR_INTERACTION_MONEY = 0
 NDefines.NDiplomacy.ASK_TO_JOIN_WAR_INTERACTION_PIETY = 0
-NDefines.NDiplomacy.ASK_TO_JOIN_WAR_INTERACTION_PRESTIGE = 40
+NDefines.NDiplomacy.ASK_TO_JOIN_WAR_INTERACTION_PRESTIGE = 0
 NDefines.NDiplomacy.ASK_TO_JOIN_WAR_INTERACTION_THRESHOLD_FOR_NO = 0
-NDefines.NDiplomacy.ASK_TO_JOIN_WAR_INTERACTION_THRESHOLD_FOR_YES = 0
+NDefines.NDiplomacy.ASK_TO_JOIN_WAR_INTERACTION_THRESHOLD_FOR_YES = 25
 NDefines.NDiplomacy.ASK_TO_JOIN_WAR_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.ASK_TO_JOIN_WAR_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.RELEASE_VASSAL_INTERACTION_MONEY = 0
-NDefines.NDiplomacy.RELEASE_VASSAL_INTERACTION_PIETY = 20
-NDefines.NDiplomacy.RELEASE_VASSAL_INTERACTION_PRESTIGE = 40
+NDefines.NDiplomacy.RELEASE_VASSAL_INTERACTION_PIETY = 25
+NDefines.NDiplomacy.RELEASE_VASSAL_INTERACTION_PRESTIGE = 0
 NDefines.NDiplomacy.RELEASE_VASSAL_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.RELEASE_VASSAL_INTERACTION_THRESHOLD_FOR_YES = 0
 NDefines.NDiplomacy.RELEASE_VASSAL_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.RELEASE_VASSAL_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
-NDefines.NDiplomacy.ASK_TO_EMBARGO_INTERACTION_MONEY = 0
+NDefines.NDiplomacy.ASK_TO_EMBARGO_INTERACTION_MONEY = 100
 NDefines.NDiplomacy.ASK_TO_EMBARGO_INTERACTION_PIETY = 0
-NDefines.NDiplomacy.ASK_TO_EMBARGO_INTERACTION_PRESTIGE = 40
+NDefines.NDiplomacy.ASK_TO_EMBARGO_INTERACTION_PRESTIGE = 100
 NDefines.NDiplomacy.ASK_TO_EMBARGO_INTERACTION_THRESHOLD_FOR_NO = 0
-NDefines.NDiplomacy.ASK_TO_EMBARGO_INTERACTION_THRESHOLD_FOR_YES = 0
+NDefines.NDiplomacy.ASK_TO_EMBARGO_INTERACTION_THRESHOLD_FOR_YES = 50
 NDefines.NDiplomacy.ASK_TO_EMBARGO_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.ASK_TO_EMBARGO_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
-NDefines.NDiplomacy.PREPARE_INVASION_INTERACTION_MONEY = 0
-NDefines.NDiplomacy.PREPARE_INVASION_INTERACTION_PIETY = 0
+NDefines.NDiplomacy.PREPARE_INVASION_INTERACTION_MONEY = 10
+NDefines.NDiplomacy.PREPARE_INVASION_INTERACTION_PIETY = 10
 NDefines.NDiplomacy.PREPARE_INVASION_INTERACTION_PRESTIGE = 500
 NDefines.NDiplomacy.PREPARE_INVASION_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.PREPARE_INVASION_INTERACTION_THRESHOLD_FOR_YES = 0
 NDefines.NDiplomacy.PREPARE_INVASION_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.PREPARE_INVASION_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
-NDefines.NDiplomacy.MAKE_CONSORT_INTERACTION_MONEY = 0
-NDefines.NDiplomacy.MAKE_CONSORT_INTERACTION_PIETY = 10
-NDefines.NDiplomacy.MAKE_CONSORT_INTERACTION_PRESTIGE = 20
+NDefines.NDiplomacy.MAKE_CONSORT_INTERACTION_MONEY = 1
+NDefines.NDiplomacy.MAKE_CONSORT_INTERACTION_PIETY = 0
+NDefines.NDiplomacy.MAKE_CONSORT_INTERACTION_PRESTIGE = 10
 NDefines.NDiplomacy.MAKE_CONSORT_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.MAKE_CONSORT_INTERACTION_THRESHOLD_FOR_YES = 0
 NDefines.NDiplomacy.MAKE_CONSORT_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.MAKE_CONSORT_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.DISMISS_CONSORT_INTERACTION_MONEY = 0
-NDefines.NDiplomacy.DISMISS_CONSORT_INTERACTION_PIETY = 15
-NDefines.NDiplomacy.DISMISS_CONSORT_INTERACTION_PRESTIGE = 0
+NDefines.NDiplomacy.DISMISS_CONSORT_INTERACTION_PIETY = 0
+NDefines.NDiplomacy.DISMISS_CONSORT_INTERACTION_PRESTIGE = 50
 NDefines.NDiplomacy.DISMISS_CONSORT_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.DISMISS_CONSORT_INTERACTION_THRESHOLD_FOR_YES = 0
 NDefines.NDiplomacy.DISMISS_CONSORT_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.DISMISS_CONSORT_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.RETRACT_VASSAL_INTERACTION_MONEY = 0
-NDefines.NDiplomacy.RETRACT_VASSAL_INTERACTION_PIETY = 25
-NDefines.NDiplomacy.RETRACT_VASSAL_INTERACTION_PRESTIGE = 100
+NDefines.NDiplomacy.RETRACT_VASSAL_INTERACTION_PIETY = 100
+NDefines.NDiplomacy.RETRACT_VASSAL_INTERACTION_PRESTIGE = 0
 NDefines.NDiplomacy.RETRACT_VASSAL_INTERACTION_THRESHOLD_FOR_NO = 25
 NDefines.NDiplomacy.RETRACT_VASSAL_INTERACTION_THRESHOLD_FOR_YES = 75
 NDefines.NDiplomacy.RETRACT_VASSAL_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
@@ -735,9 +767,9 @@ NDefines.NDiplomacy.ASK_FOR_CRUSADE_INTERACTION_MUST_HAVE_COST = 1				-- Is havi
 NDefines.NDiplomacy.ASK_FOR_CRUSADE_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.NOMINATE_BISHOP_TO_POPE_INTERACTION_MONEY = 50
-NDefines.NDiplomacy.NOMINATE_BISHOP_TO_POPE_INTERACTION_PIETY = 15
+NDefines.NDiplomacy.NOMINATE_BISHOP_TO_POPE_INTERACTION_PIETY = 20
 NDefines.NDiplomacy.NOMINATE_BISHOP_TO_POPE_INTERACTION_PRESTIGE = 0
-NDefines.NDiplomacy.NOMINATE_BISHOP_TO_POPE_INTERACTION_THRESHOLD_FOR_NO = 50
+NDefines.NDiplomacy.NOMINATE_BISHOP_TO_POPE_INTERACTION_THRESHOLD_FOR_NO = 25
 NDefines.NDiplomacy.NOMINATE_BISHOP_TO_POPE_INTERACTION_THRESHOLD_FOR_YES = 150
 NDefines.NDiplomacy.NOMINATE_BISHOP_TO_POPE_INTERACTION_MUST_HAVE_COST = 1				-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.NOMINATE_BISHOP_TO_POPE_INTERACTION_ENABLED = 1						-- Should this action be used at all?
@@ -775,9 +807,9 @@ NDefines.NDiplomacy.SETTLE_FEUD_INTERACTION_MUST_HAVE_COST = 1					-- Is having 
 NDefines.NDiplomacy.SETTLE_FEUD_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.FORM_ALLIANCE_INTERACTION_MONEY = 0
-NDefines.NDiplomacy.FORM_ALLIANCE_INTERACTION_PIETY = 10
-NDefines.NDiplomacy.FORM_ALLIANCE_INTERACTION_PRESTIGE = 20
-NDefines.NDiplomacy.FORM_ALLIANCE_INTERACTION_THRESHOLD_FOR_NO = 25
+NDefines.NDiplomacy.FORM_ALLIANCE_INTERACTION_PIETY = 1
+NDefines.NDiplomacy.FORM_ALLIANCE_INTERACTION_PRESTIGE = 1
+NDefines.NDiplomacy.FORM_ALLIANCE_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.FORM_ALLIANCE_INTERACTION_THRESHOLD_FOR_YES = 25
 NDefines.NDiplomacy.FORM_ALLIANCE_INTERACTION_MUST_HAVE_COST = 1					-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.FORM_ALLIANCE_INTERACTION_ENABLED = 1						-- Should this action be used at all?
@@ -791,11 +823,11 @@ NDefines.NDiplomacy.DISSOLVE_ALLIANCE_INTERACTION_MUST_HAVE_COST = 1				-- Is ha
 NDefines.NDiplomacy.DISSOLVE_ALLIANCE_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.START_COALITION_INTERACTION_MONEY = 0
-NDefines.NDiplomacy.START_COALITION_INTERACTION_PIETY = 0
+NDefines.NDiplomacy.START_COALITION_INTERACTION_PIETY = 100
 NDefines.NDiplomacy.START_COALITION_INTERACTION_PRESTIGE = 50
 NDefines.NDiplomacy.START_COALITION_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.START_COALITION_INTERACTION_THRESHOLD_FOR_YES = 0
-NDefines.NDiplomacy.START_COALITION_INTERACTION_MUST_HAVE_COST = 0					-- Is having prestige/piety >= cost required for this action?
+NDefines.NDiplomacy.START_COALITION_INTERACTION_MUST_HAVE_COST = 1					-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.START_COALITION_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.LEAVE_COALITION_INTERACTION_MONEY = 0
@@ -807,43 +839,43 @@ NDefines.NDiplomacy.LEAVE_COALITION_INTERACTION_MUST_HAVE_COST = 0					-- Is hav
 NDefines.NDiplomacy.LEAVE_COALITION_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.BUY_FAVOR_INTERACTION_MONEY = 0
-NDefines.NDiplomacy.BUY_FAVOR_INTERACTION_PIETY = 25
-NDefines.NDiplomacy.BUY_FAVOR_INTERACTION_PRESTIGE = 0
-NDefines.NDiplomacy.BUY_FAVOR_INTERACTION_THRESHOLD_FOR_NO = 25
+NDefines.NDiplomacy.BUY_FAVOR_INTERACTION_PIETY = 0
+NDefines.NDiplomacy.BUY_FAVOR_INTERACTION_PRESTIGE = 25
+NDefines.NDiplomacy.BUY_FAVOR_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.BUY_FAVOR_INTERACTION_THRESHOLD_FOR_YES = 25
-NDefines.NDiplomacy.BUY_FAVOR_INTERACTION_MUST_HAVE_COST = 0					-- Is having prestige/piety >= cost required for this action?
+NDefines.NDiplomacy.BUY_FAVOR_INTERACTION_MUST_HAVE_COST = 1					-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.BUY_FAVOR_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.REQUEST_SUPPORT_INTERACTION_MONEY = 0
-NDefines.NDiplomacy.REQUEST_SUPPORT_INTERACTION_PIETY = 25
-NDefines.NDiplomacy.REQUEST_SUPPORT_INTERACTION_PRESTIGE = 0
-NDefines.NDiplomacy.REQUEST_SUPPORT_INTERACTION_THRESHOLD_FOR_NO = 25
+NDefines.NDiplomacy.REQUEST_SUPPORT_INTERACTION_PIETY = 0
+NDefines.NDiplomacy.REQUEST_SUPPORT_INTERACTION_PRESTIGE = 25
+NDefines.NDiplomacy.REQUEST_SUPPORT_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.REQUEST_SUPPORT_INTERACTION_THRESHOLD_FOR_YES = 25
-NDefines.NDiplomacy.REQUEST_SUPPORT_INTERACTION_MUST_HAVE_COST = 0					-- Is having prestige/piety >= cost required for this action?
+NDefines.NDiplomacy.REQUEST_SUPPORT_INTERACTION_MUST_HAVE_COST = 1					-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.REQUEST_SUPPORT_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.CALL_IN_FAVOR_INTERACTION_MONEY = 0
-NDefines.NDiplomacy.CALL_IN_FAVOR_INTERACTION_PIETY = 25
+NDefines.NDiplomacy.CALL_IN_FAVOR_INTERACTION_PIETY = 0
 NDefines.NDiplomacy.CALL_IN_FAVOR_INTERACTION_PRESTIGE = 0
-NDefines.NDiplomacy.CALL_IN_FAVOR_INTERACTION_THRESHOLD_FOR_NO = 25
-NDefines.NDiplomacy.CALL_IN_FAVOR_INTERACTION_THRESHOLD_FOR_YES = 25
+NDefines.NDiplomacy.CALL_IN_FAVOR_INTERACTION_THRESHOLD_FOR_NO = 0
+NDefines.NDiplomacy.CALL_IN_FAVOR_INTERACTION_THRESHOLD_FOR_YES = 50
 NDefines.NDiplomacy.CALL_IN_FAVOR_INTERACTION_MUST_HAVE_COST = 0					-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.CALL_IN_FAVOR_INTERACTION_ENABLED = 1						-- Should this action be used at all?
 
 NDefines.NDiplomacy.FORM_NON_AGGRESSION_PACT_INTERACTION_MONEY = 0
-NDefines.NDiplomacy.FORM_NON_AGGRESSION_PACT_INTERACTION_PIETY = 10
-NDefines.NDiplomacy.FORM_NON_AGGRESSION_PACT_INTERACTION_PRESTIGE = 20
-NDefines.NDiplomacy.FORM_NON_AGGRESSION_PACT_INTERACTION_THRESHOLD_FOR_NO = 25
+NDefines.NDiplomacy.FORM_NON_AGGRESSION_PACT_INTERACTION_PIETY = 0
+NDefines.NDiplomacy.FORM_NON_AGGRESSION_PACT_INTERACTION_PRESTIGE = 0
+NDefines.NDiplomacy.FORM_NON_AGGRESSION_PACT_INTERACTION_THRESHOLD_FOR_NO = 0
 NDefines.NDiplomacy.FORM_NON_AGGRESSION_PACT_INTERACTION_THRESHOLD_FOR_YES = 25
 NDefines.NDiplomacy.FORM_NON_AGGRESSION_PACT_INTERACTION_MUST_HAVE_COST = 0		-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.FORM_NON_AGGRESSION_PACT_INTERACTION_ENABLED = 1				-- Should this action be used at all?
 
 NDefines.NDiplomacy.FORCE_JOIN_FACTION_INTERACTION_MONEY = 0
-NDefines.NDiplomacy.FORCE_JOIN_FACTION_INTERACTION_PIETY = 20
-NDefines.NDiplomacy.FORCE_JOIN_FACTION_INTERACTION_PRESTIGE = 0
+NDefines.NDiplomacy.FORCE_JOIN_FACTION_INTERACTION_PIETY = 0
+NDefines.NDiplomacy.FORCE_JOIN_FACTION_INTERACTION_PRESTIGE = 50
 NDefines.NDiplomacy.FORCE_JOIN_FACTION_INTERACTION_THRESHOLD_FOR_NO = 0	-- useless since this is an auto accepted interaction.
 NDefines.NDiplomacy.FORCE_JOIN_FACTION_INTERACTION_THRESHOLD_FOR_YES = 0   -- useless since this is an auto accepted interaction.
-NDefines.NDiplomacy.FORCE_JOIN_FACTION_INTERACTION_MUST_HAVE_COST = 0		-- Is having prestige/piety >= cost required for this action?
+NDefines.NDiplomacy.FORCE_JOIN_FACTION_INTERACTION_MUST_HAVE_COST = 1		-- Is having prestige/piety >= cost required for this action?
 NDefines.NDiplomacy.FORCE_JOIN_FACTION_INTERACTION_ENABLED = 1				-- Should this action be used at all?
 
 NDefines.NDiplomacy.LAW_CHANGE_PIETY_COST_ABSOLUTISM = 250					-- Piety cost for Iqta government when changing normal demesne laws with no council
@@ -855,6 +887,8 @@ NDefines.NDiplomacy.LAW_CHANGE_PIETY_COST = 125									-- Piety cost for Iqta g
 NDefines.NDiplomacy.CROWN_LAW_CHANGE_PIETY_COST = 250							-- Piety cost for Iqta government when changing Crown laws
 NDefines.NDiplomacy.LAW_CHANGE_PRESTIGE_COST = 125								-- Prestige cost for Nomadic government when changing normal demesne laws
 NDefines.NDiplomacy.CROWN_LAW_CHANGE_PRESTIGE_COST = 250						-- Prestige cost for Nomadic government when changing Crown laws
+
+NDefines.NDiplomacy.BANISH_TAKE_WEALTH_PERCENTAGE_LANDED = 0.5
 
 NDefines.NEngine.MISSING_SCRIPTED_SUCCESSOR_ERROR_CUTOFF_YEAR = 1066
 NDefines.NEngine.MISSING_SCRIPTED_SUCCESSOR_ERROR_CUTOFF_MONTH = 8

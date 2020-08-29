@@ -463,7 +463,7 @@ targeted_decisions = {
 	ask_to_leave_court = {
 		filter = court
 		ai_target_filter = court
-		ai = no
+		#ai = no
 
 		potential = {
 			liege = { character = FROM }
@@ -633,6 +633,18 @@ targeted_decisions = {
 		}
 		ai_will_do = {
 			factor = 0
+
+			additive_modifier = {
+				value = 0.1
+
+				free_court_slots < 0
+			}
+
+			additive_modifier = {
+				value = 1
+
+				free_court_slots < -10
+			}
 		}
 	}
 

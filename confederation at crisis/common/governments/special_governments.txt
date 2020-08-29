@@ -9,106 +9,342 @@ feudal_governments = {
 	# or a military-oriented government where the head of state is also commander in chief
 	# also although they can go up to be king-tier they are not supposed to have civilian vassals except for barons
 	military_base_government = {
+        frame_suffix = "_command"
+        title_prefix = "military_"
+        color = { 255 0 0 }
+
 		preferred_holdings = { CASTLE }
 		allowed_holdings = {
 			CASTLE
 			FORT
 			HOSPITAL
 		}
+        potential = {
+            NOT = { trait = hiver_implant }
+            holy_order = no
+            independent = no
+            lower_tier_than = COUNT
+            NOT = {
+                is_government_potential = merchant_republic_government
+                is_government_potential = neofeudal_government
+            }
+            capital_holding = { holding_type = castle }
+            liege = {
+                OR = {
+                    government = military_command
+                    government = imperialistic_government
+                    government = military_government
+                    government = pc_appointed_governor
+                    government = npc_appointed_governor
+                }
+            }
+
+            OR = {
+                has_law = succ_appointment
+                has_law = succ_true_appointment
+                crownlaw_title = { has_law = military_vassal_legitimacy_2 }
+            }
+
+            #crownlaw_title = { has_law = standing_army_law_2 }
+        }
+
 		accepts_liege_governments = {
 			military_command
-			military_government
 			imperialistic_government
+			military_government
+			pc_appointed_governor
+			npc_appointed_governor
 		}
-		potential = {
-			NOT = { trait = hiver_implant }
-			holy_order = no
-			independent = no
-			lower_tier_than = EMPEROR
-			NOT = {
-				is_government_potential = merchant_republic_government
-				is_government_potential = neofeudal_government
-			}
-			OR = {
-				capital_holding = { holding_type = castle }
-				AND = {
-					higher_tier_than = BARON
-					liege = {
-						OR = {
-							government = military_base_government
-							government = military_command
-						}
-
-					}
-				}
-			}
-
-			OR = {
-				has_law = succ_appointment
-				has_law = succ_true_appointment
-				crownlaw_title = { has_law = military_vassal_legitimacy_2 }
-			}
-
-			crownlaw_title = { has_law = standing_army_law_2 }
-		}
-
+		free_revoke_on_governments = {
+            hivemind_government
+            pirate_kingdom
+            pirate_republic_governor
+            pirate_republic
+        }
 		forced_contract = {
-			military_base_government
+			military_command
+            military_base_government
+            pc_appointed_governor
+            npc_appointed_governor
 		}
 		no_vassal_tax = {
 			military_base_government
 			military_command
 		}
 		vassal_call_to_arms = {
-			military_command
-		}
-
-		#frame_suffix = "_republic"
-		title_prefix = "military_"
-		color = { 255 0 0 }
+            hivemind_government
+            pirate_kingdom
+            pirate_republic_governor
+            pirate_republic
+            military_government
+            pc_civil_government
+            pc_rectorial_government
+            npc_civil_government
+            npc_rectorial_government
+            imperialistic_government
+            pc_technocratic_government
+            pc_theocratic_government
+            npc_technocratic_government
+            npc_theocratic_government
+            military_command
+            holy_terran_government
+            neofeudal_government
+            merchant_republic_government
+        }
 
 		barons_need_dynasty = no
 		can_build_tribal = no
 		uses_piety_for_law_change = no
 
-		character_modifier = {
-			global_levy_size = 0.5 #this is to benefit of their lieges, giving more troops compared to other military governments
+		unit_modifier = {
+			levy_size = 1 #this is to benefit of their lieges, giving more troops compared to other military governments
+			key = "military_base_levy"
 		}
+		max_liege_levy = 100
 	}
 
 	# Fleet
 	military_command = {
+        frame_suffix = "_command"
+        title_prefix = "military_"
+        color = { 64 32 0 }
+
 		preferred_holdings = { CASTLE }
 		allowed_holdings = {
 			CASTLE
 			FORT
 			HOSPITAL
 		}
+        potential = {
+            NOT = { trait = hiver_implant }
+            primary_title = { is_fleet_title_trigger = yes }
+        }
+
 		accepts_liege_governments = {
-			military_monarchy
-			military_republic
-			military_directorate
-			corporate_monarchy
-			corporate_republic
-			corporate_directorate
-			administrative_monarchy
-			administrative_republic
-			administrative_directorate
-			merchant_republic_government
+			military_government
+            pc_civil_government
+            pc_rectorial_government
+            npc_civil_government
+            npc_rectorial_government
+            imperialistic_government
+            pc_technocratic_government
+            pc_theocratic_government
+            npc_technocratic_government
+            npc_theocratic_government
+            holy_terran_government
+            merchant_republic_government
+            pc_appointed_governor
+            npc_appointed_governor
 		}
 		free_revoke_on_governments = {
-			hivemind_government
-			pirate_kingdom
-			pirate_republic
+            hivemind_government
+            pirate_kingdom
+            pirate_republic_governor
+            pirate_republic
+        }
+        forced_contract = {
+            military_command
+            military_base_government
+            pc_appointed_governor
+            npc_appointed_governor
+        }
+		no_vassal_tax = {
+			military_base_government
 			military_command
-			military_directorate
 		}
+		ignore_in_vassal_limit_calculation = {
+			military_command
+		}
+		vassal_call_to_arms = {
+            hivemind_government
+            pirate_kingdom
+            pirate_republic_governor
+            pirate_republic
+            military_government
+            pc_civil_government
+            pc_rectorial_government
+            npc_civil_government
+            npc_rectorial_government
+            imperialistic_government
+            pc_technocratic_government
+            pc_theocratic_government
+            npc_technocratic_government
+            npc_theocratic_government
+            military_command
+            holy_terran_government
+            neofeudal_government
+            merchant_republic_government
+        }
+
+        unit_modifier = {
+            levy_size = 0.5
+            land_organization = 0.5
+            land_morale = 0.5
+            key = "military_command_levy"
+        }
+
+		dukes_called_kings = yes
+		barons_need_dynasty = no
+		can_grant_kingdoms_and_empires_to_other_government_group = yes
+
+		can_build_tribal = no
+		uses_piety_for_law_change = yes
+
+		can_revoke_without_reason = yes
+		can_imprison_without_reason = yes
+	}
+
+	# Appointed Governor, Like Military command but for count, duke and king level
+	pc_appointed_governor = {
+        title_prefix = "governor_"
+        frame_suffix = "_governor"
+        color = { 0 127 250 }
+
+        preferred_holdings = { CITY }
+        allowed_holdings = {
+            CITY
+            TEMPLE
+            FORT
+            HOSPITAL
+        }
+        accepts_liege_governments = {
+            military_government
+            pc_civil_government
+            pc_rectorial_government
+            npc_civil_government
+            npc_rectorial_government
+            imperialistic_government
+            pc_technocratic_government
+            pc_theocratic_government
+            npc_technocratic_government
+            npc_theocratic_government
+            holy_terran_government
+            merchant_republic_government
+            pc_appointed_governor
+            npc_appointed_governor
+        }
+        free_revoke_on_governments = {
+            hivemind_government
+            pirate_kingdom
+            pirate_republic_governor
+            pirate_republic
+        }
+        potential = {
+            NOT = { trait = hiver_implant }
+            higher_tier_than = BARON
+            lower_tier_than = EMPEROR
+            independent = no
+            liege = {
+                has_law = standing_army_law_2
+            }
+            has_law = disobedience_0
+            ai = no
+        }
+        no_vassal_tax = {
+            military_base_government
+            military_command
+        }
+        ignore_in_vassal_limit_calculation = {
+            military_command
+        }
+        forced_contract = {
+            military_command
+            military_base_government
+            pc_appointed_governor
+            npc_appointed_governor
+        }
+        vassal_call_to_arms = {
+            hivemind_government
+            pirate_kingdom
+            pirate_republic_governor
+            pirate_republic
+            military_government
+            pc_civil_government
+            pc_rectorial_government
+            npc_civil_government
+            npc_rectorial_government
+            imperialistic_government
+            pc_technocratic_government
+            pc_theocratic_government
+            npc_technocratic_government
+            npc_theocratic_government
+            military_command
+            holy_terran_government
+            neofeudal_government
+            merchant_republic_government
+        }
+        dukes_called_kings = no
+        barons_need_dynasty = no
+        can_be_granted_kingdoms_and_empires_by_other_government = yes
+
+        can_build_tribal = no
+        uses_piety_for_law_change = yes
+
+        character_modifier = {
+            global_tax_modifier = 1
+            tech_growth_modifier = 0.5
+        }
+
+        can_revoke_without_reason = no
+        can_imprison_without_reason = no
+        can_create_empires = no
+        can_create_kingdoms = no
+        can_usurp_kingdoms_and_empires = no
+        free_levies_in_offensive_war = yes
+        can_demand_religious_conversion = no
+        aggression = 0.2
+    }
+}
+
+
+republic_governments = {
+
+	# Appointed Governor, Like Military command but for count, duke and king level
+	npc_appointed_governor = {
+		title_prefix = "governor_"
+		frame_suffix = "_governor"
+		color = { 0 127 250 }
+
+		preferred_holdings = { CITY }
+		allowed_holdings = {
+			CITY
+			TEMPLE
+			FORT
+			HOSPITAL
+		}
+		accepts_liege_governments = {
+			military_government
+            pc_civil_government
+            pc_rectorial_government
+            npc_civil_government
+            npc_rectorial_government
+            imperialistic_government
+            pc_technocratic_government
+            pc_theocratic_government
+            npc_technocratic_government
+            npc_theocratic_government
+            holy_terran_government
+            merchant_republic_government
+            pc_appointed_governor
+            npc_appointed_governor
+		}
+		free_revoke_on_governments = {
+            hivemind_government
+            pirate_kingdom
+            pirate_republic_governor
+            pirate_republic
+        }
 		potential = {
 			NOT = { trait = hiver_implant }
-			primary_title = { is_fleet_title_trigger = yes }
+			higher_tier_than = BARON
+			lower_tier_than = EMPEROR
+			independent = no
+			liege = {
+				has_law = standing_army_law_2
+			}
+			has_law = disobedience_0
+			ai = yes
 		}
-		title_prefix = "military_"
-		color = { 64 32 0 }
 		no_vassal_tax = {
 			military_base_government
 			military_command
@@ -117,24 +353,32 @@ feudal_governments = {
 			military_command
 		}
 		forced_contract = {
-			military_base_government
+			military_command
+            military_base_government
+            pc_appointed_governor
+            npc_appointed_governor
 		}
 		vassal_call_to_arms = {
-			military_command
-			military_monarchy
-			corporate_republic
-			administrative_republic
-			merchant_republic_government
-			military_republic
-			administrative_monarchy
-			administrative_directorate
-			corporate_directorate
-			corporate_monarchy
-			hivemind_government
-			pirate_kingdom
-			pirate_republic
-		}
-		dukes_called_kings = yes
+            hivemind_government
+            pirate_kingdom
+            pirate_republic_governor
+            pirate_republic
+            military_government
+            pc_civil_government
+            pc_rectorial_government
+            npc_civil_government
+            npc_rectorial_government
+            imperialistic_government
+            pc_technocratic_government
+            pc_theocratic_government
+            npc_technocratic_government
+            npc_theocratic_government
+            military_command
+            holy_terran_government
+            neofeudal_government
+            merchant_republic_government
+        }
+		dukes_called_kings = no
 		barons_need_dynasty = no
 		can_be_granted_kingdoms_and_empires_by_other_government = yes
 
@@ -142,116 +386,21 @@ feudal_governments = {
 		uses_piety_for_law_change = yes
 
 		character_modifier = {
-			levy_size = 2
+			global_tax_modifier = 1
+			tech_growth_modifier = 0.5
 		}
 
-		can_revoke_without_reason = yes
-		can_imprison_without_reason = yes
-
+		can_revoke_without_reason = no
+		can_imprison_without_reason = no
+		can_create_empires = no
+		can_create_kingdoms = no
+		can_usurp_kingdoms_and_empires = no
+		free_levies_in_offensive_war = yes
+		can_demand_religious_conversion = no
+		aggression = 0.2
 	}
 }
 
 
-#republic_governments = {
-
-	#npc_civil_government = {
-	#	preferred_holdings = { CITY }
-	#	allowed_holdings = {
-	#		CITY
-	#		FORT
-	#		HOSPITAL
-	#	}
-	#	accepts_liege_governments = { # Accepts other republics
-	#		merchant_republic_government
-	#	}
-	#	potential = {
-	#		NOT = { trait = hiver_implant }
-	#		holy_order = no
-	#		lower_tier_than = EMPEROR
-	#		NOT = {
-	#			is_government_potential = merchant_republic_government
-	#			is_government_potential = neofeudal_government
-	#		}
-	#		ai = yes
-	#		OR = {
-	#			AND = {
-	#				tier = BARON
-	#				capital_holding = { holding_type = city }
-	#			}
-	#			AND = {
-	#				tier = COUNT
-	#				has_law = local_main_government_type_1
-	#			}
-	#			AND = {
-	#				higher_tier_than = COUNT
-	#				has_law = local_main_government_type_1
-	#				has_law = local_secondary_government_type_1
-	#			}
-	#		}
-	#	}
-#
-	#	#frame_suffix = "_republic"
-	#	title_prefix = "city_"
-	#	color = { 0 0 255 }
-#
-	#	barons_need_dynasty = no
-	#	can_build_tribal = no
-	#	uses_piety_for_law_change = yes
-#
-	#	character_modifier = {
-	#		levy_size = -10
-	#	}
-	#}
-#}
-
-
 #theocracy_governments = {
-
-	#npc_rectorial_government = {
-	#	preferred_holdings = { TEMPLE }
-	#	allowed_holdings = {
-	#		TEMPLE
-	#		FORT
-	#		HOSPITAL
-	#	}
-	#	accepts_liege_governments = {
-	#	}
-	#	potential = {
-	#		NOT = { trait = hiver_implant }
-	#		holy_order = no
-	#		lower_tier_than = EMPEROR
-	#		NOT = {
-	#			is_government_potential = merchant_republic_government
-	#			is_government_potential = neofeudal_government
-	#		}
-	#		ai = yes
-	#		OR = {
-	#			AND = {
-	#				tier = BARON
-	#				capital_holding = { holding_type = temple }
-	#			}
-	#			AND = {
-	#				tier = COUNT
-	#				has_law = local_main_government_type_2
-	#			}
-	#			AND = {
-	#				higher_tier_than = COUNT
-	#				has_law = local_main_government_type_2
-	#				has_law = local_secondary_government_type_2
-	#			}
-	#		}
-	#	}
-#
-	#	#frame_suffix = "_republic"
-	#	title_prefix = "temple_"
-	#	color = { 0 255 0 }
-#
-	#	barons_need_dynasty = no
-	#	can_build_tribal = no
-	#	uses_piety_for_law_change = yes
-#
-	#	character_modifier = {
-	#		levy_size = -10
-	#	}
-	#}
 #}

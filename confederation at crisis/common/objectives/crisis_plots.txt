@@ -5424,6 +5424,7 @@ plot_justified_coup = {
 
 		}
 	}
+
 	allow = {
 		NOT = {
 			AND = {
@@ -5438,6 +5439,7 @@ plot_justified_coup = {
 					OR = {
 						trait = ambitious
 						trait = cold
+						trait = amoral
 					}
 				}
 			}
@@ -5460,9 +5462,13 @@ plot_justified_coup = {
 				holder_scope = { NOT = { religion_authority = 0.25 } }
 				FROM = { has_weak_claim = PREV }
 			}
+			holder_scope = { wealth < -2000	}
+			holder_scope = { piety < -1000 }
+			holder_scope = { prestige < -1000 }
 			#holder_scope = { NOT = { religion_authority = 0.1 } }
 		}
 	}
+
 	creation_effect = {
 		if = {
 			limit = {
@@ -5484,9 +5490,10 @@ plot_justified_coup = {
 				set_character_flag = flag_ai_plot_timer
 			}
 		}
-		}
-		chance = {
-			factor = 10
+	}
+
+	chance = {
+		factor = 10
 
 		# Plotter strength
 		# The plotter needs to have SOMETHING going for them
@@ -5873,38 +5880,41 @@ plot_justified_coup = {
 				had_character_flag = { flag = flag_crisis_timer days = 360 }
 			}
 		}
+	}
+
+	success = { holder_scope = { character = FROM } }
+
+	effect = {
+		# Justified coups, if against other ideologies, are actually
+		# good for moral authority, because you're deposing tyrants
+		if = {
+			limit = {
+				FROM = { has_character_flag = flag_other_ideology_coup }
+				higher_tier_than = count
+			}
+			FROM = { religion_authority = { modifier = successful_justified_coup years = 30 } }
 		}
-		success = { holder_scope = { character = FROM } }
-		effect = {
-	# Justified coups, if against other ideologies, are actually
-	# good for moral authority, because you're deposing tyrants
-	if = {
-		limit = {
-			FROM = { has_character_flag = flag_other_ideology_coup }
-			higher_tier_than = count
+		if = {
+			limit = {
+				FROM = { has_character_flag = flag_other_ideology_coup }
+				higher_tier_than = duke
+			}
+			FROM = { religion_authority = { modifier = successful_justified_coup years = 30 } }
 		}
-		FROM = { religion_authority = { modifier = successful_justified_coup years = 30 } }
-	}
-	if = {
-		limit = {
-			FROM = { has_character_flag = flag_other_ideology_coup }
-			higher_tier_than = duke
+		if = {
+			limit = {
+				FROM = { has_character_flag = flag_other_ideology_coup }
+				tier = emperor
+			}
+			FROM = { religion_authority = { modifier = successful_justified_coup years = 30 } }
 		}
-		FROM = { religion_authority = { modifier = successful_justified_coup years = 30 } }
-	}
-	if = {
-		limit = {
-			FROM = { has_character_flag = flag_other_ideology_coup }
-			tier = emperor
+		FROM = {
+			clr_character_flag = flag_other_ideology_coup
+			clr_character_flag = flag_ai_plot_timer
+			clr_character_flag = flag_launching_coup
 		}
-		FROM = { religion_authority = { modifier = successful_justified_coup years = 30 } }
 	}
-	FROM = {
-		clr_character_flag = flag_other_ideology_coup
-		clr_character_flag = flag_ai_plot_timer
-		clr_character_flag = flag_launching_coup
-	}
-	}
+
 	abort = {
 		OR = {
 			is_primary_holder_title_tier = no
@@ -5944,6 +5954,9 @@ plot_justified_coup = {
 					holder_scope = { religion_authority = 0.25 }
 					NOT = { FROM = { has_weak_claim = PREV } }
 				}
+				holder_scope = { wealth > -2000	}
+				holder_scope = { piety > -1000 }
+				holder_scope = { prestige > -1000 }
 				holder_scope = { religion_authority = 0.1 }
 			}
 			FROM = {
@@ -5960,6 +5973,7 @@ plot_justified_coup = {
 			}
 		}
 	}
+
 	abort_effect = {
 		FROM = {
 			clr_character_flag = flag_other_ideology_coup

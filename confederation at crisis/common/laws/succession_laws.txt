@@ -9,7 +9,6 @@ succession_laws = {
 
 		potential = {
 			laws_allow_inheritance = yes
-			NOT = { holding_type = family_palace }
 			holder_scope = {
 				is_merchant_republic = no
 				is_patrician = no
@@ -40,7 +39,6 @@ succession_laws = {
 		potential = {
 			laws_allow_elections = yes
 			laws_allow_inheritance = yes
-			NOT = { holding_type = family_palace }
 			holder_scope = {
 				is_merchant_republic = no
 				is_patrician = no
@@ -72,7 +70,6 @@ succession_laws = {
 		dynasty_opinion = 5
 
 		potential = {
-			NOT = { holding_type = family_palace }
 			holder_scope = {
 				is_merchant_republic = no
 				is_patrician = no
@@ -111,16 +108,71 @@ succession_laws = {
 		dynasty_opinion = 5
 
 		potential = {
+			holder_scope = {
+				OR = {
+					laws_allow_inheritance = yes
+					is_patrician = yes
+					is_merchant_republic = yes
+				}
+				OR = {
+					independent = yes
+					NOT = {
+						any_liege = {
+							holy_order = yes
+						}
+					}
+				}
+				OR = {
+					is_merchant_republic = no
+					primary_title = {
+						NOT = { title = PREVPREV }
+					}
+				}
+				OR = {
+					is_merchant_republic = no
+					is_patrician = yes
+				}
+				OR = {
+					independent = yes
+					NOT = {
+						any_demesne_title = {
+							is_vice_royalty = yes
+						}
+					}
+				}
+			}
+			is_primary_type_title = no
 			OR = {
-				laws_allow_inheritance = yes
-				holding_type = family_palace
+				NOT = { tier = baron }
+				holder_scope = { is_patrician = yes }
 			}
 		}
 
 		allow = {
-			liege_allows_inheritance = yes
-			#is_senate_voted_succession = yes
 			base_requeriment_for_succession_change = yes
+			OR = {
+				AND = {
+					liege_allows_inheritance = yes
+					holder_scope = { is_patrician = no }
+				}
+				holder_scope = {
+					show_scope_change = no
+					is_patrician = yes
+					OR = {
+						is_merchant_republic = no
+						PREV = {
+							is_primary_holder_title = no
+						}
+						NOT = {
+							in_revolt = yes
+							succ_law_title = {
+								title = PREVPREV
+							}
+						}
+					}
+				}
+			}
+			#is_senate_voted_succession = yes
 		}
 
 		pass_effect = {
@@ -141,7 +193,6 @@ succession_laws = {
 		dynasty_opinion = -5
 
 		potential = {
-			NOT = { holding_type = family_palace }
 			holder_scope = {
 				is_merchant_republic = no
 				is_patrician = no
@@ -192,17 +243,17 @@ succession_laws = {
 		}
 	}
 
-	succ_feudal_elective = {
+	succ_feudal_elective = { #Federal Elections, it is only for when the emperor is elected by the kings.
 		oldest_child_opinion = -15
 		child_opinion = -5
 		dynasty_opinion = -5
 		vassal_opinion = 10
 
 		potential = {
-			NOT = { holding_type = family_palace }
 			holder_scope = {
 				is_merchant_republic = no
 				is_patrician = no
+				tier = EMPEROR
 			}
 			laws_allow_elections = yes
 		}
@@ -234,7 +285,6 @@ succession_laws = {
 		vassal_limit = 20
 
 		potential = {
-			NOT = { holding_type = family_palace }
 			holder_scope = {
 				is_merchant_republic = no
 				is_patrician = no
@@ -267,7 +317,6 @@ succession_laws = {
 		feudal_opinion = -5
 
 		potential = {
-			NOT = { holding_type = family_palace }
 			laws_allow_elections = yes
 			holder_scope = {
 				is_merchant_republic = no
@@ -307,14 +356,18 @@ succession_laws = {
 		}
 	}
 
-	succ_tanistry = {
+	succ_tanistry = { #Dynastic Elective: Same as Federal Elective but limited to ruler dynasty.
 		oldest_child_opinion = -20
 		child_opinion = -10
 		dynasty_opinion = 5
 		vassal_opinion = 5
 
 		potential = {
-			NOT = { holding_type = family_palace }
+			holder_scope = {
+				is_merchant_republic = no
+				is_patrician = no
+				tier = EMPEROR
+			}
 			laws_allow_elections = yes
 			laws_allow_inheritance = yes
 		}
@@ -346,7 +399,6 @@ succession_laws = {
 		dynasty_opinion = -5
 
 		potential = {
-			NOT = { holding_type = family_palace }
 			laws_allow_inheritance = yes
 		}
 
@@ -373,7 +425,6 @@ succession_laws = {
 		#dynasty_opinion = 10
 
 		potential = {
-			NOT = { holding_type = family_palace }
 			laws_allow_inheritance = yes
 			holder_scope = {
 				is_merchant_republic = no
@@ -414,7 +465,6 @@ succession_laws = {
 
 	succ_papal_succession = {
 		potential = {
-			NOT = { holding_type = family_palace }
 			holder_scope = {
 				is_merchant_republic = no
 				is_patrician = no
@@ -442,7 +492,6 @@ succession_laws = {
 	succ_appointment = {
 
 		potential = {
-			NOT = { holding_type = family_palace }
 			holder_scope = {
 				is_merchant_republic = no
 				is_patrician = no
@@ -475,7 +524,6 @@ succession_laws = {
 
 	succ_open_elective = {
 		potential = {
-			NOT = { holding_type = family_palace }
 			holder_scope = {
 				is_merchant_republic = no
 				is_patrician = no
@@ -501,7 +549,6 @@ succession_laws = {
 
 	succ_catholic_bishopric = {
 		potential = {
-			NOT = { holding_type = family_palace }
 			holder_scope = {
 				is_merchant_republic = no
 				is_patrician = no
@@ -515,6 +562,7 @@ succession_laws = {
 				OR = {
 					religion = orthodox
 					religion = pilgrim
+					religion = terran_imperial_cult
 				}
 			}
 		}
@@ -537,7 +585,15 @@ succession_laws = {
 		terran_imperial_opinion = -30
 
 		potential = {
-			NOT = { holding_type = family_palace }
+			OR = {
+				is_primary_holder_title = yes
+				holder_scope = {
+					in_revolt = yes
+					succ_law_title = {
+						title = PREVPREV
+					}
+				}
+			}
 			holder_scope = {
 				is_merchant_republic = yes
 			}
@@ -562,7 +618,6 @@ succession_laws = {
 
 	succ_nomad_succession = {
 		potential = {
-			NOT = { holding_type = family_palace }
 			holder_scope = {
 				is_merchant_republic = no
 				is_patrician = no
@@ -587,7 +642,6 @@ succession_laws = {
 
 	succ_offmap_succession = {
 		potential = {
-			NOT = { holding_type = family_palace }
 			holder_scope = {
 				is_merchant_republic = no
 				is_patrician = no
@@ -621,7 +675,6 @@ succession_laws = {
 		vassal_opinion = 10
 
 		potential = {
-			NOT = { holding_type = family_palace }
 			holder_scope = {
 				is_merchant_republic = no
 				is_patrician = no
@@ -667,7 +720,6 @@ succession_laws = {
 		#vassal_opinion = -10
 
 		potential = {
-			NOT = { holding_type = family_palace }
 			holder_scope = {
 				is_merchant_republic = no
 				is_patrician = no
@@ -721,7 +773,6 @@ succession_laws = {
 		vassal_opinion = 10
 
 		potential = {
-			NOT = { holding_type = family_palace }
 			holder_scope = {
 				is_merchant_republic = no
 				is_patrician = no

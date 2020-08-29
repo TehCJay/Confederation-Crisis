@@ -31,7 +31,7 @@ generate_random_soldier_adult_from_province_effect = {
         }
         roll1d60 = yes
         new_character = {
-            add_age = dice1d60
+            add_age = local_dice1d60
         }
         random = {
             chance = 1
@@ -70,7 +70,7 @@ generate_random_lowborn_adult_from_province_effect = {
         }
         roll1d60 = yes
         new_character = {
-            add_age = dice1d60
+            add_age = local_dice1d60
         }
         random = {
             chance = 1
@@ -109,7 +109,7 @@ generate_random_highborn_adult_from_province_effect = {
         }
         roll1d60 = yes
         new_character = {
-            add_age = dice1d60
+            add_age = local_dice1d60
         }
         random = {
             chance = 1
@@ -288,35 +288,22 @@ fill_seats_with_realm_characters = {
     }
 }
 
-#fire_extra_senators_effect = {
-#    if = {
-#        limit = {
-#            has_assigned_minor_title = {
-#                title = title_senatorduke
-#                count > 5
-#            }
-#        }
-#        random_courtier = {
-#            limit = { has_title = title_senatorduke }
-#        }
-#    }
-#}
-
 fire_all_senators_effect = {
-    any_courtier_or_vassal = {
-        remove_title = title_senatorduke
-        remove_title = title_senatorking
-        remove_title = title_senatoremperor
-        remove_title = title_senatorbigrealm1
-        remove_title = title_senatorbigrealm2
-        remove_title = title_senatorbigrealm3
-        remove_title = title_senatorbigrealm4
-        remove_title = title_senatorbigrealm5
-    }
+    #any_courtier_or_vassal = {
+    #    remove_title = title_senatorduke
+    #    remove_title = title_senatorking
+    #    remove_title = title_senatoremperor
+    #    remove_title = title_senatorbigrealm1
+    #    remove_title = title_senatorbigrealm2
+    #    remove_title = title_senatorbigrealm3
+    #    remove_title = title_senatorbigrealm4
+    #    remove_title = title_senatorbigrealm5
+    #}
 }
 
 #scope of this, is expected to be a ruler character
 replace_senators_effect = {
+    #fire_extra_senators_effect = yes
     if = {
         limit = {
             is_alive = yes # somehow we were replacing senators of dead people, resulting in thousands of senators...
@@ -334,6 +321,8 @@ replace_senators_effect = {
         fill_seats_with_courtiers = yes
         fill_seats_with_realm_characters = yes
 
+        clr_character_flag = processing_senate
+
         if = {
             limit = {
                 OR = {
@@ -347,6 +336,8 @@ replace_senators_effect = {
                     can_grant_title = title_senatorbigrealm5
                 }
             }
+
+            set_character_flag = processing_senate
 
             count_senator_seats_to_fill = yes
 
@@ -378,16 +369,17 @@ replace_senators_effect = {
             fill_seats_with_courtiers = yes
             fill_seats_with_realm_characters = yes
 
-            if = {
-                limit = { free_court_slots < -30 }
-                log = "Minus 30 free court slots for character [This.GetBestName]"
-            }
-            else = {
-                character_event = { id = parliaments.001 days = 1 } # Stop generating characters to avoid bankrupticing the dynasty forever with all the hotel bills...
-            }
-
-            # We call the event to fill seats again just to be sure nothing went wrong, it should do nothing if seats are already full, it must be with a delay to avoid infinite loops.
             clr_character_flag = processing_senate
+
+            #if = {
+                #limit = { free_court_slots < -30 }
+                #log = "Minus 30 free court slots for character [This.GetBestName]"
+                # Stop generating characters to avoid bankrupticing the dynasty forever with all the hotel bills...
+            #}
+            #else = {
+                character_event = { id = parliaments.001 days = 1 }
+                # We call the event to fill seats again just to be sure nothing went wrong, it should do nothing if seats are already full, it must be with a delay to avoid infinite loops.
+            #}
         }
     }
 }
