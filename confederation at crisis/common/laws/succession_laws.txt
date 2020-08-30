@@ -529,7 +529,21 @@ succession_laws = {
 				is_patrician = no
 			}
 			laws_allow_elections = yes
-			holder_scope = { tier = BARON }
+			holder_scope = {
+				tier = BARON
+				OR = {
+					is_theocracy = no
+					AND = {
+						is_theocracy = yes
+
+						NOR = {
+							religion = orthodox
+							religion = pilgrim
+							religion = terran_imperial_cult
+						}
+					}
+				}
+			}
 		}
 
 		allow = {
