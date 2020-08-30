@@ -37,7 +37,13 @@ feudal_governments = {
                 AND = {
                     higher_tier_than = COUNT
                     has_law = local_main_government_type_0
-                    has_law = local_secondary_government_type_0
+                    OR = {
+                        has_law = local_secondary_government_type_0
+                        NOR = {
+                            is_government_potential = pc_theocratic_government
+                            is_government_potential = npc_theocratic_government
+                        }
+                    }
                 }
             }
         }
@@ -141,7 +147,13 @@ feudal_governments = {
                 AND = {
                     higher_tier_than = COUNT
                     has_law = local_main_government_type_1
-                    has_law = local_secondary_government_type_1
+                    OR = {
+                        has_law = local_secondary_government_type_1
+                        NOR = {
+                            is_government_potential = pc_technocratic_government
+                            is_government_potential = pc_technocratic_government
+                        }
+                    }
                 }
             }
         }
@@ -248,7 +260,15 @@ feudal_governments = {
                 AND = {
                     higher_tier_than = COUNT
                     has_law = local_main_government_type_2
-                    has_law = local_secondary_government_type_2
+                    OR = {
+                        has_law = local_secondary_government_type_2
+                        NOR = {
+                            is_government_potential = pc_theocratic_government
+                            is_government_potential = npc_theocratic_government
+                            is_government_potential = pc_technocratic_government
+                            is_government_potential = pc_technocratic_government
+                        }
+                    }
                 }
             }
         }
@@ -359,7 +379,13 @@ republic_governments = {
                 AND = {
                     higher_tier_than = COUNT
                     has_law = local_main_government_type_1
-                    has_law = local_secondary_government_type_1
+                    OR = {
+                        has_law = local_secondary_government_type_1
+                        NOR = {
+                            is_government_potential = pc_technocratic_government
+                            is_government_potential = pc_technocratic_government
+                        }
+                    }
                 }
             }
         }
@@ -471,7 +497,15 @@ theocracy_governments = {
                 AND = {
                     higher_tier_than = COUNT
                     has_law = local_main_government_type_2
-                    has_law = local_secondary_government_type_2
+                    OR = {
+                        has_law = local_secondary_government_type_2
+                        NOR = {
+                            is_government_potential = pc_theocratic_government
+                            is_government_potential = npc_theocratic_government
+                            is_government_potential = pc_technocratic_government
+                            is_government_potential = pc_technocratic_government
+                        }
+                    }
                 }
             }
         }
