@@ -663,7 +663,7 @@ local tacGenData = {
             piercethrough = {
                 duration = 1,
                 flank_has_leader = true,
-                previousTactics = {"column_balanced","column_laser","column_kinetic","column_defensive","column_boarding","column_crashing"},
+                previousTactics = {"balanced_column","laser_column","kinetic_column","defensive_column","boarding_column","crashing_column"},
                 --enemyTactics = {},
                 martialMininum = 4,
                 encouraged_trait = {"trickster", "shock_leader"}
@@ -672,7 +672,7 @@ local tacGenData = {
                 group="rearattack",
                 duration = 6,
                 flank_has_leader = true,
-                previousTactics = {"piercethrough_balanced","piercethrough_laser","piercethrough_kinetic","piercethrough_defensive","piercethrough_boarding","piercethrough_crashing"},
+                previousTactics = {"balanced_piercethrough","laser_piercethrough","kinetic_piercethrough","defensive_piercethrough","boarding_piercethrough","crashing_piercethrough"},
                 martialMininum = 6,
                 affinities = {plane=3, twod=2, funnel=4, encircled=1}
             },
@@ -680,7 +680,7 @@ local tacGenData = {
                 group = "encircled",
                 duration = 6,
                 flank_has_leader = true,
-                previousTactics = {"piercethrough_balanced","piercethrough_laser","piercethrough_kinetic","piercethrough_defensive","piercethrough_boarding","piercethrough_crashing"},
+                previousTactics = {"balanced_piercethrough","laser_piercethrough","kinetic_piercethrough","defensive_piercethrough","boarding_piercethrough","crashing_piercethrough"},
                 martialMaximum = 30,
             }
         },

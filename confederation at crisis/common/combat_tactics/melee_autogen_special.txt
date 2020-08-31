@@ -12,12 +12,12 @@ balanced_piercethrough = {
             martial >= 4
         }
         OR = {
-            flank_has_tactic = column_balanced
-            flank_has_tactic = column_laser
-            flank_has_tactic = column_kinetic
-            flank_has_tactic = column_defensive
-            flank_has_tactic = column_boarding
-            flank_has_tactic = column_crashing
+            flank_has_tactic = balanced_column
+            flank_has_tactic = laser_column
+            flank_has_tactic = kinetic_column
+            flank_has_tactic = defensive_column
+            flank_has_tactic = boarding_column
+            flank_has_tactic = crashing_column
         }
     }
 
@@ -77,12 +77,12 @@ laser_piercethrough = {
             martial >= 4
         }
         OR = {
-            flank_has_tactic = column_balanced
-            flank_has_tactic = column_laser
-            flank_has_tactic = column_kinetic
-            flank_has_tactic = column_defensive
-            flank_has_tactic = column_boarding
-            flank_has_tactic = column_crashing
+            flank_has_tactic = balanced_column
+            flank_has_tactic = laser_column
+            flank_has_tactic = kinetic_column
+            flank_has_tactic = defensive_column
+            flank_has_tactic = boarding_column
+            flank_has_tactic = crashing_column
         }
     }
 
@@ -136,12 +136,12 @@ kinetic_piercethrough = {
             martial >= 4
         }
         OR = {
-            flank_has_tactic = column_balanced
-            flank_has_tactic = column_laser
-            flank_has_tactic = column_kinetic
-            flank_has_tactic = column_defensive
-            flank_has_tactic = column_boarding
-            flank_has_tactic = column_crashing
+            flank_has_tactic = balanced_column
+            flank_has_tactic = laser_column
+            flank_has_tactic = kinetic_column
+            flank_has_tactic = defensive_column
+            flank_has_tactic = boarding_column
+            flank_has_tactic = crashing_column
         }
     }
 
@@ -202,12 +202,12 @@ defensive_piercethrough = {
             NOT = { trait = pursuit_specialist }
         }
         OR = {
-            flank_has_tactic = column_balanced
-            flank_has_tactic = column_laser
-            flank_has_tactic = column_kinetic
-            flank_has_tactic = column_defensive
-            flank_has_tactic = column_boarding
-            flank_has_tactic = column_crashing
+            flank_has_tactic = balanced_column
+            flank_has_tactic = laser_column
+            flank_has_tactic = kinetic_column
+            flank_has_tactic = defensive_column
+            flank_has_tactic = boarding_column
+            flank_has_tactic = crashing_column
         }
     }
 
@@ -285,12 +285,12 @@ boarding_piercethrough = {
             martial >= 4
         }
         OR = {
-            flank_has_tactic = column_balanced
-            flank_has_tactic = column_laser
-            flank_has_tactic = column_kinetic
-            flank_has_tactic = column_defensive
-            flank_has_tactic = column_boarding
-            flank_has_tactic = column_crashing
+            flank_has_tactic = balanced_column
+            flank_has_tactic = laser_column
+            flank_has_tactic = kinetic_column
+            flank_has_tactic = defensive_column
+            flank_has_tactic = boarding_column
+            flank_has_tactic = crashing_column
         }
     }
 
@@ -301,18 +301,6 @@ boarding_piercethrough = {
             factor = 4
             leader = {
                 martial >= 4
-            }
-        }
-        additive_modifier = {
-            value = 30
-            leader = {
-                religion = neo_feudal
-            }
-        }
-        additive_modifier = {
-            value = -30
-            leader = {
-                trait = defensive_leader
             }
         }
         additive_modifier = {
@@ -331,6 +319,18 @@ boarding_piercethrough = {
             value = 30
             leader = {
                 trait = pursuit_specialist
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                religion = neo_feudal
+            }
+        }
+        additive_modifier = {
+            value = -30
+            leader = {
+                trait = defensive_leader
             }
         }
     }
@@ -363,25 +363,17 @@ balanced_rearattack = {
             martial >= 6
         }
         OR = {
-            flank_has_tactic = piercethrough_balanced
-            flank_has_tactic = piercethrough_laser
-            flank_has_tactic = piercethrough_kinetic
-            flank_has_tactic = piercethrough_defensive
-            flank_has_tactic = piercethrough_boarding
-            flank_has_tactic = piercethrough_crashing
+            flank_has_tactic = balanced_piercethrough
+            flank_has_tactic = laser_piercethrough
+            flank_has_tactic = kinetic_piercethrough
+            flank_has_tactic = defensive_piercethrough
+            flank_has_tactic = boarding_piercethrough
+            flank_has_tactic = crashing_piercethrough
         }
     }
 
     mean_time_to_happen = {
         days = 100
-
-        additive_modifier = {
-            value = 20
-
-            leader = { enemy = {
-                flank_has_tactic = twod
-            } }
-        }
 
         additive_modifier = {
             value = 30
@@ -392,18 +384,26 @@ balanced_rearattack = {
         }
 
         additive_modifier = {
-            value = 40
-
-            leader = { enemy = {
-                flank_has_tactic = funnel
-            } }
-        }
-
-        additive_modifier = {
             value = 10
 
             leader = { enemy = {
                 flank_has_tactic = encircled
+            } }
+        }
+
+        additive_modifier = {
+            value = 20
+
+            leader = { enemy = {
+                flank_has_tactic = twod
+            } }
+        }
+
+        additive_modifier = {
+            value = 40
+
+            leader = { enemy = {
+                flank_has_tactic = funnel
             } }
         }
 
@@ -448,23 +448,23 @@ balanced_rearattack = {
 
 
     enemy = {
-        group = twod
-        factor = 2
-    }
-
-    enemy = {
         group = plane
         factor = 3
     }
 
     enemy = {
-        group = funnel
-        factor = 4
+        group = encircled
+        factor = 1
     }
 
     enemy = {
-        group = encircled
-        factor = 1
+        group = twod
+        factor = 2
+    }
+
+    enemy = {
+        group = funnel
+        factor = 4
     }
 }
 
@@ -481,25 +481,17 @@ laser_rearattack = {
             martial >= 6
         }
         OR = {
-            flank_has_tactic = piercethrough_balanced
-            flank_has_tactic = piercethrough_laser
-            flank_has_tactic = piercethrough_kinetic
-            flank_has_tactic = piercethrough_defensive
-            flank_has_tactic = piercethrough_boarding
-            flank_has_tactic = piercethrough_crashing
+            flank_has_tactic = balanced_piercethrough
+            flank_has_tactic = laser_piercethrough
+            flank_has_tactic = kinetic_piercethrough
+            flank_has_tactic = defensive_piercethrough
+            flank_has_tactic = boarding_piercethrough
+            flank_has_tactic = crashing_piercethrough
         }
     }
 
     mean_time_to_happen = {
         days = 100
-
-        additive_modifier = {
-            value = 20
-
-            leader = { enemy = {
-                flank_has_tactic = twod
-            } }
-        }
 
         additive_modifier = {
             value = 30
@@ -510,18 +502,26 @@ laser_rearattack = {
         }
 
         additive_modifier = {
-            value = 40
-
-            leader = { enemy = {
-                flank_has_tactic = funnel
-            } }
-        }
-
-        additive_modifier = {
             value = 10
 
             leader = { enemy = {
                 flank_has_tactic = encircled
+            } }
+        }
+
+        additive_modifier = {
+            value = 20
+
+            leader = { enemy = {
+                flank_has_tactic = twod
+            } }
+        }
+
+        additive_modifier = {
+            value = 40
+
+            leader = { enemy = {
+                flank_has_tactic = funnel
             } }
         }
 
@@ -554,23 +554,23 @@ laser_rearattack = {
 
 
     enemy = {
-        group = twod
-        factor = 2
-    }
-
-    enemy = {
         group = plane
         factor = 3
     }
 
     enemy = {
-        group = funnel
-        factor = 4
+        group = encircled
+        factor = 1
     }
 
     enemy = {
-        group = encircled
-        factor = 1
+        group = twod
+        factor = 2
+    }
+
+    enemy = {
+        group = funnel
+        factor = 4
     }
 }
 
@@ -587,25 +587,17 @@ kinetic_rearattack = {
             martial >= 6
         }
         OR = {
-            flank_has_tactic = piercethrough_balanced
-            flank_has_tactic = piercethrough_laser
-            flank_has_tactic = piercethrough_kinetic
-            flank_has_tactic = piercethrough_defensive
-            flank_has_tactic = piercethrough_boarding
-            flank_has_tactic = piercethrough_crashing
+            flank_has_tactic = balanced_piercethrough
+            flank_has_tactic = laser_piercethrough
+            flank_has_tactic = kinetic_piercethrough
+            flank_has_tactic = defensive_piercethrough
+            flank_has_tactic = boarding_piercethrough
+            flank_has_tactic = crashing_piercethrough
         }
     }
 
     mean_time_to_happen = {
         days = 100
-
-        additive_modifier = {
-            value = 20
-
-            leader = { enemy = {
-                flank_has_tactic = twod
-            } }
-        }
 
         additive_modifier = {
             value = 30
@@ -616,18 +608,26 @@ kinetic_rearattack = {
         }
 
         additive_modifier = {
-            value = 40
-
-            leader = { enemy = {
-                flank_has_tactic = funnel
-            } }
-        }
-
-        additive_modifier = {
             value = 10
 
             leader = { enemy = {
                 flank_has_tactic = encircled
+            } }
+        }
+
+        additive_modifier = {
+            value = 20
+
+            leader = { enemy = {
+                flank_has_tactic = twod
+            } }
+        }
+
+        additive_modifier = {
+            value = 40
+
+            leader = { enemy = {
+                flank_has_tactic = funnel
             } }
         }
 
@@ -640,12 +640,6 @@ kinetic_rearattack = {
         additive_modifier = {
             value = 30
             leader = {
-                religion = neo_feudal
-            }
-        }
-        additive_modifier = {
-            value = 30
-            leader = {
                 trait = missile_master
             }
         }
@@ -653,6 +647,12 @@ kinetic_rearattack = {
             value = 30
             leader = {
                 trait = kinetic_master
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                religion = neo_feudal
             }
         }
     }
@@ -672,23 +672,23 @@ kinetic_rearattack = {
 
 
     enemy = {
-        group = twod
-        factor = 2
-    }
-
-    enemy = {
         group = plane
         factor = 3
     }
 
     enemy = {
-        group = funnel
-        factor = 4
+        group = encircled
+        factor = 1
     }
 
     enemy = {
-        group = encircled
-        factor = 1
+        group = twod
+        factor = 2
+    }
+
+    enemy = {
+        group = funnel
+        factor = 4
     }
 }
 
@@ -706,25 +706,17 @@ defensive_rearattack = {
             NOT = { trait = pursuit_specialist }
         }
         OR = {
-            flank_has_tactic = piercethrough_balanced
-            flank_has_tactic = piercethrough_laser
-            flank_has_tactic = piercethrough_kinetic
-            flank_has_tactic = piercethrough_defensive
-            flank_has_tactic = piercethrough_boarding
-            flank_has_tactic = piercethrough_crashing
+            flank_has_tactic = balanced_piercethrough
+            flank_has_tactic = laser_piercethrough
+            flank_has_tactic = kinetic_piercethrough
+            flank_has_tactic = defensive_piercethrough
+            flank_has_tactic = boarding_piercethrough
+            flank_has_tactic = crashing_piercethrough
         }
     }
 
     mean_time_to_happen = {
         days = 100
-
-        additive_modifier = {
-            value = 20
-
-            leader = { enemy = {
-                flank_has_tactic = twod
-            } }
-        }
 
         additive_modifier = {
             value = 30
@@ -735,18 +727,26 @@ defensive_rearattack = {
         }
 
         additive_modifier = {
-            value = 40
-
-            leader = { enemy = {
-                flank_has_tactic = funnel
-            } }
-        }
-
-        additive_modifier = {
             value = 10
 
             leader = { enemy = {
                 flank_has_tactic = encircled
+            } }
+        }
+
+        additive_modifier = {
+            value = 20
+
+            leader = { enemy = {
+                flank_has_tactic = twod
+            } }
+        }
+
+        additive_modifier = {
+            value = 40
+
+            leader = { enemy = {
+                flank_has_tactic = funnel
             } }
         }
 
@@ -809,23 +809,23 @@ defensive_rearattack = {
 
 
     enemy = {
-        group = twod
-        factor = 2
-    }
-
-    enemy = {
         group = plane
         factor = 3
     }
 
     enemy = {
-        group = funnel
-        factor = 4
+        group = encircled
+        factor = 1
     }
 
     enemy = {
-        group = encircled
-        factor = 1
+        group = twod
+        factor = 2
+    }
+
+    enemy = {
+        group = funnel
+        factor = 4
     }
 }
 
@@ -842,12 +842,12 @@ boarding_rearattack = {
             martial >= 6
         }
         OR = {
-            flank_has_tactic = piercethrough_balanced
-            flank_has_tactic = piercethrough_laser
-            flank_has_tactic = piercethrough_kinetic
-            flank_has_tactic = piercethrough_defensive
-            flank_has_tactic = piercethrough_boarding
-            flank_has_tactic = piercethrough_crashing
+            flank_has_tactic = balanced_piercethrough
+            flank_has_tactic = laser_piercethrough
+            flank_has_tactic = kinetic_piercethrough
+            flank_has_tactic = defensive_piercethrough
+            flank_has_tactic = boarding_piercethrough
+            flank_has_tactic = crashing_piercethrough
         }
     }
 
@@ -855,26 +855,10 @@ boarding_rearattack = {
         days = 100
 
         additive_modifier = {
-            value = 20
-
-            leader = { enemy = {
-                flank_has_tactic = twod
-            } }
-        }
-
-        additive_modifier = {
             value = 30
 
             leader = { enemy = {
                 flank_has_tactic = plane
-            } }
-        }
-
-        additive_modifier = {
-            value = 40
-
-            leader = { enemy = {
-                flank_has_tactic = funnel
             } }
         }
 
@@ -886,22 +870,26 @@ boarding_rearattack = {
             } }
         }
 
+        additive_modifier = {
+            value = 20
+
+            leader = { enemy = {
+                flank_has_tactic = twod
+            } }
+        }
+
+        additive_modifier = {
+            value = 40
+
+            leader = { enemy = {
+                flank_has_tactic = funnel
+            } }
+        }
+
         mult_modifier = {
             factor = 4
             leader = {
                 martial >= 6
-            }
-        }
-        additive_modifier = {
-            value = 30
-            leader = {
-                religion = neo_feudal
-            }
-        }
-        additive_modifier = {
-            value = -30
-            leader = {
-                trait = defensive_leader
             }
         }
         additive_modifier = {
@@ -922,6 +910,18 @@ boarding_rearattack = {
                 trait = pursuit_specialist
             }
         }
+        additive_modifier = {
+            value = 30
+            leader = {
+                religion = neo_feudal
+            }
+        }
+        additive_modifier = {
+            value = -30
+            leader = {
+                trait = defensive_leader
+            }
+        }
     }
 
     light_infantry_offensive = -0.1
@@ -939,23 +939,23 @@ boarding_rearattack = {
 
 
     enemy = {
-        group = twod
-        factor = 2
-    }
-
-    enemy = {
         group = plane
         factor = 3
     }
 
     enemy = {
-        group = funnel
-        factor = 4
+        group = encircled
+        factor = 1
     }
 
     enemy = {
-        group = encircled
-        factor = 1
+        group = twod
+        factor = 2
+    }
+
+    enemy = {
+        group = funnel
+        factor = 4
     }
 }
 
@@ -972,12 +972,12 @@ balanced_encircled = {
             martial <= 30
         }
         OR = {
-            flank_has_tactic = piercethrough_balanced
-            flank_has_tactic = piercethrough_laser
-            flank_has_tactic = piercethrough_kinetic
-            flank_has_tactic = piercethrough_defensive
-            flank_has_tactic = piercethrough_boarding
-            flank_has_tactic = piercethrough_crashing
+            flank_has_tactic = balanced_piercethrough
+            flank_has_tactic = laser_piercethrough
+            flank_has_tactic = kinetic_piercethrough
+            flank_has_tactic = defensive_piercethrough
+            flank_has_tactic = boarding_piercethrough
+            flank_has_tactic = crashing_piercethrough
         }
     }
 
@@ -1038,12 +1038,12 @@ laser_encircled = {
             martial <= 30
         }
         OR = {
-            flank_has_tactic = piercethrough_balanced
-            flank_has_tactic = piercethrough_laser
-            flank_has_tactic = piercethrough_kinetic
-            flank_has_tactic = piercethrough_defensive
-            flank_has_tactic = piercethrough_boarding
-            flank_has_tactic = piercethrough_crashing
+            flank_has_tactic = balanced_piercethrough
+            flank_has_tactic = laser_piercethrough
+            flank_has_tactic = kinetic_piercethrough
+            flank_has_tactic = defensive_piercethrough
+            flank_has_tactic = boarding_piercethrough
+            flank_has_tactic = crashing_piercethrough
         }
     }
 
@@ -1092,12 +1092,12 @@ kinetic_encircled = {
             martial <= 30
         }
         OR = {
-            flank_has_tactic = piercethrough_balanced
-            flank_has_tactic = piercethrough_laser
-            flank_has_tactic = piercethrough_kinetic
-            flank_has_tactic = piercethrough_defensive
-            flank_has_tactic = piercethrough_boarding
-            flank_has_tactic = piercethrough_crashing
+            flank_has_tactic = balanced_piercethrough
+            flank_has_tactic = laser_piercethrough
+            flank_has_tactic = kinetic_piercethrough
+            flank_has_tactic = defensive_piercethrough
+            flank_has_tactic = boarding_piercethrough
+            flank_has_tactic = crashing_piercethrough
         }
     }
 
@@ -1113,12 +1113,6 @@ kinetic_encircled = {
         additive_modifier = {
             value = 30
             leader = {
-                religion = neo_feudal
-            }
-        }
-        additive_modifier = {
-            value = 30
-            leader = {
                 trait = missile_master
             }
         }
@@ -1126,6 +1120,12 @@ kinetic_encircled = {
             value = 30
             leader = {
                 trait = kinetic_master
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                religion = neo_feudal
             }
         }
     }
@@ -1159,12 +1159,12 @@ defensive_encircled = {
             NOT = { trait = pursuit_specialist }
         }
         OR = {
-            flank_has_tactic = piercethrough_balanced
-            flank_has_tactic = piercethrough_laser
-            flank_has_tactic = piercethrough_kinetic
-            flank_has_tactic = piercethrough_defensive
-            flank_has_tactic = piercethrough_boarding
-            flank_has_tactic = piercethrough_crashing
+            flank_has_tactic = balanced_piercethrough
+            flank_has_tactic = laser_piercethrough
+            flank_has_tactic = kinetic_piercethrough
+            flank_has_tactic = defensive_piercethrough
+            flank_has_tactic = boarding_piercethrough
+            flank_has_tactic = crashing_piercethrough
         }
     }
 
@@ -1175,18 +1175,6 @@ defensive_encircled = {
             factor = 4
             leader = {
                 martial <= 30
-            }
-        }
-        additive_modifier = {
-            value = -30
-            leader = {
-                trait = frigate_pilot
-            }
-        }
-        additive_modifier = {
-            value = -30
-            leader = {
-                trait = aggressive_leader
             }
         }
         additive_modifier = {
@@ -1211,6 +1199,18 @@ defensive_encircled = {
             value = 30
             leader = {
                 trait = unyielding_leader
+            }
+        }
+        additive_modifier = {
+            value = -30
+            leader = {
+                trait = frigate_pilot
+            }
+        }
+        additive_modifier = {
+            value = -30
+            leader = {
+                trait = aggressive_leader
             }
         }
     }
@@ -1243,12 +1243,12 @@ boarding_encircled = {
             martial <= 30
         }
         OR = {
-            flank_has_tactic = piercethrough_balanced
-            flank_has_tactic = piercethrough_laser
-            flank_has_tactic = piercethrough_kinetic
-            flank_has_tactic = piercethrough_defensive
-            flank_has_tactic = piercethrough_boarding
-            flank_has_tactic = piercethrough_crashing
+            flank_has_tactic = balanced_piercethrough
+            flank_has_tactic = laser_piercethrough
+            flank_has_tactic = kinetic_piercethrough
+            flank_has_tactic = defensive_piercethrough
+            flank_has_tactic = boarding_piercethrough
+            flank_has_tactic = crashing_piercethrough
         }
     }
 
@@ -1259,18 +1259,6 @@ boarding_encircled = {
             factor = 4
             leader = {
                 martial <= 30
-            }
-        }
-        additive_modifier = {
-            value = 30
-            leader = {
-                religion = neo_feudal
-            }
-        }
-        additive_modifier = {
-            value = -30
-            leader = {
-                trait = defensive_leader
             }
         }
         additive_modifier = {
@@ -1289,6 +1277,18 @@ boarding_encircled = {
             value = 30
             leader = {
                 trait = pursuit_specialist
+            }
+        }
+        additive_modifier = {
+            value = 30
+            leader = {
+                religion = neo_feudal
+            }
+        }
+        additive_modifier = {
+            value = -30
+            leader = {
+                trait = defensive_leader
             }
         }
     }
