@@ -11,7 +11,7 @@ obj_become_chancellor = {
 	type = character
 
 	expectation_of_liege = yes
-	
+
 	potential = {
 		independent = no
 		NOT = { has_character_modifier = planning_claimant_adventure }
@@ -102,14 +102,14 @@ obj_become_chancellor = {
 			factor = 20
 			liege = { job_chancellor = { NOT = { diplomacy = ROOT } } }
 		}
-		modifier = { 
+		modifier = {
 			factor = 10
 			has_dlc = "Zeus"
 			is_ruler = yes
 			relative_power_to_liege = 0.25
 			powerful_vassal_wants_council_trigger = yes
 		}
-		modifier = { 
+		modifier = {
 			factor = 5
 			has_dlc = "Zeus"
 			is_ruler = yes
@@ -179,9 +179,9 @@ obj_become_chancellor = {
 
 obj_become_marshal = {
 	type = character
-	
+
 	expectation_of_liege = yes
-	
+
 	potential = {
 		independent = no
 		NOT = { has_character_modifier = planning_claimant_adventure }
@@ -272,14 +272,14 @@ obj_become_marshal = {
 			factor = 10
 			liege = { job_marshal = { NOT = { martial = ROOT } } }
 		}
-		modifier = { 
+		modifier = {
 			factor = 10
 			has_dlc = "Zeus"
 			is_ruler = yes
 			relative_power_to_liege = 0.25
 			powerful_vassal_wants_council_trigger = yes
 		}
-		modifier = { 
+		modifier = {
 			factor = 5
 			has_dlc = "Zeus"
 			is_ruler = yes
@@ -349,9 +349,9 @@ obj_become_marshal = {
 
 obj_become_treasurer = {
 	type = character
-	
+
 	expectation_of_liege = yes
-	
+
 	potential = {
 		independent = no
 		NOT = { has_character_modifier = planning_claimant_adventure }
@@ -434,14 +434,14 @@ obj_become_treasurer = {
 			factor = 10
 			liege = { job_treasurer = { NOT = { stewardship = ROOT } } }
 		}
-		modifier = { 
+		modifier = {
 			factor = 10
 			has_dlc = "Zeus"
 			is_ruler = yes
 			relative_power_to_liege = 0.25
 			powerful_vassal_wants_council_trigger = yes
 		}
-		modifier = { 
+		modifier = {
 			factor = 5
 			has_dlc = "Zeus"
 			is_ruler = yes
@@ -511,9 +511,9 @@ obj_become_treasurer = {
 
 obj_become_spymaster = {
 	type = character
-	
+
 	expectation_of_liege = yes
-	
+
 	potential = {
 		independent = no
 		NOT = { has_character_modifier = planning_claimant_adventure }
@@ -524,7 +524,7 @@ obj_become_spymaster = {
 			NOT = { is_married = ROOT }
 		}
 	}
-	
+
 	allow = {
 		is_voter = no
 		can_be_spymaster_trigger = yes
@@ -587,14 +587,14 @@ obj_become_spymaster = {
 			factor = 10
 			liege = { job_spymaster = { NOT = { intrigue = ROOT } } }
 		}
-		modifier = { 
+		modifier = {
 			factor = 10
 			has_dlc = "Zeus"
 			is_ruler = yes
 			relative_power_to_liege = 0.25
 			powerful_vassal_wants_council_trigger = yes
 		}
-		modifier = { 
+		modifier = {
 			factor = 5
 			has_dlc = "Zeus"
 			is_ruler = yes
@@ -664,9 +664,9 @@ obj_become_spymaster = {
 
 obj_become_spiritual = {
 	type = character
-	
+
 	expectation_of_liege = yes
-	
+
 	potential = {
 		independent = no
 		NOT = { has_character_modifier = planning_claimant_adventure }
@@ -754,14 +754,14 @@ obj_become_spiritual = {
 			factor = 10
 			liege = { job_spiritual = { NOT = { learning = ROOT } } }
 		}
-		modifier = { 
+		modifier = {
 			factor = 10
 			has_dlc = "Zeus"
 			is_ruler = yes
 			relative_power_to_liege = 0.25
 			powerful_vassal_wants_council_trigger = yes
 		}
-		modifier = { 
+		modifier = {
 			factor = 5
 			has_dlc = "Zeus"
 			is_ruler = yes
@@ -832,13 +832,13 @@ obj_become_spiritual = {
 
 obj_amass_wealth = {
 	type = character
-	
+
 	potential = {
 		NOT = { has_character_flag = obj_amass_wealth }
 		lower_tier_than = DUKE
 		NOT = { num_of_count_titles = 4 }
 	}
-	
+
 	allow = {
 		is_adult = yes
 		NOT = { wealth = 250 }
@@ -922,121 +922,110 @@ obj_amass_wealth = {
 
 obj_become_paragon_of_virtue = {
 	type = character
-	
+
 	potential = {
 		NOT = { religion_group = outlaw_group }
 		NOT = { religion_group = transhumanist_group }
-		NOT = { trait = paragon }
-	}
-
-	allow = {
+		is_playable = yes
+		is_landed = yes
 		is_adult = yes
-		piety = 500
-		NOT = { piety = 1000 }
-		is_ruler = yes
-		NOT = { trait = cold }
-		NOT = { trait = pragmatic }
-		NOT = { trait = incapable }
-	}
-	chance = {
-		factor = 50
+		is_incapable = no
+		piety < 1000
 
-		modifier = {
-			factor = 1.25
-			trait = disciplined
-		}
-		modifier = {
-			factor = 0.01
-			NOT = { tier = king }
-			NOT = { tier = emperor }
-		}
-		modifier = {
-			factor = 0
-			NOT = { piety = 250 }
-		}
-		modifier = {
-			factor = 10.0
-			has_education_learning_trigger = yes
-		}
-		modifier = {
-			factor = 10.0
-			trait = radical
-		}
-		modifier = {
-			factor = 0
-			trait = pragmatic
-		}
-	}
-	creation_effect = {
-		if = {
-			limit = { ai = yes }
-			add_character_modifier = {
-				name = "ai_objective_timer"
-				duration = 1825
-				hidden = yes
-			}
-		}
-	}
-	success = {
-		piety = 1000
-	}
-	abort = {
+		has_impious_trait_trigger = no
+
 		OR = {
-			is_ruler = no
-			NOT = { piety = 0 }
-			trait = incapable
-			trait = cold
-			trait = pragmatic
-			trait = paragon
-			religion_group = outlaw_group
-			religion_group = transhumanist_group
-			AND = {
-				ai = yes
-				NOT = { has_character_modifier = ai_objective_timer }
-			}
+			has_education_learning_trigger = yes
+			has_pious_trait_trigger = yes
 		}
 	}
-	abort_effect = {
-		if = {
-			limit = { ai = yes }
-			remove_character_modifier = ai_objective_timer
-		}
+
+	success = {
+		piety >= 2000
 	}
+
 	effect = {
-		hidden_tooltip = {
-			if = {
-				limit = { ai = yes }
-				remove_character_modifier = ai_objective_timer
-			}
-		}
 		change_learning = 1
 		piety = 100
-		if = {
-			limit = { any_vassal = { leads_faction = faction_tradition } }
-			custom_tooltip = { text = TRADITIONFACTIONMOODPLUS }
-			hidden_tooltip = {
-				random_vassal = { limit = { leads_faction = faction_tradition } set_variable = { which = "faction_mood_increase" value = 4 } }
-				character_event = { id = PlusFaction.200 days = 1 } #recalculate faction moods
-			}
-		}
+
 		if = {
 			limit = { has_nickname = no }
 			give_nickname = nick_the_holy
 		}
+
 		religion_authority = {
 			modifier = paragon_of_virtue
 			years = 20
 		}
-		add_trait = paragon
+
+		religion_head = {
+			opinion = {
+				who = ROOT
+				modifier = opinion_paragon
+				years = 100
+			}
+		}
+
+		any_vassal = {
+			limit = {
+				is_theocracy = yes
+				religion = ROOT
+			}
+			opinion = {
+				who = ROOT
+				modifier = opinion_paragon
+				years = 100
+			}
+		}
+
+		# Achievement
+		hidden_effect = {
+			if = {
+				limit = {
+					ai = no
+					is_ironman = yes
+				}
+				set_character_flag = achievement_become_paragon_of_virtue
+			}
+		}
+	}
+
+	abort = {
+		OR = {
+			has_impious_trait_trigger = yes
+			is_incapable = yes
+		}
+	}
+
+	chance = {
+		factor = 50
+
+		#mult_modifier = {
+		#	factor = 1.25
+		#	trait = patient
+		#}
+		mult_modifier = {
+			factor = 0.01
+			lower_tier_than = KING
+			is_theocracy = no
+		}
+		mult_modifier = {
+			factor = 10.0
+			has_education_learning_trigger = yes
+		}
+		mult_modifier = {
+			factor = 10.0
+			ai_zeal > 50
+		}
 	}
 }
 
 obj_become_exalted = {
 	type = character
-	
+
 	potential = {
 		is_ruler = yes
-		NOR = { 
+		NOR = {
 			trait = exalted1
 			trait = exalted2
 			trait = exalted3
@@ -1148,7 +1137,7 @@ obj_become_exalted = {
 
 obj_marry_for_love = {
 	type = character
-	
+
 	potential = {
 		is_married = no
 		is_consort = no
@@ -1411,7 +1400,7 @@ obj_have_a_child = {
 	type = character
 
 	fertility = 0.1
-	
+
 	potential = {
 		is_adult = yes
 		OR = {
@@ -1472,7 +1461,7 @@ obj_have_a_child = {
 								OR = {
 									is_vice_royalty = yes
 									has_law = succ_feudal_elective
-								}							
+								}
 							}
 							any_heir_title = {
 								tier = COUNT
@@ -1568,7 +1557,7 @@ obj_have_a_child = {
 
 obj_wants_landed_title = {
 	type = character
-	
+
 	potential = {
 		is_ruler = no
 	}
@@ -1790,7 +1779,7 @@ obj_wants_landed_title = {
 
 obj_become_heir = {
 	type = character
-	
+
 	potential = {
 		NOT = { has_character_flag = obj_become_heir }
 		OR = {
@@ -2049,7 +2038,7 @@ obj_improve_stewardship = {
 		is_adult = yes
 		is_ruler = yes
 		prisoner = no
-		NOT = { has_dlc = "Way of Life" }		
+		NOT = { has_dlc = "Way of Life" }
 	}
 
 	allow = {
@@ -2153,7 +2142,7 @@ obj_improve_learning = {
 		is_adult = yes
 		is_ruler = yes
 		prisoner = no
-		NOT = { has_dlc = "Way of Life" }		
+		NOT = { has_dlc = "Way of Life" }
 	}
 
 	allow = {
@@ -2687,12 +2676,12 @@ obj_become_king = {
 
 # obj_buddhist_stop_drinking = {
 	# type = character
-	
+
 	# potential = {
 		# religion = buddhist
 		# trait = drunkard
 	# }
-	
+
 	# allow = {
 		# is_adult = yes
 		# NOT = { trait = incapable }
@@ -2700,7 +2689,7 @@ obj_become_king = {
 	# }
 	# chance = {
 		# factor = 100
-		
+
 		# modifier = {
 			# factor = 2
 			# trait = radical
@@ -2757,12 +2746,12 @@ obj_become_king = {
 
 # obj_buddhist_reject_empty_pleasures = {
 	# type = character
-	
+
 	# potential = {
 		# religion = buddhist
 		# trait = hedonist
 	# }
-	
+
 	# allow = {
 		# is_adult = yes
 		# NOT = { trait = incapable }
@@ -2770,7 +2759,7 @@ obj_become_king = {
 	# }
 	# chance = {
 		# factor = 100
-		
+
 		# modifier = {
 			# factor = 2
 			# trait = radical
@@ -2827,12 +2816,12 @@ obj_become_king = {
 
 # obj_buddhist_abstain_sexual_excess = {
 	# type = character
-	
+
 	# potential = {
 		# religion = buddhist
 		# trait = lustful
 	# }
-	
+
 	# allow = {
 		# is_adult = yes
 		# NOT = { trait = incapable }
@@ -2840,7 +2829,7 @@ obj_become_king = {
 	# }
 	# chance = {
 		# factor = 100
-		
+
 		# modifier = {
 			# factor = 2
 			# trait = radical
@@ -2897,7 +2886,7 @@ obj_become_king = {
 
 # obj_buddhist_reject_cruelty = {
 	# type = character
-	
+
 	# potential = {
 		# religion = buddhist
 		# OR = {
@@ -2905,7 +2894,7 @@ obj_become_king = {
 			# trait = cruel
 		# }
 	# }
-	
+
 	# allow = {
 		# is_adult = yes
 		# NOT = { trait = incapable }
@@ -2913,7 +2902,7 @@ obj_become_king = {
 	# }
 	# chance = {
 		# factor = 100
-		
+
 		# modifier = {
 			# factor = 2
 			# trait = radical
@@ -2971,12 +2960,12 @@ obj_become_king = {
 
 # obj_buddhist_temperance_food = {
 	# type = character
-	
+
 	# potential = {
 		# religion = buddhist
 		# trait = gluttonous
 	# }
-	
+
 	# allow = {
 		# is_adult = yes
 		# NOT = { trait = incapable }
@@ -2984,7 +2973,7 @@ obj_become_king = {
 	# }
 	# chance = {
 		# factor = 100
-		
+
 		# modifier = {
 			# factor = 2
 			# trait = radical
@@ -3041,12 +3030,12 @@ obj_become_king = {
 
 # obj_buddhist_reject_greed = {
 	# type = character
-	
+
 	# potential = {
 		# religion = buddhist
 		# trait = greedy
 	# }
-	
+
 	# allow = {
 		# is_adult = yes
 		# NOT = { trait = incapable }
@@ -3054,7 +3043,7 @@ obj_become_king = {
 	# }
 	# chance = {
 		# factor = 100
-		
+
 		# modifier = {
 			# factor = 2
 			# trait = radical
@@ -3111,12 +3100,12 @@ obj_become_king = {
 
 # obj_buddhist_reject_envy = {
 	# type = character
-	
+
 	# potential = {
 		# religion = buddhist
 		# trait = envious
 	# }
-	
+
 	# allow = {
 		# is_adult = yes
 		# NOT = { trait = incapable }
@@ -3124,7 +3113,7 @@ obj_become_king = {
 	# }
 	# chance = {
 		# factor = 100
-		
+
 		# modifier = {
 			# factor = 2
 			# trait = radical
@@ -3181,12 +3170,12 @@ obj_become_king = {
 
 # obj_buddhist_reject_hate = {
 	# type = character
-	
+
 	# potential = {
 		# religion = buddhist
 		# trait = wroth
 	# }
-	
+
 	# allow = {
 		# is_adult = yes
 		# NOT = { trait = incapable }
@@ -3194,7 +3183,7 @@ obj_become_king = {
 	# }
 	# chance = {
 		# factor = 100
-		
+
 		# modifier = {
 			# factor = 2
 			# trait = radical
@@ -3251,12 +3240,12 @@ obj_become_king = {
 
 # obj_buddhist_reject_pride = {
 	# type = character
-	
+
 	# potential = {
 		# religion = buddhist
 		# trait = proud
 	# }
-	
+
 	# allow = {
 		# is_adult = yes
 		# NOT = { trait = incapable }
@@ -3264,7 +3253,7 @@ obj_become_king = {
 	# }
 	# chance = {
 		# factor = 100
-		
+
 		# modifier = {
 			# factor = 2
 			# trait = radical
@@ -3321,7 +3310,7 @@ obj_become_king = {
 
 # obj_buddhist_defeat_fear = {
 	# type = character
-	
+
 	# potential = {
 		# religion = buddhist
 		# OR = {
@@ -3329,7 +3318,7 @@ obj_become_king = {
 			# trait = craven
 		# }
 	# }
-	
+
 	# allow = {
 		# is_adult = yes
 		# NOT = { trait = incapable }
@@ -3337,7 +3326,7 @@ obj_become_king = {
 	# }
 	# chance = {
 		# factor = 100
-		
+
 		# modifier = {
 			# factor = 2
 			# trait = radical
@@ -3395,12 +3384,12 @@ obj_become_king = {
 
 # obj_become_paragon_of_enlightenment = {
 	# type = character
-	
+
 	# potential = {
 		# religion_group = indian_group
 		# is_ruler = yes
 	# }
-	
+
 	# allow = {
 		# is_adult = yes
 		# NOT = { piety = 100 }
@@ -3411,7 +3400,7 @@ obj_become_king = {
 	# }
 	# chance = {
 		# factor = 50
-		
+
 		# modifier = {
 			# factor = 1.25
 			# trait = patient
@@ -3506,18 +3495,18 @@ obj_become_king = {
 # See the realm prosper
 obj_see_the_realm_prosper = {
 	type = character
-	
+
 	creation_effect = {
 		add_character_modifier = {
 			name = prosperity_5_year
 			years = 5
 		}
 	}
-	
+
 	aggression = 0.25
-	
+
 	global_revolt_risk = -0.01
-	
+
 	potential = {
 		has_dlc = "Reapers"
 		is_playable = yes
@@ -3527,7 +3516,7 @@ obj_see_the_realm_prosper = {
 		liege = { is_nomadic = no }
 		NOT = { has_character_modifier = prosper_ambition_timer }
 	}
-	
+
 	allow = {
 		any_realm_province = {
 			any_province_holding = {
@@ -3546,15 +3535,15 @@ obj_see_the_realm_prosper = {
 		war = no
 		independent = yes
 		is_adult = yes
-		NOR = { 
+		NOR = {
 			trait = incapable
 			is_inaccessible_trigger = yes
 		}
 	}
-	
+
 	chance = {
 		factor = 100
-		
+
 		modifier = {
 			factor = 0.1
 			trait = cold # Doesn't care about the realm
@@ -3583,7 +3572,7 @@ obj_see_the_realm_prosper = {
 			has_education_stewardship_trigger = yes
 		}
 	}
-	
+
 	success = {
 		custom_tooltip = {
 			text = tooltip_obj_see_the_realm_prosper
@@ -3594,7 +3583,7 @@ obj_see_the_realm_prosper = {
 			}
 		}
 	}
-	
+
 	abort = {
 		OR = {
 			trait = incapable
@@ -3610,7 +3599,7 @@ obj_see_the_realm_prosper = {
 			}
 		}
 	}
-	
+
 	abort_effect = {
 		remove_character_modifier = prosperity_5_year
 		add_character_modifier = {
@@ -3619,7 +3608,7 @@ obj_see_the_realm_prosper = {
 		   hidden = yes
 		}
 	}
-	
+
 	effect = {
 		change_stewardship = 1
 		custom_tooltip = {
