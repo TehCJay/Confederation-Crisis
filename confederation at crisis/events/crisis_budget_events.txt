@@ -14,7 +14,7 @@ character_event = {
 			had_character_flag = { flag = paid_yearly_budget days > 300 }
 		}
 		yearly_income >= 50
-		#NOR = { has_law = military_budget_0 has_law = military_budget_0 has_law = military_budget_0 }
+		NAND = { has_law = military_budget_0 has_law = military_budget_0 has_law = military_budget_0 }
 	}
 
 	immediate = {
@@ -24,8 +24,12 @@ character_event = {
 		set_variable = { which = local_military_shares value = 0 }
 		any_vassal = {
 			if = {
-				limit = { is_military_trigger = yes }
-				limit = { is_appointed_trigger = yes }
+				limit = {
+					is_military_trigger = yes
+					is_appointed_trigger = yes
+					NOT = { has_character_flag = got_shares }
+				}
+				set_character_flag = got_shares
 				if = {  limit = { tier = KING }
 					change_variable = { which = local_military_shares value = 20 } }
 				else_if = {	limit = { tier = DUKE }
@@ -39,8 +43,12 @@ character_event = {
 		set_variable = { which = local_civil_shares value = 0 }
 		any_vassal = {
 			if = {
-				limit = { is_civil_trigger = yes }
-				limit = { is_appointed_trigger = yes }
+				limit = {
+					is_civil_trigger = yes
+					is_appointed_trigger = yes
+					NOT = { has_character_flag = got_shares }
+				}
+				set_character_flag = got_shares
 				if = {  limit = { tier = KING }
 					change_variable = { which = local_civil_shares value = 20 } }
 				else_if = {	limit = { tier = DUKE }
@@ -54,8 +62,12 @@ character_event = {
 		set_variable = { which = local_rectorial_shares value = 0 }
 		any_vassal = {
 			if = {
-				limit = { is_rectorial_trigger = yes }
-				limit = { is_appointed_trigger = yes }
+				limit = {
+					is_rectorial_trigger = yes
+					is_appointed_trigger = yes
+					NOT = { has_character_flag = got_shares }
+				}
+				set_character_flag = got_shares
 				if = {  limit = { tier = KING }
 					change_variable = { which = local_rectorial_shares value = 20 } }
 				else_if = {	limit = { tier = DUKE }
@@ -112,38 +124,46 @@ character_event = {
 		any_vassal = {
 			if = {
 				limit = { is_military_trigger = yes is_appointed_trigger = yes }
-				if = { limit = { tier = KING }
+				if = { limit = { tier = KING NOT = { has_character_flag = got_paid } }
+					set_character_flag = got_paid
 					set_variable = { which = local_value which = local_military_share_value }
 					multiply_variable = { which = local_value value = 20 }
 					set_variable = { which = money_to_receive which = local_value }
 					set_variable = { which = money_to_receive_full which = local_value }
+					#multiply_variable = { which = money_to_receive_full value = 0.9999 }
 					set_variable = { which = money_to_receive_half which = local_value }
 					multiply_variable = { which = money_to_receive_half value = 0.5 }
 					set_variable = { which = money_to_receive_increase which = local_value }
 					multiply_variable = { which = money_to_receive_increase value = 2 } }
-				else_if = {	limit = { tier = DUKE }
+				else_if = {	limit = { tier = DUKE NOT = { has_character_flag = got_paid } }
+					set_character_flag = got_paid
 					set_variable = { which = local_value which = local_military_share_value }
 					multiply_variable = { which = local_value value = 7 }
 					set_variable = { which = money_to_receive which = local_value }
 					set_variable = { which = money_to_receive_full which = local_value }
+					#multiply_variable = { which = money_to_receive_full value = 0.9999 }
 					set_variable = { which = money_to_receive_half which = local_value }
 					multiply_variable = { which = money_to_receive_half value = 0.5 }
 					set_variable = { which = money_to_receive_increase which = local_value }
 					multiply_variable = { which = money_to_receive_increase value = 2 } }
-				else_if = {	limit = { tier = COUNT }
+				else_if = {	limit = { tier = COUNT NOT = { has_character_flag = got_paid } }
+					set_character_flag = got_paid
 					set_variable = { which = local_value which = local_military_share_value }
 					multiply_variable = { which = local_value value = 3 }
 					set_variable = { which = money_to_receive which = local_value }
 					set_variable = { which = money_to_receive_full which = local_value }
+					#multiply_variable = { which = money_to_receive_full value = 0.9999 }
 					set_variable = { which = money_to_receive_half which = local_value }
 					multiply_variable = { which = money_to_receive_half value = 0.5 }
 					set_variable = { which = money_to_receive_increase which = local_value }
 					multiply_variable = { which = money_to_receive_increase value = 2 } }
-				else_if = {	limit = { tier = BARON }
+				else_if = {	limit = { tier = BARON NOT = { has_character_flag = got_paid } }
+					set_character_flag = got_paid
 					set_variable = { which = local_value which = local_military_share_value }
 					multiply_variable = { which = local_value value = 1 }
 					set_variable = { which = money_to_receive which = local_value }
 					set_variable = { which = money_to_receive_full which = local_value }
+					#multiply_variable = { which = money_to_receive_full value = 0.9999 }
 					set_variable = { which = money_to_receive_half which = local_value }
 					multiply_variable = { which = money_to_receive_half value = 0.5 }
 					set_variable = { which = money_to_receive_increase which = local_value }
@@ -154,38 +174,46 @@ character_event = {
 		any_vassal = {
 			if = {
 				limit = { is_civil_trigger = yes is_appointed_trigger = yes }
-				if = { limit = { tier = KING }
+				if = { limit = { tier = KING NOT = { has_character_flag = got_paid } }
+					set_character_flag = got_paid
 					set_variable = { which = local_value which = local_civil_share_value }
 					multiply_variable = { which = local_value value = 20 }
 					set_variable = { which = money_to_receive which = local_value }
 					set_variable = { which = money_to_receive_full which = local_value }
+					#multiply_variable = { which = money_to_receive_full value = 0.9999 }
 					set_variable = { which = money_to_receive_half which = local_value }
 					multiply_variable = { which = money_to_receive_half value = 0.5 }
 					set_variable = { which = money_to_receive_increase which = local_value }
 					multiply_variable = { which = money_to_receive_increase value = 2 } }
-				else_if = {	limit = { tier = DUKE }
+				else_if = {	limit = { tier = DUKE NOT = { has_character_flag = got_paid } }
+					set_character_flag = got_paid
 					set_variable = { which = local_value which = local_civil_share_value }
 					multiply_variable = { which = local_value value = 7 }
 					set_variable = { which = money_to_receive which = local_value }
 					set_variable = { which = money_to_receive_full which = local_value }
+					#multiply_variable = { which = money_to_receive_full value = 0.9999 }
 					set_variable = { which = money_to_receive_half which = local_value }
 					multiply_variable = { which = money_to_receive_half value = 0.5 }
 					set_variable = { which = money_to_receive_increase which = local_value }
 					multiply_variable = { which = money_to_receive_increase value = 2 } }
-				else_if = {	limit = { tier = COUNT }
+				else_if = {	limit = { tier = COUNT NOT = { has_character_flag = got_paid } }
+					set_character_flag = got_paid
 					set_variable = { which = local_value which = local_civil_share_value }
 					multiply_variable = { which = local_value value = 3 }
 					set_variable = { which = money_to_receive which = local_value }
 					set_variable = { which = money_to_receive_full which = local_value }
+					#multiply_variable = { which = money_to_receive_full value = 0.9999 }
 					set_variable = { which = money_to_receive_half which = local_value }
 					multiply_variable = { which = money_to_receive_half value = 0.5 }
 					set_variable = { which = money_to_receive_increase which = local_value }
 					multiply_variable = { which = money_to_receive_increase value = 2 } }
-				else_if = {	limit = { tier = BARON }
+				else_if = {	limit = { tier = BARON NOT = { has_character_flag = got_paid } }
+					set_character_flag = got_paid
 					set_variable = { which = local_value which = local_civil_share_value }
 					multiply_variable = { which = local_value value = 1 }
 					set_variable = { which = money_to_receive which = local_value }
 					set_variable = { which = money_to_receive_full which = local_value }
+					#multiply_variable = { which = money_to_receive_full value = 0.9999 }
 					set_variable = { which = money_to_receive_half which = local_value }
 					multiply_variable = { which = money_to_receive_half value = 0.5 }
 					set_variable = { which = money_to_receive_increase which = local_value }
@@ -196,38 +224,46 @@ character_event = {
 		any_vassal = {
 			if = {
 				limit = { is_rectorial_trigger = yes is_appointed_trigger = yes }
-				if = { limit = { tier = KING }
+				if = { limit = { tier = KING NOT = { has_character_flag = got_paid } }
+					set_character_flag = got_paid
 					set_variable = { which = local_value which = local_rectorial_share_value }
 					multiply_variable = { which = local_value value = 20 }
 					set_variable = { which = money_to_receive which = local_value }
 					set_variable = { which = money_to_receive_full which = local_value }
+#					multiply_variable = { which = money_to_receive_full value = 0.9999 }
 					set_variable = { which = money_to_receive_half which = local_value }
 					multiply_variable = { which = money_to_receive_half value = 0.5 }
 					set_variable = { which = money_to_receive_increase which = local_value }
 					multiply_variable = { which = money_to_receive_increase value = 2 } }
-				else_if = {	limit = { tier = DUKE }
+				else_if = {	limit = { tier = DUKE NOT = { has_character_flag = got_paid } }
+					set_character_flag = got_paid
 					set_variable = { which = local_value which = local_rectorial_share_value }
 					multiply_variable = { which = local_value value = 7 }
 					set_variable = { which = money_to_receive which = local_value }
 					set_variable = { which = money_to_receive_full which = local_value }
+					#multiply_variable = { which = money_to_receive_full value = 0.9999 }
 					set_variable = { which = money_to_receive_half which = local_value }
 					multiply_variable = { which = money_to_receive_half value = 0.5 }
 					set_variable = { which = money_to_receive_increase which = local_value }
 					multiply_variable = { which = money_to_receive_increase value = 2 } }
-				else_if = {	limit = { tier = COUNT }
+				else_if = {	limit = { tier = COUNT NOT = { has_character_flag = got_paid } }
+					set_character_flag = got_paid
 					set_variable = { which = local_value which = local_rectorial_share_value }
 					multiply_variable = { which = local_value value = 3 }
 					set_variable = { which = money_to_receive which = local_value }
 					set_variable = { which = money_to_receive_full which = local_value }
+					#multiply_variable = { which = money_to_receive_full value = 0.9999 }
 					set_variable = { which = money_to_receive_half which = local_value }
 					multiply_variable = { which = money_to_receive_half value = 0.5 }
 					set_variable = { which = money_to_receive_increase which = local_value }
 					multiply_variable = { which = money_to_receive_increase value = 2 } }
-				else_if = {	limit = { tier = BARON }
+				else_if = {	limit = { tier = BARON NOT = { has_character_flag = got_paid } }
+					set_character_flag = got_paid
 					set_variable = { which = local_value which = local_rectorial_share_value }
 					multiply_variable = { which = local_value value = 1 }
 					set_variable = { which = money_to_receive which = local_value }
 					set_variable = { which = money_to_receive_full which = local_value }
+					#multiply_variable = { which = money_to_receive_full value = 0.9999 }
 					set_variable = { which = money_to_receive_half which = local_value }
 					multiply_variable = { which = money_to_receive_half value = 0.5 }
 					set_variable = { which = money_to_receive_increase which = local_value }
@@ -240,7 +276,9 @@ character_event = {
 		name = "EVTOPTABUDGET0"
 		any_vassal = {
 			if = {
-				limit = { is_appointed_trigger = yes check_variable = { which = money_to_receive value > 0 } }
+				limit = { is_appointed_trigger = yes check_variable = { which = money_to_receive value > 0 } has_character_flag = got_paid }
+				clr_character_flag = got_paid
+				clr_character_flag = got_shares
 				transfer_scaled_wealth = {
 					from = ROOT
 					value = money_to_receive_full }
@@ -256,7 +294,9 @@ character_event = {
 		name = "EVTOPTBBUDGET0"
 		any_vassal = {
 			if = {
-				limit = { is_appointed_trigger = yes check_variable = { which = money_to_receive value > 0 } }
+				limit = { is_appointed_trigger = yes check_variable = { which = money_to_receive value > 0 } has_character_flag = got_paid }
+				clr_character_flag = got_paid
+				clr_character_flag = got_shares
 				transfer_scaled_wealth = {
 					from = ROOT
 					value = money_to_receive_half }
@@ -272,7 +312,9 @@ character_event = {
 		name = "EVTOPTCBUDGET0"
 		any_vassal = {
 			if = {
-				limit = { is_appointed_trigger = yes check_variable = { which = money_to_receive value > 0 } }
+				limit = { is_appointed_trigger = yes check_variable = { which = money_to_receive value > 0 } has_character_flag = got_paid }
+				clr_character_flag = got_paid
+				clr_character_flag = got_shares
 				transfer_scaled_wealth = {
 					from = ROOT
 					value = money_to_receive_increase }
@@ -289,7 +331,9 @@ character_event = {
 		name = "EVTOPTDBUDGET0"
 		any_vassal = {
 			if = {
-				limit = { is_appointed_trigger = yes check_variable = { which = money_to_receive value > 0 } }
+				limit = { is_appointed_trigger = yes check_variable = { which = money_to_receive value > 0 } has_character_flag = got_paid }
+				clr_character_flag = got_paid
+				clr_character_flag = got_shares
 				transfer_scaled_wealth = {
 					from = ROOT
 					value = 0 }
@@ -311,6 +355,12 @@ letter_event = {
 
 	option = {
 		name = "EVTOPTCONFIRM"
+		hidden_tooltip = {
+			set_variable = { which = money_to_receive value = 0 }
+			set_variable = { which = money_to_receive_full value = 0 }
+			set_variable = { which = money_to_receive_half value = 0 }
+			set_variable = { which = money_to_receive_increase value = 0 }
+		}
 	}
 }
 
@@ -323,6 +373,12 @@ letter_event = {
 
 	option = {
 		name = "EVTOPTCONFIRM"
+		hidden_tooltip = {
+			set_variable = { which = money_to_receive value = 0 }
+			set_variable = { which = money_to_receive_full value = 0 }
+			set_variable = { which = money_to_receive_half value = 0 }
+			set_variable = { which = money_to_receive_increase value = 0 }
+		}
 		opinion = {
 			modifier = opinion_small_budget
 			who = FROM
@@ -340,6 +396,12 @@ letter_event = {
 
 	option = {
 		name = "EVTOPTCONFIRM"
+		hidden_tooltip = {
+			set_variable = { which = money_to_receive value = 0 }
+			set_variable = { which = money_to_receive_full value = 0 }
+			set_variable = { which = money_to_receive_half value = 0 }
+			set_variable = { which = money_to_receive_increase value = 0 }
+		}
 		opinion = {
 			modifier = opinion_large_budget
 			who = FROM
@@ -357,6 +419,12 @@ letter_event = {
 
 	option = {
 		name = "EVTOPTCONFIRM"
+		hidden_tooltip = {
+			set_variable = { which = money_to_receive value = 0 }
+			set_variable = { which = money_to_receive_full value = 0 }
+			set_variable = { which = money_to_receive_half value = 0 }
+			set_variable = { which = money_to_receive_increase value = 0 }
+		}
 		opinion = {
 			modifier = opinion_no_budget
 			who = FROM
