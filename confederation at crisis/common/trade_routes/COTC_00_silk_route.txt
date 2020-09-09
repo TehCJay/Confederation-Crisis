@@ -1,81 +1,23 @@
-helium_road = {
-	wealth = 1			# Total base wealth of silk route
+sol_export_trade_route = {
+	# trade route for goods exports, from Sol to major markets.
+	wealth = 0			# Total base wealth of the route. The route works by multiplying this by the modifiers below, then dividing the results equally for each province, thus wealth*modifier represent the total bonus to the entire route.
 	trade_post_display_trigger = {
-		OR = {
-			##Sol to Frontier
-			province_id = 202 #Sol
-			#province_id = 200 #Sirius
-			#province_id = 199 #Procyon
-			province_id = 87 #Armstrong
-			#province_id = 89 #Heartland
-			#province_id = 90 #Glenn
-			#province_id = 93 # Weyland
-			province_id = 139 #Overlook
-			##Sol to Skagen (Xingjie)			
-			#province_id = 198 #Sigma Draconis
-			#province_id = 196 #Delta Pavonis
-			province_id = 194 #Cygni
-			#province_id = 193 #Altair
-			province_id = 272 #Qinqlong
-			#province_id = 271 #Nie Haishen
-			province_id = 267 #Skagen
-			province_id = 264			
-			##Altair to  Hermanes de Oro (Tierra Celeste)			
-			province_id = 81 #Nuevo Sol
-			#province_id = 82 #Prosperidad
-			province_id = 70 #Encrucijada
-			#province_id = 71 #Hermanes de Oro			
-			##Sol to Makkat Al-Jadiida (al-Samawat)
-			#province_id = 204 #Eta Cassiopeia
-			province_id = 205 #Tau Ceti
-			province_id = 307 #Makkat Al-Jadiida
-			province_id = 305 #Israafiil
-			#province_id = 306 #Janna			
-			##Neuvo Sol to Orion Reach
-			province_id = 67 #Estrella de Bolivar
-			#province_id = 65 #Ahora la Luz
-			province_id = 394 #Onega			
-			##Sirius to Nenye Nyota Angani
-			province_id = 203 #Epsilon Eridani
-			#province_id = 290 #Upeo Wa Macho
-			#province_id = 288 #Varmland
-			province_id = 292 #Sodermanland
-			#province_id = 286 #Anansi
-			province_id = 285 #Afolayan
-			#Avalon
-			province_id = 25 #Avalon
-			province_id = 24 #Etherland
-			province_id = 44 #Victoria
-			#Bianjiang
-			province_id = 51 #Chengdu
-			province_id = 278
-			province_id = 49			
-			#Centauri Reach
-			province_id = 210
-			province_id = 211
-			#Jion
-			province_id = 129
-			province_id = 126
-			province_id = 114			
-			#Xin Zizhiqu
-			province_id = 244
-			#Strugatsky
-			province_id = 177
-			province_id = 185			
-			#Mukta Duniyeh
-			province_id = 343
-			
-		}
+		always = no
 	}
 
+	# This trade route is for exporting sol-made finished goods to the colonies
+	# It is the oldest trade-route and specialized in helping with the colonization
+	# Trade goods include construction materials, ships, cultural products, food
+	# It doesn't increase the income directly of the people downstream, since its
+	# purpose, is provide infrastructure and basic living conditions.
 	modifier = {			# How the trade route modifies the provinces it passes
-		castle_tax_modifier = 0.01
-		city_tax_modifier = 0.01
-		temple_tax_modifier = 0.01
-		tribal_tax_modifier = 0.01
-		trade_route_value = 2
-		local_movement_speed = 0.20
-		tech_growth_modifier = 0.20
+		local_build_cost_modifier = -0.01
+		local_build_time_modifier = -0.01
+		trade_route_value = 1 # This modifier is amount in gold trade posts on this route receive for trading with this route.
+		tech_growth_modifier = 0.01
+		levy_reinforce_rate = 0.01
+		supply_limit = 0.1
+		max_attrition = -0.01
 		icon = 4
 	}
 
@@ -83,156 +25,170 @@ helium_road = {
 		202 # Sol
 	}
 
-	# The Frontier Helium Route
-	path = {	# Sol-Sirius-Armstrong-Heartland-Overlook
-		202 200 199 87 
+	# Main Export Path from Terra to Samawati's and Angani
+	path = {
+		202 # Sol
+		204 # Eta Cassiopeia
 	}
-		path = {	# Sol-Sirius-Armstrong-Heartland-Overlook
-		87 89 90 93 139
+
+		path = {
+			204 # Eta Cassiopeia
+			205 # Tau Ceti
+			307 # Makkat al-Jadiida
+		}
+
+		path = {
+			204 # Eta Cassiopeia
+			203 # Epsilon Eridani
+			290 # Upeo wa Macho
+			289 # Mpya ya Zanzibar
+		}
+
+			#To Afolayan home base (and Tarka)
+			path = {
+				289 # Mpya ya Zanzibar
+				294 # Bandari
+				293 # Tengemano
+				291 # Kimbilio
+
+			}
+
+				path = {
+					291 # Kimbilio
+					286 # Anansi
+					285 # Afolayan
+				}
+
+				path = {
+					291 # Kimbilio
+					309 # al-Bawwaaba
+					310 # al-Jazira
+					311 # Kathiib
+					313 # Shams Akhdar
+					13  # Omid
+					14  # Qoqnoos
+					12  # Al-Dabaran
+					10  # Tarka
+				}
+
+	# From Terra to Frontier
+	path = {
+		202 # Sol
+		200 # Sirius
+		199 # Procyon
+		87  # Armstrong
 	}
-		path = {	# Sol-Sirius-Armstrong-Heartland-Overlook
-		202
+
+		# To Avalon and New Frontier
+		path = {
+			87  # Armstrong
+			89  # Heartland
+		}
+
+			# Avalon
+			path = {
+				89  # Heartland
+				92  # Touchstone
+				28  # Paladin
+				25  # Avalon
+			}
+
+			# New Frontier
+			path = {
+				89  # Heartland
+				90  # Glenn
+				93  # Weyland
+				139 # Overlook
+				138 # Farland
+				146 # Winterstar
+				145 # Stacker
+				140 # Franklin
+			}
+
+			# Jion and Strugatsky
+			path = {
+				89  # Heartland
+				101 # Shepard
+				100 # Sharman
+				110 # Takagi
+				112 # Hiyokuoka
+				126 # Jion
+			}
+
+			path = {
+				126 # Jion
+				123 # Kojo
+				113 # Sumitomo
+				114 # Saber
+				181 # Katerin vselennaya
+				183 # Kovcheg
+				185 # Novyy Sol
+			}
+
+	# From Terra to Orion League
+	path = {
+		202 # Sol
+		198 # Sigma Draconis
+		195 # Beta Hydri
+		79  # Tletlioh
+		77  # Nahui-Ahtle
+		83  # Vega
 	}
-	# Glenn to Avalon Helium Route	
-		path = {	
-		90 92 28 25
+
+		# To Tierra Celeste
+		path = {
+			83  # Vega
+			82  # Prosperidad
+			70  # Encrucijada
 		}
-	# Centauri Reach to Jion Helium Route	
-		path = {	
-		199 213 211 209 210 129 127 125 126
+
+			# To Paraíso
+			path = {
+				70  # Encrucijada
+				71  # Hermanes de Oro
+				69  # Escudo
+				75  # Puerto del Cielo
+				74  # Illuminacion
+				358 # Cyrus
+				360 # Salah al-Din
+				361 # Ta'ammul
+				363 # Paraíso
+			}
+
+		# To Orion Proper
+		path = {
+			83  # Vega
+			81  # Nuevo Sol
+			67  # Estrella de Bolivar
+			65  # Ahora la Luz
+			394 # Nueva Galicia
+			396 # Suerte
+			406 # Reposo del Alcazar
+			407 # Betelgeuse
+			404 # Meissa
+			405 # Cisne
 		}
-	# Jion to Strugatsky Helium Route	
-		path = {	
-		126 123 113 114 180 177 181 183 185
-		}		
-	# Xingjie Helium Route	
-		path = {	 
-			202 198 196 194 193 272 271 267		
+
+		# To Xingjie
+		path = {
+			83  # Vega
+			193 # Altair
+			272 # Qinglong
+			271 # Nie Haisheng
+			267 # Huangjing
 		}
-	# Xingjie to Bianjiang Helium Route	
-		path = {	 
-		267	269 278 48 49
-		}		
-	# Xingjie to Xin Zizhiqu Helium Route	
-		path = {	 
-			267	268 264 265 244
-		}		
-	# Tierra Celeste Helium Route	
-		path = {	 
-			193 81 82 70 71
-		}
-	# Tierra Celeste to Bianjiang Helium Route	
-		path = {	 
-			65 50 51
-		}		
-	#al-Samawat t Mukta Buniyeh Helium Route	
-		path = {	 
-		202 204 205 307 306 305 301 299 342 343
-		}
-	#Orion Reach Helium Route	
-		path = {	 
-		81 67 65 394
-		}
-	# Nenye Nyota Angani Helium Route	
-		path = {	
-		200 203 290 288 292 286 285
-		}
-	# Nenye Nyota Angani to Etherland Avalon Helium Route	
-		path = {	
-		286 282 280 24
-		}
-	# Nenye Nyota Angani to Victoria Avalon Helium Route	
-		path = {	
-		280 44
-		}		
+
+			# To Xin Zizhiqu
+			path = {
+				267 # Huangjing
+				268 # Huanglong
+				264 # Baihu
+				265 # Liu Wang
+				244 # Yingshi
+				245 # Ghuanghai
+				254 # Niu Cunlan
+				255 # Deng Biao
+				259 # Yang Wenli
+				263 # Xin Qin
+			}
 }
-
-spice_road = {
-	wealth = 10			# Total base wealth of silk route
-	trade_post_display_trigger = {
-		OR = {
-		#Orion Nebula Spice Road		
-		province_id = 431 # Principito
-		province_id = 428 # La Forja
-		province_id = 424 # OR-793
-		province_id = 435 # FN-071
-		province_id = 439 # FN-122
-		province_id = 243 #Wanguan	
-		province_id = 411 		
-			
-		}
-	}
-
-	modifier = {			# How the trade route modifies the provinces it passes
-		castle_tax_modifier = 0.10
-		city_tax_modifier = 0.10
-		temple_tax_modifier = 0.10
-		tribal_tax_modifier = 0.10
-		trade_route_value = 15
-		local_movement_speed = 0.20
-		tech_growth_modifier = 0.20
-		icon = 4
-	}
-
-	start = {				# Start provinces of trade route
-		431 # Principito
-	}
-
-	# Orion Nebula Spice Road
-	path = {
-		431 432 430 428 426 424 436 435 439 437 243
-	}
-	# Orion Spice Road
-	path = {
-		435 412	411 409 405 404
-	}	
-}
-cyber_road = {
-	wealth = 20			# Total base wealth of silk route
-	trade_post_display_trigger = {
-		OR = {
-		#Tarka Cyber Road		
-		province_id = 10
-		province_id = 9
-		province_id = 3
-		province_id = 23
-		province_id = 36
-		#Tarka to Avalon
-		province_id = 13
-		province_id = 314
-		#Tarka to Mukta Duniyeh
-		province_id = 341	
-		}
-	}
-
-	modifier = {			# How the trade route modifies the provinces it passes
-		castle_tax_modifier = 0.10
-		city_tax_modifier = 0.10
-		temple_tax_modifier = 0.10
-		tribal_tax_modifier = 0.10
-		trade_route_value = 15
-		local_movement_speed = 0.20
-		tech_growth_modifier = 0.20
-		icon = 4
-	}
-
-	start = {				# Start provinces of trade route
-		10 # Tarka
-	}
-
-	# Tarka to Avalon Cyber Road
-	path = {
-		10 8 9 5 3 1 23 38 36
-	}
-	# Tarka to Al-Samawat Cyber Road
-	path = {
-		10 12 14 13 313 314 312
-	}
-	# Tarka to Mukta Cyber Road
-	path = {
-		14 15 17 341
-	}		
-}
-			##Xin Zizhiqu-Novyy Edem-Strugatsky-Jion
-			##Tarka to Avalon and Mukta Duniyeh
-			##New Frontier to Avalon and Jion

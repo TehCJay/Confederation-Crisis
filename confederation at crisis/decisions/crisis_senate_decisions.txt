@@ -1,0 +1,454 @@
+
+decisions = {
+    call_senate_elections = {
+        is_high_prio = yes
+        ai_check_interval = 12
+
+        potential = {
+            OR = {
+                can_grant_title = title_senatorduke
+                can_grant_title = title_senatorking
+                can_grant_title = title_senatoremperor
+                can_grant_title = title_senatorbigrealm1
+                can_grant_title = title_senatorbigrealm2
+                can_grant_title = title_senatorbigrealm3
+                can_grant_title = title_senatorbigrealm4
+                can_grant_title = title_senatorbigrealm5
+            }
+            NOT = { has_law = legislative_type_autocratic }
+        }
+
+        effect = {
+            character_event = { id = parliaments.001 }
+        }
+
+        ai_will_do = {
+            factor = 1
+        }
+    }
+
+
+    request_senator_candidates_from_provinces = {
+        is_high_prio = yes
+        ai_check_interval = 12
+
+        potential = {
+            #trigger_if ={
+                #limit = {
+                    OR = {
+                        can_grant_title = title_senatorduke
+                        can_grant_title = title_senatorking
+                        can_grant_title = title_senatoremperor
+                        can_grant_title = title_senatorbigrealm1
+                        can_grant_title = title_senatorbigrealm2
+                        can_grant_title = title_senatorbigrealm3
+                        can_grant_title = title_senatorbigrealm4
+                        can_grant_title = title_senatorbigrealm5
+                    }
+                #}
+                NOT = { any_courtier_or_vassal = { can_hold_title = title_senatorduke } }
+                NOT = { any_courtier_or_vassal = { can_hold_title = title_senatorking } }
+                NOT = { any_courtier_or_vassal = { can_hold_title = title_senatoremperor } }
+                NOT = { any_courtier_or_vassal = { can_hold_title = title_senatorbigrealm1 } }
+                NOT = { any_courtier_or_vassal = { can_hold_title = title_senatorbigrealm2 } }
+                NOT = { any_courtier_or_vassal = { can_hold_title = title_senatorbigrealm3 } }
+                NOT = { any_courtier_or_vassal = { can_hold_title = title_senatorbigrealm4 } }
+                NOT = { any_courtier_or_vassal = { can_hold_title = title_senatorbigrealm5 } }
+            #}
+            #else = { always = no }
+
+            has_law = legislative_type_autocratic
+        }
+
+        effect = {
+            character_event = { id = parliaments.002 }
+        }
+
+        ai_will_do = {
+            factor = 1
+        }
+    }
+
+    fill_seats_with_available_people = {
+        is_high_prio = yes
+        ai_check_interval = 12
+
+        potential = {
+            #trigger_if ={
+                #limit = {
+                    OR = {
+                        can_grant_title = title_senatorduke
+                        can_grant_title = title_senatorking
+                        can_grant_title = title_senatoremperor
+                        can_grant_title = title_senatorbigrealm1
+                        can_grant_title = title_senatorbigrealm2
+                        can_grant_title = title_senatorbigrealm3
+                        can_grant_title = title_senatorbigrealm4
+                        can_grant_title = title_senatorbigrealm5
+                    }
+                #}
+                any_courtier_or_vassal = {
+                    OR = {
+                        can_hold_title = title_senatorduke
+                        can_hold_title = title_senatorking
+                        can_hold_title = title_senatoremperor
+                        can_hold_title = title_senatorbigrealm1
+                        can_hold_title = title_senatorbigrealm2
+                        can_hold_title = title_senatorbigrealm3
+                        can_hold_title = title_senatorbigrealm4
+                        can_hold_title = title_senatorbigrealm5
+                    }
+                }
+            #}
+            #else = { always = no }
+
+            has_law = legislative_type_autocratic
+        }
+
+        allow = {
+
+        }
+
+        effect = {
+            fill_seats_with_courtiers = yes
+            fill_seats_with_realm_characters = yes
+        }
+    }
+
+    #legislative_type
+    #legislative_efficiency
+
+    dissolve_legislature_decision = {
+        is_high_prio = yes
+        ai_check_interval = 10
+        potential = {
+            #OR = {
+            #    ai = yes
+            #    has_character_flag = flag_decree_menu_open
+            #}
+            any_demesne_title = {
+                # Must have a legislature to dissolve
+                OR = {
+                    has_law = law_voting_power_1
+                    has_law = legislative_efficiency_1
+                    has_law = legislative_efficiency_2
+                    has_law = legislative_efficiency_3
+                    has_law = legislative_efficiency_4
+                }
+            }
+        }
+        allow = {
+            NOT = { has_character_modifier = constitutional_crisis } # No constitutional crisis
+
+            # Sees this as immoral
+            OR = {
+                ideology_is_despotic = yes
+                AND = {
+                    hidden_tooltip = {
+                        OR = {
+                            ai_ambition > 50
+                            ai_greed > 50
+                            ai = no
+                        }
+                    }
+                    OR = {
+                        trait = amoral
+                        AND = {
+                            trait = pragmatic
+                            ideology_is_pro_representation = no
+                        }
+                    }
+                }
+            }
+
+            # Too weak-willed to actually do it
+            hidden_tooltip = { NOT = { trait = craven } ai = yes }
+            hidden_tooltip = { NOT = { trait = neurotic } ai = yes }
+
+            # Doesn't have the authority to do it
+            has_regent = no
+
+            # Prestige cost
+            prestige = 500
+        }
+        effect = {
+            # Subtract prestige cost
+            prestige = -500
+
+            # Begin a constitutional crisis
+            add_character_modifier = { name = constitutional_crisis days = -1 }
+            add_character_modifier = { name = crisis_dissolved_legislature days = -1 }
+            add_character_modifier = { name = law_against_ruler days = -1 }
+            clr_character_flag = flag_crisis_timer
+            set_character_flag = flag_crisis_timer
+            if = {
+                limit = { tier = emperor }
+                set_character_flag = flag_crisis_emperor
+            }
+            if = {
+                limit = { tier = king }
+                set_character_flag = flag_crisis_king
+            }
+            # Vassals react
+            any_vassal = {
+                limit = {
+                    ideology_is_despotic = yes
+                }
+                opinion = { who = ROOT modifier = opinion_approves_of_reform }
+            }
+            any_vassal = {
+                limit = {
+                    ideology_is_pro_representation = yes
+                }
+                opinion = { who = ROOT modifier = opinion_tyrant }
+            }
+            any_vassal = {
+                limit = {
+                    ideology_is_pro_representation = yes
+                    trait = radical
+                }
+                opinion = { who = ROOT modifier = opinion_tyrant }
+            }
+            any_vassal = {
+                limit = { trait = ambitious }
+                opinion = { who = ROOT modifier = opinion_tyrant }
+            }
+            any_vassal = {
+                limit = { trait = proud }
+                opinion = { who = ROOT modifier = opinion_tyrant }
+            }
+            hidden_tooltip = { any_realm_character = { character_event = { id = laws.20000 } } } # Inform vassals
+            add_law = disobedience_1
+        }
+        ai_will_do = {
+            factor = 1
+            # No reason to dissolve the legislature
+            modifier = {
+                factor = 0
+                NOT = {
+                    any_vassal = {
+                        OR = {
+                            kingdom = {
+                                NOR = {
+                                    has_law = legislative_efficiency_0
+                                    has_law = law_voting_power_0
+                                }
+                                holder_scope = { character = ROOT }
+                            }
+                            empire = {
+                                NOR = {
+                                    has_law = legislative_efficiency_0
+                                    has_law = law_voting_power_0
+                                }
+                                holder_scope = { character = ROOT }
+                            }
+                        }
+                        reverse_has_opinion_modifier = { who = ROOT modifier = opinion_passed_bad_bill }
+                    }
+                }
+                NOT = {
+                    AND = {
+                        OR = {
+                            religion = terran_imperial
+                            religion = imperial_cult
+                            religion = astrist
+                            religion = neo_feudal
+                        }
+                        OR = {
+                            trait = radical
+                            is_military_trigger = no
+                        }
+                    }
+                }
+                NOT = { trait = ambitious }
+            }
+
+            # This is a very non-content thing to do!
+            modifier = {
+                factor = 0
+                trait = content
+            }
+
+            # Likes a senator who opposes this
+            modifier = {
+                factor = 0
+                trait = friendly
+                any_vassal = {
+                    OR = {
+                        kingdom = {
+                            NOR = {
+                                has_law = legislative_efficiency_0
+                                has_law = law_voting_power_0
+                            }
+                            holder_scope = { character = ROOT }
+                        }
+                        empire = {
+                            NOR = {
+                                has_law = legislative_efficiency_0
+                                has_law = law_voting_power_0
+                            }
+                            holder_scope = { character = ROOT }
+                        }
+                    }
+                    reverse_opinion = { who = ROOT value = 25 }
+                    relative_power_to_liege = 0.1
+                    NOT = { religion = terran_imperial }
+                    NOT = { religion = imperial_cult }
+                    NOT = { religion = astrist }
+                    NOT = { religion = neo_feudal }
+                    OR = {
+                        religion = terran_federalist
+                        religion = terran_republican
+                        religion = colonial_separatist
+                        religion = neo_socialist
+                        trait = ambitious
+                        trait = proud
+                    }
+                }
+            }
+            modifier = {
+                factor = 0
+                NOT = { trait = cold }
+                any_vassal = {
+                    OR = {
+                        kingdom = {
+                            NOR = {
+                                has_law = legislative_efficiency_0
+                                has_law = law_voting_power_0
+                            }
+                            holder_scope = { character = ROOT }
+                        }
+                        empire = {
+                            NOR = {
+                                has_law = legislative_efficiency_0
+                                has_law = law_voting_power_0
+                            }
+                            holder_scope = { character = ROOT }
+                        }
+                    }
+                    reverse_opinion = { who = ROOT value = 75 }
+                    relative_power_to_liege = 0.1
+                    NOT = { religion = terran_imperial }
+                    NOT = { religion = imperial_cult }
+                    NOT = { religion = astrist }
+                    NOT = { religion = neo_feudal }
+                    OR = {
+                        religion = terran_federalist
+                        religion = terran_republican
+                        religion = colonial_separatist
+                        religion = neo_socialist
+                        trait = ambitious
+                        trait = proud
+                    }
+                }
+            }
+
+            # Won't risk the crisis
+            modifier = {
+                factor = 0
+                OR = {
+                    NOT = { trait = lunatic }
+                    trait = craven
+                }
+                NOT = { trait = imbecile }
+                any_vassal = {
+                    NOT = { religion = terran_imperial }
+                    NOT = { religion = imperial_cult }
+                    NOT = { religion = astrist }
+                    NOT = { religion = neo_feudal }
+                    NOT = { trait = craven }
+                    NOT = { trait = content }
+                    not = { opinion = { who = ROOT value = 25 } }
+                    OR = {
+                        religion = terran_federalist
+                        religion = terran_republican
+                        religion = colonial_separatist
+                        religion = neo_socialist
+                        trait = ambitious
+                        trait = proud
+                    }
+                    relative_power_to_liege = 3
+                }
+            }
+            modifier = {
+                factor = 0
+                OR = {
+                    NOT = { trait = lunatic }
+                    trait = craven
+                }
+                NOT = { trait = imbecile }
+                NOT = { trait = slow }
+                NOT = { trait = brave }
+                NOT = {
+                    AND = {
+                        trait = radical
+                        OR = {
+                            religion = terran_imperial
+                            religion = imperial_cult
+                            religion = astrist
+                            religion = neo_feudal
+                        }
+                    }
+                }
+                any_vassal = {
+                    NOT = { religion = terran_imperial }
+                    NOT = { religion = astrist }
+                    NOT = { religion = neo_feudal }
+                    NOT = { trait = craven }
+                    NOT = { trait = content }
+                    not = { opinion = { who = ROOT value = 25 } }
+                    OR = {
+                        religion = terran_federalist
+                        religion = terran_republican
+                        religion = colonial_separatist
+                        religion = neo_socialist
+                        trait = ambitious
+                        trait = proud
+                    }
+                    relative_power_to_liege = 2
+                }
+            }
+            modifier = {
+                factor = 0
+                NOT = { trait = imbecile }
+                NOT = { trait = slow }
+                NOT = {
+                    AND = {
+                        trait = radical
+                        OR = {
+                            religion = terran_imperial
+                            religion = imperial_cult
+                            religion = astrist
+                            religion = neo_feudal
+                        }
+                    }
+                }
+                trait = craven
+                any_vassal = {
+                    NOT = { religion = terran_imperial }
+                    NOT = { religion = astrist }
+                    NOT = { religion = neo_feudal }
+                    NOT = { trait = craven }
+                    NOT = { trait = content }
+                    not = { opinion = { who = ROOT value = 25 } }
+                    OR = {
+                        religion = terran_federalist
+                        religion = terran_republican
+                        religion = colonial_separatist
+                        religion = neo_socialist
+                        trait = ambitious
+                        trait = proud
+                    }
+                    relative_power_to_liege = 1
+                }
+            }
+
+            # Once you've founded a legislature, let it stick around for at least five years
+            modifier = {
+                factor = 0
+                has_character_flag = flag_founded_legislature
+                NOT = { had_character_flag = { flag = flag_founded_legislature days = 1825 } }
+            }
+        }
+    }
+}

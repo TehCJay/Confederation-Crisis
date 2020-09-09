@@ -5,7 +5,7 @@ letter_event = {
 	id = diplomacy.10
 	desc = "EVTDESCDIPLOMACY10"
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		custom_tooltip = { text = "EVTTOOLTIPDIPLOMAY11" }
@@ -17,7 +17,7 @@ character_event = {
 	id = diplomacy.100
 	hide_window = yes
 	is_triggered_only = yes
-	
+
 	immediate = {
 		random_independent_ruler = {
 			limit = { reverse_has_opinion_modifier = { who = ROOT modifier = opinion_swear_fealty_target } }
@@ -28,11 +28,11 @@ character_event = {
 letter_event = {
 	id = diplomacy.101
 	desc = "EVTDESCDIPLOMACY101"
-	border = GFX_evt_letter_frame_diplomacy
+	border = GFX_event_letter_frame_diplomacy
 	is_triggered_only = yes
-	
+
 	immediate = { reverse_remove_opinion = { who = FROM modifier = opinion_swear_fealty_target } }
-	
+
 	option = {
 		name = "EVTOPTACCEPT"
 		FROM = {
@@ -179,7 +179,7 @@ letter_event = {
 				factor = 0.8
 				NOT = { opinion = { who = FROM value = -99 } }
 			}
-			
+
 			# Personality
 			modifier = {
 				factor = 5
@@ -189,7 +189,7 @@ letter_event = {
 				factor = 0.2
 				trait = content
 			}
-			
+
 			# Opinion of enemies
 			modifier = {
 				factor = 1.25
@@ -271,7 +271,7 @@ letter_event = {
 				factor = 0.8
 				FROM = { any_current_enemy = { reverse_opinion = { who = ROOT value = 100 } } }
 			}
-			
+
 			# Miscellaneous
 			modifier = {
 				factor = 0.1
@@ -301,9 +301,9 @@ letter_event = {
 letter_event = {
 	id = diplomacy.102
 	desc = "EVTDESCDIPLOMACY102"
-	border = GFX_evt_letter_frame_diplomacy
+	border = GFX_event_letter_frame_diplomacy
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		set_defacto_liege = FROM
@@ -313,17 +313,17 @@ letter_event = {
 letter_event = {
 	id = diplomacy.103
 	desc = "EVTDESCDIPLOMACY103"
-	border = GFX_evt_letter_frame_war
+	border = GFX_event_letter_frame_war
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 letter_event = {
 	id = diplomacy.104
 	desc = "EVTDESCDIPLOMACY104"
-	border = GFX_evt_letter_frame_diplomacy
+	border = GFX_event_letter_frame_diplomacy
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		clr_character_flag = flag_diplomatic_interaction
@@ -335,9 +335,9 @@ character_event = {
 	id = diplomacy.200
 	desc = "EVTDESCDIPLOMACY200"
 	picture = GFX_evt_speech
-	border = GFX_evt_normal_frame_diplomacy
+	border = GFX_event_normal_frame_diplomacy
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		prestige = -500
@@ -419,7 +419,7 @@ narrative_event = {
 	picture = GFX_evt_speech
 	major = yes
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		FROM = {
@@ -437,7 +437,7 @@ character_event = {
 	desc = "EVTDESCDIPLOMACY1000"
 	picture = GFX_evt_council
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		capital_scope = {
@@ -454,7 +454,7 @@ character_event = {
 		}
 		prestige = -500 # Prestige cost
 	}
-	
+
 	option = {
 		name = "EVTOPTNEVERMIND"
 		clr_character_flag = flag_confederation_congress_host
@@ -466,7 +466,7 @@ letter_event = {
 	id = diplomacy.1001
 	desc = "EVTDESCDIPLOMACY1001"
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTACCEPT"
 		hidden_tooltip = {
@@ -484,7 +484,7 @@ letter_event = {
 				factor = 4
 				FROM = { higher_tier_than = duke }
 			}
-			
+
 			# Importance of ROOT
 			modifier = {
 				factor = 0.5
@@ -494,7 +494,7 @@ letter_event = {
 				factor = 0.5
 				higher_tier_than = duke
 			}
-			
+
 			# Ideological Considerations
 			modifier = {
 				factor = 0
@@ -624,7 +624,7 @@ letter_event = {
 				}
 				religion_authority = 0.75
 			}
-			
+
 			# Opinion of FROM
 			modifier = {
 				factor = 1.25
@@ -706,7 +706,7 @@ letter_event = {
 				factor = 0.8
 				NOT = { opinion = { who = FROM value = -99 } }
 			}
-			
+
 			# Pragmatic Considerations
 			modifier = {
 				factor = 5
@@ -755,9 +755,9 @@ character_event = {
 	desc = "EVTDESCDIPLOMACY1100"
 	picture = GFX_evt_council
 	is_triggered_only = yes
-	
+
 	trigger = { any_independent_ruler = { has_opinion_modifier = { who = ROOT modifier = opinion_attending_congress } } }
-	
+
 	option = {
 		name = "EVTOPTADIPLOMACY1100"
 		any_independent_ruler = {
@@ -774,7 +774,7 @@ character_event = {
 	desc = "EVTDESCDIPLOMACY1101"
 	picture = GFX_evt_council
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTADIPLOMACY1101"
 	}
@@ -786,9 +786,9 @@ character_event = {
 	desc = "EVTDESCDIPLOMACY1150"
 	picture = GFX_evt_council
 	is_triggered_only = yes
-	
+
 	trigger = {  NOT = { any_independent_ruler = { has_opinion_modifier = { who = ROOT modifier = opinion_attending_congress } } } }
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		clr_character_flag = flag_confederation_congress_host
@@ -803,9 +803,9 @@ character_event = {
 	desc = "EVTDESCDIPLOMACY1200"
 	picture = GFX_evt_council
 	is_triggered_only = yes
-	
+
 	trigger = { any_independent_ruler = { has_opinion_modifier = { who = ROOT modifier = opinion_attending_congress } } }
-	
+
 	# Choose a succession law
 	option = {
 		name = "EVTOPTADIPLOMACY1200" # Federal elective
@@ -927,7 +927,7 @@ character_event = {
 				}
 				religion_authority = 0.75
 			}
-			
+
 			# Personality
 			modifier = {
 				factor = 4
@@ -967,7 +967,7 @@ character_event = {
 	desc = "EVTDESCDIPLOMACY1201"
 	picture = GFX_evt_council
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 character_event = {
@@ -975,7 +975,7 @@ character_event = {
 	desc = "EVTDESCDIPLOMACY1205"
 	picture = GFX_evt_council
 	is_triggered_only = yes
-	
+
 	# Go along with it
 	option = {
 		name = "EVTOPTADIPLOMACY1205"
@@ -1219,7 +1219,7 @@ character_event = {
 	desc = "EVTDESCDIPLOMACY1210"
 	picture = GFX_evt_council
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTACCEPT"
 		clr_character_flag = flag_confederation_own_succession
@@ -1376,7 +1376,7 @@ character_event = {
 	desc = "EVTDESCDIPLOMACY1211"
 	picture = GFX_evt_council
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 # The host has refused your demand for federal elective
@@ -1385,7 +1385,7 @@ character_event = {
 	desc = "EVTDESCDIPLOMACY1212"
 	picture = GFX_evt_council
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 # Another power has left the congress due to the succession law
@@ -1394,7 +1394,7 @@ character_event = {
 	desc = "EVTDESCDIPLOMACY1213"
 	picture = GFX_evt_council
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 # Your congress has failed
@@ -1403,9 +1403,9 @@ character_event = {
 	desc = "EVTDESCDIPLOMACY1250"
 	picture = GFX_evt_scandal
 	is_triggered_only = yes
-	
+
 	trigger = { NOT = { any_independent_ruler = { has_opinion_modifier = { who = ROOT modifier = opinion_attending_congress } } } }
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		clr_character_flag = flag_confederation_congress_host
@@ -1423,9 +1423,9 @@ character_event = {
 	desc = "EVTDESCDIPLOMACY1300"
 	picture = GFX_evt_council
 	is_triggered_only = yes
-	
+
 	trigger = { any_independent_ruler = { has_opinion_modifier = { who = ROOT modifier = opinion_attending_congress } } }
-	
+
 	option = {
 		name = "EVTOPTADIPLOMACY1300" # Establish a senate
 		clr_character_flag = flag_confederation_no_senate
@@ -1575,7 +1575,7 @@ character_event = {
 	desc = "EVTDESCDIPLOMACY1301"
 	picture = GFX_evt_council
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 character_event = {
@@ -1583,7 +1583,7 @@ character_event = {
 	desc = "EVTDESCDIPLOMACY1305"
 	picture = GFX_evt_council
 	is_triggered_only = yes
-	
+
 	# Go along with it
 	option = {
 		name = "EVTOPTADIPLOMACY1305"
@@ -1809,7 +1809,7 @@ character_event = {
 	desc = "EVTDESCDIPLOMACY1310"
 	picture = GFX_evt_council
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTACCEPT"
 		clr_character_flag = flag_confederation_no_senate
@@ -1966,7 +1966,7 @@ character_event = {
 	desc = "EVTDESCDIPLOMACY1311"
 	picture = GFX_evt_council
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 # The host has refused your demand for a senate
@@ -1975,7 +1975,7 @@ character_event = {
 	desc = "EVTDESCDIPLOMACY13212"
 	picture = GFX_evt_council
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 # Another power has left the congress due to the lack of a senate
@@ -1984,7 +1984,7 @@ character_event = {
 	desc = "EVTDESCDIPLOMACY1313"
 	picture = GFX_evt_council
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 # All obstacles have been cleared. Your congress is a success.
@@ -1993,9 +1993,9 @@ character_event = {
 	desc = "EVTDESCDIPLOMACY1400"
 	picture = GFX_evt_council
 	is_triggered_only = yes
-	
+
 	trigger = { any_independent_ruler = { has_opinion_modifier = { who = ROOT modifier = opinion_attending_congress } } }
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		primary_title = {
@@ -2010,11 +2010,11 @@ character_event = {
 						}
 						if = {
 							limit = { ROOT = { has_character_flag = flag_confederation_senate } }
-							add_law = legislative_authority_1
+							add_law = legislative_type_aristocratic
 						}
 						if = {
 							limit = { ROOT = { has_character_flag = flag_confederation_no_senate } }
-							add_law = legislative_authority_0
+							add_law = legislative_type_autocratic
 						}
 						add_law = centralization_0
 						add_law = public_order_1
@@ -2046,9 +2046,9 @@ narrative_event = {
 	desc = "EVTDIPLOMACY1401"
 	major = yes
 	is_triggered_only = yes
-	
+
 	picture = GFX_evt_speech
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -2057,9 +2057,9 @@ character_event = {
 	id = diplomacy.2000
 	desc = "EVTDESCDIPLOMACY2000"
 	picture = GFX_evt_council
-	border = GFX_evt_normal_frame_diplomacy
+	border = GFX_event_normal_frame_diplomacy
 	is_triggered_only = yes
-	
+
 	option = {
 		trigger = { has_opinion_modifier = { who = event_target:target_diplomacy modifier = opinion_owes_me_a_favor } }
 		name = "EVTOPTADIPLOMACY2000"
@@ -2080,9 +2080,9 @@ character_event = {
 letter_event = {
 	id = diplomacy.2010
 	desc = "EVTDESCDIPLOMACY2010"
-	border = GFX_evt_letter_frame_diplomacy
+	border = GFX_event_letter_frame_diplomacy
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTACCEPT"
 		tooltip = { transfer_scaled_wealth = { to = FROM value = 1 } }
@@ -2096,7 +2096,7 @@ letter_event = {
 		}
 		ai_chance = {
 			factor = 60
-			
+
 			# Personality
 			modifier = {
 				factor = 5
@@ -2114,7 +2114,7 @@ letter_event = {
 				factor = 0.5
 				trait = cold
 			}
-			
+
 			# Ideology
 			modifier = {
 				factor = 3
@@ -2132,7 +2132,7 @@ letter_event = {
 				}
 				trait = radical
 			}
-			
+
 			# Opinion of FROM
 			modifier = {
 				factor = 1.25
@@ -2228,13 +2228,13 @@ letter_event = {
 letter_event = {
 	id = diplomacy.2011
 	desc = "EVTDESCDIPLOMACY2011"
-	border = GFX_evt_letter_frame_diplomacy
+	border = GFX_event_letter_frame_diplomacy
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		FROM = {
-			transfer_scaled_wealth = { to = ROOT value = 1 } 
+			transfer_scaled_wealth = { to = ROOT value = 1 }
 			opinion = { who = ROOT modifier = opinion_recent_request }
 		}
 		clr_character_flag = flag_asking_for_favor
@@ -2243,9 +2243,9 @@ letter_event = {
 letter_event = {
 	id = diplomacy.2012
 	desc = "EVTDESCDIPLOMACY2012"
-	border = GFX_evt_letter_frame_diplomacy
+	border = GFX_event_letter_frame_diplomacy
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		FROM = { opinion = { who = ROOT modifier = opinion_recent_request } }
@@ -2256,9 +2256,9 @@ letter_event = {
 letter_event = {
 	id = diplomacy.2020
 	desc = "EVTDESCDIPLOMACY2020"
-	border = GFX_evt_letter_frame_diplomacy
+	border = GFX_event_letter_frame_diplomacy
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTACCEPT"
 		tooltip = { transfer_scaled_wealth = { to = FROM value = 1 } }
@@ -2289,7 +2289,7 @@ letter_event = {
 				factor = 0.5
 				trait = cold
 			}
-			
+
 			# Trustworthiness of FROM
 			modifier = {
 				factor = 5
@@ -2299,7 +2299,7 @@ letter_event = {
 				factor = 0.2
 				FROM = { has_character_modifier = untrustworthy }
 			}
-			
+
 			# Opinion of FROM
 			modifier = {
 				factor = 1.25
@@ -2392,13 +2392,13 @@ letter_event = {
 letter_event = {
 	id = diplomacy.2021
 	desc = "EVTDESCDIPLOMACY2021"
-	border = GFX_evt_letter_frame_diplomacy
+	border = GFX_event_letter_frame_diplomacy
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		FROM = {
-			transfer_scaled_wealth = { to = ROOT value = 1 } 
+			transfer_scaled_wealth = { to = ROOT value = 1 }
 			opinion = { who = ROOT modifier = opinion_recent_request }
 		}
 		clr_character_flag = flag_asking_for_favor
@@ -2407,9 +2407,9 @@ letter_event = {
 letter_event = {
 	id = diplomacy.2022
 	desc = "EVTDESCDIPLOMACY2022"
-	border = GFX_evt_letter_frame_diplomacy
+	border = GFX_event_letter_frame_diplomacy
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		FROM = { opinion = { who = ROOT modifier = opinion_recent_request } }

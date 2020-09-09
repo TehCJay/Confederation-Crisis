@@ -41,25 +41,6 @@ targetted_decisions = {
 					}
 				}
 			}
-			if = {
-				limit = { liege = { trait = pagan_branch_1 } }
-				add_trait = pagan_branch_1
-			}
-			if = {
-				limit = { liege = { trait = pagan_branch_2 } }
-				add_trait = pagan_branch_2
-			}
-			if = {
-				limit = { liege = { trait = pagan_branch_3 } }
-				add_trait = pagan_branch_3
-			}
-			if = {
-				limit = { liege = { trait = pagan_branch_4 } }
-				add_trait = pagan_branch_4
-			}
-		}
-		revoke_allowed = {
-			always = no
 		}
 		ai_will_do = {
 			factor = 0
@@ -107,26 +88,7 @@ targetted_decisions = {
 						}
 					}
 				}
-				if = {
-					limit = { ROOT = { trait = pagan_branch_1 } }
-					add_trait = pagan_branch_1
-				}
-				if = {
-					limit = { ROOT = { trait = pagan_branch_2 } }
-					add_trait = pagan_branch_2
-				}
-				if = {
-					limit = { ROOT = { trait = pagan_branch_3 } }
-					add_trait = pagan_branch_3
-				}
-				if = {
-					limit = { ROOT = { trait = pagan_branch_4 } }
-					add_trait = pagan_branch_4
-				}
 			}
-		}
-		revoke_allowed = {
-			always = no
 		}
 		ai_will_do = {
 			factor = 0
@@ -157,9 +119,6 @@ targetted_decisions = {
 				culture = ROOT
 			}
 		}
-		revoke_allowed = {
-			always = no
-		}
 		ai_will_do = {
 			factor = 0
 		}
@@ -187,9 +146,6 @@ targetted_decisions = {
 			liege = {
 				reverse_culture = ROOT
 			}
-		}
-		revoke_allowed = {
-			always = no
 		}
 		ai_will_do = {
 			factor = 0
@@ -236,9 +192,6 @@ targetted_decisions = {
 					culture = ROOT
 				}
 			}
-		}
-		revoke_allowed = {
-			always = no
 		}
 		ai_will_do = {
 			factor = 1
@@ -301,14 +254,14 @@ targetted_decisions = {
 			OR = {
 				AND = {
 					prestige = 500
-					capital_scope = {
-						true_religion_group = ROOT
+					ROOT = {
+						true_religion_group = capital_scope
 					}
 				}
 				AND = {
 					prestige = 1000
-					capital_scope = {
-						NOT = { true_religion_group = ROOT }
+					ROOT = {
+						NOT = { true_religion_group = capital_scope }
 					}
 				}
 			}
@@ -316,16 +269,16 @@ targetted_decisions = {
 		effect = {
 			if = {
 				limit = {
-					capital_scope = {
-						NOT = { true_religion_group = ROOT }
+					ROOT = {
+						NOT = { true_religion_group = capital_scope }
 					}
 				}
 				prestige = -1000
 			}
 			if = {
 				limit = {
-					capital_scope = {
-						true_religion_group = ROOT
+					ROOT = {
+						true_religion_group = capital_scope
 					}
 				}
 				prestige = -500
@@ -345,9 +298,6 @@ targetted_decisions = {
 					modifier = ruler_converted_to
 				}
 			}
-		}
-		revoke_allowed = {
-			always = no
 		}
 		ai_will_do = {
 			factor = 0
@@ -392,195 +342,116 @@ targetted_decisions = {
 				}
 			}
 		}
-		revoke_allowed = {
-			always = no
-		}
 		ai_will_do = {
 			factor = 0
 		}
 	}
 
-	convert_to_reformed = {
-		only_playable = yes
-
-		filter = self
-		ai_target_filter = self
-		ai_check_interval = 60
-
-		potential = {
-			is_playable = yes
-			is_heretic = yes
-			OR = {
-				religion = norse_pagan
-				religion = finnish_pagan
-				religion = baltic_pagan
-				religion = tengri_pagan
-				religion = slavic_pagan
-				religion = aztec
-				religion = west_african_pagan
-				religion = bon
-				religion = hellenic_pagan
-			}
-		}
-		allow = {
-			NOT = { trait = radical }
-			piety = 50
-			holy_order = no
-		}
-		effect = {
-			piety = -50
-			if = {
-				limit = { religion = norse_pagan }
-				religion = norse_pagan_reformed
-			}
-			if = {
-				limit = { religion = finnish_pagan }
-				religion = finnish_pagan_reformed
-			}
-			if = {
-				limit = { religion = baltic_pagan }
-				religion = baltic_pagan_reformed
-			}
-			if = {
-				limit = { religion = tengri_pagan }
-				religion = tengri_pagan_reformed
-			}
-			if = {
-				limit = { religion = slavic_pagan }
-				religion = slavic_pagan_reformed
-			}
-			if = {
-				limit = { religion = aztec }
-				religion = aztec_reformed
-			}
-			if = {
-				limit = { religion = west_african_pagan }
-				religion = west_african_pagan_reformed
-			}
-			if = {
-				limit = { religion = bon }
-				religion = bon_reformed
-			}
-			if = {
-				limit = { religion = hellenic_pagan }
-				religion = hellenic_pagan_reformed
-			}
-
-			hidden_tooltip = {
-				any_courtier = {
-					limit = {
-						is_heresy_of = ROOT
-						employer = { character = ROOT }
-					}
-					religion = ROOT
-				}
-				any_vassal = {
-					limit = {
-						is_playable = no
-						is_heresy_of = ROOT
-					}
-					religion = ROOT
-				}
-				capital_scope = {
-					if = {
-						limit = { is_heresy_of = ROOT }
-						religion = ROOT
-					}
-				}
-			}
-		}
-		revoke_allowed = {
-			always = no
-		}
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 0.1 # Generally quite a slow process - ca 40 years
-			}
-			modifier = {
-				factor = 0.5
-				OR = {
-					trait = slow
-					trait = dull
-				}
-			}
-			modifier = {
-				factor = 0.1
-				trait = imbecile
-			}
-			modifier = {
-				factor = 0.5
-				trait = content
-			}
-			modifier = {
-				factor = 2.0
-				OR = {
-					trait = quick
-					trait = shrewd
-				}
-			}
-			modifier = {
-				factor = 4.0
-				trait = genius
-			}
-			modifier = {
-				factor = 5.0
-				trait = skeptic # It's the future..
-			}
-			modifier = {
-				factor = 2.0
-				trait = ambitious
-			}
-			modifier = {
-				factor = 0
-				independent = no
-				any_liege = {
-					religion = ROOT
-				}
-			}
-			modifier = { #Easier for Proselytizers
-				factor = 2.0
-				OR = {
-					AND = {
-						religion = norse_pagan
-						norse_pagan_reformed = { has_religion_feature = religion_proselytizing }
-					}
-					AND = {
-						religion = tengri_pagan
-						tengri_pagan_reformed = { has_religion_feature = religion_proselytizing }
-					}
-					AND = {
-						religion = slavic_pagan
-						slavic_pagan_reformed = { has_religion_feature = religion_proselytizing }
-					}
-					AND = {
-						religion = baltic_pagan
-						baltic_pagan_reformed = { has_religion_feature = religion_proselytizing }
-					}
-					AND = {
-						religion = finnish_pagan
-						finnish_pagan_reformed = { has_religion_feature = religion_proselytizing }
-					}
-					AND = {
-						religion = aztec
-						aztec_reformed = { has_religion_feature = religion_proselytizing }
-					}
-					AND = {
-						religion = west_african_pagan
-						west_african_pagan_reformed = { has_religion_feature = religion_proselytizing }
-					}
-					AND = {
-						religion = bon
-						bon_reformed = { has_religion_feature = religion_proselytizing }
-					}
-					AND = {
-						religion = hellenic_pagan
-						hellenic_pagan_reformed = { has_religion_feature = religion_proselytizing }
-					}
-				}
-			}
-		}
-	}
+	#convert_to_reformed = {
+	#	only_playable = yes
+	#
+	#	filter = self
+	#	ai_target_filter = self
+	#	ai_check_interval = 60
+	#
+	#	potential = {
+	#		is_playable = yes
+	#		is_heretic = yes
+	#		OR = {
+	#			religion = norse_pagan
+	#			religion = finnish_pagan
+	#			religion = baltic_pagan
+	#			religion = tengri_pagan
+	#			religion = slavic_pagan
+	#			religion = aztec
+	#			religion = west_african_pagan
+	#			religion = bon
+	#			religion = hellenic_pagan
+	#		}
+	#	}
+	#	allow = {
+	#		NOT = { trait = radical }
+	#		piety = 50
+	#		holy_order = no
+	#	}
+	#	effect = {
+	#		piety = -50
+	#		if = {
+	#			limit = { religion = norse_pagan }
+	#			religion = norse_pagan_reformed
+	#		}
+	#
+	#		hidden_tooltip = {
+	#			any_courtier = {
+	#				limit = {
+	#					is_heresy_of = ROOT
+	#					employer = { character = ROOT }
+	#				}
+	#				religion = ROOT
+	#			}
+	#			any_vassal = {
+	#				limit = {
+	#					is_playable = no
+	#					is_heresy_of = ROOT
+	#				}
+	#				religion = ROOT
+	#			}
+	#			capital_scope = {
+	#				if = {
+	#					limit = { is_heresy_of = ROOT }
+	#					religion = ROOT
+	#				}
+	#			}
+	#		}
+	#	}
+	#	ai_will_do = {
+	#		factor = 1
+	#		modifier = {
+	#			factor = 0.1 # Generally quite a slow process - ca 40 years
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			OR = {
+	#				trait = slow
+	#				trait = dull
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 0.1
+	#			trait = imbecile
+	#		}
+	#		modifier = {
+	#			factor = 0.5
+	#			trait = content
+	#		}
+	#		modifier = {
+	#			factor = 2.0
+	#			OR = {
+	#				trait = quick
+	#				trait = shrewd
+	#			}
+	#		}
+	#		modifier = {
+	#			factor = 4.0
+	#			trait = genius
+	#		}
+	#		modifier = {
+	#			factor = 5.0
+	#			trait = skeptic # It's the future..
+	#		}
+	#		modifier = {
+	#			factor = 2.0
+	#			trait = ambitious
+	#		}
+	#		modifier = {
+	#			factor = 0
+	#			independent = no
+	#			any_liege = {
+	#				religion = ROOT
+	#			}
+	#		}
+	#	}
+	#}
 	convert_to_spouse_religion= {
 		only_playable = yes
 		filter = home_court
@@ -644,9 +515,6 @@ targetted_decisions = {
 			}
 		}
 
-		revoke_allowed = {
-			always = no
-		}
 
 		ai_will_do = {
 			factor = 0.001
@@ -695,21 +563,21 @@ decisions = {
 		}
 		effect = {
 			set_global_flag = flag_started_roman_renaissance
-			culture = terran
+			culture = terran_terran
 			hidden_tooltip = {
 				any_courtier_or_vassal = {
 					limit = { lower_tier_than = COUNT }
-					culture = terran
+					culture = terran_terran
 				}
 			}
-			capital_scope = { culture = terran }
+			capital_scope = { culture = terran_terran }
 			custom_tooltip = {
 				text = tooltip_roman_culture_starts_spreading
 				hidden_tooltip = {
 					any_realm_province = {
 						if = {
 							limit = { any_neighbor_province = { province = 202 } }
-							culture = terran
+							culture = terran_terran
 						}
 						if = {
 							limit = {
@@ -718,7 +586,7 @@ decisions = {
 							}
 							random = {
 								chance = 40
-								culture = terran
+								culture = terran_terran
 							}
 						}
 						if = {
@@ -728,7 +596,7 @@ decisions = {
 							}
 							random = {
 								chance = 20
-								culture = terran
+								culture = terran_terran
 							}
 						}
 						if = {
@@ -738,7 +606,7 @@ decisions = {
 							}
 							random = {
 								chance = 5
-								culture = terran
+								culture = terran_terran
 							}
 						}
 					}
@@ -754,7 +622,7 @@ decisions = {
 						}
 						if = {
 							limit = {
-								culture = terran
+								culture = terran_terran
 								NOT = { distance = { where = 202 distance = 100 } }
 							}
 							random = {
@@ -764,7 +632,7 @@ decisions = {
 						}
 						if = {
 							limit = {
-								culture = terran
+								culture = terran_terran
 								NOT = { distance = { where = 202 distance = 200 } }
 							}
 							random = {
@@ -786,9 +654,6 @@ decisions = {
 					character_event = { id = HF.23119 days = 150 random = 50 }
 				}
 			}
-		}
-		revoke_allowed = {
-			always = no
 		}
 		ai_will_do = {
 			factor = 1
@@ -819,7 +684,7 @@ decisions = {
 
 		potential = {
 			is_playable = yes
-			NOT = { culture = terran }
+			NOT = { culture = terran_terran }
 			OR = {
 				culture_group = terran_group
 				religion = terran_imperial
@@ -830,7 +695,7 @@ decisions = {
 			NOT = {
 				has_alternate_start_parameter = { key = culture_names value = random }
 			}
-			top_liege = { has_landed_title = e_roman_empire }
+			top_liege = { has_landed_title = e_terran_confederation }
 		}
 		allow = {
 			show_only_failed_conditions = yes
@@ -840,21 +705,21 @@ decisions = {
 			}
 		}
 		effect = {
-			culture = terran
+			culture = terran_terran
 			hidden_tooltip = {
 				any_courtier_or_vassal = {
 					limit = { lower_tier_than = COUNT }
-					culture = terran
+					culture = terran_terran
 				}
 			}
-			capital_scope = { culture = terran }
+			capital_scope = { culture = terran_terran }
 			custom_tooltip = {
 				text = tooltip_roman_culture_spreads
 				hidden_tooltip = {
 					any_demesne_province = {
 						if = {
 							limit = { any_neighbor_province = { province = 202 } }
-							culture = terran
+							culture = terran_terran
 						}
 						if = {
 							limit = {
@@ -863,7 +728,7 @@ decisions = {
 							}
 							random = {
 								chance = 40
-								culture = terran
+								culture = terran_terran
 							}
 						}
 						if = {
@@ -873,7 +738,7 @@ decisions = {
 							}
 							random = {
 								chance = 20
-								culture = terran
+								culture = terran_terran
 							}
 						}
 						if = {
@@ -883,7 +748,7 @@ decisions = {
 							}
 							random = {
 								chance = 5
-								culture = terran
+								culture = terran_terran
 							}
 						}
 					}
@@ -899,7 +764,7 @@ decisions = {
 						}
 						if = {
 							limit = {
-								culture = terran
+								culture = terran_terran
 								capital_scope = { NOT = { distance = { where = PREV distance = 100 } } }
 							}
 							random = {
@@ -909,7 +774,7 @@ decisions = {
 						}
 						if = {
 							limit = {
-								culture = terran
+								culture = terran_terran
 								capital_scope = { NOT = { distance = { where = PREV distance = 200 } } }
 							}
 							random = {
@@ -920,9 +785,6 @@ decisions = {
 					}
 				}
 			}
-		}
-		revoke_allowed = {
-			always = no
 		}
 		ai_will_do = {
 			factor = 1
@@ -937,7 +799,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 3
-				capital_scope = { culture = terran }
+				capital_scope = { culture = terran_terran }
 			}
 			modifier = {
 				factor = 0.01 #Would consider it a step down.

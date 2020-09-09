@@ -1,0 +1,142 @@
+# ROOT          Voter, the character voting in the election
+# FROM          Candidate, character considered for the title
+# FROMFROM      The title the nomination is for
+# FROMFROMFROM  The title owner's candidate
+# The voter will vote for the top score candidate calculated from this script
+
+# There are several election styles possible
+# First choice is if it is direct or indirect
+# In direct version, the electors (whoever they are) vote for the ruler they want.
+# In the indirect version, they elect the senate, and the senate vote for the ruler in question.
+# Our indirect version will be one where only the liege council can vote.
+# The direct version can allow vassals and representatives of the population (if appropriate)
+# Second choice is who can vote, it could be the population in general, nobility, generals, etc...
+# Finally, elections can be proportional, with each voter having one vote, or have that differently on purpose.
+
+
+generic_election_rules = {
+
+    elector_vote_strength = {
+        days = 0
+
+        #votes_per_population = yes
+        one_vote_per_voter = yes
+        #one_vote_per_holding = yes
+        #one_vote_per_province = yes
+    }
+
+    elector_selection = {
+        days = -5
+
+        title_existence_check = yes
+        current_ruler_voter_score = yes
+        candidate_voter_score = yes
+
+        representative_voter_score = yes
+        senator_voter_score = yes
+        direct_vassal_voter_score = yes
+        any_vassal_voter_score = yes
+        soldier_score = yes
+        scientist_score = yes
+    }
+
+    # ROOT is current title holder
+    # FROM is candidate
+    # FROMFROM is title
+    # FROMFROMFROM is null
+    candidate_trigger = {
+        title_exists_trigger = yes
+
+        FROM = {
+            NOT = { character = ROOT } # Not the current ruler, just in case something goes wrong...
+
+            has_mininum_age = yes
+
+            #is_not_landed_foreigner = yes
+
+            #disqualifications = yes
+        }
+
+        FROM = {
+
+            OR = {
+                # Title claimant
+                has_claim = ROOT_FROMFROM
+
+                # Family relations
+                trigger_if = {
+                    limit = { is_close_relative = ROOT }
+
+                    OR = {
+                        dynasty = ROOT
+
+                        AND = {
+                            is_landed = yes
+                            higher_real_tier_than = BARON
+                        }
+                    }
+                }
+
+                always = yes
+
+                #trigger_if = {
+                #    limit = {
+                #        # Either defacto direct vassal, or independent ruler who is dejure vassal
+                #        OR = {
+                #            vassal_of = ROOT
+                #            character = ROOT
+                #
+                #            AND = {
+                #                independent = yes
+                #
+                #                any_dejure_liege = {
+                #                    title = FROMFROM
+                #                }
+                #            }
+                #        }
+                #    }
+                #
+                #    # Tier requirements
+                #    #OR = {
+                #    #   # Or Duke-tier...
+                #    #   higher_real_tier_than = COUNT
+                #    #
+                #    #   #...Or Count-tier under a Duchy...
+                #    #   trigger_if = {
+                #    #       limit = { ROOT = { real_tier = DUKE } }
+                #    #       higher_real_tier_than = BARON
+                #    #   }
+                #    #
+                #    #   #...Or Baron-tier under a County
+                #    #   trigger_if = {
+                #    #       limit = { ROOT = { lower_real_tier_than = DUKE } }
+                #    #
+                #    #       is_landed = yes
+                #    #       is_ruler = yes
+                #    #   }
+                #    #}
+                #}
+            }
+        }
+    }
+
+    candidate_vote_score = {
+        days = 0
+
+        basic_universal_reasons = yes
+        ruler_votes_for_heir = yes
+        elector_votes_for_himself = yes
+        gender_bias_reasons = yes
+        cultural_bias_reasons = yes
+        ideology_bias_reasons = yes
+        nepotism_reasons = yes
+        claimants_reasons = yes
+        dislike_kinslayers_reasons = yes
+        crazy_ai_reasons = yes
+        opinion_reasons = yes
+        ruler_pick_reasons = yes
+        personality_reasons = yes
+        voting_styles_reasons = yes
+        ideology_reasons = yes
+    }
+}

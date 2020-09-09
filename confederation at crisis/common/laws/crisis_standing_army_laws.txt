@@ -1,0 +1,431 @@
+law_groups = {
+	standing_army_law = {
+		law_type = realm
+	}
+}
+
+laws = {
+	standing_army_law_0 = {
+		group = standing_army_law
+		default = yes
+
+		potential = {
+			holder_scope = {
+				is_tribal = no
+				is_nomadic = no
+			}
+		}
+
+		allow = {
+			always = yes
+		}
+
+		ai_will_do = {
+			factor = 0.1
+			#modifier = {
+			#	factor = 2
+			#	FROM = {
+			#		OR = {
+			#			has_law = centralization_1
+			#			has_law = centralization_0
+			#			has_law = ze_administration_laws_0
+			#		}
+			#	}
+			#}
+			#modifier = {
+			#	factor = 0.1
+			#	FROM = {
+			#		OR = {
+			#			has_law = centralization_3
+			#			has_law = centralization_4
+			#			has_law = ze_administration_laws_2
+			#		}
+			#	}
+			#}
+			#modifier = {
+			#	factor = 2
+			#	NOT = { FROM = { yearly_income = 20 } }
+			#}
+			#modifier = {
+			#	factor = 5
+			#	NOT = { FROM = { yearly_income = 10 } }
+			#}
+			#modifier = {
+			#	factor = 0.1
+			#	FROM = { realm_size = 100 }
+			#}
+			#modifier = {
+			#	factor = 0.1
+			#	FROM = { realm_size = 200 }
+			#}
+			#modifier = {
+			#	factor = 0.1
+			#	FROM = { trait = ambitious }
+			#}
+			#modifier = {
+			#	factor = 2
+			#	FROM = { NOT = { realm_size = 50 } }
+			#}
+		}
+
+		effect = {
+			hidden_tooltip = {
+				revoke_law = standing_army_law_1
+				revoke_law = standing_army_law_2
+			}
+			set_tribal_vassal_levy_control = no
+		}
+
+		#global_levy_size = -0.5
+	}
+
+	standing_army_law_1 = {
+		group = standing_army_law
+		default = yes
+
+		potential = {
+			holder_scope = {
+				is_tribal = no
+				is_nomadic = no
+			}
+		}
+
+		allow = {
+			OR = {
+				has_law = standing_army_law_0
+				has_law = standing_army_law_2
+			}
+			OR = {
+				has_law = centralization_2
+				has_law = centralization_3
+				has_law = centralization_4
+			}
+		}
+
+		ai_will_do = {
+			factor = 0.1
+
+			## If has 0
+			#modifier = {
+			#	factor = 2
+			#	FROM = { yearly_income = 50 }
+			#	has_law = standing_army_law_0
+			#}
+			#modifier = {
+			#	factor = 2
+			#	FROM = { yearly_income = 100 }
+			#	has_law = standing_army_law_0
+			#}
+			#modifier = {
+			#	factor = 0.01
+			#	NOT = { FROM = { yearly_income = 10 } }
+			#	has_law = standing_army_law_0
+			#}
+			#modifier = {
+			#	factor = 0.01
+			#	NOT = { FROM = { yearly_income = 5 } }
+			#	has_law = standing_army_law_0
+			#}
+			#modifier = {
+			#	factor = 2
+			#	FROM = {
+			#		OR = {
+			#			trait = genius
+			#			trait = quick
+			#		}
+			#	}
+			#	has_law = standing_army_law_0
+			#}
+			#modifier = {
+			#	factor = 2
+			#	FROM = { trait = ambitious }
+			#	has_law = standing_army_law_0
+			#}
+			#modifier = {
+			#	factor = 0.1
+			#	FROM = { trait = slothful }
+			#}
+			#modifier = {
+			#	factor = 2
+			#	FROM = { has_education_martial_trigger = yes }
+			#	has_law = standing_army_law_0
+			#}
+			#modifier = {
+			#	factor = 2
+			#	FROM = {
+			#		OR = {
+			#			trait = crusader
+			#			trait = mujahid
+			#			trait = valhalla_bound
+			#			trait = sun_warrior
+			#			trait = ukkos_shield
+			#			trait = nyames_shield
+			#			trait = peruns_chosen
+			#			trait = romuvas_own
+			#			trait = ares_own
+			#			trait = tengri_warrior
+			#			trait = shaddai
+			#			trait = gondi_shahansha
+			#		}
+			#	}
+			#	has_law = standing_army_law_0
+			#}
+			#modifier = {
+			#	factor = 0.01
+			#	FROM  = {
+			#		OR = {
+			#			trait = depressed
+			#			trait = lunatic
+			#			trait = incapable
+			#			trait = possessed
+			#			trait = infirm
+			#		}
+			#	}
+			#	has_law = standing_army_law_0
+			#}
+			#modifier = {
+			#	factor = 0.1
+			#	FROM  = {
+			#		OR = {
+			#			trait = slow
+			#			trait = imbecile
+			#		}
+			#	}
+			#	has_law = standing_army_law_0
+			#}
+			#modifier = {
+			#	factor = 0.5
+			#	FROM  = { trait = content }
+			#}
+			#modifier = {
+			#	factor = 2
+			#	OR = {
+			#		has_law = centralization_2
+			#		has_law = centralization_3
+			#		has_law = centralization_4
+			#		has_law = ze_administration_laws_2
+			#	}
+			#	has_law = standing_army_law_0
+			#}
+			#modifier = {
+			#	factor = 0.5
+			#	OR = {
+			#		has_law = centralization_0
+			#		has_law = centralization_1
+			#		has_law = ze_administration_laws_0
+			#	}
+			#	has_law = standing_army_law_0
+			#}
+			#
+			### If has 2
+			#
+			#modifier = {
+			#	factor = 2
+			#	FROM = { NOT = { realm_size = 50 } }
+			#	has_law = standing_army_law_2
+			#}
+			#modifier = {
+			#	factor = 0.01
+			#	FROM = { yearly_income = 50 }
+			#	has_law = standing_army_law_2
+			#}
+			#modifier = {
+			#	factor = 0.01
+			#	FROM = { yearly_income = 100 }
+			#	has_law = standing_army_law_2
+			#}
+			#modifier = {
+			#	factor = 2
+			#	NOT = { FROM = { yearly_income = 10 } }
+			#	has_law = standing_army_law_2
+			#}
+			#modifier = {
+			#	factor = 2
+			#	NOT = { FROM = { yearly_income = 5 } }
+			#	has_law = standing_army_law_2
+			#}
+			#modifier = {
+			#	factor = 0.5
+			#	OR = {
+			#		has_law = centralization_3
+			#		has_law = centralization_4
+			#		has_law = ze_administration_laws_2
+			#	}
+			#	has_law = standing_army_law_2
+			#}
+			#modifier = {
+			#	factor = 2
+			#	OR = {
+			#		has_law = centralization_0
+			#		has_law = centralization_1
+			#		has_law = ze_administration_laws_0
+			#	}
+			#	has_law = standing_army_law_2
+			#}
+
+		}
+
+		effect = {
+			hidden_tooltip = {
+				revoke_law = standing_army_law_0
+				revoke_law = standing_army_law_2
+			}
+			set_tribal_vassal_levy_control = no
+		}
+
+		#global_levy_size = -0.5
+		#castle_vassal_min_levy = -0.1
+		#castle_vassal_max_levy = -0.1
+		#temple_vassal_min_levy = -0.1
+		#temple_vassal_max_levy = -0.1
+		#city_vassal_min_levy = -0.1
+		#city_vassal_max_levy = -0.1
+		#tribal_vassal_min_levy = -0.1
+		#tribal_vassal_max_levy = -0.1
+		#retinuesize_perc = 1
+		#set_appoint_generals = yes #vanilla has these commented out, no idea what it does
+	}
+
+	standing_army_law_2 = {
+		group = standing_army_law
+		default = yes
+
+		potential = {
+			holder_scope = {
+				is_tribal = no
+				is_nomadic = no
+			}
+		}
+
+		allow = {
+			has_law = standing_army_law_1
+			OR = {
+				has_law = centralization_3
+				has_law = centralization_4
+			}
+			higher_tier_than = DUKE
+			holder_scope = { independent = yes }
+		}
+
+		ai_will_do = {
+			factor = 0.1
+			#modifier = {
+			#	factor = 2
+			#	FROM = { yearly_income = 50 }
+			#}
+			#modifier = {
+			#	factor = 2
+			#	FROM = {
+			#		OR = {
+			#			trait = genius
+			#			trait = quick
+			#		}
+			#	}
+			#}
+			#modifier = {
+			#	factor = 2
+			#	FROM = { yearly_income = 100 }
+			#}
+			#modifier = {
+			#	factor = 0.01
+			#	NOT = { FROM = { yearly_income = 10 } }
+			#}
+			#modifier = {
+			#	factor = 0.1
+			#	NOT = { FROM = { yearly_income = 25 } }
+			#}
+			#modifier = {
+			#	factor = 2
+			#	FROM = { trait = ambitious }
+			#}
+			#modifier = {
+			#	factor = 0.1
+			#	FROM = { trait = slothful }
+			#}
+			#modifier = {
+			#	factor = 2
+			#	FROM = { has_education_martial_trigger = yes }
+			#}
+			#modifier = {
+			#	factor = 2
+			#	FROM = {
+			#		OR = {
+			#			trait = crusader
+			#			trait = mujahid
+			#			trait = valhalla_bound
+			#			trait = sun_warrior
+			#			trait = ukkos_shield
+			#			trait = nyames_shield
+			#			trait = peruns_chosen
+			#			trait = romuvas_own
+			#			trait = ares_own
+			#			trait = tengri_warrior
+			#			trait = shaddai
+			#			trait = gondi_shahansha
+			#		}
+			#	}
+			#}
+			#modifier = {
+			#	factor = 0.01
+			#	FROM  = {
+			#		OR = {
+			#			trait = depressed
+			#			trait = lunatic
+			#			trait = incapable
+			#			trait = possessed
+			#			trait = infirm
+			#		}
+			#	}
+			#}
+			#modifier = {
+			#	factor = 0.1
+			#	FROM  = {
+			#		OR = {
+			#			trait = slow
+			#			trait = imbecile
+			#		}
+			#	}
+			#}
+			#modifier = {
+			#	factor = 0.5
+			#	FROM  = { trait = content }
+			#}
+			#modifier = {
+			#	factor = 0.5
+			#	FROM  = { NOT = { realm_size = 100 } }
+			#}
+			#modifier = {
+			#	factor = 0.5
+			#	FROM  = { NOT = { realm_size = 50 } }
+			#}
+			#modifier = {
+			#	factor = 2
+			#	FROM  = { realm_size = 200 }
+			#}
+			#modifier = {
+			#	factor = 2
+			#	FROM  = { realm_size = 300 }
+			#}
+		}
+
+		effect = {
+			hidden_tooltip = {
+				revoke_law = standing_army_law_0
+				revoke_law = standing_army_law_1
+			}
+			set_tribal_vassal_levy_control = no
+		}
+
+		#global_levy_size = -0.5
+		#castle_vassal_min_levy = -0.25
+		#castle_vassal_max_levy = -0.25
+		#temple_vassal_min_levy = -0.25
+		#temple_vassal_max_levy = -0.25
+		#city_vassal_min_levy = -0.25
+		#city_vassal_max_levy = -0.25
+		#tribal_vassal_min_levy = -0.25
+		#tribal_vassal_max_levy = -0.25
+		#retinuesize_perc = 2
+		##set_appoint_generals = yes #vanilla has these commented out, no idea what it does
+	}
+}

@@ -3,10 +3,10 @@ namespace = nepotism
 # These events handle the new system for trying to manipulate successions
 # This event should be called both on death and whenever a character would otherwise abdicate
 character_event = {
-	id = nepotism.0
+	id = nepotism.6660
 	hide_window = yes
 	is_triggered_only = yes
-	
+
 	trigger = {
 		independent = no
 		any_demesne_title = { OR = {has_law = succ_appointment AND = {has_law = succ_catholic_bishopric NOT = { current_heir = {always = yes}}}} }
@@ -17,7 +17,7 @@ character_event = {
 			}
 		}
 	}
-	
+
 	immediate = {
 		liege = {
 			ROOT = {
@@ -67,10 +67,10 @@ character_event = {
 }
 # Likewise this one
 character_event = {
-	id = nepotism.1
+	id = nepotism.6661
 	hide_window = yes
 	is_triggered_only = yes
-	
+
 	trigger = {
 		independent = no
 		any_demesne_title = { OR = {has_law = succ_appointment AND = {has_law = succ_catholic_bishopric NOT = { current_heir = {always = yes}}}} }
@@ -79,7 +79,7 @@ character_event = {
 			any_vassal = { has_minor_title = title_expected_successor }
 		}
 	}
-	
+
 	immediate = {
 		# All titles are appointed
 		if = {
@@ -161,7 +161,7 @@ character_event = {
 	id = nepotism.2
 	is_triggered_only = yes
 	hide_window = yes
-	
+
 	immediate = {
 		liege = { character_event = { id = nepotism.3 } }
 	}
@@ -173,11 +173,11 @@ character_event = {
 	desc = "EVTDESCNEPOTISM3"
 	is_triggered_only = yes
 	notification = yes
-	
+
 	immediate = {
 		FROM = { FROM = { character_event = { id = nepotism.4 } } }
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" } # Escape option
 }
 
@@ -186,14 +186,14 @@ character_event = {
 	id = nepotism.4
 	desc = "EVTDESCNEPOTISM4"
 	picture = GFX_evt_council
-	border = GFX_evt_normal_frame_diplomacy
+	border = GFX_event_normal_frame_diplomacy
 	is_triggered_only = yes
 	show_from_from = yes
-	
+
 	immediate = {
 		FROM = { FROM = { letter_event = { id = nepotism.5 } } }
 	}
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -201,10 +201,10 @@ character_event = {
 letter_event = {
 	id = nepotism.5
 	desc = "EVTDESCNEPOTISM5"
-	border = GFX_evt_letter_frame_diplomacy
+	border = GFX_event_letter_frame_diplomacy
 	is_triggered_only = yes
 	show_from_from = yes
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		if = {
@@ -237,9 +237,9 @@ character_event = {
 	id = nepotism.100
 	desc = "EVTDESCNEPOTISM100"
 	picture = GFX_evt_council
-	border = GFX_evt_normal_frame_diplomacy
+	border = GFX_event_normal_frame_diplomacy
 	is_triggered_only = yes
-	
+
 	# Liegeliege is the appointer
 	option = {
 		trigger = {
@@ -257,7 +257,7 @@ character_event = {
 		set_character_flag = flag_appointment_nomination_cooldown
 		ai_chance = { factor = 100 }
 	}
-	
+
 	# Liegeliege is the appointer and a favor is available
 	option = {
 		trigger = {
@@ -389,7 +389,7 @@ character_event = {
 			}
 		}
 	}
-	
+
 	# Regent is the appointer
 	option = {
 		trigger = {
@@ -413,7 +413,7 @@ character_event = {
 		set_character_flag = flag_appointment_nomination_cooldown
 		ai_chance = { factor = 100 }
 	}
-	
+
 	# Regent is the appointer and a favor is available
 	option = {
 		trigger = {
@@ -714,7 +714,7 @@ character_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		name = "EVTOPTNEVERMIND"
 		clr_character_flag = flag_making_appointment_nomination
@@ -726,9 +726,9 @@ character_event = {
 letter_event = {
 	id = nepotism.101
 	desc = "EVTDESCNEPOTISM101"
-	border = GFX_evt_letter_frame_diplomacy
+	border = GFX_event_letter_frame_diplomacy
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTACCEPT"
 		log = "[Root.GetBestName] accepted [From.GetBestName]'s self-nomination to succeed [From.Liege.GetBestName]."
@@ -1929,7 +1929,7 @@ letter_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		name = "EVTOPTREFUSE"
 		log = "[Root.GetBestName] rejected [From.GetBestName]'s self-nomination to succeed [From.Liege.GetBestName]."
@@ -1964,9 +1964,9 @@ letter_event = {
 letter_event = {
 	id = nepotism.102
 	desc = "EVTDESCNEPOTISM102"
-	border = GFX_evt_letter_frame_diplomacy
+	border = GFX_event_letter_frame_diplomacy
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTANEPOTISM102"
 		clr_character_flag = flag_making_appointment_nomination
@@ -1979,10 +1979,10 @@ character_event = {
 	id = nepotism.103
 	desc = "EVTDESCNEPOTISM103"
 	picture = GFX_evt_council
-	border = GFX_evt_normal_frame_diplomacy
+	border = GFX_event_normal_frame_diplomacy
 	show_from_from = yes
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 	}
@@ -1994,10 +1994,10 @@ character_event = {
 	id = nepotism.104
 	desc = "EVTDESCNEPOTISM104"
 	picture = GFX_evt_council
-	border = GFX_evt_normal_frame_diplomacy
+	border = GFX_event_normal_frame_diplomacy
 	show_from_from = yes
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTANEPOTISM104"
 		opinion = { who = FROMFROM modifier = opinion_stole_promised_appointment }
@@ -2022,9 +2022,9 @@ character_event = {
 	id = nepotism.105
 	desc = "EVTDESCNEPOTISM105"
 	picture = GFX_evt_council
-	border = GFX_evt_normal_frame_diplomacy
+	border = GFX_event_normal_frame_diplomacy
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTANEPOTISM105" }
 }
 
@@ -2033,9 +2033,9 @@ character_event = {
 letter_event = {
 	id = nepotism.106
 	desc = "EVTDESCNEPOTISM106"
-	border = GFX_evt_letter_frame_diplomacy
+	border = GFX_event_letter_frame_diplomacy
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTANEPOTISM106"
 		clr_character_flag = flag_making_appointment_nomination
@@ -2050,7 +2050,7 @@ character_event = {
 	is_triggered_only = yes
 	show_from_from = yes
 	notification = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -2062,9 +2062,9 @@ character_event = {
 	is_triggered_only = yes
 	show_from_from = yes
 	notification = yes
-	
+
 	immediate = { opinion = { who = FROMFROM modifier = opinion_attempted_appointment_theft } }
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -2074,9 +2074,9 @@ character_event = {
 	id = nepotism.200
 	desc = "EVTDESCNEPOTISM200"
 	picture = GFX_evt_council
-	border = GFX_evt_normal_frame_diplomacy
+	border = GFX_event_normal_frame_diplomacy
 	is_triggered_only = yes
-	
+
 	# This should fire only if ROOT holds appointment authority over the target
 	option = {
 		trigger = {
@@ -2111,8 +2111,8 @@ character_event = {
 			hidden_tooltip = { remove_opinion = { who = ROOT modifier = opinion_appointment_nominee } }
 		}
 	}
-	
-	
+
+
 	# Liegeliege is the appointer
 	option = {
 		trigger = {
@@ -2136,7 +2136,7 @@ character_event = {
 		}
 		ai_chance = { factor = 100 }
 	}
-	
+
 	# Liegeliege is the appointer and a favor is available
 	option = {
 		trigger = {
@@ -2148,7 +2148,7 @@ character_event = {
 						NOT = { character = ROOT }
 						# Liegeliege has no regent or prime minister
 						has_regent = no
-						
+
 						# Liegeliege does not owe or is owed a favor
 						NOT = { has_opinion_modifier = { who = ROOT modifier = opinion_owes_me_a_favor } }
 						NOT = { reverse_has_opinion_modifier = { who = ROOT modifier = opinion_owes_me_a_favor } }
@@ -2331,7 +2331,7 @@ character_event = {
 			}
 		}
 	}
-	
+
 	# Regent is the appointer
 	option = {
 		trigger = {
@@ -2350,7 +2350,7 @@ character_event = {
 		}
 		ai_chance = { factor = 100 }
 	}
-	
+
 	# Regent is the appointer and a favor is available
 	option = {
 		trigger = {
@@ -2406,7 +2406,7 @@ character_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		name = "EVTOPTNEVERMIND"
 		hidden_tooltip = { any_realm_character = { remove_opinion = { who = ROOT modifier = opinion_appointment_nominee } } }
@@ -2420,9 +2420,9 @@ character_event = {
 letter_event = {
 	id = nepotism.201
 	desc = "EVTDESCNEPOTISM201"
-	border = GFX_evt_letter_frame_diplomacy
+	border = GFX_event_letter_frame_diplomacy
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTANEPOTISM201"
 		hidden_tooltip = { FROM = { character_event = { id = nepotism.220 } } }
@@ -2437,7 +2437,7 @@ character_event = {
 	id = nepotism.220
 	hide_window = yes
 	is_triggered_only = yes
-	
+
 	immediate = {
 		FROM = {
 			liege = {
@@ -2485,7 +2485,7 @@ character_event = {
 	desc = "EVTDESCNEPOTISM202"
 	is_triggered_only = yes
 	notification = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -2495,9 +2495,9 @@ character_event = {
 	id = nepotism.203
 	desc = "EVTDESCNEPOTISM203"
 	picture = GFX_evt_council
-	border = GFX_evt_normal_frame_diplomacy
+	border = GFX_event_normal_frame_diplomacy
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -2507,9 +2507,9 @@ character_event = {
 	id = nepotism.204
 	desc = "EVTDESCNEPOTISM204"
 	picture = GFX_evt_council
-	border = GFX_evt_normal_frame_diplomacy
+	border = GFX_event_normal_frame_diplomacy
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -2519,9 +2519,9 @@ character_event = {
 	id = nepotism.205
 	desc = "EVTDESCNEPOTISM205"
 	picture = GFX_evt_council
-	border = GFX_evt_normal_frame_diplomacy
+	border = GFX_event_normal_frame_diplomacy
 	is_triggered_only = yes
-	
+
 	# Liegeliege is appointer
 	option = {
 		name = "EVTOPTANEPOTISM205"
@@ -2554,9 +2554,9 @@ character_event = {
 letter_event = {
 	id = nepotism.206
 	desc = "EVTDESCNEPOTISM206"
-	border = GFX_evt_letter_frame_diplomacy
+	border = GFX_event_letter_frame_diplomacy
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTACCEPT"
 		log = "[Root.GetBestName] accepted [FromFrom.GetBestName]'s nomination of [From.GetBestName] to succeed [From.Liege.GetBestName]."
@@ -3873,7 +3873,7 @@ letter_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		name = "EVTOPTREFUSE"
 		log = "[Root.GetBestName] rejected [FromFrom.GetBestName]'s nomination of [From.GetBestName] to succeed [From.Liege.GetBestName]."
@@ -3913,9 +3913,9 @@ character_event = {
 	id = nepotism.207
 	desc = "EVTDESCNEPOTISM207"
 	picture = GFX_evt_council
-	border = GFX_evt_normal_frame_diplomacy
+	border = GFX_event_normal_frame_diplomacy
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -3924,9 +3924,9 @@ character_event = {
 letter_event = {
 	id = nepotism.208
 	desc = "EVTDESCNEPOTISM208"
-	border = GFX_evt_letter_frame_diplomacy
+	border = GFX_event_letter_frame_diplomacy
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		clr_character_flag = flag_making_appointment_nomination
@@ -3939,10 +3939,10 @@ character_event = {
 	id = nepotism.209
 	desc = "EVTDESCNEPOTISM202"
 	picture = GFX_evt_council
-	border = GFX_evt_normal_frame_diplomacy
+	border = GFX_event_normal_frame_diplomacy
 	is_triggered_only = yes
 	show_from_from = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -3952,12 +3952,12 @@ character_event = {
 	id = nepotism.210
 	desc = "EVTDESCNEPOTISM203"
 	picture = GFX_evt_council
-	border = GFX_evt_normal_frame_diplomacy
+	border = GFX_event_normal_frame_diplomacy
 	is_triggered_only = yes
 	show_from_from = yes
-	
+
 	immediate = { opinion = { who = FROMFROM modifier = opinion_stole_promised_appointment } }
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -3967,10 +3967,10 @@ character_event = {
 	id = nepotism.211
 	desc = "EVTDESCNEPOTISM204"
 	picture = GFX_evt_council
-	border = GFX_evt_normal_frame_diplomacy
+	border = GFX_event_normal_frame_diplomacy
 	is_triggered_only = yes
 	show_from_from = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -3980,9 +3980,9 @@ character_event = {
 	id = nepotism.212
 	desc = "EVTDESCNEPOTISM212"
 	picture = GFX_evt_council
-	border = GFX_evt_normal_frame_diplomacy
+	border = GFX_event_normal_frame_diplomacy
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -3991,9 +3991,9 @@ character_event = {
 letter_event = {
 	id = nepotism.213
 	desc = "EVTDESCNEPOTISM213"
-	border = GFX_evt_letter_frame_diplomacy
+	border = GFX_event_letter_frame_diplomacy
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTANEPOTISM213"
 		clr_character_flag = flag_making_appointment_nomination
@@ -4008,7 +4008,7 @@ character_event = {
 	is_triggered_only = yes
 	show_from_from = yes
 	notification = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -4020,9 +4020,9 @@ character_event = {
 	is_triggered_only = yes
 	show_from_from = yes
 	notification = yes
-	
+
 	immediate = { opinion = { who = FROMFROM modifier = opinion_attempted_appointment_theft } }
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -4033,18 +4033,18 @@ character_event = {
 letter_event = {
 	id = nepotism.300
 	desc = "EVTDESCNEPOTISM300"
-	border = GFX_evt_letter_frame_diplomacy
+	border = GFX_event_letter_frame_diplomacy
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTACCEPT"
 		clr_character_flag = flag_being_fired
 		custom_tooltip = {
 			text = "FORFEITAPPOINTEDTITLES"
 			hidden_tooltip = {
-				character_event = { id = nepotism.0 }
-				character_event = { id = nepotism.1 }
 				liege = { letter_event = { id = nepotism.301 } }
+				#character_event = { id = nepotism.0 }
+				#character_event = { id = nepotism.1 }
 			}
 		}
 		ai_chance = {
@@ -4279,19 +4279,32 @@ letter_event = {
 letter_event = {
 	id = nepotism.301
 	desc = "EVTDESCNEPOTISM301"
-	border = GFX_evt_letter_frame_diplomacy
+	border = GFX_event_letter_frame_diplomacy
 	is_triggered_only = yes
-	
-	option = { name = "EVTOPTCONFIRM" }
+
+	option = { name = "EVTOPTCONFIRM"
+		FROM = {
+			show_scope_change = no
+			any_demesne_title = {
+				show_scope_change = no
+				limit = { is_appointed_trigger = yes }
+				any_character = {
+					show_scope_change = no
+				    limit = { is_heir = PREV }
+				    gain_title = PREV
+				}
+			}
+		}
+	}
 }
 
 character_event = {
 	id = nepotism.400
 	desc = "EVTDESCNEPOTISM200"
 	picture = GFX_evt_council
-	border = GFX_evt_normal_frame_diplomacy
+	border = GFX_event_normal_frame_diplomacy
 	is_triggered_only = yes
-	
+
 	# This should fire only if ROOT holds appointment authority over the target
 	option = {
 		trigger = {
@@ -4326,8 +4339,8 @@ character_event = {
 			hidden_tooltip = { remove_opinion = { who = ROOT modifier = opinion_appointment_nominee } }
 		}
 	}
-	
-	
+
+
 	# Liegeliege is the appointer
 	option = {
 		trigger = {
@@ -4351,7 +4364,7 @@ character_event = {
 		}
 		ai_chance = { factor = 100 }
 	}
-	
+
 	# Liegeliege is the appointer and a favor is available
 	option = {
 		trigger = {
@@ -4363,7 +4376,7 @@ character_event = {
 						NOT = { character = ROOT }
 						# Liegeliege has no regent or prime minister
 						has_regent = no
-						
+
 						# Liegeliege does not owe or is owed a favor
 						NOT = { has_opinion_modifier = { who = ROOT modifier = opinion_owes_me_a_favor } }
 						NOT = { reverse_has_opinion_modifier = { who = ROOT modifier = opinion_owes_me_a_favor } }
@@ -4546,7 +4559,7 @@ character_event = {
 			}
 		}
 	}
-	
+
 	# Regent is the appointer
 	option = {
 		trigger = {
@@ -4565,7 +4578,7 @@ character_event = {
 		}
 		ai_chance = { factor = 100 }
 	}
-	
+
 	# Regent is the appointer and a favor is available
 	option = {
 		trigger = {
@@ -4621,7 +4634,7 @@ character_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		name = "EVTOPTNEVERMIND"
 		hidden_tooltip = { any_realm_character = { remove_opinion = { who = ROOT modifier = opinion_appointment_nominee } } }
@@ -4635,9 +4648,9 @@ character_event = {
 letter_event = {
 	id = nepotism.401
 	desc = "EVTDESCNEPOTISM201"
-	border = GFX_evt_letter_frame_diplomacy
+	border = GFX_event_letter_frame_diplomacy
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTANEPOTISM201"
 		hidden_tooltip = { FROM = { character_event = { id = nepotism.420 } } }
@@ -4652,7 +4665,7 @@ character_event = {
 	id = nepotism.420
 	hide_window = yes
 	is_triggered_only = yes
-	
+
 	immediate = {
 		FROM = {
 			liege = {
@@ -4702,7 +4715,7 @@ character_event = {
 	desc = "EVTDESCNEPOTISM202"
 	is_triggered_only = yes
 	notification = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -4712,9 +4725,9 @@ character_event = {
 	id = nepotism.403
 	desc = "EVTDESCNEPOTISM203"
 	picture = GFX_evt_council
-	border = GFX_evt_normal_frame_diplomacy
+	border = GFX_event_normal_frame_diplomacy
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -4724,9 +4737,9 @@ character_event = {
 	id = nepotism.404
 	desc = "EVTDESCNEPOTISM204"
 	picture = GFX_evt_council
-	border = GFX_evt_normal_frame_diplomacy
+	border = GFX_event_normal_frame_diplomacy
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -4736,9 +4749,9 @@ character_event = {
 	id = nepotism.405
 	desc = "EVTDESCNEPOTISM205"
 	picture = GFX_evt_council
-	border = GFX_evt_normal_frame_diplomacy
+	border = GFX_event_normal_frame_diplomacy
 	is_triggered_only = yes
-	
+
 	# Liegeliege is appointer
 	option = {
 		name = "EVTOPTANEPOTISM205"
@@ -4771,9 +4784,9 @@ character_event = {
 letter_event = {
 	id = nepotism.406
 	desc = "EVTDESCNEPOTISM206"
-	border = GFX_evt_letter_frame_diplomacy
+	border = GFX_event_letter_frame_diplomacy
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTACCEPT"
 		log = "[Root.GetBestName] accepted [FromFrom.GetBestName]'s nomination of [From.GetBestName] to succeed [From.Liege.GetBestName]."
@@ -4817,7 +4830,7 @@ letter_event = {
 			clr_character_flag = flag_expected_successor
 			#opinion = { who = ROOT modifier = opinion_promised_me_appointment }
 		}
-		FROM = {			
+		FROM = {
 			FROM = {
 				hidden_tooltip = { letter_event = { id = nepotism.408 } }
 				opinion = { who = ROOT modifier = opinion_promised_relative_appointment }
@@ -6094,7 +6107,7 @@ letter_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		name = "EVTOPTREFUSE"
 		log = "[Root.GetBestName] rejected [FromFrom.GetBestName]'s nomination of [From.GetBestName] to succeed [From.Liege.GetBestName]."
@@ -6134,9 +6147,9 @@ character_event = {
 	id = nepotism.407
 	desc = "EVTDESCNEPOTISM207"
 	picture = GFX_evt_council
-	border = GFX_evt_normal_frame_diplomacy
+	border = GFX_event_normal_frame_diplomacy
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -6145,9 +6158,9 @@ character_event = {
 letter_event = {
 	id = nepotism.408
 	desc = "EVTDESCNEPOTISM208"
-	border = GFX_evt_letter_frame_diplomacy
+	border = GFX_event_letter_frame_diplomacy
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		clr_character_flag = flag_making_appointment_nomination
@@ -6160,10 +6173,10 @@ character_event = {
 	id = nepotism.409
 	desc = "EVTDESCNEPOTISM202"
 	picture = GFX_evt_council
-	border = GFX_evt_normal_frame_diplomacy
+	border = GFX_event_normal_frame_diplomacy
 	is_triggered_only = yes
 	show_from_from = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -6173,12 +6186,12 @@ character_event = {
 	id = nepotism.410
 	desc = "EVTDESCNEPOTISM203"
 	picture = GFX_evt_council
-	border = GFX_evt_normal_frame_diplomacy
+	border = GFX_event_normal_frame_diplomacy
 	is_triggered_only = yes
 	show_from_from = yes
-	
+
 	immediate = { opinion = { who = FROMFROM modifier = opinion_stole_promised_appointment } }
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -6188,10 +6201,10 @@ character_event = {
 	id = nepotism.411
 	desc = "EVTDESCNEPOTISM204"
 	picture = GFX_evt_council
-	border = GFX_evt_normal_frame_diplomacy
+	border = GFX_event_normal_frame_diplomacy
 	is_triggered_only = yes
 	show_from_from = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -6201,9 +6214,9 @@ character_event = {
 	id = nepotism.412
 	desc = "EVTDESCNEPOTISM212"
 	picture = GFX_evt_council
-	border = GFX_evt_normal_frame_diplomacy
+	border = GFX_event_normal_frame_diplomacy
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -6212,9 +6225,9 @@ character_event = {
 letter_event = {
 	id = nepotism.413
 	desc = "EVTDESCNEPOTISM213"
-	border = GFX_evt_letter_frame_diplomacy
+	border = GFX_event_letter_frame_diplomacy
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTANEPOTISM213"
 		clr_character_flag = flag_making_appointment_nomination
@@ -6229,7 +6242,7 @@ character_event = {
 	is_triggered_only = yes
 	show_from_from = yes
 	notification = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -6241,9 +6254,9 @@ character_event = {
 	is_triggered_only = yes
 	show_from_from = yes
 	notification = yes
-	
+
 	immediate = { opinion = { who = FROMFROM modifier = opinion_attempted_appointment_theft } }
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 

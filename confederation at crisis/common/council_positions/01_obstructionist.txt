@@ -1,0 +1,58 @@
+obstructionist = {
+	icon = 2
+
+	# The player also needs to obey the potential triggers when choosing a position
+	potential = {
+		opinion = {
+			who = liege
+			value <= 0
+		}
+	}
+
+	default_selection = {
+		value = 0
+	}
+
+	selection = {
+		value = 0
+
+		additive_opinion_modifier = {
+			who = liege
+			factor = -1
+		}
+
+		additive_modifier = {
+			value = 5
+			trait = ambitious
+		}
+
+		additive_modifier = {
+			value = 20
+			is_rival = liege
+		}
+
+		#Idea here is "cap" to 50 the chances here unless the character is quite dumb and thus easily manipulated.
+		additive_modifier = {
+			value = -50
+			OR = {
+				learning >= 4
+				intrigue >= 4
+				stewardship >= 4
+			}
+		}
+	}
+
+	voting_patterns = {
+		special_case_for
+		me_pattern_for
+		selfish_pattern_for
+		selfish_pattern_against
+		family_pattern_for
+		family_pattern_against
+		malcontent_pattern_against
+		ideological_for
+		ideological_against
+		interaction_pattern_for
+		interaction_pattern_against
+	}
+}

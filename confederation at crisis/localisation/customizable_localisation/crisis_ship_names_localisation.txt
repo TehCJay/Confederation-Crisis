@@ -3,9 +3,9 @@
 
 defined_text = {
 	name = GetShipName
-	
+
 	use_first_valid = yes
-	
+
 	# Gets the name of whatever ship the event is referencing
 	text = {
 		localisation_key = String_my_artifact_ship_1
@@ -15,14 +15,25 @@ defined_text = {
 		localisation_key = String_my_artifact_ship_2
 		trigger = { event_target:ship_2 = { artifact_owner = {	character = PREVPREV } } }
 	}
-	
+
+	# This can be called from a character, so if they have a flagship equipped we can try that one.
+	# Some events might end with wrong names, if you spot any, replace the command from GetShipName to GetRandomShipName.
+	#text = {
+	#	localisation_key = String_artifact_name
+	#	trigger = {
+	#		any_artifact = {
+	#
+	#		}
+	#	}
+	#}
+
 	# If the event isn't referencing a ship, choose one at random
 	text = { localisation_key = String_random_ship_name }
 }
 
 defined_text = {
 	name = GetRandomShipName
-	
+
 	text = {
 		trigger = {
 			NOR = {

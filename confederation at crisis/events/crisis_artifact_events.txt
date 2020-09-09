@@ -1,0 +1,1074 @@
+namespace = cotc_artifact
+
+### INHERITING MINOR ARTIFACTS ###
+character_event = {
+	id = cotc_artifact.1
+	desc = "EVTDESCCOTCARTIFACT1"
+	picture = GFX_evt_armory
+	is_triggered_only = yes
+
+	trigger = {
+		FROM = { NOT = { has_artifact_flag = named } } # These artifacts are too significant individually
+	}
+
+	immediate = {
+		FROM = { FROM = { save_event_target_as = decedent } }
+		save_event_target_as = potential_gifter
+		if = {
+			limit = { ROOT = { is_landed = yes } }
+			random_courtier = {
+				limit = {
+					FROM = { artifact_can_be_gifted_to = PREV }
+					reverse_opinion = { who = ROOT value = 0 }
+				}
+				save_event_target_as = potential_giftee
+			}
+		}
+	}
+
+	# Pay a small maintenance fee
+	option = {
+		name = "EVTOPTACOTCARTIFACT1"
+		scaled_wealth = -0.1
+		log = "[Root.GetBestName] inherited a(n) [From.GetName]."
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0
+				FROM = { artifact_type_owned_by = ROOT } # No duplicates
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { FROM = { artifact_can_be_gifted_to = ROOT } } # Not relevant to ROOT's interests
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { scaled_wealth = 0.1 } # Don't go into debt
+			}
+
+			# Opinion of the decedent - do you want something that reminds you of them?
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -99 } }
+			}
+		}
+	}
+
+	# Lose the artifact entirely
+	option = {
+		name = "EVTOPTBCOTCARTIFACT1"
+		destroy_artifact = FROM
+		log = "[Root.GetBestName] lost a(n) [From.GetName] on inheritance."
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 0
+				event_target:potential_giftee = { always = yes }
+			}
+		}
+	}
+
+	# Gift the artifact to a random courtier
+	option = {
+		name = "EVTOPTCCOTCARTIFACT1"
+		log = "[Root.GetBestName] gifted a(n) [From.GetName] to [potential_giftee.GetBestName] on inheritance."
+		trigger = { event_target:potential_giftee = { always = yes } }
+		tooltip = { FROM = { transfer_artifact = { from = ROOT to = event_target:potential_giftee } } }
+		reverse_opinion = { who = event_target:potential_giftee modifier = opinion_gifted_artifact }
+		hidden_tooltip = { event_target:potential_giftee = { letter_event = { id = cotc_artifact.2 } } }
+		ai_chance = { factor = 25 }
+	}
+}
+# You inherited a minor artifact
+letter_event = {
+	id = cotc_artifact.2
+	desc = "EVTDESCCOTCARTIFACT2"
+	is_triggered_only = yes
+
+	option = {
+		name = "EVTOPTCONFIRM"
+		FROM = { FROM = { transfer_artifact = { from = event_target:potential_gifter to = ROOT } } }
+	}
+}
+# Inheriting ships
+character_event = {
+	id = cotc_artifact.3
+	desc = "EVTDESCCOTCARTIFACT3"
+	picture = GFX_evt_hangar
+	is_triggered_only = yes
+
+	trigger = { FROM = { has_artifact_flag = ship } }
+
+	immediate = {
+		FROM = { FROM = { save_event_target_as = decedent } }
+		save_event_target_as = potential_gifter
+		if = {
+			limit = { ROOT = { is_landed = yes } }
+			random_courtier = {
+				limit = {
+					FROM = { artifact_can_be_gifted_to = PREV }
+					reverse_opinion = { who = ROOT value = 0 }
+				}
+				save_event_target_as = potential_giftee
+			}
+		}
+	}
+
+	option = {
+		name = "EVTOPTACOTCARTIFACT3"
+		scaled_wealth = -0.5
+		log = "[Root.GetBestName] inherited the [From.GetName]."
+		ai_chance = {
+			factor = 50
+
+			# Already has a ship
+			modifier = {
+				factor = 0.5
+				any_artifact = {
+					is_artifact_equipped = yes
+					has_artifact_flag = ship
+				}
+			}
+
+			# Not interested in this kind of ship
+			modifier = {
+				factor = 0.5
+				NOT = { FROM = { artifact_can_be_gifted_to = ROOT } }
+			}
+
+			# No duplicates, unless they're family heirlooms
+			modifier = {
+				factor = 0
+				FROM = { artifact_type_owned_by = ROOT }
+				NOT = { dynasty = FROMFROM }
+			}
+
+			# No going into debt, unless it's a family heirloom
+			modifier = {
+				factor = 0
+				NOT = { scaled_wealth = 0.5 }
+				NOT = { dynasty = FROMFROM }
+			}
+
+			# No going into severe debt regardless
+			modifier = {
+				factor = 0
+				NOT = { scaled_wealth = 0.1 }
+			}
+
+			# Opinion of the decedent - do you want something that reminds you of them?
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -99 } }
+			}
+		}
+	}
+
+	option = {
+		name = "EVTOPTBCOTCARTIFACT3"
+		destroy_artifact = FROM
+		log = "[Root.GetBestName] lost the [From.GetName] on inheritance."
+		ai_chance = {
+			factor = 25
+
+			# Don't destroy family heirlooms
+			modifier = {
+				factor = 0
+				dynasty = FROMFROM
+			}
+
+			# Don't destroy if you can gift
+			modifier = {
+				factor = 0
+				event_target:potential_giftee = { always = yes }
+			}
+		}
+	}
+
+	# Gift the artifact to a random courtier
+	option = {
+		name = "EVTOPTCCOTCARTIFACT3"
+		log = "[Root.GetBestName] gifted the [From.GetName] to [potential_giftee.GetBestName] on inheritance."
+		trigger = { event_target:potential_giftee = { always = yes } }
+		tooltip = { FROM = { transfer_artifact = { from = ROOT to = event_target:potential_giftee } } }
+		reverse_opinion = { who = event_target:potential_giftee modifier = opinion_gifted_artifact }
+		hidden_tooltip = { event_target:potential_giftee = { letter_event = { id = cotc_artifact.4 } } }
+		ai_chance = { factor = 25 }
+	}
+}
+# You inherited a ship
+letter_event = {
+	id = cotc_artifact.4
+	desc = "EVTDESCCOTCARTIFACT4"
+	is_triggered_only = yes
+
+	option = {
+		name = "EVTOPTCONFIRM"
+		FROM = { FROM = { transfer_artifact = { from = event_target:potential_gifter to = ROOT } } }
+	}
+}
+
+# COMMISSIONING SHIPS
+# CORVETTES
+character_event = {
+	id = cotc_artifact.100
+	desc = "EVTDESCCOTCARTIFACT100"
+	picture = GFX_evt_hangar
+	is_triggered_only = yes
+
+	# Hermes-class
+	option = {
+		log = "[Root.GetBestName] commissioned a corvette."
+		trigger = { wealth = 150 }
+		name = "EVTOPTACOTCARTIFACT100"
+		wealth = -150
+		clr_character_flag = flag_busy
+		set_character_flag = flag_commissioned_new_ship
+		set_character_flag = flag_commissioned_hermes_class_corvette
+		custom_tooltip = { text = "HERMESDESC" }
+		custom_tooltip = { text = "EVTTOOLTIPABOUTEIGHTMONTHS" }
+		hidden_tooltip = { character_event = { id = cotc_artifact.101 days = 210 random = 60 } }
+	}
+
+	option = {
+		name = "EVTOPTNEVERMIND"
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 0 }
+	}
+}
+character_event = {
+	id = cotc_artifact.101
+	desc = "EVTDESCCOTCARTIFACT101"
+	picture = GFX_evt_hangar
+
+	is_triggered_only = yes
+	trigger = { has_character_flag = flag_commissioned_hermes_class_corvette }
+	immediate = {
+		add_artifact = hermes_class_corvette
+		new_artifact = {
+			save_event_target_as = target_new_ship
+			set_name = "SHIPNAME"
+			log = "[Root.GetBestName] completed a corvette, the [This.GetName]."
+		}
+	}
+	option = {
+		name = "EVTOPTACCEPT"
+		clr_character_flag = flag_commissioned_new_ship
+		clr_character_flag = flag_commissioned_hermes_class_corvette
+	}
+	option = {
+		name = "EVTOPTRENAMESHIP"
+		event_target:target_new_ship = { prompt_name = { player = ROOT type = SHIPNAMING } }
+		ai_chance = { factor = 0 } # Obviously this option should only be taken by the player
+	}
+}
+# FREIGHTERS
+character_event = {
+	id = cotc_artifact.200
+	desc = "EVTDESCCOTCARTIFACT200"
+	picture = GFX_evt_hangar
+	is_triggered_only = yes
+
+	# Calico-class
+	option = {
+		log = "[Root.GetBestName] commissioned a Q-ship."
+		trigger = { wealth = 100 }
+		name = "EVTOPTACOTCARTIFACT200"
+		wealth = -100
+		clr_character_flag = flag_busy
+		set_character_flag = flag_commissioned_new_ship
+		set_character_flag = flag_commissioned_calico_class_heavy_freighter
+		custom_tooltip = { text = "CALICODESC" }
+		custom_tooltip = { text = "EVTTOOLTIPABOUTTENMONTHS" }
+		hidden_tooltip = { character_event = { id = cotc_artifact.101 days = 270 random = 60 } }
+	}
+
+	option = {
+		name = "EVTOPTNEVERMIND"
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 0 }
+	}
+}
+character_event = {
+	id = cotc_artifact.201
+	desc = "EVTDESCCOTCARTIFACT201"
+	picture = GFX_evt_hangar
+
+	is_triggered_only = yes
+	trigger = { has_character_flag = flag_commissioned_calico_class_heavy_freighter }
+	immediate = {
+		add_artifact = calico_class_heavy_freighter
+		new_artifact = {
+			save_event_target_as = target_new_ship
+			set_name = "SHIPNAME"
+			log = "[Root.GetBestName] completed a Q-ship, the [This.GetName]."
+		}
+	}
+	option = {
+		name = "EVTOPTACCEPT"
+		clr_character_flag = flag_commissioned_new_ship
+		clr_character_flag = flag_commissioned_calico_class_heavy_freighter
+	}
+	option = {
+		name = "EVTOPTRENAMESHIP"
+		event_target:target_new_ship = { prompt_name = { player = ROOT type = SHIPNAMING } }
+		ai_chance = { factor = 0 } # Obviously this option should only be taken by the player
+	}
+}
+# YACHTS
+character_event = {
+	id = cotc_artifact.300
+	desc = "EVTDESCCOTCARTIFACT300"
+	picture = GFX_evt_hangar
+	is_triggered_only = yes
+
+	# Shangri La-class
+	option = {
+		log = "[Root.GetBestName] commissioned a yacht."
+		trigger = { wealth = 500 }
+		name = "EVTOPTACOTCARTIFACT300"
+		wealth = -500
+		clr_character_flag = flag_busy
+		set_character_flag = flag_commissioned_new_ship
+		set_character_flag = flag_commissioned_shangri_la_class_yacht
+		custom_tooltip = { text = "SHANGRILADESC" }
+		custom_tooltip = { text = "EVTTOOLTIPABOUTAYEAR" }
+		hidden_tooltip = { character_event = { id = cotc_artifact.301 days = 330 random = 60 } }
+	}
+
+	option = {
+		name = "EVTOPTNEVERMIND"
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 0 }
+	}
+}
+character_event = {
+	id = cotc_artifact.301
+	desc = "EVTDESCCOTCARTIFACT101"
+	picture = GFX_evt_hangar
+	is_triggered_only = yes
+
+	trigger = { has_character_flag = flag_commissioned_shangri_la_class_yacht }
+	immediate = {
+		add_artifact = shangri_la_class_yacht
+		new_artifact = {
+			save_event_target_as = target_new_ship
+			set_name = "SHIPNAME"
+			log = "[Root.GetBestName] completed a yacht, the [This.GetName]."
+		}
+	}
+	option = {
+		name = "EVTOPTACCEPT"
+		clr_character_flag = flag_commissioned_new_ship
+		clr_character_flag = flag_commissioned_shangri_la_class_yacht
+	}
+	option = {
+		name = "EVTOPTRENAMESHIP"
+		event_target:target_new_ship = { prompt_name = { player = ROOT type = SHIPNAMING } }
+		ai_chance = { factor = 0 } # Obviously this option should only be taken by the player
+	}
+}
+# DREADNOUGHTS
+character_event = {
+	id = cotc_artifact.400
+	desc = "EVTDESCCOTCARTIFACT400"
+	picture = GFX_evt_hangar
+	is_triggered_only = yes
+
+	# Bishamonten-class
+	option = {
+		log = "[Root.GetBestName] commissioned a dreadnought."
+		trigger = { wealth = 750 }
+		name = "EVTOPTACOTCARTIFACT400"
+		wealth = -750
+		clr_character_flag = flag_busy
+		set_character_flag = flag_commissioned_new_ship
+		set_character_flag = flag_commissioned_bishamonten_class_dreadnought
+		custom_tooltip = { text = "BISHAMONTENDESC" }
+		custom_tooltip = { text = "EVTTOOLTIPABOUTTWOYEARS" }
+		hidden_tooltip = { character_event = { id = cotc_artifact.401 days = 670 random = 120 } }
+	}
+
+	option = {
+		name = "EVTOPTNEVERMIND"
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 0 }
+	}
+}
+character_event = {
+	id = cotc_artifact.401
+	desc = "EVTDESCCOTCARTIFACT401"
+	picture = GFX_evt_hangar
+	is_triggered_only = yes
+
+	trigger = { has_character_flag = flag_commissioned_bishamonten_class_dreadnought }
+	immediate = {
+		add_artifact = bishamonten_class_dreadnought
+		new_artifact = {
+			save_event_target_as = target_new_ship
+			set_name = "SHIPNAME"
+			log = "[Root.GetBestName] completed a dreadnought, the [This.GetName]."
+		}
+	}
+	option = {
+		name = "EVTOPTACCEPT"
+		clr_character_flag = flag_commissioned_new_ship
+		clr_character_flag = flag_commissioned_bishamonten_class_dreadnought
+	}
+	option = {
+		name = "EVTOPTRENAMESHIP"
+		event_target:target_new_ship = { prompt_name = { player = ROOT type = SHIPNAMING } }
+		ai_chance = { factor = 0 } # Obviously this option should only be taken by the player
+	}
+}
+# PURCHASING NEW VEHICLES
+# Fighters
+character_event = {
+	id = cotc_artifact.500
+	desc = "EVTDESCCOTCARTIFACT500"
+	picture = GFX_evt_hangar
+	is_triggered_only = yes
+
+	# SFF-59 Dao
+	option = {
+		trigger = { wealth = 100 }
+		log = "[Root.GetBestName] bought a starfighter."
+		name = "EVTOPTACOTCARTIFACT500"
+		wealth = -100
+		clr_character_flag = flag_busy
+		custom_tooltip = { text = "SSF59DAODESC" }
+		add_artifact = ssf_59_dao_starfighter
+	}
+
+	option = {
+		name = "EVTOPTNEVERMIND"
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 0 }
+	}
+}
+# Urban Assault Armor
+character_event = {
+	id = cotc_artifact.600
+	desc = "EVTDESCCOTCARTIFACT600"
+	picture = GFX_evt_hangar
+	is_triggered_only = yes
+
+	# Valkyrie
+	option = {
+		trigger = { wealth = 100 }
+		log = "[Root.GetBestName] bought an urban assault armor."
+		name = "EVTOPTACOTCARTIFACT600"
+		wealth = -100
+		clr_character_flag = flag_busy
+		custom_tooltip = { text = "VALKYRIEDESC" }
+		add_artifact = valkyrie_urban_assault_armor
+	}
+
+	option = {
+		name = "EVTOPTNEVERMIND"
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 0 }
+	}
+}
+
+###### Whoops, you dead. Now your heir MIGHT inherit the commission
+character_event = {
+	id = cotc_artifact.1000
+	hide_window = yes
+	is_triggered_only = yes
+
+	trigger = { has_character_flag = flag_commissioned_new_ship }
+
+	immediate = {
+
+		random_list = {
+			100 = {
+				modifier = {
+					factor = 1.25
+					trait = friendly
+				}
+				modifier = {
+					factor = 2
+					player_heir = { trait = friendly }
+				}
+				modifier = {
+					factor = 0.8
+					trait = cold
+				}
+				modifier = {
+					factor = 0.5
+					player_heir = { trait = cold }
+				}
+				modifier = {
+					factor = 1.25
+					trait = confident
+				}
+				modifier = {
+					factor = 2
+					player_heir = { trait = confident }
+				}
+				modifier = {
+					factor = 0.8
+					trait = neurotic
+				}
+				modifier = {
+					factor = 0.5
+					player_heir = { trait = neurotic }
+				}
+				player_heir = { character_event = { id = cotc_artifact.1001 } } # All's well
+			}
+			100 = { player_heir = { character_event = { id = cotc_artifact.1002 } } } # All is not well
+		}
+	}
+}
+character_event = {
+	id = cotc_artifact.1001
+	desc = "EVTDESCCOTCARTIFACT1001"
+	picture = GFX_evt_death
+	is_triggered_only = yes
+
+	option = {
+		name = "EVTOPTACCEPT"
+		set_character_flag = flag_commissioned_new_ship
+		if = {
+			limit = { FROM = { has_character_flag = flag_commissioned_hermes_class_corvette } }
+			set_character_flag = flag_commissioned_hermes_class_corvette
+			custom_tooltip = { text = "EVTTOOLTIPABOUTEIGHTMONTHS" }
+			hidden_tooltip = { character_event = { id = cotc_artifact.101 days = 210 random = 60 } }
+		}
+		if = {
+			limit = { FROM = { has_character_flag = flag_commissioned_calico_class_heavy_freighter } }
+			set_character_flag = flag_commissioned_calico_class_heavy_freighter
+			custom_tooltip = { text = "EVTTOOLTIPABOUTTENMONTHS" }
+			hidden_tooltip = { character_event = { id = cotc_artifact.101 days = 270 random = 60 } }
+		}
+		if = {
+			limit = { FROM = { has_character_flag = flag_commissioned_shangri_la_class_yacht } }
+			set_character_flag = flag_commissioned_shangri_la_class_yacht
+			custom_tooltip = { text = "EVTTOOLTIPABOUTAYEAR" }
+			hidden_tooltip = { character_event = { id = cotc_artifact.301 days = 330 random = 60 } }
+		}
+		if = {
+			limit = { FROM = { has_character_flag = flag_commissioned_bishamonten_class_dreadnought } }
+			set_character_flag = flag_commissioned_bishamonten_class_dreadnought
+			custom_tooltip = { text = "EVTTOOLTIPABOUTTWOYEARS" }
+			hidden_tooltip = { character_event = { id = cotc_artifact.401 days = 670 random = 120 } }
+		}
+	}
+}
+character_event = {
+	id = cotc_artifact.1002
+	desc = "EVTDESCCOTCARTIFACT1002"
+	picture = GFX_evt_quarrel
+	is_triggered_only = yes
+
+	# Out-bureaucracy them
+	option = {
+		trigger = { stewardship = 15 }
+		tooltip_info = stewardship
+		if = {
+			limit = { FROM = { has_character_flag = flag_commissioned_hermes_class_corvette } }
+			set_character_flag = flag_commissioned_hermes_class_corvette
+			custom_tooltip = { text = "EVTTOOLTIPABOUTEIGHTMONTHS" }
+			hidden_tooltip = { character_event = { id = cotc_artifact.101 days = 210 random = 60 } }
+		}
+		if = {
+			limit = { FROM = { has_character_flag = flag_commissioned_calico_class_heavy_freighter } }
+			set_character_flag = flag_commissioned_calico_class_heavy_freighter
+			custom_tooltip = { text = "EVTTOOLTIPABOUTTENMONTHS" }
+			hidden_tooltip = { character_event = { id = cotc_artifact.101 days = 270 random = 60 } }
+		}
+		if = {
+			limit = { FROM = { has_character_flag = flag_commissioned_shangri_la_class_yacht } }
+			set_character_flag = flag_commissioned_shangri_la_class_yacht
+			custom_tooltip = { text = "EVTTOOLTIPABOUTAYEAR" }
+			hidden_tooltip = { character_event = { id = cotc_artifact.301 days = 330 random = 60 } }
+		}
+		if = {
+			limit = { FROM = { has_character_flag = flag_commissioned_bishamonten_class_dreadnought } }
+			set_character_flag = flag_commissioned_bishamonten_class_dreadnought
+			custom_tooltip = { text = "EVTTOOLTIPABOUTTWOYEARS" }
+			hidden_tooltip = { character_event = { id = cotc_artifact.401 days = 670 random = 120 } }
+		}
+		ai_chance = { factor = 1 }
+	}
+
+	# Bribe them. The cost is half the original commission.
+	option = {
+		name = "EVTOPTBARTIFACT1002"
+		trigger = {
+			FROM = { has_character_flag = flag_commissioned_hermes_class_corvette }
+			wealth = 75
+		}
+		wealth = -75
+		set_character_flag = flag_commissioned_new_ship
+		set_character_flag = flag_commissioned_hermes_class_corvette
+		custom_tooltip = { text = "EVTTOOLTIPABOUTEIGHTMONTHS" }
+		hidden_tooltip = { character_event = { id = cotc_artifact.101 days = 210 random = 60 } }
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				stewardship = 15
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTBARTIFACT1002"
+		trigger = {
+			FROM = { has_character_flag = flag_commissioned_calico_class_heavy_freighter }
+			wealth = 50
+		}
+		wealth = -50
+		set_character_flag = flag_commissioned_new_ship
+		set_character_flag = flag_commissioned_calico_class_heavy_freighter
+		custom_tooltip = { text = "EVTTOOLTIPABOUTTENMONTHS" }
+		hidden_tooltip = { character_event = { id = cotc_artifact.101 days = 270 random = 60 } }
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				stewardship = 15
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTBARTIFACT1002"
+		trigger = {
+			FROM = { has_character_flag = flag_commissioned_shangri_la_class_yacht }
+			wealth = 250
+		}
+		wealth = -250
+		set_character_flag = flag_commissioned_new_ship
+		set_character_flag = flag_commissioned_shangri_la_class_yacht
+		custom_tooltip = { text = "EVTTOOLTIPABOUTAYEAR" }
+		hidden_tooltip = { character_event = { id = cotc_artifact.301 days = 330 random = 60 } }
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				stewardship = 15
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTBARTIFACT1002"
+		trigger = {
+			FROM = { has_character_flag = flag_commissioned_bishamonten_class_dreadnought }
+			wealth = 375
+		}
+		wealth = -375
+		set_character_flag = flag_commissioned_new_ship
+		set_character_flag = flag_commissioned_bishamonten_class_dreadnought
+		custom_tooltip = { text = "EVTTOOLTIPABOUTTWOYEARS" }
+		hidden_tooltip = { character_event = { id = cotc_artifact.401 days = 670 random = 120 } }
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				stewardship = 15
+			}
+		}
+	}
+
+	# Can't out-bureaucracy and can't bribe
+	option = {
+		name = "EVTOPTCARTIFACT1002"
+		ai_chance = { factor = 0 }
+	}
+}
+
+### BUYING NEW EQUIPMENT ###
+# Hunting and sniper rifles
+character_event = {
+	id = cotc_artifact.2000
+	desc = "EVTDESCCOTCARTIFACT2000"
+	picture = GFX_evt_armory
+	border = GFX_event_normal_frame_war
+	is_triggered_only = yes
+
+	# Purchase a standard sniper rifle
+	option = {
+		trigger = {
+			wealth = 50
+			OR = {
+				location = { TECH_INFANTRY = 1 }
+				capital_scope = { TECH_INFANTRY = 1 }
+			}
+		}
+		name = "EVTOPTACOTCARTIFACT2000"
+		wealth = -50
+		clr_character_flag = flag_busy
+		if = {
+			limit = {
+				OR = {
+					location = { TECH_INFANTRY = 8 }
+					capital_scope = { TECH_INFANTRY = 8 }
+				}
+			}
+			add_artifact = tech_8_sniper_rifle
+		}
+		else_if = {
+			limit = {
+				OR = {
+					location = { TECH_INFANTRY = 7 }
+					capital_scope = { TECH_INFANTRY = 7 }
+				}
+			}
+			add_artifact = tech_7_sniper_rifle
+		}
+		else_if = {
+			limit = {
+				OR = {
+					location = { TECH_INFANTRY = 6 }
+					capital_scope = { TECH_INFANTRY = 6 }
+				}
+			}
+			add_artifact = tech_6_sniper_rifle
+		}
+		else_if = {
+			limit = {
+				OR = {
+					location = { TECH_INFANTRY = 5 }
+					capital_scope = { TECH_INFANTRY = 5 }
+				}
+			}
+			add_artifact = tech_5_sniper_rifle
+		}
+		else_if = {
+			limit = {
+				OR = {
+					location = { TECH_INFANTRY = 4 }
+					capital_scope = { TECH_INFANTRY = 4 }
+				}
+			}
+			add_artifact = tech_4_sniper_rifle
+		}
+		else_if = {
+			limit = {
+				OR = {
+					location = { TECH_INFANTRY = 3 }
+					capital_scope = { TECH_INFANTRY = 3 }
+				}
+			}
+			add_artifact = tech_3_sniper_rifle
+		}
+		else_if = {
+			limit = {
+				OR = {
+					location = { TECH_INFANTRY = 2 }
+					capital_scope = { TECH_INFANTRY = 2 }
+				}
+			}
+			add_artifact = tech_2_sniper_rifle
+		}
+		else = { add_artifact = tech_1_sniper_rifle }
+		ai_chance = {
+			factor = 33
+			modifier = {
+				factor = 0
+				has_artifact = tech_8_sniper_rifle
+			}
+			modifier = {
+				factor = 0
+				NOT = { location = { TECH_INFANTRY = 8 } }
+				NOT = { capital_scope = { TECH_INFANTRY = 8 } }
+				has_artifact = tech_7_sniper_rifle
+			}
+			modifier = {
+				factor = 0
+				NOT = { location = { TECH_INFANTRY = 7 } }
+				NOT = { capital_scope = { TECH_INFANTRY = 7 } }
+				has_artifact = tech_6_sniper_rifle
+			}
+			modifier = {
+				factor = 0
+				NOT = { location = { TECH_INFANTRY = 6 } }
+				NOT = { capital_scope = { TECH_INFANTRY = 6 } }
+				has_artifact = tech_5_sniper_rifle
+			}
+			modifier = {
+				factor = 0
+				NOT = { location = { TECH_INFANTRY = 5 } }
+				NOT = { capital_scope = { TECH_INFANTRY = 5 } }
+				has_artifact = tech_4_sniper_rifle
+			}
+			modifier = {
+				factor = 0
+				NOT = { location = { TECH_INFANTRY = 4 } }
+				NOT = { capital_scope = { TECH_INFANTRY = 4 } }
+				has_artifact = tech_3_sniper_rifle
+			}
+			modifier = {
+				factor = 0
+				NOT = { location = { TECH_INFANTRY = 3 } }
+				NOT = { capital_scope = { TECH_INFANTRY = 3 } }
+				has_artifact = tech_2_sniper_rifle
+			}
+			modifier = {
+				factor = 0
+				NOT = { location = { TECH_INFANTRY = 2 } }
+				NOT = { capital_scope = { TECH_INFANTRY = 2 } }
+				has_artifact = tech_1_sniper_rifle
+			}
+		}
+	}
+
+	# Purchase a plasma-based sniper rifle
+	option = {
+		trigger = {
+			wealth = 75
+			OR = {
+				location = { TECH_INFANTRY = 5 }
+				capital_scope = { TECH_INFANTRY = 5 }
+			}
+		}
+		name = "EVTOPTACOTCARTIFACT2000"
+		wealth = -75
+		clr_character_flag = flag_busy
+		if = {
+			limit = {
+				OR = {
+					location = { TECH_INFANTRY = 7 }
+					capital_scope = { TECH_INFANTRY = 7 }
+				}
+			}
+			add_artifact = tech_7_plasma_sniper_rifle
+		}
+		else = { add_artifact = tech_5_plasma_sniper_rifle }
+		ai_chance = {
+			factor = 33
+			modifier = {
+				factor = 0
+				has_artifact = tech_7_plasma_sniper_rifle
+			}
+			modifier = {
+				factor = 0
+				NOT = { location = { TECH_INFANTRY = 7 } }
+				NOT = { capital_scope = { TECH_INFANTRY = 7 } }
+				has_artifact = tech_5_plasma_sniper_rifle
+			}
+		}
+	}
+
+	# Purchase a hunting rifle
+	option = {
+		name = "EVTOPTCCOTCARTIFACT2000"
+		wealth = -25
+		clr_character_flag = flag_busy
+		if = {
+			limit = {
+				OR = {
+					location = { TECH_INFANTRY = 8 }
+					capital_scope = { TECH_INFANTRY = 8 }
+				}
+			}
+			add_artifact = tech_8_hunting_rifle
+		}
+		else_if = {
+			limit = {
+				OR = {
+					location = { TECH_INFANTRY = 4 }
+					capital_scope = { TECH_INFANTRY = 4 }
+				}
+			}
+			add_artifact = tech_4_hunting_rifle
+		}
+		else = { add_artifact = tech_0_hunting_rifle }
+		ai_chance = {
+			factor = 33
+
+			# Prefer not to buy weapons you can't use
+			modifier = {
+				factor = 3
+				NOT = {
+					AND = {
+						martial = 10
+						intrigue = 10
+					}
+				}
+			}
+			# Prefer to buy weapons you can use
+			modifier = {
+				factor = 0.25
+				martial = 10
+				intrigue = 10
+			}
+			modifier = {
+				factor = 0
+				has_artifact = tech_8_hunting_rifle
+			}
+			modifier = {
+				factor = 0
+				NOT = { location = { TECH_INFANTRY = 8 } }
+				NOT = { capital_scope = { TECH_INFANTRY = 8 } }
+				has_artifact = tech_4_hunting_rifle
+			}
+			modifier = {
+				factor = 0
+				NOT = { location = { TECH_INFANTRY = 4 } }
+				NOT = { capital_scope = { TECH_INFANTRY = 4 } }
+				has_artifact = tech_0_hunting_rifle
+			}
+		}
+	}
+
+	# Nevermind
+	option = {
+		name = "EVTOPTNEVERMIND"
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 1 } # Set to a low but non-zero number so the AI will choose this rather than a dumb option
+	}
+}

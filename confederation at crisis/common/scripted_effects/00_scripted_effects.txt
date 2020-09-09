@@ -1476,10 +1476,8 @@ add_maimed_trait_effect = {
 	}
 	if = {
 		limit = {
-			AND = {
-				has_dlc = "Reapers"
-				NOT = { trait = severely_injured }
-			}
+			has_dlc = "Reapers"
+			NOT = { trait = severely_injured }
 		}
 		add_trait = severely_injured
 		hidden_tooltip = {
@@ -2803,8 +2801,8 @@ leave_council_position_effect = {
 		}
 	}
 	if = {
-		limit = { has_minor_title = title_councilmember_king }
-		remove_title = title_councilmember_king
+		limit = { has_minor_title = title_senatorduke }
+		remove_title = title_senatorduke
 		add_character_modifier = {
 			modifier = resigned_in_anger
 			years = 2
@@ -2812,8 +2810,62 @@ leave_council_position_effect = {
 		}
 	}
 	if = {
-		limit = { has_minor_title = title_councilmember_emperor }
-		remove_title = title_councilmember_emperor
+		limit = { has_minor_title = title_senatorking }
+		remove_title = title_senatorking
+		add_character_modifier = {
+			modifier = resigned_in_anger
+			years = 2
+			hidden = yes
+		}
+	}
+	if = {
+		limit = { has_minor_title = title_senatoremperor }
+		remove_title = title_senatoremperor
+		add_character_modifier = {
+			modifier = resigned_in_anger
+			years = 2
+			hidden = yes
+		}
+	}
+	if = {
+		limit = { has_minor_title = title_senatorbigrealm1 }
+		remove_title = title_senatorbigrealm1
+		add_character_modifier = {
+			modifier = resigned_in_anger
+			years = 2
+			hidden = yes
+		}
+	}
+	if = {
+		limit = { has_minor_title = title_senatorbigrealm2 }
+		remove_title = title_senatorbigrealm2
+		add_character_modifier = {
+			modifier = resigned_in_anger
+			years = 2
+			hidden = yes
+		}
+	}
+	if = {
+		limit = { has_minor_title = title_senatorbigrealm3 }
+		remove_title = title_senatorbigrealm3
+		add_character_modifier = {
+			modifier = resigned_in_anger
+			years = 2
+			hidden = yes
+		}
+	}
+	if = {
+		limit = { has_minor_title = title_senatorbigrealm4 }
+		remove_title = title_senatorbigrealm4
+		add_character_modifier = {
+			modifier = resigned_in_anger
+			years = 2
+			hidden = yes
+		}
+	}
+	if = {
+		limit = { has_minor_title = title_senatorbigrealm5 }
+		remove_title = title_senatorbigrealm5
 		add_character_modifier = {
 			modifier = resigned_in_anger
 			years = 2
@@ -11329,15 +11381,15 @@ increase_council_power_effect = {
 increase_vassal_freedom_effect = {
 	if = {
 		limit = {
-			has_law = kings_peace_1
+			has_law = public_order_1
 		}
-		add_law = kings_peace_0
+		add_law = public_order_0
 	}
 	if = {
 		limit = {
-			has_law = kings_peace_2
+			has_law = public_order_2
 		}
-		add_law = kings_peace_1
+		add_law = public_order_1
 	}
 }
 
@@ -17461,38 +17513,6 @@ add_warrior_lodge_leader_trait_effect = {
 		}
 	}
 }
-fire_haruspicy_event_effect = {
-	hidden_tooltip = { #Divination.
-		if = {
-			limit = {
-				attacker = {
-					OR = {
-						religion = hellenic_pagan
-						religion = hellenic_pagan_reformed
-						has_religion_feature = religion_haruspicy
-					}
-				}
-			}
-			attacker = {
-				character_event = { id = HF.23005 }
-			}
-		}
-		if = {
-			limit = {
-				defender = {
-					OR = {
-						religion = hellenic_pagan
-						religion = hellenic_pagan_reformed
-						has_religion_feature = religion_haruspicy
-					}
-				}
-			}
-			defender = {
-				character_event = { id = HF.23005 }
-			}
-		}
-	}
-}
 
 remove_opinions_with_prison_reason_effect = {
 	#Removes the specified opinion about "who" (PREV), from current scope
@@ -17954,929 +17974,5 @@ rename_character_effect = {
 	prompt_name = {
 		player = FROM
 		type = RENAME_CHARACTER_MESSAGE
-	}
-}
-spawn_good_commander_effect = {
-	random_list = {
-		50 = {
-			create_random_soldier = {
-				random_traits = yes
-				culture = ROOT
-				religion = ROOT
-				female = yes
-				dynasty = actually_culture
-				attributes = {
-					diplomacy = 2
-					learning = 2
-					stewardship = 2
-					intrigue = 2
-					martial = 8
-				}
-			}
-		}
-		50 = {
-			create_random_soldier = {
-				random_traits = yes
-				culture = ROOT
-				religion = ROOT
-				female = no
-				dynasty = actually_culture
-				attributes = {
-					diplomacy = 2
-					learning = 2
-					stewardship = 2
-					intrigue = 2
-					martial = 8
-				}
-			}
-		}
-	}
-	new_character = {
-		add_age = 2 # Guarantee they're at least 18
-		remove_trait = weak
-		remove_trait = slow
-		remove_trait = imbecile
-		remove_trait = dull
-
-		remove_trait = mystic
-		remove_trait = socializer
-		remove_trait = gamer
-		remove_trait = hedonist
-		remove_trait = duelist
-		remove_trait = hunter
-		remove_trait = strategist
-		remove_trait = administrator
-		remove_trait = architect
-		remove_trait = gardener
-		remove_trait = schemer
-		remove_trait = impaler
-		remove_trait = seducer
-		remove_trait = seductress
-		remove_trait = theologian
-		remove_trait = intellectual
-
-		random_list = {
-			33 = { add_trait = warship_captain }
-			33 = { add_trait = marine_colonel }
-			33 = { add_trait = fighter_pilot }
-		}
-
-		random_list = { # Flavor Randomization
-			35 = {
-				# Nothing
-			}
-			15 = {
-				change_martial = 2
-			}
-			10 = {
-				add_trait = strong
-			}
-			10 = {
-				add_trait = duelist
-			}
-			10 = {
-				add_trait = hunter
-			}
-			5 = {
-				add_trait = strategist
-			}
-			5 = {
-				change_martial = 4
-			}
-			5 = {
-				if = {
-					limit = {
-						has_dlc = "Reapers"
-					}
-					add_trait = one_eyed
-				}
-			}
-			5 = {
-				add_trait = shrewd
-			}
-			3 = {
-				add_trait = giant
-			}
-		}
-		# Cybernetics
-		if = {
-			limit = { NOT = { religion_group = religious_group } }
-			random_list = {
-				100 = { }
-				25 = { add_trait = cybernetic_limb }
-				25 = {
-					if = {
-						limit = { has_dlc = "Reapers" }
-						add_trait = cybernetic_leg
-					}
-					else = { add_trait = cybernetic_limb }
-				}
-			}
-		}
-		if = {
-			limit = {
-				NOT = { trait = one_eyed }
-				NOT = { religion_group = religious_group }
-			}
-			random = {
-				chance = 20
-				add_trait = odin_mk_i
-			}
-		}
-		if = {
-			limit = {
-				NOT = { trait = one_eyed }
-				NOT = { religion_group = religious_group }
-				location = { TECH_POPULAR_CUSTOMS = 2 }
-			}
-			random = {
-				chance = 20
-				remove_trait = odin_mk_i
-				add_trait = odin_mk_ii
-			}
-		}
-		if = {
-			limit = {
-				NOT = { trait = one_eyed }
-				NOT = { religion_group = religious_group }
-				location = { TECH_POPULAR_CUSTOMS = 4 }
-			}
-			random = {
-				chance = 20
-				remove_trait = odin_mk_i
-				remove_trait = odin_mk_ii
-				add_trait = odin_mk_iii
-			}
-		}
-		if = {
-			limit = {
-				NOT = { trait = one_eyed }
-				NOT = { religion_group = religious_group }
-				location = { TECH_POPULAR_CUSTOMS = 6 }
-			}
-			random = {
-				chance = 20
-				remove_trait = odin_mk_i
-				remove_trait = odin_mk_ii
-				remove_trait = odin_mk_iii
-				add_trait = odin_mk_iv
-			}
-		}
-		if = {
-			limit = {
-				NOT = { trait = one_eyed }
-				NOT = { religion_group = religious_group }
-				location = { TECH_POPULAR_CUSTOMS = 8 }
-			}
-			random = {
-				chance = 20
-				remove_trait = odin_mk_i
-				remove_trait = odin_mk_ii
-				remove_trait = odin_mk_iii
-				remove_trait = odin_mk_iv
-				add_trait = odin_mk_v
-			}
-		}
-		set_dynasty_flag = flag_valid_surname
-		set_character_flag = invited_soldier
-		save_event_target_as = invited_character
-	}
-}
-
-spawn_great_commander_effect = {
-	random_list = {
-		50 = {
-			create_random_soldier = {
-				random_traits = yes
-				culture = ROOT
-				religion = ROOT
-				female = yes
-				dynasty = actually_culture
-				attributes = {
-					diplomacy = 3
-					learning = 3
-					stewardship = 3
-					intrigue = 3
-					martial = 9
-				}
-			}
-		}
-		50 = {
-			create_random_soldier = {
-				random_traits = yes
-				culture = ROOT
-				religion = ROOT
-				female = no
-				dynasty = actually_culture
-				attributes = {
-					diplomacy = 3
-					learning = 3
-					stewardship = 3
-					intrigue = 3
-					martial = 9
-				}
-			}
-		}
-	}
-	new_character = {
-		add_age = 2 # Guarantee they're at least 18
-		remove_trait = weak
-		remove_trait = slow
-		remove_trait = imbecile
-		remove_trait = dull
-		remove_trait = dwarf
-		remove_trait = giant
-		remove_trait = hunchback
-		remove_trait = clubfooted
-		remove_trait = craven
-
-		remove_trait = mystic
-		remove_trait = socializer
-		remove_trait = gamer
-		remove_trait = hedonist
-		remove_trait = duelist
-		remove_trait = hunter
-		remove_trait = strategist
-		remove_trait = administrator
-		remove_trait = architect
-		remove_trait = gardener
-		remove_trait = schemer
-		remove_trait = impaler
-		remove_trait = seducer
-		remove_trait = seductress
-		remove_trait = theologian
-		remove_trait = intellectual
-
-		random_list = {
-			33 = { add_trait = warship_captain }
-			33 = { add_trait = marine_colonel }
-			33 = { add_trait = fighter_pilot }
-		}
-
-		remove_trait = misguided_warrior
-		remove_trait = tough_soldier
-		remove_trait = skilled_tactician
-		remove_trait = brilliant_strategist
-
-		random_list = {
-			5 = { add_trait = misguided_warrior }
-			10 = { add_trait = tough_soldier }
-			20 = { add_trait = skilled_tactician }
-			30 = { add_trait = brilliant_strategist }
-		}
-
-		random_list = { # Flavor Randomization
-			35 = {
-				# Nothing
-			}
-			15 = {
-				change_martial = 2
-			}
-			10 = {
-				add_trait = strong
-			}
-			10 = {
-				add_trait = duelist
-			}
-			10 = {
-				add_trait = hunter
-			}
-			5 = {
-				add_trait = strategist
-			}
-			5 = {
-				change_martial = 4
-			}
-			5 = {
-				if = {
-					limit = {
-						has_dlc = "Reapers"
-					}
-					add_trait = one_eyed
-				}
-			}
-			5 = {
-				add_trait = shrewd
-			}
-			1 = {
-				add_trait = giant
-			}
-		}
-		random_list = {
-			50 = {
-				#Nothing
-			}
-			10 = {
-				add_trait = narrow_flank_leader
-			}
-			10 = {
-				add_trait = defensive_leader
-			}
-			10 = {
-				add_trait = experimenter
-			}
-			10 = {
-				add_trait = flanker
-			}
-			10 = {
-				add_trait = heavy_infantry_leader
-			}
-			10 = {
-				add_trait = inspiring_leader
-			}
-			10 = {
-				add_trait = organizer
-			}
-			10 = {
-				add_trait = siege_leader
-			}
-			10 = {
-				add_trait = trickster
-			}
-			10 = {
-				add_trait = aggressive_leader
-			}
-		}
-		# Cybernetics
-		if = {
-			limit = { NOT = { religion_group = religious_group } }
-			random_list = {
-				100 = { }
-				25 = { add_trait = cybernetic_limb }
-				25 = {
-					if = {
-						limit = { has_dlc = "Reapers" }
-						add_trait = cybernetic_leg
-					}
-					else = { add_trait = cybernetic_limb }
-				}
-			}
-		}
-		if = {
-			limit = {
-				NOT = { trait = one_eyed }
-				NOT = { religion_group = religious_group }
-			}
-			random = {
-				chance = 20
-				add_trait = odin_mk_i
-			}
-		}
-		if = {
-			limit = {
-				NOT = { trait = one_eyed }
-				NOT = { religion_group = religious_group }
-				location = { TECH_POPULAR_CUSTOMS = 2 }
-			}
-			random = {
-				chance = 20
-				remove_trait = odin_mk_i
-				add_trait = odin_mk_ii
-			}
-		}
-		if = {
-			limit = {
-				NOT = { trait = one_eyed }
-				NOT = { religion_group = religious_group }
-				location = { TECH_POPULAR_CUSTOMS = 4 }
-			}
-			random = {
-				chance = 20
-				remove_trait = odin_mk_i
-				remove_trait = odin_mk_ii
-				add_trait = odin_mk_iii
-			}
-		}
-		if = {
-			limit = {
-				NOT = { trait = one_eyed }
-				NOT = { religion_group = religious_group }
-				location = { TECH_POPULAR_CUSTOMS = 6 }
-			}
-			random = {
-				chance = 20
-				remove_trait = odin_mk_i
-				remove_trait = odin_mk_ii
-				remove_trait = odin_mk_iii
-				add_trait = odin_mk_iv
-			}
-		}
-		if = {
-			limit = {
-				NOT = { trait = one_eyed }
-				NOT = { religion_group = religious_group }
-				location = { TECH_POPULAR_CUSTOMS = 8 }
-			}
-			random = {
-				chance = 20
-				remove_trait = odin_mk_i
-				remove_trait = odin_mk_ii
-				remove_trait = odin_mk_iii
-				remove_trait = odin_mk_iv
-				add_trait = odin_mk_v
-			}
-		}
-		# Biological Traits for specific cultures
-		if = {
-			limit = { culture = heavy_worlder_ge }
-			random = {
-				chance = 60
-				remove_trait = spacer_physiology
-				add_trait = heavy_worlder
-			}
-		}
-		if = {
-			limit = { culture = cat_splice_ge }
-			random = {
-				chance = 60
-				add_trait = cat_splice
-			}
-		}
-		if = {
-			limit = { culture = organic_wifi_ge }
-			random = {
-				chance = 60
-				add_trait = organic_wifi
-			}
-		}
-		if = {
-			limit = { culture = bio_ge }
-			random = {
-				chance = 35
-				remove_trait = organic_wifi
-				remove_trait = cat_splice
-				remove_trait = spacer_physiology
-				add_trait = heavy_worlder
-			}
-		}
-		if = {
-			limit = { culture = bio_ge }
-			random = {
-				chance = 25
-				remove_trait = organic_wifi
-				remove_trait = heavy_worlder
-				remove_trait = spacer_physiology
-				add_trait = cat_splice
-			}
-		}
-		if = {
-			limit = { culture = bio_ge }
-			random = {
-				chance = 35
-				remove_trait = cat_splice
-				remove_trait = heavy_worlder
-				remove_trait = spacer_physiology
-				add_trait = organic_wifi
-			}
-		}
-		if = {
-			limit = { culture = bio_ge }
-			random = {
-				chance = 5
-				remove_trait = organic_wifi
-				remove_trait = heavy_worlder
-				remove_trait = cat_splice
-				add_trait = spacer_physiology
-			}
-		}
-		if = {
-			limit = { any_liege = { trait = spacer_physiology } }
-			random = {
-				chance = 10
-				remove_trait = heavy_worlder
-				add_trait = spacer_physiology
-			}
-		}
-		if = {
-			limit = { religion = astrist }
-			random = {
-				chance = 25
-				remove_trait = heavy_worlder
-				add_trait = spacer_physiology
-			}
-		}
-		if = {
-			limit = {
-				religion = astrist
-				top_liege = { trait = spacer_physiology }
-				}
-			random = {
-				chance = 25
-				remove_trait = heavy_worlder
-				add_trait = spacer_physiology
-			}
-		}
-		if = {
-			limit = { location = { province_id = 202 } }
-			random = {
-				chance = 66
-				add_trait = born_in_the_purple
-			}
-		}
-		set_dynasty_flag = flag_valid_surname
-		set_character_flag = invited_soldier
-		save_event_target_as = invited_character
-	}
-}
-
-spawn_fantastic_commander_effect = {
-	random_list = {
-		50 = {
-			create_random_soldier = {
-				random_traits = yes
-				culture = ROOT
-				religion = ROOT
-				female = yes
-				dynasty = actually_culture
-				attributes = {
-					diplomacy = 4
-					learning = 4
-					stewardship = 4
-					intrigue = 4
-					martial = 12
-				}
-			}
-		}
-		50 = {
-			create_random_soldier = {
-				random_traits = yes
-				culture = ROOT
-				religion = ROOT
-				female = no
-				dynasty = actually_culture
-				attributes = {
-					diplomacy = 4
-					learning = 4
-					stewardship = 4
-					intrigue = 4
-					martial = 12
-				}
-			}
-		}
-	}
-	new_character = {
-		add_age = 2 # Guarantee they're at least 18
-		remove_trait = weak
-		remove_trait = slow
-		remove_trait = imbecile
-		remove_trait = dull
-		remove_trait = dwarf
-		remove_trait = giant
-		remove_trait = hunchback
-		remove_trait = clubfooted
-		remove_trait = craven
-		remove_trait = paranoid
-
-		remove_trait = mystic
-		remove_trait = socializer
-		remove_trait = gamer
-		remove_trait = hedonist
-		remove_trait = duelist
-		remove_trait = hunter
-		remove_trait = strategist
-		remove_trait = administrator
-		remove_trait = architect
-		remove_trait = gardener
-		remove_trait = schemer
-		remove_trait = impaler
-		remove_trait = seducer
-		remove_trait = seductress
-		remove_trait = theologian
-		remove_trait = intellectual
-
-		remove_trait = misguided_warrior
-		remove_trait = tough_soldier
-		remove_trait = skilled_tactician
-
-		add_trait = brilliant_strategist
-
-		random_list = {
-			33 = { add_trait = warship_captain }
-			33 = { add_trait = marine_colonel }
-			33 = { add_trait = fighter_pilot }
-		}
-
-		random_list = {
-			10 = {
-				add_trait = strong
-			}
-			5 = {
-				health = 1
-			}
-		}
-
-		random_list = {
-			10 = {
-				add_trait = narrow_flank_leader
-			}
-			10 = {
-				add_trait = defensive_leader
-			}
-			10 = {
-				add_trait = experimenter
-			}
-			10 = {
-				add_trait = flanker
-			}
-			10 = {
-				add_trait = heavy_infantry_leader
-			}
-			10 = {
-				add_trait = inspiring_leader
-			}
-			10 = {
-				add_trait = organizer
-			}
-			10 = {
-				add_trait = siege_leader
-			}
-			10 = {
-				add_trait = trickster
-			}
-			10 = {
-				add_trait = aggressive_leader
-			}
-		}
-
-		random_list = { # Flavor Randomization
-			20 = {
-				remove_trait = warship_captain
-				remove_trait = fighter_pilot
-				add_trait = marine_colonel
-				add_trait = giant
-				add_trait = strong
-				add_trait = hunter
-				change_martial = 2
-				give_nickname = nick_the_giant
-			}
-			20 = {
-				modifier = {
-					factor = 0
-					NOT = {
-						has_dlc = "Reapers"
-					}
-				}
-				add_trait = disfigured
-				add_trait = scarred
-				add_trait = genius
-				change_martial = 2
-				change_intrigue = 12
-				give_nickname = nick_of_a_thousand_faces
-			}
-			20 = {
-				add_trait = cybernetic_leg
-				add_trait = cybernetic_limb
-				add_trait = cybernetic_skeleton
-				add_trait = dni
-				if = {
-					limit = { location = { TECH_POPULAR_CUSTOMS = 4 } }
-					add_trait = full_cybernetic_conversion
-					add_trait = odin_mk_iii
-				}
-				else = { add_trait = odin_mk_i }
-				give_nickname = nick_the_scarred
-			}
-			20 = {
-				remove_trait = warship_captain
-				remove_trait = marine_colonel
-				add_trait = fighter_pilot
-				add_trait = agile
-				add_trait = brave
-				give_nickname = nick_the_comet
-			}
-			20 = {
-				remove_trait = friendly
-				remove_trait = craven
-				remove_trait = carefree
-				add_trait = cold
-				add_trait = brave
-				add_trait = disciplined
-				add_trait = unyielding_leader
-				give_nickname = nick_the_ironside
-			}
-			20 = {
-				remove_trait = friendly
-				remove_trait = disciplined
-				add_trait = cold
-				add_trait = carefree
-				add_trait = aggressive_leader
-				give_nickname = nick_the_destroyer
-			}
-			20 = {
-				remove_trait = close_minded
-				remove_trait = disciplined
-				add_trait = open_minded
-				add_trait = carefree
-				add_trait = trickster
-				add_trait = strategist
-				martial = 2
-				give_nickname = nick_the_fox
-			}
-			20 = {
-				remove_trait = pragmatic
-				remove_trait = craven
-				remove_trait = neurotic
-				add_trait = radical
-				add_trait = brave
-				add_trait = confident
-				give_nickname = nick_the_hammer
-			}
-			20 = {
-				remove_trait = fighter_pilot
-				remove_trait = marine_colonel
-				add_trait = warship_captain
-				add_age = 30
-				remove_trait = cold
-				remove_trait = carefree
-				add_trait = friendly
-				add_trait = disciplined
-				martial = 4
-				give_nickname = nick_the_old_man
-			}
-		}
-		# Cybernetics
-		if = {
-			limit = { NOT = { religion_group = religious_group } }
-			random_list = {
-				100 = { }
-				25 = { add_trait = cybernetic_limb }
-				25 = {
-					if = {
-						limit = { has_dlc = "Reapers" }
-						add_trait = cybernetic_leg
-					}
-					else = { add_trait = cybernetic_limb }
-				}
-			}
-		}
-		if = {
-			limit = {
-				NOT = { trait = one_eyed }
-				NOT = { religion_group = religious_group }
-			}
-			random = {
-				chance = 20
-				add_trait = dni
-				add_trait = odin_mk_i
-			}
-		}
-		if = {
-			limit = {
-				NOT = { trait = one_eyed }
-				NOT = { religion_group = religious_group }
-				location = { TECH_POPULAR_CUSTOMS = 2 }
-			}
-			random = {
-				chance = 20
-				add_trait = dni
-				remove_trait = odin_mk_i
-				add_trait = odin_mk_ii
-			}
-		}
-		if = {
-			limit = {
-				NOT = { trait = one_eyed }
-				NOT = { religion_group = religious_group }
-				location = { TECH_POPULAR_CUSTOMS = 4 }
-			}
-			random = {
-				chance = 20
-				add_trait = dni
-				remove_trait = odin_mk_i
-				remove_trait = odin_mk_ii
-				add_trait = odin_mk_iii
-			}
-		}
-		if = {
-			limit = {
-				NOT = { trait = one_eyed }
-				NOT = { religion_group = religious_group }
-				location = { TECH_POPULAR_CUSTOMS = 6 }
-			}
-			random = {
-				chance = 20
-				add_trait = dni
-				remove_trait = odin_mk_i
-				remove_trait = odin_mk_ii
-				remove_trait = odin_mk_iii
-				add_trait = odin_mk_iv
-			}
-		}
-		if = {
-			limit = {
-				NOT = { trait = one_eyed }
-				NOT = { religion_group = religious_group }
-				location = { TECH_POPULAR_CUSTOMS = 8 }
-			}
-			random = {
-				chance = 20
-				add_trait = dni
-				remove_trait = odin_mk_i
-				remove_trait = odin_mk_ii
-				remove_trait = odin_mk_iii
-				remove_trait = odin_mk_iv
-				add_trait = odin_mk_v
-			}
-		}
-		# Biological Traits for specific cultures
-		if = {
-			limit = { culture = heavy_worlder_ge }
-			random = {
-				chance = 60
-				remove_trait = spacer_physiology
-				add_trait = heavy_worlder
-			}
-		}
-		if = {
-			limit = { culture = cat_splice_ge }
-			random = {
-				chance = 60
-				add_trait = cat_splice
-			}
-		}
-		if = {
-			limit = { culture = organic_wifi_ge }
-			random = {
-				chance = 60
-				add_trait = organic_wifi
-			}
-		}
-		if = {
-			limit = { culture = bio_ge }
-			random = {
-				chance = 35
-				remove_trait = organic_wifi
-				remove_trait = cat_splice
-				remove_trait = spacer_physiology
-				add_trait = heavy_worlder
-			}
-		}
-		if = {
-			limit = { culture = bio_ge }
-			random = {
-				chance = 25
-				remove_trait = organic_wifi
-				remove_trait = heavy_worlder
-				remove_trait = spacer_physiology
-				add_trait = cat_splice
-			}
-		}
-		if = {
-			limit = { culture = bio_ge }
-			random = {
-				chance = 35
-				remove_trait = cat_splice
-				remove_trait = heavy_worlder
-				remove_trait = spacer_physiology
-				add_trait = organic_wifi
-			}
-		}
-		if = {
-			limit = { culture = bio_ge }
-			random = {
-				chance = 5
-				remove_trait = organic_wifi
-				remove_trait = heavy_worlder
-				remove_trait = cat_splice
-				add_trait = spacer_physiology
-			}
-		}
-		if = {
-			limit = { any_liege = { trait = spacer_physiology } }
-			random = {
-				chance = 10
-				remove_trait = heavy_worlder
-				add_trait = spacer_physiology
-			}
-		}
-		if = {
-			limit = { religion = astrist }
-			random = {
-				chance = 25
-				remove_trait = heavy_worlder
-				add_trait = spacer_physiology
-			}
-		}
-		if = {
-			limit = {
-				religion = astrist
-				top_liege = { trait = spacer_physiology }
-				}
-			random = {
-				chance = 25
-				remove_trait = heavy_worlder
-				add_trait = spacer_physiology
-			}
-		}
-		if = {
-			limit = { location = { province_id = 202 } }
-			random = {
-				chance = 66
-				add_trait = born_in_the_purple
-			}
-		}
-		set_dynasty_flag = flag_valid_surname
-		set_character_flag = invited_soldier
-		save_event_target_as = invited_character
 	}
 }

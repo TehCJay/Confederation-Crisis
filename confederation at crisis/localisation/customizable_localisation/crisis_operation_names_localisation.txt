@@ -1,0 +1,637 @@
+# GetRandomShipName - Use this command to generate a new ship name
+# GetShipName - Use this command to get the name of the character's actual ship, if they have one
+
+defined_text = {
+	name = GetOperationName
+
+	use_first_valid = yes
+
+	# If the event isn't referencing a ship, choose one at random
+	text = { localisation_key = String_random_operation_name }
+}
+
+defined_text = {
+	name = GetRandomOperationName
+
+	text = {
+		trigger = {
+			NOR = {
+				religion = hiver
+				religion = machine_cultist
+			}
+		}
+		localisation_key = String_two_word_ship_name
+		weight_multiplier = { factor = 1 }
+	}
+	text = {
+		trigger = {
+			NOR = {
+				religion = hiver
+				religion = machine_cultist
+			}
+		}
+		localisation_key = String_adjective_ship_name
+		weight_multiplier = { factor = 1 }
+	}
+	text = {
+		trigger = {
+			NOR = {
+				religion = hiver
+				religion = machine_cultist
+			}
+		}
+		localisation_key = String_noun_ship_name
+		weight_multiplier = { factor = 2 }
+	}
+	text = {
+		trigger = { religion = hiver }
+		localisation_key = String_hiver_ship_name
+	}
+	text = {
+		trigger = { religion = machine_cultist }
+		localisation_key = String_machine_cultist_name
+	}
+}
+defined_text = {
+	name = GetCompoundShipNameAdjective
+	text = {
+		localisation_key = String_compound_generic_ship_name_adjective
+		weight_multiplier = { factor = 1 }
+	}
+	text = {
+		trigger = { is_autocratic_trigger = yes }
+		localisation_key = String_autocratic_ship_name_adjective
+		weight_multiplier = { factor = 1 }
+	}
+	text = {
+		trigger = {
+			OR = {
+				religion_group = religious_group
+				religion = imperial_cult
+			}
+		}
+		localisation_key = String_religious_ship_name_adjective
+		weight_multiplier = { factor = 5 }
+	}
+	text = {
+		trigger = { religion = cyberneticist }
+		localisation_key = String_mechanical_ship_name_adjective
+	}
+	text = {
+		trigger = { religion_group = outlaw_group }
+		localisation_key = String_pirate_ship_name_adjective
+		weight_multiplier = { factor = 10 }
+	}
+}
+defined_text = {
+	name = GetShipNameAdjective
+	text = {
+		localisation_key = String_generic_ship_name_adjective
+		weight_multiplier = { factor = 1 }
+	}
+	text = {
+		trigger = { is_autocratic_trigger = yes }
+		localisation_key = String_autocratic_ship_name_adjective
+		weight_multiplier = { factor = 1 }
+	}
+	text = {
+		trigger = { religion = cyberneticist }
+		localisation_key = String_mechanical_ship_name_adjective
+	}
+	text = {
+		trigger = { religion = outlaw_group }
+		localisation_key = String_pirate_ship_name_adjective
+		weight_multiplier = { factor = 10 }
+	}
+}
+defined_text = {
+	name = GetCompoundShipNameNoun
+	text = {
+		localisation_key = String_generic_ship_name_noun
+		weight_multiplier = { factor = 1 }
+	}
+	text = {
+		trigger = {
+			NOT = { religion_group = religious_group }
+			NOT = { religion = imperial_cult }
+		}
+		localisation_key = String_mythological_ship_name_noun
+		weight_multiplier = { factor = 1 }
+	}
+	text = {
+		trigger = {
+			OR = {
+				religion_group = religious_group
+				religion = imperial_cult
+			}
+		}
+		localisation_key = String_religious_ship_name_noun
+		weight_multiplier = { factor = 5 }
+	}
+	text = {
+		trigger = { is_democratic_trigger = yes }
+		localisation_key = String_democratic_ship_name_noun
+		weight_multiplier = { factor = 1 }
+	}
+	text = {
+		trigger = { is_autocratic_trigger = yes }
+		localisation_key = String_autocratic_ship_name_noun
+		weight_multiplier = { factor = 1 }
+	}
+	text = {
+		trigger = { religion_group = transhumanist_group }
+		localisation_key = String_transhumanist_ship_name_noun
+		weight_multiplier = { factor = 5 }
+	}
+	text = {
+		trigger = { religion = cyberneticist }
+		localisation_key = String_mechanical_ship_name_noun
+		weight_multiplier = { factor = 5 }
+	}
+	text = {
+		trigger = {
+			NOR = {
+				religion = colonial_separatist
+				religion = neo_feudal
+				religion = adoptionist
+				religion = adoptionist_cultist
+				religion = astrist
+				religion = xenoterran
+			}
+		}
+		localisation_key = String_terran_ship_name_noun
+		weight_multiplier = { factor = 1 }
+	}
+	text = {
+		trigger = {
+			NOR = {
+				religion = terran_imperial
+				religion = terran_republican
+				religion = terran_federalist
+				religion = pilgrim
+				religion = orthodox
+				religion = solar_cultist
+				religion = solarian
+			}
+		}
+		localisation_key = String_periphery_ship_name_noun
+		weight_multiplier = { factor = 1 }
+	}
+	text = {
+		trigger = { religion_group = outlaw_group }
+		localisation_key = String_compound_pirate_ship_name_noun
+		weight_multiplier = { factor = 10 }
+	}
+}
+defined_text = {
+	name = GetShipNameNoun
+	text = {
+		localisation_key = String_generic_ship_name_noun
+		weight_multiplier = { factor = 1 }
+	}
+	text = {
+		trigger = {
+			NOR = {
+				religion = xenoterran
+				religion_group = transhumanist_group
+			}
+		}
+		localisation_key = String_culture_hero_ship_name
+		weight_multiplier = { factor = 1 }
+	}
+	text = {
+		trigger = {
+			NOT = { religion_group = religious_group }
+			NOT = { religion = imperial_cult }
+		}
+		localisation_key = String_mythological_ship_name_noun
+		weight_multiplier = { factor = 1 }
+	}
+	text = {
+		trigger = {
+			OR = {
+				religion_group = religious_group
+				religion = imperial_cult
+			}
+		}
+		localisation_key = String_religious_ship_name_noun
+		weight_multiplier = { factor = 5 }
+	}
+	text = {
+		trigger = { is_democratic_trigger = yes }
+		localisation_key = String_democratic_ship_name_noun
+		weight_multiplier = { factor = 1 }
+	}
+	text = {
+		trigger = { is_autocratic_trigger = yes }
+		localisation_key = String_autocratic_ship_name_noun
+		weight_multiplier = { factor = 1 }
+	}
+	text = {
+		trigger = { religion = neo_socialist }
+		localisation_key = String_socialist_ship_name_noun
+		weight_multiplier = { factor = 1 }
+	}
+	text = {
+		trigger = { religion_group = transhumanist_group }
+		localisation_key = String_transhumanist_ship_name_noun
+		weight_multiplier = { factor = 5 }
+	}
+	text = {
+		trigger = { religion = cyberneticist }
+		localisation_key = String_mechanical_ship_name_noun
+		weight_multiplier = { factor = 5 }
+	}
+	text = {
+		trigger = {
+			NOR = {
+				religion = colonial_separatist
+				religion = neo_feudal
+				religion = adoptionist
+				religion = adoptionist_cultist
+				religion = astrist
+				religion = xenoterran
+			}
+		}
+		localisation_key = String_terran_ship_name_noun
+		weight_multiplier = { factor = 1 }
+	}
+	text = {
+		trigger = {
+			NOR = {
+				religion = terran_imperial
+				religion = terran_republican
+				religion = terran_federalist
+				religion = pilgrim
+				religion = orthodox
+				religion = solar_cultist
+				religion = solarian
+			}
+		}
+		localisation_key = String_periphery_ship_name_noun
+		weight_multiplier = { factor = 1 }
+	}
+	text = {
+		trigger = { religion_group = outlaw_group }
+		localisation_key = String_pirate_ship_name_noun
+		weight_multiplier = { factor = 10 }
+	}
+}
+defined_text = {
+	name = GetMachineCultShipName
+	text = { localisation_key = String_mechanical_religious }
+	text = { localisation_key = String_religious_mechanical }
+}
+defined_text = {
+	name = GetCompoundGenericShipNameAdj
+	text = { localisation_key = String_White }
+	text = { localisation_key = String_Red }
+	text = { localisation_key = String_Blue }
+	text = { localisation_key = String_Green }
+	text = { localisation_key = String_Gold }
+	text = { localisation_key = String_Silver }
+	text = { localisation_key = String_Crimson }
+	text = { localisation_key = String_Azure }
+	text = { localisation_key = String_Scarlet }
+	text = { localisation_key = String_Viridian }
+	text = { localisation_key = String_Cerulean }
+	text = { localisation_key = String_Invincible }
+	text = { localisation_key = String_Unbreakable }
+	text = { localisation_key = String_Relentless }
+	text = { localisation_key = String_Righteous }
+	text = { localisation_key = String_Tireless }
+	text = { localisation_key = String_Millennium }
+	text = { localisation_key = String_Star }
+}
+defined_text = {
+	name = GetGenericShipNameAdj
+	text = { localisation_key = String_Silver }
+	text = { localisation_key = String_Crimson }
+	text = { localisation_key = String_Azure }
+	text = { localisation_key = String_Scarlet }
+	text = { localisation_key = String_Viridian }
+	text = { localisation_key = String_Cerulean }
+	text = { localisation_key = String_Intrepid }
+	text = { localisation_key = String_Valiant }
+	text = { localisation_key = String_Heroic }
+	text = { localisation_key = String_Triumphant }
+	text = { localisation_key = String_Courageous }
+	text = { localisation_key = String_Defiant }
+	text = { localisation_key = String_Invincible }
+	text = { localisation_key = String_Dauntless }
+	text = { localisation_key = String_Unbreakable }
+	text = { localisation_key = String_Relentless }
+	text = { localisation_key = String_Righteous }
+	text = { localisation_key = String_Tireless }
+	text = { localisation_key = String_Serenity }
+	text = { localisation_key = String_Tranquility }
+	text = { localisation_key = String_Harmony }
+	text = { localisation_key = String_Millennium }
+}
+defined_text = {
+	name = GetAutocraticShipNameAdj
+	text = { localisation_key = String_Royal }
+	text = { localisation_key = String_Imperial }
+	text = { localisation_key = String_Sovereign }
+	text = { localisation_key = String_Chivalrous }
+	text = { localisation_key = String_Gallant }
+	text = { localisation_key = String_Noble }
+	text = { localisation_key = String_Unconquered }
+}
+defined_text = {
+	name = GetReligiousShipNameAdj
+	text = { localisation_key = String_Holy }
+	text = { localisation_key = String_Blessed }
+	text = { localisation_key = String_Sacred }
+	text = { localisation_key = String_Reverent }
+	text = { localisation_key = String_Pious }
+	text = { localisation_key = String_Divine }
+	text = { localisation_key = String_Righteous }
+}
+defined_text = {
+	name = GetMechanicalShipNameAdj
+	text = { localisation_key = String_Steel }
+	text = { localisation_key = String_Iron }
+	text = { localisation_key = String_Silicon }
+	text = { localisation_key = String_Cybernetic }
+	text = { localisation_key = String_Positronic }
+	text = { localisation_key = String_Electronic }
+	text = { localisation_key = String_Digital }
+}
+defined_text = {
+	name = GetPirateShipNameAdj
+	text = { localisation_key = String_Bloody }
+	text = { localisation_key = String_Ruthless }
+	text = { localisation_key = String_Merciless }
+	text = { localisation_key = String_Black }
+	text = { localisation_key = String_Dread }
+	text = { localisation_key = String_Death }
+	text = { localisation_key = String_Abyssal }
+	text = { localisation_key = String_Dark }
+	text = { localisation_key = String_Scarlet }
+	text = { localisation_key = String_Crimson }
+	text = { localisation_key = String_Ebon }
+	text = { localisation_key = String_Fallen }
+	text = { localisation_key = String_Iron }
+	text = { localisation_key = String_Steel }
+	text = { localisation_key = String_Grim }
+	text = { localisation_key = String_Calico }
+}
+defined_text = {
+	name = GetGenericShipNameNoun
+	text = { localisation_key = String_Dynamo }
+	text = { localisation_key = String_Overlord }
+	text = { localisation_key = String_Corkscrew }
+	text = { localisation_key = String_Deadlight }
+	text = { localisation_key = String_Dervish }
+	text = { localisation_key = String_Matador }
+	text = { localisation_key = String_Meridian }
+	text = { localisation_key = String_Warhammer }
+	text = { localisation_key = String_Marauder }
+	text = { localisation_key = String_Saber }
+	text = { localisation_key = String_Victory }
+	text = { localisation_key = String_Endeavor }
+	text = { localisation_key = String_Enterprise }
+	text = { localisation_key = String_Falcon }
+	text = { localisation_key = String_Hawk }
+	text = { localisation_key = String_Eagle }
+	text = { localisation_key = String_Wolf }
+	text = { localisation_key = String_Bear }
+	text = { localisation_key = String_Lion }
+	text = { localisation_key = String_Tiger }
+	text = { localisation_key = String_Midnight }
+	text = { localisation_key = String_Dawn }
+	text = { localisation_key = String_Avenger }
+	text = { localisation_key = String_Executor }
+}
+defined_text = {
+	name = GetCultureHeroShipName
+	text = { localisation_key = String_Heracles }
+	text = { localisation_key = String_Perseus }
+	text = { localisation_key = String_Agamemnon }
+	text = { localisation_key = String_Bellerophon }
+	text = { localisation_key = String_Odysseus }
+	text = { localisation_key = String_Achilles }
+	text = { localisation_key = String_Zhuge_Liang }
+	text = { localisation_key = String_Guan_Yu }
+	text = { localisation_key = String_Lu_Bu }
+	text = { localisation_key = String_Susanoo }
+	text = { localisation_key = String_Rostam }
+	text = { localisation_key = String_Rama }
+	text = { localisation_key = String_Krishna }
+	text = { localisation_key = String_Gilgamesh }
+	text = { localisation_key = String_Enkidu }
+	text = { localisation_key = String_Bishamonten }
+	text = { localisation_key = String_Osiris }
+	text = { localisation_key = String_Horus }
+	text = { localisation_key = String_Anubis }
+	text = { localisation_key = String_Loki }
+	text = { localisation_key = String_Odin }
+	text = { localisation_key = String_Thor }
+	text = { localisation_key = String_Sinbad }
+	text = { localisation_key = String_Aladdin }
+}
+defined_text = {
+	name = GetMythologicalShipName
+	text = { localisation_key = String_Cerberus }
+	text = { localisation_key = String_Chimaera }
+	text = { localisation_key = String_Griffon }
+	text = { localisation_key = String_Dragon }
+	text = { localisation_key = String_Wyvern }
+	text = { localisation_key = String_Minotaur }
+	text = { localisation_key = String_Sphinx }
+	text = { localisation_key = String_Djinni }
+	text = { localisation_key = String_Efreet }
+	text = { localisation_key = String_Scarab }
+	text = { localisation_key = String_Yokai }
+	text = { localisation_key = String_Tengu }
+	text = { localisation_key = String_Oni }
+	text = { localisation_key = String_Ogre }
+	text = { localisation_key = String_Titan }
+	text = { localisation_key = String_Rakshasa }
+	text = { localisation_key = String_Ghoul }
+	text = { localisation_key = String_Sorcerer }
+	text = { localisation_key = String_Magician }
+	text = { localisation_key = String_Warlock }
+}
+defined_text = {
+	name = GetReligiousShipNameNoun
+	text = { localisation_key = String_Angel }
+	text = { localisation_key = String_Archangel }
+	text = { localisation_key = String_Seraph }
+	text = { localisation_key = String_Merkabah }
+	text = { localisation_key = String_Yazata }
+	text = { localisation_key = String_Faith }
+	text = { localisation_key = String_Salvation }
+	text = { localisation_key = String_Grace }
+	text = { localisation_key = String_Messiah }
+	text = { localisation_key = String_Prophet }
+	text = { localisation_key = String_Prophecy }
+	text = { localisation_key = String_Saint }
+	text = { localisation_key = String_Crusader }
+	text = { localisation_key = String_Mujahid }
+	text = { localisation_key = String_Ahura }
+}
+defined_text = {
+	name = GetDemocraticShipNameNoun
+	text = { localisation_key = String_Liberty }
+	text = { localisation_key = String_Liberation }
+	text = { localisation_key = String_Liberator }
+	text = { localisation_key = String_Independence }
+	text = { localisation_key = String_Revolution }
+	text = { localisation_key = String_Republic }
+	text = { localisation_key = String_Bastille }
+	text = { localisation_key = String_Constitution }
+}
+defined_text = {
+	name = GetAutocraticShipNameNoun
+	text = { localisation_key = String_Knight }
+	text = { localisation_key = String_Cavalier }
+	text = { localisation_key = String_Chevalier }
+	text = { localisation_key = String_Paladin }
+	text = { localisation_key = String_Lord }
+	text = { localisation_key = String_Champion }
+	text = { localisation_key = String_Seneschal }
+	text = { localisation_key = String_Castellan }
+}
+defined_text = {
+	name = GetSocialistShipNameNoun
+	text = { localisation_key = String_Phrygia }
+	text = { localisation_key = String_Marat }
+	text = { localisation_key = String_Gracchus }
+	text = { localisation_key = String_Liebknecht }
+	text = { localisation_key = String_Luxemburg }
+	text = { localisation_key = String_Promethaios }
+	text = { localisation_key = String_Houji }
+	text = { localisation_key = String_Seppo }
+	text = { localisation_key = String_Seppo_Ilmarinen }
+	text = { localisation_key = String_Wieland }
+}
+defined_text = {
+	name = GetTranshumanistShipNameNoun
+	text = { localisation_key = String_Enlightenment }
+	text = { localisation_key = String_Transcendance }
+	text = { localisation_key = String_Nirvana }
+	text = { localisation_key = String_Singularity }
+	text = { localisation_key = String_Ascension }
+	text = { localisation_key = String_Utopia }
+	text = { localisation_key = String_Promethaios }
+	text = { localisation_key = String_Houji }
+	text = { localisation_key = String_Seppo_Ilmarinen }
+	text = { localisation_key = String_Wieland }
+	text = { localisation_key = String_Imhotep }
+	text = { localisation_key = String_Hephestos }
+	text = { localisation_key = String_Utnapishtim }
+}
+defined_text = {
+	name = GetMechanicalShipNameNoun
+	text = { localisation_key = String_Engine }
+	text = { localisation_key = String_Machine }
+	text = { localisation_key = String_Device }
+	text = { localisation_key = String_System }
+	text = { localisation_key = String_Network }
+}
+defined_text = {
+	name = GetTerranShipNameNoun
+	text = { localisation_key = String_Mercury }
+	text = { localisation_key = String_Hermes }
+	text = { localisation_key = String_Venus }
+	text = { localisation_key = String_Aphrodite }
+	text = { localisation_key = String_Gaia }
+	text = { localisation_key = String_Terra }
+	text = { localisation_key = String_Europe }
+	text = { localisation_key = String_America }
+	text = { localisation_key = String_Asia }
+	text = { localisation_key = String_Africa }
+	text = { localisation_key = String_Australia }
+	text = { localisation_key = String_Antarctica }
+	text = { localisation_key = String_Atlantic }
+	text = { localisation_key = String_Pacific }
+	text = { localisation_key = String_India }
+	text = { localisation_key = String_Luna }
+	text = { localisation_key = String_Mars }
+	text = { localisation_key = String_Ares }
+	text = { localisation_key = String_Jupiter }
+	text = { localisation_key = String_Zeus }
+	text = { localisation_key = String_Saturn }
+	text = { localisation_key = String_Kronos }
+	text = { localisation_key = String_Neptune }
+	text = { localisation_key = String_Poseidon }
+	text = { localisation_key = String_Uranus }
+	text = { localisation_key = String_Pluto }
+	text = { localisation_key = String_Hades }
+	text = { localisation_key = String_Ceres }
+	text = { localisation_key = String_Ganymede }
+	text = { localisation_key = String_Europa }
+	text = { localisation_key = String_Callisto }
+	text = { localisation_key = String_Io }
+	text = { localisation_key = String_Titan }
+}
+defined_text = {
+	name = GetPeripheryShipNameNoun
+	text = { localisation_key = String_Aries }
+	text = { localisation_key = String_Taurus }
+	text = { localisation_key = String_Gemini }
+	text = { localisation_key = String_Cancer }
+	text = { localisation_key = String_Leo }
+	text = { localisation_key = String_Virgo }
+	text = { localisation_key = String_Libra }
+	text = { localisation_key = String_Scorpio }
+	text = { localisation_key = String_Sagittarius }
+	text = { localisation_key = String_Capricorn }
+	text = { localisation_key = String_Aquarius }
+	text = { localisation_key = String_Pisces }
+	text = { localisation_key = String_Orion }
+	text = { localisation_key = String_Witchhead }
+	text = { localisation_key = String_Horsehead }
+	text = { localisation_key = String_Veil }
+	text = { localisation_key = String_Flame }
+	text = { localisation_key = String_Helix }
+}
+
+defined_text = {
+	name = GetCompoundPirateShipNameNoun
+	text = { localisation_key = String_Anne }
+	text = { localisation_key = String_Jack }
+	text = { localisation_key = String_Roger }
+	text = { localisation_key = String_Hand }
+	text = { localisation_key = String_Claw }
+	text = { localisation_key = String_Talon }
+	text = { localisation_key = String_Revenge }
+	text = { localisation_key = String_Vengeance }
+	text = { localisation_key = String_Reaper }
+	text = { localisation_key = String_Reaver }
+	text = { localisation_key = String_Marauder }
+	text = { localisation_key = String_Raider }
+	text = { localisation_key = String_Razor }
+	text = { localisation_key = String_Corsair }
+	text = { localisation_key = String_Buccaneer }
+	text = { localisation_key = String_Edgelord }
+	text = { localisation_key = String_Hunter }
+	text = { localisation_key = String_Outlaw }
+	text = { localisation_key = String_Bandit }
+	text = { localisation_key = String_Brigand }
+	text = { localisation_key = String_Shadow }
+	text = { localisation_key = String_Nightmare }
+}
+
+defined_text = {
+	name = GetPirateShipNameNoun
+	text = { localisation_key = String_Blackbeard }
+	text = { localisation_key = String_Revenge }
+	text = { localisation_key = String_Vengeance }
+	text = { localisation_key = String_Reaper }
+	text = { localisation_key = String_Reaver }
+	text = { localisation_key = String_Marauder }
+	text = { localisation_key = String_Raider }
+	text = { localisation_key = String_Razor }
+	text = { localisation_key = String_Corsair }
+	text = { localisation_key = String_Buccaneer }
+	text = { localisation_key = String_Edgelord }
+	text = { localisation_key = String_Hunter }
+	text = { localisation_key = String_Outlaw }
+	text = { localisation_key = String_Bandit }
+	text = { localisation_key = String_Brigand }
+	text = { localisation_key = String_Shadow }
+	text = { localisation_key = String_Nightmare }
+}

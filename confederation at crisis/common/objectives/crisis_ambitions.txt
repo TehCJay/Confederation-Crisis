@@ -1,8 +1,8 @@
 obj_expand_realm = { # Expand Realm via invasion
 	type = character
-	
+
 	aggression = 4.0
-	
+
 	potential = {
 		independent = yes
 		NOT = { has_character_flag = obj_expand_realm }
@@ -22,7 +22,7 @@ obj_expand_realm = { # Expand Realm via invasion
 		#ai = no
 		prisoner = no
 		is_adult = yes
-		
+
 		demesne_size = 1
 		num_of_count_titles = 1
 		custom_tooltip = {
@@ -32,12 +32,12 @@ obj_expand_realm = { # Expand Realm via invasion
 		trait = ambitious
 		is_incapable = no
 		NOT = { trait = content }
-		can_press_claims_trigger = yes		
-		is_nomadic = no	
+		can_press_claims_trigger = yes
+		is_nomadic = no
 	}
 	chance = {
 		factor = 50
-		
+
 		modifier = {
 			factor = 0
 			NOT = { prestige = 1000 }
@@ -87,7 +87,7 @@ obj_expand_realm = { # Expand Realm via invasion
 				has_character_flag = abort_obj
 				NOT = { has_character_flag = called_grand_council }
 				NOT = { has_character_flag = may_call_ambition_invasion }
-			}	
+			}
 			trait = incapable
 			is_ruler = no
 			independent = no
@@ -122,7 +122,7 @@ obj_expand_realm = { # Expand Realm via invasion
 
 obj_amass_wealth_2 = {
 	type = character
-	
+
 	potential = {
 		is_ruler = yes
 		lower_tier_than = KING
@@ -225,7 +225,7 @@ obj_amass_wealth_2 = {
 
 obj_amass_wealth_3 = {
 	type = character
-	
+
 	potential = {
 		is_ruler = yes
 		lower_tier_than = EMPEROR
@@ -328,7 +328,7 @@ obj_amass_wealth_3 = {
 
 obj_amass_wealth_4 = {
 	type = character
-	
+
 	potential = {
 		is_ruler = yes
 		OR = {
@@ -429,7 +429,7 @@ obj_amass_wealth_4 = {
 
 obj_become_exalted_2 = {
 	type = character
-	
+
 	potential = {
 		is_ruler = yes
 		NOR = {
@@ -544,7 +544,7 @@ obj_become_exalted_2 = {
 
 obj_become_exalted_3 = {
 	type = character
-	
+
 	potential = {
 		is_ruler = yes
 		NOR = {
@@ -656,7 +656,7 @@ obj_become_exalted_3 = {
 
 obj_become_exalted_4 = {
 	type = character
-	
+
 	potential = {
 		is_ruler = yes
 		NOT = { trait = exalted4 }
@@ -770,7 +770,7 @@ obj_become_exalted_4 = {
 
 obj_find_lover = {
 	type = character
-	
+
 	potential = {
 		has_lover = no
 		OR = {
@@ -916,7 +916,7 @@ obj_find_lover = {
 
 obj_become_independent = {
 	type = character
-	
+
 	potential = {
 		ai = no
 		is_ruler = yes
@@ -966,11 +966,11 @@ obj_become_independent = {
 	}
 }
 
-obj_five_children = {
+obj_have_five_children = {
 	type = character
 
 	fertility = 0.1
-	
+
 	potential = {
 		is_adult = yes
 		OR = {
@@ -1096,7 +1096,7 @@ obj_ten_children = {
 	type = character
 
 	fertility = 0.1
-	
+
 	potential = {
 		is_adult = yes
 		is_married = yes
@@ -1219,7 +1219,7 @@ obj_fifteen_children = {
 	type = character
 
 	fertility = 0.1
-	
+
 	potential = {
 		is_adult = yes
 		is_married = yes
@@ -1342,7 +1342,7 @@ obj_twenty_children = {
 	type = character
 
 	fertility = 0.1
-	
+
 	potential = {
 		is_adult = yes
 		is_married = yes
@@ -1468,1392 +1468,9 @@ obj_twenty_children = {
 	}
 }
 
-##############################################################
-# CTA: Combat Trait Advancement: Ambitions                   #
-# zijistark <azrinon@gmail.com>                              #
-##############################################################
-
-# no combat trait -> poor_warrior
-obj_cta_0 = {
-	type = character
-	
-	creation_effect = {
-	}
-	
-	potential = {
-		NOR = {
-			trait = poor_warrior
-			trait = trained_warrior
-			trait = skilled_warrior
-			trait = master_warrior
-		}
-		OR = {
-			is_ruler = yes
-			liege = { job_marshal = { character = ROOT } }
-		}
-		NOT = { has_character_flag = cta_done } # weird things happen (cta_done is not normally set for the 0->1 tier transition)
-	}
-	
-	allow = {
-		NOR = {
-			is_adult = no
-			age = 50
-			prisoner = yes
-			trait = incapable
-			trait = blinded
-		}
-		# ladies, if you can command armies for your liege/yourself (and meet the base criteria),
-		# then this ambition is for you too.
-		OR = {
-			is_female = no
-			AND = {
-				religion = norse_pagan
-				liege = { religion = norse_pagan }
-				trait = martial_lady_pagan
-			}
-			AND = {
-				religion = norse_pagan_reformed
-				liege = { religion = norse_pagan_reformed }
-				trait = martial_lady_pagan
-			}
-			AND = {
-				religion = german_pagan
-				liege = { religion = german_pagan_reformed }
-				trait = martial_lady_pagan
-			}
-			AND = {
-				religion = german_pagan_reformed
-				liege = { religion = german_pagan_reformed }
-				trait = martial_lady_pagan
-			}
-			AND = {
-				religion_group = zoroastrian_group
-				culture_group = iranian
-				any_dynasty_member = { higher_tier_than = baron }
-				trait = martial_lady_tengri
-				OR = {
-					AND = {
-						liege = { religion_group = zoroastrian_group }
-						liege = {culture_group = iranian }
-					}
-					independent = yes
-				}
-			}
-			AND = {
-				is_ruler = yes
-				independent = yes
-				OR = {
-					trait = martial_lady
-					trait = martial_lady_tengri
-					trait = martial_lady_pagan
-					martial = 12
-				}
-			}
-			liege = {
-				OR = {
-					has_law = true_cognatic_succession 
-					has_law = enatic_cognatic_succession
-					has_law = enatic_succession
-				}
-			}
-			AND = {
-				independent = yes
-				OR = {
-					has_law = true_cognatic_succession
-					has_law = enatic_cognatic_succession
-					has_law = enatic_succession
-				}
-			}
-			has_character_flag = special_marshal
-		}
-	}
-	chance = {
-		factor = 100
-		
-		modifier = {
-			factor = 0
-			NOT = { martial = 8 }
-		}
-		modifier = {
-			factor = 10
-			liege = { job_marshal = { character = ROOT } }
-		}
-		modifier = {
-			factor = 0.75
-			age = 40
-		}
-		modifier = {
-			factor = 0.333
-			age = 45
-		}
-		modifier = {
-			factor = 1.25
-			trait = patient
-		}
-		modifier = {
-			factor = 2
-			trait = diligent
-		}
-		modifier = {
-			factor = 2
-			trait = diligent
-			martial = 12
-		}
-		modifier = {
-			factor = 1.5
-			trait = ambitious
-		}
-		modifier = {
-			factor = 1.5
-			trait = ambitious
-			martial = 12
-		}
-		modifier = {
-			factor = 2.5
-			trait = brave
-		}
-		modifier = {
-			factor = 2.5
-			trait = crusader
-		}
-		modifier = {
-			factor = 2.5
-			trait = mujahid
-		}
-		modifier = {
-			factor = 1.75
-			# already has proven battle experience, likely candidate to be in future battles
-			OR = { 
-				trait = scarred 
-				trait = scarred_female
-			}
-		}
-		modifier = {
-			factor = 2
-			is_strong_trigger = yes
-		}
-		modifier = {
-			factor = 6
-			trait = duelist
-		}
-		modifier = {
-			factor = 2.5
-			trait = hunter
-		}
-		modifier = {
-			factor = 0.25
-			trait = hedonist
-		}
-		modifier = {
-			factor = 0.333
-			is_weak_trigger = yes
-		}
-		modifier = {
-			factor = 0.333
-			trait = clubfooted
-		}
-		modifier = {
-			factor = 0.75
-			trait = content
-		}
-		modifier = {
-			factor = 0.25
-			trait = craven
-		}
-		modifier = {
-			factor = 0.1
-			trait = slothful
-		}
-		modifier = {
-			factor = 0.667
-			OR = {
-				trait = elusive_shadow
-				trait = intricate_webweaver
-			}
-		}
-		modifier = {
-			factor = 0.333
-			OR = {
-				trait = flamboyant_schemer
-				trait = amateurish_plotter
-			}
-		}
-		modifier = {
-			factor = 8
-			trait = brilliant_strategist
-		}
-		modifier = {
-			factor = 5
-			trait = skilled_tactician
-		}
-		modifier = {
-			factor = 3
-			trait = tough_soldier
-		}
-		modifier = {
-			factor = 2
-			trait = misguided_warrior
-		}
-		modifier = {
-			factor = 0.75
-			NOT = { martial = 10 } # implies martial = 8 or 9 (martial < 8 is disabled for AI)
-		}
-		# TODO: martial scaling should be less coarse-grained
-		modifier = {
-			factor = 1.5
-			martial = 12
-		}
-		modifier = {
-			factor = 1.5
-			martial = 15
-		}
-		modifier = {
-			factor = 1.5
-			martial = 18
-		}
-		modifier = {
-			factor = 1.5
-			martial = 21
-		}
-		modifier = {
-			factor = 1.5
-			martial = 24
-		}
-	}
-	success = {
-		OR = { # CTA only advances 1 level, but external code or console might jump the trait higher
-			trait = poor_warrior
-			trait = trained_warrior
-			trait = skilled_warrior
-			trait = master_warrior
-		}
-	}
-	abort = {
-		OR = {
-			NOR = {
-				is_ruler = yes
-				liege = { job_marshal = { character = ROOT } }
-			}
-			is_adult = no # weird stuff happens.
-			age = 50
-			prisoner = yes
-			trait = incapable
-			trait = blinded
-			
-			# and ladies should abort if conditions change such that they can no longer command armies
-			NOR = {
-				is_female = no
-				AND = {
-					religion = norse_pagan
-					liege = { religion = norse_pagan }
-					trait = martial_lady_pagan
-				}
-				AND = {
-					religion = norse_pagan_reformed
-					liege = { religion = norse_pagan_reformed }
-					trait = martial_lady_pagan
-				}
-				AND = {
-					religion = german_pagan
-					liege = { religion = german_pagan_reformed }
-					trait = martial_lady_pagan
-				}
-				AND = {
-					religion = german_pagan_reformed
-					liege = { religion = german_pagan_reformed }
-					trait = martial_lady_pagan
-				}
-				AND = {
-					religion_group = zoroastrian_group
-					culture_group = iranian
-					any_dynasty_member = { higher_tier_than = baron }
-					trait = martial_lady_tengri
-					OR = {
-						AND = {
-							liege = { religion_group = zoroastrian_group }
-							liege = {culture_group = iranian }
-						}
-						independent = yes
-					}
-				}
-				AND = {
-					is_ruler = yes
-					independent = yes
-					OR = {
-						trait = martial_lady
-						trait = martial_lady_tengri
-						trait = martial_lady_pagan
-						martial = 12
-					}
-				}
-				liege = {
-					OR = {
-						has_law = true_cognatic_succession 
-						has_law = enatic_cognatic_succession
-						has_law = enatic_succession
-					}
-				}
-				AND = {
-					independent = yes
-					OR = {
-						has_law = true_cognatic_succession
-						has_law = enatic_cognatic_succession
-						has_law = enatic_succession
-					}
-				}
-				has_character_flag = special_marshal
-			}
-		}
-	}
-	abort_effect = {
-		# (optional) possibly notify the player of why the ambition aborted in certain cases (prison, reaching age 50-- the rest is obvious)
-	}
-	effect = {
-		prestige = 25
-	}
-}
-
-# poor_warrior -> trained_warrior
-obj_cta_1 = {
-	type = character
-	
-	creation_effect = {
-	}
-	
-	potential = {
-		trait = poor_warrior
-		NOR = {
-			trait = trained_warrior
-			trait = skilled_warrior
-			trait = master_warrior
-		}
-		OR = {
-			is_ruler = yes
-			liege = { job_marshal = { character = ROOT } }
-		}
-		NOT = { has_character_flag = cta_done }
-	}
-	
-	allow = {
-		NOR = {
-			is_adult = no
-			age = 50
-			prisoner = yes
-			trait = incapable
-			trait = blinded
-		}
-		# ladies, if you can command armies for your liege/yourself (and meet the base criteria),
-		# then this ambition is for you too.
-		OR = {
-			is_female = no
-			AND = {
-				religion = norse_pagan
-				liege = { religion = norse_pagan }
-				trait = martial_lady_pagan
-			}
-			AND = {
-				religion = norse_pagan_reformed
-				liege = { religion = norse_pagan_reformed }
-				trait = martial_lady_pagan
-			}
-			AND = {
-				religion = german_pagan
-				liege = { religion = german_pagan_reformed }
-				trait = martial_lady_pagan
-			}
-			AND = {
-				religion = german_pagan_reformed
-				liege = { religion = german_pagan_reformed }
-				trait = martial_lady_pagan
-			}
-			AND = {
-				religion_group = zoroastrian_group
-				culture_group = iranian
-				any_dynasty_member = { higher_tier_than = baron }
-				trait = martial_lady_tengri
-				OR = {
-					AND = {
-						liege = { religion_group = zoroastrian_group }
-						liege = {culture_group = iranian }
-					}
-					independent = yes
-				}
-			}
-			AND = {
-				is_ruler = yes
-				independent = yes
-				OR = {
-					trait = martial_lady
-					trait = martial_lady_tengri
-					trait = martial_lady_pagan
-					martial = 12
-				}
-			}
-			liege = {
-				OR = {
-					has_law = true_cognatic_succession 
-					has_law = enatic_cognatic_succession
-					has_law = enatic_succession
-				}
-			}
-			AND = {
-				independent = yes
-				OR = {
-					has_law = true_cognatic_succession
-					has_law = enatic_cognatic_succession
-					has_law = enatic_succession
-				}
-			}
-			has_character_flag = special_marshal
-		}
-	}
-	chance = {
-		factor = 100
-		
-		modifier = {
-			factor = 0
-			NOT = { martial = 8 }
-		}
-		modifier = {
-			factor = 10
-			liege = { job_marshal = { character = ROOT } }
-		}
-		modifier = {
-			factor = 0.75
-			age = 40
-		}
-		modifier = {
-			factor = 0.333
-			age = 45
-		}
-		modifier = {
-			factor = 1.25
-			trait = patient
-		}
-		modifier = {
-			factor = 2
-			trait = diligent
-		}
-		modifier = {
-			factor = 2
-			trait = diligent
-			martial = 12
-		}
-		modifier = {
-			factor = 1.5
-			trait = ambitious
-		}
-		modifier = {
-			factor = 1.5
-			trait = ambitious
-			martial = 12
-		}
-		modifier = {
-			factor = 2.5
-			trait = brave
-		}
-		modifier = {
-			factor = 2.5
-			trait = crusader
-		}
-		modifier = {
-			factor = 2.5
-			trait = mujahid
-		}
-		modifier = {
-			factor = 1.75
-			# already has proven battle experience, likely candidate to be in future battles
-			OR = { 
-				trait = scarred 
-				trait = scarred_female
-			}
-		}
-		modifier = {
-			factor = 2
-			is_strong_trigger = yes
-		}
-		modifier = {
-			factor = 6
-			trait = duelist
-		}
-		modifier = {
-			factor = 2.5
-			trait = hunter
-		}
-		modifier = {
-			factor = 0.25
-			trait = hedonist
-		}
-		modifier = {
-			factor = 0.333
-			is_weak_trigger = yes
-		}
-		modifier = {
-			factor = 0.333
-			trait = clubfooted
-		}
-		modifier = {
-			factor = 0.75
-			trait = content
-		}
-		modifier = {
-			factor = 0.25
-			trait = craven
-		}
-		modifier = {
-			factor = 0.1
-			trait = slothful
-		}
-		modifier = {
-			factor = 0.667
-			OR = {
-				trait = elusive_shadow
-				trait = intricate_webweaver
-			}
-		}
-		modifier = {
-			factor = 0.333
-			OR = {
-				trait = flamboyant_schemer
-				trait = amateurish_plotter
-			}
-		}
-		modifier = {
-			factor = 8
-			trait = brilliant_strategist
-		}
-		modifier = {
-			factor = 5
-			trait = skilled_tactician
-		}
-		modifier = {
-			factor = 3
-			trait = tough_soldier
-		}
-		modifier = {
-			factor = 2
-			trait = misguided_warrior
-		}
-		modifier = {
-			factor = 0.75
-			NOT = { martial = 10 } # implies martial = 8 or 9 (martial < 8 is disabled for AI)
-		}
-		# TODO: martial scaling should be less coarse-grained
-		modifier = {
-			factor = 1.5
-			martial = 12
-		}
-		modifier = {
-			factor = 1.5
-			martial = 15
-		}
-		modifier = {
-			factor = 1.5
-			martial = 18
-		}
-		modifier = {
-			factor = 1.5
-			martial = 21
-		}
-		modifier = {
-			factor = 1.5
-			martial = 24
-		}
-	}
-	success = {
-		OR = {
-			trait = trained_warrior
-			trait = skilled_warrior
-			trait = master_warrior
-		}
-	}
-	abort = {
-		OR = {
-			NOR = {
-				is_ruler = yes
-				liege = { job_marshal = { character = ROOT } }
-			}
-			is_adult = no # weird stuff happens.
-			age = 50
-			prisoner = yes
-			trait = incapable
-			trait = blinded
-			
-			# and ladies should abort if conditions change such that they can no longer command armies
-			NOR = {
-				is_female = no
-				AND = {
-					religion = norse_pagan
-					liege = { religion = norse_pagan }
-					trait = martial_lady_pagan
-				}
-				AND = {
-					religion = norse_pagan_reformed
-					liege = { religion = norse_pagan_reformed }
-					trait = martial_lady_pagan
-				}
-				AND = {
-					religion = german_pagan
-					liege = { religion = german_pagan_reformed }
-					trait = martial_lady_pagan
-				}
-				AND = {
-					religion = german_pagan_reformed
-					liege = { religion = german_pagan_reformed }
-					trait = martial_lady_pagan
-				}
-				AND = {
-					religion_group = zoroastrian_group
-					culture_group = iranian
-					any_dynasty_member = { higher_tier_than = baron }
-					trait = martial_lady_tengri
-					OR = {
-						AND = {
-							liege = { religion_group = zoroastrian_group }
-							liege = {culture_group = iranian }
-						}
-						independent = yes
-					}
-				}
-				AND = {
-					is_ruler = yes
-					independent = yes
-					OR = {
-						trait = martial_lady
-						trait = martial_lady_tengri
-						trait = martial_lady_pagan
-						martial = 12
-					}
-				}
-				liege = {
-					OR = {
-						has_law = true_cognatic_succession 
-						has_law = enatic_cognatic_succession
-						has_law = enatic_succession
-					}
-				}
-				AND = {
-					independent = yes
-					OR = {
-						has_law = true_cognatic_succession
-						has_law = enatic_cognatic_succession
-						has_law = enatic_succession
-					}
-				}
-				has_character_flag = special_marshal
-			}
-			
-			NOR = { # external code might demote a character
-				trait = poor_warrior
-				trait = trained_warrior
-				trait = skilled_warrior
-				trait = master_warrior
-			}
-		}
-	}
-	abort_effect = {
-		# (optional) possibly notify the player of why the ambition aborted in certain cases (prison, reaching age 50-- the rest is obvious)
-	}
-	effect = {
-		prestige = 50
-	}
-}
-
-# trained_warrior -> skilled_warrior
-obj_cta_2 = {
-	type = character
-	
-	creation_effect = {
-	}
-	
-	potential = {
-		OR = {
-			is_ruler = yes
-			liege = { job_marshal = { character = ROOT } }
-		}
-		trait = trained_warrior
-		NOR = {
-			trait = poor_warrior
-			trait = skilled_warrior
-			trait = master_warrior
-		}
-		NOT = { has_character_flag = cta_done }
-	}
-	
-	allow = {
-		NOR = {
-			is_adult = no
-			age = 50
-			prisoner = yes
-			trait = incapable
-			trait = blinded
-		}
-		# ladies, if you can command armies for your liege/yourself (and meet the base criteria),
-		# then this ambition is for you too.
-		OR = {
-			is_female = no
-			AND = {
-				religion = norse_pagan
-				liege = { religion = norse_pagan }
-				trait = martial_lady_pagan
-			}
-			AND = {
-				religion = norse_pagan_reformed
-				liege = { religion = norse_pagan_reformed }
-				trait = martial_lady_pagan
-			}
-			AND = {
-				religion = german_pagan
-				liege = { religion = german_pagan_reformed }
-				trait = martial_lady_pagan
-			}
-			AND = {
-				religion = german_pagan_reformed
-				liege = { religion = german_pagan_reformed }
-				trait = martial_lady_pagan
-			}
-			AND = {
-				religion_group = zoroastrian_group
-				culture_group = iranian
-				any_dynasty_member = { higher_tier_than = baron }
-				trait = martial_lady_tengri
-				OR = {
-					AND = {
-						liege = { religion_group = zoroastrian_group }
-						liege = {culture_group = iranian }
-					}
-					independent = yes
-				}
-			}
-			AND = {
-				is_ruler = yes
-				independent = yes
-				OR = {
-					trait = martial_lady
-					trait = martial_lady_tengri
-					trait = martial_lady_pagan
-					martial = 12
-				}
-			}
-			liege = {
-				OR = {
-					has_law = true_cognatic_succession 
-					has_law = enatic_cognatic_succession
-					has_law = enatic_succession
-				}
-			}
-			AND = {
-				independent = yes
-				OR = {
-					has_law = true_cognatic_succession
-					has_law = enatic_cognatic_succession
-					has_law = enatic_succession
-				}
-			}
-			has_character_flag = special_marshal
-		}
-	}
-	chance = {
-		factor = 100
-		
-		modifier = {
-			factor = 0
-			NOT = { martial = 8 }
-		}
-		modifier = {
-			factor = 10
-			liege = { job_marshal = { character = ROOT } }
-		}
-		modifier = {
-			factor = 0.75
-			age = 40
-		}
-		modifier = {
-			factor = 0.333
-			age = 45
-		}
-		modifier = {
-			factor = 1.25
-			trait = patient
-		}
-		modifier = {
-			factor = 2
-			trait = diligent
-		}
-		modifier = {
-			factor = 2
-			trait = diligent
-			martial = 12
-		}
-		modifier = {
-			factor = 1.5
-			trait = ambitious
-		}
-		modifier = {
-			factor = 1.5
-			trait = ambitious
-			martial = 12
-		}
-		modifier = {
-			factor = 2.5
-			trait = brave
-		}
-		modifier = {
-			factor = 2.5
-			trait = crusader
-		}
-		modifier = {
-			factor = 2.5
-			trait = mujahid
-		}
-		modifier = {
-			factor = 1.75
-			# already has proven battle experience, likely candidate to be in future battles
-			OR = { 
-				trait = scarred 
-				trait = scarred_female
-			}
-		}
-		modifier = {
-			factor = 2
-			is_strong_trigger = yes
-		}
-		modifier = {
-			factor = 6
-			trait = duelist
-		}
-		modifier = {
-			factor = 2.5
-			trait = hunter
-		}
-		modifier = {
-			factor = 0.25
-			trait = hedonist
-		}
-		modifier = {
-			factor = 0.333
-			is_weak_trigger = yes
-		}
-		modifier = {
-			factor = 0.333
-			trait = clubfooted
-		}
-		modifier = {
-			factor = 0.75
-			trait = content
-		}
-		modifier = {
-			factor = 0.25
-			trait = craven
-		}
-		modifier = {
-			factor = 0.1
-			trait = slothful
-		}
-		modifier = {
-			factor = 0.667
-			OR = {
-				trait = elusive_shadow
-				trait = intricate_webweaver
-			}
-		}
-		modifier = {
-			factor = 0.333
-			OR = {
-				trait = flamboyant_schemer
-				trait = amateurish_plotter
-			}
-		}
-		modifier = {
-			factor = 8
-			trait = brilliant_strategist
-		}
-		modifier = {
-			factor = 5
-			trait = skilled_tactician
-		}
-		modifier = {
-			factor = 3
-			trait = tough_soldier
-		}
-		modifier = {
-			factor = 2
-			trait = misguided_warrior
-		}
-		modifier = {
-			factor = 0.75
-			NOT = { martial = 10 } # implies martial = 8 or 9 (martial < 8 is disabled for AI)
-		}
-		# TODO: martial scaling should be less coarse-grained
-		modifier = {
-			factor = 1.5
-			martial = 12
-		}
-		modifier = {
-			factor = 1.5
-			martial = 15
-		}
-		modifier = {
-			factor = 1.5
-			martial = 18
-		}
-		modifier = {
-			factor = 1.5
-			martial = 21
-		}
-		modifier = {
-			factor = 1.5
-			martial = 24
-		}
-	}
-	success = {
-		OR = {
-			trait = skilled_warrior
-			trait = master_warrior
-		}
-	}
-	abort = {
-		OR = {
-			NOR = {
-				is_ruler = yes
-				liege = { job_marshal = { character = ROOT } }
-			}
-			is_adult = no # weird stuff happens.
-			age = 50
-			prisoner = yes
-			trait = incapable
-			trait = blinded
-			
-			# and ladies should abort if conditions change such that they can no longer command armies
-			NOR = {
-				is_female = no
-				AND = {
-					religion = norse_pagan
-					liege = { religion = norse_pagan }
-					trait = martial_lady_pagan
-				}
-				AND = {
-					religion = norse_pagan_reformed
-					liege = { religion = norse_pagan_reformed }
-					trait = martial_lady_pagan
-				}
-				AND = {
-					religion = german_pagan
-					liege = { religion = german_pagan_reformed }
-					trait = martial_lady_pagan
-				}
-				AND = {
-					religion = german_pagan_reformed
-					liege = { religion = german_pagan_reformed }
-					trait = martial_lady_pagan
-				}
-				AND = {
-					religion_group = zoroastrian_group
-					culture_group = iranian
-					any_dynasty_member = { higher_tier_than = baron }
-					trait = martial_lady_tengri
-					OR = {
-						AND = {
-							liege = { religion_group = zoroastrian_group }
-							liege = {culture_group = iranian }
-						}
-						independent = yes
-					}
-				}
-				AND = {
-					is_ruler = yes
-					independent = yes
-					OR = {
-						trait = martial_lady
-						trait = martial_lady_tengri
-						trait = martial_lady_pagan
-						martial = 12
-					}
-				}
-				liege = {
-					OR = {
-						has_law = true_cognatic_succession 
-						has_law = enatic_cognatic_succession
-						has_law = enatic_succession
-					}
-				}
-				AND = {
-					independent = yes
-					OR = {
-						has_law = true_cognatic_succession
-						has_law = enatic_cognatic_succession
-						has_law = enatic_succession
-					}
-				}
-				has_character_flag = special_marshal
-			}
-			
-			# external code might demote a character
-			trait = poor_warrior
-			NOR = {
-				trait = poor_warrior
-				trait = trained_warrior
-				trait = skilled_warrior
-				trait = master_warrior
-			}
-		}
-	}
-	abort_effect = {
-		# (optional) possibly notify the player of why the ambition aborted in certain cases (prison, reaching age 50-- the rest is obvious)
-	}
-	effect = {
-		prestige = 75
-	}
-}
-
-# skilled_warrior -> master_warrior
-obj_cta_3 = {
-	type = character
-	
-	creation_effect = {
-	}
-	
-	potential = {
-		trait = skilled_warrior
-		NOR = {
-			trait = poor_warrior
-			trait = trained_warrior
-			trait = master_warrior
-		}
-		NOT = { has_character_flag = cta_done }
-		OR = {
-			is_ruler = yes
-			liege = { job_marshal = { character = ROOT } }
-		}
-	}
-	
-	allow = {
-		NOR = {
-			is_adult = no
-			age = 50
-			prisoner = yes
-			trait = incapable
-			trait = blinded
-		}
-		# ladies, if you can command armies for your liege/yourself (and meet the base criteria),
-		# then this ambition is for you too.
-		OR = {
-			is_female = no
-			AND = {
-				religion = norse_pagan
-				liege = { religion = norse_pagan }
-				trait = martial_lady_pagan
-			}
-			AND = {
-				religion = norse_pagan_reformed
-				liege = { religion = norse_pagan_reformed }
-				trait = martial_lady_pagan
-			}
-			AND = {
-				religion = german_pagan
-				liege = { religion = german_pagan_reformed }
-				trait = martial_lady_pagan
-			}
-			AND = {
-				religion = german_pagan_reformed
-				liege = { religion = german_pagan_reformed }
-				trait = martial_lady_pagan
-			}
-			AND = {
-				religion_group = zoroastrian_group
-				culture_group = iranian
-				any_dynasty_member = { higher_tier_than = baron }
-				trait = martial_lady_tengri
-				OR = {
-					AND = {
-						liege = { religion_group = zoroastrian_group }
-						liege = {culture_group = iranian }
-					}
-					independent = yes
-				}
-			}
-			AND = {
-				is_ruler = yes
-				independent = yes
-				OR = {
-					trait = martial_lady
-					trait = martial_lady_tengri
-					trait = martial_lady_pagan
-					martial = 12
-				}
-			}
-			liege = {
-				OR = {
-					has_law = true_cognatic_succession 
-					has_law = enatic_cognatic_succession
-					has_law = enatic_succession
-				}
-			}
-			AND = {
-				independent = yes
-				OR = {
-					has_law = true_cognatic_succession
-					has_law = enatic_cognatic_succession
-					has_law = enatic_succession
-				}
-			}
-			has_character_flag = special_marshal
-		}
-	}
-	chance = {
-		factor = 100
-		
-		modifier = {
-			factor = 0
-			NOT = { martial = 8 }
-		}
-		modifier = {
-			factor = 10
-			liege = { job_marshal = { character = ROOT } }
-		}
-		modifier = {
-			factor = 0.75
-			age = 40
-		}
-		modifier = {
-			factor = 0.333
-			age = 45
-		}
-		modifier = {
-			factor = 1.25
-			trait = patient
-		}
-		modifier = {
-			factor = 2
-			trait = diligent
-		}
-		modifier = {
-			factor = 2
-			trait = diligent
-			martial = 12
-		}
-		modifier = {
-			factor = 1.5
-			trait = ambitious
-		}
-		modifier = {
-			factor = 1.5
-			trait = ambitious
-			martial = 12
-		}
-		modifier = {
-			factor = 2.5
-			trait = brave
-		}
-		modifier = {
-			factor = 2.5
-			trait = crusader
-		}
-		modifier = {
-			factor = 2.5
-			trait = mujahid
-		}
-		modifier = {
-			factor = 1.75
-			# already has proven battle experience, likely candidate to be in future battles
-			OR = { 
-				trait = scarred 
-				trait = scarred_female
-			}
-		}
-		modifier = {
-			factor = 2
-			is_strong_trigger = yes
-		}
-		modifier = {
-			factor = 6
-			trait = duelist
-		}
-		modifier = {
-			factor = 2.5
-			trait = hunter
-		}
-		modifier = {
-			factor = 0.25
-			trait = hedonist
-		}
-		modifier = {
-			factor = 0.333
-			is_weak_trigger = yes
-		}
-		modifier = {
-			factor = 0.333
-			trait = clubfooted
-		}
-		modifier = {
-			factor = 0.75
-			trait = content
-		}
-		modifier = {
-			factor = 0.25
-			trait = craven
-		}
-		modifier = {
-			factor = 0.1
-			trait = slothful
-		}
-		modifier = {
-			factor = 0.667
-			OR = {
-				trait = elusive_shadow
-				trait = intricate_webweaver
-			}
-		}
-		modifier = {
-			factor = 0.333
-			OR = {
-				trait = flamboyant_schemer
-				trait = amateurish_plotter
-			}
-		}
-		modifier = {
-			factor = 8
-			trait = brilliant_strategist
-		}
-		modifier = {
-			factor = 5
-			trait = skilled_tactician
-		}
-		modifier = {
-			factor = 3
-			trait = tough_soldier
-		}
-		modifier = {
-			factor = 2
-			trait = misguided_warrior
-		}
-		modifier = {
-			factor = 0.75
-			NOT = { martial = 10 } # implies martial = 8 or 9 (martial < 8 is disabled for AI)
-		}
-		# TODO: martial scaling should be less coarse-grained
-		modifier = {
-			factor = 1.5
-			martial = 12
-		}
-		modifier = {
-			factor = 1.5
-			martial = 15
-		}
-		modifier = {
-			factor = 1.5
-			martial = 18
-		}
-		modifier = {
-			factor = 1.5
-			martial = 21
-		}
-		modifier = {
-			factor = 1.5
-			martial = 24
-		}
-	}
-	success = {
-		trait = master_warrior
-	}
-	abort = {
-		OR = {
-			NOR = {
-				is_ruler = yes
-				liege = { job_marshal = { character = ROOT } }
-			}
-			is_adult = no # weird stuff happens.
-			age = 50
-			prisoner = yes
-			trait = incapable
-			trait = blinded
-			
-			# and ladies should abort if conditions change such that they can no longer command armies
-			NOR = {
-				is_female = no
-				AND = {
-					religion = norse_pagan
-					liege = { religion = norse_pagan }
-					trait = martial_lady_pagan
-				}
-				AND = {
-					religion = norse_pagan_reformed
-					liege = { religion = norse_pagan_reformed }
-					trait = martial_lady_pagan
-				}
-				AND = {
-					religion = german_pagan
-					liege = { religion = german_pagan_reformed }
-					trait = martial_lady_pagan
-				}
-				AND = {
-					religion = german_pagan_reformed
-					liege = { religion = german_pagan_reformed }
-					trait = martial_lady_pagan
-				}
-				AND = {
-					religion_group = zoroastrian_group
-					culture_group = iranian
-					any_dynasty_member = { higher_tier_than = baron }
-					trait = martial_lady_tengri
-					OR = {
-						AND = {
-							liege = { religion_group = zoroastrian_group }
-							liege = {culture_group = iranian }
-						}
-						independent = yes
-					}
-				}
-				AND = {
-					is_ruler = yes
-					independent = yes
-					OR = {
-						trait = martial_lady
-						trait = martial_lady_tengri
-						trait = martial_lady_pagan
-						martial = 12
-					}
-				}
-				liege = {
-					OR = {
-						has_law = true_cognatic_succession 
-						has_law = enatic_cognatic_succession
-						has_law = enatic_succession
-					}
-				}
-				AND = {
-					independent = yes
-					OR = {
-						has_law = true_cognatic_succession
-						has_law = enatic_cognatic_succession
-						has_law = enatic_succession
-					}
-				}
-				has_character_flag = special_marshal
-			}
-			
-			# external code might demote a character
-			trait = poor_warrior
-			trait = trained_warrior
-			NOR = {
-				trait = poor_warrior
-				trait = trained_warrior
-				trait = skilled_warrior
-				trait = master_warrior
-			}
-		}
-	}
-	abort_effect = {
-		# (optional) possibly notify the player of why the ambition aborted in certain cases (prison, reaching age 50-- the rest is obvious)
-	}
-	effect = {
-		prestige = 100
-	}
-}
-
 obj_increase_demesne_1 = {
 	type = character
-	
+
 	potential = {
 		is_ruler = yes
 		is_landed = yes
@@ -2962,7 +1579,7 @@ obj_increase_demesne_1 = {
 
 obj_increase_demesne_2 = {
 	type = character
-	
+
 	potential = {
 		is_ruler = yes
 		is_landed = yes
@@ -3072,7 +1689,7 @@ obj_increase_demesne_2 = {
 
 obj_increase_demesne_3 = {
 	type = character
-	
+
 	potential = {
 		is_ruler = yes
 		is_landed = yes
@@ -3182,7 +1799,7 @@ obj_increase_demesne_3 = {
 
 obj_increase_demesne_4 = {
 	type = character
-	
+
 	potential = {
 		is_ruler = yes
 		is_landed = yes
@@ -3292,7 +1909,7 @@ obj_increase_demesne_4 = {
 
 obj_increase_demesne_5 = {
 	type = character
-	
+
 	potential = {
 		is_ruler = yes
 		is_landed = yes
@@ -3402,7 +2019,7 @@ obj_increase_demesne_5 = {
 
 obj_increase_demesne_6 = {
 	type = character
-	
+
 	potential = {
 		is_ruler = yes
 		is_landed = yes
@@ -3512,7 +2129,7 @@ obj_increase_demesne_6 = {
 
 obj_increase_demesne_7 = {
 	type = character
-	
+
 	potential = {
 		is_ruler = yes
 		is_landed = yes
@@ -3622,7 +2239,7 @@ obj_increase_demesne_7 = {
 
 obj_increase_demesne_8 = {
 	type = character
-	
+
 	potential = {
 		is_ruler = yes
 		is_landed = yes
@@ -3732,7 +2349,7 @@ obj_increase_demesne_8 = {
 
 obj_increase_demesne_9 = {
 	type = character
-	
+
 	potential = {
 		is_ruler = yes
 		is_landed = yes
@@ -3842,7 +2459,7 @@ obj_increase_demesne_9 = {
 
 obj_become_duke = {
 	type = character
-	
+
 	potential = {
 		is_ruler = yes
 		is_landed = yes
@@ -3921,7 +2538,7 @@ obj_become_duke = {
 
 obj_become_multiduke = {
 	type = character
-	
+
 	potential = {
 		is_ruler = yes
 		is_landed = yes
@@ -4001,7 +2618,7 @@ obj_become_multiduke = {
 
 obj_become_emperor = {
 	type = character
-	
+
 	potential = {
 		ai = no
 		is_ruler = yes
@@ -4041,7 +2658,7 @@ obj_become_emperor = {
 
 obj_go_crusade = {
 	type = character
-	
+
 	potential = {
 		ai = no
 		is_ruler = yes
@@ -4095,7 +2712,7 @@ obj_go_crusade = {
 			}
 			liege = {
 				OR = {
-					has_law = true_cognatic_succession 
+					has_law = true_cognatic_succession
 					has_law = enatic_cognatic_succession
 					has_law = enatic_succession
 				}
@@ -4154,7 +2771,7 @@ obj_go_crusade = {
 
 obj_go_jihad = {
 	type = character
-	
+
 	potential = {
 		ai = no
 		is_ruler = yes
@@ -4210,7 +2827,7 @@ obj_go_jihad = {
 
 obj_break_out_of_prison = {
 	type = character
-	
+
 	potential = {
 		prisoner = yes
 	}
@@ -4238,7 +2855,7 @@ obj_break_out_of_prison = {
 
 obj_win_a_war = {
 	type = character
-	
+
 	potential = {
 		war = no
 		OR = {
@@ -4367,7 +2984,7 @@ obj_win_a_war = {
 
 obj_convert_a_province = {
 	type = character
-	
+
 	potential = {
 		is_ruler = yes
 		OR = {
@@ -4481,7 +3098,7 @@ obj_convert_a_province = {
 
 obj_adopt_a_lifestyle = {
 	type = character
-	
+
 	potential = {
 		NOT = { lifestyle_traits = 1 }
 		NOT = { has_character_flag = obj_adopt_a_lifestyle }
@@ -4567,7 +3184,7 @@ obj_adopt_a_lifestyle = {
 
 obj_gain_honorary_title = {
 	type = character
-	
+
 	potential = {
 		independent = no
 		liege = {
@@ -4644,7 +3261,7 @@ obj_gain_honorary_title = {
 			has_minor_title = title_flamen_martialis
 			has_minor_title = title_flaminica_martialis
 			has_minor_title = title_flamen_quirinalis
-			has_minor_title = title_flaminica_quirinalis			
+			has_minor_title = title_flaminica_quirinalis
 			has_minor_title = title_uchelwr
 			has_minor_title = title_laoch
 			has_minor_title = title_royal_champion
@@ -4751,7 +3368,7 @@ obj_gain_honorary_title = {
 				has_minor_title = title_flamen_martialis
 				has_minor_title = title_flaminica_martialis
 				has_minor_title = title_flamen_quirinalis
-				has_minor_title = title_flaminica_quirinalis				
+				has_minor_title = title_flaminica_quirinalis
 				has_minor_title = title_uchelwr
 				has_minor_title = title_laoch
 				has_minor_title = title_royal_champion
@@ -4812,7 +3429,7 @@ obj_gain_honorary_title = {
 
 obj_gain_estates_1 = {
 	type = character
-	
+
 	potential = {
 		is_ruler = no
 		liege = { is_nomadic = no }
@@ -4977,7 +3594,7 @@ obj_gain_estates_1 = {
 
 obj_gain_estates_2 = {
 	type = character
-	
+
 	potential = {
 		is_ruler = no
 		has_character_modifier = estates_1
@@ -5111,7 +3728,7 @@ obj_gain_estates_2 = {
 
 obj_gain_estates_3 = {
 	type = character
-	
+
 	potential = {
 		is_ruler = no
 		NOT = { trait = monk }
@@ -5244,7 +3861,7 @@ obj_gain_estates_3 = {
 
 obj_gain_estates_4 = {
 	type = character
-	
+
 	potential = {
 		is_ruler = no
 		NOT = { trait = monk }
@@ -5376,7 +3993,7 @@ obj_gain_estates_4 = {
 
 obj_gain_estates_5 = {
 	type = character
-	
+
 	potential = {
 		is_ruler = no
 		NOT = { trait = monk }
@@ -5503,7 +4120,7 @@ obj_gain_estates_5 = {
 
 obj_befriend_liege = {
 	type = character
-	
+
 	potential = {
 		ai = no
 		independent = no
@@ -5528,7 +4145,7 @@ obj_befriend_liege = {
 			NOR = {
 				trait = incapable
 				num_of_friends = 3
-				opinion = { who = ROOT value = 75 }	
+				opinion = { who = ROOT value = 75 }
 			}
 		}
 	}
@@ -5599,7 +4216,7 @@ obj_befriend_liege = {
 
 obj_befriend_top_liege = {
 	type = character
-	
+
 	potential = {
 		ai = no
 		independent = no
@@ -5625,7 +4242,7 @@ obj_befriend_top_liege = {
 			NOR = {
 				trait = incapable
 				num_of_friends = 3
-				opinion = { who = ROOT value = 75 }	
+				opinion = { who = ROOT value = 75 }
 			}
 		}
 	}
@@ -5690,7 +4307,7 @@ obj_befriend_top_liege = {
 
 obj_befriend_relhead = {
 	type = character
-	
+
 	potential = {
 		ai = no
 		religion_head = {
@@ -5716,7 +4333,7 @@ obj_befriend_relhead = {
 			NOR = {
 				trait = incapable
 				num_of_friends = 3
-				opinion = { who = ROOT value = 75 }	
+				opinion = { who = ROOT value = 75 }
 			}
 		}
 	}
@@ -5791,7 +4408,7 @@ obj_befriend_relhead = {
 
 obj_make_a_friend = {
 	type = character
-	
+
 	potential = {
 		NOT = { has_character_flag = friend_ambition }
 		NOT = { num_of_friends = 1 }
@@ -5801,7 +4418,7 @@ obj_make_a_friend = {
 		prisoner = no
 		is_adult = yes
 		diplomacy = 8
-		NOR = { 
+		NOR = {
 			age = 70
 			trait = incapable
 			trait = shy
@@ -5926,7 +4543,7 @@ obj_make_a_friend = {
 
 obj_get_nick = {
 	type = character
-	
+
 	potential = {
 		is_ruler = yes
 		has_nickname = no
@@ -5998,7 +4615,7 @@ obj_get_nick = {
 
 obj_change_nick = {
 	type = character
-	
+
 	potential = {
 		ai = no
 		is_ruler = yes
@@ -6039,7 +4656,7 @@ obj_change_nick = {
 
 obj_spouse_councillor = {
 	type = character
-	
+
 	potential = {
 		is_female = yes
 		is_married = yes
@@ -6163,7 +4780,7 @@ obj_spouse_councillor = {
 
 obj_known_for_virtue = {
 	type = character
-	
+
 	potential = {
 		is_ruler = yes
 		NOT = { religion_group = indian_group }
@@ -6263,7 +4880,7 @@ obj_known_for_virtue = {
 
 obj_lower_decadence50 = {
 	type = character
-	
+
 	potential = {
 		is_adult = yes
 		is_ruler = yes
@@ -6802,7 +5419,7 @@ obj_lower_decadence80 = {
 
 obj_reign_20_years = {
 	type = character
-	
+
 	potential = {
 		NOT = { ruled_years = 20 }
 		is_ruler = yes
@@ -6856,21 +5473,21 @@ obj_reign_20_years = {
 
 obj_peace_10_year = {
 	type = character
-	
+
 	creation_effect = {
 		add_character_modifier = {
 			name = "peace_declared_10_timer"
 			duration = 3650
 		}
 	}
-	
+
 	potential = {
 		ai = no
 		mercenary = no
 		is_ruler = yes
 		NOT = { has_character_modifier = peace_declared_10_timer }
-	}	
-	
+	}
+
 	allow = {
 		is_adult = yes
 		prisoner = no
@@ -6903,7 +5520,7 @@ obj_peace_10_year = {
 
 obj_great_council = {
 	type = character
-	
+
 	potential = {
 		independent = yes
 		OR = {
@@ -7016,7 +5633,7 @@ obj_great_council = {
 
 obj_civilize_province = {
 	type = character
-	
+
 	potential = {
 		is_ruler = yes
 		any_realm_province = {
@@ -7026,9 +5643,9 @@ obj_civilize_province = {
 			}
 		}
 		NOT = { has_character_flag = civilized_province }
-		NOT = { has_law = culture_conversion_0 }
+		#NOT = { has_law = culture_conversion_0 }
 	}
-	
+
 	allow = {
 		prisoner = no
 		is_adult = yes
@@ -7098,7 +5715,7 @@ obj_civilize_province = {
 
 obj_be_legitimized = {
 	type = character
-	
+
 	potential = {
 		trait = bastard
 		religion_group = christian
@@ -7290,7 +5907,7 @@ obj_druze_esoteric_learning = {
 				hidden = yes
 			}
 		}
-	}	
+	}
 	chance = {
 		factor = 5
 		modifier = {
@@ -7337,7 +5954,7 @@ obj_druze_esoteric_learning = {
 		}
 	}
 	success = {
-		trait = druze_uqqal	
+		trait = druze_uqqal
 	}
 	abort = {
 		OR = {
@@ -7371,7 +5988,7 @@ obj_druze_esoteric_learning = {
 
 obj_become_saint = {
 	type = character
-	
+
 	potential = {
 		is_adult = yes
 		prisoner = no
@@ -7386,7 +6003,7 @@ obj_become_saint = {
 			trait = imbecile
 		}
 	}
-	
+
 	allow = {
 		OR = {
 			piety = 100
@@ -7406,7 +6023,7 @@ obj_become_saint = {
 			trait = bad_priest_christian
 		}
 	}
-	
+
 	chance = {
 		factor = 25
 		modifier = {
@@ -7619,17 +6236,17 @@ obj_warlord = {
 		#}
 		NOT = { trait = warlord }
 	}
-	
+
 	allow = {
 		#Traits that prohibit you from becoming a Warlord
 		NOT = { trait = incapable }
 		NOT = { trait = slothful }
 		NOT = { trait = content }
 		NOT = { trait = kind }
-		
+
 		#Age Restriction for Warlords, Depending on Culture  (Essentially Race)
 		OR = {
-			NOT = { age = 70 }			
+			NOT = { age = 70 }
 			AND = {
 				NOT = { age = 200 }
 				is_immortal = no
@@ -7639,13 +6256,13 @@ obj_warlord = {
 				is_immortal = yes
 			}
 		}
-	
+
 		prestige = 500
 	}
-	
+
 	chance = {
 		factor = 90
-		
+
 		modifier = {
 			factor = 5
 			has_character_flag = demon_child_non_pagan
@@ -7862,7 +6479,7 @@ obj_warlord = {
 			}
 		}
 	}
-	
+
 	abort = {
 		OR = {
 			trait = incapable
@@ -7877,11 +6494,11 @@ obj_warlord = {
 			#}
 		}
 	}
-	
+
 	success = {
 		has_character_flag = warlord_flg
 	}
-	
+
 	effect = {
 		add_trait = warlord
 	}

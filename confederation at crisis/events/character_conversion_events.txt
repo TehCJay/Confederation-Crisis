@@ -988,6 +988,99 @@ character_event = {
 			random_independent_ruler = {
 				limit = { religion = space_pirate }
 				reverse_banish = ROOT
+				hidden_tooltip = {
+					random = {
+						chance = 10
+
+						mult_modifier = {
+							factor = 0
+							dynasty = ROOT
+						}
+
+						additive_modifier = {
+							value = 30
+							ROOT = {
+								martial < 10
+							}
+						}
+
+						additive_modifier = {
+							value = 10
+							ROOT = {
+								martial < 20
+							}
+						}
+
+						additive_modifier = {
+							value = 5
+							ROOT = {
+								martial < 30
+							}
+						}
+
+						additive_modifier = {
+							value = -10
+							ROOT = {
+								trait = amoral
+							}
+						}
+
+						additive_modifier = {
+							value = 20
+							ROOT = {
+								ai_honor >= 50
+							}
+						}
+
+						additive_modifier = {
+							value = 30
+							ROOT = {
+								ai_greed <= -20
+							}
+						}
+
+						additive_modifier = {
+							value = 30
+							ROOT = {
+								ai_ambition <= -20
+							}
+						}
+
+						mult_modifier = {
+							factor = 3
+							has_full_court = yes
+						}
+
+						mult_modifier = {
+							factor = 2
+							opinion = {
+								who = ROOT
+								value < -10
+							}
+						}
+
+						mult_modifier = {
+							factor = 2
+							opinion = {
+								who = ROOT
+								value < -50
+							}
+						}
+
+						mult_modifier = {
+							factor = 10
+							is_foe = ROOT
+						}
+
+						ROOT = {
+							death = {
+								death_reason = death_execution
+								killer = PREV
+							}
+						}
+
+					}
+				}
 			}
 		}
 		ai_chance = {
@@ -1136,7 +1229,7 @@ character_event = {
 										dynasty = actually_culture
 										religion = space_pirate
 										female = yes
-										trait = fighter_pilot
+										trait = frigate_pilot
 									}
 									new_character = { set_dynasty_flag = flag_valid_surname }
 								}
@@ -1148,7 +1241,7 @@ character_event = {
 										dynasty = actually_culture
 										religion = space_pirate
 										female = no
-										trait = fighter_pilot
+										trait = frigate_pilot
 									}
 									new_character = { set_dynasty_flag = flag_valid_surname }
 								}
@@ -1162,7 +1255,7 @@ character_event = {
 										dynasty = actually_culture
 										religion = space_pirate
 										female = yes
-										trait = marine_colonel
+										trait = marine_captain
 									}
 									new_character = { set_dynasty_flag = flag_valid_surname }
 								}
@@ -1174,7 +1267,7 @@ character_event = {
 										dynasty = actually_culture
 										religion = space_pirate
 										female = no
-										trait = marine_colonel
+										trait = marine_captain
 									}
 									new_character = { set_dynasty_flag = flag_valid_surname }
 								}
@@ -1216,7 +1309,7 @@ character_event = {
 								province = PREVPREVPREV
 								home = PREVPREVPREV
 								owner = THIS
-								troops = { light_infantry = { 500 500 } }
+								troops = { light_infantry = { 20 20 } }
 								attrition = 0.0
 								disband_on_peace = no
 							}
@@ -1224,7 +1317,7 @@ character_event = {
 								province = PREVPREVPREV
 								home = PREVPREVPREV
 								owner = THIS
-								troops = { heavy_infantry = { 500 500 } }
+								troops = { heavy_infantry = { 20 20 } }
 								attrition = 0.0
 								disband_on_peace = no
 							}
@@ -1287,7 +1380,7 @@ character_event = {
 			}
 		}
 		if = {
-			limit = { trait = fighter_pilot }
+			limit = { trait = frigate_pilot }
 			FROM = {
 				location = {
 					FROM = {
@@ -1305,7 +1398,7 @@ character_event = {
 			}
 		}
 		if = {
-			limit = { trait = marine_colonel }
+			limit = { trait = marine_captain }
 			FROM = {
 				location = {
 					FROM = {
@@ -2127,27 +2220,27 @@ character_event = {
 		modifier = {
 			factor = 4
 			religion = neo_socialist
-			is_administrative_trigger = yes
+			is_rectorial_trigger = yes
 			NOT = { trait = content }
 		}
 		modifier = {
 			factor = 4
 			religion = neo_socialist
-			is_administrative_trigger = yes
+			is_rectorial_trigger = yes
 			trait = ambitious
 		}
 		modifier = {
 			factor = 0.25
 			NOT = { religion = terran_republican }
 			NOT = { religion = colonial_separatist }
-			is_corporate_trigger = yes
+			is_civil_trigger = yes
 			NOT = { trait = content }
 		}
 		modifier = {
 			factor = 0.25
 			NOT = { religion = terran_republican }
 			NOT = { religion = colonial_separatist }
-			is_corporate_trigger = yes
+			is_civil_trigger = yes
 			trait = ambitious
 		}
 
@@ -2807,27 +2900,27 @@ character_event = {
 		modifier = {
 			factor = 4
 			religion = neo_socialist
-			is_administrative_trigger = yes
+			is_rectorial_trigger = yes
 			NOT = { trait = content }
 		}
 		modifier = {
 			factor = 4
 			religion = neo_socialist
-			is_administrative_trigger = yes
+			is_rectorial_trigger = yes
 			trait = ambitious
 		}
 		modifier = {
 			factor = 0.25
 			NOT = { religion = terran_federalist }
 			NOT = { religion = colonial_separatist }
-			is_corporate_trigger = yes
+			is_civil_trigger = yes
 			NOT = { trait = content }
 		}
 		modifier = {
 			factor = 0.25
 			NOT = { religion = terran_federalist }
 			NOT = { religion = colonial_separatist }
-			is_corporate_trigger = yes
+			is_civil_trigger = yes
 			trait = ambitious
 		}
 
@@ -3492,13 +3585,13 @@ character_event = {
 		modifier = {
 			factor = 4
 			religion = neo_socialist
-			is_administrative_trigger = yes
+			is_rectorial_trigger = yes
 			NOT = { trait = content }
 		}
 		modifier = {
 			factor = 4
 			religion = neo_socialist
-			is_administrative_trigger = yes
+			is_rectorial_trigger = yes
 			trait = ambitious
 		}
 		modifier = {
@@ -3508,7 +3601,7 @@ character_event = {
 				religion = terran_republican
 				religion = colonial_separatist
 			}
-			is_corporate_trigger = yes
+			is_civil_trigger = yes
 			NOT = { trait = content }
 		}
 		modifier = {
@@ -3518,7 +3611,7 @@ character_event = {
 				religion = terran_republican
 				religion = colonial_separatist
 			}
-			is_corporate_trigger = yes
+			is_civil_trigger = yes
 			trait = ambitious
 		}
 
@@ -4238,27 +4331,27 @@ character_event = {
 		modifier = {
 			factor = 4
 			religion = neo_socialist
-			is_administrative_trigger = yes
+			is_rectorial_trigger = yes
 			NOT = { trait = content }
 		}
 		modifier = {
 			factor = 4
 			religion = neo_socialist
-			is_administrative_trigger = yes
+			is_rectorial_trigger = yes
 			trait = ambitious
 		}
 		modifier = {
 			factor = 0.25
 			NOT = { religion = terran_republican }
 			NOT = { religion = colonial_separatist }
-			is_corporate_trigger = yes
+			is_civil_trigger = yes
 			NOT = { trait = content }
 		}
 		modifier = {
 			factor = 0.25
 			NOT = { religion = terran_republican }
 			NOT = { religion = colonial_separatist }
-			is_corporate_trigger = yes
+			is_civil_trigger = yes
 			trait = ambitious
 		}
 
@@ -4961,13 +5054,13 @@ character_event = {
 		modifier = {
 			factor = 4
 			religion = neo_socialist
-			is_administrative_trigger = yes
+			is_rectorial_trigger = yes
 			NOT = { trait = content }
 		}
 		modifier = {
 			factor = 4
 			religion = neo_socialist
-			is_administrative_trigger = yes
+			is_rectorial_trigger = yes
 			trait = ambitious
 		}
 		modifier = {
@@ -4977,7 +5070,7 @@ character_event = {
 				religion = terran_republican
 				religion = colonial_separatist
 			}
-			is_corporate_trigger = yes
+			is_civil_trigger = yes
 			NOT = { trait = content }
 		}
 		modifier = {
@@ -4987,7 +5080,7 @@ character_event = {
 				religion = terran_republican
 				religion = colonial_separatist
 			}
-			is_corporate_trigger = yes
+			is_civil_trigger = yes
 			trait = ambitious
 		}
 		modifier = {
@@ -5713,13 +5806,13 @@ character_event = {
 		modifier = {
 			factor = 4
 			religion = neo_socialist
-			is_administrative_trigger = yes
+			is_rectorial_trigger = yes
 			NOT = { trait = content }
 		}
 		modifier = {
 			factor = 4
 			religion = neo_socialist
-			is_administrative_trigger = yes
+			is_rectorial_trigger = yes
 			trait = ambitious
 		}
 		modifier = {
@@ -5729,7 +5822,7 @@ character_event = {
 				religion = terran_republican
 				religion = colonial_separatist
 			}
-			is_corporate_trigger = yes
+			is_civil_trigger = yes
 			NOT = { trait = content }
 		}
 		modifier = {
@@ -5739,7 +5832,7 @@ character_event = {
 				religion = terran_republican
 				religion = colonial_separatist
 			}
-			is_corporate_trigger = yes
+			is_civil_trigger = yes
 			trait = ambitious
 		}
 
@@ -6308,12 +6401,12 @@ character_event = {
 		}
 		modifier = {
 			factor = 0.25
-			is_administrative_trigger = yes
+			is_rectorial_trigger = yes
 			NOT = { trait = content }
 		}
 		modifier = {
 			factor = 0.25
-			is_administrative_trigger = yes
+			is_rectorial_trigger = yes
 			trait = ambitious
 		}
 		modifier = {
@@ -6323,7 +6416,7 @@ character_event = {
 				religion = terran_republican
 				religion = colonial_separatist
 			}
-			is_corporate_trigger = yes
+			is_civil_trigger = yes
 			NOT = { trait = content }
 		}
 		modifier = {
@@ -6333,7 +6426,7 @@ character_event = {
 				religion = terran_republican
 				religion = colonial_separatist
 			}
-			is_corporate_trigger = yes
+			is_civil_trigger = yes
 			trait = ambitious
 		}
 

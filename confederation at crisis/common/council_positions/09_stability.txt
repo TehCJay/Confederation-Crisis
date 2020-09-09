@@ -1,0 +1,53 @@
+stability_seeker = {
+	icon = 10
+
+	# The player also needs to obey the potential triggers when choosing a position
+	potential = {
+		always = yes
+	}
+
+	default_selection = {
+		value = 1
+	}
+
+	selection = {
+		value = 0
+
+		ai_stability_score = yes
+	}
+
+	# FROM is attacker (liege)
+	# FROMFROM is defender
+	war_target = {
+		NOR = {
+			religion = FROMFROM
+			is_close_relative = FROMFROM
+		}
+
+		# Doesn't like stronger targets
+		FROMFROM = {
+			relative_power_including_allies_defender = {
+				who = ROOT_FROM
+				power < 1.5
+			}
+		}
+	}
+
+	voting_patterns = {
+		special_case_for
+		me_pattern_for
+		selfish_pattern_for
+		selfish_pattern_against
+		family_pattern_for
+		family_pattern_against
+		ideological_for
+		ideological_against
+		zealot_pattern_for
+		zealot_pattern_against
+		corrupt_pattern_for
+		corrupt_pattern_against
+		interaction_pattern_for
+		interaction_pattern_against
+		preferred_war_target_pattern_against
+	}
+}

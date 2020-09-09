@@ -1,11 +1,11 @@
 #
-decisions = {	
+decisions = {
 	# Heavy Worlder Kings or Emperors may create a corresponding culture, which enables new courtiers to be spawned with the Heavy Worlder trait
 	heavy_worlder_renaissance = {
 		ai_check_interval = 120 #check only once every 120 months.
 		only_playable = yes
 		is_high_prio = yes
-		
+
 		potential = {
 			is_playable = yes
 			OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
@@ -16,7 +16,7 @@ decisions = {
 				tier = EMPEROR
 			}
 
-			NOT = { culture = heavy_worlder_ge }			
+			NOT = { culture = heavy_worlder_ge }
 			NOT = {
 				has_alternate_start_parameter = { key = culture_names value = random }
 			}
@@ -31,7 +31,7 @@ decisions = {
 
 			culture = heavy_worlder_ge
 			hidden_tooltip = {
-				any_courtier_or_vassal = { 
+				any_courtier_or_vassal = {
 					limit = { trait = heavy_worlder }
 					culture = heavy_worlder_ge
 				}
@@ -46,33 +46,33 @@ decisions = {
 							culture = heavy_worlder_ge
 						}
 						if = {
-							limit = { 
+							limit = {
 								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
-								NOT = { distance = { who = ROOT distance = 100 } } 
+								NOT = { distance = { who = ROOT distance = 100 } }
 							}
-							random = { 
-								chance = 40 
-								culture = heavy_worlder_ge 
+							random = {
+								chance = 40
+								culture = heavy_worlder_ge
 							}
 						}
 						if = {
-							limit = { 
+							limit = {
 								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
-								NOT = { distance = { who = ROOT distance = 200 } } 
+								NOT = { distance = { who = ROOT distance = 200 } }
 							}
-							random = { 
-								chance = 20 
-								culture = heavy_worlder_ge 
+							random = {
+								chance = 20
+								culture = heavy_worlder_ge
 							}
 						}
 						if = {
-							limit = { 
+							limit = {
 								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
-								NOT = { distance = { who = ROOT distance = 400 } } 
+								NOT = { distance = { who = ROOT distance = 400 } }
 							}
-							random = { 
+							random = {
 								chance = 5
-								culture = heavy_worlder_ge 
+								culture = heavy_worlder_ge
 							}
 						}
 					}
@@ -87,31 +87,28 @@ decisions = {
 							religion = ROOT
 						}
 						if = {
-							limit = { 
+							limit = {
 								culture = heavy_worlder_ge
-								NOT = { distance = { who = ROOT distance = 100 } } 
+								NOT = { distance = { who = ROOT distance = 100 } }
 							}
-							random = { 
-								chance = 10 
+							random = {
+								chance = 10
 								religion = ROOT
 							}
 						}
 						if = {
-							limit = { 
+							limit = {
 								culture = heavy_worlder_ge
-								NOT = { distance = { who = ROOT distance = 200 } } 
+								NOT = { distance = { who = ROOT distance = 200 } }
 							}
-							random = { 
-								chance = 5 
+							random = {
+								chance = 5
 								religion = ROOT
 							}
 						}
 					}
 				}
 			}
-		}
-		revoke_allowed = {
-			always = no
 		}
 		ai_will_do = {
 			factor = 1
@@ -128,17 +125,17 @@ decisions = {
 	embrace_heavy_worlder_culture = {
 		ai_check_interval = 120 #check only once every 120 months.
 		only_playable = yes
-		
+
 		potential = {
 			is_playable = yes
 			NOT = { culture = heavy_worlder_ge }
-			AND = { 
-				trait = heavy_worlder 
+			AND = {
+				trait = heavy_worlder
 				OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
 			}
 			has_dlc = "Holy Fury"
 
-			NOT = { culture = heavy_worlder_ge }			
+			NOT = { culture = heavy_worlder_ge }
 			NOT = {
 				has_alternate_start_parameter = { key = culture_names value = random }
 			}
@@ -151,7 +148,7 @@ decisions = {
 		effect = {
 			culture = heavy_worlder_ge
 			hidden_tooltip = {
-				any_courtier_or_vassal = { 
+				any_courtier_or_vassal = {
 					limit = { lower_tier_than = COUNT }
 					culture = heavy_worlder_ge
 				}
@@ -162,42 +159,42 @@ decisions = {
 				hidden_tooltip = {
 					any_demesne_province = {
 						if = {
-							limit = { 
-								any_neighbor_province = { 
-									culture = heavy_worlder_ge 
+							limit = {
+								any_neighbor_province = {
+									culture = heavy_worlder_ge
 									OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
-								} 	
+								}
 							}
 							culture = heavy_worlder_ge
 						}
 						if = {
-							limit = { 
+							limit = {
 								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
-								capital_scope = { NOT = { distance = { where = PREV distance = 100 } } } 
+								capital_scope = { NOT = { distance = { where = PREV distance = 100 } } }
 							}
-							random = { 
-								chance = 40 
-								culture = heavy_worlder_ge 
+							random = {
+								chance = 40
+								culture = heavy_worlder_ge
 							}
 						}
 						if = {
-							limit = { 
+							limit = {
 								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
-								capital_scope = { NOT = { distance = { where = PREV distance = 200 } } } 
+								capital_scope = { NOT = { distance = { where = PREV distance = 200 } } }
 							}
-							random = { 
-								chance = 20 
-								culture = heavy_worlder_ge 
+							random = {
+								chance = 20
+								culture = heavy_worlder_ge
 							}
 						}
 						if = {
-							limit = { 
+							limit = {
 								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
-								capital_scope = { NOT = { distance = { where = PREV distance = 400 } } } 
+								capital_scope = { NOT = { distance = { where = PREV distance = 400 } } }
 							}
-							random = { 
+							random = {
 								chance = 5
-								culture = heavy_worlder_ge 
+								culture = heavy_worlder_ge
 							}
 						}
 					}
@@ -212,31 +209,28 @@ decisions = {
 							religion = ROOT
 						}
 						if = {
-							limit = { 
+							limit = {
 								culture = heavy_worlder_ge
-								capital_scope = { NOT = { distance = { where = PREV distance = 100 } } } 
+								capital_scope = { NOT = { distance = { where = PREV distance = 100 } } }
 							}
-							random = { 
-								chance = 10 
+							random = {
+								chance = 10
 								religion = ROOT
 							}
 						}
 						if = {
-							limit = { 
+							limit = {
 								culture = heavy_worlder_ge
-								capital_scope = { NOT = { distance = { where = PREV distance = 200 } } } 
+								capital_scope = { NOT = { distance = { where = PREV distance = 200 } } }
 							}
-							random = { 
-								chance = 5 
+							random = {
+								chance = 5
 								religion = ROOT
 							}
 						}
 					}
 				}
 			}
-		}
-		revoke_allowed = {
-			always = no
 		}
 		ai_will_do = {
 			factor = 1
@@ -246,7 +240,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 3
-				capital_scope = { culture = heavy_worlder_ge } 
+				capital_scope = { culture = heavy_worlder_ge }
 			}
 			modifier = {
 				factor = 0.01 #Would consider it a step down.
@@ -260,7 +254,7 @@ decisions = {
 		ai_check_interval = 120 #check only once every 120 months.
 		only_playable = yes
 		is_high_prio = yes
-		
+
 		potential = {
 			is_playable = yes
 			OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
@@ -271,7 +265,7 @@ decisions = {
 				tier = EMPEROR
 			}
 
-			NOT = { culture = cat_genes_g }
+			NOT = { culture = cat_splice_g }
 			NOT = {
 				has_alternate_start_parameter = { key = culture_names value = random }
 			}
@@ -286,7 +280,7 @@ decisions = {
 
 			culture = cat_splice_ge
 			hidden_tooltip = {
-				any_courtier_or_vassal = { 
+				any_courtier_or_vassal = {
 					limit = { trait = cat_splice }
 					culture = cat_splice_ge
 				}
@@ -301,33 +295,33 @@ decisions = {
 							culture = cat_splice_ge
 						}
 						if = {
-							limit = { 
+							limit = {
 								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
-								NOT = { distance = { who = ROOT distance = 100 } } 
+								NOT = { distance = { who = ROOT distance = 100 } }
 							}
-							random = { 
-								chance = 40 
-								culture = cat_splice_ge 
+							random = {
+								chance = 40
+								culture = cat_splice_ge
 							}
 						}
 						if = {
-							limit = { 
+							limit = {
 								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
-								NOT = { distance = { who = ROOT distance = 200 } } 
+								NOT = { distance = { who = ROOT distance = 200 } }
 							}
-							random = { 
-								chance = 20 
-								culture = cat_splice_ge 
+							random = {
+								chance = 20
+								culture = cat_splice_ge
 							}
 						}
 						if = {
-							limit = { 
+							limit = {
 								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
-								NOT = { distance = { who = ROOT distance = 400 } } 
+								NOT = { distance = { who = ROOT distance = 400 } }
 							}
-							random = { 
+							random = {
 								chance = 5
-								culture = cat_splice_ge 
+								culture = cat_splice_ge
 							}
 						}
 					}
@@ -342,31 +336,28 @@ decisions = {
 							religion = ROOT
 						}
 						if = {
-							limit = { 
+							limit = {
 								culture = cat_splice_ge
-								NOT = { distance = { who = ROOT distance = 100 } } 
+								NOT = { distance = { who = ROOT distance = 100 } }
 							}
-							random = { 
-								chance = 10 
+							random = {
+								chance = 10
 								religion = ROOT
 							}
 						}
 						if = {
-							limit = { 
+							limit = {
 								culture = cat_splice_ge
-								NOT = { distance = { who = ROOT distance = 200 } } 
+								NOT = { distance = { who = ROOT distance = 200 } }
 							}
-							random = { 
-								chance = 5 
+							random = {
+								chance = 5
 								religion = ROOT
 							}
 						}
 					}
 				}
 			}
-		}
-		revoke_allowed = {
-			always = no
 		}
 		ai_will_do = {
 			factor = 1
@@ -383,17 +374,17 @@ decisions = {
 	embrace_cat_splice_culture = {
 		ai_check_interval = 120 #check only once every 120 months.
 		only_playable = yes
-		
+
 		potential = {
 			is_playable = yes
 			NOT = { culture = cat_splice_ge }
-			AND = { 
-				trait = cat_splice 
+			AND = {
+				trait = cat_splice
 				OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
 			}
 			has_dlc = "Holy Fury"
 
-			NOT = { culture = cat_genes_g }			
+			NOT = { culture = cat_splice_g }
 			NOT = {
 				has_alternate_start_parameter = { key = culture_names value = random }
 			}
@@ -406,7 +397,7 @@ decisions = {
 		effect = {
 			culture = cat_splice_ge
 			hidden_tooltip = {
-				any_courtier_or_vassal = { 
+				any_courtier_or_vassal = {
 					limit = { lower_tier_than = COUNT }
 					culture = cat_splice_ge
 				}
@@ -417,42 +408,42 @@ decisions = {
 				hidden_tooltip = {
 					any_demesne_province = {
 						if = {
-							limit = { 
-								any_neighbor_province = { 
-									culture = cat_splice_ge 
+							limit = {
+								any_neighbor_province = {
+									culture = cat_splice_ge
 									OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
-								} 	
+								}
 							}
 							culture = cat_splice_ge
 						}
 						if = {
-							limit = { 
+							limit = {
 								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
-								capital_scope = { NOT = { distance = { where = PREV distance = 100 } } } 
+								capital_scope = { NOT = { distance = { where = PREV distance = 100 } } }
 							}
-							random = { 
-								chance = 40 
-								culture = cat_splice_ge 
+							random = {
+								chance = 40
+								culture = cat_splice_ge
 							}
 						}
 						if = {
-							limit = { 
+							limit = {
 								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
-								capital_scope = { NOT = { distance = { where = PREV distance = 200 } } } 
+								capital_scope = { NOT = { distance = { where = PREV distance = 200 } } }
 							}
-							random = { 
-								chance = 20 
-								culture = cat_splice_ge 
+							random = {
+								chance = 20
+								culture = cat_splice_ge
 							}
 						}
 						if = {
-							limit = { 
+							limit = {
 								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
-								capital_scope = { NOT = { distance = { where = PREV distance = 400 } } } 
+								capital_scope = { NOT = { distance = { where = PREV distance = 400 } } }
 							}
-							random = { 
+							random = {
 								chance = 5
-								culture = cat_splice_ge 
+								culture = cat_splice_ge
 							}
 						}
 					}
@@ -467,31 +458,28 @@ decisions = {
 							religion = ROOT
 						}
 						if = {
-							limit = { 
+							limit = {
 								culture = cat_splice_ge
-								capital_scope = { NOT = { distance = { where = PREV distance = 100 } } } 
+								capital_scope = { NOT = { distance = { where = PREV distance = 100 } } }
 							}
-							random = { 
-								chance = 10 
+							random = {
+								chance = 10
 								religion = ROOT
 							}
 						}
 						if = {
-							limit = { 
+							limit = {
 								culture = cat_splice_ge
-								capital_scope = { NOT = { distance = { where = PREV distance = 200 } } } 
+								capital_scope = { NOT = { distance = { where = PREV distance = 200 } } }
 							}
-							random = { 
-								chance = 5 
+							random = {
+								chance = 5
 								religion = ROOT
 							}
 						}
 					}
 				}
 			}
-		}
-		revoke_allowed = {
-			always = no
 		}
 		ai_will_do = {
 			factor = 1
@@ -501,7 +489,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 3
-				capital_scope = { culture = cat_splice_ge } 
+				capital_scope = { culture = cat_splice_ge }
 			}
 			modifier = {
 				factor = 0.01 #Would consider it a step down.
@@ -516,7 +504,7 @@ decisions = {
 		ai_check_interval = 120 #check only once every 120 months.
 		only_playable = yes
 		is_high_prio = yes
-		
+
 		potential = {
 			is_playable = yes
 			OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
@@ -527,7 +515,7 @@ decisions = {
 				tier = EMPEROR
 			}
 
-			NOT = { culture = organic_wifi_ge }			
+			NOT = { culture = organic_wifi_ge }
 			NOT = {
 				has_alternate_start_parameter = { key = culture_names value = random }
 			}
@@ -542,7 +530,7 @@ decisions = {
 
 			culture = organic_wifi_ge
 			hidden_tooltip = {
-				any_courtier_or_vassal = { 
+				any_courtier_or_vassal = {
 					limit = { trait = organic_wifi }
 					culture = organic_wifi_ge
 				}
@@ -557,33 +545,33 @@ decisions = {
 							culture = organic_wifi_ge
 						}
 						if = {
-							limit = { 
+							limit = {
 								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
-								NOT = { distance = { who = ROOT distance = 100 } } 
+								NOT = { distance = { who = ROOT distance = 100 } }
 							}
-							random = { 
-								chance = 40 
-								culture = organic_wifi_ge 
+							random = {
+								chance = 40
+								culture = organic_wifi_ge
 							}
 						}
 						if = {
-							limit = { 
+							limit = {
 								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
-								NOT = { distance = { who = ROOT distance = 200 } } 
+								NOT = { distance = { who = ROOT distance = 200 } }
 							}
-							random = { 
-								chance = 20 
-								culture = organic_wifi_ge 
+							random = {
+								chance = 20
+								culture = organic_wifi_ge
 							}
 						}
 						if = {
-							limit = { 
+							limit = {
 								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
-								NOT = { distance = { who = ROOT distance = 400 } } 
+								NOT = { distance = { who = ROOT distance = 400 } }
 							}
-							random = { 
+							random = {
 								chance = 5
-								culture = organic_wifi_ge 
+								culture = organic_wifi_ge
 							}
 						}
 					}
@@ -598,31 +586,28 @@ decisions = {
 							religion = ROOT
 						}
 						if = {
-							limit = { 
+							limit = {
 								culture = organic_wifi_ge
-								NOT = { distance = { who = ROOT distance = 100 } } 
+								NOT = { distance = { who = ROOT distance = 100 } }
 							}
-							random = { 
-								chance = 10 
+							random = {
+								chance = 10
 								religion = ROOT
 							}
 						}
 						if = {
-							limit = { 
+							limit = {
 								culture = organic_wifi_ge
-								NOT = { distance = { who = ROOT distance = 200 } } 
+								NOT = { distance = { who = ROOT distance = 200 } }
 							}
-							random = { 
-								chance = 5 
+							random = {
+								chance = 5
 								religion = ROOT
 							}
 						}
 					}
 				}
 			}
-		}
-		revoke_allowed = {
-			always = no
 		}
 		ai_will_do = {
 			factor = 1
@@ -639,17 +624,17 @@ decisions = {
 	embrace_organic_wifi_culture = {
 		ai_check_interval = 120 #check only once every 120 months.
 		only_playable = yes
-		
+
 		potential = {
 			is_playable = yes
 			NOT = { culture = organic_wifi_ge }
-			AND = { 
-				trait = organic_wifi 
+			AND = {
+				trait = organic_wifi
 				OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
 			}
 			has_dlc = "Holy Fury"
 
-			NOT = { culture = organic_wifi_ge }			
+			NOT = { culture = organic_wifi_ge }
 			NOT = {
 				has_alternate_start_parameter = { key = culture_names value = random }
 			}
@@ -662,7 +647,7 @@ decisions = {
 		effect = {
 			culture = organic_wifi_ge
 			hidden_tooltip = {
-				any_courtier_or_vassal = { 
+				any_courtier_or_vassal = {
 					limit = { lower_tier_than = COUNT }
 					culture = organic_wifi_ge
 				}
@@ -673,42 +658,42 @@ decisions = {
 				hidden_tooltip = {
 					any_demesne_province = {
 						if = {
-							limit = { 
-								any_neighbor_province = { 
-									culture = organic_wifi_ge 
+							limit = {
+								any_neighbor_province = {
+									culture = organic_wifi_ge
 									OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
-								} 	
+								}
 							}
 							culture = organic_wifi_ge
 						}
 						if = {
-							limit = { 
+							limit = {
 								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
-								capital_scope = { NOT = { distance = { where = PREV distance = 100 } } } 
+								capital_scope = { NOT = { distance = { where = PREV distance = 100 } } }
 							}
-							random = { 
-								chance = 40 
-								culture = organic_wifi_ge 
+							random = {
+								chance = 40
+								culture = organic_wifi_ge
 							}
 						}
 						if = {
-							limit = { 
+							limit = {
 								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
-								capital_scope = { NOT = { distance = { where = PREV distance = 200 } } } 
+								capital_scope = { NOT = { distance = { where = PREV distance = 200 } } }
 							}
-							random = { 
-								chance = 20 
-								culture = organic_wifi_ge 
+							random = {
+								chance = 20
+								culture = organic_wifi_ge
 							}
 						}
 						if = {
-							limit = { 
+							limit = {
 								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
-								capital_scope = { NOT = { distance = { where = PREV distance = 400 } } } 
+								capital_scope = { NOT = { distance = { where = PREV distance = 400 } } }
 							}
-							random = { 
+							random = {
 								chance = 5
-								culture = organic_wifi_ge 
+								culture = organic_wifi_ge
 							}
 						}
 					}
@@ -723,31 +708,28 @@ decisions = {
 							religion = ROOT
 						}
 						if = {
-							limit = { 
+							limit = {
 								culture = organic_wifi_ge
-								capital_scope = { NOT = { distance = { where = PREV distance = 100 } } } 
+								capital_scope = { NOT = { distance = { where = PREV distance = 100 } } }
 							}
-							random = { 
-								chance = 10 
+							random = {
+								chance = 10
 								religion = ROOT
 							}
 						}
 						if = {
-							limit = { 
+							limit = {
 								culture = organic_wifi_ge
-								capital_scope = { NOT = { distance = { where = PREV distance = 200 } } } 
+								capital_scope = { NOT = { distance = { where = PREV distance = 200 } } }
 							}
-							random = { 
-								chance = 5 
+							random = {
+								chance = 5
 								religion = ROOT
 							}
 						}
 					}
 				}
 			}
-		}
-		revoke_allowed = {
-			always = no
 		}
 		ai_will_do = {
 			factor = 1
@@ -757,7 +739,7 @@ decisions = {
 			}
 			modifier = {
 				factor = 3
-				capital_scope = { culture = organic_wifi_ge } 
+				capital_scope = { culture = organic_wifi_ge }
 			}
 			modifier = {
 				factor = 0.01 #Would consider it a step down.
@@ -771,7 +753,7 @@ decisions = {
 		ai_check_interval = 120 #check only once every 120 months.
 		only_playable = yes
 		is_high_prio = yes
-		
+
 		potential = {
 			is_playable = yes
 			OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
@@ -786,9 +768,9 @@ decisions = {
 				tier = EMPEROR
 			}
 
-			OR = { 
+			OR = {
 				culture = heavy_worlder_ge
-				culture = cat_genes_ge
+				culture = cat_splice_ge
 				culture = organic_wifi_ge
 			}
 			NOT = { culture = bio_ge }
@@ -806,8 +788,8 @@ decisions = {
 
 			culture = bio_ge
 			hidden_tooltip = {
-				any_courtier_or_vassal = { 
-					limit = { 
+				any_courtier_or_vassal = {
+					limit = {
 						OR = {
 						trait = heavy_worlder
 						trait = cat_splice
@@ -827,33 +809,33 @@ decisions = {
 							culture = bio_ge
 						}
 						if = {
-							limit = { 
+							limit = {
 								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
-								NOT = { distance = { who = ROOT distance = 100 } } 
+								NOT = { distance = { who = ROOT distance = 100 } }
 							}
-							random = { 
-								chance = 40 
-								culture = bio_ge 
+							random = {
+								chance = 40
+								culture = bio_ge
 							}
 						}
 						if = {
-							limit = { 
+							limit = {
 								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
-								NOT = { distance = { who = ROOT distance = 200 } } 
+								NOT = { distance = { who = ROOT distance = 200 } }
 							}
-							random = { 
-								chance = 20 
-								culture = bio_ge 
+							random = {
+								chance = 20
+								culture = bio_ge
 							}
 						}
 						if = {
-							limit = { 
+							limit = {
 								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
-								NOT = { distance = { who = ROOT distance = 400 } } 
+								NOT = { distance = { who = ROOT distance = 400 } }
 							}
-							random = { 
+							random = {
 								chance = 5
-								culture = bio_ge 
+								culture = bio_ge
 							}
 						}
 					}
@@ -868,31 +850,28 @@ decisions = {
 							religion = ROOT
 						}
 						if = {
-							limit = { 
+							limit = {
 								culture = bio_ge
-								NOT = { distance = { who = ROOT distance = 100 } } 
+								NOT = { distance = { who = ROOT distance = 100 } }
 							}
-							random = { 
-								chance = 10 
+							random = {
+								chance = 10
 								religion = ROOT
 							}
 						}
 						if = {
-							limit = { 
+							limit = {
 								culture = bio_ge
-								NOT = { distance = { who = ROOT distance = 200 } } 
+								NOT = { distance = { who = ROOT distance = 200 } }
 							}
-							random = { 
-								chance = 5 
+							random = {
+								chance = 5
 								religion = ROOT
 							}
 						}
 					}
 				}
 			}
-		}
-		revoke_allowed = {
-			always = no
 		}
 		ai_will_do = {
 			factor = 1
@@ -909,7 +888,7 @@ decisions = {
 	embrace_ge_culture = {
 		ai_check_interval = 120 #check only once every 120 months.
 		only_playable = yes
-		
+
 		potential = {
 			is_playable = yes
 			NOT = { culture = bio_ge }
@@ -920,12 +899,12 @@ decisions = {
 				trait = organic_wifi
 			}
 			has_dlc = "Holy Fury"
-			OR = { 
+			OR = {
 				culture = heavy_worlder_ge
-				culture = cat_genes_ge
+				culture = cat_splice_ge
 				culture = organic_wifi_ge
 			}
-			NOT = { culture = bio_ge }			
+			NOT = { culture = bio_ge }
 			NOT = {
 				has_alternate_start_parameter = { key = culture_names value = random }
 			}
@@ -938,7 +917,7 @@ decisions = {
 		effect = {
 			culture = bio_ge
 			hidden_tooltip = {
-				any_courtier_or_vassal = { 
+				any_courtier_or_vassal = {
 					limit = { lower_tier_than = COUNT }
 					culture = bio_ge
 				}
@@ -949,42 +928,42 @@ decisions = {
 				hidden_tooltip = {
 					any_demesne_province = {
 						if = {
-							limit = { 
-								any_neighbor_province = { 
-									culture = bio_ge 
+							limit = {
+								any_neighbor_province = {
+									culture = bio_ge
 									OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
-								} 	
+								}
 							}
 							culture = bio_ge
 						}
 						if = {
-							limit = { 
+							limit = {
 								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
-								capital_scope = { NOT = { distance = { where = PREV distance = 100 } } } 
+								capital_scope = { NOT = { distance = { where = PREV distance = 100 } } }
 							}
-							random = { 
-								chance = 40 
-								culture = bio_ge 
+							random = {
+								chance = 40
+								culture = bio_ge
 							}
 						}
 						if = {
-							limit = { 
+							limit = {
 								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
-								capital_scope = { NOT = { distance = { where = PREV distance = 200 } } } 
+								capital_scope = { NOT = { distance = { where = PREV distance = 200 } } }
 							}
-							random = { 
-								chance = 20 
-								culture = bio_ge 
+							random = {
+								chance = 20
+								culture = bio_ge
 							}
 						}
 						if = {
-							limit = { 
+							limit = {
 								OR = { religion = bio_directionist religion = xenoterran religion = imperial_cult }
-								capital_scope = { NOT = { distance = { where = PREV distance = 400 } } } 
+								capital_scope = { NOT = { distance = { where = PREV distance = 400 } } }
 							}
-							random = { 
+							random = {
 								chance = 5
-								culture = bio_ge 
+								culture = bio_ge
 							}
 						}
 					}
@@ -999,31 +978,28 @@ decisions = {
 							religion = ROOT
 						}
 						if = {
-							limit = { 
+							limit = {
 								culture = bio_ge
-								capital_scope = { NOT = { distance = { where = PREV distance = 100 } } } 
+								capital_scope = { NOT = { distance = { where = PREV distance = 100 } } }
 							}
-							random = { 
-								chance = 10 
+							random = {
+								chance = 10
 								religion = ROOT
 							}
 						}
 						if = {
-							limit = { 
+							limit = {
 								culture = bio_ge
-								capital_scope = { NOT = { distance = { where = PREV distance = 200 } } } 
+								capital_scope = { NOT = { distance = { where = PREV distance = 200 } } }
 							}
-							random = { 
-								chance = 5 
+							random = {
+								chance = 5
 								religion = ROOT
 							}
 						}
 					}
 				}
 			}
-		}
-		revoke_allowed = {
-			always = no
 		}
 		ai_will_do = {
 			factor = 1
@@ -1033,12 +1009,12 @@ decisions = {
 			}
 			modifier = {
 				factor = 3
-				capital_scope = { culture = bio_ge } 
+				capital_scope = { culture = bio_ge }
 			}
 			modifier = {
 				factor = 0.01 #Would consider it a step down.
 				OR = { trait = skeptical culture = terran_terran }
 			}
 		}
-	}	
+	}
 }

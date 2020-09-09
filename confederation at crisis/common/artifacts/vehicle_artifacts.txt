@@ -1,15 +1,154 @@
 # Vehicles! Mostly generic for now, more interesting ones to come later
+slots = {
+	flagship = 1
+	vehicle = 1
+}
 
 # Flag Explanations:
 # named: Individual instances are significant enough to have names.
 # vehicle: self-explanatory
-# mechanical: This is a large complex machine and it could theoretically break and need repairs
 # networked: This machine relies on a network connection that could be hacked
 # ground: This is a ground vehicle.
-# space: This is a spacecraft.
 # ship: This is a large spacecraft, with a pressurized cabin and multiple crew personnel.
 # fighter: This is a small, one-man spacecraft.
 # military_vehicle: This vehicle is intended to be used in a military role.
+
+# To avoid creating a ton of artifacts, instead we create the fixed parts, and use event scripting to modify what can be changed.
+# What CAN'T be changed later: quality, slot, modifiers.
+# What CAN be changed: name, description, picture, flags, variables, persistent event targets
+
+
+# About Flagships:
+# They are just one ship in a large fleet, and thus their modifiers SHOULDN'T affect the battle as if they were
+# a "one ship navy", they instead should have modifiers that are related to command, prestige, etc...
+# for example a battleship shouldn't increase battleship units damage, since it is only one ship.
+# the battleship instead should give bonuses because the commander is closer to the action or has a advanced
+# processing center for the data coming from the battle.
+
+# Frigates can be gunships, laserships or missileships, a flag added during artifact creation that defines what kind it is.
+# As flagship they are more useful for combat than for commanding, but they do make other frigate crews happy that their leader is fighting alongside them in battle.
+
+tech_0_frigate = {
+	picture = "GFX_handgun" # Placeholder
+	quality = 0
+	slot = flagship
+	flags = { named ship frigate }
+	command_modifier = {
+		light_infantry_morale = 0.1
+		heavy_infantry_morale = 0.1
+		pikemen_morale = 0.1
+	}
+}
+
+tech_1_frigate = {
+	picture = "GFX_handgun" # Placeholder
+	quality = 1
+	slot = flagship
+	flags = { named ship frigate }
+	command_modifier = {
+		light_infantry_morale = 0.2
+		heavy_infantry_morale = 0.2
+		pikemen_morale = 0.2
+	}
+}
+
+tech_2_frigate = {
+	picture = "GFX_handgun" # Placeholder
+	quality = 2
+	slot = flagship
+	flags = { named ship frigate }
+	command_modifier = {
+		light_infantry_morale = 0.3
+		heavy_infantry_morale = 0.3
+		pikemen_morale = 0.3
+	}
+}
+
+tech_3_frigate = {
+	picture = "GFX_handgun" # Placeholder
+	quality = 3
+	slot = flagship
+	flags = { named ship frigate }
+	command_modifier = {
+		light_infantry_morale = 0.4
+		heavy_infantry_morale = 0.4
+		pikemen_morale = 0.4
+	}
+}
+
+tech_4_frigate = {
+	picture = "GFX_handgun" # Placeholder
+	quality = 4
+	slot = flagship
+	flags = { named ship frigate }
+	command_modifier = {
+		light_infantry_morale = 0.5
+		heavy_infantry_morale = 0.5
+		pikemen_morale = 0.5
+	}
+}
+
+tech_5_frigate = {
+	picture = "GFX_handgun" # Placeholder
+	quality = 5
+	slot = flagship
+	flags = { named ship frigate }
+	command_modifier = {
+		light_infantry_morale = 0.6
+		heavy_infantry_morale = 0.6
+		pikemen_morale = 0.6
+	}
+}
+
+tech_6_frigate = {
+	picture = "GFX_handgun" # Placeholder
+	quality = 6
+	slot = flagship
+	flags = { named ship frigate }
+	command_modifier = {
+		light_infantry_morale = 0.7
+		heavy_infantry_morale = 0.7
+		pikemen_morale = 0.7
+	}
+}
+
+tech_7_frigate = {
+	picture = "GFX_handgun" # Placeholder
+	quality = 7
+	slot = flagship
+	flags = { named ship frigate }
+	command_modifier = {
+		light_infantry_morale = 0.8
+		heavy_infantry_morale = 0.8
+		pikemen_morale = 0.8
+	}
+}
+
+tech_8_frigate = {
+	picture = "GFX_handgun" # Placeholder
+	quality = 8
+	slot = flagship
+	flags = { named ship frigate }
+	command_modifier = {
+		light_infantry_morale = 0.9
+		heavy_infantry_morale = 0.9
+		pikemen_morale = 0.9
+	}
+}
+
+tech_9_frigate = {
+	picture = "GFX_handgun" # Placeholder
+	quality = 9
+	slot = flagship
+	flags = { named ship frigate }
+	command_modifier = {
+		light_infantry_morale = 1.0
+		heavy_infantry_morale = 1.0
+		pikemen_morale = 1.0
+	}
+}
+
+
 
 # Hermes-class Corvette
 hermes_class_corvette = {
@@ -81,8 +220,8 @@ ssf_59_dao_starfighter = {
 		skirmish = 0.1
 		retreat = 0.1
 	}
-	active = { trait = fighter_pilot }
-	allowed_gift = { trait = fighter_pilot }
+	active = { trait = frigate_pilot }
+	allowed_gift = { trait = frigate_pilot }
 	flags = { vehicle mechanical networked space ship military_vehicle fighter }
 	quality = 2
 	slot = vehicle

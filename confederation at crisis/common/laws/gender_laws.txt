@@ -1,0 +1,191 @@
+# DO NOT ALTER THE NAME OR NUMBER OF THESE!
+
+gender_laws = {
+	agnatic_succession = {
+		female_dynasty_opinion = -5
+
+		potential = {
+			holder_scope = {
+				# Theocracies have to allow Male temple holders
+				trigger_if = {
+					limit = { is_theocracy = yes }
+
+					religion_allows_male_temple_holders = yes
+					religion_allows_female_temple_holders = no
+				}
+				# Matriarchal and Equal religions don't allow male-centric succession
+				trigger_else = {
+					NOR = {
+						has_religion_feature = religion_matriarchal
+						has_religion_feature = religion_equal
+						has_law = gender_status_1
+						has_law = gender_status_2
+						has_law = gender_status_3
+						has_law = gender_status_4
+					}
+				}
+			}
+		}
+
+		pass_effect = {
+			log = "agnatic_succession pass ([This.GetFullBaseName])"
+		}
+
+		effect = {
+			log = "agnatic_succession ([This.GetFullBaseName])"
+
+			gender_succ = agnatic
+		}
+
+		default_selection = {
+			factor = 1
+		}
+	}
+
+	cognatic_succession = { # agnatic-cognatic
+		potential = {
+			holder_scope = {
+				# No exceptions
+				NOR = {
+					has_religion_feature = religion_matriarchal
+                	has_religion_feature = religion_equal
+                	has_law = gender_status_0
+					has_law = gender_status_2
+					has_law = gender_status_3
+					has_law = gender_status_4
+				}
+			}
+		}
+
+		pass_effect = {
+			log = "cognatic_succession pass ([This.GetFullBaseName])"
+		}
+
+		effect = {
+			log = "cognatic_succession ([This.GetFullBaseName])"
+
+			gender_succ = cognatic
+			law_set_allow_matrilineal_marriage = yes
+		}
+
+		default_selection = {
+			factor = 10
+		}
+	}
+
+	true_cognatic_succession = { # absolute cognatic
+		male_dynasty_opinion = -5
+
+		potential = {
+			holder_scope = {
+				# Theocracies have to allow Male temple holders
+				trigger_if = {
+					limit = { is_theocracy = yes }
+					religion_allows_male_temple_holders = yes
+					religion_allows_female_temple_holders = yes
+				}
+
+				trigger_else = {
+					NOR = {
+						has_religion_feature = religion_patriarchal
+						has_religion_feature = religion_matriarchal
+						has_law = gender_status_0
+						has_law = gender_status_1
+						has_law = gender_status_3
+						has_law = gender_status_4
+					}
+				}
+			}
+		}
+
+		pass_effect = {
+			log = "true_cognatic_succession pass ([This.GetFullBaseName])"
+		}
+
+		effect = {
+			log = "true_cognatic_succession ([This.GetFullBaseName])"
+
+			gender_succ = true_cognatic
+			law_set_allow_matrilineal_marriage = yes
+		}
+
+		default_selection = {
+			factor = 100
+		}
+	}
+
+	enatic_cognatic_succession = {
+		male_dynasty_opinion = -10
+		female_dynasty_opinion = 5
+
+		potential = {
+			holder_scope = {
+				# No exceptions
+				NOR = {
+					has_religion_feature = religion_patriarchal
+                	has_religion_feature = religion_equal
+                	has_law = gender_status_0
+					has_law = gender_status_1
+					has_law = gender_status_2
+					has_law = gender_status_4
+				}
+			}
+		}
+
+		pass_effect = {
+			log = "enatic_cognatic_succession pass ([This.GetFullBaseName])"
+		}
+
+		effect = {
+			log = "enatic_cognatic_succession ([This.GetFullBaseName])"
+
+			gender_succ = enatic_cognatic
+		}
+
+		default_selection = {
+			factor = 1
+		}
+	}
+
+	enatic_succession = {
+		male_dynasty_opinion = -10
+		female_dynasty_opinion = 10
+
+		potential = {
+			holder_scope = {
+				# Theocracies have to allow Male temple holders
+				trigger_if = {
+					limit = { is_theocracy = yes }
+
+					religion_allows_male_temple_holders = yes
+					religion_allows_female_temple_holders = no
+				}
+				# Patriarchal and Equal religions don't allow female-centric succession
+				trigger_else = {
+					NOR = {
+						has_religion_feature = religion_patriarchal
+						has_religion_feature = religion_equal
+						has_law = gender_status_0
+						has_law = gender_status_1
+						has_law = gender_status_2
+						has_law = gender_status_3
+					}
+				}
+			}
+		}
+
+		pass_effect = {
+			log = "enatic_succession pass ([This.GetFullBaseName])"
+		}
+
+		effect = {
+			log = "enatic_succession ([This.GetFullBaseName])"
+
+			gender_succ = enatic
+		}
+
+		default_selection = {
+			factor = 1
+		}
+	}
+}

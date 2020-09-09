@@ -3,34 +3,12 @@ namespace = maintenance
 # Clean up default agnatics
 namespace = maintenance
 
-# Reset crown law timer
-character_event = {
-	id = maintenance.3
-	hide_window = yes
-	is_triggered_only = yes
-	
-	immediate = {
-		create_character = {
-			name = "Cabinet Meeting"
-			dynasty = ROOT
-			culture = ROOT
-			religion = ROOT
-			age = 20
-		}
-		new_character = {
-			ROOT = { abdicate_to = PREV }
-			abdicate_to = ROOT
-			death = { death_reason = death_sacrifice }
-		}
-	}
-}
-
 # Minor cultural bit - Yoruba twin names. Call on birth.
 character_event = {
 	id = maintenance.4
 	hide_window = yes
 	is_triggered_only = yes
-	
+
 	trigger = {
 		trait = twin
 		NOT = { has_character_flag = flag_yoruba_twin_name }
@@ -39,7 +17,7 @@ character_event = {
 			culture = west_afro_terran
 		}
 	}
-	
+
 	immediate = {
 		set_name = "Taiyewo"
 		set_character_flag = flag_yoruba_twin_name
@@ -52,96 +30,6 @@ character_event = {
 			set_character_flag = flag_yoruba_twin_name
 		}
 	}
-}
-character_event = {
-	id = maintenance.10
-	hide_window = yes
-	is_triggered_only = yes
-	min_age = 18
-	capable_only = yes
-	prisoner = no
-	
-	trigger = {
-		num_of_children = 1
-		NOT = { has_character_modifier = not_having_babies_1 }
-	}
-	
-	immediate = { add_character_modifier = { name = not_having_babies_1 duration = -1 } }
-}
-character_event = {
-	id = maintenance.11
-	hide_window = yes
-	
-	min_age = 18
-	capable_only = yes
-	prisoner = no
-	is_triggered_only = yes
-	trigger = {
-		NOT = { num_of_children = 1 }
-		has_character_modifier = not_having_babies_1
-	}
-	
-	immediate = { remove_character_modifier = not_having_babies_1 }
-}
-character_event = {
-	id = maintenance.12
-	hide_window = yes
-	
-	min_age = 18
-	capable_only = yes
-	prisoner = no
-	is_triggered_only = yes
-	trigger = {
-		num_of_children = 2
-		NOT = { has_character_modifier = not_having_babies_2 }
-	}
-	
-	immediate = { add_character_modifier = { name = not_having_babies_2 duration = -1 } }
-}
-character_event = {
-	id = maintenance.13
-	hide_window = yes
-	is_triggered_only = yes
-	min_age = 18
-	capable_only = yes
-	prisoner = no
-	
-	trigger = {
-		NOT = { num_of_children = 2 }
-		has_character_modifier = not_having_babies_2
-	}
-	
-	immediate = { remove_character_modifier = not_having_babies_2 }
-}
-character_event = {
-	id = maintenance.14
-	hide_window = yes
-	is_triggered_only = yes
-	min_age = 18
-	capable_only = yes
-	prisoner = no
-	
-	trigger = {
-		num_of_children = 3
-		NOT = { has_character_modifier = not_having_babies_3 }
-	}
-	
-	immediate = { add_character_modifier = { name = not_having_babies_3 duration = -1 } }
-}
-character_event = {
-	id = maintenance.15
-	hide_window = yes
-	is_triggered_only = yes
-	min_age = 18
-	capable_only = yes
-	prisoner = no
-	
-	trigger = {
-		NOT = { num_of_children = 3 }
-		has_character_modifier = not_having_babies_3
-	}
-	
-	immediate = { remove_character_modifier = not_having_babies_3 }
 }
 
 # Princes and princesses
@@ -163,528 +51,6 @@ character_event = {
 	}
 	immediate = { give_minor_title = title_prince_royal }
 }
-character_event = {
-	id = maintenance.17
-	hide_window = yes
-	is_triggered_only = yes
-	
-	immediate = {
-		# Historical figures all have valid surnames
-		if = {
-			limit = { historical = yes }
-			set_dynasty_flag = flag_valid_surname
-		}
-		# Members of the player's dynasty always have valid surnames
-		else_if = {
-			limit = { any_dynasty_member = { ai = no } }
-			set_dynasty_flag = flag_valid_surname
-		}
-		# So does the player's spouse
-		else_if = {
-			limit = { spouse = { ai = no } }
-			set_dynasty_flag = flag_valid_surname
-		}
-		# Children of people with valid surnames also have valid surnames
-		else_if = {
-			limit = { father_even_if_dead = { has_dynasty_flag = flag_valid_surname } }
-			set_dynasty_flag = flag_valid_surname
-		}
-		else_if = {
-			limit = { mother_even_if_dead = { has_dynasty_flag = flag_valid_surname } }
-			set_dynasty_flag = flag_valid_surname
-		}
-		# Patricians have valid surnames because I don't want to mess with that code right now
-		else_if = {
-			limit = { is_patrician = yes }
-			set_dynasty_flag = flag_valid_surname
-		}
-		# If you don't have a valid surname, replace yourself with a character who does
-		else = {
-			character_event = { id = maintenance.18 }
-			character_event = { id = maintenance.19 }
-		}
-	}
-}
-# Replacing lowborn courtiers with surnamed ones
-character_event = {
-	id = maintenance.18
-	hide_window = yes
-	is_triggered_only = yes
-	
-	trigger = {
-		NOT = { has_dynasty_flag = flag_valid_surname }
-		is_landed = no
-	}
-	
-	immediate = {
-		liege = {
-			ROOT = {
-				if = {
-					limit = {
-						has_education_martial_trigger = yes
-						is_female = yes
-					}
-					create_random_soldier = {
-						culture = ROOT
-						religion = ROOT
-						dynasty = actually_culture
-						employer = PREV
-						female = yes
-						random_traits = yes
-					}
-				}
-				else_if = {
-					limit = {
-						has_education_martial_trigger = yes
-						is_female = no
-					}
-					create_random_soldier = {
-						culture = ROOT
-						religion = ROOT
-						dynasty = actually_culture
-						employer = PREV
-						female = no
-						random_traits = yes
-					}
-				}
-				else_if = {
-					limit = {
-						has_education_diplomacy_trigger = yes
-						is_female = yes
-					}
-					create_random_diplomat = {
-						culture = ROOT
-						religion = ROOT
-						dynasty = actually_culture
-						employer = PREV
-						female = yes
-						random_traits = yes
-					}
-				}
-				else_if = {
-					limit = {
-						has_education_diplomacy_trigger = yes
-						is_female = no
-					}
-					create_random_diplomat = {
-						culture = ROOT
-						religion = ROOT
-						dynasty = actually_culture
-						employer = PREV
-						female = no
-						random_traits = yes
-					}
-				}
-				else_if = {
-					limit = {
-						has_education_stewardship_trigger = yes
-						is_female = yes
-					}
-					create_random_steward = {
-						culture = ROOT
-						religion = ROOT
-						dynasty = actually_culture
-						employer = PREV
-						female = yes
-						random_traits = yes
-					}
-				}
-				else_if = {
-					limit = {
-						has_education_steward_trigger = yes
-						is_female = no
-					}
-					create_random_steward = {
-						culture = ROOT
-						religion = ROOT
-						dynasty = actually_culture
-						employer = PREV
-						female = no
-						random_traits = yes
-					}
-				}
-				else_if = {
-					limit = {
-						has_education_intrigue_trigger = yes
-						is_female = yes
-					}
-					create_random_intriguer = {
-						culture = ROOT
-						religion = ROOT
-						dynasty = actually_culture
-						employer = PREV
-						female = yes
-						random_traits = yes
-					}
-				}
-				else_if = {
-					limit = {
-						has_education_intrigue_trigger = yes
-						is_female = no
-					}
-					create_random_intriguer = {
-						culture = ROOT
-						religion = ROOT
-						dynasty = actually_culture
-						employer = PREV
-						female = no
-						random_traits = yes
-					}
-				}
-				else_if = {
-					limit = {
-						has_education_learning_trigger = yes
-						is_female = yes
-					}
-					create_random_priest = {
-						culture = ROOT
-						religion = ROOT
-						dynasty = actually_culture
-						employer = PREV
-						female = yes
-						random_traits = yes
-					}
-				}
-				else_if = {
-					limit = {
-						has_education_learning_trigger = yes
-						is_female = no
-					}
-					create_random_priest = {
-						culture = ROOT
-						religion = ROOT
-						dynasty = actually_culture
-						employer = PREV
-						female = no
-						random_traits = yes
-					}
-				}
-				else_if = {
-					limit = { is_female = yes }
-					create_character = {
-						age = 20
-						culture = ROOT
-						religion = ROOT
-						dynasty = actually_culture
-						employer = PREV
-						female = yes
-						random_traits = yes
-					}
-				}
-				else = {
-					create_character = {
-						age = 20
-						culture = ROOT
-						religion = ROOT
-						dynasty = actually_culture
-						employer = PREV
-						female = no
-						random_traits = yes
-					}
-				}
-				new_character = { set_dynasty_flag = flag_valid_surname }
-				death = { death_reason = death_missing }
-			}
-		}
-	}
-}
-
-# Replacing lowborn barons with surnamed ones
-character_event = {
-	id = maintenance.19
-	hide_window = yes
-	is_triggered_only = yes
-	
-	trigger = {
-		NOT = { has_dynasty_flag = flag_valid_surname }
-		is_landed = yes
-		is_patrician = no # This would probably be a massive headache
-		tier = baron
-	}
-	
-	immediate = {
-		if = {
-			limit = {
-				has_education_martial_trigger = yes
-				is_female = yes
-			}
-			create_random_soldier = {
-				culture = ROOT
-				religion = ROOT
-				dynasty = actually_culture
-				female = yes
-				random_traits = yes
-			}
-		}
-		else_if = {
-			limit = {
-				has_education_martial_trigger = yes
-				is_female = no
-			}
-			create_random_soldier = {
-				culture = ROOT
-				religion = ROOT
-				dynasty = actually_culture
-				female = no
-				random_traits = yes
-			}
-		}
-		else_if = {
-			limit = {
-				has_education_diplomacy_trigger = yes
-				is_female = yes
-			}
-			create_random_diplomat = {
-				culture = ROOT
-				religion = ROOT
-				dynasty = actually_culture
-				female = yes
-				random_traits = yes
-			}
-		}
-		else_if = {
-			limit = {
-				has_education_diplomacy_trigger = yes
-				is_female = no
-			}
-			create_random_diplomat = {
-				culture = ROOT
-				religion = ROOT
-				dynasty = actually_culture
-				female = no
-				random_traits = yes
-			}
-		}
-		else_if = {
-			limit = {
-				has_education_stewardship_trigger = yes
-				is_female = yes
-			}
-			create_random_steward = {
-				culture = ROOT
-				religion = ROOT
-				dynasty = actually_culture
-				female = yes
-				random_traits = yes
-			}
-		}
-		else_if = {
-			limit = {
-				has_education_steward_trigger = yes
-				is_female = no
-			}
-			create_random_steward = {
-				culture = ROOT
-				religion = ROOT
-				dynasty = actually_culture
-				female = no
-				random_traits = yes
-			}
-		}
-		else_if = {
-			limit = {
-				has_education_intrigue_trigger = yes
-				is_female = yes
-			}
-			create_random_intriguer = {
-				culture = ROOT
-				religion = ROOT
-				dynasty = actually_culture
-				female = yes
-				random_traits = yes
-			}
-		}
-		else_if = {
-			limit = {
-				has_education_intrigue_trigger = yes
-				is_female = no
-			}
-			create_random_intriguer = {
-				culture = ROOT
-				religion = ROOT
-				dynasty = actually_culture
-				female = no
-				random_traits = yes
-			}
-		}
-		else_if = {
-			limit = {
-				has_education_learning_trigger = yes
-				is_female = yes
-			}
-			create_random_priest = {
-				culture = ROOT
-				religion = ROOT
-				dynasty = actually_culture
-				female = yes
-				random_traits = yes
-			}
-		}
-		else_if = {
-			limit = {
-				has_education_learning_trigger = yes
-				is_female = no
-			}
-			create_random_priest = {
-				culture = ROOT
-				religion = ROOT
-				dynasty = actually_culture
-				female = no
-				random_traits = yes
-			}
-		}
-		else_if = {
-			limit = { is_female = yes }
-			create_character = {
-				age = 20
-				culture = ROOT
-				religion = ROOT
-				dynasty = actually_culture
-				female = yes
-				random_traits = yes
-			}
-		}
-		else = {
-			create_character = {
-				age = 20
-				culture = ROOT
-				religion = ROOT
-				dynasty = actually_culture
-				female = no
-				random_traits = yes
-			}
-		}
-		new_character = {
-			set_dynasty_flag = flag_valid_surname
-			ROOT = { abdicate_to = PREV }
-		}
-		death = { death_reason = death_missing }
-	}
-}
-
-#Battle Drone construction requirements
-character_event = {
-	id = maintenance.90
-	hide_window = yes
-	is_triggered_only = yes
-	only_rulers = yes
-	
-	trigger = {
-		NOT = { has_character_flag = flag_battle_drone_construction }
-		any_demesne_title = {
-			OR = {
-				has_building = ca_olympus_shipyards
-				has_building = ca_capital_factory_q_1
-			}
-		}
-	}
-	
-	immediate = { set_character_flag = flag_battle_drone_construction }
-}
-character_event = {
-	id = maintenance.101
-	hide_window = yes
-	is_triggered_only = yes
-	trigger = {
-		has_character_flag = flag_battle_drone_construction
-		NOT = {
-			AND = {
-				is_landed = yes
-				any_demesne_title = {
-					OR = {
-						has_building = ca_mining_drones_q_3
-						has_building = ca_mining_drones_q_4
-						has_building = ca_mining_drones_q_5
-						has_building = ca_mining_drones_q_6
-					}
-				}
-			}
-		}
-	}
-	
-	immediate = { clr_character_flag = flag_battle_drone_construction }
-}
-
-
-# Capital ship construction requirements
-character_event = {
-	id = maintenance.100
-	hide_window = yes
-	is_triggered_only = yes
-	only_rulers = yes
-	
-	trigger = {
-		NOT = { has_character_flag = flag_battlecruiser_construction }
-		any_demesne_title = {
-			OR = {
-				has_building = ca_olympus_shipyards
-				has_building = ca_capital_factory_q_1
-			}
-		}
-	}
-	
-	immediate = { set_character_flag = flag_battlecruiser_construction }
-}
-character_event = {
-	id = maintenance.101
-	hide_window = yes
-	is_triggered_only = yes
-	trigger = {
-		has_character_flag = flag_battlecruiser_construction
-		NOT = {
-			AND = {
-				is_landed = yes
-				any_demesne_title = {
-					OR = {
-						has_building = ca_olympus_shipyards
-						has_building = ca_capital_factory_q_1
-					}
-				}
-			}
-		}
-	}
-	
-	immediate = { clr_character_flag = flag_battlecruiser_construction }
-}
-character_event = {
-	id = maintenance.102
-	hide_window = yes
-	is_triggered_only = yes
-	only_rulers = yes
-	
-	trigger = {
-		NOT = { has_character_flag = flag_dreadnought_construction }
-		any_demesne_title = {
-			OR = {
-				has_building = ca_olympus_shipyards
-				has_building = ca_capital_factory_q_2
-			}
-		}
-	}
-	
-	immediate = { set_character_flag = flag_dreadnought_construction }
-}
-character_event = {
-	id = maintenance.103
-	hide_window = yes
-	is_triggered_only = yes
-	trigger = {
-		has_character_flag = flag_dreadnought_construction
-		NOT = {
-			AND = {
-				is_landed = yes
-				any_demesne_title = {
-					OR = {
-						has_building = ca_olympus_shipyards
-						has_building = ca_capital_factory_q_2
-					}
-				}
-			}
-		}
-	}
-	
-	immediate = { clr_character_flag = flag_dreadnought_construction }
-}
 
 character_event = {
 	id = maintenance.200
@@ -701,9 +67,9 @@ character_event = {
 			}
 		}
 	}
-	
+
 	immediate = { add_character_modifier = { name = hospital_health_bonus duration = -1 } }
-	
+
 }
 
 character_event = {
@@ -712,7 +78,7 @@ character_event = {
 	is_triggered_only = yes
 	trigger = {
 		has_character_modifier = hospital_health_bonus
-		NOT = { 
+		NOT = {
 			location = {
 				any_province_lord = {
 					any_demesne_title = {
@@ -723,18 +89,18 @@ character_event = {
 			}
 		}
 	}
-	
+
 	immediate = { remove_character_modifier = hospital_health_bonus }
-	
+
 }
 
 # Rebel leader deaths should not pull them out of the initial crisis!
 character_event = {
 	id = maintenance.300
 	hide_window = yes
-	
+
 	only_rulers = yes
-	
+
 	trigger = {
 		OR = {
 			has_landed_title = k_xin_zizhiqu
@@ -750,78 +116,9 @@ character_event = {
 		k_orion_reach = { holder_scope = { any_war = { using_cb = cb_historical_independence_revolt } } }
 		e_terran_confederation = { holder_scope = { NOT = { any_current_enemy = { character = ROOT } } } }
 	}
-	
+
 	immediate = {
 		k_orion_reach = { holder_scope = { ROOT = { join_attacker_wars = PREVPREV } } }
-	}
-}
-
-# Clean-up government traits
-character_event = {
-	id = maintenance.400
-	hide_window = yes
-	
-	is_triggered_only = yes
-	
-	trigger = {
-		OR = {
-			trait = is_directorate
-			trait = is_republic
-			trait = is_monarchy
-		}
-	}
-	immediate = {
-		remove_trait = is_directorate
-		remove_trait = is_republic
-		remove_trait = is_monarchy
-	}
-}
-
-# Clean up default agnatics
-character_event = {
-	id = maintenance.450
-	hide_window = yes
-	is_triggered_only = yes
-	only_rulers = yes
-	
-	trigger = {
-		any_demesne_title = { NOT = { has_law = true_cognatic_succession } }
-	}
-	immediate = {
-		any_demesne_title = {
-			limit = { NOT = { has_law = true_cognatic_succession } }
-			add_law = true_cognatic_succession
-		}
-	}
-}
-
-# Clean up default agnatics
-character_event = {
-	id = maintenance.451
-	hide_window = yes
-	is_triggered_only = yes
-	only_rulers = yes
-	
-	trigger = {
-		any_demesne_title = { NOT = { has_law = status_of_women_4 } }
-	}
-	immediate = {
-		any_demesne_title = {
-			limit = { NOT = { has_law = status_of_women_4 } }
-			add_law = status_of_women_4
-		}
-	}
-}
-
-# Clean up orphaned trade posts
-province_event = {
-	id = maintenance.500
-	hide_window = yes
-	is_triggered_only = yes
-	trigger = { trade_post_owner = { is_patrician = no } }
-	
-	immediate = {
-		trade_post_owner = { destroy_tradepost = ROOT }
 	}
 }
 
@@ -829,7 +126,7 @@ province_event = {
 character_event = {
 	id = maintenance.600
 	hide_window = yes
-	
+
 	trigger = { had_character_flag = { flag = flag_busy days = 30 } }
 	immediate = { clr_character_flag = flag_busy }
 }

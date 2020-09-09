@@ -1,0 +1,4246 @@
+### The COTC duel engine!
+namespace = duel
+
+#### GROUND DUELS
+# When calling these, you need to define the following event targets:
+# duel_location (This should be a barony)
+
+# By default, the duel is assumed to take place in either an urban or interior environment, with both duelists initially unaware of each other. For unusual duels, flag
+# both duelists with the appropriate flags:
+# flag_infantry_duel: Both duelists will be treated as if they were not in vehicles (although this does not affect vehicle combat rating modifiers)
+# flag_walker_duel: Same as infantry duel, except walkers are permitted.
+# flag_friendly_duel: Surrenderers cannot be captured or killed, and death and severe injury are far less likely. DO NOT USE WITH flag_no_quarter
+# flag_battlefield: The duel takes place during actual combat. Killing someone who tries to surrender will be considered a war crime.
+# flag_open_field: The duel takes place on an open field, where both combatants can see each other clearly and there are few obstructions.
+# flag_enemy_spotted: Any duelist with this flag will start the duel already aware of their opponent.
+# flag_interior: The duel takes place in an interior area, with tight corridors. Non-walker vehicles and sniper rifle bonuses are ignored.
+
+# Flag a duelist with these if you want to limit their tactical options
+# flag_no_guns
+# flag_no_retreat
+# flag_no_surrender
+# flag_no_quarter (DO NOT USE WITH flag_friendly_duel)
+
+# The following weapon flags are supported:
+# melee
+# melee_bonus
+# anti_personnel_bonus
+# anti_vehicle
+# anti_vehicle_bonus
+
+# The following armor flags are supported:
+# anti_personnel_resistance
+# power_armor
+# casualty_prevention
+# jetpack
+
+# The following vehicle flags are supported:
+# melee_bonus
+# melee_vulnerable
+# anti_personnel_weapon
+# anti_personnel_bonus
+# anti_personnel_vulnerable
+# anti_vehicle_weapon
+# anti_vehicle_bonus
+# anti_vehicle_resistance
+
+# Additionally, tech_1, tech_2, etc flags are supported for all equipment types.
+
+# To actually start a ground duel, call duel.50 for one duelist with the other as ROOT.
+# Collect your outputs from duel.100
+
+# Main Duel Loop
+character_event = {
+	id = duel.0
+	desc = "EVTDESCNEWDUEL0"
+	picture = GFX_evt_siege
+	border = GFX_event_normal_frame_war
+	is_triggered_only = yes
+
+	immediate = {
+		log = "duel.0 fired for [Root.GetBestName]"
+		if = {
+			limit = { NOT = { has_character_flag = flag_first_round } }
+			set_character_flag = flag_enemy_spotted
+		}
+		if = {
+			limit = { has_character_flag = flag_open_field }
+			set_character_flag = flag_enemy_spotted
+		}
+		if = {
+			limit = {
+				has_character_flag = flag_enemy_spotted
+				martial = 15
+			}
+			set_character_flag = flag_enemy_analyzed
+		}
+		if = {
+			limit = {
+				has_character_flag = flag_first_round
+				martial = 10
+			}
+			set_character_flag = flag_enemy_spotted
+		}
+	}
+
+	# Melee attack, infantry
+	option = {
+		name = "EVTOPTANEWDUEL0"
+		trigger = { NOT = { has_character_flag = flag_in_vehicle } }
+		clr_character_flag = flag_first_round
+		clr_character_flag = flag_melee_vehicle_tactics
+		clr_character_flag = flag_anti_personnel_tactics
+		clr_character_flag = flag_anti_vehicle_tactics
+		clr_character_flag = flag_withdrawing
+		clr_character_flag = flag_lost_round
+		clr_character_flag = flag_won_round
+		set_character_flag = flag_melee_tactics
+		hidden_tooltip = { FROM = { character_event = { id = duel.1 } } }
+		custom_tooltip = { text = "EVTTOOLTIPDUELMELEE" }
+		ai_chance = {
+			factor = 25
+			# Don't do this if you can see that they're in a vehicle
+			modifier = {
+				factor = 0
+				has_character_flag = flag_enemy_spotted
+				FROM = {
+					has_character_flag = flag_in_vehicle
+					NOT = { persistent_event_target:my_vehicle = { has_artifact_flag = melee_vulnerable } }
+				}
+				NOT = { persistent_event_target:my_weapon = { has_artifact_flag = anti_vehicle_melee } }
+				NOT = { combat_rating_diff = { who = FROM value = 100 } }
+				NOT = { trait = imbecile }
+			}
+			modifier = {
+				factor = 0.1
+				has_character_flag = flag_enemy_spotted
+				FROM = {
+					has_character_flag = flag_in_vehicle
+					NOT = { persistent_event_target:my_vehicle = { has_artifact_flag = melee_vulnerable } }
+				}
+				NOT = { persistent_event_target:my_weapon = { has_artifact_flag = anti_vehicle_melee } }
+				NOT = { trait = brave }
+			}
+			# Also don't do this if you can see they have a jetpack
+			modifier = {
+				factor = 0.1
+				has_character_flag = flag_enemy_analyzed
+				NOT = { has_character_flag = flag_interior }
+				FROM = {
+					NOT = { has_character_flag = flag_in_vehicle }
+					persistent_event_target:my_armor = { has_artifact_flag = jetpack }
+					NOT = { persistent_event_target:my_weapon = { has_artifact_flag = melee } }
+				}
+			}
+			modifier = {
+				factor = 0.1
+				NOT = { persistent_event_target:my_weapon = { has_artifact_flag = melee } }
+			}
+			modifier = {
+				factor = 2
+				has_character_flag = flag_melee_tactics
+				has_character_flag = flag_won_round
+			}
+			modifier = {
+				factor = 0.5
+				has_character_flag = flag_melee_tactics
+				has_character_flag = flag_lost_round
+			}
+			modifier = {
+				factor = 2
+				has_character_flag = flag_melee_tactics
+				has_character_flag = flag_won_round
+				NOT = { trait = open_minded }
+			}
+			modifier = {
+				factor = 0.5
+				has_character_flag = flag_melee_tactics
+				has_character_flag = flag_lost_round
+				NOT = { trait = close_minded }
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { trait = brave }
+			}
+			modifier = {
+				factor = 0.5
+				trait = craven
+			}
+			modifier = {
+				factor = 2
+				trait = carefree
+			}
+			modifier = {
+				factor = 2
+				trait = proud
+			}
+		}
+	}
+
+	# Melee attack, vehicle
+	option = {
+		name = "EVTOPTBNEWDUEL0"
+		trigger = { has_character_flag = flag_in_vehicle } # Melee is always an option
+		clr_character_flag = flag_first_round
+		clr_character_flag = flag_melee_tactics
+		clr_character_flag = flag_anti_personnel_tactics
+		clr_character_flag = flag_anti_vehicle_tactics
+		clr_character_flag = flag_withdrawing
+		clr_character_flag = flag_lost_round
+		clr_character_flag = flag_won_round
+		set_character_flag = flag_melee_vehicle_tactics
+		custom_tooltip = { text = "EVTTOOLTIPDUELMELEEVEHICLE" }
+		hidden_tooltip = { FROM = { character_event = { id = duel.1 } } }
+		ai_chance = {
+			factor = 25
+			# Don't do this if you can see that they're in a vehicle
+			modifier = {
+				factor = 0.2
+				has_character_flag = flag_enemy_spotted
+				FROM = { has_character_flag = flag_in_vehicle }
+				NOT = { persistent_event_target:my_vehicle = { has_artifact_flag = vehicle_melee } }
+				NOT = {
+					AND = {
+						has_character_flag = flag_enemy_analyzed
+						FROM = { persistent_event_target:my_vehicle = { has_artifact_flag = melee_vulnerable } }
+					}
+				}
+				NOT = { trait = imbecile }
+				NOT = { trait = slow }
+			}
+			modifier = {
+				factor = 0.2
+				has_character_flag = flag_enemy_spotted
+				FROM = { has_character_flag = flag_in_vehicle }
+				NOT = { persistent_event_target:my_vehicle = { has_artifact_flag = vehicle_melee } }
+				NOT = {
+					AND = {
+						has_character_flag = flag_enemy_analyzed
+						FROM = { persistent_event_target:my_vehicle = { has_artifact_flag = melee_vulnerable } }
+					}
+				}
+				NOT = { trait = slow }
+			}
+			modifier = {
+				factor = 0.5
+				has_character_flag = flag_enemy_spotted
+				FROM = { has_character_flag = flag_in_vehicle }
+				NOT = { persistent_event_target:my_vehicle = { has_artifact_flag = vehicle_melee } }
+				NOT = {
+					AND = {
+						has_character_flag = flag_enemy_analyzed
+						FROM = { persistent_event_target:my_vehicle = { has_artifact_flag = melee_vulnerable } }
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				has_character_flag = flag_melee_vehicle_tactics
+				has_character_flag = flag_won_round
+			}
+			modifier = {
+				factor = 0.5
+				has_character_flag = flag_melee_vehicle_tactics
+				has_character_flag = flag_lost_round
+			}
+			modifier = {
+				factor = 2
+				has_character_flag = flag_melee_vehicle_tactics
+				has_character_flag = flag_won_round
+				NOT = { trait = open_minded }
+			}
+			modifier = {
+				factor = 0.5
+				has_character_flag = flag_melee_vehicle_tactics
+				has_character_flag = flag_lost_round
+				NOT = { trait = close_minded }
+			}
+		}
+	}
+
+	# Anti-personnel attack
+	option = {
+		name = "EVTOPTCNEWDUEL0"
+		trigger = {
+			NOT = { has_character_flag = flag_no_guns }
+			OR = {
+				NOT = { has_character_flag = flag_in_vehicle } # It's assumed that you always have some kind of gun
+				persistent_event_target:my_vehicle = { has_artifact_flag = anti_personnel_weapon }
+			}
+		}
+		clr_character_flag = flag_first_round
+		clr_character_flag = flag_melee_tactics
+		clr_character_flag = flag_melee_vehicle_tactics
+		clr_character_flag = flag_anti_vehicle_tactics
+		clr_character_flag = flag_withdrawing
+		clr_character_flag = flag_lost_round
+		clr_character_flag = flag_won_round
+		set_character_flag = flag_anti_personnel_tactics
+		custom_tooltip = { text = "EVTTOOLTIPDUELANTIPERSONNEL" }
+		hidden_tooltip = { FROM = { character_event = { id = duel.1 } } }
+		ai_chance = {
+			factor = 25
+			# Don't do this if you can see that they're in a vehicle
+			modifier = {
+				factor = 0.2
+				has_character_flag = flag_enemy_spotted
+				FROM = { has_character_flag = flag_in_vehicle }
+				NOT = {
+					AND = {
+						has_character_flag = flag_enemy_analyzed
+						FROM = { persistent_event_target:my_vehicle = { has_artifact_flag = anti_personnel_vulnerable } }
+					}
+				}
+				NOT = { trait = imbecile }
+			}
+			modifier = {
+				factor = 0.2
+				has_character_flag = flag_enemy_spotted
+				FROM = { has_character_flag = flag_in_vehicle }
+				NOT = {
+					AND = {
+						has_character_flag = flag_enemy_analyzed
+						FROM = { persistent_event_target:my_vehicle = { has_artifact_flag = anti_personnel_vulnerable } }
+					}
+				}
+				NOT = { trait = imbecile }
+				NOT = { trait = slow }
+			}
+			modifier = {
+				factor = 0.25
+				has_character_flag = flag_enemy_spotted
+				NOT = {
+					AND = {
+						has_character_flag = flag_enemy_analyzed
+						FROM = { persistent_event_target:my_vehicle = { has_artifact_flag = anti_personnel_vulnerable } }
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				has_character_flag = flag_in_vehicle
+				persistent_event_target:my_vehicle = { has_artifact_flag = anti_personnel_bonus }
+			}
+			modifier = {
+				factor = 2
+				NOT = { has_character_flag = flag_in_vehicle }
+				persistent_event_target:my_weapon = { has_artifact_flag = anti_personnel_bonus }
+			}
+			modifier = {
+				factor = 2
+				has_character_flag = flag_anti_personnel_tactics
+				has_character_flag = flag_won_round
+			}
+			modifier = {
+				factor = 0.5
+				has_character_flag = flag_anti_personnel_tactics
+				has_character_flag = flag_lost_round
+			}
+			modifier = {
+				factor = 2
+				has_character_flag = flag_anti_personnel_tactics
+				has_character_flag = flag_won_round
+				NOT = { trait = open_minded }
+			}
+			modifier = {
+				factor = 0.5
+				has_character_flag = flag_anti_personnel_tactics
+				has_character_flag = flag_lost_round
+				NOT = { trait = close_minded }
+			}
+		}
+	}
+
+	# Anti-vehicle attack
+	option = {
+		name = "EVTOPTDNEWDUEL0"
+		trigger = {
+			NOT = { has_character_flag = flag_no_guns }
+			OR = {
+				AND = {
+					NOT = { has_character_flag = flag_in_vehicle }
+					persistent_event_target:my_weapon = { has_artifact_flag = anti_vehicle }
+				}
+				AND = {
+					has_character_flag = flag_in_vehicle
+					persistent_event_target:my_vehicle = { has_artifact_flag = anti_vehicle_weapon }
+				}
+			}
+		}
+		clr_character_flag = flag_first_round
+		clr_character_flag = flag_melee_tactics
+		clr_character_flag = flag_melee_vehicle_tactics
+		clr_character_flag = flag_anti_personnel_tactics
+		clr_character_flag = flag_withdrawing
+		clr_character_flag = flag_lost_round
+		clr_character_flag = flag_won_round
+		set_character_flag = flag_anti_vehicle_tactics
+		custom_tooltip = { text = "EVTTOOLTIPDUELANTIVEHICLE" }
+		hidden_tooltip = { FROM = { character_event = { id = duel.1 } } }
+		ai_chance = {
+			factor = 25
+			# Don't do this if you can see that they're on foot
+			modifier = {
+				factor = 0.2
+				has_character_flag = flag_enemy_spotted
+				FROM = { NOT = { has_character_flag = flag_in_vehicle } }
+				NOT = { trait = imbecile }
+			}
+			modifier = {
+				factor = 0.2
+				has_character_flag = flag_enemy_spotted
+				FROM = { NOT = { has_character_flag = flag_in_vehicle } }
+				NOT = { trait = imbecile }
+				NOT = { trait = slow }
+			}
+			modifier = {
+				factor = 0.25
+				has_character_flag = flag_enemy_spotted
+				FROM = { NOT = { has_character_flag = flag_in_vehicle } }
+			}
+			modifier = {
+				factor = 2
+				has_character_flag = flag_in_vehicle
+				persistent_event_target:my_vehicle = { has_artifact_flag = anti_vehicle_bonus }
+			}
+			modifier = {
+				factor = 2
+				NOT = { has_character_flag = flag_in_vehicle }
+				persistent_event_target:my_weapon = { has_artifact_flag = anti_vehicle_bonus }
+			}
+			modifier = {
+				factor = 2
+				has_character_flag = flag_anti_vehicle_tactics
+				has_character_flag = flag_won_round
+			}
+			modifier = {
+				factor = 0.5
+				has_character_flag = flag_anti_vehicle_tactics
+				has_character_flag = flag_lost_round
+			}
+			modifier = {
+				factor = 2
+				has_character_flag = flag_anti_vehicle_tactics
+				has_character_flag = flag_won_round
+				NOT = { trait = open_minded }
+			}
+			modifier = {
+				factor = 0.5
+				has_character_flag = flag_anti_vehicle_tactics
+				has_character_flag = flag_lost_round
+				NOT = { trait = close_minded }
+			}
+		}
+	}
+
+	# Withdraw
+	option = {
+		name = "EVTOPTENEWDUEL0"
+		trigger = { NOT = { has_character_flag = flag_no_retreat } }
+		clr_character_flag = flag_first_round
+		clr_character_flag = flag_melee_tactics
+		clr_character_flag = flag_melee_vehicle_tactics
+		clr_character_flag = flag_anti_personnel_tactics
+		clr_character_flag = flag_anti_vehicle_tactics
+		clr_character_flag = flag_lost_round
+		clr_character_flag = flag_won_round
+		set_character_flag = flag_withdrawing
+		custom_tooltip = { text = "EVTTOOLTIPDUELWITHDRAW" }
+		hidden_tooltip = { FROM = { character_event = { id = duel.1 } } }
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2
+				trait = craven
+			}
+			modifier = {
+				factor = 0.5
+				trait = brave
+			}
+		}
+	}
+}
+character_event = {
+	id = duel.1
+	desc = "EVTDESCNEWDUEL0"
+	picture = GFX_evt_siege
+	border = GFX_event_normal_frame_war
+	is_triggered_only = yes
+
+	immediate = {
+		log = "duel.1 fired for [Root.GetBestName]"
+		if = {
+			limit = { NOT = { has_character_flag = flag_first_round } }
+			set_character_flag = flag_enemy_spotted
+		}
+		if = {
+			limit = { has_character_flag = flag_open_field }
+			set_character_flag = flag_enemy_spotted
+		}
+		if = {
+			limit = {
+				has_character_flag = flag_enemy_spotted
+				martial = 15
+			}
+			set_character_flag = flag_enemy_analyzed
+		}
+		if = {
+			limit = {
+				has_character_flag = flag_first_round
+				martial = 10
+			}
+			set_character_flag = flag_enemy_spotted
+		}
+	}
+
+	# Melee attack, infantry
+	option = {
+		name = "EVTOPTANEWDUEL0"
+		trigger = { NOT = { has_character_flag = flag_in_vehicle } }
+		clr_character_flag = flag_first_round
+		clr_character_flag = flag_melee_vehicle_tactics
+		clr_character_flag = flag_anti_personnel_tactics
+		clr_character_flag = flag_anti_vehicle_tactics
+		clr_character_flag = flag_withdrawing
+		clr_character_flag = flag_lost_round
+		clr_character_flag = flag_won_round
+		set_character_flag = flag_melee_tactics
+		hidden_tooltip = { FROM = { character_event = { id = duel.2 } } }
+		custom_tooltip = { text = "EVTTOOLTIPDUELMELEE" }
+		ai_chance = {
+			factor = 25
+			# Don't do this if you can see that they're in a vehicle
+			modifier = {
+				factor = 0
+				has_character_flag = flag_enemy_spotted
+				FROM = {
+					has_character_flag = flag_in_vehicle
+					NOT = { persistent_event_target:my_vehicle = { has_artifact_flag = melee_vulnerable } }
+				}
+				NOT = { persistent_event_target:my_weapon = { has_artifact_flag = anti_vehicle_melee } }
+				NOT = { combat_rating_diff = { who = FROM value = 100 } }
+				NOT = { trait = imbecile }
+			}
+			modifier = {
+				factor = 0.1
+				has_character_flag = flag_enemy_spotted
+				FROM = {
+					has_character_flag = flag_in_vehicle
+					NOT = { persistent_event_target:my_vehicle = { has_artifact_flag = melee_vulnerable } }
+				}
+				NOT = { persistent_event_target:my_weapon = { has_artifact_flag = anti_vehicle_melee } }
+				NOT = { trait = brave }
+			}
+			# Also don't do this if you can see they have a jetpack
+			modifier = {
+				factor = 0.1
+				has_character_flag = flag_enemy_analyzed
+				NOT = { has_character_flag = flag_interior }
+				FROM = {
+					NOT = { has_character_flag = flag_in_vehicle }
+					persistent_event_target:my_armor = { has_artifact_flag = jetpack }
+					NOT = { persistent_event_target:my_weapon = { has_artifact_flag = melee } }
+				}
+			}
+			modifier = {
+				factor = 0.1
+				NOT = { persistent_event_target:my_weapon = { has_artifact_flag = melee } }
+			}
+			modifier = {
+				factor = 2
+				has_character_flag = flag_melee_tactics
+				has_character_flag = flag_won_round
+			}
+			modifier = {
+				factor = 0.5
+				has_character_flag = flag_melee_tactics
+				has_character_flag = flag_lost_round
+			}
+			modifier = {
+				factor = 2
+				has_character_flag = flag_melee_tactics
+				has_character_flag = flag_won_round
+				NOT = { trait = open_minded }
+			}
+			modifier = {
+				factor = 0.5
+				has_character_flag = flag_melee_tactics
+				has_character_flag = flag_lost_round
+				NOT = { trait = close_minded }
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { trait = brave }
+			}
+			modifier = {
+				factor = 0.5
+				trait = craven
+			}
+			modifier = {
+				factor = 2
+				trait = carefree
+			}
+			modifier = {
+				factor = 2
+				trait = proud
+			}
+		}
+	}
+
+	# Melee attack, vehicle
+	option = {
+		name = "EVTOPTBNEWDUEL0"
+		trigger = { has_character_flag = flag_in_vehicle } # Melee is always an option
+		clr_character_flag = flag_first_round
+		clr_character_flag = flag_melee_tactics
+		clr_character_flag = flag_anti_personnel_tactics
+		clr_character_flag = flag_anti_vehicle_tactics
+		clr_character_flag = flag_withdrawing
+		clr_character_flag = flag_lost_round
+		clr_character_flag = flag_won_round
+		set_character_flag = flag_melee_vehicle_tactics
+		custom_tooltip = { text = "EVTTOOLTIPDUELMELEEVEHICLE" }
+		hidden_tooltip = { FROM = { character_event = { id = duel.2 } } }
+		ai_chance = {
+			factor = 25
+			# Don't do this if you can see that they're in a vehicle
+			modifier = {
+				factor = 0.2
+				has_character_flag = flag_enemy_spotted
+				FROM = { has_character_flag = flag_in_vehicle }
+				NOT = { persistent_event_target:my_vehicle = { has_artifact_flag = vehicle_melee } }
+				NOT = {
+					AND = {
+						has_character_flag = flag_enemy_analyzed
+						FROM = { persistent_event_target:my_vehicle = { has_artifact_flag = melee_vulnerable } }
+					}
+				}
+				NOT = { trait = imbecile }
+				NOT = { trait = slow }
+			}
+			modifier = {
+				factor = 0.2
+				has_character_flag = flag_enemy_spotted
+				FROM = { has_character_flag = flag_in_vehicle }
+				NOT = { persistent_event_target:my_vehicle = { has_artifact_flag = vehicle_melee } }
+				NOT = {
+					AND = {
+						has_character_flag = flag_enemy_analyzed
+						FROM = { persistent_event_target:my_vehicle = { has_artifact_flag = melee_vulnerable } }
+					}
+				}
+				NOT = { trait = slow }
+			}
+			modifier = {
+				factor = 0.5
+				has_character_flag = flag_enemy_spotted
+				FROM = { has_character_flag = flag_in_vehicle }
+				NOT = { persistent_event_target:my_vehicle = { has_artifact_flag = vehicle_melee } }
+				NOT = {
+					AND = {
+						has_character_flag = flag_enemy_analyzed
+						FROM = { persistent_event_target:my_vehicle = { has_artifact_flag = melee_vulnerable } }
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				has_character_flag = flag_melee_vehicle_tactics
+				has_character_flag = flag_won_round
+			}
+			modifier = {
+				factor = 0.5
+				has_character_flag = flag_melee_vehicle_tactics
+				has_character_flag = flag_lost_round
+			}
+			modifier = {
+				factor = 2
+				has_character_flag = flag_melee_vehicle_tactics
+				has_character_flag = flag_won_round
+				NOT = { trait = open_minded }
+			}
+			modifier = {
+				factor = 0.5
+				has_character_flag = flag_melee_vehicle_tactics
+				has_character_flag = flag_lost_round
+				NOT = { trait = close_minded }
+			}
+		}
+	}
+
+	# Anti-personnel attack
+	option = {
+		name = "EVTOPTCNEWDUEL0"
+		trigger = {
+			NOT = { has_character_flag = flag_no_guns }
+			OR = {
+				NOT = { has_character_flag = flag_in_vehicle } # It's assumed that you always have some kind of gun
+				persistent_event_target:my_vehicle = { has_artifact_flag = anti_personnel_weapon }
+			}
+		}
+		clr_character_flag = flag_first_round
+		clr_character_flag = flag_melee_tactics
+		clr_character_flag = flag_melee_vehicle_tactics
+		clr_character_flag = flag_anti_vehicle_tactics
+		clr_character_flag = flag_withdrawing
+		clr_character_flag = flag_lost_round
+		clr_character_flag = flag_won_round
+		set_character_flag = flag_anti_personnel_tactics
+		custom_tooltip = { text = "EVTTOOLTIPDUELANTIPERSONNEL" }
+		hidden_tooltip = { FROM = { character_event = { id = duel.2 } } }
+		ai_chance = {
+			factor = 25
+			# Don't do this if you can see that they're in a vehicle
+			modifier = {
+				factor = 0.2
+				has_character_flag = flag_enemy_spotted
+				FROM = { has_character_flag = flag_in_vehicle }
+				NOT = {
+					AND = {
+						has_character_flag = flag_enemy_analyzed
+						FROM = { persistent_event_target:my_vehicle = { has_artifact_flag = anti_personnel_vulnerable } }
+					}
+				}
+				NOT = { trait = imbecile }
+			}
+			modifier = {
+				factor = 0.2
+				has_character_flag = flag_enemy_spotted
+				FROM = { has_character_flag = flag_in_vehicle }
+				NOT = {
+					AND = {
+						has_character_flag = flag_enemy_analyzed
+						FROM = { persistent_event_target:my_vehicle = { has_artifact_flag = anti_personnel_vulnerable } }
+					}
+				}
+				NOT = { trait = imbecile }
+				NOT = { trait = slow }
+			}
+			modifier = {
+				factor = 0.25
+				has_character_flag = flag_enemy_spotted
+				NOT = {
+					AND = {
+						has_character_flag = flag_enemy_analyzed
+						FROM = { persistent_event_target:my_vehicle = { has_artifact_flag = anti_personnel_vulnerable } }
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				has_character_flag = flag_in_vehicle
+				persistent_event_target:my_vehicle = { has_artifact_flag = anti_personnel_bonus }
+			}
+			modifier = {
+				factor = 2
+				NOT = { has_character_flag = flag_in_vehicle }
+				persistent_event_target:my_weapon = { has_artifact_flag = anti_personnel_bonus }
+			}
+			modifier = {
+				factor = 2
+				has_character_flag = flag_anti_personnel_tactics
+				has_character_flag = flag_won_round
+			}
+			modifier = {
+				factor = 0.5
+				has_character_flag = flag_anti_personnel_tactics
+				has_character_flag = flag_lost_round
+			}
+			modifier = {
+				factor = 2
+				has_character_flag = flag_anti_personnel_tactics
+				has_character_flag = flag_won_round
+				NOT = { trait = open_minded }
+			}
+			modifier = {
+				factor = 0.5
+				has_character_flag = flag_anti_personnel_tactics
+				has_character_flag = flag_lost_round
+				NOT = { trait = close_minded }
+			}
+		}
+	}
+
+	# Anti-vehicle attack
+	option = {
+		name = "EVTOPTDNEWDUEL0"
+		trigger = {
+			NOT = { has_character_flag = flag_no_guns }
+			OR = {
+				AND = {
+					NOT = { has_character_flag = flag_in_vehicle }
+					persistent_event_target:my_weapon = { has_artifact_flag = anti_vehicle }
+				}
+				AND = {
+					has_character_flag = flag_in_vehicle
+					persistent_event_target:my_vehicle = { has_artifact_flag = anti_vehicle_weapon }
+				}
+			}
+		}
+		clr_character_flag = flag_first_round
+		clr_character_flag = flag_melee_tactics
+		clr_character_flag = flag_melee_vehicle_tactics
+		clr_character_flag = flag_anti_personnel_tactics
+		clr_character_flag = flag_withdrawing
+		clr_character_flag = flag_lost_round
+		clr_character_flag = flag_won_round
+		set_character_flag = flag_anti_vehicle_tactics
+		custom_tooltip = { text = "EVTTOOLTIPDUELANTIVEHICLE" }
+		hidden_tooltip = { FROM = { character_event = { id = duel.2 } } }
+		ai_chance = {
+			factor = 25
+			# Don't do this if you can see that they're on foot
+			modifier = {
+				factor = 0.2
+				has_character_flag = flag_enemy_spotted
+				FROM = { NOT = { has_character_flag = flag_in_vehicle } }
+				NOT = { trait = imbecile }
+			}
+			modifier = {
+				factor = 0.2
+				has_character_flag = flag_enemy_spotted
+				FROM = { NOT = { has_character_flag = flag_in_vehicle } }
+				NOT = { trait = imbecile }
+				NOT = { trait = slow }
+			}
+			modifier = {
+				factor = 0.25
+				has_character_flag = flag_enemy_spotted
+				FROM = { NOT = { has_character_flag = flag_in_vehicle } }
+			}
+			modifier = {
+				factor = 2
+				has_character_flag = flag_in_vehicle
+				persistent_event_target:my_vehicle = { has_artifact_flag = anti_vehicle_bonus }
+			}
+			modifier = {
+				factor = 2
+				NOT = { has_character_flag = flag_in_vehicle }
+				persistent_event_target:my_weapon = { has_artifact_flag = anti_vehicle_bonus }
+			}
+			modifier = {
+				factor = 2
+				has_character_flag = flag_anti_vehicle_tactics
+				has_character_flag = flag_won_round
+			}
+			modifier = {
+				factor = 0.5
+				has_character_flag = flag_anti_vehicle_tactics
+				has_character_flag = flag_lost_round
+			}
+			modifier = {
+				factor = 2
+				has_character_flag = flag_anti_vehicle_tactics
+				has_character_flag = flag_won_round
+				NOT = { trait = open_minded }
+			}
+			modifier = {
+				factor = 0.5
+				has_character_flag = flag_anti_vehicle_tactics
+				has_character_flag = flag_lost_round
+				NOT = { trait = close_minded }
+			}
+		}
+	}
+
+	# Withdraw
+	option = {
+		name = "EVTOPTENEWDUEL0"
+		trigger = { NOT = { has_character_flag = flag_no_retreat } }
+		clr_character_flag = flag_first_round
+		clr_character_flag = flag_melee_tactics
+		clr_character_flag = flag_melee_vehicle_tactics
+		clr_character_flag = flag_anti_personnel_tactics
+		clr_character_flag = flag_anti_vehicle_tactics
+		clr_character_flag = flag_lost_round
+		clr_character_flag = flag_won_round
+		set_character_flag = flag_withdrawing
+		custom_tooltip = { text = "EVTTOOLTIPDUELWITHDRAW" }
+		hidden_tooltip = { FROM = { character_event = { id = duel.2 } } }
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2
+				trait = craven
+			}
+			modifier = {
+				factor = 0.5
+				trait = brave
+			}
+		}
+	}
+}
+
+# CALCULATE ROUND WINNER
+character_event = {
+	id = duel.2
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		log = "duel.2 fired for [Root.GetBestName]"
+		random_list = {
+			# ROOT wins
+			20 = {
+				modifier = {
+					factor = 0
+					has_character_flag = flag_withdrawing
+				}
+				# Combat rating
+				modifier = {
+					factor = 1.1
+					combat_rating_diff = { who = FROM value = 100 }
+				}
+				modifier = {
+					factor = 1.1
+					combat_rating_diff = { who = FROM value = 95 }
+				}
+				modifier = {
+					factor = 1.1
+					combat_rating_diff = { who = FROM value = 90 }
+				}
+				modifier = {
+					factor = 1.1
+					combat_rating_diff = { who = FROM value = 85 }
+				}
+				modifier = {
+					factor = 1.1
+					combat_rating_diff = { who = FROM value = 80 }
+				}
+				modifier = {
+					factor = 1.1
+					combat_rating_diff = { who = FROM value = 75 }
+				}
+				modifier = {
+					factor = 1.1
+					combat_rating_diff = { who = FROM value = 70 }
+				}
+				modifier = {
+					factor = 1.1
+					combat_rating_diff = { who = FROM value = 65 }
+				}
+				modifier = {
+					factor = 1.1
+					combat_rating_diff = { who = FROM value = 60 }
+				}
+				modifier = {
+					factor = 1.1
+					combat_rating_diff = { who = FROM value = 55 }
+				}
+				modifier = {
+					factor = 1.1
+					combat_rating_diff = { who = FROM value = 50 }
+				}
+				modifier = {
+					factor = 1.1
+					combat_rating_diff = { who = FROM value = 45 }
+				}
+				modifier = {
+					factor = 1.1
+					combat_rating_diff = { who = FROM value = 40 }
+				}
+				modifier = {
+					factor = 1.1
+					combat_rating_diff = { who = FROM value = 35 }
+				}
+				modifier = {
+					factor = 1.1
+					combat_rating_diff = { who = FROM value = 30 }
+				}
+				modifier = {
+					factor = 1.1
+					combat_rating_diff = { who = FROM value = 25 }
+				}
+				modifier = {
+					factor = 1.1
+					combat_rating_diff = { who = FROM value = 20 }
+				}
+				modifier = {
+					factor = 1.1
+					combat_rating_diff = { who = FROM value = 15 }
+				}
+				modifier = {
+					factor = 1.1
+					combat_rating_diff = { who = FROM value = 10 }
+				}
+				modifier = {
+					factor = 1.1
+					combat_rating_diff = { who = FROM value = 5 }
+				}
+				modifier = {
+					factor = 0.9
+					FROM = { combat_rating_diff = { who = ROOT value = 5 } }
+				}
+				modifier = {
+					factor = 0.9
+					FROM = { combat_rating_diff = { who = ROOT value = 10 } }
+				}
+				modifier = {
+					factor = 0.9
+					FROM = { combat_rating_diff = { who = ROOT value = 15 } }
+				}
+				modifier = {
+					factor = 0.9
+					FROM = { combat_rating_diff = { who = ROOT value = 20 } }
+				}
+				modifier = {
+					factor = 0.9
+					FROM = { combat_rating_diff = { who = ROOT value = 25 } }
+				}
+				modifier = {
+					factor = 0.9
+					FROM = { combat_rating_diff = { who = ROOT value = 30 } }
+				}
+				modifier = {
+					factor = 0.9
+					FROM = { combat_rating_diff = { who = ROOT value = 35 } }
+				}
+				modifier = {
+					factor = 0.9
+					FROM = { combat_rating_diff = { who = ROOT value = 40 } }
+				}
+				modifier = {
+					factor = 0.9
+					FROM = { combat_rating_diff = { who = ROOT value = 45 } }
+				}
+				modifier = {
+					factor = 0.9
+					FROM = { combat_rating_diff = { who = ROOT value = 50 } }
+				}
+				modifier = {
+					factor = 0.9
+					FROM = { combat_rating_diff = { who = ROOT value = 55 } }
+				}
+				modifier = {
+					factor = 0.9
+					FROM = { combat_rating_diff = { who = ROOT value = 60 } }
+				}
+				modifier = {
+					factor = 0.9
+					FROM = { combat_rating_diff = { who = ROOT value = 65 } }
+				}
+				modifier = {
+					factor = 0.9
+					FROM = { combat_rating_diff = { who = ROOT value = 70 } }
+				}
+				modifier = {
+					factor = 0.9
+					FROM = { combat_rating_diff = { who = ROOT value = 75 } }
+				}
+				modifier = {
+					factor = 0.9
+					FROM = { combat_rating_diff = { who = ROOT value = 80 } }
+				}
+				modifier = {
+					factor = 0.9
+					FROM = { combat_rating_diff = { who = ROOT value = 85 } }
+				}
+				modifier = {
+					factor = 0.9
+					FROM = { combat_rating_diff = { who = ROOT value = 90 } }
+				}
+				modifier = {
+					factor = 0.9
+					FROM = { combat_rating_diff = { who = ROOT value = 95 } }
+				}
+				modifier = {
+					factor = 0.9
+					FROM = { combat_rating_diff = { who = ROOT value = 100 } }
+				}
+
+				# Weapon Tech Level
+				modifier = {
+					factor = 1.1
+					NOT = { has_character_flag = flag_in_vehicle }
+					persistent_event_target:my_weapon = { has_artifact_flag = tech_1 }
+				}
+				modifier = {
+					factor = 1.1
+					NOT = { has_character_flag = flag_in_vehicle }
+					persistent_event_target:my_weapon = { has_artifact_flag = tech_2 }
+				}
+				modifier = {
+					factor = 1.1
+					NOT = { has_character_flag = flag_in_vehicle }
+					persistent_event_target:my_weapon = { has_artifact_flag = tech_3 }
+				}
+				modifier = {
+					factor = 1.1
+					NOT = { has_character_flag = flag_in_vehicle }
+					persistent_event_target:my_weapon = { has_artifact_flag = tech_4 }
+				}
+				modifier = {
+					factor = 1.1
+					NOT = { has_character_flag = flag_in_vehicle }
+					persistent_event_target:my_weapon = { has_artifact_flag = tech_5 }
+				}
+				modifier = {
+					factor = 1.1
+					NOT = { has_character_flag = flag_in_vehicle }
+					persistent_event_target:my_weapon = { has_artifact_flag = tech_6 }
+				}
+				modifier = {
+					factor = 1.1
+					NOT = { has_character_flag = flag_in_vehicle }
+					persistent_event_target:my_weapon = { has_artifact_flag = tech_7 }
+				}
+				modifier = {
+					factor = 1.1
+					NOT = { has_character_flag = flag_in_vehicle }
+					persistent_event_target:my_weapon = { has_artifact_flag = tech_8 }
+				}
+
+				# Armor Tech Level
+				modifier = {
+					factor = 0.9
+					FROM = {
+						NOT = { has_character_flag = flag_in_vehicle }
+						persistent_event_target:my_armor = { has_artifact_flag = tech_1 }
+					}
+				}
+				modifier = {
+					factor = 0.9
+					FROM = {
+						NOT = { has_character_flag = flag_in_vehicle }
+						persistent_event_target:my_armor = { has_artifact_flag = tech_2 }
+					}
+				}
+				modifier = {
+					factor = 0.9
+					FROM = {
+						NOT = { has_character_flag = flag_in_vehicle }
+						persistent_event_target:my_armor = { has_artifact_flag = tech_3 }
+					}
+				}
+				modifier = {
+					factor = 0.9
+					FROM = {
+						NOT = { has_character_flag = flag_in_vehicle }
+						persistent_event_target:my_armor = { has_artifact_flag = tech_4 }
+					}
+				}
+				modifier = {
+					factor = 0.9
+					FROM = {
+						NOT = { has_character_flag = flag_in_vehicle }
+						persistent_event_target:my_armor = { has_artifact_flag = tech_5 }
+					}
+				}
+				modifier = {
+					factor = 0.9
+					FROM = {
+						NOT = { has_character_flag = flag_in_vehicle }
+						persistent_event_target:my_armor = { has_artifact_flag = tech_6 }
+					}
+				}
+				modifier = {
+					factor = 0.9
+					FROM = {
+						NOT = { has_character_flag = flag_in_vehicle }
+						persistent_event_target:my_armor = { has_artifact_flag = tech_7 }
+					}
+				}
+				modifier = {
+					factor = 0.9
+					FROM = {
+						NOT = { has_character_flag = flag_in_vehicle }
+						persistent_event_target:my_armor = { has_artifact_flag = tech_8 }
+					}
+				}
+
+				# Vehicle Tech Level
+				modifier = {
+					factor = 1.1
+					has_character_flag = flag_in_vehicle
+					persistent_event_target:my_vehicle = { has_artifact_flag = tech_1 }
+				}
+				modifier = {
+					factor = 1.1
+					has_character_flag = flag_in_vehicle
+					persistent_event_target:my_vehicle = { has_artifact_flag = tech_2 }
+				}
+				modifier = {
+					factor = 1.1
+					has_character_flag = flag_in_vehicle
+					persistent_event_target:my_vehicle = { has_artifact_flag = tech_3 }
+				}
+				modifier = {
+					factor = 1.1
+					has_character_flag = flag_in_vehicle
+					persistent_event_target:my_vehicle = { has_artifact_flag = tech_4 }
+				}
+				modifier = {
+					factor = 1.1
+					has_character_flag = flag_in_vehicle
+					persistent_event_target:my_vehicle = { has_artifact_flag = tech_5 }
+				}
+				modifier = {
+					factor = 1.1
+					has_character_flag = flag_in_vehicle
+					persistent_event_target:my_vehicle = { has_artifact_flag = tech_6 }
+				}
+				modifier = {
+					factor = 1.1
+					has_character_flag = flag_in_vehicle
+					persistent_event_target:my_vehicle = { has_artifact_flag = tech_7 }
+				}
+				modifier = {
+					factor = 1.1
+					has_character_flag = flag_in_vehicle
+					persistent_event_target:my_vehicle = { has_artifact_flag = tech_8 }
+				}
+				modifier = {
+					factor = 0.9
+					FROM = {
+						has_character_flag = flag_in_vehicle
+						persistent_event_target:my_vehicle = { has_artifact_flag = tech_1 }
+					}
+				}
+				modifier = {
+					factor = 0.9
+					FROM = {
+						has_character_flag = flag_in_vehicle
+						persistent_event_target:my_vehicle = { has_artifact_flag = tech_2 }
+					}
+				}
+				modifier = {
+					factor = 0.9
+					FROM = {
+						has_character_flag = flag_in_vehicle
+						persistent_event_target:my_vehicle = { has_artifact_flag = tech_3 }
+					}
+				}
+				modifier = {
+					factor = 0.9
+					FROM = {
+						has_character_flag = flag_in_vehicle
+						persistent_event_target:my_vehicle = { has_artifact_flag = tech_4 }
+					}
+				}
+				modifier = {
+					factor = 0.9
+					FROM = {
+						has_character_flag = flag_in_vehicle
+						persistent_event_target:my_vehicle = { has_artifact_flag = tech_5 }
+					}
+				}
+				modifier = {
+					factor = 0.9
+					FROM = {
+						has_character_flag = flag_in_vehicle
+						persistent_event_target:my_vehicle = { has_artifact_flag = tech_6 }
+					}
+				}
+				modifier = {
+					factor = 0.9
+					FROM = {
+						has_character_flag = flag_in_vehicle
+						persistent_event_target:my_vehicle = { has_artifact_flag = tech_7 }
+					}
+				}
+				modifier = {
+					factor = 0.9
+					FROM = {
+						has_character_flag = flag_in_vehicle
+						persistent_event_target:my_vehicle = { has_artifact_flag = tech_8 }
+					}
+				}
+
+				# Chose an effective tactic
+				# Melee versus melee_vulnerable
+				modifier = {
+					factor = 5
+					has_character_flag = flag_melee_tactics
+					FROM = {
+						has_character_flag = flag_in_vehicle
+						persistent_event_target:my_vehicle = { has_artifact_flag = melee_vulnerable }
+					}
+					OR = {
+						FROM = { NOT = { has_character_flag = flag_anti_personnel_tactics } }
+						persistent_event_target:my_armor = { has_artifact_flag = anti_personnel_resistance }
+					}
+				}
+				# Melee with melee bonus
+				modifier = {
+					factor = 2
+					has_character_flag = flag_melee_tactics
+					persistent_event_target:my_weapon = { has_artifact_flag = melee }
+					FROM = {
+						OR = {
+							NOT = { has_character_flag = flag_in_vehicle }
+							NOT = { persistent_event_target:my_vehicle = { has_artifact_flag = melee_vulnerable } }
+						}
+					}
+					OR = {
+						FROM = { NOT = { has_character_flag = flag_anti_personnel_tactics } }
+						persistent_event_target:my_armor = { has_artifact_flag = anti_personnel_resistance }
+					}
+				}
+				modifier = {
+					factor = 5
+					has_character_flag = flag_melee_tactics
+					persistent_event_target:my_weapon = { has_artifact_flag = melee_bonus }
+					FROM = {
+						OR = {
+							NOT = { has_character_flag = flag_in_vehicle }
+							NOT = { persistent_event_target:my_vehicle = { has_artifact_flag = melee_vulnerable } }
+						}
+					}
+					OR = {
+						FROM = { NOT = { has_character_flag = flag_anti_personnel_tactics } }
+						persistent_event_target:my_armor = { has_artifact_flag = anti_personnel_resistance }
+					}
+				}
+				# Vehicle melee versus infantry
+				modifier = {
+					factor = 10
+					has_character_flag = flag_melee_vehicle_tactics
+					FROM = { NOT = { has_character_flag = flag_in_vehicle } }
+					OR = {
+						FROM = { NOT = { has_character_flag = flag_anti_vehicle_tactics } }
+						persistent_event_target:my_vehicle = { has_artifact_flag = anti_vehicle_resistance }
+					}
+				}
+				# Vehicle melee versus melee vulnerable
+				modifier = {
+					factor = 2
+					has_character_flag = flag_melee_vehicle_tactics
+					FROM = {
+						has_character_flag = flag_in_vehicle
+						persistent_event_target:my_vehicle = { has_artifact_flag = melee_vulnerable }
+					}
+					OR = {
+						FROM = { NOT = { has_character_flag = flag_anti_vehicle_tactics } }
+						persistent_event_target:my_vehicle = { has_artifact_flag = anti_vehicle_resistance }
+					}
+				}
+				# Vehicle melee with melee bonus
+				modifier = {
+					factor = 5
+					has_character_flag = flag_melee_vehicle_tactics
+					persistent_event_target:my_vehicle = { has_artifact_flag = melee_bonus }
+					OR = {
+						FROM = { NOT = { has_character_flag = flag_anti_vehicle_tactics } }
+						persistent_event_target:my_vehicle = { has_artifact_flag = anti_vehicle_resistance }
+					}
+				}
+				modifier = {
+					factor = 10
+					has_character_flag = flag_melee_vehicle_tactics
+					persistent_event_target:my_vehicle = { has_artifact_flag = melee_bonus }
+					FROM = {
+						has_character_flag = flag_in_vehicle
+						persistent_event_target:my_vehicle = { has_artifact_flag = melee_vulnerable }
+					}
+					OR = {
+						FROM = { NOT = { has_character_flag = flag_anti_vehicle_tactics } }
+						persistent_event_target:my_vehicle = { has_artifact_flag = anti_vehicle_resistance }
+					}
+				}
+
+				# Anti-personnel against infantry
+				modifier = {
+					factor = 2
+					has_character_flag = flag_anti_personnel_tactics
+					FROM = { NOT = { has_character_flag = flag_in_vehicle } }
+				}
+				modifier = {
+					factor = 5
+					has_character_flag = flag_anti_personnel_tactics
+					FROM = {
+						NOT = { has_character_flag = flag_in_vehicle }
+						NOT = { persistent_event_target:my_armor = { has_artifact_flag = anti_personnel_resistance } }
+					}
+				}
+				# Anti-personnel against a vehicle with anti-personnel vulnerability
+				modifier = {
+					factor = 5
+					has_character_flag = flag_anti_personnel_tactics
+					FROM = {
+						has_character_flag = flag_in_vehicle
+						persistent_event_target:my_vehicle = { has_artifact_flag = anti_personnel_vulnerable }
+					}
+				}
+				# Anti-personnel with anti-personnel bonus
+				modifier = {
+					factor = 5
+					OR = {
+						AND = {
+							has_character_flag = flag_anti_personnel_tactics
+							has_character_flag = flag_in_vehicle
+							persistent_event_target:my_vehicle = { has_artifact_flag = anti_personnel_bonus }
+						}
+						AND = {
+							NOT = { has_character_flag = flag_in_vehicle }
+							persistent_event_target:my_weapon = { has_artifact_flag = anti_personnel_bonus }
+						}
+					}
+					FROM = {
+						OR = {
+							NOT = { has_character_flag = flag_in_vehicle }
+							persistent_event_target:my_vehicle = { has_artifact_flag = anti_personnel_vulnerable }
+						}
+					}
+				}
+				# Anti-personnel with a sniper rifle against infantry in cover
+				modifier = {
+					factor = 3
+					has_character_flag = flag_anti_personnel_tactics
+					NOT = { has_character_flag = flag_in_vehicle }
+					persistent_event_target:my_weapon = { has_artifact_flag = sniper_rifle }
+					NOT = { has_character_flag = flag_interior }
+					FROM = {
+						NOT = { has_character_flag = flag_in_vehicle }
+						has_character_flag = flag_anti_personnel_tactics
+					}
+				}
+				# Anti-personnel with an assault rifle against infantry out of cover
+				modifier = {
+					factor = 3
+					has_character_flag = flag_anti_personnel_tactics
+					NOT = { has_character_flag = flag_in_vehicle }
+					persistent_event_target:my_weapon = { has_artifact_flag = assault_rifle }
+					FROM = {
+						NOT = { has_character_flag = flag_in_vehicle }
+						OR = {
+							has_character_flag = flag_melee_tactics
+							has_character_flag = flag_anti_vehicle_tactics
+						}
+					}
+				}
+
+				# Anti-vehicle against vehicle
+				modifier = {
+					factor = 2
+					has_character_flag = flag_anti_vehicle_tactics
+					FROM = { has_character_flag = flag_in_vehicle }
+				}
+				modifier = {
+					factor = 5
+					has_character_flag = flag_anti_vehicle_tactics
+					FROM = {
+						has_character_flag = flag_in_vehicle
+						NOT = { persistent_event_target:my_vehicle = { has_artifact_flag = anti_vehicle_resistance } }
+					}
+				}
+				# Anti-vehicle against anti-personnel infantry (blowing away cover)
+				modifier = {
+					factor = 10
+					has_character_flag = flag_anti_vehicle_tactics
+					FROM = {
+						NOT = { has_character_flag = flag_in_vehicle }
+						has_character_flag = flag_anti_personnel_tactics
+					}
+				}
+				# Anti-vehicle with anti-vehicle bonus
+				modifier = {
+					factor = 5
+					OR = {
+						AND = {
+							has_character_flag = flag_anti_vehicle_tactics
+							has_character_flag = flag_in_vehicle
+							persistent_event_target:my_vehicle = { has_artifact_flag = anti_vehicle_bonus }
+						}
+						AND = {
+							NOT = { has_character_flag = flag_in_vehicle }
+							persistent_event_target:my_weapon = { has_artifact_flag = anti_vehicle_bonus }
+						}
+					}
+					FROM = { has_character_flag = flag_in_vehicle }
+				}
+
+				# Strength matters in melee
+				modifier = {
+					factor = 4
+					has_character_flag = flag_melee_tactics
+					OR = {
+						trait = strong
+						persistent_event_target:my_armor = { has_artifact_flag = power_armor }
+					}
+					OR = {
+						FROM = { NOT = { has_character_flag = flag_anti_personnel_tactics } }
+						persistent_event_target:my_armor = { has_artifact_flag = anti_personnel_resistance }
+					}
+				}
+				modifier = {
+					factor = 0.25
+					has_character_flag = flag_melee_tactics
+					trait = weak
+					NOT = { persistent_event_target:my_armor = { has_artifact_flag = power_armor } }
+				}
+
+				# Flight is a perfect defense against melee
+				modifier = {
+					factor = 0
+					OR = {
+						has_character_flag = flag_melee_tactics
+						has_character_flag = flag_melee_vehicle_tactics
+					}
+					NOT = { has_character_flag = flag_interior }
+					FROM = {
+						NOT = { has_character_flag = flag_in_vehicle }
+						NOT = { has_character_flag = flag_melee_tactics }
+						persistent_event_target:my_armor = { has_artifact_flag = jetpack }
+					}
+				}
+				# And a not-so-perfect defense against all ranged weapons except assault rifles
+				modifier = {
+					factor = 0.25
+					has_character_flag = flag_anti_personnel_tactics
+					NOT = { has_character_flag = flag_in_vehicle }
+					NOT = { persistent_event_target:my_weapon = { has_artifact_flag = assault_rifle } }
+					NOT = { has_character_flag = flag_interior }
+					FROM = {
+						NOT = { has_character_flag = flag_in_vehicle }
+						NOT = { has_character_flag = flag_melee_tactics }
+						persistent_event_target:my_armor = { has_artifact_flag = jetpack }
+					}
+				}
+				log = "[Root.GetBestName] won the round, trigger duel.4 for [From.GetBestName]."
+				FROM = { character_event = { id = duel.4 } }
+			}
+			# FROM wins
+			20 = {
+				modifier = {
+					factor = 0
+					FROM = { has_character_flag = flag_withdrawing }
+				}
+				# Combat rating
+				modifier = {
+					factor = 1.1
+					FROM = { combat_rating_diff = { who = ROOT value = 100 } }
+				}
+				modifier = {
+					factor = 1.1
+					FROM = { combat_rating_diff = { who = ROOT value = 95 } }
+				}
+				modifier = {
+					factor = 1.1
+					FROM = { combat_rating_diff = { who = ROOT value = 90 } }
+				}
+				modifier = {
+					factor = 1.1
+					FROM = { combat_rating_diff = { who = ROOT value = 85 } }
+				}
+				modifier = {
+					factor = 1.1
+					FROM = { combat_rating_diff = { who = ROOT value = 80 } }
+				}
+				modifier = {
+					factor = 1.1
+					FROM = { combat_rating_diff = { who = ROOT value = 75 } }
+				}
+				modifier = {
+					factor = 1.1
+					FROM = { combat_rating_diff = { who = ROOT value = 70 } }
+				}
+				modifier = {
+					factor = 1.1
+					FROM = { combat_rating_diff = { who = ROOT value = 65 } }
+				}
+				modifier = {
+					factor = 1.1
+					FROM = { combat_rating_diff = { who = ROOT value = 60 } }
+				}
+				modifier = {
+					factor = 1.1
+					FROM = { combat_rating_diff = { who = ROOT value = 55 } }
+				}
+				modifier = {
+					factor = 1.1
+					FROM = { combat_rating_diff = { who = ROOT value = 50 } }
+				}
+				modifier = {
+					factor = 1.1
+					FROM = { combat_rating_diff = { who = ROOT value = 45 } }
+				}
+				modifier = {
+					factor = 1.1
+					FROM = { combat_rating_diff = { who = ROOT value = 40 } }
+				}
+				modifier = {
+					factor = 1.1
+					FROM = { combat_rating_diff = { who = ROOT value = 35 } }
+				}
+				modifier = {
+					factor = 1.1
+					FROM = { combat_rating_diff = { who = ROOT value = 30 } }
+				}
+				modifier = {
+					factor = 1.1
+					FROM = { combat_rating_diff = { who = ROOT value = 25 } }
+				}
+				modifier = {
+					factor = 1.1
+					FROM = { combat_rating_diff = { who = ROOT value = 20 } }
+				}
+				modifier = {
+					factor = 1.1
+					FROM = { combat_rating_diff = { who = ROOT value = 15 } }
+				}
+				modifier = {
+					factor = 1.1
+					FROM = { combat_rating_diff = { who = ROOT value = 10 } }
+				}
+				modifier = {
+					factor = 1.1
+					FROM = { combat_rating_diff = { who = ROOT value = 5 } }
+				}
+				modifier = {
+					factor = 0.9
+					combat_rating_diff = { who = FROM value = 5 }
+				}
+				modifier = {
+					factor = 0.9
+					combat_rating_diff = { who = FROM value = 10 }
+				}
+				modifier = {
+					factor = 0.9
+					combat_rating_diff = { who = FROM value = 15 }
+				}
+				modifier = {
+					factor = 0.9
+					combat_rating_diff = { who = FROM value = 20 }
+				}
+				modifier = {
+					factor = 0.9
+					combat_rating_diff = { who = FROM value = 25 }
+				}
+				modifier = {
+					factor = 0.9
+					combat_rating_diff = { who = FROM value = 30 }
+				}
+				modifier = {
+					factor = 0.9
+					combat_rating_diff = { who = FROM value = 35 }
+				}
+				modifier = {
+					factor = 0.9
+					combat_rating_diff = { who = FROM value = 40 }
+				}
+				modifier = {
+					factor = 0.9
+					combat_rating_diff = { who = FROM value = 45 }
+				}
+				modifier = {
+					factor = 0.9
+					combat_rating_diff = { who = FROM value = 50 }
+				}
+				modifier = {
+					factor = 0.9
+					combat_rating_diff = { who = FROM value = 55 }
+				}
+				modifier = {
+					factor = 0.9
+					combat_rating_diff = { who = FROM value = 60 }
+				}
+				modifier = {
+					factor = 0.9
+					combat_rating_diff = { who = FROM value = 65 }
+				}
+				modifier = {
+					factor = 0.9
+					combat_rating_diff = { who = FROM value = 70 }
+				}
+				modifier = {
+					factor = 0.9
+					combat_rating_diff = { who = FROM value = 75 }
+				}
+				modifier = {
+					factor = 0.9
+					combat_rating_diff = { who = FROM value = 80 }
+				}
+				modifier = {
+					factor = 0.9
+					combat_rating_diff = { who = FROM value = 85 }
+				}
+				modifier = {
+					factor = 0.9
+					combat_rating_diff = { who = FROM value = 90 }
+				}
+				modifier = {
+					factor = 0.9
+					combat_rating_diff = { who = FROM value = 95 }
+				}
+				modifier = {
+					factor = 0.9
+					combat_rating_diff = { who = FROM value = 100 }
+				}
+
+				# Weapon Tech Level
+				modifier = {
+					factor = 1.1
+					NOT = { has_character_flag = flag_in_vehicle }
+					persistent_event_target:my_weapon = { has_artifact_flag = tech_1 }
+				}
+				modifier = {
+					factor = 1.1
+					NOT = { has_character_flag = flag_in_vehicle }
+					persistent_event_target:my_weapon = { has_artifact_flag = tech_2 }
+				}
+				modifier = {
+					factor = 1.1
+					NOT = { has_character_flag = flag_in_vehicle }
+					persistent_event_target:my_weapon = { has_artifact_flag = tech_3 }
+				}
+				modifier = {
+					factor = 1.1
+					NOT = { has_character_flag = flag_in_vehicle }
+					persistent_event_target:my_weapon = { has_artifact_flag = tech_4 }
+				}
+				modifier = {
+					factor = 1.1
+					NOT = { has_character_flag = flag_in_vehicle }
+					persistent_event_target:my_weapon = { has_artifact_flag = tech_5 }
+				}
+				modifier = {
+					factor = 1.1
+					NOT = { has_character_flag = flag_in_vehicle }
+					persistent_event_target:my_weapon = { has_artifact_flag = tech_6 }
+				}
+				modifier = {
+					factor = 1.1
+					NOT = { has_character_flag = flag_in_vehicle }
+					persistent_event_target:my_weapon = { has_artifact_flag = tech_7 }
+				}
+				modifier = {
+					factor = 1.1
+					NOT = { has_character_flag = flag_in_vehicle }
+					persistent_event_target:my_weapon = { has_artifact_flag = tech_8 }
+				}
+
+				# Armor Tech Level
+				modifier = {
+					factor = 0.9
+					ROOT = {
+						NOT = { has_character_flag = flag_in_vehicle }
+						persistent_event_target:my_armor = { has_artifact_flag = tech_0 }
+					}
+				}
+				modifier = {
+					factor = 0.9
+					ROOT = {
+						NOT = { has_character_flag = flag_in_vehicle }
+						persistent_event_target:my_armor = { has_artifact_flag = tech_1 }
+					}
+				}
+				modifier = {
+					factor = 0.9
+					ROOT = {
+						NOT = { has_character_flag = flag_in_vehicle }
+						persistent_event_target:my_armor = { has_artifact_flag = tech_2 }
+					}
+				}
+				modifier = {
+					factor = 0.9
+					ROOT = {
+						NOT = { has_character_flag = flag_in_vehicle }
+						persistent_event_target:my_armor = { has_artifact_flag = tech_3 }
+					}
+				}
+				modifier = {
+					factor = 0.9
+					ROOT = {
+						NOT = { has_character_flag = flag_in_vehicle }
+						persistent_event_target:my_armor = { has_artifact_flag = tech_4 }
+					}
+				}
+				modifier = {
+					factor = 0.9
+					ROOT = {
+						NOT = { has_character_flag = flag_in_vehicle }
+						persistent_event_target:my_armor = { has_artifact_flag = tech_5 }
+					}
+				}
+				modifier = {
+					factor = 0.9
+					ROOT = {
+						NOT = { has_character_flag = flag_in_vehicle }
+						persistent_event_target:my_armor = { has_artifact_flag = tech_6 }
+					}
+				}
+				modifier = {
+					factor = 0.9
+					ROOT = {
+						NOT = { has_character_flag = flag_in_vehicle }
+						persistent_event_target:my_armor = { has_artifact_flag = tech_7 }
+					}
+				}
+				modifier = {
+					factor = 0.9
+					ROOT = {
+						NOT = { has_character_flag = flag_in_vehicle }
+						persistent_event_target:my_armor = { has_artifact_flag = tech_8 }
+					}
+				}
+
+				# Vehicle Tech Level
+				modifier = {
+					factor = 1.1
+					FROM = {
+						has_character_flag = flag_in_vehicle
+						persistent_event_target:my_vehicle = { has_artifact_flag = tech_1 }
+					}
+				}
+				modifier = {
+					factor = 1.1
+					FROM = {
+						has_character_flag = flag_in_vehicle
+						persistent_event_target:my_vehicle = { has_artifact_flag = tech_2 }
+					}
+				}
+				modifier = {
+					factor = 1.1
+					FROM = {
+						has_character_flag = flag_in_vehicle
+						persistent_event_target:my_vehicle = { has_artifact_flag = tech_3 }
+					}
+				}
+				modifier = {
+					factor = 1.1
+					FROM = {
+						has_character_flag = flag_in_vehicle
+						persistent_event_target:my_vehicle = { has_artifact_flag = tech_4 }
+					}
+				}
+				modifier = {
+					factor = 1.1
+					FROM = {
+						has_character_flag = flag_in_vehicle
+						persistent_event_target:my_vehicle = { has_artifact_flag = tech_5 }
+					}
+				}
+				modifier = {
+					factor = 1.1
+					FROM = {
+						has_character_flag = flag_in_vehicle
+						persistent_event_target:my_vehicle = { has_artifact_flag = tech_6 }
+					}
+				}
+				modifier = {
+					factor = 1.1
+					FROM = {
+						has_character_flag = flag_in_vehicle
+						persistent_event_target:my_vehicle = { has_artifact_flag = tech_7 }
+					}
+				}
+				modifier = {
+					factor = 1.1
+					FROM = {
+						has_character_flag = flag_in_vehicle
+						persistent_event_target:my_vehicle = { has_artifact_flag = tech_8 }
+					}
+				}
+				modifier = {
+					factor = 0.9
+					has_character_flag = flag_in_vehicle
+					persistent_event_target:my_vehicle = { has_artifact_flag = tech_1 }
+				}
+				modifier = {
+					factor = 0.9
+					has_character_flag = flag_in_vehicle
+					persistent_event_target:my_vehicle = { has_artifact_flag = tech_2 }
+				}
+				modifier = {
+					factor = 0.9
+					has_character_flag = flag_in_vehicle
+					persistent_event_target:my_vehicle = { has_artifact_flag = tech_3 }
+				}
+				modifier = {
+					factor = 0.9
+					has_character_flag = flag_in_vehicle
+					persistent_event_target:my_vehicle = { has_artifact_flag = tech_4 }
+				}
+				modifier = {
+					factor = 0.9
+					has_character_flag = flag_in_vehicle
+					persistent_event_target:my_vehicle = { has_artifact_flag = tech_5 }
+				}
+				modifier = {
+					factor = 0.9
+					has_character_flag = flag_in_vehicle
+					persistent_event_target:my_vehicle = { has_artifact_flag = tech_6 }
+				}
+				modifier = {
+					factor = 0.9
+					has_character_flag = flag_in_vehicle
+					persistent_event_target:my_vehicle = { has_artifact_flag = tech_7 }
+				}
+				modifier = {
+					factor = 0.9
+					has_character_flag = flag_in_vehicle
+					persistent_event_target:my_vehicle = { has_artifact_flag = tech_8 }
+				}
+
+				# Chose an effective tactic
+				# Melee versus melee_vulnerable
+				modifier = {
+					factor = 5
+					FROM = {
+						has_character_flag = flag_melee_tactics
+						ROOT = {
+							has_character_flag = flag_in_vehicle
+							persistent_event_target:my_vehicle = { has_artifact_flag = melee_vulnerable }
+						}
+						OR = {
+							ROOT = { NOT = { has_character_flag = flag_anti_personnel_tactics } }
+							persistent_event_target:my_armor = { has_artifact_flag = anti_personnel_resistance }
+						}
+					}
+				}
+				# Melee with melee bonus
+				modifier = {
+					factor = 2
+					FROM = {
+						has_character_flag = flag_melee_tactics
+						persistent_event_target:my_weapon = { has_artifact_flag = melee }
+						ROOT = {
+							OR = {
+								NOT = { has_character_flag = flag_in_vehicle }
+								NOT = { persistent_event_target:my_vehicle = { has_artifact_flag = melee_vulnerable } }
+							}
+						}
+						OR = {
+							ROOT = { NOT = { has_character_flag = flag_anti_personnel_tactics } }
+							persistent_event_target:my_armor = { has_artifact_flag = anti_personnel_resistance }
+						}
+					}
+				}
+				modifier = {
+					factor = 5
+					FROM = {
+						has_character_flag = flag_melee_tactics
+						persistent_event_target:my_weapon = { has_artifact_flag = melee_bonus }
+						ROOT = {
+							OR = {
+								NOT = { has_character_flag = flag_in_vehicle }
+								NOT = { persistent_event_target:my_vehicle = { has_artifact_flag = melee_vulnerable } }
+							}
+						}
+						OR = {
+							ROOT = { NOT = { has_character_flag = flag_anti_personnel_tactics } }
+							persistent_event_target:my_armor = { has_artifact_flag = anti_personnel_resistance }
+						}
+					}
+				}
+				# Vehicle melee versus infantry
+				modifier = {
+					factor = 10
+					FROM = {
+						has_character_flag = flag_melee_vehicle_tactics
+						ROOT = { NOT = { has_character_flag = flag_in_vehicle } }
+						OR = {
+							ROOT = { NOT = { has_character_flag = flag_anti_vehicle_tactics } }
+							persistent_event_target:my_vehicle = { has_artifact_flag = anti_vehicle_resistance }
+						}
+					}
+				}
+				# Vehicle melee versus melee vulnerable
+				modifier = {
+					factor = 2
+					FROM = {
+						has_character_flag = flag_melee_vehicle_tactics
+						ROOT = {
+							has_character_flag = flag_in_vehicle
+							persistent_event_target:my_vehicle = { has_artifact_flag = melee_vulnerable }
+						}
+						OR = {
+							ROOT = { NOT = { has_character_flag = flag_anti_vehicle_tactics } }
+							persistent_event_target:my_vehicle = { has_artifact_flag = anti_vehicle_resistance }
+						}
+					}
+				}
+				# Vehicle melee with melee bonus
+				modifier = {
+					factor = 5
+					FROM = {
+						has_character_flag = flag_melee_vehicle_tactics
+						persistent_event_target:my_vehicle = { has_artifact_flag = melee_bonus }
+						OR = {
+							ROOT = { NOT = { has_character_flag = flag_anti_vehicle_tactics } }
+							persistent_event_target:my_vehicle = { has_artifact_flag = anti_vehicle_resistance }
+						}
+					}
+				}
+				modifier = {
+					factor = 10
+					FROM = {
+						has_character_flag = flag_melee_vehicle_tactics
+						persistent_event_target:my_vehicle = { has_artifact_flag = melee_bonus }
+						ROOT = {
+							has_character_flag = flag_in_vehicle
+							persistent_event_target:my_vehicle = { has_artifact_flag = melee_vulnerable }
+						}
+						OR = {
+							ROOT = { NOT = { has_character_flag = flag_anti_vehicle_tactics } }
+							persistent_event_target:my_vehicle = { has_artifact_flag = anti_vehicle_resistance }
+						}
+					}
+				}
+
+				# Anti-personnel against infantry
+				modifier = {
+					factor = 2
+					FROM = {
+						has_character_flag = flag_anti_personnel_tactics
+						ROOT = { NOT = { has_character_flag = flag_in_vehicle } }
+					}
+				}
+				modifier = {
+					factor = 5
+					FROM = {
+						has_character_flag = flag_anti_personnel_tactics
+						ROOT = {
+							NOT = { has_character_flag = flag_in_vehicle }
+							NOT = { persistent_event_target:my_armor = { has_artifact_flag = anti_personnel_resistance } }
+						}
+					}
+				}
+				# Anti-personnel against a vehicle with anti-personnel vulnerability
+				modifier = {
+					factor = 5
+					FROM = {
+						has_character_flag = flag_anti_personnel_tactics
+						ROOT = {
+							has_character_flag = flag_in_vehicle
+							persistent_event_target:my_vehicle = { has_artifact_flag = anti_personnel_vulnerable }
+						}
+					}
+				}
+				# Anti-personnel with anti-personnel bonus
+				modifier = {
+					factor = 5
+					FROM = {
+						OR = {
+							AND = {
+								has_character_flag = flag_anti_personnel_tactics
+								has_character_flag = flag_in_vehicle
+								persistent_event_target:my_vehicle = { has_artifact_flag = anti_personnel_bonus }
+							}
+							AND = {
+								NOT = { has_character_flag = flag_in_vehicle }
+								persistent_event_target:my_weapon = { has_artifact_flag = anti_personnel_bonus }
+							}
+						}
+						ROOT = {
+							OR = {
+								NOT = { has_character_flag = flag_in_vehicle }
+								persistent_event_target:my_vehicle = { has_artifact_flag = anti_personnel_vulnerable }
+							}
+						}
+					}
+				}
+				# Anti-personnel with a sniper rifle against infantry in cover
+				modifier = {
+					factor = 3
+					FROM = {
+						has_character_flag = flag_anti_personnel_tactics
+						NOT = { has_character_flag = flag_in_vehicle }
+						persistent_event_target:my_weapon = { has_artifact_flag = sniper_rifle }
+						NOT = { has_character_flag = flag_interior }
+					}
+					NOT = { has_character_flag = flag_in_vehicle }
+					has_character_flag = flag_anti_personnel_tactics
+				}
+				# Anti-personnel with an assault rifle against infantry out of cover
+				modifier = {
+					factor = 3
+					FROM = {
+						has_character_flag = flag_anti_personnel_tactics
+						NOT = { has_character_flag = flag_in_vehicle }
+						persistent_event_target:my_weapon = { has_artifact_flag = assault_rifle }
+					}
+					NOT = { has_character_flag = flag_in_vehicle }
+					OR = {
+						has_character_flag = flag_melee_tactics
+						has_character_flag = flag_anti_vehicle_tactics
+					}
+				}
+
+				# Anti-vehicle against vehicle
+				modifier = {
+					factor = 2
+					FROM = {
+						has_character_flag = flag_anti_vehicle_tactics
+						ROOT = { has_character_flag = flag_in_vehicle }
+					}
+				}
+				modifier = {
+					factor = 5
+					FROM = {
+						has_character_flag = flag_anti_vehicle_tactics
+						ROOT = {
+							has_character_flag = flag_in_vehicle
+							NOT = { persistent_event_target:my_vehicle = { has_artifact_flag = anti_vehicle_resistance } }
+						}
+					}
+				}
+				# Anti-vehicle against anti-personnel infantry (blowing away cover)
+				modifier = {
+					factor = 10
+					FROM = {
+						has_character_flag = flag_anti_vehicle_tactics
+						ROOT = {
+							NOT = { has_character_flag = flag_in_vehicle }
+							has_character_flag = flag_anti_personnel_tactics
+						}
+					}
+				}
+				# Anti-vehicle bonus
+				modifier = {
+					factor = 5
+					FROM = {
+						OR = {
+							AND = {
+								has_character_flag = flag_anti_vehicle_tactics
+								has_character_flag = flag_in_vehicle
+								persistent_event_target:my_vehicle = { has_artifact_flag = anti_vehicle_bonus }
+							}
+							AND = {
+								NOT = { has_character_flag = flag_in_vehicle }
+								persistent_event_target:my_weapon = { has_artifact_flag = anti_vehicle_bonus }
+							}
+						}
+						ROOT = { has_character_flag = flag_in_vehicle }
+					}
+				}
+
+				# Strength matters in melee
+				modifier = {
+					factor = 4
+					FROM = {
+						has_character_flag = flag_melee_tactics
+						OR = {
+							trait = strong
+							persistent_event_target:my_armor = { has_artifact_flag = power_armor }
+						}
+						OR = {
+							ROOT = { NOT = { has_character_flag = flag_anti_personnel_tactics } }
+							persistent_event_target:my_armor = { has_artifact_flag = anti_personnel_resistance }
+						}
+					}
+				}
+				modifier = {
+					factor = 0.25
+					FROM = {
+						has_character_flag = flag_melee_tactics
+						trait = weak
+						NOT = { persistent_event_target:my_armor = { has_artifact_flag = power_armor } }
+					}
+				}
+
+				# Flight is a perfect defense against melee
+				modifier = {
+					factor = 0
+					FROM = {
+						OR = {
+							has_character_flag = flag_melee_tactics
+							has_character_flag = flag_melee_vehicle_tactics
+						}
+						NOT = { has_character_flag = flag_interior }
+					}
+					NOT = { has_character_flag = flag_in_vehicle }
+					NOT = { has_character_flag = flag_melee_tactics }
+					persistent_event_target:my_armor = { has_artifact_flag = jetpack }
+				}
+				# And a not-so-perfect defense against all ranged weapons except assault rifles
+				modifier = {
+					factor = 0.25
+					FROM = {
+						has_character_flag = flag_anti_personnel_tactics
+						NOT = { has_character_flag = flag_in_vehicle }
+						NOT = { persistent_event_target:my_weapon = { has_artifact_flag = assault_rifle } }
+						NOT = { has_character_flag = flag_interior }
+					}
+					NOT = { has_character_flag = flag_in_vehicle }
+					NOT = { has_character_flag = flag_melee_tactics }
+					persistent_event_target:my_armor = { has_artifact_flag = jetpack }
+				}
+				log = "[Root.GetBestName] lost the round, trigger duel.3 for [From.GetBestName]."
+				FROM = { character_event = { id = duel.3 } }
+			}
+			# ROOT successfully withdraws
+			20 = {
+				modifier = {
+					factor = 0
+					NOT = { has_character_flag = flag_withdrawing }
+				}
+				# On an open field, vehicles are faster than walkers, which are faster than infantry
+				modifier = {
+					factor = 20
+					has_character_flag = flag_open_field
+					has_character_flag = flag_withdrawing
+					has_character_flag = flag_in_vehicle
+					persistent_event_target:my_vehicle = { NOT = { has_artifact_flag = walker } }
+					FROM = {
+						NOT = {
+							AND = {
+								has_character_flag = flag_melee_vehicle_tactics # Melee functions as a tie-breaker
+								has_character_flag = flag_in_vehicle
+								persistent_event_target:my_vehicle = { NOT = { has_artifact_flag = walker } }
+							}
+						}
+					}
+				}
+				modifier = {
+					factor = 20
+					has_character_flag = flag_open_field
+					has_character_flag = flag_withdrawing
+					has_character_flag = flag_in_vehicle
+					persistent_event_target:my_vehicle = { has_artifact_flag = walker }
+					FROM = {
+						NOR = {
+							AND = {
+								has_character_flag = flag_in_vehicle
+								persistent_event_target:my_vehicle = { NOT = { has_artifact_flag = walker } }
+							}
+							AND = {
+								has_character_flag = flag_melee_vehicle_tactics # Melee functions as a tie-breaker
+								has_character_flag = flag_in_vehicle
+								persistent_event_target:my_vehicle = { has_artifact_flag = walker }
+							}
+						}
+					}
+				}
+				modifier = {
+					factor = 20
+					has_character_flag = flag_open_field
+					has_character_flag = flag_withdrawing
+					NOT = { has_character_flag = flag_in_vehicle }
+					persistent_event_target:my_vehicle = { has_artifact_flag = walker }
+					FROM = {
+						NOR = {
+							has_character_flag = flag_in_vehicle
+							has_character_flag = flag_melee_tactics
+						}
+					}
+				}
+
+				# In an interior environment, infantry have the advantage over walkers
+				modifier = {
+					factor = 20
+					has_character_flag = flag_interior
+					has_character_flag = flag_withdrawing
+					NOT = { has_character_flag = flag_in_vehicle }
+					FROM = { NOT = { has_character_flag = flag_melee_tactics } }
+				}
+				modifier = {
+					factor = 20
+					has_character_flag = flag_interior
+					has_character_flag = flag_withdrawing
+					has_character_flag = flag_in_vehicle
+					FROM = {
+						has_character_flag = flag_in_vehicle
+						NOT = { has_character_flag = flag_melee_vehicle_tactics }
+					}
+				}
+
+				# In an urban environment, walkers have an advantage over infantry, who have an advantage over other vehicles
+				modifier = {
+					factor = 20
+					NOT = { has_character_flag = flag_open_field }
+					NOT = { has_character_flag = flag_interior }
+					has_character_flag = flag_withdrawing
+					has_character_flag = flag_in_vehicle
+					persistent_event_target:my_vehicle = { has_artifact_flag = walker }
+					FROM = {
+						NOT = {
+							AND = {
+								has_character_flag = flag_in_vehicle
+								persistent_event_target:my_vehicle = { has_artifact_flag = walker }
+								has_character_flag = flag_melee_vehicle_tactics
+							}
+						}
+					}
+				}
+				modifier = {
+					factor = 20
+					NOT = { has_character_flag = flag_open_field }
+					NOT = { has_character_flag = flag_interior }
+					has_character_flag = flag_withdrawing
+					NOT = { has_character_flag = flag_in_vehicle }
+					FROM = {
+						NOR = {
+							AND = {
+								has_character_flag = flag_in_vehicle
+								persistent_event_target:my_vehicle = { has_artifact_flag = walker }
+							}
+							AND = {
+								NOT = { has_character_flag = flag_in_vehicle }
+								has_character_flag = flag_melee_tactics
+							}
+						}
+					}
+				}
+				modifier = {
+					factor = 20
+					NOT = { has_character_flag = flag_open_field }
+					NOT = { has_character_flag = flag_interior }
+					has_character_flag = flag_withdrawing
+					has_character_flag = flag_in_vehicle
+					NOT = { persistent_event_target:my_vehicle = { has_artifact_flag = walker } }
+					FROM = {
+						has_character_flag = flag_in_vehicle
+						NOT = { persistent_event_target:my_vehicle = { has_artifact_flag = walker } }
+						NOT = { has_character_flag = flag_melee_vehicle_tactics }
+					}
+				}
+				log = "[Root.GetBestName] successfully withdrew, trigger duel.41 for [From.GetBestName]."
+				FROM = { character_event = { id = duel.41 } }
+			}
+			# FROM successfully withdraws
+			20 = {
+				modifier = {
+					factor = 0
+					FROM = { NOT = { has_character_flag = flag_withdrawing } }
+				}
+				# On an open field, vehicles are faster than walkers, which are faster than infantry
+				modifier = {
+					factor = 20
+					FROM = {
+						has_character_flag = flag_open_field
+						has_character_flag = flag_withdrawing
+						has_character_flag = flag_in_vehicle
+						persistent_event_target:my_vehicle = { NOT = { has_artifact_flag = walker } }
+						ROOT = {
+							NOT = {
+								AND = {
+									has_character_flag = flag_melee_vehicle_tactics # Melee functions as a tie-breaker
+									has_character_flag = flag_in_vehicle
+									persistent_event_target:my_vehicle = { NOT = { has_artifact_flag = walker } }
+								}
+							}
+						}
+					}
+				}
+				modifier = {
+					factor = 20
+					FROM = {
+						has_character_flag = flag_open_field
+						has_character_flag = flag_withdrawing
+						has_character_flag = flag_in_vehicle
+						persistent_event_target:my_vehicle = { has_artifact_flag = walker }
+						ROOT = {
+							NOR = {
+								AND = {
+									has_character_flag = flag_in_vehicle
+									persistent_event_target:my_vehicle = { NOT = { has_artifact_flag = walker } }
+								}
+								AND = {
+									has_character_flag = flag_melee_vehicle_tactics # Melee functions as a tie-breaker
+									has_character_flag = flag_in_vehicle
+									persistent_event_target:my_vehicle = { has_artifact_flag = walker }
+								}
+							}
+						}
+					}
+				}
+				modifier = {
+					factor = 20
+					FROM = {
+						has_character_flag = flag_open_field
+						has_character_flag = flag_withdrawing
+						NOT = { has_character_flag = flag_in_vehicle }
+						persistent_event_target:my_vehicle = { has_artifact_flag = walker }
+						ROOT = {
+							NOR = {
+								has_character_flag = flag_in_vehicle
+								has_character_flag = flag_melee_tactics
+							}
+						}
+					}
+				}
+
+				# In an interior environment, infantry have the advantage over walkers
+				modifier = {
+					factor = 20
+					FROM = {
+						has_character_flag = flag_interior
+						has_character_flag = flag_withdrawing
+						NOT = { has_character_flag = flag_in_vehicle }
+						ROOT = { NOT = { has_character_flag = flag_melee_tactics } }
+					}
+				}
+				modifier = {
+					factor = 20
+					FROM = {
+						has_character_flag = flag_interior
+						has_character_flag = flag_withdrawing
+						has_character_flag = flag_in_vehicle
+						ROOT = {
+							has_character_flag = flag_in_vehicle
+							NOT = { has_character_flag = flag_melee_vehicle_tactics }
+						}
+					}
+				}
+
+				# In an urban environment, walkers have an advantage over infantry, who have an advantage over other vehicles
+				modifier = {
+					factor = 20
+					FROM = {
+						NOT = { has_character_flag = flag_open_field }
+						NOT = { has_character_flag = flag_interior }
+						has_character_flag = flag_withdrawing
+						has_character_flag = flag_in_vehicle
+						persistent_event_target:my_vehicle = { has_artifact_flag = walker }
+						ROOT = {
+							NOT = {
+								AND = {
+									has_character_flag = flag_in_vehicle
+									persistent_event_target:my_vehicle = { has_artifact_flag = walker }
+									has_character_flag = flag_melee_vehicle_tactics
+								}
+							}
+						}
+					}
+				}
+				modifier = {
+					factor = 20
+					FROM = {
+						NOT = { has_character_flag = flag_open_field }
+						NOT = { has_character_flag = flag_interior }
+						has_character_flag = flag_withdrawing
+						NOT = { has_character_flag = flag_in_vehicle }
+						ROOT = {
+							NOR = {
+								AND = {
+									has_character_flag = flag_in_vehicle
+									persistent_event_target:my_vehicle = { has_artifact_flag = walker }
+								}
+								AND = {
+									NOT = { has_character_flag = flag_in_vehicle }
+									has_character_flag = flag_melee_tactics
+								}
+							}
+						}
+					}
+				}
+				modifier = {
+					factor = 20
+					FROM = {
+						NOT = { has_character_flag = flag_open_field }
+						NOT = { has_character_flag = flag_interior }
+						has_character_flag = flag_withdrawing
+						has_character_flag = flag_in_vehicle
+						NOT = { persistent_event_target:my_vehicle = { has_artifact_flag = walker } }
+						ROOT = {
+							has_character_flag = flag_in_vehicle
+							NOT = { persistent_event_target:my_vehicle = { has_artifact_flag = walker } }
+							NOT = { has_character_flag = flag_melee_vehicle_tactics }
+						}
+					}
+				}
+				log = "[From.GetBestName] successfully withdrew, trigger duel.40 for [From.GetBestName]."
+				FROM = { character_event = { id = duel.40 } }
+			}
+		}
+	}
+}
+
+# You won the round!
+character_event = {
+	id = duel.3
+	desc = "EVTDESCNEWDUEL3"
+	picture = GFX_evt_siege
+	border = GFX_event_normal_frame_war
+	is_triggered_only = yes
+
+	option = {
+		name = "EVTOPTANEWDUEL3"
+		FROM = { character_event = { id = duel.10 } }
+		log = "duel.3 fired for [Root.GetBestName], firing duel.10 for [From.GetBestName]."
+	}
+}
+# Bounce to get loser
+character_event = {
+	id = duel.4
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		FROM = { character_event = { id = duel.3 } }
+		log = "duel.4 fired for [Root.GetBestName], firing duel.3 for [From.GetBestName]."
+	}
+}
+
+# INFLICT INJURY ON LOSER
+character_event = {
+	id = duel.10
+	desc = "EVTDESCNEWDUEL10"
+	picture = GFX_evt_siege
+	border = GFX_event_normal_frame_war
+	is_triggered_only = yes
+
+	option = {
+		name = "EVTOPTANEWDUEL10"
+		random_list = {
+			65 = {
+				# Taking a rocket to the face will usually fuck you up pretty badly. Cover helps a little.
+				modifier = {
+					factor = 0.5
+					FROM = { has_character_flag = flag_anti_vehicle_tactics }
+					NOT = { has_character_flag = flag_in_vehicle }
+				}
+				modifier = {
+					factor = 0.2
+					FROM = { has_character_flag = flag_anti_vehicle_tactics }
+					NOT = { has_character_flag = flag_in_vehicle }
+					NOT = { has_character_flag = flag_anti_personnel_tactics }
+				}
+				modifier = {
+					factor = 0
+					OR = {
+						trait = wounded
+						trait = full_cybernetic_conversion
+					}
+					OR = {
+						trait = damaged_cybernetics
+						NOR = {
+							trait = cybernetic_limb
+							trait = cybernetic_leg
+							trait = cybernetic_skeleton
+							trait = full_cybernetic_conversion
+						}
+					}
+				}
+				tooltip = { inflict_minor_injury_effect = yes }
+				hidden_tooltip = { character_event = { id = duel.11 } }
+				log = "Minor injury inflicted."
+			}
+			20 = {
+				modifier = {
+					factor = 0
+					trait = maimed
+					OR = {
+						trait = one_eyed
+						trait = blinded
+						NOT = { has_dlc = "Reapers" }
+					}
+					OR = {
+						trait = disfigured
+						NOT = { has_dlc = "Reapers" }
+					}
+				}
+				tooltip = { inflict_moderate_injury_effect = yes }
+				hidden_tooltip = { character_event = { id = duel.13 } }
+				log = "Moderate injury inflicted."
+			}
+			10 = {
+				modifier = {
+					factor = 0
+					NOT = { has_character_flag = flag_in_vehicle }
+				}
+				modifier = {
+					factor = 0
+					NOT = { FROM = { has_character_flag = flag_anti_vehicle_tactics } }
+					NOT = { FROM = { has_character_flag = flag_melee_vehicle_tactics } }
+				}
+				tooltip = { persistent_event_target:my_vehicle = { destroy_artifact = yes } }
+				hidden_tooltip = { character_event = { id = duel.17 } }
+				log = "Vehicle destroyed."
+			}
+			10 = {
+				modifier = {
+					factor = 0.1
+					FROM = { has_character_flag = flag_friendly_duel }
+				}
+				modifier = {
+					factor = 0.5
+					FROM = {
+						has_character_flag = flag_anti_personnel_tactics
+						persistent_event_target:my_weapon = {
+							has_artifact_flag = anti_personnel
+							has_artifact_flag = less_lethal
+						}
+					}
+				}
+				modifier = {
+					factor = 0.5
+					FROM = {
+						has_character_flag = flag_melee_tactics
+						persistent_event_target:my_weapon = {
+							has_artifact_flag = melee
+							has_artifact_flag = less_lethal
+						}
+					}
+				}
+				modifier = {
+					factor = 0.5
+					persistent_event_target:my_armor = { has_artifact_flag = casualty_prevention }
+				}
+				tooltip = { inflict_major_injury_effect = yes }
+				hidden_tooltip = { character_event = { id = duel.15 } }
+				log = "Major injury inflicted."
+			}
+			5 = {
+				modifier = {
+					factor = 0.05
+					FROM = { has_character_flag = flag_friendly_duel }
+				}
+				modifier = {
+					factor = 0.25
+					FROM = {
+						has_character_flag = flag_anti_personnel_tactics
+						persistent_event_target:my_weapon = {
+							has_artifact_flag = anti_personnel
+							has_artifact_flag = less_lethal
+						}
+					}
+				}
+				modifier = {
+					factor = 0.25
+					FROM = {
+						has_character_flag = flag_melee_tactics
+						persistent_event_target:my_weapon = {
+							has_artifact_flag = melee
+							has_artifact_flag = less_lethal
+						}
+					}
+				}
+				modifier = {
+					factor = 0.25
+					persistent_event_target:my_armor = { has_artifact_flag = casualty_prevention }
+				}
+				modifier = {
+					factor = 2
+					trait = wounded
+				}
+				modifier = {
+					factor = 2
+					trait = damaged_cybernetics
+				}
+				modifier = {
+					factor = 2
+					trait = maimed
+				}
+				modifier = {
+					factor = 2
+					trait = severely_injured
+				}
+				tooltip = { death = { death_reason = death_duel killer = FROM } }
+				hidden_tooltip = { FROM = { character_event = { id = duel.20 } } }
+				log = "Killed."
+			}
+		}
+	}
+}
+# You took a minor hit
+character_event = {
+	id = duel.11
+	desc = "EVTDESCNEWDUEL11"
+	picture = GFX_evt_siege
+	border = GFX_event_normal_frame_war
+	is_triggered_only = yes
+	show_from_from = yes
+
+	# Fight on!
+	option = {
+		name = "EVTOPTANEWDUEL11"
+		inflict_minor_injury_effect = yes
+		hidden_tooltip = { FROM = { FROM = { character_event = { id = duel.12 } } } }
+		ai_chance = {
+			factor = 75
+			modifier = {
+				factor = 2
+				trait = brave
+			}
+			modifier = {
+				factor = 0.5
+				trait = craven
+			}
+			modifier = {
+				factor = 0.8
+				trait = wounded
+			}
+			modifier = {
+				factor = 0.8
+				trait = damaged_cybernetics
+			}
+			modifier = {
+				factor = 0.5
+				trait = maimed
+			}
+			modifier = {
+				factor = 0.2
+				trait = severely_injured
+			}
+		}
+	}
+	# Surrender
+	option = {
+		name = "EVTOPTBNEWDUEL11"
+		trigger = { NOT = { has_character_flag = flag_no_surrender } }
+		inflict_minor_injury_effect = yes
+		hidden_tooltip = { FROM = { FROM = { character_event = { id = duel.30 } } } }
+		ai_chance = { factor = 25 }
+	}
+}
+# Your opponent took a minor injury, but fights on. Next round!
+character_event = {
+	id = duel.12
+	desc = "EVTDESCNEWDUEL12"
+	picture = GFX_evt_siege
+	border = GFX_event_normal_frame_war
+	is_triggered_only = yes
+
+	option = {
+		name = "EVTOPTANEWDUEL12"
+		hidden_tooltip = { FROM = { character_event = { id = duel.0 } } }
+	}
+}
+# You took a moderate hit
+character_event = {
+	id = duel.13
+	desc = "EVTDESCNEWDUEL13"
+	picture = GFX_evt_siege
+	border = GFX_event_normal_frame_war
+	is_triggered_only = yes
+	show_from_from = yes
+
+	# Fight on!
+	option = {
+		name = "EVTOPTANEWDUEL11"
+		inflict_moderate_injury_effect = yes
+		hidden_tooltip = { FROM = { FROM = { character_event = { id = duel.14 } } } }
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				trait = brave
+			}
+			modifier = {
+				factor = 0.5
+				trait = craven
+			}
+			modifier = {
+				factor = 0.8
+				trait = wounded
+			}
+			modifier = {
+				factor = 0.8
+				trait = damaged_cybernetics
+			}
+			modifier = {
+				factor = 0.5
+				trait = maimed
+			}
+			modifier = {
+				factor = 0.2
+				trait = severely_injured
+			}
+		}
+	}
+	# Surrender
+	option = {
+		name = "EVTOPTBNEWDUEL11"
+		trigger = { NOT = { has_character_flag = flag_no_surrender } }
+		inflict_moderate_injury_effect = yes
+		hidden_tooltip = { FROM = { FROM = { character_event = { id = duel.30 } } } }
+		ai_chance = { factor = 50 }
+	}
+}
+# Your opponent took a moderate injury, but fights on. Next round!
+character_event = {
+	id = duel.14
+	desc = "EVTDESCNEWDUEL14"
+	picture = GFX_evt_siege
+	border = GFX_event_normal_frame_war
+	is_triggered_only = yes
+
+	option = {
+		name = "EVTOPTANEWDUEL12"
+		hidden_tooltip = { FROM = { character_event = { id = duel.0 } } }
+	}
+}
+# You took a major hit
+character_event = {
+	id = duel.15
+	desc = "EVTDESCNEWDUEL15"
+	picture = GFX_evt_siege
+	border = GFX_event_normal_frame_war
+	is_triggered_only = yes
+	show_from_from = yes
+
+	# Fight on!
+	option = {
+		trigger = { has_character_flag = flag_no_surrender }
+		name = "EVTOPTANEWDUEL15"
+		inflict_major_injury_effect = yes
+		hidden_tooltip = { FROM = { FROM = { character_event = { id = duel.16 } } } }
+	}
+	# Surrender
+	option = {
+		trigger = { NOT = { has_character_flag = flag_no_surrender } }
+		name = "EVTOPTBNEWDUEL15"
+		inflict_major_injury_effect = yes
+		hidden_tooltip = { FROM = { FROM = { character_event = { id = duel.30 } } } }
+	}
+}
+# Your opponent took a major injury, but fights on. Next round!
+character_event = {
+	id = duel.16
+	desc = "EVTDESCNEWDUEL16"
+	picture = GFX_evt_siege
+	border = GFX_event_normal_frame_war
+	is_triggered_only = yes
+
+	option = {
+		name = "EVTOPTANEWDUEL12"
+		hidden_tooltip = { FROM = { character_event = { id = duel.0 } } }
+	}
+}
+# Your vehicle is destroyed
+character_event = {
+	id = duel.17
+	desc = "EVTDESCNEWDUEL17"
+	picture = GFX_evt_siege
+	border = GFX_event_normal_frame_war
+	is_triggered_only = yes
+
+	option = {
+		name = "EVTOPTANEWDUEL11"
+		tooltip = { persistent_event_target:my_vehicle = { destroy_artifact = yes } }
+		clr_character_flag = flag_in_vehicle
+		hidden_tooltip = { FROM = { FROM = { character_event = { id = duel.18 } } } }
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2
+				trait = brave
+			}
+			modifier = {
+				factor = 0.5
+				trait = craven
+			}
+			modifier = {
+				factor = 0.8
+				trait = wounded
+			}
+			modifier = {
+				factor = 0.8
+				trait = damaged_cybernetics
+			}
+			modifier = {
+				factor = 0.5
+				trait = maimed
+			}
+			modifier = {
+				factor = 0.2
+				trait = severely_injured
+			}
+			modifier = {
+				factor = 0
+				FROM = { FROM = { has_character_flag = flag_in_vehicle } }
+				NOT = {
+					any_artifact = {
+						is_artifact_equipped = yes
+						has_artifact_flag = anti_vehicle
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTBNEWDUEL11"
+		tooltip = { persistent_event_target:my_vehicle = { destroy_artifact = yes } }
+		set_character_flag = flag_vehicle_destroyed
+		hidden_tooltip = { FROM = { FROM = { character_event = { id = duel.30 } } } }
+		ai_chance = { factor = 75 }
+	}
+}
+# Your opponent's vehicle was destroyed, but they fight on. Next round!
+character_event = {
+	id = duel.18
+	desc = "EVTDESCNEWDUEL18"
+	picture = GFX_evt_siege
+	border = GFX_event_normal_frame_war
+	is_triggered_only = yes
+
+	option = {
+		name = "EVTOPTANEWDUEL18"
+		FROM = {
+			persistent_event_target:my_vehicle = { destroy_artifact = yes }
+			hidden_tooltip = {
+				clr_character_flag = flag_in_vehicle
+				random_artifact = {
+					limit = {
+						is_artifact_equipped = yes
+						has_artifact_flag = weapon
+					}
+					FROM = { save_persistent_event_target = { name = my_weapon scope = PREV } }
+				}
+				random_artifact = {
+					limit = {
+						is_artifact_equipped = yes
+						has_artifact_flag = armor
+					}
+					FROM = { save_persistent_event_target = { name = my_armor scope = PREV } }
+				}
+				character_event = { id = duel.0 }
+			}
+		}
+	}
+}
+# Bounce to get killer
+character_event = {
+	id = duel.20
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = { FROM = { character_event = { id = duel.21 } } }
+}
+# You died
+character_event = {
+	id = duel.21
+	desc = "EVTDESCNEWDUEL21"
+	picture = GFX_evt_siege
+	border = GFX_event_normal_frame_war
+	show_from_from = yes
+	is_triggered_only = yes
+
+	option = {
+		name = "EVTOPTANEWDUEL21"
+		if = {
+			limit = {
+				FROM = {
+					event_target:target_mastermind = { always = yes }
+					OR = {
+						has_character_flag = flag_duel_hunt_assassin
+						has_character_flag = flag_duel_close_quarters_assassin
+					}
+				}
+			}
+			death = { death_reason = death_murder killer = event_target:target_mastermind }
+		}
+		else_if = {
+			limit = {
+				OR = {
+					has_character_flag = flag_duel_hunt_assassin
+					has_character_flag = flag_duel_close_quarters_assassin
+				}
+			}
+			death = { death_reason = death_self_defense killer = FROM }
+		}
+		else = { death = { death_reason = death_duel killer = FROM } }
+		set_character_flag = flag_defeat
+		hidden_tooltip = {
+			FROM = {
+				set_character_flag = flag_victory
+				character_event = { id = duel.25 }
+			}
+			liege = { character_event = { id = duel.22 } }
+			any_vassal = { character_event = { id = duel.22 } }
+			spouse = {
+				if = {
+					limit = {
+						ROOT = { is_female = yes }
+						opinion = { who = ROOT value = 0 }
+					}
+					opinion = { who = FROM modifier = opinion_killed_my_wife }
+				}
+				if = {
+					limit = {
+						ROOT = { is_female = no }
+						opinion = { who = ROOT value = 0 }
+					}
+					opinion = { who = FROM modifier = opinion_killed_my_husband }
+				}
+				character_event = { id = duel.23 }
+			}
+			any_lover = {
+				if = {
+					limit = { opinion = { who = ROOT value = 0 } }
+					opinion = { who = FROM modifier = opinion_killed_my_lover }
+				}
+				character_event = { id = duel.23 }
+			}
+			any_sibling = {
+				if = {
+					limit = {
+						ROOT = { is_female = yes }
+						opinion = { who = ROOT value = 0 }
+					}
+					opinion = { who = FROM modifier = opinion_killed_my_sister }
+				}
+				if = {
+					limit = {
+						ROOT = { is_female = no }
+						opinion = { who = ROOT value = 0 }
+					}
+					opinion = { who = FROM modifier = opinion_killed_my_brother }
+				}
+				character_event = { id = duel.23 }
+			}
+			any_child = {
+				if = {
+					limit = {
+						ROOT = { is_female = yes }
+						opinion = { who = ROOT value = 0 }
+					}
+					opinion = { who = FROM modifier = opinion_killed_my_mother }
+				}
+				if = {
+					limit = {
+						ROOT = { is_female = no }
+						opinion = { who = ROOT value = 0 }
+					}
+					opinion = { who = FROM modifier = opinion_killed_my_father }
+				}
+				character_event = { id = duel.23 }
+			}
+			father = {
+				if = {
+					limit = {
+						ROOT = { is_female = yes }
+						opinion = { who = ROOT value = 0 }
+					}
+					opinion = { who = FROM modifier = opinion_killed_my_daughter }
+				}
+				if = {
+					limit = {
+						ROOT = { is_female = no }
+						opinion = { who = ROOT value = 0 }
+					}
+					opinion = { who = FROM modifier = opinion_killed_my_son }
+				}
+				character_event = { id = duel.23 }
+			}
+			mother = {
+				if = {
+					limit = {
+						ROOT = { is_female = yes }
+						opinion = { who = ROOT value = 0 }
+					}
+					opinion = { who = FROM modifier = opinion_killed_my_daughter }
+				}
+				if = {
+					limit = {
+						ROOT = { is_female = no }
+						opinion = { who = ROOT value = 0 }
+					}
+					opinion = { who = FROM modifier = opinion_killed_my_son }
+				}
+				character_event = { id = duel.23 }
+			}
+			any_friend = {
+				if = {
+					limit = { opinion = { who = ROOT value = 0 } }
+					opinion = { who = FROM modifier = opinion_killed_my_friend }
+				}
+				character_event = { id = duel.23 }
+			}
+		}
+
+		# Clean up flags and event targets
+		clear_persistent_event_target = my_armor
+		clear_persistent_event_target = my_vehicle
+		clear_persistent_event_target = my_weapon
+		clr_character_flag = flag_busy
+		clr_character_flag = flag_battlefield
+		clr_character_flag = flag_enemy_spotted
+		clr_character_flag = flag_enemy_analyzed
+		clr_character_flag = flag_in_vehicle
+		clr_character_flag = flag_friendly_duel
+		clr_character_flag = flag_no_quarter
+		clr_character_flag = flag_infantry_duel
+		clr_character_flag = flag_walker_duel
+		clr_character_flag = flag_open_field
+		clr_character_flag = flag_interior
+		clr_character_flag = flag_no_guns
+		clr_character_flag = flag_no_retreat
+		clr_character_flag = flag_no_surrender
+		clr_character_flag = flag_melee_tactics
+		clr_character_flag = flag_melee_vehicle_tactics
+		clr_character_flag = flag_anti_personnel_tactics
+		clr_character_flag = flag_anti_vehicle_tactics
+		clr_character_flag = flag_withdrawing
+		clr_character_flag = flag_won_round
+		clr_character_flag = flag_lost_round
+		clr_character_flag = flag_first_round
+	}
+}
+# Your vassal and/or liege was killed in a duel
+character_event = {
+	id = duel.22
+	desc = "EVTDESCNEWDUEL22"
+	picture = GFX_evt_death
+	border = GFX_event_normal_frame_war
+	show_from_from = yes
+	is_triggered_only = yes
+
+	trigger = { NOT = { character = FROMFROM } }
+
+	option = { name = "EVTOPTANEWDUEL22" }
+}
+# Someone relevant to you was killed in a duel
+character_event = {
+	id = duel.23
+	desc = "EVTDESCNEWDUEL22"
+	picture = GFX_evt_death
+	border = GFX_event_normal_frame_war
+	show_from_from = yes
+	is_triggered_only = yes
+
+	trigger = { NOT = { character = FROMFROM } }
+
+	option = {
+		# Vow revenge!
+		trigger = {
+			NOT = { FROM = { FROM = { has_character_flag = flag_friendly_duel } } }
+			NOT = { is_rival = ROOT }
+		}
+		name = "EVTOPTANEWDUEL23"
+		add_rival = FROMFROM
+		hidden_tooltip = { FROM = { FROM = { character_event = { id = duel.24 } } } }
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -99 } }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = FROMFROM value = 100 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = FROMFROM value = 90 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = FROMFROM value = 80 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = FROMFROM value = 70 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = FROMFROM value = 60 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = FROMFROM value = 50 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = FROMFROM value = 40 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = FROMFROM value = 30 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = FROMFROM value = 20 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = FROMFROM value = 10 }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROMFROM value = -9 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROMFROM value = -19 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROMFROM value = -29 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROMFROM value = -39 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROMFROM value = -49 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROMFROM value = -59 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROMFROM value = -69 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROMFROM value = -79 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROMFROM value = -89 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROMFROM value = -99 } }
+			}
+			modifier = {
+				factor = 4
+				trait = cold
+			}
+			modifier = {
+				factor = 0.25
+				trait = friendly
+			}
+			modifier = {
+				factor = 4
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.25
+				trait = carefree
+			}
+			modifier = {
+				factor = 2
+				trait = proud
+			}
+			modifier = {
+				factor = 0.5
+				trait = humble
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTBNEWDUEL23"
+		ai_chance = { factor = 50 }
+	}
+}
+# Someone has sworn vengeance on you
+character_event = {
+	id = duel.24
+	desc = "EVTDESCNEWDUEL24"
+	notification = yes
+	is_triggered_only = yes
+
+	option = { }
+}
+# Your opponent died
+character_event = {
+	id = duel.25
+	desc = "EVTDESCNEWDUEL25"
+	picture = GFX_evt_siege
+	border = GFX_event_normal_frame_war
+	is_triggered_only = yes
+
+	option = {
+		name = "EVTOPTANEWDUEL25"
+		# Killing people is stressful, at least the first time
+		if = {
+			limit = {
+				NOT = { has_education_martial_trigger = yes }
+				NOT = { has_character_flag = flag_has_killed_someone }
+			}
+			degrade_mood_effect = yes
+		}
+		set_character_flag = flag_has_killed_someone
+		hidden_tooltip = { character_event = { id = duel.100 } }
+	}
+}
+# Your opponent surrendered
+character_event = {
+	id = duel.30
+	desc = "EVTDESCNEWDUEL30"
+	picture = GFX_evt_siege
+	border = GFX_event_normal_frame_war
+	is_triggered_only = yes
+
+	# Let them go.
+	option = {
+		trigger = { NOT = { has_character_flag = flag_no_quarter } }
+		name = "EVTOPTANEWDUEL30"
+		set_character_flag = flag_victory
+		if = {
+			limit = { FROM = { has_character_flag = flag_vehicle_destroyed } }
+			FROM = {
+				persistent_event_target:my_vehicle = { destroy_artifact = yes }
+				clr_character_flag = flag_vehicle_destroyed
+			}
+		}
+		FROM = {
+			if = {
+				limit = { trait = proud }
+				opinion = { who = ROOT modifier = opinion_let_me_go_negative }
+			}
+			else = {
+				opinion = { who = ROOT modifier = opinion_let_me_go_positive }
+			}
+			set_character_flag = flag_defeat
+			hidden_tooltip = { character_event = { id = duel.31 } }
+		}
+		hidden_tooltip = { character_event = { id = duel.100 } }
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 2
+				trait = friendly
+			}
+			modifier = {
+				factor = 2
+				trait = carefree
+			}
+			modifier = {
+				factor = 2
+				trait = radical
+				religion = FROM
+			}
+			modifier = {
+				factor = 0.5
+				trait = pragmatic
+			}
+			modifier = {
+				factor = 2
+				trait = open_minded
+			}
+			modifier = {
+				factor = 0.5
+				trait = close_minded
+			}
+			modifier = {
+				factor = 0
+				trait = cold
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROM value = -99 } }
+			}
+			modifier = {
+				factor = 0
+				has_plot = plot_kill_character
+				plot_target_char = { character = FROM }
+			}
+			modifier = {
+				factor = 0
+				any_backed_character = {
+					has_plot = plot_kill_character
+					plot_target_char = { character = FROM }
+				}
+			}
+		}
+	}
+	# Take them prisoner
+	option = {
+		trigger = {
+			NOT = { has_character_flag = flag_friendly_duel }
+			NOT = { has_character_flag = flag_no_quarter }
+		}
+		name = "EVTOPTBNEWDUEL30"
+		set_character_flag = flag_victory
+		if = {
+			limit = { FROM = { has_character_flag = flag_vehicle_destroyed } }
+			FROM = {
+				persistent_event_target:my_vehicle = { destroy_artifact = yes }
+				clr_character_flag = flag_vehicle_destroyed
+			}
+		}
+		tooltip = { reverse_imprison = FROM }
+		FROM = {
+			set_character_flag = flag_defeat
+			hidden_tooltip = { character_event = { id = duel.32 } }
+		}
+		hidden_tooltip = { character_event = { id = duel.100 } }
+		ai_chance = {
+			factor = 70
+			modifier = {
+				factor = 10
+				any_current_enemy = { character = FROM }
+			}
+			modifier = {
+				factor = 10
+				liege = { any_current_enemy = { character = FROM } }
+			}
+			modifier = {
+				factor = 0
+				has_plot = plot_kill_character
+				plot_target_char = { character = FROM }
+			}
+			modifier = {
+				factor = 0
+				any_backed_character = {
+					has_plot = plot_kill_character
+					plot_target_char = { character = FROM }
+				}
+			}
+		}
+	}
+	# Kill them
+	option = {
+		trigger = { NOT = { has_character_flag = flag_friendly_duel } }
+		name = "EVTOPTCNEWDUEL30"
+		set_character_flag = flag_victory
+		# Killing people is stressful, at least the first time
+		if = {
+			limit = {
+				NOT = { has_education_martial_trigger = yes }
+				NOT = { has_character_flag = flag_has_killed_someone }
+			}
+			degrade_mood_effect = yes
+		}
+		set_character_flag = flag_has_killed_someone
+		if = {
+			limit = { FROM = { has_character_flag = flag_vehicle_destroyed } }
+			FROM = {
+				persistent_event_target:my_vehicle = { destroy_artifact = yes }
+				clr_character_flag = flag_vehicle_destroyed
+			}
+		}
+		tooltip = { FROM = { death = { death_reason = death_duel killer = ROOT } } }
+		FROM = {
+			set_character_flag = flag_defeat
+			hidden_tooltip = { character_event = { id = duel.33 } }
+		}
+		ai_chance = {
+			factor = 20
+			modifier = {
+				factor = 0.25
+				trait = friendly
+			}
+			modifier = {
+				factor = 4
+				trait = cold
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROM value = -99 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROM value = -89 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROM value = -79 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROM value = -69 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROM value = -59 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROM value = -49 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROM value = -39 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROM value = -29 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROM value = -19 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = FROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = FROM value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = FROM value = 20 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = FROM value = 30 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = FROM value = 40 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = FROM value = 50 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = FROM value = 60 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = FROM value = 70 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = FROM value = 80 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = FROM value = 90 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = FROM value = 100 }
+			}
+		}
+	}
+}
+# Your life has been spared
+character_event = {
+	id = duel.31
+	desc = "EVTDESCNEWDUEL31"
+	picture = GFX_evt_siege
+	border = GFX_event_normal_frame_war
+	is_triggered_only = yes
+
+	option = {
+		name = "EVTOPTANEWDUEL31"
+
+		# Clean up flags and event targets
+		clear_persistent_event_target = my_armor
+		clear_persistent_event_target = my_vehicle
+		clear_persistent_event_target = my_weapon
+		clr_character_flag = flag_busy
+		clr_character_flag = flag_battlefield
+		clr_character_flag = flag_enemy_spotted
+		clr_character_flag = flag_enemy_analyzed
+		clr_character_flag = flag_in_vehicle
+		clr_character_flag = flag_friendly_duel
+		clr_character_flag = flag_no_quarter
+		clr_character_flag = flag_infantry_duel
+		clr_character_flag = flag_walker_duel
+		clr_character_flag = flag_open_field
+		clr_character_flag = flag_interior
+		clr_character_flag = flag_no_guns
+		clr_character_flag = flag_no_retreat
+		clr_character_flag = flag_no_surrender
+		clr_character_flag = flag_melee_tactics
+		clr_character_flag = flag_melee_vehicle_tactics
+		clr_character_flag = flag_anti_personnel_tactics
+		clr_character_flag = flag_anti_vehicle_tactics
+		clr_character_flag = flag_withdrawing
+		clr_character_flag = flag_won_round
+		clr_character_flag = flag_lost_round
+		clr_character_flag = flag_first_round
+	}
+}
+# You've been taken prisoner
+character_event = {
+	id = duel.32
+	desc = "EVTDESCNEWDUEL32"
+	picture = GFX_evt_prison
+	border = GFX_event_normal_frame_war
+	is_triggered_only = yes
+
+	option = {
+		name = "EVTOPTANEWDUEL31"
+		imprison = FROM
+
+		# Clean up flags and event targets
+		clear_persistent_event_target = my_armor
+		clear_persistent_event_target = my_vehicle
+		clear_persistent_event_target = my_weapon
+		clr_character_flag = flag_busy
+		clr_character_flag = flag_battlefield
+		clr_character_flag = flag_enemy_spotted
+		clr_character_flag = flag_enemy_analyzed
+		clr_character_flag = flag_in_vehicle
+		clr_character_flag = flag_friendly_duel
+		clr_character_flag = flag_no_quarter
+		clr_character_flag = flag_infantry_duel
+		clr_character_flag = flag_walker_duel
+		clr_character_flag = flag_open_field
+		clr_character_flag = flag_interior
+		clr_character_flag = flag_no_guns
+		clr_character_flag = flag_no_retreat
+		clr_character_flag = flag_no_surrender
+		clr_character_flag = flag_melee_tactics
+		clr_character_flag = flag_melee_vehicle_tactics
+		clr_character_flag = flag_anti_personnel_tactics
+		clr_character_flag = flag_anti_vehicle_tactics
+		clr_character_flag = flag_withdrawing
+		clr_character_flag = flag_won_round
+		clr_character_flag = flag_lost_round
+		clr_character_flag = flag_first_round
+	}
+}
+# You've been executed
+character_event = {
+	id = duel.33
+	desc = "EVTDESCNEWDUEL33"
+	picture = GFX_evt_siege
+	border = GFX_event_normal_frame_war
+	show_from_from = yes
+	is_triggered_only = yes
+
+	option = {
+		name = "EVTOPTANEWDUEL33"
+		death = { death_reason = death_duel killer = FROM }
+		set_character_flag = flag_defeat
+		hidden_tooltip = {
+			FROM = {
+				set_character_flag = flag_victory
+				character_event = { id = duel.34 }
+			}
+			liege = { character_event = { id = duel.22 } }
+			any_vassal = { character_event = { id = duel.22 } }
+			spouse = {
+				if = {
+					limit = {
+						ROOT = { is_female = yes }
+						opinion = { who = ROOT value = 0 }
+					}
+					opinion = { who = FROM modifier = opinion_killed_my_wife }
+				}
+				if = {
+					limit = {
+						ROOT = { is_female = no }
+						opinion = { who = ROOT value = 0 }
+					}
+					opinion = { who = FROM modifier = opinion_killed_my_husband }
+				}
+				character_event = { id = duel.23 }
+			}
+			any_lover = {
+				if = {
+					limit = { opinion = { who = ROOT value = 0 } }
+					opinion = { who = FROM modifier = opinion_killed_my_lover }
+				}
+				character_event = { id = duel.23 }
+			}
+			any_sibling = {
+				if = {
+					limit = {
+						ROOT = { is_female = yes }
+						opinion = { who = ROOT value = 0 }
+					}
+					opinion = { who = FROM modifier = opinion_killed_my_sister }
+				}
+				if = {
+					limit = {
+						ROOT = { is_female = no }
+						opinion = { who = ROOT value = 0 }
+					}
+					opinion = { who = FROM modifier = opinion_killed_my_brother }
+				}
+				character_event = { id = duel.23 }
+			}
+			any_child = {
+				if = {
+					limit = {
+						ROOT = { is_female = yes }
+						opinion = { who = ROOT value = 0 }
+					}
+					opinion = { who = FROM modifier = opinion_killed_my_mother }
+				}
+				if = {
+					limit = {
+						ROOT = { is_female = no }
+						opinion = { who = ROOT value = 0 }
+					}
+					opinion = { who = FROM modifier = opinion_killed_my_father }
+				}
+				character_event = { id = duel.23 }
+			}
+			father = {
+				if = {
+					limit = {
+						ROOT = { is_female = yes }
+						opinion = { who = ROOT value = 0 }
+					}
+					opinion = { who = FROM modifier = opinion_killed_my_daughter }
+				}
+				if = {
+					limit = {
+						ROOT = { is_female = no }
+						opinion = { who = ROOT value = 0 }
+					}
+					opinion = { who = FROM modifier = opinion_killed_my_son }
+				}
+				character_event = { id = duel.23 }
+			}
+			mother = {
+				if = {
+					limit = {
+						ROOT = { is_female = yes }
+						opinion = { who = ROOT value = 0 }
+					}
+					opinion = { who = FROM modifier = opinion_killed_my_daughter }
+				}
+				if = {
+					limit = {
+						ROOT = { is_female = no }
+						opinion = { who = ROOT value = 0 }
+					}
+					opinion = { who = FROM modifier = opinion_killed_my_son }
+				}
+				character_event = { id = duel.23 }
+			}
+			any_friend = {
+				if = {
+					limit = { opinion = { who = ROOT value = 0 } }
+					opinion = { who = FROM modifier = opinion_killed_my_friend }
+				}
+				character_event = { id = duel.23 }
+			}
+		}
+
+		# Clean up flags and event targets
+		clear_persistent_event_target = my_armor
+		clear_persistent_event_target = my_vehicle
+		clear_persistent_event_target = my_weapon
+		clr_character_flag = flag_busy
+		clr_character_flag = flag_battlefield
+		clr_character_flag = flag_enemy_spotted
+		clr_character_flag = flag_enemy_analyzed
+		clr_character_flag = flag_in_vehicle
+		clr_character_flag = flag_friendly_duel
+		clr_character_flag = flag_no_quarter
+		clr_character_flag = flag_infantry_duel
+		clr_character_flag = flag_walker_duel
+		clr_character_flag = flag_open_field
+		clr_character_flag = flag_interior
+		clr_character_flag = flag_no_guns
+		clr_character_flag = flag_no_retreat
+		clr_character_flag = flag_no_surrender
+		clr_character_flag = flag_melee_tactics
+		clr_character_flag = flag_melee_vehicle_tactics
+		clr_character_flag = flag_anti_personnel_tactics
+		clr_character_flag = flag_anti_vehicle_tactics
+		clr_character_flag = flag_withdrawing
+		clr_character_flag = flag_won_round
+		clr_character_flag = flag_lost_round
+		clr_character_flag = flag_first_round
+	}
+}
+# Your opponent died
+character_event = {
+	id = duel.34
+	desc = "EVTDESCNEWDUEL34"
+	picture = GFX_evt_siege
+	border = GFX_event_normal_frame_war
+	is_triggered_only = yes
+
+	option = {
+		name = "EVTOPTANEWDUEL34"
+		hidden_tooltip = { character_event = { id = duel.100 } }
+	}
+}
+# You successfully retreated!
+character_event = {
+	id = duel.40
+	desc = "EVTDESCNEWDUEL40"
+	picture = GFX_evt_siege
+	border = GFX_event_normal_frame_war
+	is_triggered_only = yes
+
+	option = {
+		name = "EVTOPTANEWDUEL40"
+		set_character_flag = flag_defeat
+		hidden_tooltip = {
+			FROM = {
+				character_event = { id = duel.42 }
+				set_character_flag = flag_victory
+			}
+		}
+		prestige = -100
+
+		# Clean up flags and event targets
+		clear_persistent_event_target = my_armor
+		clear_persistent_event_target = my_vehicle
+		clear_persistent_event_target = my_weapon
+		clr_character_flag = flag_busy
+		clr_character_flag = flag_battlefield
+		clr_character_flag = flag_enemy_spotted
+		clr_character_flag = flag_enemy_analyzed
+		clr_character_flag = flag_in_vehicle
+		clr_character_flag = flag_friendly_duel
+		clr_character_flag = flag_no_quarter
+		clr_character_flag = flag_infantry_duel
+		clr_character_flag = flag_walker_duel
+		clr_character_flag = flag_open_field
+		clr_character_flag = flag_interior
+		clr_character_flag = flag_no_guns
+		clr_character_flag = flag_no_retreat
+		clr_character_flag = flag_no_surrender
+		clr_character_flag = flag_melee_tactics
+		clr_character_flag = flag_melee_vehicle_tactics
+		clr_character_flag = flag_anti_personnel_tactics
+		clr_character_flag = flag_anti_vehicle_tactics
+		clr_character_flag = flag_withdrawing
+		clr_character_flag = flag_won_round
+		clr_character_flag = flag_lost_round
+		clr_character_flag = flag_first_round
+	}
+}
+# Bounce for successful retreat
+character_event = {
+	id = duel.41
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = { FROM = { character_event = { id = duel.40 } } }
+}
+# Your opponent successfully withdrew
+character_event = {
+	id = duel.42
+	desc = "EVTDESCNEWDUEL42"
+	picture = GFX_evt_siege
+	border = GFX_event_normal_frame_war
+	is_triggered_only = yes
+
+	option = {
+		name = "EVTOPTANEWDUEL42"
+		hidden_tooltip = { character_event = { id = duel.100 } }
+	}
+}
+# DUEL INITIALIZATION
+character_event = {
+	id = duel.50
+	desc = "EVTDESCNEWDUEL50"
+	picture = GFX_evt_siege
+	border = GFX_event_normal_frame_war
+	hide_from = yes
+	is_triggered_only = yes
+
+	immediate = {
+		set_character_flag = flag_first_round
+		set_character_flag = flag_busy
+		if = {
+			limit = {
+				event_target:duel_location = { is_pressurized_trigger = yes }
+				NOT = { has_character_flag = flag_open_field }
+			}
+			set_character_flag = flag_interior
+		}
+		# Clean any existing event targets
+		clear_persistent_event_target = my_armor
+		clear_persistent_event_target = my_weapon
+		clear_persistent_event_target = my_vehicle
+	}
+
+	# Proceed in vehicle
+	option = {
+		trigger = {
+			NOT = { has_character_flag = flag_infantry_duel }
+			any_artifact = {
+				is_artifact_equipped = yes
+				has_artifact_flag = ground # Must be a ground vehicle
+				has_artifact_flag = military_vehicle # Must be a military vehicle
+				OR = {
+					has_artifact_flag = walker
+					ROOT = {
+						NOT = { has_character_flag = flag_walker_duel }
+						NOT = { has_character_flag = flag_interior }
+					}
+				}
+			}
+		}
+		name = "EVTOPTANEWDUEL50"
+		set_character_flag = flag_in_vehicle
+		random_artifact = {
+			limit = {
+				is_artifact_equipped = yes
+				has_artifact_flag = ground
+				has_artifact_flag = military_vehicle
+			}
+			ROOT = { save_persistent_event_target = { name = my_vehicle scope = PREV } }
+		}
+		hidden_tooltip = { FROM = { character_event = { id = duel.51 } } }
+	}
+
+	# Proceed on foot
+	option = {
+		name = "EVTOPTBNEWDUEL50"
+		random_artifact = {
+			limit = {
+				is_artifact_equipped = yes
+				has_artifact_flag = weapon
+			}
+			ROOT = { save_persistent_event_target = { name = my_weapon scope = PREV } }
+		}
+		random_artifact = {
+			limit = {
+				is_artifact_equipped = yes
+				has_artifact_flag = armor
+			}
+			ROOT = { save_persistent_event_target = { name = my_armor scope = PREV } }
+		}
+		hidden_tooltip = { FROM = { character_event = { id = duel.51 } } }
+		ai_chance = { factor = 0 }
+	}
+}
+character_event = {
+	id = duel.51
+	desc = "EVTDESCNEWDUEL50"
+	picture = GFX_evt_siege
+	border = GFX_event_normal_frame_war
+	hide_from = yes
+	is_triggered_only = yes
+
+	immediate = {
+		set_character_flag = flag_first_round
+		set_character_flag = flag_busy
+		if = {
+			limit = {
+				event_target:duel_location = { is_pressurized_trigger = yes }
+				NOT = { has_character_flag = flag_open_field }
+			}
+			set_character_flag = flag_interior
+		}
+		# Clean any existing event targets
+		clear_persistent_event_target = my_armor
+		clear_persistent_event_target = my_weapon
+		clear_persistent_event_target = my_vehicle
+	}
+
+	# Proceed in vehicle
+	option = {
+		trigger = {
+			NOT = { has_character_flag = flag_infantry_duel }
+			any_artifact = {
+				is_artifact_equipped = yes
+				has_artifact_flag = ground # Must be a ground vehicle
+				has_artifact_flag = military_vehicle # Must be a military vehicle
+				OR = {
+					has_artifact_flag = walker
+					ROOT = {
+						NOT = { has_character_flag = flag_walker_duel }
+						NOT = { has_character_flag = flag_interior }
+					}
+				}
+			}
+		}
+		name = "EVTOPTANEWDUEL50"
+		set_character_flag = flag_in_vehicle
+		random_artifact = {
+			limit = {
+				is_artifact_equipped = yes
+				has_artifact_flag = ground
+				has_artifact_flag = military_vehicle
+			}
+			ROOT = { save_persistent_event_target = { name = my_vehicle scope = PREV } }
+		}
+		hidden_tooltip = { FROM = { character_event = { id = duel.0 } } }
+	}
+
+	# Proceed on foot
+	option = {
+		name = "EVTOPTBNEWDUEL50"
+		random_artifact = {
+			limit = {
+				is_artifact_equipped = yes
+				has_artifact_flag = weapon
+			}
+			ROOT = { save_persistent_event_target = { name = my_weapon scope = PREV } }
+		}
+		random_artifact = {
+			limit = {
+				is_artifact_equipped = yes
+				has_artifact_flag = armor
+			}
+			ROOT = { save_persistent_event_target = { name = my_armor scope = PREV } }
+		}
+		hidden_tooltip = { FROM = { character_event = { id = duel.0 } } }
+		ai_chance = { factor = 0 }
+	}
+}
+
+### DUEL RESOLUTION
+# ROOT and FROM are both the victor, FROMFROM is the loser (who may be dead, if you allowed that option)
+character_event = {
+	id = duel.100
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		name = "EVTOPTANEWDUEL100"
+
+		log = "[Root.GetBestName] won the duel."
+		if = {
+			limit = { FROMFROM = { is_alive = no } }
+			log = "[FromFrom.GetBestName] is dead."
+		}
+		else_if = {
+			limit = { FROMFROM = { prisoner = yes } }
+			log = "[FromFrom.GetBestName] was taken prisoner."
+		}
+		else = { log = "[FromFrom.GetBestName] escaped." }
+		
+		# Clean up remaining flags and event targets
+		clear_persistent_event_target = my_armor
+		clear_persistent_event_target = my_vehicle
+		clear_persistent_event_target = my_weapon
+		clr_character_flag = flag_busy
+		clr_character_flag = flag_battlefield
+		clr_character_flag = flag_enemy_spotted
+		clr_character_flag = flag_enemy_analyzed
+		clr_character_flag = flag_in_vehicle
+		clr_character_flag = flag_friendly_duel
+		clr_character_flag = flag_no_quarter
+		clr_character_flag = flag_infantry_duel
+		clr_character_flag = flag_walker_duel
+		clr_character_flag = flag_open_field
+		clr_character_flag = flag_interior
+		clr_character_flag = flag_no_guns
+		clr_character_flag = flag_no_retreat
+		clr_character_flag = flag_no_surrender
+		clr_character_flag = flag_melee_tactics
+		clr_character_flag = flag_melee_vehicle_tactics
+		clr_character_flag = flag_anti_personnel_tactics
+		clr_character_flag = flag_anti_vehicle_tactics
+		clr_character_flag = flag_withdrawing
+		clr_character_flag = flag_won_round
+		clr_character_flag = flag_lost_round
+		clr_character_flag = flag_first_round
+
+		# COLLECT YOUR OUTPUTS
+		# Duels during sieges
+		if = {
+			limit = { has_character_flag = flag_siege_duel_chain }
+			clr_character_flag = flag_siege_duel_chain
+			FROMFROM = { clr_character_flag = flag_siege_duel_chain }
+			character_event = { id = cotc_siege.2 }
+		}
+		# Duels during melee battles
+		if = {
+			limit = { has_character_flag = flag_melee_duel_chain }
+			clr_character_flag = flag_melee_duel_chain
+			FROMFROM = { clr_character_flag = flag_melee_duel_chain }
+			character_event = { id = battle.202 }
+		}
+		# Duels from attempted hunting assassinations
+		if = {
+			limit = { has_character_flag = flag_duel_hunt_assassin }
+			if = {
+				limit = { FROMFROM = { is_alive = no } }
+				clr_character_flag = flag_duel_hunt_assassin
+				FROMFROM = { clr_character_flag = flag_duel_hunt_victim }
+				character_event = { id = hunting.67 }
+			}
+			else = {
+				clr_character_flag = flag_duel_hunt_assassin
+				FROMFROM = {
+					clr_character_flag = flag_duel_hunt_victim
+					character_event = { id = hunting.71 }
+				}
+				character_event = { id = hunting.69 }
+			}
+		}
+		if = {
+			limit = { has_character_flag = flag_duel_hunt_victim }
+			if = {
+				limit = { FROMFROM = { is_alive = no } }
+				clr_character_flag = flag_duel_hunt_victim
+				FROMFROM = { clr_character_flag = flag_duel_hunt_assassin }
+				character_event = { id = hunting.74 }
+			}
+			else_if = {
+				limit = { FROMFROM = { prisoner = yes } }
+				clr_character_flag = flag_duel_hunt_victim
+				FROMFROM = {
+					clr_character_flag = flag_duel_hunt_assassin
+					character_event = { id = hunting.73 }
+				}
+				character_event = { id = hunting.72 }
+			}
+			else = {
+				clr_character_flag = flag_duel_hunt_victim
+				FROMFROM = {
+					clr_character_flag = flag_duel_hunt_assassin
+					character_event = { id = hunting.69 }
+				}
+				character_event = { id = hunting.71 }
+			}
+		}
+		# Duels from attempted close-quarters assassinations
+		if = {
+			limit = { has_character_flag = flag_duel_close_quarters_assassin }
+			if = {
+				limit = { FROMFROM = { is_alive = no } }
+				clr_character_flag = flag_duel_close_quarters_assassin
+				FROMFROM = { clr_character_flag = flag_duel_close_quarters_victim }
+				character_event = { id = assassination.522 }
+			}
+			else = {
+				clr_character_flag = flag_duel_close_quarters_assassin
+				FROMFROM = {
+					clr_character_flag = flag_duel_close_quarters_victim
+					character_event = { id = assassination.526 }
+				}
+				character_event = { id = assassination.524 }
+			}
+		}
+		if = {
+			limit = { has_character_flag = flag_duel_close_quarters_victim }
+			if = {
+				limit = { FROMFROM = { is_alive = no } }
+				clr_character_flag = flag_duel_close_quarters_victim
+				FROMFROM = {
+					save_event_target_as = target_assassin
+					clr_character_flag = flag_duel_close_quarters_assassin
+				}
+				character_event = { id = assassination.528 }
+			}
+			else = {
+				clr_character_flag = flag_duel_close_quarters_victim
+				FROMFROM = {
+					clr_character_flag = flag_duel_close_quarters_assassin
+					character_event = { id = assassination.524 }
+				}
+				character_event = { id = assassination.527 }
+			}
+		}
+	}
+}

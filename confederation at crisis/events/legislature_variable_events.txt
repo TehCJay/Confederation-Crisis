@@ -2,10 +2,10 @@ namespace = maintenance
 # All of these should be triggered on a yearly pulse, at least for now
 # How many senators are necessary to pass a bill?
 character_event = {
-	id = maintenance.900
+	id = maintenance.66900
 	is_triggered_only = yes
 	hide_window = yes
-	
+
 	only_rulers = yes
 	trigger = {
 		higher_tier_than = count
@@ -30,10 +30,10 @@ character_event = {
 		}
 		divide_variable = { which = "var_senate_majority" value = 2 }
 		change_variable = { which = "var_senate_majority" value = 0.5 }
-		
+
 		# Calculate the representation of each faction in the Senate
 		character_event = { id = maintenance.1000 }		# Pro-Centralization
-		character_event = { id = maintenance.1050 }		
+		character_event = { id = maintenance.1050 }
 		character_event = { id = maintenance.1100 }		# Anti-Centralization
 		character_event = { id = maintenance.1150 }
 		character_event = { id = maintenance.1200 }		# Devolve Local Government
@@ -60,12 +60,12 @@ character_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	only_rulers = yes
-	
+
 	trigger = {
 		NOT = { any_vassal = { in_faction = faction_pro_centralization } }
 		NOT = { is_variable_equal = { which = "var_pro_centralization" value = -1 } }
 	}
-	
+
 	immediate = { set_variable = { which = "var_pro_centralization" value = -1 } }
 }
 # Calculate senators for the pro-centralization faction
@@ -73,14 +73,14 @@ character_event = {
 	id = maintenance.1050
 	hide_window = yes
 	is_triggered_only = yes
-	
+
 	only_rulers = yes
-	
+
 	trigger = {
 		higher_tier_than = count
 		any_vassal = { in_faction = faction_pro_centralization }
 	}
-	
+
 	immediate = {
 		set_variable = { which = "var_pro_centralization" value = 0 }
 		any_vassal = {
@@ -111,12 +111,12 @@ character_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	only_rulers = yes
-	
+
 	trigger = {
 		NOT = { any_vassal = { in_faction = faction_anti_centralization } }
 		NOT = { is_variable_equal = { which = "var_anti_centralization" value = -1 } }
 	}
-	
+
 	immediate = { set_variable = { which = "var_anti_centralization" value = -1 } }
 }
 # Calculate senators for the anti-centralization faction
@@ -124,14 +124,14 @@ character_event = {
 	id = maintenance.1150
 	hide_window = yes
 	is_triggered_only = yes
-	
+
 	only_rulers = yes
-	
+
 	trigger = {
 		higher_tier_than = count
 		any_vassal = { in_faction = faction_anti_centralization }
 	}
-	
+
 	immediate = {
 		set_variable = { which = "var_anti_centralization" value = 0 }
 		any_vassal = {
@@ -162,12 +162,12 @@ character_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	only_rulers = yes
-	
+
 	trigger = {
 		NOT = { any_vassal = { in_faction = faction_devolve_local_government } }
 		NOT = { is_variable_equal = { which = "var_devolve_local_government" value = -1 } }
 	}
-	
+
 	immediate = { set_variable = { which = "var_devolve_local_government" value = -1 } }
 }
 # Calculate senators for the devolve local government faction
@@ -175,14 +175,14 @@ character_event = {
 	id = maintenance.1250
 	hide_window = yes
 	is_triggered_only = yes
-	
+
 	only_rulers = yes
-	
+
 	trigger = {
 		higher_tier_than = count
 		any_vassal = { in_faction = faction_devolve_local_government }
 	}
-	
+
 	immediate = {
 		set_variable = { which = "var_devolve_local_government" value = 0 }
 		any_vassal = {
@@ -213,12 +213,12 @@ character_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	only_rulers = yes
-	
+
 	trigger = {
 		NOT = { any_vassal = { in_faction = faction_independence } }
 		NOT = { is_variable_equal = { which = "var_independence" value = -1 } }
 	}
-	
+
 	immediate = { set_variable = { which = "var_independence" value = -1 } }
 }
 # Calculate senators for the independence faction
@@ -226,14 +226,14 @@ character_event = {
 	id = maintenance.1450
 	hide_window = yes
 	is_triggered_only = yes
-	
+
 	only_rulers = yes
-	
+
 	trigger = {
 		higher_tier_than = count
 		any_vassal = { in_faction = faction_independence }
 	}
-	
+
 	immediate = {
 		set_variable = { which = "var_independence" value = 0 }
 		any_vassal = {
@@ -264,12 +264,12 @@ character_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	only_rulers = yes
-	
+
 	trigger = {
 		NOT = { any_vassal = { in_faction = faction_no_confidence } }
 		NOT = { is_variable_equal = { which = "var_no_confidence" value = -1 } }
 	}
-	
+
 	immediate = { set_variable = { which = "var_no_confidence" value = -1 } }
 }
 # Calculate senators for the no confidence faction
@@ -277,14 +277,14 @@ character_event = {
 	id = maintenance.1550
 	hide_window = yes
 	is_triggered_only = yes
-	
+
 	only_rulers = yes
-	
+
 	trigger = {
 		higher_tier_than = count
 		any_vassal = { in_faction = faction_no_confidence }
 	}
-	
+
 	immediate = {
 		set_variable = { which = "var_no_confidence" value = 0 }
 		any_vassal = {
@@ -315,12 +315,12 @@ character_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	only_rulers = yes
-	
+
 	trigger = {
 		NOT = { any_vassal = { in_faction = faction_abolish_legislature } }
 		NOT = { is_variable_equal = { which = "var_abolish_legislature" value = -1 } }
 	}
-	
+
 	immediate = { set_variable = { which = "var_abolish_legislature" value = -1 } }
 }
 # Calculate senators for the anti-legislature faction
@@ -328,14 +328,14 @@ character_event = {
 	id = maintenance.1650
 	hide_window = yes
 	is_triggered_only = yes
-	
+
 	only_rulers = yes
-	
+
 	trigger = {
 		higher_tier_than = count
 		any_vassal = { in_faction = faction_abolish_legislature }
 	}
-	
+
 	immediate = {
 		set_variable = { which = "var_abolish_legislature" value = 0 }
 		any_vassal = {
@@ -367,12 +367,12 @@ character_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	only_rulers = yes
-	
+
 	trigger = {
 		NOT = { any_vassal = { in_faction = faction_monarchist } }
 		NOT = { is_variable_equal = { which = "var_monarchist" value = -1 } }
 	}
-	
+
 	immediate = { set_variable = { which = "var_monarchist" value = -1 } }
 }
 # Calculate senators for the monarchist faction
@@ -380,14 +380,14 @@ character_event = {
 	id = maintenance.1750
 	hide_window = yes
 	is_triggered_only = yes
-	
+
 	only_rulers = yes
-	
+
 	trigger = {
 		higher_tier_than = count
 		any_vassal = { in_faction = faction_monarchist }
 	}
-	
+
 	immediate = {
 		set_variable = { which = "var_monarchist" value = 0 }
 		any_vassal = {
@@ -418,12 +418,12 @@ character_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	only_rulers = yes
-	
+
 	trigger = {
 		NOT = { any_vassal = { in_faction = faction_republican } }
 		NOT = { is_variable_equal = { which = "var_republican" value = -1 } }
 	}
-	
+
 	immediate = { set_variable = { which = "var_republican" value = -1 } }
 }
 # Calculate senators for the republican faction
@@ -431,14 +431,14 @@ character_event = {
 	id = maintenance.1850
 	hide_window = yes
 	is_triggered_only = yes
-	
+
 	only_rulers = yes
-	
+
 	trigger = {
 		higher_tier_than = count
 		any_vassal = { in_faction = faction_republican }
 	}
-	
+
 	immediate = {
 		set_variable = { which = "var_republican" value = 0 }
 		any_vassal = {
@@ -469,12 +469,12 @@ character_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	only_rulers = yes
-	
+
 	trigger = {
 		NOT = { any_vassal = { in_faction = faction_technocratic } }
 		NOT = { is_variable_equal = { which = "var_technocratic" value = -1 } }
 	}
-	
+
 	immediate = { set_variable = { which = "var_technocratic" value = -1 } }
 }
 # Calculate senators for the technocratic faction
@@ -482,14 +482,14 @@ character_event = {
 	id = maintenance.1950
 	hide_window = yes
 	is_triggered_only = yes
-	
+
 	only_rulers = yes
-	
+
 	trigger = {
 		higher_tier_than = count
 		any_vassal = { in_faction = faction_technocratic }
 	}
-	
+
 	immediate = {
 		set_variable = { which = "var_technocratic" value = 0 }
 		any_vassal = {

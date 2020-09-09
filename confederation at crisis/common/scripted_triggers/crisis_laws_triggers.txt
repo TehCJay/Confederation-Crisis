@@ -1,0 +1,560 @@
+# Government Class Checks
+# Expected scope for those are Characters
+is_military_trigger = {
+    custom_tooltip = {
+        text = "ISMILITARY"
+        hidden_tooltip = {
+            OR = {
+                government = military_command
+                government = military_base_government
+                government = military_government
+                government = imperialistic_government
+                government = neofeudal_government
+                government = holy_terran_government
+                government = npc_theocratic_government
+                government = pc_theocratic_government
+            }
+        }
+    }
+}
+is_civil_trigger = {
+    custom_tooltip = {
+        text = "ISCIVIL"
+        hidden_tooltip = {
+            OR = {
+                government = merchant_republic_government
+                government = imperialistic_government
+                government = npc_civil_government
+                government = pc_civil_government
+                government = npc_technocratic_government
+                government = pc_technocratic_government
+                government = holy_terran_government
+            }
+        }
+    }
+}
+is_rectorial_trigger = {
+    custom_tooltip = {
+        text = "ISRECTOR"
+        hidden_tooltip = {
+            OR = {
+                government = npc_rectorial_government
+                government = pc_rectorial_government
+                government = npc_theocratic_government
+                government = pc_theocratic_government
+                government = npc_technocratic_government
+                government = pc_technocratic_government
+                government = holy_terran_government
+                government = holy_terran_bishophoric
+            }
+        }
+    }
+}
+# This is only for actual religions, NOT secular ideologies.
+is_theocracy_trigger = {
+    custom_tooltip = {
+        text = "ISTHEOCRACY"
+        hidden_tooltip = {
+            OR = {
+                government = npc_theocratic_government
+                government = pc_theocratic_government
+                government = holy_terran_government
+                government = holy_terran_bishophoric
+                government = npc_rectorial_government
+                government = pc_rectorial_government
+            }
+        }
+    }
+}
+
+#government succession law checks
+is_hereditary_trigger = {
+    custom_tooltip = {
+        text = "ISHEREDITARY"
+        hidden_tooltip = {
+            OR = {
+                #government = military_monarchy
+                #government = corporate_monarchy
+                #government = administrative_monarchy
+                #government = pirate_kingdom
+                has_law = succ_gavelkind
+                has_law = succ_elective_gavelkind
+                has_law = succ_seniority
+                has_law = succ_primogeniture
+                has_law = succ_ultimogeniture
+                has_law = succ_feudal_elective
+            }
+        }
+    }
+}
+is_appointed_trigger = {
+    custom_tooltip = {
+        text = "ISAPPOINTED"
+        hidden_tooltip = {
+            OR = {
+                #government = military_directorate
+                #government = corporate_directorate
+                #government = administrative_directorate
+                #government = military_command
+                #government = pirate_republic_governor
+                has_law = succ_true_appointment
+                has_law = succ_appointment
+            }
+        }
+    }
+}
+is_dictatorship_trigger = {
+    custom_tooltip = {
+        text = "ISDICTATORSHIP"
+        hidden_tooltip = {
+            #OR = {
+                has_law = succ_dictatorship
+            #}
+        }
+    }
+}
+is_elective_trigger = {
+    custom_tooltip = {
+        text = "ISELECTIVE"
+        hidden_tooltip = {
+            OR = {
+                #government = military_republic
+                #government = corporate_republic
+                #government = administrative_republic
+                #government = merchant_republic_government
+                #government = pirate_republic
+                has_law = succ_eldership
+                has_law = succ_byzantine_elective #pirate elective it seems
+                has_law = succ_tanistry
+                has_law = succ_papal_succession
+                has_law = succ_open_elective
+                has_law = succ_patrician_elective
+                has_law = succ_open_elective_crisis
+            }
+        }
+    }
+}
+
+is_monarchy = {
+    OR = {
+        is_dictatorship_trigger = yes
+        is_hereditary_trigger = yes
+    }
+}
+
+laws_allow_elections = {
+    OR = {
+        holder_scope = { independent = yes }
+        has_law = disobedience_1
+        AND = {
+            holder_scope = { independent = no }
+            NOT = { crownlaw_title = { has_law = centralization_4 } }
+        }
+    }
+}
+
+laws_allow_inheritance = {
+    OR = {
+        has_law = disobedience_1
+        AND = {
+            holder_scope = { independent = yes }
+            crownlaw_title = {
+                OR = {
+                    has_law = centralization_2
+                    has_law = centralization_3
+                    has_law = centralization_4
+                }
+            }
+        }
+        AND = {
+            holder_scope = { independent = no }
+            crownlaw_title = {
+                OR = {
+                    has_law = centralization_0
+                    has_law = centralization_1
+                    has_law = centralization_2
+                }
+            }
+        }
+    }
+}
+
+#this is to allow liege appointing the government in question
+laws_allow_appointment = {
+    holder_scope = { independent = no }
+    crownlaw_title = {
+        OR = {
+            has_law = disobedience_1
+            has_law = centralization_1
+            has_law = centralization_2
+            has_law = centralization_3
+            has_law = centralization_4
+        }
+    }
+}
+
+#dictatorship is like appointment but for "self" appointment
+laws_allow_dictatorship = {
+    OR = {
+        has_law = disobedience_1
+        AND = {
+            holder_scope = { independent = yes }
+            crownlaw_title = {
+                OR = {
+                    has_law = centralization_3
+                    has_law = centralization_4
+                }
+            }
+        }
+        AND = {
+            holder_scope = { independent = no }
+            crownlaw_title = {
+                OR = {
+                    has_law = centralization_0
+                    has_law = centralization_1
+                    has_law = centralization_2
+                }
+            }
+        }
+    }
+}
+
+#also dicatorship
+liege_allows_inheritance = {
+    trigger_if = {
+        limit = {
+            OR = {
+                crownlaw_title = {
+                    has_law = public_order_0
+                }
+                holder_scope = { independent = yes }
+                has_law = disobedience_1
+            }
+        }
+        always = yes
+    }
+    trigger_else_if = {
+        limit = {
+            crownlaw_title = {
+                NOT = { has_law = public_order_0 }
+            }
+        }
+        OR = {
+            AND = {
+                crownlaw_title = { has_law = military_vassal_legitimacy_0 }
+                holder_scope = { is_military_trigger = yes }
+            }
+            AND = {
+                crownlaw_title = { has_law = republic_vassal_legitimacy_0 }
+                holder_scope = { is_civil_trigger = yes }
+            }
+            AND = {
+                crownlaw_title = { has_law = theocracy_vassal_legitimacy_0 }
+                holder_scope = { is_rectorial_trigger = yes }
+            }
+        }
+    }
+}
+
+liege_allows_elections = {
+    trigger_if = {
+        limit = {
+            OR = {
+                crownlaw_title = {
+                    has_law = public_order_0
+                }
+                holder_scope = { independent = yes }
+                has_law = disobedience_1
+            }
+        }
+        always = yes
+    }
+    trigger_else_if = {
+        limit = {
+            crownlaw_title = {
+                NOT = { has_law = public_order_0 }
+            }
+        }
+        OR = {
+            AND = {
+                crownlaw_title = { has_law = military_vassal_legitimacy_1 }
+                holder_scope = { is_military_trigger = yes }
+            }
+            AND = {
+                crownlaw_title = { has_law = republic_vassal_legitimacy_1 }
+                holder_scope = { is_civil_trigger = yes }
+            }
+            AND = {
+                crownlaw_title = { has_law = theocracy_vassal_legitimacy_1 }
+                holder_scope = { is_rectorial_trigger = yes }
+            }
+        }
+    }
+}
+
+liege_allows_appointment = {
+    trigger_if = {
+        limit = {
+            OR = {
+                crownlaw_title = {
+                    has_law = public_order_0
+                }
+                holder_scope = { independent = yes }
+                has_law = disobedience_1
+            }
+        }
+        always = yes
+    }
+    trigger_else_if = {
+        limit = {
+            crownlaw_title = {
+                NOT = { has_law = public_order_0 }
+            }
+        }
+        OR = {
+            AND = {
+                crownlaw_title = { has_law = military_vassal_legitimacy_2 }
+                holder_scope = { is_military_trigger = yes }
+            }
+            AND = {
+                crownlaw_title = { has_law = republic_vassal_legitimacy_2 }
+                holder_scope = { is_civil_trigger = yes }
+            }
+            AND = {
+                crownlaw_title = { has_law = theocracy_vassal_legitimacy_2 }
+                holder_scope = { is_rectorial_trigger = yes }
+            }
+        }
+    }
+}
+
+senate_allows_taking_succession_control_from_them = {
+    #trigger_if = {
+    #    limit = {
+    #        has_dlc = "Conclave"
+    #        #is_senate_voted_succession = yes
+    #    }
+    #
+    #    has_law = succession_voting_power_0
+    #}
+    always = yes
+}
+
+base_requeriment_for_succession_change = {
+    holder_scope = {
+        show_scope_change = no
+
+        trigger_if = {
+            limit = { in_revolt = yes }
+            in_revolt = no
+        }
+
+        trigger_if = {
+            limit = { independent = no }
+
+            custom_tooltip = {
+                text = not_forced_tt
+                NOT = { has_character_flag = liege_forced_succ_law }
+            }
+        }
+    }
+}
+
+
+
+########
+#
+# Elections stuff
+#
+########
+
+# Not really about culture - Used in AI voting logic
+this_is_warrior_culture_trigger = {
+    pacifist = no
+
+    OR = {
+        #religion_group = muslim
+        #religion = norse_pagan
+        #religion = tengri_pagan
+        #religion = aztec
+        religion_group = outlaw_group
+        is_military_trigger = yes
+        has_religion_feature = religion_warlike
+        is_tribal = yes
+        is_nomadic = yes
+    }
+}
+
+# Not really about culture - Used in AI voting logic
+this_is_diplomatic_culture_trigger = {
+    NOR = {
+        religion = terran_imperial
+        religion = neo_feudal
+    }
+
+    OR = {
+        is_feudal = yes
+        is_patrician = yes
+        is_merchant_republic = yes
+    }
+
+    OR = {
+        religion_group = political_group
+        religion_group = political_terran_group
+        has_religion_feature = religion_cosmopolitan
+    }
+}
+
+# Not really about culture - Used in AI voting logic
+this_is_spiritual_culture_trigger = {
+    OR = {
+        religion_group = religious_group
+        religion_group = religious_terran_group
+        has_religion_feature = religion_peaceful
+        is_rectorial_trigger = yes
+    }
+}
+
+# Not really about culture - Used in AI voting logic
+this_is_corporate_culture_trigger = {
+    is_civil_trigger = yes
+}
+
+# Used in succession voting to decide valid candidates
+parent_for_elective_succession_trigger = {
+    OR = {
+        has_claim = ROOT_FROMFROM
+
+        trigger_if = {
+            limit = { is_close_relative = ROOT }
+
+            OR = {
+                dynasty = ROOT
+
+                AND = {
+                    is_landed = yes
+                    higher_real_tier_than = BARON
+                }
+            }
+        }
+
+        trigger_if = {
+            limit = { higher_real_tier_than = COUNT }
+
+            # Either defacto direct vassal, or independent ruler who is dejure vassal
+            OR = {
+                vassal_of = ROOT
+
+                AND = {
+                    independent = yes
+
+                    any_dejure_liege = {
+                        title = FROMFROM
+                    }
+                }
+            }
+        }
+    }
+
+    # Candidate should not be a landless Courtier who is about to inherit a Theocracy or Republic
+    OR = {
+        AND = {
+            is_ruler = yes
+            is_landed = yes
+            is_republic = no
+            is_merchant_republic = no
+            is_theocracy = no
+        }
+
+        NOT = {
+            any_heir_title = {
+                OR = {
+                    is_republic = yes
+                    is_merchant_republic = yes
+                    is_theocracy = yes
+                }
+            }
+        }
+    }
+
+    # If the title controls the religion, candidates must be of the same religion
+    trigger_if = {
+        limit = { ROOT = { controls_religion = yes } }
+        religion = ROOT
+    }
+
+    NOR = {
+        character = ROOT # Not the current ruler
+        is_ascetic_trigger = yes
+        is_theocracy = yes
+        is_republic = yes
+        is_merchant_republic = yes
+        trait = disinherited
+        trait = eunuch
+        trait = bastard
+        trait = cat
+        trait = horse
+    }
+}
+
+# Used in council votes
+# Scopes are detailed in the folder there
+# But what matters here: THIS: voter. FROMFROM: can be title with a vote on it, OR the owner of that title.
+
+# The purpose of this trigger if know if the title with a law vote, is the "top title" of sorts.
+voting_for_top_laws = {
+    liege = {
+        crownlaw_title = {
+            OR = {
+                title = FROMFROM
+                FROMFROM = {
+                    primary_title = { title = PREV }
+                }
+            }
+        }
+    }
+}
+
+
+#Election type checks
+#succ_elective_gavelkind
+#succ_feudal_elective
+#succ_byzantine_elective
+#succ_tanistry
+#succ_open_elective_crisis
+
+laws_allow_popular_vote = {
+    NOR = {
+        has_law = succ_feudal_elective
+        has_law = succ_tanistry
+    }
+}
+
+laws_allow_senate_vote = {
+    NOR = {
+        has_law = succ_feudal_elective
+        has_law = succ_tanistry
+        has_law = succ_open_elective_crisis
+    }
+}
+
+laws_allow_indirect_vassals_vote = {
+    NOR = {
+        has_law = succ_feudal_elective
+        has_law = succ_tanistry
+        has_law = succ_open_elective_crisis
+    }
+}
+
+laws_allow_vassals_vote = {
+    NOT = {
+        has_law = succ_open_elective_crisis
+    }
+}
+
+laws_allow_candidate_vote = {
+    NOR = {
+        has_law = succ_feudal_elective
+        has_law = succ_tanistry
+    }
+}

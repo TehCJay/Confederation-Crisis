@@ -3551,16 +3551,6 @@ character_event = {
 			NOT = { trait = light_foot_leader }
 			NOT = { trait = heavy_infantry_leader }
 			NOT = { trait = cavalry_leader }
-			AND = {
-				NOT = { trait = war_elephant_leader }
-				OR = {
-					culture_group = indo_aryan_group
-					culture_group = dravidian_group
-					any_demesne_province = {
-						terrain = jungle
-					}
-				}
-			}
 		}
 	}
 
@@ -3653,13 +3643,6 @@ character_event = {
 		}
 		trigger = {
 			NOT = { trait = war_elephant_leader }
-			OR = {
-				culture_group = indo_aryan_group
-				culture_group = dravidian_group
-				any_demesne_province = {
-					terrain = jungle
-				}
-			}
 		}
 
 		add_trait = war_elephant_leader
@@ -3680,16 +3663,32 @@ character_event = {
 
 	desc = EVTDESC_WOL_11302
 
-	capable_only = yes
+	only_capable = yes
 	prisoner = no
 
 	trigger = {
 		has_focus = focus_war
 		can_have_more_leadership_traits = yes
 		OR = {
-			NOT = { trait = fighter_pilot }
-			NOT = { trait = warship_captain }
-			NOT = { trait = marine_colonel }
+			NOT = { trait = flat_terrain_leader }
+			NOT = { trait = rough_terrain_leader }
+			NOT = { trait = mountain_terrain_leader }
+			AND = {
+				NOT = { trait = desert_terrain_leader }
+				any_demesne_province = {
+					terrain = desert
+				}
+			}
+			AND = {
+				NOT = { trait = winter_soldier }
+				OR = {
+					culture_group = north_germanic
+					culture_group = baltic
+					culture_group = east_slavic
+					culture_group = west_slavic
+					culture_group = finno_ugric
+				}
+			}
 		}
 	}
 
@@ -3738,7 +3737,7 @@ character_event = {
 	}
 
 	option = {
-		name = EVTOPTA_WOL_11302
+		name = EVTOPTA_WOL_11302 # Flat Terrain
 		ai_chance = {
 			factor = 100
 			modifier = {
@@ -3747,43 +3746,70 @@ character_event = {
 			}
 		}
 		trigger = {
-			NOT = { trait = fighter_pilot }
+			NOT = { trait = flat_terrain_leader }
 		}
-		add_trait = fighter_pilot
+		add_trait = flat_terrain_leader
 	}
 	option = {
-		name = EVTOPTB_WOL_11302 # Bombers
+		name = EVTOPTB_WOL_11302 # Rough Terrain
 		ai_chance = {
 			factor = 100
 			modifier = {
 				factor = 2
 				OR = {
-					trait = skilled_tactician
+					culture_group = north_germanic
+					culture_group = baltic
+					culture_group = east_slavic
+					culture_group = west_slavic
+					culture_group = finno_ugric
 					is_tribal = yes
 				}
 			}
 		}
 		trigger = {
-			NOT = { trait = warship_captain }
+			NOT = { trait = rough_terrain_leader }
 		}
-		add_trait = warship_captain
+		add_trait = rough_terrain_leader
 	}
 	option = {
-		name = EVTOPTC_WOL_11302 # Destroyers and Battle Cruisers
+		name = EVTOPTC_WOL_11302 # Mountain Terrain
 		ai_chance = {
 			factor = 100
-			modifier = {
-				factor = 2
-				OR = {
-					trait = brilliant_strategist
-					is_tribal = yes
-				}
-			}
 		}
 		trigger = {
-			NOT = { trait = marine_colonel }
+			NOT = { trait = mountain_terrain_leader }
 		}
-		add_trait = marine_colonel
+		add_trait = mountain_terrain_leader
+	}
+	option = {
+		name = EVTOPTD_WOL_11302 # Desert Terrain
+		ai_chance = {
+			factor = 100
+		}
+		trigger = {
+			NOT = { trait = desert_terrain_leader }
+			any_demesne_province = {
+				terrain = desert
+			}
+		}
+		add_trait = desert_terrain_leader
+	}
+	option = {
+		name = EVTOPTE_WOL_11302 # Winter Soldier
+		ai_chance = {
+			factor = 150
+		}
+		trigger = {
+			NOT = { trait = winter_soldier }
+			OR = {
+				culture_group = north_germanic
+				culture_group = baltic
+				culture_group = east_slavic
+				culture_group = west_slavic
+				culture_group = finno_ugric
+			}
+		}
+		add_trait = winter_soldier
 	}
 
 	option = {
@@ -3906,7 +3932,7 @@ character_event = {
 	}
 }
 
-# Leader Trait Choice: Centre, Flank or Siege
+# Leader Trait Choice: Inspiring Leader, Siege, Organizer
 character_event = {
 	id = WoL.11304
 
@@ -4159,9 +4185,9 @@ character_event = {
 	trigger = {
 		has_focus = focus_war
 		OR = {
-			trait = fighter_pilot
+			trait = frigate_pilot
 			trait = warship_captain
-			trait = marine_colonel
+			trait = marine_captain
 			trait = light_foot_leader
 			trait = heavy_infantry_leader
 			trait = cavalry_leader
@@ -4175,7 +4201,8 @@ character_event = {
 			trait = siege_leader
 			trait = unyielding_leader
 			trait = narrow_flank_leader
-			trait = fighter_pilot
+			trait = frigate_pilot
+			trait = army_captain
 			trait = holy_warrior
 			trait = war_elephant_leader
 			trait = jungle_terrain_leader
@@ -4369,11 +4396,11 @@ character_event = {
 	option = {
 		name = EVTOPT_WOL_11310_FTL
 		trigger = {
-			trait = fighter_pilot
+			trait = frigate_pilot
 		}
 		event_target:my_student = {
 			tooltip = {
-				add_trait = fighter_pilot
+				add_trait = frigate_pilot
 			}
 			character_event = { id = WoL.11324 days = 7 }
 		}
@@ -4393,11 +4420,23 @@ character_event = {
 	option = {
 		name = EVTOPT_WOL_11310_MTL
 		trigger = {
-			trait = marine_colonel
+			trait = marine_captain
 		}
 		event_target:my_student = {
 			tooltip = {
-				add_trait = marine_colonel
+				add_trait = marine_captain
+			}
+			character_event = { id = WoL.11326 days = 7 }
+		}
+	}
+	option = {
+		name = EVTOPT_WOL_11310_ARMY
+		trigger = {
+			trait = army_captain
+		}
+		event_target:my_student = {
+			tooltip = {
+				add_trait = army_captain
 			}
 			character_event = { id = WoL.11326 days = 7 }
 		}
@@ -4916,7 +4955,7 @@ character_event = {
 		ai_chance = {
 			factor = 100
 		}
-		add_trait = fighter_pilot
+		add_trait = frigate_pilot
 		FROM = {
 			character_event = { id = WoL.11340 }
 		}
@@ -4982,7 +5021,7 @@ character_event = {
 		ai_chance = {
 			factor = 100
 		}
-		add_trait = marine_colonel
+		add_trait = marine_captain
 		FROM = {
 			character_event = { id = WoL.11340 }
 		}

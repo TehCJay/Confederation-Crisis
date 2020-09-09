@@ -1,0 +1,718 @@
+# On this file we have ideologies that aren't actual religions
+
+
+
+political_terran_group = {
+	#merge_republic_interface = yes
+	has_coa_on_barony_only = yes
+	graphical_culture = westerngfx
+	playable = yes
+	hostile_within_group = yes
+	crusade_cb = crusade
+	ai_fabricate_claims = yes
+
+	color = { 0.2 0.2 0.8 }
+
+	terran_federalist = {
+		graphical_culture = westerngfx
+		icon = 1
+		#heresy_icon = ?
+		color = { 0.2 0.2 0.8 }
+
+		# Localization
+		crusade_name = UNIFICATION
+		scripture_name = THE_LAW
+		piety_name = CREDIBILITY
+		high_god_name = GOD_GOD
+		god_names = { GOD_GOD GOD_HOLY_TERRA GOD_THE_LORD }
+		priest_title = RECTOR
+		# Actually randomly-generated names for military operations and science projects
+		evil_god_names = {
+			PLACEHOLDER
+		}
+
+		# Ai Behaviour
+		ai_convert_same_group = 1
+		ai_convert_other_group = 2
+		pacifist = no #Affects wars, plots, etc...
+		aggression = 0.6 #Affects how much it wants wars.
+		rel_head_defense = no
+		join_crusade_if_bordering_hostile = no
+
+		# Gender Rules
+		matrilineal_marriages = yes
+		female_temple_holders = yes
+		male_temple_holders = yes
+		feminist = yes # affects opinion modifier toward female rulers
+
+		# Religious Head Powers (assuming it has a religious head)
+		autocephaly = no # Also they have no normal head either.
+		can_have_antipopes = no
+		#can_grant_invasion_cb = no
+		can_call_crusade = no
+		can_grant_divorce = no
+
+		# Secular Rulers Powers
+		investiture = no
+		can_demand_religious_conversion = no
+		can_retire_to_monastery = no # Name should be: Can SEND people to monastery
+		has_heir_designation = yes #Need Rajas of India DLC
+		raised_vassal_opinion_loss = yes
+		landed_kin_prestige_bonus = no
+
+		# Actual Religion Rules
+		priests_can_marry = yes
+		priests_can_inherit = yes
+		attacking_same_religion_piety_loss = yes
+		uses_decadence = no
+		peace_piety_gain = 1.0
+		peace_prestige_loss = no
+		short_reign_opinion_year_mult = 0.5 #overrides a define.
+
+		# Marriage Rules:
+			# Incest rules
+			divine_blood = no
+			bs_marriage = no
+			pc_marriage = no
+			psc_marriage = yes
+			cousin_marriage = yes
+			# Forms of Marriage
+			max_wives = 1
+			max_consorts = 0
+			men_can_take_consorts = no
+			women_can_take_consorts = no
+			#Intermarriage Rules
+			intermarry = political_group
+			intermarry = political_terran_group
+			#intermarry = religious_group
+			intermarry = religious_terran_group
+			#intermarry = transhumanist_group
+			#intermarry = outlaw_group
+
+
+		# Outlaw Features
+		allow_viking_invasion = no #Prepare Invasion diplomatic avtion
+		allow_looting = no
+		seafarer = no #makes boats cheap and make AI prefer coastal, but ALL provinces in CotC are coastal...
+		allow_rivermovement = no #This allows crossing normally impassable nebulas.
+		uses_jizya_tax = no
+
+		# Mod Disabled Features
+		defensive_attrition = no
+		ignores_defensive_attrition = yes
+		castes = no
+		caste_opinions = no
+
+		# At least we need to give +10 opinion toward this religion, from related religious groups
+		# Default inter-group opinion is -20, thus end result is -10 instead.
+		character_modifier = {
+			religious_terran_group_opinion = 10
+			political_group_opinion = 10
+		}
+	}
+	terran_republican = {
+		graphical_culture = westerngfx
+		icon = 17
+		#heresy_icon = ?
+		color = { 0.4 0.4 0.8 }
+
+		# Localization
+		crusade_name = UNIFICATION
+		scripture_name = THE_LAW
+		piety_name = CREDIBILITY
+		high_god_name = GOD_GOD
+		god_names = { GOD_GOD GOD_HOLY_TERRA GOD_THE_LORD }
+		priest_title = RECTOR
+		# Actually randomly-generated names for military operations and science projects
+		evil_god_names = {
+			PLACEHOLDER
+		}
+
+		# Ai Behaviour
+		ai_convert_same_group = 1
+		ai_convert_other_group = 2
+		pacifist = no #Affects wars, plots, etc...
+		aggression = 1.2 #Affects how much it wants wars.
+		rel_head_defense = no
+		join_crusade_if_bordering_hostile = no
+
+		# Gender Rules
+		matrilineal_marriages = yes
+		female_temple_holders = yes
+		male_temple_holders = yes
+		feminist = yes # affects opinion modifier toward female rulers
+
+		# Religious Head Powers (assuming it has a religious head)
+		autocephaly = yes
+		can_have_antipopes = no
+		#can_grant_invasion_cb = no
+		can_call_crusade = yes
+		can_grant_divorce = yes
+
+		# Secular Rulers Powers
+		investiture = yes
+		can_demand_religious_conversion = no
+		can_retire_to_monastery = no # Name should be: Can SEND people to monastery
+		has_heir_designation = yes #Need Rajas of India DLC
+		raised_vassal_opinion_loss = yes
+		landed_kin_prestige_bonus = no
+
+		# Actual Religion Rules
+		priests_can_marry = yes
+		priests_can_inherit = yes
+		attacking_same_religion_piety_loss = yes
+		uses_decadence = no
+		peace_piety_gain = 0.1
+		peace_prestige_loss = no
+		short_reign_opinion_year_mult = 0.5 #overrides a define.
+
+		# Marriage Rules:
+			# Incest rules
+			divine_blood = no
+			bs_marriage = no
+			pc_marriage = no
+			psc_marriage = no
+			cousin_marriage = yes
+			# Forms of Marriage
+			max_wives = 1
+			max_consorts = 0
+			men_can_take_consorts = no
+			women_can_take_consorts = no
+			#Intermarriage Rules
+			intermarry = political_group
+			intermarry = political_terran_group
+			#intermarry = religious_group
+			intermarry = religious_terran_group
+			#intermarry = transhumanist_group
+			#intermarry = outlaw_group
+
+
+		# Outlaw Features
+		allow_viking_invasion = no #Prepare Invasion diplomatic avtion
+		allow_looting = no
+		seafarer = no #makes boats cheap and make AI prefer coastal, but ALL provinces in CotC are coastal...
+		allow_rivermovement = no #This allows crossing normally impassable nebulas.
+		uses_jizya_tax = no
+
+		# Mod Disabled Features
+		defensive_attrition = no
+		ignores_defensive_attrition = yes
+		castes = no
+		caste_opinions = no
+
+		# At least we need to give +10 opinion toward this religion, from related religious groups
+		# Default inter-group opinion is -20, thus end result is -10 instead.
+		character_modifier = {
+			religious_terran_group_opinion = 10
+			political_group_opinion = 10
+		}
+	}
+	terran_imperial = {
+		graphical_culture = westerngfx
+		icon = 2
+		#heresy_icon = ?
+		color = { 0.8 0.2 0.8 }
+
+		# Localization
+		crusade_name = UNIFICATION
+		scripture_name = THE_THESIS
+		piety_name = LEGITIMACY
+		high_god_name = GOD_GOD
+		god_names = { GOD_GOD GOD_HOLY_TERRA GOD_THE_LORD }
+		priest_title = RECTOR
+		# Actually randomly-generated names for military operations and science projects
+		evil_god_names = {
+			PLACEHOLDER
+		}
+
+		# Ai Behaviour
+		ai_convert_same_group = 2
+		ai_convert_other_group = 2
+		pacifist = no #Affects wars, plots, etc...
+		aggression = 2 #Affects how much it wants wars.
+		rel_head_defense = yes
+		join_crusade_if_bordering_hostile = yes
+
+		# Gender Rules
+		matrilineal_marriages = yes
+		female_temple_holders = yes
+		male_temple_holders = yes
+		feminist = yes # affects opinion modifier toward female rulers
+
+		# Religious Head Powers (assuming it has a religious head)
+		autocephaly = no
+		can_have_antipopes = no
+		can_grant_invasion_cb = invasion
+		can_call_crusade = yes
+		can_grant_divorce = yes
+
+		# Secular Rulers Powers
+		investiture = no
+		can_demand_religious_conversion = yes
+		can_retire_to_monastery = no # Name should be: Can SEND people to monastery
+		has_heir_designation = yes #Need Rajas of India DLC
+		raised_vassal_opinion_loss = yes
+		landed_kin_prestige_bonus = no
+
+		# Actual Religion Rules
+		priests_can_marry = yes
+		priests_can_inherit = yes
+		attacking_same_religion_piety_loss = yes
+		uses_decadence = no
+		peace_piety_gain = 0.5
+		peace_prestige_loss = no
+		short_reign_opinion_year_mult = 3 #overrides a define.
+
+		# Marriage Rules:
+			# Incest rules
+			divine_blood = no
+			bs_marriage = no
+			pc_marriage = no
+			psc_marriage = yes
+			cousin_marriage = yes
+			# Forms of Marriage
+			max_wives = 1
+			max_consorts = 0
+			men_can_take_consorts = no
+			women_can_take_consorts = no
+			#Intermarriage Rules
+			intermarry = political_group
+			intermarry = political_terran_group
+			#intermarry = religious_group
+			intermarry = religious_terran_group
+			#intermarry = transhumanist_group
+			#intermarry = outlaw_group
+
+
+		# Outlaw Features
+		allow_viking_invasion = no #Prepare Invasion diplomatic avtion
+		allow_looting = no
+		seafarer = no #makes boats cheap and make AI prefer coastal, but ALL provinces in CotC are coastal...
+		allow_rivermovement = no #This allows crossing normally impassable nebulas.
+		uses_jizya_tax = no
+
+		# Mod Disabled Features
+		defensive_attrition = no
+		ignores_defensive_attrition = yes
+		castes = no
+		caste_opinions = no
+
+		# At least we need to give +10 opinion toward this religion, from related religious groups
+		# Default inter-group opinion is -20, thus end result is -10 instead.
+		character_modifier = {
+			religious_terran_group_opinion = 10
+			political_group_opinion = 10
+		}
+	}
+}
+
+political_group = {
+	#merge_republic_interface = yes
+	has_coa_on_barony_only = yes
+	graphical_culture = westerngfx
+	playable = yes
+	hostile_within_group = yes
+	crusade_cb = crusade
+	ai_fabricate_claims = yes
+
+	color = { 0.2 0.8 0.2 }
+
+	colonial_separatist = {
+		graphical_culture = westerngfx
+		icon = 3
+		#heresy_icon = ?
+		color = { 0.2 0.8 0.2 }
+
+		# Localization
+		scripture_name = THE_ARTICLES
+		piety_name = CREDIBILITY
+		high_god_name = GOD_GOD
+		god_names = { GOD_GOD GOD_THE_LORD }
+		priest_title = RECTOR
+		evil_god_names = {
+			PLACEHOLDER
+		}
+
+		# Ai Behaviour
+		ai_convert_same_group = 1
+		ai_convert_other_group = 1
+		pacifist = no #Affects wars, plots, etc...
+		aggression = 0.9 #Affects how much it wants wars.
+		rel_head_defense = no
+		join_crusade_if_bordering_hostile = no
+
+		# Gender Rules
+		matrilineal_marriages = yes
+		female_temple_holders = yes
+		male_temple_holders = yes
+		feminist = yes # affects opinion modifier toward female rulers
+
+		# Religious Head Powers (assuming it has a religious head)
+		autocephaly = no # Also they have no normal head either.
+		can_have_antipopes = no
+		#can_grant_invasion_cb = no
+		can_call_crusade = no
+		can_grant_divorce = no
+
+		# Secular Rulers Powers
+		investiture = no
+		can_demand_religious_conversion = no
+		can_retire_to_monastery = no # Name should be: Can SEND people to monastery
+		has_heir_designation = yes #Need Rajas of India DLC
+		raised_vassal_opinion_loss = yes
+		landed_kin_prestige_bonus = no
+
+		# Actual Religion Rules
+		priests_can_marry = yes
+		priests_can_inherit = yes
+		attacking_same_religion_piety_loss = no
+		uses_decadence = no
+		peace_piety_gain = 1.0
+		peace_prestige_loss = no
+		short_reign_opinion_year_mult = 0.5 #overrides a define.
+
+		# Marriage Rules:
+			# Incest rules
+			divine_blood = no
+			bs_marriage = no
+			pc_marriage = no
+			psc_marriage = yes
+			cousin_marriage = yes
+			# Forms of Marriage
+			max_wives = 1
+			max_consorts = 0
+			men_can_take_consorts = no
+			women_can_take_consorts = no
+			#Intermarriage Rules
+			intermarry = political_group
+			intermarry = political_terran_group
+			intermarry = religious_group
+			#intermarry = religious_terran_group
+			#intermarry = transhumanist_group
+			intermarry = outlaw_group
+
+
+		# Outlaw Features
+		allow_viking_invasion = no #Prepare Invasion diplomatic avtion
+		allow_looting = no
+		seafarer = no #makes boats cheap and make AI prefer coastal, but ALL provinces in CotC are coastal...
+		allow_rivermovement = no #This allows crossing normally impassable nebulas.
+		uses_jizya_tax = no
+
+		# Mod Disabled Features
+		defensive_attrition = no
+		ignores_defensive_attrition = yes
+		castes = no
+		caste_opinions = no
+
+		# At least we need to give +10 opinion toward this religion, from related religious groups
+		# Default inter-group opinion is -20, thus end result is -10 instead.
+		character_modifier = {
+			religious_group_opinion = 10
+			political_terran_group_opinion = 10
+		}
+	}
+	neo_feudal = {
+		graphical_culture = westerngfx
+		icon = 4
+
+		color = { 0.4 0.2 0.4 }
+
+		# Defaults to the Pilgrimage
+		crusade_name = CRUSADE
+		scripture_name = THE_OATHS
+		piety_name = LEGITIMACY
+		high_god_name = GOD_GOD
+		god_names = { GOD_GOD GOD_THE_LORD }
+		priest_title = RECTOR
+		evil_god_names = {
+
+		}
+
+		# Ai Behaviour
+		ai_convert_same_group = 1
+		ai_convert_other_group = 1
+		pacifist = no #Affects wars, plots, etc...
+		aggression = 1.2 #Affects how much it wants wars.
+		rel_head_defense = no
+		join_crusade_if_bordering_hostile = no
+
+		# Gender Rules
+		matrilineal_marriages = yes
+		female_temple_holders = yes
+		male_temple_holders = yes
+		feminist = yes # affects opinion modifier toward female rulers
+
+		# Religious Head Powers (assuming it has a religious head)
+		autocephaly = yes
+		can_have_antipopes = no
+		#can_grant_invasion_cb = no
+		can_call_crusade = yes
+		can_grant_divorce = yes
+
+		# Secular Rulers Powers
+		investiture = yes
+		can_demand_religious_conversion = no
+		can_retire_to_monastery = no # Name should be: Can SEND people to monastery
+		has_heir_designation = yes #Need Rajas of India DLC
+		raised_vassal_opinion_loss = yes
+		landed_kin_prestige_bonus = no
+
+		# Actual Religion Rules
+		priests_can_marry = yes
+		priests_can_inherit = yes
+		attacking_same_religion_piety_loss = no
+		uses_decadence = no
+		peace_piety_gain = 0.5
+		peace_prestige_loss = no
+		#short_reign_opinion_year_mult = 0.5 #overrides a define.
+
+		# Marriage Rules:
+			# Incest rules
+			divine_blood = no
+			bs_marriage = no
+			pc_marriage = no
+			psc_marriage = yes
+			cousin_marriage = yes
+			# Forms of Marriage
+			max_wives = 1
+			max_consorts = 0
+			men_can_take_consorts = no
+			women_can_take_consorts = no
+			#Intermarriage Rules
+			intermarry = political_group
+			#intermarry = political_terran_group
+			intermarry = religious_group
+			#intermarry = religious_terran_group
+			intermarry = transhumanist_group
+			#intermarry = outlaw_group
+
+
+		# Outlaw Features
+		allow_viking_invasion = no #Prepare Invasion diplomatic avtion
+		allow_looting = no
+		seafarer = no #makes boats cheap and make AI prefer coastal, but ALL provinces in CotC are coastal...
+		allow_rivermovement = no #This allows crossing normally impassable nebulas.
+		uses_jizya_tax = no
+
+		# Mod Disabled Features
+		defensive_attrition = no
+		ignores_defensive_attrition = yes
+		castes = no
+		caste_opinions = no
+
+		# At least we need to give +10 opinion toward this religion, from related religious groups
+		# Default inter-group opinion is -20, thus end result is -10 instead.
+		character_modifier = {
+			religious_group_opinion = 10
+			political_terran_group_opinion = 10
+			transhumanist_group_opinion = 5
+		}
+	}
+	neo_socialist = {
+		graphical_culture = westerngfx
+		has_coa_on_barony_only = no
+		icon = 5
+
+		color = { 0.8 0.2 0.2 }
+
+		# Defaults to the Pilgrimage
+		crusade_name = CRUSADE
+		scripture_name = THE_MANIFESTOS
+		piety_name = CREDIBILITY
+		high_god_name = GOD_GOD
+		god_names = { GOD_THE_GREATER_GOOD GOD_THE_CAUSE }
+		evil_god_names = {
+
+		}
+
+		# Ai Behaviour
+		ai_convert_same_group = 1
+		ai_convert_other_group = 1
+		pacifist = no #Affects wars, plots, etc...
+		aggression = 1.6 #Affects how much it wants wars.
+		rel_head_defense = no
+		join_crusade_if_bordering_hostile = no
+
+		# Gender Rules
+		matrilineal_marriages = yes
+		female_temple_holders = yes
+		male_temple_holders = yes
+		feminist = yes # affects opinion modifier toward female rulers
+
+		# Religious Head Powers (assuming it has a religious head)
+		autocephaly = yes # Also they have no normal head either.
+		can_have_antipopes = no
+		#can_grant_invasion_cb = no
+		can_call_crusade = yes
+		can_grant_divorce = yes
+
+		# Secular Rulers Powers
+		investiture = yes
+		can_demand_religious_conversion = yes
+		can_retire_to_monastery = no # Name should be: Can SEND people to monastery
+		has_heir_designation = yes #Need Rajas of India DLC
+		raised_vassal_opinion_loss = yes
+		landed_kin_prestige_bonus = no
+
+		# Actual Religion Rules
+		priests_can_marry = yes
+		priests_can_inherit = yes
+		attacking_same_religion_piety_loss = no
+		uses_decadence = no
+		peace_piety_gain = 0.5
+		peace_prestige_loss = no
+		short_reign_opinion_year_mult = 0.5 #overrides a define.
+
+		# Marriage Rules:
+			# Incest rules
+			divine_blood = no
+			bs_marriage = no
+			pc_marriage = no
+			psc_marriage = yes
+			cousin_marriage = yes
+			# Forms of Marriage
+			max_wives = 1
+			max_consorts = 0
+			men_can_take_consorts = no
+			women_can_take_consorts = no
+			#Intermarriage Rules
+			intermarry = political_group
+			intermarry = political_terran_group
+			intermarry = religious_group
+			#intermarry = religious_terran_group
+			#intermarry = transhumanist_group
+			intermarry = outlaw_group
+
+
+		# Outlaw Features
+		allow_viking_invasion = no #Prepare Invasion diplomatic avtion
+		allow_looting = yes #"Expropriation"
+		seafarer = no #makes boats cheap and make AI prefer coastal, but ALL provinces in CotC are coastal...
+		allow_rivermovement = no #This allows crossing normally impassable nebulas.
+		uses_jizya_tax = yes
+
+		# Mod Disabled Features
+		defensive_attrition = no
+		ignores_defensive_attrition = yes
+		castes = no
+		caste_opinions = no
+
+		# At least we need to give +10 opinion toward this religion, from related religious groups
+		# Default inter-group opinion is -20, thus end result is -10 instead.
+		character_modifier = {
+			religious_group_opinion = 10
+			political_terran_group_opinion = 10
+		}
+	}
+	astrist = {
+		graphical_culture = westerngfx
+		icon = 6
+
+		color = { 0.2 0.2 0.2 }
+
+		# Defaults to the Pilgrimage
+		scripture_name = THE_DOCTRINE
+		piety_name = CREDIBILITY
+		high_god_name = GOD_GOD
+		god_names = { GOD_THE_GREATER_GOOD GOD_THE_CAUSE }
+		evil_god_names = {
+
+		}
+
+		# Ai Behaviour
+		ai_convert_same_group = 0
+		ai_convert_other_group = 1
+		pacifist = no #Affects wars, plots, etc...
+		aggression = 2 #Affects how much it wants wars.
+		rel_head_defense = no
+		join_crusade_if_bordering_hostile = yes
+
+		# Gender Rules
+		matrilineal_marriages = yes
+		female_temple_holders = yes
+		male_temple_holders = yes
+		feminist = yes # affects opinion modifier toward female rulers
+
+		# Religious Head Powers (assuming it has a religious head)
+		autocephaly = yes # Also they have no normal head either.
+		can_have_antipopes = no
+		can_grant_invasion_cb = invasion
+		can_call_crusade = no
+		can_grant_divorce = yes
+
+		# Secular Rulers Powers
+		investiture = yes
+		can_demand_religious_conversion = no
+		can_retire_to_monastery = no # Name should be: Can SEND people to monastery
+		has_heir_designation = yes #Need Rajas of India DLC
+		raised_vassal_opinion_loss = no
+		landed_kin_prestige_bonus = no
+
+		# Actual Religion Rules
+		priests_can_marry = yes
+		priests_can_inherit = yes
+		attacking_same_religion_piety_loss = no
+		uses_decadence = no
+		peace_piety_gain = 0.1
+		peace_prestige_loss = yes
+		short_reign_opinion_year_mult = 0.5 #overrides a define.
+
+		# Marriage Rules:
+			# Incest rules
+			divine_blood = no
+			bs_marriage = no
+			pc_marriage = no
+			psc_marriage = yes
+			cousin_marriage = yes
+			# Forms of Marriage
+			max_wives = 1
+			max_consorts = 0
+			men_can_take_consorts = no
+			women_can_take_consorts = no
+			#Intermarriage Rules
+			intermarry = political_group
+			intermarry = political_terran_group
+			intermarry = religious_group
+			#intermarry = religious_terran_group
+			intermarry = transhumanist_group
+			intermarry = outlaw_group
+
+
+		# Outlaw Features
+		allow_viking_invasion = yes #Prepare Invasion diplomatic avtion
+		allow_looting = yes
+		seafarer = yes #makes boats cheap and make AI prefer coastal, but ALL provinces in CotC are coastal...
+		allow_rivermovement = no #This allows crossing normally impassable nebulas.
+		uses_jizya_tax = no
+
+		# Mod Disabled Features
+		defensive_attrition = no
+		ignores_defensive_attrition = yes
+		castes = no
+		caste_opinions = no
+
+		# At least we need to give +10 opinion toward this religion, from related religious groups
+		# Default inter-group opinion is -20, thus end result is -10 instead.
+		unit_modifier = {
+			garrison_size = -0.2
+			levy_size = -0.2
+			retinuesize_perc = 1
+			retinue_maintenence_cost = -0.5
+
+			key = "SPACER_RELIGION"
+		}
+
+		character_modifier = {
+			martial = 1
+			religious_group_opinion = 10
+			political_terran_group_opinion = 10
+			general_opinion = -5
+			same_religion_opinion = 5 #to counterbalance the line above
+			liege_opinion = 15
+		}
+	}
+}
+
+
+

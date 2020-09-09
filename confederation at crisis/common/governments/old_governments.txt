@@ -1,0 +1,1266 @@
+#These are governments from  an older version, most of them with "always = no" somewhere.
+#Ideally you should move all those that are still used to correct files, and then delete this file after
+#Removing all references to the governments that are not used anymore.
+
+feudal_governments = {
+	# Hivemind
+	hivemind_government = {
+		preferred_holdings = { TEMPLE }
+		allowed_holdings = {
+			CASTLE
+			CITY
+			TEMPLE
+			TRIBAL
+			FORT
+			HOSPITAL
+		}
+		free_revoke_on_governments_religion = {
+			# Can revoke ANYONE
+			military_monarchy
+			military_republic
+			military_directorate
+			military_command
+			merchant_republic_government
+			pirate_kingdom
+		}
+		potential = {
+			trait = hiver_implant
+		}
+		frame_suffix = "_theocracy"
+		title_prefix = "hive_"
+		color = { 32 32 32 }
+
+		dukes_called_kings = yes
+		barons_need_dynasty = no
+		no_vassal_tax = {
+			military_command
+		}
+		ignore_in_vassal_limit_calculation = {
+			military_command
+		}
+		vassal_call_to_arms = {
+			military_command
+			military_monarchy
+			corporate_republic
+			administrative_republic
+			merchant_republic_government
+			military_republic
+			administrative_monarchy
+			administrative_directorate
+			corporate_directorate
+			corporate_monarchy
+			hivemind_government
+			pirate_kingdom
+			pirate_republic
+		}
+		can_build_tribal = no
+		uses_piety_for_law_change = yes
+
+		can_revoke_without_reason = yes
+		can_imprison_without_reason = yes
+
+		character_modifier = {
+			levy_size = 0.3
+			city_vassal_min_levy = 0.15
+			castle_vassal_min_levy = 0.15
+			temple_vassal_min_levy = 0.15
+			city_vassal_max_levy = 0.3
+			castle_vassal_max_levy = 0.3
+			temple_vassal_max_levy = 0.3
+			global_tax_modifier = -0.2
+			city_vassal_tax_modifier = -0.2
+			temple_vassal_tax_modifier = -0.2
+			castle_vassal_tax_modifier = -0.2
+			land_morale = 0.15
+			land_organisation = 0.15
+		}
+	}
+
+	# Outlaws
+	pirate_kingdom = { #_feud retiré, à tester
+		preferred_holdings = { CASTLE }
+		allowed_holdings = {
+			CASTLE
+			FORT
+			TEMPLE
+			HOSPITAL
+		}
+		builds_with_prestige = {
+			FORT
+		}
+		accepts_liege_governments = {
+			pirate_republic
+			pirate_kingdom
+		}
+		potential = {
+			NOR = {
+				is_government_potential = hivemind_government
+				is_government_potential = merchant_republic_government
+				is_government_potential = pirate_republic
+			}
+			is_patrician = no
+			NOT = { trait = hiver_implant }
+			#primary_title = { is_fleet_title_trigger = no }
+			religion_group = outlaw_group
+			# OR = {
+				# independent = yes
+				# AND = {
+					# top_liege = {
+						# government = pirate_kingdom
+						# tier = EMPEROR
+						# culture = ROOT
+						# religion = ROOT
+					# }
+					# higher_tier_than = baron
+				# }
+			# }
+		}
+		title_prefix = "pirate_kingdom_"
+		color = { 64 32 32 }
+
+		dukes_called_kings = yes
+		barons_need_dynasty = no
+
+		allow_looting = yes
+		ignores_de_jure_laws = yes
+
+		can_build_city = no
+		can_build_tribal = no
+		uses_piety_for_law_change = yes
+		no_vassal_tax = {
+			military_command
+		}
+		ignore_in_vassal_limit_calculation = {
+			military_command
+		}
+		vassal_call_to_arms = {
+			military_command
+			military_monarchy
+			corporate_republic
+			administrative_republic
+			merchant_republic_government
+			military_republic
+			administrative_monarchy
+			administrative_directorate
+			corporate_directorate
+			corporate_monarchy
+			hivemind_government
+			pirate_kingdom
+			pirate_republic
+			pirate_republic_governor
+		}
+
+	}
+	pirate_republic_governor = { #test while trying to make pirate republic vassals creatable for pirate kingdoms
+		preferred_holdings = { CITY }
+		allowed_holdings = {
+			CITY
+			CASTLE
+			FORT
+			HOSPITAL
+		}
+		accepts_liege_governments = { # Accepts other republics
+			pirate_republic
+		}
+		frame_suffix = "_merchantrepublic"
+		title_prefix = "pirate_republic_governor"
+		potential = {
+			religion = space_pirate
+			NOT = { is_government_potential = pirate_republic }
+			holy_order = no
+		}
+
+		color = { 209 125 130 }
+
+		can_imprison_without_reason = no
+		can_revoke_without_reason = no
+
+		can_build_castle = no
+		can_build_tribal = no
+
+		capital_move_delay = 600
+
+		## Modifiers
+		court_size_modifier = 5
+	}
+
+	# Military Group
+	military_republic = {
+		preferred_holdings = { CASTLE }
+		allowed_holdings = {
+			CASTLE
+			FORT
+			HOSPITAL
+		}
+		accepts_liege_governments = {
+			military_monarchy
+			military_directorate
+			corporate_republic
+			administrative_republic
+			merchant_republic_government
+		}
+		free_revoke_on_governments = {
+			hivemind_government
+			pirate_kingdom
+			pirate_republic
+		}
+		potential = {
+			always = no
+			NOR = {
+				is_government_potential = hivemind_government
+				is_government_potential = merchant_republic_government
+				is_government_potential = pirate_republic
+				is_government_potential = pirate_kingdom
+				is_government_potential = pirate_republic_governor
+				is_government_potential = military_command
+				is_government_potential = military_government
+				is_government_potential = npc_civil_government
+				is_government_potential = pc_civil_government
+				is_government_potential = npc_rectorial_government
+				is_government_potential = pc_rectorial_government
+				is_government_potential = imperialistic_government
+				is_government_potential = npc_technocratic_government
+				is_government_potential = npc_theocratic_government
+			}
+			trigger_if = {
+				limit = { independent = yes }
+
+				is_democratic_trigger = yes
+			}
+			trigger_else_if = {
+				limit = {
+					NOT = {
+						liege = { government = military_republic }
+					}
+				}
+				military_republic_is_legal_trigger = yes
+				is_democratic_trigger = yes
+			}
+			trigger_else = {
+				liege = { government = military_republic }
+			}
+		}
+		title_prefix = "military_republic_"
+		color = { 128 0 64 }
+
+		dukes_called_kings = yes
+		barons_need_dynasty = no
+
+		can_imprison_without_reason = no
+		can_build_tribal = no
+		can_revoke_without_reason = no
+		can_grant_kingdoms_and_empires_to_other_government = yes
+
+		uses_piety_for_law_change = yes
+
+		character_modifier = {
+			city_vassal_min_levy = 0.1
+			castle_vassal_min_levy = 0.1
+			temple_vassal_min_levy = 0.1
+			city_vassal_max_levy = 0.25
+			castle_vassal_max_levy = 0.25
+			temple_vassal_max_levy = 0.25
+			global_tax_modifier = -0.15
+			land_morale = 0.1
+			land_organisation = 0.1
+			demesne_size = 1
+			retinuesize_perc = 2
+		}
+
+		no_vassal_tax = {
+			military_command
+		}
+		ignore_in_vassal_limit_calculation = {
+			military_command
+		}
+		vassal_call_to_arms = {
+			military_command
+			military_monarchy
+			corporate_republic
+			administrative_republic
+			merchant_republic_government
+			military_republic
+			administrative_monarchy
+			administrative_directorate
+			corporate_directorate
+			corporate_monarchy
+			hivemind_government
+			pirate_kingdom
+			pirate_republic
+		}
+
+	}
+	military_monarchy = {
+		preferred_holdings = { CASTLE }
+		allowed_holdings = {
+			CASTLE
+			FORT
+			HOSPITAL
+		}
+		accepts_liege_governments = {
+			military_republic
+			military_directorate
+			corporate_monarchy
+			administrative_monarchy
+		}
+		free_revoke_on_governments = {
+			hivemind_government
+			pirate_kingdom
+			pirate_republic
+		}
+		potential = {
+			always = no
+			NOR = {
+				is_government_potential = hivemind_government
+				is_government_potential = merchant_republic_government
+				is_government_potential = pirate_republic
+				is_government_potential = pirate_kingdom
+				is_government_potential = pirate_republic_governor
+				is_government_potential = military_command
+				is_government_potential = military_government
+				is_government_potential = npc_civil_government
+				is_government_potential = pc_civil_government
+				is_government_potential = npc_rectorial_government
+				is_government_potential = pc_rectorial_government
+				is_government_potential = imperialistic_government
+				is_government_potential = npc_technocratic_government
+				is_government_potential = npc_theocratic_government
+			}
+			trigger_if = {
+				limit = { independent = yes }
+
+				is_autocratic_trigger = yes
+			}
+			trigger_else_if = {
+				limit = {
+					NOT = {
+						liege = { government = military_monarchy }
+					}
+				}
+				military_monarchy_is_legal_trigger = yes
+				is_autocratic_trigger = yes
+			}
+			trigger_else = {
+				liege = { government = military_monarchy }
+			}
+		}
+		title_prefix = "monarchy_"
+		color = { 192 0 0 }
+
+		dukes_called_kings = yes
+		barons_need_dynasty = no
+
+		can_build_tribal = no
+		uses_piety_for_law_change = yes
+		can_revoke_without_reason = yes
+		can_imprison_without_reason = yes
+		uses_jizya_tax = yes
+
+		uses_decadence = no
+
+		character_modifier = {
+			levy_size = 0.25
+			city_vassal_min_levy = 0.1
+			castle_vassal_min_levy = 0.1
+			temple_vassal_min_levy = 0.1
+			city_vassal_max_levy = 0.25
+			castle_vassal_max_levy = 0.25
+			temple_vassal_max_levy = 0.25
+			global_tax_modifier = -0.15
+			city_vassal_tax_modifier = -0.15
+			temple_vassal_tax_modifier = -0.15
+			castle_vassal_tax_modifier = -0.15
+			land_morale = 0.1
+			land_organisation = 0.1
+			retinuesize_perc = 2
+		}
+
+		no_vassal_tax = {
+			military_command
+		}
+		ignore_in_vassal_limit_calculation = {
+			military_command
+		}
+		vassal_call_to_arms = {
+			military_command
+			military_monarchy
+			corporate_republic
+			administrative_republic
+			merchant_republic_government
+			military_republic
+			administrative_monarchy
+			administrative_directorate
+			corporate_directorate
+			corporate_monarchy
+			hivemind_government
+			pirate_kingdom
+			pirate_republic
+		}
+	}
+	military_directorate = {
+		preferred_holdings = { CASTLE }
+		allowed_holdings = {
+			CASTLE
+			FORT
+			HOSPITAL
+		}
+		accepts_liege_governments = {
+			military_monarchy
+			military_directorate
+			military_command
+			corporate_monarchy
+			corporate_republic
+			corporate_directorate
+			administrative_monarchy
+			administrative_republic
+			administrative_directorate
+			merchant_republic_government
+		}
+		free_revoke_on_governments = {
+			hivemind_government
+			pirate_kingdom
+			pirate_republic
+		}
+		potential = {
+			always = no
+			NOR = {
+				is_government_potential = hivemind_government
+				is_government_potential = merchant_republic_government
+				is_government_potential = pirate_republic
+				is_government_potential = pirate_kingdom
+				is_government_potential = pirate_republic_governor
+				is_government_potential = military_command
+				is_government_potential = military_government
+				is_government_potential = npc_civil_government
+				is_government_potential = pc_civil_government
+				is_government_potential = npc_rectorial_government
+				is_government_potential = pc_rectorial_government
+				is_government_potential = imperialistic_government
+				is_government_potential = npc_technocratic_government
+				is_government_potential = npc_theocratic_government
+			}
+			trigger_if = {
+				limit = { independent = yes }
+
+				is_theocratic_trigger = yes
+			}
+			trigger_else_if = {
+				limit = {
+					NOT = {
+						liege = { government = military_directorate }
+					}
+				}
+				military_directorate_is_legal_trigger = yes
+				is_theocratic_trigger = yes
+			}
+			trigger_else = {
+				liege = { government = military_directorate }
+			}
+		}
+		title_prefix = "military_"
+		color = { 128 64 0 }
+
+		dukes_called_kings = yes
+		barons_need_dynasty = no
+
+		can_build_tribal = no
+		uses_piety_for_law_change = yes
+		can_revoke_without_reason = yes
+		can_imprison_without_reason = yes
+		uses_jizya_tax = yes
+
+		character_modifier = {
+			levy_size = 0.3
+			global_tax_modifier = -0.2
+			city_vassal_tax_modifier = -0.2
+			temple_vassal_tax_modifier = -0.2
+			castle_vassal_tax_modifier = -0.2
+			land_morale = 0.2
+			land_organisation = 0.2
+			retinuesize_perc = 2
+		}
+
+		no_vassal_tax = {
+			military_command
+		}
+		ignore_in_vassal_limit_calculation = {
+			military_command
+		}
+		vassal_call_to_arms = {
+			military_command
+			military_monarchy
+			corporate_republic
+			administrative_republic
+			merchant_republic_government
+			military_republic
+			administrative_monarchy
+			administrative_directorate
+			corporate_directorate
+			corporate_monarchy
+			hivemind_government
+			pirate_kingdom
+			pirate_republic
+		}
+	}
+
+	# Administrative Group
+	administrative_republic = {
+		preferred_holdings = { TEMPLE }
+		allowed_holdings = {
+			TEMPLE
+			FORT
+			HOSPITAL
+		}
+		accepts_liege_governments_religion = {
+			military_republic
+			corporate_republic
+			merchant_republic_government
+			administrative_monarchy
+			administrative_directorate
+		}
+		free_revoke_on_governments_religion = {
+			administrative_monarchy
+			administrative_republic
+			administrative_directorate
+		}
+		free_revoke_on_governments = {
+			hivemind_government
+			pirate_kingdom
+			pirate_republic
+		}
+		frame_suffix = "_theocracy"
+		title_prefix = "temple_"
+		potential = {
+			always = no
+			NOR = {
+				is_government_potential = hivemind_government
+				is_government_potential = merchant_republic_government
+				is_government_potential = pirate_republic
+				is_government_potential = pirate_kingdom
+				is_government_potential = pirate_republic_governor
+				is_government_potential = military_command
+				is_government_potential = military_government
+				is_government_potential = npc_civil_government
+				is_government_potential = pc_civil_government
+				is_government_potential = npc_rectorial_government
+				is_government_potential = pc_rectorial_government
+				is_government_potential = imperialistic_government
+				is_government_potential = npc_technocratic_government
+				is_government_potential = npc_theocratic_government
+			}
+			trigger_if = {
+				limit = { independent = yes }
+
+				is_democratic_trigger = yes
+			}
+			trigger_else_if = {
+				limit = {
+					NOT = {
+						liege = { government = administrative_republic }
+					}
+				}
+				administrative_republic_is_legal_trigger = yes
+				is_democratic_trigger = yes
+			}
+			trigger_else = {
+				liege = { government = administrative_republic }
+			}
+		}
+		color = { 0 128 64 }
+		no_vassal_tax = {
+			military_command
+		}
+		ignore_in_vassal_limit_calculation = {
+			military_command
+		}
+		vassal_call_to_arms = {
+			military_command
+			military_monarchy
+			corporate_republic
+			administrative_republic
+			merchant_republic_government
+			military_republic
+			administrative_monarchy
+			administrative_directorate
+			corporate_directorate
+			corporate_monarchy
+			hivemind_government
+			pirate_kingdom
+			pirate_republic
+		}
+		dukes_called_kings = yes
+		barons_need_dynasty = no
+
+		can_imprison_without_reason = no
+		can_revoke_without_reason = no
+		can_grant_kingdoms_and_empires_to_other_government = yes
+
+		uses_piety_for_law_change = yes
+		can_build_tribal = no
+
+		character_modifier = {
+			levy_size = -0.4
+			city_vassal_min_levy = -0.2
+			castle_vassal_min_levy = -0.2
+			temple_vassal_min_levy = -0.2
+			city_vassal_max_levy = -0.3
+			castle_vassal_max_levy = -0.3
+			temple_vassal_max_levy = -0.3
+			global_tax_modifier = 0.25
+			city_vassal_tax_modifier = 0.25
+			temple_vassal_tax_modifier = 0.25
+			castle_vassal_tax_modifier = 0.25
+			land_morale = -0.1
+			land_organisation = -0.1
+			demesne_size = 2
+			#retinuesize_perc = 2
+		}
+	}
+	administrative_monarchy = {
+		preferred_holdings = { TEMPLE }
+		allowed_holdings = {
+			TEMPLE
+			FORT
+			HOSPITAL
+		}
+		accepts_liege_governments_religion = {
+			military_monarchy
+			corporate_monarchy
+			administrative_republic
+			administrative_directorate
+		}
+		free_revoke_on_governments_religion = {
+			administrative_monarchy
+			administrative_republic
+			administrative_directorate
+		}
+		free_revoke_on_governments = {
+			hivemind_government
+			pirate_kingdom
+			pirate_republic
+		}
+		frame_suffix = "_theocracy"
+		title_prefix = "temple_"
+		potential = {
+			always = no
+			NOR = {
+				is_government_potential = hivemind_government
+				is_government_potential = merchant_republic_government
+				is_government_potential = pirate_republic
+				is_government_potential = pirate_kingdom
+				is_government_potential = pirate_republic_governor
+				is_government_potential = military_command
+				is_government_potential = military_government
+				is_government_potential = npc_civil_government
+				is_government_potential = pc_civil_government
+				is_government_potential = npc_rectorial_government
+				is_government_potential = pc_rectorial_government
+				is_government_potential = imperialistic_government
+				is_government_potential = npc_technocratic_government
+				is_government_potential = npc_theocratic_government
+			}
+			trigger_if = {
+				limit = { independent = yes }
+
+				is_autocratic_trigger = yes
+			}
+			trigger_else_if = {
+				limit = {
+					NOT = {
+						liege = { government = administrative_monarchy }
+					}
+				}
+				administrative_monarchy_is_legal_trigger = yes
+				is_autocratic_trigger = yes
+			}
+			trigger_else = {
+				liege = { government = administrative_monarchy }
+			}
+		}
+		color = { 64 128 0 }
+		no_vassal_tax = {
+			military_command
+		}
+		ignore_in_vassal_limit_calculation = {
+			military_command
+		}
+		vassal_call_to_arms = {
+			military_command
+			military_monarchy
+			corporate_republic
+			administrative_republic
+			merchant_republic_government
+			military_republic
+			administrative_monarchy
+			administrative_directorate
+			corporate_directorate
+			corporate_monarchy
+			hivemind_government
+			pirate_kingdom
+			pirate_republic
+		}
+		dukes_called_kings = yes
+		barons_need_dynasty = no
+
+		can_build_tribal = no
+		uses_piety_for_law_change = yes
+
+		uses_decadence = no
+		uses_jizya_tax = yes
+
+		character_modifier = {
+			levy_size = -0.25
+			city_vassal_min_levy = -0.1
+			castle_vassal_min_levy = -0.1
+			temple_vassal_min_levy = -0.1
+			city_vassal_max_levy = -0.25
+			castle_vassal_max_levy = -0.25
+			temple_vassal_max_levy = -0.25
+			global_tax_modifier = 0.15
+			city_vassal_tax_modifier = 0.15
+			temple_vassal_tax_modifier = 0.15
+			castle_vassal_tax_modifier = 0.15
+			land_morale = 0.1
+			land_organisation = 0.1
+			demesne_size = 3
+			#retinuesize_perc = 2
+		}
+	}
+	administrative_directorate = {
+		preferred_holdings = { TEMPLE }
+		allowed_holdings = {
+			TEMPLE
+			FORT
+			HOSPITAL
+		}
+		accepts_liege_governments = {
+			military_monarchy
+			military_republic
+			military_directorate
+			military_command
+			corporate_monarchy
+			corporate_republic
+			merchant_republic_government
+			corporate_directorate
+			administrative_monarchy
+			administrative_republic
+		}
+		free_revoke_on_governments_religion = {
+			administrative_monarchy
+			administrative_republic
+			administrative_directorate
+		}
+		free_revoke_on_governments = {
+			hivemind_government
+			pirate_kingdom
+			pirate_republic
+		}
+		frame_suffix = "_theocracy"
+		title_prefix = "temple_"
+		potential = {
+			always = no
+			NOR = {
+				is_government_potential = hivemind_government
+				is_government_potential = merchant_republic_government
+				is_government_potential = pirate_republic
+				is_government_potential = pirate_kingdom
+				is_government_potential = pirate_republic_governor
+				is_government_potential = military_command
+				is_government_potential = military_government
+				is_government_potential = npc_civil_government
+				is_government_potential = pc_civil_government
+				is_government_potential = npc_rectorial_government
+				is_government_potential = pc_rectorial_government
+				is_government_potential = imperialistic_government
+				is_government_potential = npc_technocratic_government
+				is_government_potential = npc_theocratic_government
+			}
+			trigger_if = {
+				limit = { independent = yes }
+
+				is_theocratic_trigger = yes
+			}
+			trigger_else_if = {
+				limit = {
+					NOT = {
+						liege = { government = administrative_directorate }
+					}
+				}
+				administrative_directorate_is_legal_trigger = yes
+				is_theocratic_trigger = yes
+			}
+			trigger_else = {
+				liege = { government = administrative_directorate }
+			}
+		}
+		color = { 0 192 0 }
+
+		dukes_called_kings = yes
+		barons_need_dynasty = no
+		no_vassal_tax = {
+			military_command
+		}
+		ignore_in_vassal_limit_calculation = {
+			military_command
+		}
+		vassal_call_to_arms = {
+			military_command
+			military_monarchy
+			corporate_republic
+			administrative_republic
+			merchant_republic_government
+			military_republic
+			administrative_monarchy
+			administrative_directorate
+			corporate_directorate
+			corporate_monarchy
+			hivemind_government
+			pirate_kingdom
+			pirate_republic
+		}
+		can_build_tribal = no
+		uses_piety_for_law_change = yes
+
+		character_modifier = {
+			levy_size = -0.3
+			city_vassal_min_levy = -0.1
+			castle_vassal_min_levy = -0.1
+			temple_vassal_min_levy = -0.1
+			city_vassal_max_levy = -0.2
+			castle_vassal_max_levy = -0.2
+			temple_vassal_max_levy = -0.2
+			global_tax_modifier = 0.2
+			city_vassal_tax_modifier = 0.2
+			temple_vassal_tax_modifier = 0.2
+			castle_vassal_tax_modifier = 0.2
+			land_morale = -0.2
+			land_organisation = -0.2
+			demesne_size = 1
+			#retinuesize_perc = 2
+		}
+
+
+	}
+
+	# Corporate Group
+	corporate_republic = {
+		preferred_holdings = { CITY }
+		allowed_holdings = {
+			CITY
+			FORT
+			HOSPITAL
+		}
+		accepts_liege_governments = {
+			corporate_republic
+			military_republic
+			corporate_monarchy
+			merchant_republic_government
+			corporate_directorate
+			administrative_republic
+		}
+		free_revoke_on_governments = {
+			hivemind_government
+			pirate_kingdom
+			pirate_republic
+		}
+		frame_suffix = "_republic"
+		potential = {
+			always = no
+			NOR = {
+				is_government_potential = hivemind_government
+				is_government_potential = merchant_republic_government
+				is_government_potential = pirate_republic
+				is_government_potential = pirate_kingdom
+				is_government_potential = pirate_republic_governor
+				is_government_potential = military_command
+				is_government_potential = military_government
+				is_government_potential = npc_civil_government
+				is_government_potential = pc_civil_government
+				is_government_potential = npc_rectorial_government
+				is_government_potential = pc_rectorial_government
+				is_government_potential = imperialistic_government
+				is_government_potential = npc_technocratic_government
+				is_government_potential = npc_theocratic_government
+			}
+			trigger_if = {
+				limit = { independent = yes }
+
+				is_democratic_trigger = yes
+			}
+			trigger_else_if = {
+				limit = {
+					NOT = {
+						liege = { government = corporate_republic }
+					}
+				}
+				corporate_republic_is_legal_trigger = yes
+				is_democratic_trigger = yes
+			}
+			trigger_else = {
+				liege = { government = corporate_republic }
+			}
+		}
+
+		color = { 0 0 192 }
+
+		dukes_called_kings = yes
+		barons_need_dynasty = no
+		no_vassal_tax = {
+			military_command
+		}
+		ignore_in_vassal_limit_calculation = {
+			military_command
+		}
+		vassal_call_to_arms = {
+			military_command
+			military_monarchy
+			corporate_republic
+			administrative_republic
+			merchant_republic_government
+			military_republic
+			administrative_monarchy
+			administrative_directorate
+			corporate_directorate
+			corporate_monarchy
+			hivemind_government
+			pirate_kingdom
+			pirate_republic
+		}
+		can_build_tribal = no
+		uses_piety_for_law_change = yes
+
+		character_modifier	= {
+			levy_size = -0.2
+			land_morale = -0.1
+			#retinue_maintenence_cost = -0.25
+			vassal_opinion = -15
+			demesne_size = 1
+		}
+
+	}
+	corporate_monarchy = {
+		preferred_holdings = { CITY }
+		allowed_holdings = {
+			CITY
+			FORT
+			HOSPITAL
+		}
+		accepts_liege_governments = {
+			military_monarchy
+			corporate_republic
+			merchant_republic_government
+			corporate_directorate
+			administrative_monarchy
+		}
+		free_revoke_on_governments = {
+			hivemind_government
+			pirate_kingdom
+			pirate_republic
+		}
+		frame_suffix = "_republic"
+		title_prefix = "monarchy_"
+		potential = {
+			always = no
+			NOR = {
+				is_government_potential = hivemind_government
+				is_government_potential = merchant_republic_government
+				is_government_potential = pirate_republic
+				is_government_potential = pirate_kingdom
+				is_government_potential = pirate_republic_governor
+				is_government_potential = military_command
+				is_government_potential = military_government
+				is_government_potential = npc_civil_government
+				is_government_potential = pc_civil_government
+				is_government_potential = npc_rectorial_government
+				is_government_potential = pc_rectorial_government
+				is_government_potential = imperialistic_government
+				is_government_potential = npc_technocratic_government
+				is_government_potential = npc_theocratic_government
+			}
+			trigger_if = {
+				limit = { independent = yes }
+
+				is_autocratic_trigger = yes
+			}
+			trigger_else_if = {
+				limit = {
+					NOT = {
+						liege = { government = corporate_monarchy }
+					}
+				}
+				corporate_monarchy_is_legal_trigger = yes
+				is_autocratic_trigger = yes
+			}
+			trigger_else = {
+				liege = { government = corporate_monarchy }
+			}
+		}
+
+		color = { 64 0 128 }
+		no_vassal_tax = {
+			military_command
+		}
+		ignore_in_vassal_limit_calculation = {
+			military_command
+		}
+		vassal_call_to_arms = {
+			military_command
+			military_monarchy
+			corporate_republic
+			administrative_republic
+			merchant_republic_government
+			military_republic
+			administrative_monarchy
+			administrative_directorate
+			corporate_directorate
+			corporate_monarchy
+			hivemind_government
+			pirate_kingdom
+			pirate_republic
+		}
+		dukes_called_kings = yes
+		barons_need_dynasty = no
+
+		can_build_tribal = no
+		uses_piety_for_law_change = yes
+
+		uses_decadence = no
+		uses_jizya_tax = yes
+
+		character_modifier	= {
+			levy_size = -0.3
+			land_morale = -0.2
+			#retinue_maintenence_cost = -0.5
+			vassal_opinion = -35
+		}
+
+	}
+	corporate_directorate = {
+		preferred_holdings = { CITY }
+		allowed_holdings = {
+			CITY
+			FORT
+			HOSPITAL
+		}
+		accepts_liege_governments = {
+			military_monarchy
+			military_republic
+			military_directorate
+			military_command
+			corporate_monarchy
+			corporate_republic
+			merchant_republic_government
+			administrative_monarchy
+			administrative_republic
+			administrative_directorate
+		}
+		free_revoke_on_governments = {
+			hivemind_government
+			pirate_kingdom
+			pirate_republic
+		}
+		frame_suffix = "_republic"
+		no_vassal_tax = {
+			military_command
+		}
+		ignore_in_vassal_limit_calculation = {
+			military_command
+		}
+		vassal_call_to_arms = {
+			military_command
+			military_monarchy
+			corporate_republic
+			administrative_republic
+			merchant_republic_government
+			military_republic
+			administrative_monarchy
+			administrative_directorate
+			corporate_directorate
+			corporate_monarchy
+			hivemind_government
+			pirate_kingdom
+			pirate_republic
+		}
+		potential = {
+			always = no
+			NOR = {
+				is_government_potential = hivemind_government
+				is_government_potential = merchant_republic_government
+				is_government_potential = pirate_republic
+				is_government_potential = pirate_kingdom
+				is_government_potential = pirate_republic_governor
+				is_government_potential = military_command
+				is_government_potential = military_government
+				is_government_potential = npc_civil_government
+				is_government_potential = pc_civil_government
+				is_government_potential = npc_rectorial_government
+				is_government_potential = pc_rectorial_government
+				is_government_potential = imperialistic_government
+				is_government_potential = npc_technocratic_government
+				is_government_potential = npc_theocratic_government
+			}
+			trigger_if = {
+				limit = { independent = yes }
+
+				is_theocratic_trigger = yes
+			}
+			trigger_else_if = {
+				limit = {
+					NOT = {
+						liege = { government = corporate_directorate }
+					}
+				}
+				corporate_directorate_is_legal_trigger = yes
+				is_theocratic_trigger = yes
+			}
+			trigger_else = {
+				liege = { government = corporate_directorate }
+			}
+		}
+
+		color = { 0 64 128 }
+
+		dukes_called_kings = yes
+		barons_need_dynasty = no
+
+		can_build_tribal = no
+		uses_piety_for_law_change = yes
+		uses_jizya_tax = yes
+
+		character_modifier	= {
+			levy_size = -0.2
+			land_morale = -0.1
+			#retinue_maintenence_cost = -0.25
+			vassal_opinion = -15
+		}
+	}
+}
+
+republic_governments = {
+
+	pirate_republic = {
+		preferred_holdings = { CITY }
+		allowed_holdings = {
+			TRADE_POST
+			CITY
+			FAMILY_PALACE
+			FORT
+			HOSPITAL
+		}
+		builds_with_prestige = {
+			TRADE_POST
+			FORT
+		}
+		accepts_liege_governments = {
+			pirate_kingdom
+			pirate_republic
+		}
+		frame_suffix = "_merchantrepublic"
+		title_prefix = "pirate_republic_"
+		potential = {
+			always = no
+			NOT = { is_government_potential = hivemind_government }
+			religion_group = outlaw_group
+
+			OR = {
+				# Does not require being a patrician, to allow creation of new Merchant Republics
+				AND = {
+					# Require at least one province and be Duke tier or higher
+					higher_real_tier_than = COUNT
+					num_of_count_titles >= 1
+					capital_holding = {
+						holding_type = city
+					}
+                    OR = {
+                        has_law = local_main_government_type_1
+                        has_law = local_secondary_government_type_1
+                    }
+
+					# MR can't be under MR
+					trigger_if = {
+						limit = { independent = no }
+
+						liege_before_war = {
+							is_merchant_republic = no
+						}
+					}
+				}
+
+				# Patrician requirements
+				AND = {
+					is_patrician = yes
+
+					# Liege must be MR
+					liege_before_war = {
+						is_merchant_republic = yes
+
+						# MR can't be under MR
+						trigger_if = {
+							limit = { independent = no }
+
+							liege_before_war = {
+								is_merchant_republic = no
+							}
+						}
+					}
+
+					OR = {
+                        has_law = local_main_government_type_1
+                        has_law = local_secondary_government_type_1
+                    }
+				}
+			}
+		}
+
+		color = { 32 32 64 }
+
+		merchant_republic = yes
+
+		dukes_called_kings = yes
+		barons_need_dynasty = no
+
+		can_imprison_without_reason = yes
+		uses_piety_for_law_change = yes
+		can_revoke_without_reason = yes
+		can_grant_kingdoms_and_empires_to_other_government = yes
+		#can_usurp_kingdoms_and_empires = no
+		#have_gender_laws = no
+		#allows_matrilineal_marriage = no
+		no_vassal_tax = {
+			military_command
+		}
+		ignore_in_vassal_limit_calculation = {
+			military_command
+		}
+		forced_contract = {
+			military_command
+		}
+		vassal_call_to_arms = {
+			military_command
+			military_monarchy
+			corporate_republic
+			administrative_republic
+			merchant_republic_government
+			military_republic
+			administrative_monarchy
+			administrative_directorate
+			corporate_directorate
+			corporate_monarchy
+			hivemind_government
+			pirate_kingdom
+			pirate_republic
+			pirate_republic_governor
+		}
+		allow_looting = yes
+		ignores_de_jure_laws = yes
+
+		can_build_castle = no
+		can_build_tribal = no
+
+		uses_jizya_tax = yes
+
+		character_modifier = {
+			retinue_maintenence_cost = 2
+		}
+	}
+}

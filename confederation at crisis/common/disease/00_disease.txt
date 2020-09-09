@@ -10,7 +10,7 @@ cosmic_radiation = {
 		castle_levy_size = -0.80
 		city_levy_size = -0.90
 		temple_levy_size = -0.85
-		levy_reinforce_rate = -1 
+		levy_reinforce_rate = -1
 		garrison_size = -0.75
 		local_build_time_modifier = 2
 		local_build_cost_modifier = 2
@@ -32,7 +32,7 @@ cosmic_radiation = {
 					trait = horse
 					trait = cat
 				}
-			}  
+			}
 			random_list = {
 				90 = { # Get the disease
 					modifier = {
@@ -71,24 +71,24 @@ cosmic_radiation = {
 	always_get_message = yes
 	color = { 255 0 0 }
 	major = yes
-	
+
 	timeperiod = {	# COTC Excuse for plague like event to increase performance late game. Hypernova radiation from unimaginably huge star exploding.
 		start_date = 3100.1.1
 		end_date = 3200.1.1
-		
+
 		outbreak_chance = 0.01
-		
+
 		can_outbreak = {
 			total_years_played = 100
 		}
-		
+
 		min_nb_province = 1		# ignored if 0
 		max_nb_province = 20	# ignored if 0
- 
+
 		one_only = yes
 
 		province_infection_duration = 24
-		
+
 		outbreak_scenario = {
 			chance = 0.03
 			start_provinces = {
@@ -99,20 +99,20 @@ cosmic_radiation = {
 	timeperiod = {	# Performance boost 2
 		start_date = 3205.1.1
 		end_date = 3300.1.1
-		
+
 		outbreak_chance = 0.03
-		
+
 		can_outbreak = {
 			total_years_played = 200
 		}
-		
+
 		min_nb_province = 1		# ignored if 0
 		max_nb_province = 20	# ignored if 0
- 
+
 		one_only = yes
 
 		province_infection_duration = 24
-		
+
 		outbreak_scenario = {
 			chance = 0.03
 			start_provinces = {
@@ -123,20 +123,20 @@ cosmic_radiation = {
 	timeperiod = {	# Performance boost 3
 		start_date = 3305.1.1
 		end_date = 3400.1.1
-		
+
 		outbreak_chance = 0.01
-		
+
 		can_outbreak = {
 			total_years_played = 300
 		}
-		
+
 		min_nb_province = 1		# ignored if 0
 		max_nb_province = 20	# ignored if 0
- 
+
 		one_only = yes
 
 		province_infection_duration = 34
-		
+
 		outbreak_scenario = {
 			chance = 0.01
 			start_provinces = {
@@ -147,20 +147,20 @@ cosmic_radiation = {
 	timeperiod = {	# Performance boost 4
 		start_date = 3405.1.1
 		end_date = 3500.1.1
-		
+
 		outbreak_chance = 0.01
-		
+
 		can_outbreak = {
 			total_years_played = 400
 		}
-		
+
 		min_nb_province = 1		# ignored if 0
 		max_nb_province = 20	# ignored if 0
- 
+
 		one_only = yes
 
 		province_infection_duration = 34
-		
+
 		outbreak_scenario = {
 			chance = 0.01
 			start_provinces = {
@@ -171,199 +171,27 @@ cosmic_radiation = {
 	timeperiod = {	# Performance boost 5
 		start_date = 3505.1.1
 		end_date = 3600.1.1
-		
+
 		outbreak_chance = 0.01
-		
+
 		can_outbreak = {
 			total_years_played = 400
 		}
-		
+
 		min_nb_province = 1		# ignored if 0
 		max_nb_province = 20	# ignored if 0
- 
+
 		one_only = yes
 
 		province_infection_duration = 46
-		
+
 		outbreak_scenario = {
 			chance = 0.01
 			start_provinces = {
 				333 444 228
 			}
 		}
-	}		
-	disease_gfx = disease_gfx_bubonic_plague
-}
-
-great_depression = {
-	contagiousness = 0.65
-	outbreak_chance = 0.005
-	effect = {
-		local_tax_modifier = -0.85
-		supply_limit = -8
-		max_attrition = 0.75
-		local_revolt_risk = 0.65
-		tech_growth_modifier = -0.75
-		castle_levy_size = -0.75
-		city_levy_size = -0.85
-		temple_levy_size = -0.8
-		levy_reinforce_rate = -1 
-		garrison_size = -0.75
-		local_build_time_modifier = 2
-		local_build_cost_modifier = 2
 	}
-	icon = 7
-	tooltip = GREAT_DEPRESSION_INFO
-	months = 120
-	trait = has_great_depression
-	character_infection_chances = {
-		months = 1
-	}
-	on_character_infection = {
-		if = {
-			limit = {
-				NOR = {
-					has_character_flag = immune_bubonic_plague
-					has_character_flag = got_bubonic_plague
-					trait = has_bubonic_plague
-					trait = horse
-					trait = cat
-				}
-			}  
-			random_list = {
-				90 = { # Get the disease
-					modifier = {
-						factor = 0
-						has_character_modifier = in_seclusion
-					}
-					modifier = {
-						factor = 0
-						AND = {
-							is_nomadic = yes
-							NOT = { is_unimportant_trigger = yes }
-						}
-					}
-					modifier = {
-						factor = 0.5
-						AND = {
-							is_tribal = yes
-							NOT = { is_unimportant_trigger = yes }
-						}
-					}
-					modifier = {
-						factor = 5000
-						is_unimportant_trigger = yes
-					}
-					add_trait = has_great_depression
-					#character_event = { id = RIP.5012 }
-				}
-				10 = { # Nothing happens
-				}
-			}
-		}
-	}
-	on_province_infection = {
-		province_event = { id = RIP.10000 }
-		province_event = { id = RIP.10005 }	
-		province_event = { id = RIP.11703 } #prosperity ended by epidemic
-	}
-	always_get_message = yes
-	color = { 255 0 0 }
-	major = yes
-	
-	timeperiod = {	# Historial Economic Crisis
-		start_date = 3002.1.1
-		end_date = 3008.1.1
-		
-		outbreak_chance = 0.05
-		
-		can_outbreak = {
-			total_years_played = 4
-			has_game_rule = {
-				name = epidemics
-				value = historical
-			}			
-		}
-		
-		min_nb_province = 1		# ignored if 0
-		max_nb_province = 20	# ignored if 0
- 
-		one_only = yes
-
-		province_infection_duration = 144
-		
-		outbreak_scenario = { # COTC Great Depression, spreads from Earth a few years after Crisis start
-			chance = 0.05
-			start_provinces = {
-				202
-			}
-			excluded_regions = {
-				world_periphery_south world_periphery_orion world_periphery_east world_periphery_northwest world_periphery_west
-			}
-		}
-	}
-	timeperiod = {	# Dynamic Economic Crisis
-		start_date = 3008.1.1
-		end_date = 3200.1.1
-		
-		outbreak_chance = 0.0005
-		
-		can_outbreak = {
-			total_years_played = 10
-			has_game_rule = {
-				name = epidemics
-				value = dynamic
-			}			
-		}
-		
-		min_nb_province = 1		# ignored if 0
-		max_nb_province = 20	# ignored if 0
- 
-		one_only = yes
-
-		province_infection_duration = 120
-		
-		outbreak_scenario = { # COTC Dynamic Great Depression, spreads from Earth
-			chance = 0.05
-			start_provinces = {
-				202
-			}
-			excluded_regions = {
-				world_periphery_south world_periphery_orion_flame world_periphery_orion_nebula world_periphery_orion_horsehead world_periphery_east world_periphery_northwest world_periphery_west
-			}
-		}
-	}	
-	timeperiod = {	# Delayed Dynamic Economic Crisis
-		start_date = 3050.1.1
-		end_date = 3400.1.1
-		
-		outbreak_chance = 0.0001
-		
-		can_outbreak = {
-			total_years_played = 52
-			has_game_rule = {
-				name = epidemics
-				value = delayed_dynamic
-			}			
-		}
-		
-		min_nb_province = 1		# ignored if 0
-		max_nb_province = 20	# ignored if 0
- 
-		one_only = yes
-
-		province_infection_duration = 150
-		
-		outbreak_scenario = { # COTC Delayed Dynamic Great Depression, spreads from Earth
-			chance = 0.05
-			start_provinces = {
-				202
-			}
-			excluded_regions = {
-				world_periphery_south world_periphery_orion_flame world_periphery_orion_nebula world_periphery_orion_horsehead world_periphery_east world_periphery_northwest world_periphery_west
-			}
-		}
-	}	
 	disease_gfx = disease_gfx_bubonic_plague
 }
 
@@ -444,8 +272,8 @@ flu = {
 			}
 		}
 	}
-	
-	
+
+
 	timeperiod = {
 		start_date = 2998.1.1
 		end_date = 9999.1.1
@@ -530,7 +358,7 @@ clarkes_disease = {
 			}
 		}
 	}
-	
+
 	timeperiod = {
 		start_date = 2998.1.1
 		end_date = 9999.1.1
@@ -617,7 +445,7 @@ cybernetic_virus = {
 			}
 		}
 	}
-	
+
 	timeperiod = {
 		start_date = 2998.1.1
 		end_date = 9999.1.1
@@ -704,11 +532,11 @@ brain_slugs = {
 			}
 		}
 	}
-	
+
 	timeperiod = {
 		start_date = 2998.1.1
 		end_date = 9999.1.1
-		
+
 		one_only = no
 	}
 }
@@ -724,7 +552,7 @@ edemite_fever = {
 	tooltip = EDEMITE_FEVER_INFO
 	months = 1
 	trait = has_edemite_fever
-	always_get_message = yes 
+	always_get_message = yes
 	character_infection_chances = {
 		months = 3
 	}
@@ -790,7 +618,7 @@ edemite_fever = {
 			}
 		}
 	}
-	
+
 	timeperiod = {
 		start_date = 2998.1.1
 		end_date = 9999.1.1
@@ -816,7 +644,7 @@ tuberculosis = {
 
 	timeperiod = {
 		start_date = 769.1.1
-		end_date = 1452.1.1		
+		end_date = 1452.1.1
 
 		one_only = no
 	}
@@ -836,7 +664,7 @@ typhoid_fever = {
 	months = 24
 	trait = has_typhoid_fever
 	always_get_message = no
-	
+
 	timeperiod = {
 		start_date = 769.1.1
 		end_date = 1452.1.1
@@ -859,7 +687,7 @@ typhus = {
 	months = 5
 	trait = has_typhus
 	always_get_message = no
-	
+
 	timeperiod = {
 		start_date = 769.1.1
 		end_date = 1452.1.1
@@ -905,7 +733,7 @@ measles = {
 	months = 5
 	trait = has_measles
 	always_get_message = no
-	
+
 	timeperiod = {
 		start_date = 769.1.1
 		end_date = 1452.1.1
@@ -928,7 +756,7 @@ small_pox = {
 	months = 4
 	trait = has_small_pox
 	always_get_message = no
-	
+
 	timeperiod = {
 		start_date = 769.1.1
 		end_date = 1452.1.1
@@ -951,9 +779,9 @@ syphilis = {
 	months = 5
 	trait = has_aztec_disease
 	always_get_message = no
-	
+
 	active = no
-	
+
 	timeperiod = {
 		start_date = 769.1.1
 		end_date = 1452.1.1

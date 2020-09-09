@@ -6,7 +6,7 @@
 plot_discredit_councillor = {
 	type = realm_characters # All characters in the same realm, plus rivals and relatives of self, parents, children and spouse
 	intrigue_plot = yes
-	
+
 	# Plotter scope
 	potential = {
 		prisoner = no
@@ -32,13 +32,13 @@ plot_discredit_councillor = {
 			}
 		}
 	}
-	
+
 	# Target scope
 	target_potential = {
 		same_liege = FROM
 		is_councillor = yes
 	}
-	
+
 	# Target scope
 	allow = {
 		#NOT = { has_opinion_modifier = { who = FROM modifier = opinion_recent_plot } }
@@ -121,7 +121,7 @@ plot_discredit_councillor = {
 			}
 		}
 	}
-	
+
 	chance = {
 		factor = 1
 		modifier = {
@@ -201,12 +201,12 @@ plot_discredit_councillor = {
 			FROM = { trait = ambitious }
 		}
 	}
-	
+
 	success = {
 		hidden_tooltip = { FROM = { has_character_flag = plot_success } }
 		custom_tooltip = { text = CUSTOMTOOLTIP29 }
 	}
-	
+
 	abort = {
 		OR = {
 			FROM = { is_councillor = yes }
@@ -220,7 +220,7 @@ plot_discredit_councillor = {
 			FROM = { trait = incapable }
 		}
 	}
-	
+
 	abort_effect = {
 		FROM = {
 			# Clear flags
@@ -238,7 +238,7 @@ plot_discredit_councillor = {
 			}
 		}
 	}
-	
+
 	effect = {
 		FROM = {
 			any_plot_backer = {
@@ -271,7 +271,7 @@ plot_discredit_councillor = {
 plot_embezzle_from_liege = {
 	type = realm_characters # All characters in the same realm, plus rivals and relatives of self, parents, children and spouse
 	intrigue_plot = yes
-	
+
 	# Plotter scope
 	potential = {
 		prisoner = no
@@ -286,24 +286,24 @@ plot_embezzle_from_liege = {
 			}
 		}
 	}
-	
+
 	# Target scope
 	target_potential = {
 		is_liege_of = FROM
 	}
-	
+
 	# Target allow trigger for when players target a specific character in the GUI
 	player_allow = {
 		#NOT = { has_opinion_modifier = { who = FROM modifier = opinion_recent_plot } }
 		wealth = 0
 	}
-	
+
 	# Target scope
 	allow = {
 		#NOT = { has_opinion_modifier = { who = FROM modifier = opinion_recent_plot } }
 		wealth = 0
 	}
-	
+
 	chance = {
 		factor = 1
 		modifier = {
@@ -333,7 +333,7 @@ plot_embezzle_from_liege = {
 		}
 		modifier = {
 			factor = 0
-			FROM = { 
+			FROM = {
 				opinion = { who = ROOT value = 25 }
 				NOT = {
 					OR = {
@@ -443,12 +443,12 @@ plot_embezzle_from_liege = {
 			NOT = { wealth = 50 }
 		}
 	}
-	
+
 	success = {
 		hidden_tooltip = { FROM = { has_character_flag = plot_success } }
 		custom_tooltip = { text = CUSTOMTOOLTIP30 }
 	}
-	
+
 	abort = {
 		OR = {
 			NOT = { treasury = -100 }
@@ -461,7 +461,7 @@ plot_embezzle_from_liege = {
 			is_alive = no
 		}
 	}
-	
+
 	abort_effect = {
 		FROM = {
 			# Clear flags
@@ -479,7 +479,7 @@ plot_embezzle_from_liege = {
 			}
 		}
 	}
-	
+
 	effect = {
 		FROM = {
 			any_plot_backer = {
@@ -513,7 +513,7 @@ plot_kidnapping = {
 	type = realm_characters_plus # All characters in the same realm, plus rivals and relatives of self, parents, children and spouse
 	intrigue_plot = yes
 	murder_plot = yes
-	
+
 	# Plotter scope
 	potential = {
 		prisoner = no
@@ -527,14 +527,14 @@ plot_kidnapping = {
 			}
 		}
 	}
-	
+
 	# Target allow trigger for when players target a specific character in the GUI
 	player_allow = {
 		#NOT = { has_opinion_modifier = { who = FROM modifier = opinion_recent_plot } }
 		prisoner = no
 		is_within_diplo_range = FROM
 	}
-	
+
 	# Target scope
 	allow = {
 		#NOT = { has_opinion_modifier = { who = FROM modifier = opinion_recent_plot } }
@@ -663,7 +663,7 @@ plot_kidnapping = {
 			}
 		}
 	}
-	
+
 	chance = {
 		factor = 1
 		modifier = {
@@ -737,8 +737,8 @@ plot_kidnapping = {
 				NOT = {
 					crownlaw_title = {
 						OR = {
-							has_law = crown_authority_3
-							has_law = crown_authority_4
+							has_law = centralization_3
+							has_law = centralization_4
 						}
 					}
 				}
@@ -1010,12 +1010,12 @@ plot_kidnapping = {
 			FROM = { intrigue = 18 }
 		}
 	}
-	
+
 	success = {
 		prisoner = yes
 		host = { character = FROM }
 	}
-	
+
 	abort = {
 		OR = {
 			AND = {
@@ -1044,8 +1044,8 @@ plot_kidnapping = {
 						FROM = {
 							crownlaw_title = {
 								OR = {
-									has_law = crown_authority_3
-									has_law = crown_authority_4
+									has_law = centralization_3
+									has_law = centralization_4
 								}
 							}
 						}
@@ -1111,7 +1111,7 @@ plot_kidnapping = {
 			}
 		}
 	}
-	
+
 	abort_effect = {
 		FROM = {
 			# Clear flags
@@ -1133,7 +1133,7 @@ plot_kidnapping = {
 			}
 		}
 	}
-	
+
 	effect = {
 		FROM = {
 			any_plot_backer = {
@@ -1169,7 +1169,7 @@ plot_kidnapping = {
 plot_fabricate_treason = {
 	type = realm_characters # All characters in the same realm, plus rivals and relatives of self, parents, children and spouse
 	vassal_intrigue_plot = yes
-	
+
 	# Plotter scope
 	potential = {
 		prisoner = no
@@ -1187,13 +1187,13 @@ plot_fabricate_treason = {
 			}
 		}
 	}
-	
+
 	# Target scope
 	target_potential = {
 		same_liege = FROM
 		is_ruler = yes
 	}
-	
+
 	# Target allow trigger for when players target a specific character in the GUI
 	player_allow = {
 		#NOT = { has_opinion_modifier = { who = FROM modifier = opinion_recent_plot } }
@@ -1209,7 +1209,7 @@ plot_fabricate_treason = {
 		NOT = { reverse_has_truce = FROM }
 		NOT = { has_non_aggression_pact_with = FROM }
 	}
-	
+
 	# Target scope
 	allow = {
 		#NOT = { has_opinion_modifier = { who = FROM modifier = opinion_recent_plot } }
@@ -1228,34 +1228,34 @@ plot_fabricate_treason = {
 		OR = {
 			#at war
 			war_with = FROM
-			
+
 			#are rivals
 			FROM = { is_rival = ROOT }
-			
+
 			#have a claim on their lands
 			FROM = {
 				any_claim = { holder_scope = { character = ROOT } }
 			}
-			
+
 			#they are a different culture from both you and their liege
 			AND = {
 				NOT = { reverse_opinion = { who = FROM value = 0 } }
 				NOT = { culture = FROM }
 				liege = { NOT = { culture = ROOT } }
 			}
-			
+
 			#they are a different religion from both you and their liege
 			AND = {
 				NOT = { reverse_opinion = { who = FROM value = 0 } }
 				NOT = { religion = FROM }
 				liege = { NOT = { religion = ROOT } }
 			}
-			
+
 			#wants revenge
 			FROM = { has_opinion_modifier = { who = ROOT modifier = scheming_bastard } }
 			FROM = { has_opinion_modifier = { who = ROOT modifier = devious_plotter } }
 			FROM = { has_opinion_modifier = { who = ROOT modifier = declared_war } }
-			
+
 			#dislike them, and liege really dislikes them
 			AND = {
 				NOT = { reverse_opinion = { who = FROM value = 0 } }
@@ -1263,7 +1263,7 @@ plot_fabricate_treason = {
 			}
 		}
 	}
-	
+
 	chance = {
 		factor = 1
 		modifier = {
@@ -1350,7 +1350,7 @@ plot_fabricate_treason = {
 		}
 		modifier = {
 			factor = 0
-			FROM = { 
+			FROM = {
 				opinion = { who = ROOT value = -25 }
 				NOR = {
 					trait = lunatic
@@ -1394,7 +1394,7 @@ plot_fabricate_treason = {
 			FROM = { trait = deceitful }
 		}
 	}
-	
+
 	success = {
 		custom_tooltip = {
 			text = CUSTOMTOOLTIP31
@@ -1403,7 +1403,7 @@ plot_fabricate_treason = {
 			}
 		}
 	}
-	
+
 	abort = {
 		OR = {
 			liege = { opinion = { who = ROOT value = 50 } }
@@ -1417,7 +1417,7 @@ plot_fabricate_treason = {
 			FROM = { trait = incapable }
 		}
 	}
-	
+
 	abort_effect = {
 		FROM = {
 			# Clear flags
@@ -1468,7 +1468,7 @@ plot_fabricate_treason_liege = {
 	type = realm_characters # All characters in the same realm, plus rivals and relatives of self, parents, children and spouse
 	intrigue_plot = yes
 	murder_plot = yes
-	
+
 	# Plotter scope
 	potential = {
 		prisoner = no
@@ -1486,21 +1486,21 @@ plot_fabricate_treason_liege = {
 			}
 		}
 	}
-	
+
 	# Target scope
 	target_potential = {
 		is_ruler = yes
 		independent = no
 		FROM = { is_liege_of = ROOT }
 	}
-	
+
 	# Target allow trigger for when players target a specific character in the GUI
 	player_allow = {
 		#NOT = { has_opinion_modifier = { who = FROM modifier = opinion_recent_plot } }
 		is_adult = yes
 		prisoner = no
 	}
-	
+
 	# Target scope
 	allow = {
 		#NOT = { has_opinion_modifier = { who = FROM modifier = opinion_recent_plot } }
@@ -1517,34 +1517,34 @@ plot_fabricate_treason_liege = {
 		OR = {
 			#at war
 			war_with = FROM
-			
+
 			#are rivals
 			FROM = { is_rival = ROOT }
-			
+
 			#have a claim on their lands
 			FROM = {
 				any_claim = { holder_scope = { character = ROOT } }
 			}
-			
+
 			#they are a different culture from both you and their liege
 			AND = {
 				NOT = { reverse_opinion = { who = FROM value = 0 } }
 				NOT = { culture = FROM }
 				liege = { NOT = { culture = ROOT } }
 			}
-			
+
 			#they are a different religion from both you and their liege
 			AND = {
 				NOT = { reverse_opinion = { who = FROM value = 0 } }
 				NOT = { religion = FROM }
 				liege = { NOT = { religion = ROOT } }
 			}
-			
+
 			#wants revenge
 			FROM = { has_opinion_modifier = { who = ROOT modifier = scheming_bastard } }
 			FROM = { has_opinion_modifier = { who = ROOT modifier = devious_plotter } }
 			FROM = { has_opinion_modifier = { who = ROOT modifier = declared_war } }
-			
+
 			#dislike them, and liege really dislikes them
 			AND = {
 				NOT = { reverse_opinion = { who = FROM value = 0 } }
@@ -1552,7 +1552,7 @@ plot_fabricate_treason_liege = {
 			}
 		}
 	}
-	
+
 	chance = {
 		factor = 1
 		modifier = {
@@ -1639,7 +1639,7 @@ plot_fabricate_treason_liege = {
 		}
 		modifier = {
 			factor = 0
-			FROM = { 
+			FROM = {
 				opinion = { who = ROOT value = -25 }
 				NOR = {
 					trait = lunatic
@@ -1683,12 +1683,12 @@ plot_fabricate_treason_liege = {
 			FROM = { trait = deceitful }
 		}
 	}
-	
+
 	success = {
-		hidden_tooltip = { FROM = { has_character_flag = plot_success } } 
+		hidden_tooltip = { FROM = { has_character_flag = plot_success } }
 		custom_tooltip = { text = CUSTOMTOOLTIP31 }
 	}
-	
+
 	abort = {
 		OR = {
 			liege = { NOT = { character = FROM } }
@@ -1700,7 +1700,7 @@ plot_fabricate_treason_liege = {
 			FROM = { trait = incapable }
 		}
 	}
-	
+
 	abort_effect = {
 		FROM = {
 			# Clear flags
@@ -1718,7 +1718,7 @@ plot_fabricate_treason_liege = {
 			}
 		}
 	}
-	
+
 	effect = {
 		FROM = {
 			any_plot_backer = {
@@ -1752,7 +1752,7 @@ plot_fabricate_heresy = {
 	type = realm_characters_plus # All characters in the same realm, plus rivals and relatives of self, parents, children and spouse
 	intrigue_plot = yes
 	murder_plot = yes
-	
+
 	# Plotter scope
 	potential = {
 		prisoner = no
@@ -1770,7 +1770,7 @@ plot_fabricate_heresy = {
 			}
 		}
 	}
-	
+
 	# Target scope
 	target_potential = {
 		religion = FROM
@@ -1780,7 +1780,7 @@ plot_fabricate_heresy = {
 		NOT = { rightful_religious_head = FROM }
 		NOT = { FROM = { rightful_religious_head = ROOT } }
 	}
-	
+
 	# Target allow trigger for when players target a specific character in the GUI
 	player_allow = {
 		#NOT = { has_opinion_modifier = { who = FROM modifier = opinion_recent_plot } }
@@ -1796,7 +1796,7 @@ plot_fabricate_heresy = {
 			}
 		}
 	}
-	
+
 	# Target scope
 	allow = {
 		#NOT = { has_opinion_modifier = { who = FROM modifier = opinion_recent_plot } }
@@ -1815,29 +1815,29 @@ plot_fabricate_heresy = {
 		OR = {
 			#at war
 			war_with = FROM
-			
+
 			#are rivals
 			FROM = { is_rival = ROOT }
-			
+
 			#have a claim on their lands
 			FROM = {
 				any_claim = { holder_scope = { character = ROOT } }
 			}
-			
+
 			#dislike them and they are cynical
 			AND = {
 				NOT = { reverse_opinion = { who = FROM value = 0 } }
 				FROM = { trait = radical }
 				trait = pragmatic
 			}
-			
+
 			#wants revenge
 			FROM = { has_opinion_modifier = { who = ROOT modifier = scheming_bastard } }
 			FROM = { has_opinion_modifier = { who = ROOT modifier = devious_plotter } }
 			FROM = { has_opinion_modifier = { who = ROOT modifier = declared_war } }
 		}
 	}
-	
+
 	chance = {
 		factor = 1
 		modifier = {
@@ -1959,12 +1959,12 @@ plot_fabricate_heresy = {
 			FROM = { trait = radical }
 		}
 	}
-	
+
 	success = {
 		trait = excommunicated
 		FROM = { has_character_flag = plot_success }
 	}
-	
+
 	abort = {
 		OR = {
 			AND = {
@@ -1987,7 +1987,7 @@ plot_fabricate_heresy = {
 			FROM = { trait = incapable }
 		}
 	}
-	
+
 	abort_effect = {
 		FROM = {
 			# Clear flags
@@ -2039,7 +2039,7 @@ plot_kidnap_liege = {
 	type = realm_characters # All characters in the same realm, plus rivals and relatives of self, parents, children and spouse
 	intrigue_plot = yes
 	murder_plot = yes
-	
+
 	# Plotter scope
 	potential = {
 		prisoner = no
@@ -2048,12 +2048,12 @@ plot_kidnap_liege = {
 		NOT = { trait = incapable }
 		has_character_flag = allow_plotting
 	}
-	
+
 	# Target scope
 	target_potential = {
 		is_vassal_or_below  = FROM
 	}
-	
+
 	# Target scope
 	allow = {
 		#NOT = { has_opinion_modifier = { who = FROM modifier = opinion_recent_plot } }
@@ -2072,7 +2072,7 @@ plot_kidnap_liege = {
 			}
 		}
 	}
-	
+
 	chance = {
 		factor = 1
 		modifier = {
@@ -2339,19 +2339,19 @@ plot_kidnap_liege = {
 			FROM = { trait = ambitious }
 		}
 	}
-	
+
 	success = {
 		FROM = {
 			has_character_flag = kidnap_attempt
 			is_ruler = yes
 		}
 	}
-	
+
 	abort = {
 		OR = {
 			FROM = { has_character_flag = abort_plot }
 			FROM = { prisoner = yes }
-			FROM = { 
+			FROM = {
 				is_ruler = yes
 				NOT = { has_character_flag = kidnap_attempt }
 			}
@@ -2374,7 +2374,7 @@ plot_kidnap_liege = {
 			}
 		}
 	}
-	
+
 	abort_effect = {
 		FROM = {
 			# Clear flags
@@ -2398,7 +2398,7 @@ plot_kidnap_liege = {
 			}
 		}
 	}
-	
+
 	effect = {
 		FROM = {
 			any_plot_backer = {
@@ -2436,10 +2436,10 @@ plot_kidnap_liege = {
 plot_seduce = {
 	type = realm_characters
 	intrigue_plot = yes
-	
+
 	# Plotter scope
-	potential = {		
-		NOT = { has_dlc = "Way of Life" }		
+	potential = {
+		NOT = { has_dlc = "Way of Life" }
 		prisoner = no
 		is_adult = yes
 		is_pregnant = no
@@ -2495,7 +2495,7 @@ plot_seduce = {
 			}
 		}
 	}
-	
+
 	# Target scope
 	target_potential = {
 		NOT = { character = FROM }
@@ -2511,7 +2511,7 @@ plot_seduce = {
 		}
 		same_realm = FROM
 	}
-	
+
 	# Target allow trigger for when players target a specific character in the GUI
 	player_allow = {
 		#NOT = { has_opinion_modifier = { who = FROM modifier = opinion_recent_plot } }
@@ -2546,7 +2546,7 @@ plot_seduce = {
 			NOT = { has_opinion_modifier = { who = ROOT modifier = love_scorned } }
 		}
 	}
-	
+
 	# Target character scope
 	allow = {
 		#NOT = { has_opinion_modifier = { who = FROM modifier = opinion_recent_plot } }
@@ -2582,18 +2582,18 @@ plot_seduce = {
 		FROM = {
 			NOT = { has_opinion_modifier = { who = ROOT modifier = love_scorned } }
 		}
-		
+
 		OR = {
 			#  liege or liege spouse
 			is_liege_of = FROM
 			spouse = { is_liege_of = FROM }
-			
+
 			# child of liege
 			father = { is_liege_of = FROM }
 			mother = { is_liege_of = FROM }
 		}
 	}
-	
+
 	chance = {
 		factor = 1
 		modifier = {
@@ -2745,11 +2745,11 @@ plot_seduce = {
 			}
 		}
 	}
-	
+
 	success = {
 		any_lover = { character = FROM }
 	}
-	
+
 	abort = {
 		OR = {
 			is_alive = no
@@ -2770,7 +2770,7 @@ plot_seduce = {
 			trait = celibate
 			trait = chaste
 			FROM = { trait = celibate }
-			FROM = { 
+			FROM = {
 				has_lover = yes
 				NOT = { trait = lustful }
 				NOT = { trait = hedonist }
@@ -2794,7 +2794,7 @@ plot_seduce = {
 			}
 		}
 	}
-	
+
 	abort_effect = {
 		FROM = {
 			# Clear flags
@@ -2812,7 +2812,7 @@ plot_seduce = {
 			}
 		}
 	}
-	
+
 	effect = {
 		FROM = {
 			prestige = 25
@@ -2840,7 +2840,7 @@ plot_take_revenge = {
 	type = realm_characters_plus # All characters in the same realm, plus rivals and relatives of self, parents, children and spouse
 	intrigue_plot = yes
 	murder_plot = yes
-	
+
 	# Plotter scope
 	potential = {
 		prisoner = no
@@ -2853,7 +2853,7 @@ plot_take_revenge = {
 			}
 		}
 	}
-	
+
 	# Target scope
 	target_potential = {
 		OR = {
@@ -2877,21 +2877,21 @@ plot_take_revenge = {
 			}
 		}
 	}
-	
+
 	# Target allow trigger for when players target a specific character in the GUI
 	player_allow = {
 		#NOT = { has_opinion_modifier = { who = FROM modifier = opinion_recent_plot } }
 		NOT = { character = FROM }
 		is_within_diplo_range = FROM
 	}
-	
+
 	# Target character scope
 	allow = {
 		#NOT = { has_opinion_modifier = { who = FROM modifier = opinion_recent_plot } }
 		NOT = { character = FROM }
 		is_within_diplo_range = FROM
 	}
-	
+
 	chance = {
 		factor = 20
 		modifier = {
@@ -2934,15 +2934,15 @@ plot_take_revenge = {
 					trait = kind
 					trait = just
 				}
-				NOT = { trait = lunatic } 
+				NOT = { trait = lunatic }
 				NOT = { trait = possessed }
 			}
-		}		
+		}
 		modifier = {
 			factor = 0.1
 			FROM = {
 				trait = content
-				NOT = { trait = lunatic } 
+				NOT = { trait = lunatic }
 				NOT = { trait = possessed }
 			}
 		}
@@ -2950,7 +2950,7 @@ plot_take_revenge = {
 			factor = 0.1
 			FROM = {
 				trait = honest
-				NOT = { trait = lunatic } 
+				NOT = { trait = lunatic }
 				NOT = { trait = possessed }
 			}
 		}
@@ -3019,7 +3019,7 @@ plot_take_revenge = {
 			FROM = { intrigue = 20 }
 		}
 	}
-	
+
 	success = {
 		is_alive = no
 		hidden_tooltip = {
@@ -3031,7 +3031,7 @@ plot_take_revenge = {
 			}
 		}
 	}
-	
+
 	abort = {
 		OR = {
 			FROM = { has_character_flag = abort_plot }
@@ -3046,7 +3046,7 @@ plot_take_revenge = {
 			}
 		}
 	}
-	
+
 	abort_effect = {
 		FROM = {
 			# Clear flags
@@ -3067,7 +3067,7 @@ plot_take_revenge = {
 			}
 		}
 	}
-	
+
 	effect = {
 		FROM = {
 			any_plot_backer = {
@@ -3103,7 +3103,7 @@ plot_usurp_wife = {
 	type = spouse
 	vassal_intrigue_plot = yes
 	intrigue_plot = yes
-	
+
 	#Plotter scope
 	potential = {
 		prestige = 1
@@ -3144,14 +3144,14 @@ plot_usurp_wife = {
 			}
 		}
 	}
-	
+
 	# Target scope
 	target_potential = {
 		is_married = FROM
 		is_female = yes
 		is_ruler = yes
 	}
-	
+
 	#Target scope
 	allow = {
 		is_feudal = yes
@@ -3279,7 +3279,7 @@ plot_usurp_wife = {
 			}
 		}
 	}
-	
+
 	chance = {
 		factor = 10
 		modifier = {
@@ -3308,7 +3308,7 @@ plot_usurp_wife = {
 					trait = craven
 				}
 			}
-		}		
+		}
 		modifier = {
 			factor = 2
 			FROM = { trait = envious }
@@ -3329,11 +3329,11 @@ plot_usurp_wife = {
 			}
 		}
 	}
-	
+
 	success = {
 		FROM = { has_character_flag = usurp_wife_plot_success }
 	}
-	
+
 	abort = {
 		OR = {
 			AND = {
@@ -3364,7 +3364,7 @@ plot_usurp_wife = {
 			FROM = { independent = no }
 		}
 	}
-	
+
 	abort_effect = {
 		opinion = { who = FROM modifier = opinion_recent_plot months = 60 }
 		FROM = {
@@ -3388,7 +3388,7 @@ plot_usurp_wife = {
 			clr_character_flag = plot_usurp_wife_decision_taken
 		}
 	}
-	
+
 	effect = {
 		opinion = { who = FROM modifier = opinion_recent_plot months = 60 }
 		FROM = {
@@ -3418,7 +3418,7 @@ plot_usurp_wife = {
 plot_replace_regent = {
 	type = realm_characters
 	vassal_intrigue_plot = yes
-	
+
 	# Plotter scope
 	potential = {
 		prisoner = no
@@ -3436,7 +3436,7 @@ plot_replace_regent = {
 			}
 		}
 	}
-	
+
 	# Target scope
 	target_potential = {
 		independent = no
@@ -3444,7 +3444,7 @@ plot_replace_regent = {
 		same_liege = FROM
 		has_minor_title = title_regent
 	}
-	
+
 	# Target allow trigger for when players target a specific character in the GUI
 	player_allow = {
 		liege = {
@@ -3488,7 +3488,7 @@ plot_replace_regent = {
 			}
 		}
 	}
-	
+
 	# Target character scope
 	allow = {
 		liege = {
@@ -3532,7 +3532,7 @@ plot_replace_regent = {
 			}
 		}
 	}
-	
+
 	chance = {
 		factor = 5
 		modifier = {
@@ -3687,12 +3687,12 @@ plot_replace_regent = {
 			FROM = { trait = craven }
 		}
 	}
-	
+
 	success = {
 		same_liege = FROM
 		FROM = { has_minor_title = title_regent }
 	}
-	
+
 	abort = {
 		OR = {
 			FROM = { has_character_flag = abort_plot }
@@ -3714,7 +3714,7 @@ plot_replace_regent = {
 			}
 		}
 	}
-	
+
 	abort_effect = {
 		FROM = {
 			# Clear flags
@@ -3736,7 +3736,7 @@ plot_replace_regent = {
 			}
 		}
 	}
-	
+
 	effect = {
 		FROM = {
 			change_intrigue = 1
@@ -3767,7 +3767,7 @@ plot_replace_regent = {
 plot_incapable_usurp = {
 	type = realm_characters
 	vassal_intrigue_plot = yes
-	
+
 	# Plotter scope
 	potential = {
 		OR = {
@@ -3789,13 +3789,13 @@ plot_incapable_usurp = {
 			}
 		}
 	}
-	
+
 	# Target scope
 	target_potential = {
 		is_liege_of = FROM
 		trait = incapable
 	}
-	
+
 	# Target allow trigger for when players target a specific character in the GUI
 	player_allow = {
 		#NOT = { has_opinion_modifier = { who = FROM modifier = opinion_recent_plot } }
@@ -3814,7 +3814,7 @@ plot_incapable_usurp = {
 			}
 		}
 	}
-	
+
 	# Target character scope
 	allow = {
 		#NOT = { has_opinion_modifier = { who = FROM modifier = opinion_recent_plot } }
@@ -3833,7 +3833,7 @@ plot_incapable_usurp = {
 			}
 		}
 	}
-	
+
 	chance = {
 		factor = 1
 		modifier = {
@@ -3995,11 +3995,11 @@ plot_incapable_usurp = {
 			host = { character = FROM }
 		}
 	}
-	
+
 	success = {
 		FROM = { has_character_flag = regent_usurp_titles }
 	}
-	
+
 	abort = {
 		OR = {
 			FROM = { has_character_flag = abort_plot }
@@ -4008,7 +4008,7 @@ plot_incapable_usurp = {
 			NOT = { regent = { character = FROM } }
 		}
 	}
-	
+
 	abort_effect = {
 		FROM = {
 			# Clear flags
@@ -4025,7 +4025,7 @@ plot_incapable_usurp = {
 			}
 		}
 	}
-	
+
 	effect = {
 		FROM = {
 			change_intrigue = 1
@@ -4062,7 +4062,7 @@ plot_incapable_usurp = {
 plot_stir_rebellion = {
 	type = realm_characters
 	vassal_intrigue_plot = yes
-	
+
 	# Plotter scope
 	potential = {
 		is_ruler = yes
@@ -4098,7 +4098,7 @@ plot_stir_rebellion = {
 			}
 		}
 	}
-	
+
 	# Target scope
 	target_potential = {
 		independent = yes
@@ -4110,7 +4110,7 @@ plot_stir_rebellion = {
 			any_demesne_title = { temporary = yes }
 		}
 	}
-	
+
 	# Target scope
 	allow = {
 		#NOT = { has_opinion_modifier = { who = FROM modifier = opinion_recent_plot } }
@@ -4142,7 +4142,7 @@ plot_stir_rebellion = {
 			}
 		}
 	}
-	
+
 	chance = {
 		factor = 1
 		modifier = {
@@ -4254,19 +4254,19 @@ plot_stir_rebellion = {
 			}
 		}
 	}
-	
+
 	creation_effect = {
 		FROM = {
 			set_character_flag = wants_to_lead_revolt
 		}
 	}
-	
+
 	success = {
 		location = {
 			has_province_modifier = cultural_unrest
 		}
 	}
-	
+
 	abort = {
 		OR = {
 			FROM = {
@@ -4310,7 +4310,7 @@ plot_stir_rebellion = {
 			FROM = { trait = incapable }
 		}
 	}
-	
+
 	abort_effect = {
 		FROM = {
 			# Clear flags
@@ -4328,7 +4328,7 @@ plot_stir_rebellion = {
 			}
 		}
 	}
-	
+
 	effect = {
 		FROM = {
 			change_intrigue = 1
@@ -4359,7 +4359,7 @@ plot_stir_rebellion = {
 plot_become_republic = {
 	type = realm_characters
 	vassal_intrigue_plot = yes
-	
+
 	# Plotter scope
 	potential = {
 		is_ruler = yes
@@ -4415,14 +4415,14 @@ plot_become_republic = {
 		}
 		has_character_flag = allow_plotting
 	}
-	
+
 	# Target scope
 	target_potential = {
 		ai = yes
 		is_feudal = yes
 		is_liege_of = FROM
 	}
-	
+
 	# Target scope
 	allow = {
 		#NOT = { has_opinion_modifier = { who = FROM modifier = opinion_recent_plot } }
@@ -4439,7 +4439,7 @@ plot_become_republic = {
 			}
 		}
 	}
-	
+
 	chance = {
 		factor = 1
 		modifier = {
@@ -4516,11 +4516,11 @@ plot_become_republic = {
 			FROM = { intrigue = 20 }
 		}
 	}
-	
+
 	success = {
 		FROM = { tier = COUNT }
 	}
-	
+
 	abort = {
 		OR = {
 			FROM = { has_character_flag = abort_plot }
@@ -4537,7 +4537,7 @@ plot_become_republic = {
 			has_non_aggression_pact_with = FROM
 		}
 	}
-	
+
 	abort_effect = {
 		FROM = {
 			# Clear flags
@@ -4553,7 +4553,7 @@ plot_become_republic = {
 			}
 		}
 	}
-	
+
 	effect = {
 		FROM = {
 			change_intrigue = 1
@@ -4585,7 +4585,7 @@ plot_elope = {
 	type = character
 	intrigue_plot = yes
 	murder_plot = yes
-	
+
 	# Plotter scope
 	potential = {
 		mercenary = no
@@ -4602,7 +4602,7 @@ plot_elope = {
 			}
 		}
 	}
-	
+
 	# Target scope
 	target_potential = {
 		is_female = yes
@@ -4610,7 +4610,7 @@ plot_elope = {
 		is_lover = FROM
 		liege = { NOT = { character = ROOT } }
 	}
-	
+
 	# Target allow trigger for when players target a specific character in the GUI
 	player_allow = {
 		#NOT = { has_opinion_modifier = { who = FROM modifier = opinion_recent_plot } }
@@ -4622,7 +4622,7 @@ plot_elope = {
 			NOT = { has_character_flag = known_eloper }
 		}
 	}
-	
+
 	# Target scope
 	allow = {
 		#NOT = { has_opinion_modifier = { who = FROM modifier = opinion_recent_plot } }
@@ -4634,7 +4634,7 @@ plot_elope = {
 			NOT = { has_character_flag = known_eloper }
 		}
 	}
-	
+
 	chance = {
 		factor = 1
 		modifier = {
@@ -4708,12 +4708,12 @@ plot_elope = {
 			FROM = { intrigue = 18 }
 		}
 	}
-	
+
 	success = {
 		any_spouse = { character = FROM }
 		hidden_tooltip = { FROM = { has_character_flag = plot_success } }
 	}
-	
+
 	abort = {
 		OR = {
 			FROM = { has_character_flag = abort_plot }
@@ -4726,7 +4726,7 @@ plot_elope = {
 			ROOT = { trait = incapable }
 		}
 	}
-	
+
 	abort_effect = {
 		FROM = {
 			# Clear flags
@@ -4742,7 +4742,7 @@ plot_elope = {
 			}
 		}
 	}
-	
+
 	effect = {
 		FROM = {
 			any_plot_backer = {
@@ -4774,7 +4774,7 @@ plot_overthrow_empire = {
 	type = realm_characters # All characters in the same realm, plus rivals and relatives of self, parents, children and spouse
 	intrigue_plot = yes
 	murder_plot = yes
-	
+
 	# Plotter scope
 	potential = {
 		prisoner = no
@@ -4789,7 +4789,7 @@ plot_overthrow_empire = {
 			}
 		}
 	}
-	
+
 	# Target scope
 	target_potential = {
 		is_liege_of = FROM
@@ -4799,7 +4799,7 @@ plot_overthrow_empire = {
 			government = muslim_imperial_government
 		}
 	}
-	
+
 	# Target scope
 	allow = {
 		#NOT = { has_opinion_modifier = { who = FROM modifier = opinion_recent_plot } }
@@ -4808,7 +4808,7 @@ plot_overthrow_empire = {
 		NOT = { has_non_aggression_pact_with = FROM }
 		primary_title = { claimed_by = FROM }
 	}
-	
+
 	chance = {
 		factor = 2
 		modifier = {
@@ -4888,7 +4888,7 @@ plot_overthrow_empire = {
 					trait = dishonorable10
 				}
 			}
-		}	
+		}
 		modifier = {
 			factor = 0.1
 			FROM = { pacifist = yes }
@@ -4979,11 +4979,11 @@ plot_overthrow_empire = {
 			FROM = { intrigue = 21 }
 		}
 	}
-	
+
 	success = {
 		FROM = { has_character_flag = plot_success }
 	}
-	
+
 	abort = {
 		OR = {
 			FROM = { has_character_flag = abort_plot }
@@ -5001,7 +5001,7 @@ plot_overthrow_empire = {
 			}
 		}
 	}
-	
+
 	abort_effect = {
 		FROM = {
 			# Clear flags
@@ -5018,7 +5018,7 @@ plot_overthrow_empire = {
 			}
 		}
 	}
-	
+
 	effect = {
 		FROM = {
 			change_intrigue = 1
@@ -5056,7 +5056,7 @@ plot_coup = {
 	murder_plot = yes # Non-justified coups are immoral and characters with moral qualms won't back them
 	military_plot = yes
 	intrigue_plot = yes
-	
+
 	potential = {
 		age = 16
 		NOT = { trait = incapable }
@@ -5065,7 +5065,7 @@ plot_coup = {
 	target_potential = {
 		is_primary_holder_title_tier = yes
 		FROM = {
-			
+
 		}
 	}
 	allow = {
@@ -5117,7 +5117,7 @@ plot_coup = {
 				FROM = { religion_authority = 1 }
 			}
 		}
-		
+
 	}
 	creation_effect = {
 		if = {
@@ -5141,7 +5141,7 @@ plot_coup = {
 	}
 	chance = {
 		factor = 1
-		
+
 		# Plotter strength
 		# The plotter needs to have SOMETHING going for them
 		modifier = {
@@ -5198,7 +5198,7 @@ plot_coup = {
 			factor = 1.25
 			FROM = { relative_power_to_liege = 1 }
 		}
-		
+
 		# Ambition Effects
 		modifier = {
 			factor = 10
@@ -5210,7 +5210,7 @@ plot_coup = {
 			FROM = { has_ambition = obj_become_emperor }
 			capital_scope = { empire = { title = PREVPREV } }
 		}
-		
+
 		# Personality Effects
 		modifier = {
 			factor = 0.1
@@ -5240,7 +5240,7 @@ plot_coup = {
 			factor = 2
 			FROM = { trait = pragmatic }
 		}
-		
+
 		# Personal Opinion
 		# Unjustified coups will never be launched by vassals with positive opinions
 		modifier = {
@@ -5412,7 +5412,7 @@ plot_justified_coup = {
 	type = liege_titles
 	military_plot = yes
 	intrigue_plot = yes
-	
+
 	potential = {
 		age = 16
 		NOT = { trait = incapable }
@@ -5421,9 +5421,10 @@ plot_justified_coup = {
 	target_potential = {
 		is_primary_holder_title_tier = yes
 		FROM = {
-			
+
 		}
 	}
+
 	allow = {
 		NOT = {
 			AND = {
@@ -5438,6 +5439,7 @@ plot_justified_coup = {
 					OR = {
 						trait = ambitious
 						trait = cold
+						trait = amoral
 					}
 				}
 			}
@@ -5460,9 +5462,13 @@ plot_justified_coup = {
 				holder_scope = { NOT = { religion_authority = 0.25 } }
 				FROM = { has_weak_claim = PREV }
 			}
+			holder_scope = { wealth < -2000	}
+			holder_scope = { piety < -1000 }
+			holder_scope = { prestige < -1000 }
 			#holder_scope = { NOT = { religion_authority = 0.1 } }
 		}
 	}
+
 	creation_effect = {
 		if = {
 			limit = {
@@ -5484,10 +5490,11 @@ plot_justified_coup = {
 				set_character_flag = flag_ai_plot_timer
 			}
 		}
-		}
-		chance = {
-			factor = 10
-		
+	}
+
+	chance = {
+		factor = 10
+
 		# Plotter strength
 		# The plotter needs to have SOMETHING going for them
 		modifier = {
@@ -5544,7 +5551,7 @@ plot_justified_coup = {
 			factor = 1.25
 			FROM = { relative_power_to_liege = 1 }
 		}
-		
+
 		# Ambition Effects
 		modifier = {
 			factor = 10
@@ -5556,7 +5563,7 @@ plot_justified_coup = {
 			FROM = { has_ambition = obj_become_emperor }
 			capital_scope = { empire = { title = PREVPREV } }
 		}
-		
+
 		# Constitutional Crisis Factor
 		modifier = {
 			factor = 10
@@ -5566,7 +5573,7 @@ plot_justified_coup = {
 			factor = 0
 			FROM = { in_faction = faction_pro_ruler }
 		}
-		
+
 		# Try to avoid splitting the plot up if possible
 		modifier = {
 			factor = 0
@@ -5591,7 +5598,7 @@ plot_justified_coup = {
 				}
 			}
 		}
-		
+
 		# Personality Effects
 		modifier = {
 			factor = 0.1
@@ -5609,7 +5616,7 @@ plot_justified_coup = {
 			factor = 2
 			FROM = { trait = brave }
 		}
-		
+
 		# Moral authority effects
 		modifier = {
 			factor = 0.8
@@ -5651,7 +5658,7 @@ plot_justified_coup = {
 			factor = 0.8
 			holder_scope = { religion_authority = 1 }
 		}
-		
+
 		modifier = {
 			factor = 1.25
 			holder_scope = { NOT = { religion = FROM } }
@@ -5702,7 +5709,7 @@ plot_justified_coup = {
 			holder_scope = { NOT = { religion = FROM } }
 			FROM = { religion_authority = 1 }
 		}
-		
+
 		# Personal Opinion
 		modifier = {
 			factor = 0.8
@@ -5784,7 +5791,7 @@ plot_justified_coup = {
 			factor = 1.25
 			holder_scope = { NOT = { reverse_opinion = { who = FROM value = -99 } } }
 		}
-		
+
 		# Legal effects
 		modifier = {
 			factor = 0.2
@@ -5794,7 +5801,7 @@ plot_justified_coup = {
 			factor = 5
 			holder_scope = { has_character_modifier = law_against_ruler }
 		}
-		
+
 		# Things get more desperate the longer a crisis goes on
 		modifier = {
 			factor = 2
@@ -5873,38 +5880,41 @@ plot_justified_coup = {
 				had_character_flag = { flag = flag_crisis_timer days = 360 }
 			}
 		}
+	}
+
+	success = { holder_scope = { character = FROM } }
+
+	effect = {
+		# Justified coups, if against other ideologies, are actually
+		# good for moral authority, because you're deposing tyrants
+		if = {
+			limit = {
+				FROM = { has_character_flag = flag_other_ideology_coup }
+				higher_tier_than = count
+			}
+			FROM = { religion_authority = { modifier = successful_justified_coup years = 30 } }
 		}
-		success = { holder_scope = { character = FROM } }
-		effect = {
-	# Justified coups, if against other ideologies, are actually
-	# good for moral authority, because you're deposing tyrants
-	if = {
-		limit = {
-			FROM = { has_character_flag = flag_other_ideology_coup }
-			higher_tier_than = count
+		if = {
+			limit = {
+				FROM = { has_character_flag = flag_other_ideology_coup }
+				higher_tier_than = duke
+			}
+			FROM = { religion_authority = { modifier = successful_justified_coup years = 30 } }
 		}
-		FROM = { religion_authority = { modifier = successful_justified_coup years = 30 } }
-	}
-	if = {
-		limit = {
-			FROM = { has_character_flag = flag_other_ideology_coup }
-			higher_tier_than = duke
+		if = {
+			limit = {
+				FROM = { has_character_flag = flag_other_ideology_coup }
+				tier = emperor
+			}
+			FROM = { religion_authority = { modifier = successful_justified_coup years = 30 } }
 		}
-		FROM = { religion_authority = { modifier = successful_justified_coup years = 30 } }
-	}
-	if = {
-		limit = {
-			FROM = { has_character_flag = flag_other_ideology_coup }
-			tier = emperor
+		FROM = {
+			clr_character_flag = flag_other_ideology_coup
+			clr_character_flag = flag_ai_plot_timer
+			clr_character_flag = flag_launching_coup
 		}
-		FROM = { religion_authority = { modifier = successful_justified_coup years = 30 } }
 	}
-	FROM = {
-		clr_character_flag = flag_other_ideology_coup
-		clr_character_flag = flag_ai_plot_timer
-		clr_character_flag = flag_launching_coup
-	}
-	}
+
 	abort = {
 		OR = {
 			is_primary_holder_title_tier = no
@@ -5944,6 +5954,9 @@ plot_justified_coup = {
 					holder_scope = { religion_authority = 0.25 }
 					NOT = { FROM = { has_weak_claim = PREV } }
 				}
+				holder_scope = { wealth > -2000	}
+				holder_scope = { piety > -1000 }
+				holder_scope = { prestige > -1000 }
 				holder_scope = { religion_authority = 0.1 }
 			}
 			FROM = {
@@ -5960,6 +5973,7 @@ plot_justified_coup = {
 			}
 		}
 	}
+
 	abort_effect = {
 		FROM = {
 			clr_character_flag = flag_other_ideology_coup
@@ -5972,10 +5986,10 @@ plot_justified_coup = {
 }
 
 plot_refute_claim = {
-	type = realm_characters_plus 	
-	
-	intrigue_plot = yes					
-	
+	type = realm_characters_plus
+
+	intrigue_plot = yes
+
 	# Plotter scope
 	potential = {
 		prisoner = no
@@ -5987,22 +6001,22 @@ plot_refute_claim = {
 		NOT = { trait = imbecile }
 		NOT = { trait = honourable }
 	}
-	
+
 	allow = {
 		NOT = { is_child_of = FROM } # Not my own children
 		NOT = { spouse = { character = FROM } } #Not current spouse
 		NOT = { war_with = FROM } #Not currently in war with
 		NOT = { is_primary_heir = yes } #Not your primary heir
 		age = 16 #Must be an adult to be able to Abandon a claim
-		
+
 		FROM = {
 			any_demesne_title = { claimed_by = ROOT }
 		}
 	}
-	
+
 	chance = {
 		factor = 1 # Must always be an integer
-		
+
 		modifier = {
 			factor = 0.1
 			FROM = { trait = content }
@@ -6158,13 +6172,13 @@ plot_refute_claim = {
 			FROM = { tier = EMPEROR }
 		}
 	}
-	
+
 	success = {
 	#Success condition handled by flag rather then condition change
 	#NOT = {FROM = {any_demesne_title = { claimed_by = ROOT }}}
 	FROM = {has_character_flag = plot_refute_claim_success}
 	}
-	
+
 	abort = {
 		ROOT = { war_with = FROM }
 		FROM = { NOT = { any_demesne_title = { claimed_by = ROOT } } }
@@ -6189,7 +6203,7 @@ plot_refute_claim = {
 			# Clear flags
 			hidden_tooltip = {
 				clr_character_flag = plot_refute_claim_decision_taken
-				clr_character_flag = plot_refute_claim_success				
+				clr_character_flag = plot_refute_claim_success
 			}
 		}
 	}
@@ -6199,7 +6213,7 @@ plot_refute_claim = {
 plot_investigate_legitimacy = {
 	type = realm_characters_plus
 	intrigue_plot = yes
-	
+
 	#Plotter Scope
 	potential = {
 		always = no # INCOMPLETE
@@ -6224,10 +6238,10 @@ plot_investigate_legitimacy = {
 			}
 			is_regent = yes
 		}
-		
+
 		is_undead = no
 	}
-	
+
 	target_potential = {
 		NOR = {
 			trait = bastard
@@ -6235,7 +6249,7 @@ plot_investigate_legitimacy = {
 			trait = adopted
 		}
 		is_undead = no
-		
+
 		OR = {
 			AND = {
 				is_mortal_race = yes
@@ -6247,10 +6261,10 @@ plot_investigate_legitimacy = {
 			}
 		}
 		is_within_diplo_range = FROM
-		
+
 		NOT = { mother = { character = FROM } }
 		NOT = { real_father = { character = FROM } }
-		
+
 		FROM = {
 			OR = {
 				AND = {
@@ -6321,7 +6335,7 @@ plot_investigate_legitimacy = {
 			}
 		}
 	}
-	
+
 	allow = {
 		is_within_diplo_range = FROM
 		NOT = { mother = { character = FROM } }
@@ -6329,10 +6343,10 @@ plot_investigate_legitimacy = {
 		NOT = { trait = legit_bastard }
 		NOT = { age = 35 }
 	}
-	
+
 	chance = {
 		factor = 1
-		
+
 		modifier = {
 			factor = 5
 			FROM = {
@@ -6369,7 +6383,7 @@ plot_investigate_legitimacy = {
 			is_ruler = no
 		}
 		modifier = {
-			factor = 0			
+			factor = 0
 			mother_even_if_dead = { is_child_of = FROM }
 		}
 		modifier = { factor = 0.5 FROM = { trait = arbitrary } }
@@ -6384,7 +6398,7 @@ plot_investigate_legitimacy = {
 		modifier = { factor = 1.25 FROM = { trait = diligent } }
 		modifier = {
 			factor = 0
-			FROM = { 
+			FROM = {
 				OR = {
 					trait = kind
 					trait = trusting
@@ -6520,7 +6534,7 @@ plot_investigate_legitimacy = {
 		is_alive = no
 	}
 	success = {
-		
+
 	}
 	effect = {
 		FROM = {
@@ -6538,7 +6552,7 @@ plot_investigate_legitimacy = {
 plot_fabricate_evidence = {
 	type = realm_characters
 	vassal_intrigue_plot = yes
-	
+
 	potential = {
 		prisoner = no
 		is_adult = yes
@@ -6600,7 +6614,7 @@ plot_fabricate_evidence = {
 	}
 	chance = {
 		factor = 1
-		
+
 		modifier = {
 			factor = 0
 			FROM = {
@@ -6748,11 +6762,11 @@ plot_fabricate_evidence = {
 			trait = ambitious
 		}
 	}
-	
+
 	success = {
 		FROM = { has_character_flag = EKplot_success }
 	}
-	
+
 	abort = {
 		OR = {
 			FROM = { has_character_flag = EKplot_failed }
@@ -6768,7 +6782,7 @@ plot_fabricate_evidence = {
 			}
 		}
 	}
-	
+
 	abort_effect = {
 		any_plot_backer = {
 			clr_character_flag = forged_personally
@@ -6787,7 +6801,7 @@ plot_fabricate_evidence = {
 			clr_character_flag = EKplot_failed
 		}
 	}
-	
+
 	effect = {
 		FROM = {
 			any_plot_backer = {
@@ -6805,7 +6819,7 @@ plot_fabricate_evidence = {
 plot_regent = {
 	type = realm_characters
 	vassal_intrigue_plot = yes
-	
+
 	potential = {
 		prisoner = no
 		independent = no
@@ -6827,9 +6841,9 @@ plot_regent = {
 			num_of_vassals = 3
 			has_regent = yes
 			OR = {
-				is_close_relative = FROM 
-				is_married = FROM 
-				is_lover = FROM 
+				is_close_relative = FROM
+				is_married = FROM
+				is_lover = FROM
 				#any_courtier = { character = FROM } #why should just any courtier be allowed to ask tho?
 				FROM = { is_councillor = yes }
 				current_heir = { character = FROM }
@@ -7050,7 +7064,7 @@ plot_regent = {
 plot_embezzle = {
 	type = realm_characters # All characters in the same realm, plus rivals and relatives of self, parents, children and spouse
 	intrigue_plot = yes
-	
+
 	potential = {
 		always = no # INCOMPLETE
 		prisoner = no
@@ -7071,14 +7085,14 @@ plot_embezzle = {
 	allow = {
 		wealth = 0
 	}
-	
+
 	allow_join = {
 		always = no #Only the Plotter is able to take part in this plot.
 	}
-	
+
 	chance = {
 		factor = 1
-		
+
 		modifier = {
 			factor = 0
 			ai = yes
@@ -7232,13 +7246,13 @@ plot_embezzle = {
 			higher_tier_than = KING
 		}
 	}
-	
+
 	creation_effect = {
 		FROM = {
 			#ADD GATEWAY EVENT
 		}
 	}
-	
+
 	success = {
 		custom_tooltip = {
 			text = embezzle_success_tt

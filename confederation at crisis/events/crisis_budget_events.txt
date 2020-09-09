@@ -1,0 +1,511 @@
+namespace = budget
+
+character_event = {
+	id = budget.0
+	desc = "EVTDESCBUDGET0"
+	picture = GFX_evt_council
+	border = GFX_event_normal_frame_economy
+	is_triggered_only = yes
+	only_playable = yes
+
+	trigger = {
+		OR = {
+			NOT = { has_character_flag = paid_yearly_budget }
+			had_character_flag = { flag = paid_yearly_budget days > 300 }
+		}
+		yearly_income >= 50
+		NAND = { has_law = military_budget_0 has_law = military_budget_0 has_law = military_budget_0 }
+	}
+
+	immediate = {
+		clr_character_flag = paid_yearly_budget
+		set_character_flag = paid_yearly_budget
+		export_to_variable = { which = local_wealth value = yearly_income }
+		set_variable = { which = local_military_shares value = 0 }
+		any_vassal = {
+			if = {
+				limit = {
+					is_military_trigger = yes
+					is_appointed_trigger = yes
+					NOT = { has_character_flag = got_shares }
+				}
+				set_character_flag = got_shares
+				if = {  limit = { tier = KING }
+					change_variable = { which = local_military_shares value = 20 } }
+				else_if = {	limit = { tier = DUKE }
+					change_variable = { which = local_military_shares value = 7 } }
+				else_if = {	limit = { tier = COUNT }
+					change_variable = { which = local_military_shares value = 3 } }
+				else_if = {	limit = { tier = BARON }
+					change_variable = { which = local_military_shares value = 1 } }
+			}
+		}
+		set_variable = { which = local_civil_shares value = 0 }
+		any_vassal = {
+			if = {
+				limit = {
+					is_civil_trigger = yes
+					is_appointed_trigger = yes
+					NOT = { has_character_flag = got_shares }
+				}
+				set_character_flag = got_shares
+				if = {  limit = { tier = KING }
+					change_variable = { which = local_civil_shares value = 20 } }
+				else_if = {	limit = { tier = DUKE }
+					change_variable = { which = local_civil_shares value = 7 } }
+				else_if = {	limit = { tier = COUNT }
+					change_variable = { which = local_civil_shares value = 3 } }
+				else_if = {	limit = { tier = BARON }
+					change_variable = { which = local_civil_shares value = 1 } }
+			}
+		}
+		set_variable = { which = local_rectorial_shares value = 0 }
+		any_vassal = {
+			if = {
+				limit = {
+					is_rectorial_trigger = yes
+					is_appointed_trigger = yes
+					NOT = { has_character_flag = got_shares }
+				}
+				set_character_flag = got_shares
+				if = {  limit = { tier = KING }
+					change_variable = { which = local_rectorial_shares value = 20 } }
+				else_if = {	limit = { tier = DUKE }
+					change_variable = { which = local_rectorial_shares value = 7 } }
+				else_if = {	limit = { tier = COUNT }
+					change_variable = { which = local_rectorial_shares value = 3 } }
+				else_if = {	limit = { tier = BARON }
+					change_variable = { which = local_rectorial_shares value = 1 } }
+			}
+		}
+
+		set_variable = { which = local_military_share_value value = 0.0 }
+		primary_title = {
+			trigger_switch = {
+				on_trigger = has_law
+				military_budget_0 = { set_variable = { which = local_military_share_value value = 0.0 } }
+				military_budget_1 = { set_variable = { which = local_military_share_value value = 0.2 } }
+				military_budget_2 = { set_variable = { which = local_military_share_value value = 0.5 } }
+				military_budget_3 = { set_variable = { which = local_military_share_value value = 0.7 } }
+			}
+		}
+		set_variable = { which = local_military_budget which = local_military_share_value }
+		multiply_variable = { which = local_military_budget which = local_wealth }
+		divide_variable = { which = local_military_share_value which = local_military_shares }
+
+		set_variable = { which = local_civil_share_value value = 0.0 }
+		primary_title = {
+			trigger_switch = {
+				on_trigger = has_law
+				civil_budget_0 = { set_variable = { which = local_civil_share_value value = 0.0 } }
+				civil_budget_1 = { set_variable = { which = local_civil_share_value value = 0.2 } }
+				civil_budget_2 = { set_variable = { which = local_civil_share_value value = 0.5 } }
+				civil_budget_3 = { set_variable = { which = local_civil_share_value value = 0.7 } }
+			}
+		}
+		set_variable = { which = local_civil_budget which = local_civil_share_value }
+		multiply_variable = { which = local_civil_budget which = local_wealth }
+		divide_variable = { which = local_civil_share_value which = local_civil_shares }
+
+		set_variable = { which = local_rectorial_share_value value = 0.0 }
+		primary_title = {
+			trigger_switch = {
+				on_trigger = has_law
+				rectorial_budget_0 = { set_variable = { which = local_rectorial_share_value value = 0.0 } }
+				rectorial_budget_1 = { set_variable = { which = local_rectorial_share_value value = 0.2 } }
+				rectorial_budget_2 = { set_variable = { which = local_rectorial_share_value value = 0.5 } }
+				rectorial_budget_3 = { set_variable = { which = local_rectorial_share_value value = 0.7 } }
+			}
+		}
+		set_variable = { which = local_rectorial_budget which = local_rectorial_share_value }
+		multiply_variable = { which = local_rectorial_budget which = local_wealth }
+		divide_variable = { which = local_rectorial_share_value which = local_rectorial_shares }
+
+		any_vassal = {
+			if = {
+				limit = { is_military_trigger = yes is_appointed_trigger = yes }
+				if = { limit = { tier = KING NOT = { has_character_flag = got_paid } }
+					set_character_flag = got_paid
+					set_variable = { which = local_value which = local_military_share_value }
+					multiply_variable = { which = local_value value = 20 }
+					set_variable = { which = money_to_receive which = local_value }
+					set_variable = { which = money_to_receive_full which = local_value }
+					#multiply_variable = { which = money_to_receive_full value = 0.9999 }
+					set_variable = { which = money_to_receive_half which = local_value }
+					multiply_variable = { which = money_to_receive_half value = 0.5 }
+					set_variable = { which = money_to_receive_increase which = local_value }
+					multiply_variable = { which = money_to_receive_increase value = 2 } }
+				else_if = {	limit = { tier = DUKE NOT = { has_character_flag = got_paid } }
+					set_character_flag = got_paid
+					set_variable = { which = local_value which = local_military_share_value }
+					multiply_variable = { which = local_value value = 7 }
+					set_variable = { which = money_to_receive which = local_value }
+					set_variable = { which = money_to_receive_full which = local_value }
+					#multiply_variable = { which = money_to_receive_full value = 0.9999 }
+					set_variable = { which = money_to_receive_half which = local_value }
+					multiply_variable = { which = money_to_receive_half value = 0.5 }
+					set_variable = { which = money_to_receive_increase which = local_value }
+					multiply_variable = { which = money_to_receive_increase value = 2 } }
+				else_if = {	limit = { tier = COUNT NOT = { has_character_flag = got_paid } }
+					set_character_flag = got_paid
+					set_variable = { which = local_value which = local_military_share_value }
+					multiply_variable = { which = local_value value = 3 }
+					set_variable = { which = money_to_receive which = local_value }
+					set_variable = { which = money_to_receive_full which = local_value }
+					#multiply_variable = { which = money_to_receive_full value = 0.9999 }
+					set_variable = { which = money_to_receive_half which = local_value }
+					multiply_variable = { which = money_to_receive_half value = 0.5 }
+					set_variable = { which = money_to_receive_increase which = local_value }
+					multiply_variable = { which = money_to_receive_increase value = 2 } }
+				else_if = {	limit = { tier = BARON NOT = { has_character_flag = got_paid } }
+					set_character_flag = got_paid
+					set_variable = { which = local_value which = local_military_share_value }
+					multiply_variable = { which = local_value value = 1 }
+					set_variable = { which = money_to_receive which = local_value }
+					set_variable = { which = money_to_receive_full which = local_value }
+					#multiply_variable = { which = money_to_receive_full value = 0.9999 }
+					set_variable = { which = money_to_receive_half which = local_value }
+					multiply_variable = { which = money_to_receive_half value = 0.5 }
+					set_variable = { which = money_to_receive_increase which = local_value }
+					multiply_variable = { which = money_to_receive_increase value = 2 } }
+			}
+		}
+
+		any_vassal = {
+			if = {
+				limit = { is_civil_trigger = yes is_appointed_trigger = yes }
+				if = { limit = { tier = KING NOT = { has_character_flag = got_paid } }
+					set_character_flag = got_paid
+					set_variable = { which = local_value which = local_civil_share_value }
+					multiply_variable = { which = local_value value = 20 }
+					set_variable = { which = money_to_receive which = local_value }
+					set_variable = { which = money_to_receive_full which = local_value }
+					#multiply_variable = { which = money_to_receive_full value = 0.9999 }
+					set_variable = { which = money_to_receive_half which = local_value }
+					multiply_variable = { which = money_to_receive_half value = 0.5 }
+					set_variable = { which = money_to_receive_increase which = local_value }
+					multiply_variable = { which = money_to_receive_increase value = 2 } }
+				else_if = {	limit = { tier = DUKE NOT = { has_character_flag = got_paid } }
+					set_character_flag = got_paid
+					set_variable = { which = local_value which = local_civil_share_value }
+					multiply_variable = { which = local_value value = 7 }
+					set_variable = { which = money_to_receive which = local_value }
+					set_variable = { which = money_to_receive_full which = local_value }
+					#multiply_variable = { which = money_to_receive_full value = 0.9999 }
+					set_variable = { which = money_to_receive_half which = local_value }
+					multiply_variable = { which = money_to_receive_half value = 0.5 }
+					set_variable = { which = money_to_receive_increase which = local_value }
+					multiply_variable = { which = money_to_receive_increase value = 2 } }
+				else_if = {	limit = { tier = COUNT NOT = { has_character_flag = got_paid } }
+					set_character_flag = got_paid
+					set_variable = { which = local_value which = local_civil_share_value }
+					multiply_variable = { which = local_value value = 3 }
+					set_variable = { which = money_to_receive which = local_value }
+					set_variable = { which = money_to_receive_full which = local_value }
+					#multiply_variable = { which = money_to_receive_full value = 0.9999 }
+					set_variable = { which = money_to_receive_half which = local_value }
+					multiply_variable = { which = money_to_receive_half value = 0.5 }
+					set_variable = { which = money_to_receive_increase which = local_value }
+					multiply_variable = { which = money_to_receive_increase value = 2 } }
+				else_if = {	limit = { tier = BARON NOT = { has_character_flag = got_paid } }
+					set_character_flag = got_paid
+					set_variable = { which = local_value which = local_civil_share_value }
+					multiply_variable = { which = local_value value = 1 }
+					set_variable = { which = money_to_receive which = local_value }
+					set_variable = { which = money_to_receive_full which = local_value }
+					#multiply_variable = { which = money_to_receive_full value = 0.9999 }
+					set_variable = { which = money_to_receive_half which = local_value }
+					multiply_variable = { which = money_to_receive_half value = 0.5 }
+					set_variable = { which = money_to_receive_increase which = local_value }
+					multiply_variable = { which = money_to_receive_increase value = 2 } }
+			}
+		}
+
+		any_vassal = {
+			if = {
+				limit = { is_rectorial_trigger = yes is_appointed_trigger = yes }
+				if = { limit = { tier = KING NOT = { has_character_flag = got_paid } }
+					set_character_flag = got_paid
+					set_variable = { which = local_value which = local_rectorial_share_value }
+					multiply_variable = { which = local_value value = 20 }
+					set_variable = { which = money_to_receive which = local_value }
+					set_variable = { which = money_to_receive_full which = local_value }
+#					multiply_variable = { which = money_to_receive_full value = 0.9999 }
+					set_variable = { which = money_to_receive_half which = local_value }
+					multiply_variable = { which = money_to_receive_half value = 0.5 }
+					set_variable = { which = money_to_receive_increase which = local_value }
+					multiply_variable = { which = money_to_receive_increase value = 2 } }
+				else_if = {	limit = { tier = DUKE NOT = { has_character_flag = got_paid } }
+					set_character_flag = got_paid
+					set_variable = { which = local_value which = local_rectorial_share_value }
+					multiply_variable = { which = local_value value = 7 }
+					set_variable = { which = money_to_receive which = local_value }
+					set_variable = { which = money_to_receive_full which = local_value }
+					#multiply_variable = { which = money_to_receive_full value = 0.9999 }
+					set_variable = { which = money_to_receive_half which = local_value }
+					multiply_variable = { which = money_to_receive_half value = 0.5 }
+					set_variable = { which = money_to_receive_increase which = local_value }
+					multiply_variable = { which = money_to_receive_increase value = 2 } }
+				else_if = {	limit = { tier = COUNT NOT = { has_character_flag = got_paid } }
+					set_character_flag = got_paid
+					set_variable = { which = local_value which = local_rectorial_share_value }
+					multiply_variable = { which = local_value value = 3 }
+					set_variable = { which = money_to_receive which = local_value }
+					set_variable = { which = money_to_receive_full which = local_value }
+					#multiply_variable = { which = money_to_receive_full value = 0.9999 }
+					set_variable = { which = money_to_receive_half which = local_value }
+					multiply_variable = { which = money_to_receive_half value = 0.5 }
+					set_variable = { which = money_to_receive_increase which = local_value }
+					multiply_variable = { which = money_to_receive_increase value = 2 } }
+				else_if = {	limit = { tier = BARON NOT = { has_character_flag = got_paid } }
+					set_character_flag = got_paid
+					set_variable = { which = local_value which = local_rectorial_share_value }
+					multiply_variable = { which = local_value value = 1 }
+					set_variable = { which = money_to_receive which = local_value }
+					set_variable = { which = money_to_receive_full which = local_value }
+					#multiply_variable = { which = money_to_receive_full value = 0.9999 }
+					set_variable = { which = money_to_receive_half which = local_value }
+					multiply_variable = { which = money_to_receive_half value = 0.5 }
+					set_variable = { which = money_to_receive_increase which = local_value }
+					multiply_variable = { which = money_to_receive_increase value = 2 } }
+			}
+		}
+	}
+
+	option = {
+		name = "EVTOPTABUDGET0"
+		any_vassal = {
+			if = {
+				limit = { is_appointed_trigger = yes check_variable = { which = money_to_receive value > 0 } has_character_flag = got_paid }
+				clr_character_flag = got_paid
+				clr_character_flag = got_shares
+				transfer_scaled_wealth = {
+					from = ROOT
+					value = money_to_receive_full }
+				hidden_tooltip = {
+					multiply_variable = { which = money_to_receive which = local_wealth }
+					multiply_variable = { which = money_to_receive_full which = local_wealth }
+					letter_event = { id = budget.1 }
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTBBUDGET0"
+		any_vassal = {
+			if = {
+				limit = { is_appointed_trigger = yes check_variable = { which = money_to_receive value > 0 } has_character_flag = got_paid }
+				clr_character_flag = got_paid
+				clr_character_flag = got_shares
+				transfer_scaled_wealth = {
+					from = ROOT
+					value = money_to_receive_half }
+				hidden_tooltip = {
+					multiply_variable = { which = money_to_receive which = local_wealth }
+					multiply_variable = { which = money_to_receive_half which = local_wealth }
+					letter_event = { id = budget.2 }
+				}
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTCBUDGET0"
+		any_vassal = {
+			if = {
+				limit = { is_appointed_trigger = yes check_variable = { which = money_to_receive value > 0 } has_character_flag = got_paid }
+				clr_character_flag = got_paid
+				clr_character_flag = got_shares
+				transfer_scaled_wealth = {
+					from = ROOT
+					value = money_to_receive_increase }
+				hidden_tooltip = {
+					multiply_variable = { which = money_to_receive which = local_wealth }
+					multiply_variable = { which = money_to_receive_increase which = local_wealth }
+					letter_event = { id = budget.3 }
+				}
+			}
+		}
+	}
+
+	option = {
+		name = "EVTOPTDBUDGET0"
+		any_vassal = {
+			if = {
+				limit = { is_appointed_trigger = yes check_variable = { which = money_to_receive value > 0 } has_character_flag = got_paid }
+				clr_character_flag = got_paid
+				clr_character_flag = got_shares
+				transfer_scaled_wealth = {
+					from = ROOT
+					value = 0 }
+				hidden_tooltip = {
+					multiply_variable = { which = money_to_receive which = local_wealth }
+					letter_event = { id = budget.4 }
+				}
+			}
+		}
+	}
+}
+
+# Liege paid 100% of his debt to us.
+letter_event = {
+	id = budget.1
+	desc = "EVTDESCBUDGET1"
+	border = GFX_event_letter_frame_economy
+	is_triggered_only = yes
+
+	option = {
+		name = "EVTOPTCONFIRM"
+		hidden_tooltip = {
+			set_variable = { which = money_to_receive value = 0 }
+			set_variable = { which = money_to_receive_full value = 0 }
+			set_variable = { which = money_to_receive_half value = 0 }
+			set_variable = { which = money_to_receive_increase value = 0 }
+		}
+	}
+}
+
+# Liege paid 50% of his debt to us.
+letter_event = {
+	id = budget.2
+	desc = "EVTDESCBUDGET2"
+	border = GFX_event_letter_frame_economy
+	is_triggered_only = yes
+
+	option = {
+		name = "EVTOPTCONFIRM"
+		hidden_tooltip = {
+			set_variable = { which = money_to_receive value = 0 }
+			set_variable = { which = money_to_receive_full value = 0 }
+			set_variable = { which = money_to_receive_half value = 0 }
+			set_variable = { which = money_to_receive_increase value = 0 }
+		}
+		opinion = {
+			modifier = opinion_small_budget
+			who = FROM
+			years = 8 # People have long memory when promises are broken
+		}
+	}
+}
+
+# Liege paid 200% of his debt to us.
+letter_event = {
+	id = budget.3
+	desc = "EVTDESCBUDGET3"
+	border = GFX_event_letter_frame_economy
+	is_triggered_only = yes
+
+	option = {
+		name = "EVTOPTCONFIRM"
+		hidden_tooltip = {
+			set_variable = { which = money_to_receive value = 0 }
+			set_variable = { which = money_to_receive_full value = 0 }
+			set_variable = { which = money_to_receive_half value = 0 }
+			set_variable = { which = money_to_receive_increase value = 0 }
+		}
+		opinion = {
+			modifier = opinion_large_budget
+			who = FROM
+			years = 1 # Unexpected windfall is good but soon forgotten
+		}
+	}
+}
+
+# Liege refused to pay us.
+letter_event = {
+	id = budget.4
+	desc = "EVTDESCBUDGET4"
+	border = GFX_event_letter_frame_economy
+	is_triggered_only = yes
+
+	option = {
+		name = "EVTOPTCONFIRM"
+		hidden_tooltip = {
+			set_variable = { which = money_to_receive value = 0 }
+			set_variable = { which = money_to_receive_full value = 0 }
+			set_variable = { which = money_to_receive_half value = 0 }
+			set_variable = { which = money_to_receive_increase value = 0 }
+		}
+		opinion = {
+			modifier = opinion_no_budget
+			who = FROM
+			years = 8 # People have long memory when promises are broken
+		}
+	}
+
+	#need to give options to do something about the situation of not getting paid.
+}
+
+
+
+letter_event = {
+	id = budget.5
+	desc = "EVTDESCBUDGET5"
+	border = GFX_event_letter_frame_economy
+	is_triggered_only = yes
+
+	option = { name = "EVTOPTCONFIRM" }
+}
+
+# Provincial Budget Events
+
+#this is called upon inheritance mainly.
+#ROOT is person that got title, FROM is title, FROMFROM is old owner.
+character_event = {
+	id = budget.10
+	notification = no
+	hide_window = yes
+	is_triggered_only = yes
+	only_playable = yes
+
+	trigger = {
+		#FROM = { is_capital = yes } #affects only counties
+		always = yes
+	}
+
+	immediate = {
+		log = "logging event budget.10: [From.GetName] [Root.GetName]"
+		FROM = {
+			location = {
+				remove_province_modifier = police_budget_mod_1
+				remove_province_modifier = police_budget_mod_2
+				remove_province_modifier = police_budget_mod_3
+				remove_province_modifier = health_care_budget_mod_1
+				remove_province_modifier = health_care_budget_mod_2
+				remove_province_modifier = health_care_budget_mod_3
+				remove_province_modifier = education_budget_mod_1
+				remove_province_modifier = education_budget_mod_2
+				remove_province_modifier = education_budget_mod_3
+
+				if = { limit = { owner = { primary_title = { has_law = police_budget_1 } } }
+					add_province_modifier = { name = police_budget_mod_1 duration = -1 }
+				}
+				if = { limit = { owner = { primary_title = { has_law = police_budget_2 } } }
+					add_province_modifier = { name = police_budget_mod_2 duration = -1 }
+				}
+				if = { limit = { owner = { primary_title = { has_law = police_budget_3 } } }
+					add_province_modifier = { name = police_budget_mod_3 duration = -1 }
+				}
+
+				if = { limit = { owner = { primary_title = { has_law = health_care_budget_1 } } }
+					add_province_modifier = { name = health_care_budget_mod_1 duration = -1 }
+				}
+				if = { limit = { owner = { primary_title = { has_law = health_care_budget_2 } } }
+					add_province_modifier = { name = health_care_budget_mod_2 duration = -1 }
+				}
+				if = { limit = { owner = { primary_title = { has_law = health_care_budget_3 } } }
+					add_province_modifier = { name = health_care_budget_mod_3 duration = -1 }
+				}
+
+				if = { limit = { owner = { primary_title = { has_law = education_budget_1 } } }
+					add_province_modifier = { name = education_budget_mod_1 duration = -1 }
+				}
+				if = { limit = { owner = { primary_title = { has_law = education_budget_2 } } }
+					add_province_modifier = { name = education_budget_mod_2 duration = -1 }
+				}
+				if = { limit = { owner = { primary_title = { has_law = education_budget_3 } } }
+					add_province_modifier = { name = education_budget_mod_3 duration = -1 }
+				}
+			}
+		}
+	}
+}

@@ -6,7 +6,7 @@ character_event = {
 	id = rebels.0
 	hide_window = yes
 	is_triggered_only = yes
-	
+
 	immediate = {
 		# Generate a warship captain, a marine colonel, and a fighter pilot
 		# Warship Captain
@@ -93,7 +93,7 @@ character_event = {
 					dynasty = actually_culture
 					female = no
 					trait = rebel_leader
-					trait = marine_colonel
+					trait = marine_captain
 				}
 				# Assign proper opinion modifiers
 				new_character = {
@@ -128,7 +128,80 @@ character_event = {
 					dynasty = actually_culture
 					female = yes
 					trait = rebel_leader
-					trait = marine_colonel
+					trait = marine_captain
+				}
+				# Assign proper opinion modifiers
+				new_character = {
+					set_dynasty_flag = flag_valid_surname
+					opinion = { who = ROOT modifier = opinion_hero_of_the_revolution }
+					reverse_opinion = { who = ROOT modifier = opinion_aided_my_revolution }
+					ROOT = {
+						any_current_enemy = {
+							limit = {
+								any_war = {
+									defender = { character = PREV }
+									attacker = { character = THIS }
+									OR = {
+										using_cb = democratic_rebellion
+										using_cb = autocratic_rebellion
+										using_cb = theocratic_rebellion
+									}
+								}
+							}
+							reverse_opinion = { who = PREVPREV modifier = opinion_evil_tyrant }
+						}
+					}
+					FROM = { any_province_lord = { opinion = { who = PREVPREV modifier = opinion_criminal_treason } } }
+				}
+			}
+		}
+		# Army Colonel
+		random_list = {
+			50 = {
+				create_random_soldier = {
+					age = 30
+					random_traits = yes
+					religion = FROM
+					culture = FROM
+					dynasty = actually_culture
+					female = no
+					trait = rebel_leader
+					trait = army_captain
+				}
+				# Assign proper opinion modifiers
+				new_character = {
+					set_dynasty_flag = flag_valid_surname
+					opinion = { who = ROOT modifier = opinion_hero_of_the_revolution }
+					reverse_opinion = { who = ROOT modifier = opinion_aided_my_revolution }
+					ROOT = {
+						any_current_enemy = {
+							limit = {
+								any_war = {
+									defender = { character = PREV }
+									attacker = { character = THIS }
+									OR = {
+										using_cb = democratic_rebellion
+										using_cb = autocratic_rebellion
+										using_cb = theocratic_rebellion
+									}
+								}
+							}
+							reverse_opinion = { who = PREVPREV modifier = opinion_evil_tyrant }
+						}
+					}
+					FROM = { any_province_lord = { opinion = { who = PREVPREV modifier = opinion_criminal_treason } } }
+				}
+			}
+			50 = {
+				create_random_soldier = {
+					age = 30
+					random_traits = yes
+					religion = FROM
+					culture = FROM
+					dynasty = actually_culture
+					female = yes
+					trait = rebel_leader
+					trait = army_captain
 				}
 				# Assign proper opinion modifiers
 				new_character = {
@@ -166,7 +239,7 @@ character_event = {
 					dynasty = actually_culture
 					female = no
 					trait = rebel_leader
-					trait = fighter_pilot
+					trait = frigate_pilot
 				}
 				# Assign proper opinion modifiers
 				new_character = {
@@ -201,7 +274,7 @@ character_event = {
 					dynasty = actually_culture
 					female = yes
 					trait = rebel_leader
-					trait = fighter_pilot
+					trait = frigate_pilot
 				}
 				# Assign proper opinion modifiers
 				new_character = {
@@ -250,23 +323,11 @@ character_event = {
 			province = FROM
 			home = FROM
 			owner = ROOT
-			troops = { light_infantry = { 50 50 } }
+			troops = { light_infantry = { 5 5 } }
 			attrition = 1.0
 			disband_on_peace = no
 		}
 		# Baseline - Up to 1 DN, 3 BCs, 5 DDs, 3 Troop Transports, 400 Fighters, 400 Bombers
-		# Dreadnoughts
-		random = {
-			chance = 15
-			spawn_unit = {
-				province = FROM
-				home = FROM
-				owner = ROOT
-				troops = { dreadnoughts = { 1 1 } }
-				attrition = 1.0
-				disband_on_peace = no
-			}
-		}
 		# Battlecruisers
 		random = {
 			chance = 25
@@ -398,7 +459,7 @@ character_event = {
 				province = FROM
 				home = FROM
 				owner = ROOT
-				troops = { light_infantry = { 50 50 } }
+				troops = { light_infantry = { 5 5 } }
 				attrition = 1.0
 				disband_on_peace = no
 			}
@@ -409,7 +470,7 @@ character_event = {
 				province = FROM
 				home = FROM
 				owner = ROOT
-				troops = { light_infantry = { 50 50 } }
+				troops = { light_infantry = { 5 5 } }
 				attrition = 1.0
 				disband_on_peace = no
 			}
@@ -420,7 +481,7 @@ character_event = {
 				province = FROM
 				home = FROM
 				owner = ROOT
-				troops = { light_infantry = { 50 50 } }
+				troops = { light_infantry = { 5 5 } }
 				attrition = 1.0
 				disband_on_peace = no
 			}
@@ -431,7 +492,7 @@ character_event = {
 				province = FROM
 				home = FROM
 				owner = ROOT
-				troops = { light_infantry = { 50 50 } }
+				troops = { light_infantry = { 5 5 } }
 				attrition = 1.0
 				disband_on_peace = no
 			}
@@ -443,7 +504,7 @@ character_event = {
 				province = FROM
 				home = FROM
 				owner = ROOT
-				troops = { heavy_infantry = { 50 50 } }
+				troops = { heavy_infantry = { 5 5 } }
 				attrition = 1.0
 				disband_on_peace = no
 			}
@@ -454,7 +515,7 @@ character_event = {
 				province = FROM
 				home = FROM
 				owner = ROOT
-				troops = { heavy_infantry = { 50 50 } }
+				troops = { heavy_infantry = { 5 5 } }
 				attrition = 1.0
 				disband_on_peace = no
 			}
@@ -465,7 +526,7 @@ character_event = {
 				province = FROM
 				home = FROM
 				owner = ROOT
-				troops = { heavy_infantry = { 50 50 } }
+				troops = { heavy_infantry = { 5 5 } }
 				attrition = 1.0
 				disband_on_peace = no
 			}
@@ -476,7 +537,7 @@ character_event = {
 				province = FROM
 				home = FROM
 				owner = ROOT
-				troops = { heavy_infantry = { 50 50 } }
+				troops = { heavy_infantry = { 5 5 } }
 				attrition = 1.0
 				disband_on_peace = no
 			}
@@ -496,18 +557,6 @@ character_event = {
 							}
 						}
 					}
-				}
-			}
-			# Dreadnoughts
-			random = {
-				chance = 20
-				spawn_unit = {
-					province = FROM
-					home = FROM
-					owner = ROOT
-					troops = { dreadnoughts = { 1 1 } }
-					attrition = 1.0
-					disband_on_peace = no
 				}
 			}
 			# Battlecruisers
@@ -641,7 +690,7 @@ character_event = {
 					province = FROM
 					home = FROM
 					owner = ROOT
-					troops = { light_infantry = { 50 50 } }
+					troops = { light_infantry = { 5 5 } }
 					attrition = 1.0
 					disband_on_peace = no
 				}
@@ -652,7 +701,7 @@ character_event = {
 					province = FROM
 					home = FROM
 					owner = ROOT
-					troops = { light_infantry = { 50 50 } }
+					troops = { light_infantry = { 5 5 } }
 					attrition = 1.0
 					disband_on_peace = no
 				}
@@ -663,7 +712,7 @@ character_event = {
 					province = FROM
 					home = FROM
 					owner = ROOT
-					troops = { light_infantry = { 50 50 } }
+					troops = { light_infantry = { 5 5 } }
 					attrition = 1.0
 					disband_on_peace = no
 				}
@@ -674,7 +723,7 @@ character_event = {
 					province = FROM
 					home = FROM
 					owner = ROOT
-					troops = { light_infantry = { 50 50 } }
+					troops = { light_infantry = { 5 5 } }
 					attrition = 1.0
 					disband_on_peace = no
 				}
@@ -686,7 +735,7 @@ character_event = {
 					province = FROM
 					home = FROM
 					owner = ROOT
-					troops = { heavy_infantry = { 50 50 } }
+					troops = { heavy_infantry = { 5 5 } }
 					attrition = 1.0
 					disband_on_peace = no
 				}
@@ -697,7 +746,7 @@ character_event = {
 					province = FROM
 					home = FROM
 					owner = ROOT
-					troops = { heavy_infantry = { 50 50 } }
+					troops = { heavy_infantry = { 5 5 } }
 					attrition = 1.0
 					disband_on_peace = no
 				}
@@ -708,7 +757,7 @@ character_event = {
 					province = FROM
 					home = FROM
 					owner = ROOT
-					troops = { heavy_infantry = { 50 50 } }
+					troops = { heavy_infantry = { 5 5 } }
 					attrition = 1.0
 					disband_on_peace = no
 				}
@@ -719,7 +768,7 @@ character_event = {
 					province = FROM
 					home = FROM
 					owner = ROOT
-					troops = { heavy_infantry = { 50 50 } }
+					troops = { heavy_infantry = { 5 5 } }
 					attrition = 1.0
 					disband_on_peace = no
 				}
@@ -742,18 +791,6 @@ character_event = {
 					}
 				}
 			}
-			# Dreadnoughts
-			random = {
-				chance = 25
-				spawn_unit = {
-					province = FROM
-					home = FROM
-					owner = ROOT
-					troops = { dreadnoughts = { 1 1 } }
-					attrition = 1.0
-					disband_on_peace = no
-				}
-			}
 			# Battlecruisers
 			random = {
 				chance = 35
@@ -885,7 +922,7 @@ character_event = {
 					province = FROM
 					home = FROM
 					owner = ROOT
-					troops = { light_infantry = { 50 50 } }
+					troops = { light_infantry = { 5 5 } }
 					attrition = 1.0
 					disband_on_peace = no
 				}
@@ -896,7 +933,7 @@ character_event = {
 					province = FROM
 					home = FROM
 					owner = ROOT
-					troops = { light_infantry = { 50 50 } }
+					troops = { light_infantry = { 5 5 } }
 					attrition = 1.0
 					disband_on_peace = no
 				}
@@ -907,7 +944,7 @@ character_event = {
 					province = FROM
 					home = FROM
 					owner = ROOT
-					troops = { light_infantry = { 50 50 } }
+					troops = { light_infantry = { 5 5 } }
 					attrition = 1.0
 					disband_on_peace = no
 				}
@@ -918,7 +955,7 @@ character_event = {
 					province = FROM
 					home = FROM
 					owner = ROOT
-					troops = { light_infantry = { 50 50 } }
+					troops = { light_infantry = { 5 5 } }
 					attrition = 1.0
 					disband_on_peace = no
 				}
@@ -930,7 +967,7 @@ character_event = {
 					province = FROM
 					home = FROM
 					owner = ROOT
-					troops = { heavy_infantry = { 50 50 } }
+					troops = { heavy_infantry = { 5 5 } }
 					attrition = 1.0
 					disband_on_peace = no
 				}
@@ -941,7 +978,7 @@ character_event = {
 					province = FROM
 					home = FROM
 					owner = ROOT
-					troops = { heavy_infantry = { 50 50 } }
+					troops = { heavy_infantry = { 5 5 } }
 					attrition = 1.0
 					disband_on_peace = no
 				}
@@ -952,7 +989,7 @@ character_event = {
 					province = FROM
 					home = FROM
 					owner = ROOT
-					troops = { heavy_infantry = { 50 50 } }
+					troops = { heavy_infantry = { 5 5 } }
 					attrition = 1.0
 					disband_on_peace = no
 				}
@@ -963,7 +1000,7 @@ character_event = {
 					province = FROM
 					home = FROM
 					owner = ROOT
-					troops = { heavy_infantry = { 50 50 } }
+					troops = { heavy_infantry = { 5 5 } }
 					attrition = 1.0
 					disband_on_peace = no
 				}
@@ -986,18 +1023,6 @@ character_event = {
 					}
 				}
 			}
-			# Dreadnoughts
-			random = {
-				chance = 30
-				spawn_unit = {
-					province = FROM
-					home = FROM
-					owner = ROOT
-					troops = { dreadnoughts = { 1 1 } }
-					attrition = 1.0
-					disband_on_peace = no
-				}
-			}
 			# Battlecruisers
 			random = {
 				chance = 40
@@ -1129,7 +1154,7 @@ character_event = {
 					province = FROM
 					home = FROM
 					owner = ROOT
-					troops = { light_infantry = { 50 50 } }
+					troops = { light_infantry = { 5 5 } }
 					attrition = 1.0
 					disband_on_peace = no
 				}
@@ -1140,7 +1165,7 @@ character_event = {
 					province = FROM
 					home = FROM
 					owner = ROOT
-					troops = { light_infantry = { 50 50 } }
+					troops = { light_infantry = { 5 5 } }
 					attrition = 1.0
 					disband_on_peace = no
 				}
@@ -1151,7 +1176,7 @@ character_event = {
 					province = FROM
 					home = FROM
 					owner = ROOT
-					troops = { light_infantry = { 50 50 } }
+					troops = { light_infantry = { 5 5 } }
 					attrition = 1.0
 					disband_on_peace = no
 				}
@@ -1162,7 +1187,7 @@ character_event = {
 					province = FROM
 					home = FROM
 					owner = ROOT
-					troops = { light_infantry = { 50 50 } }
+					troops = { light_infantry = { 5 5 } }
 					attrition = 1.0
 					disband_on_peace = no
 				}
@@ -1174,7 +1199,7 @@ character_event = {
 					province = FROM
 					home = FROM
 					owner = ROOT
-					troops = { heavy_infantry = { 50 50 } }
+					troops = { heavy_infantry = { 5 5 } }
 					attrition = 1.0
 					disband_on_peace = no
 				}
@@ -1185,7 +1210,7 @@ character_event = {
 					province = FROM
 					home = FROM
 					owner = ROOT
-					troops = { heavy_infantry = { 50 50 } }
+					troops = { heavy_infantry = { 5 5 } }
 					attrition = 1.0
 					disband_on_peace = no
 				}
@@ -1196,7 +1221,7 @@ character_event = {
 					province = FROM
 					home = FROM
 					owner = ROOT
-					troops = { heavy_infantry = { 50 50 } }
+					troops = { heavy_infantry = { 5 5 } }
 					attrition = 1.0
 					disband_on_peace = no
 				}
@@ -1207,7 +1232,7 @@ character_event = {
 					province = FROM
 					home = FROM
 					owner = ROOT
-					troops = { heavy_infantry = { 50 50 } }
+					troops = { heavy_infantry = { 5 5 } }
 					attrition = 1.0
 					disband_on_peace = no
 				}
@@ -1230,18 +1255,6 @@ character_event = {
 					}
 				}
 			}
-			# Dreadnoughts
-			random = {
-				chance = 35
-				spawn_unit = {
-					province = FROM
-					home = FROM
-					owner = ROOT
-					troops = { dreadnoughts = { 1 1 } }
-					attrition = 1.0
-					disband_on_peace = no
-				}
-			}
 			# Battlecruisers
 			random = {
 				chance = 45
@@ -1373,7 +1386,7 @@ character_event = {
 					province = FROM
 					home = FROM
 					owner = ROOT
-					troops = { light_infantry = { 50 50 } }
+					troops = { light_infantry = { 5 5 } }
 					attrition = 1.0
 					disband_on_peace = no
 				}
@@ -1384,7 +1397,7 @@ character_event = {
 					province = FROM
 					home = FROM
 					owner = ROOT
-					troops = { light_infantry = { 50 50 } }
+					troops = { light_infantry = { 5 5 } }
 					attrition = 1.0
 					disband_on_peace = no
 				}
@@ -1395,7 +1408,7 @@ character_event = {
 					province = FROM
 					home = FROM
 					owner = ROOT
-					troops = { light_infantry = { 50 50 } }
+					troops = { light_infantry = { 5 5 } }
 					attrition = 1.0
 					disband_on_peace = no
 				}
@@ -1406,7 +1419,7 @@ character_event = {
 					province = FROM
 					home = FROM
 					owner = ROOT
-					troops = { light_infantry = { 50 50 } }
+					troops = { light_infantry = { 5 5 } }
 					attrition = 1.0
 					disband_on_peace = no
 				}
@@ -1418,7 +1431,7 @@ character_event = {
 					province = FROM
 					home = FROM
 					owner = ROOT
-					troops = { heavy_infantry = { 50 50 } }
+					troops = { heavy_infantry = { 5 5 } }
 					attrition = 1.0
 					disband_on_peace = no
 				}
@@ -1429,7 +1442,7 @@ character_event = {
 					province = FROM
 					home = FROM
 					owner = ROOT
-					troops = { heavy_infantry = { 50 50 } }
+					troops = { heavy_infantry = { 5 5 } }
 					attrition = 1.0
 					disband_on_peace = no
 				}
@@ -1440,7 +1453,7 @@ character_event = {
 					province = FROM
 					home = FROM
 					owner = ROOT
-					troops = { heavy_infantry = { 50 50 } }
+					troops = { heavy_infantry = { 5 5 } }
 					attrition = 1.0
 					disband_on_peace = no
 				}
@@ -1451,18 +1464,18 @@ character_event = {
 					province = FROM
 					home = FROM
 					owner = ROOT
-					troops = { heavy_infantry = { 50 50 } }
+					troops = { heavy_infantry = { 5 5 } }
 					attrition = 1.0
 					disband_on_peace = no
 				}
 			}
 		}
-		
+
 		# Generate combat drones
 		if = {
 			limit = {
 				FROM = {
-					TECH_MAJESTY = 1
+					TECH_SOCIOLOGY = 1
 					NOT = { religion_group = religious_group }
 				}
 			}
@@ -1574,7 +1587,7 @@ character_event = {
 		if = {
 			limit = {
 				FROM = {
-					TECH_MAJESTY = 1
+					TECH_SOCIOLOGY = 1
 					OR = {
 						religion = cyberneticist
 						religion = machine_cultist
@@ -1619,7 +1632,7 @@ character_event = {
 		if = {
 			limit = {
 				FROM = {
-					TECH_MAJESTY = 3
+					TECH_SOCIOLOGY = 3
 					NOT = { religion_group = religious_group }
 				}
 			}
@@ -1660,7 +1673,7 @@ character_event = {
 		if = {
 			limit = {
 				FROM = {
-					TECH_MAJESTY = 3
+					TECH_SOCIOLOGY = 3
 					OR = {
 						religion = cyberneticist
 						religion = machine_cultist
@@ -1705,7 +1718,7 @@ character_event = {
 		if = {
 			limit = {
 				FROM = {
-					TECH_MAJESTY = 5
+					TECH_SOCIOLOGY = 5
 					NOT = { religion_group = religious_group }
 				}
 			}
@@ -1746,7 +1759,7 @@ character_event = {
 		if = {
 			limit = {
 				FROM = {
-					TECH_MAJESTY = 5
+					TECH_SOCIOLOGY = 5
 					OR = {
 						religion = cyberneticist
 						religion = machine_cultist
@@ -1791,7 +1804,7 @@ character_event = {
 		if = {
 			limit = {
 				FROM = {
-					TECH_MAJESTY = 7
+					TECH_SOCIOLOGY = 7
 					NOT = { religion_group = religious_group }
 				}
 			}
@@ -1832,7 +1845,7 @@ character_event = {
 		if = {
 			limit = {
 				FROM = {
-					TECH_MAJESTY = 7
+					TECH_SOCIOLOGY = 7
 					OR = {
 						religion = cyberneticist
 						religion = machine_cultist
@@ -1883,13 +1896,13 @@ province_event = {
 	desc = "EVTDESCREBELS10"
 	picture = GFX_evt_protest
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { revolt_risk = 0.5 } # Less than 25% revolt risk
 		NOT = { has_province_modifier = peaceful_protests }
 		NOT = { has_province_modifier = riots }
 	}
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		add_province_modifier = { name = peaceful_protests days = 365 }
@@ -1902,13 +1915,13 @@ province_event = {
 	desc = "EVTDESCREBELS15"
 	picture = GFX_evt_rebels
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { revolt_risk = 0.5 } # Less than 25% revolt risk
 		has_province_modifier = peaceful_protests
 		NOT = { has_province_modifier = riots }
 	}
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		remove_province_modifier = peaceful_protests
@@ -1922,12 +1935,12 @@ province_event = {
 	desc = "EVTDESCREBELS16"
 	picture = GFX_evt_rebels
 	is_triggered_only = yes
-	
+
 	trigger = {
 		NOT = { revolt_risk = 0.5 }
 		has_province_modifier = riots
 	}
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		remove_province_modifier = riots
@@ -1940,11 +1953,11 @@ character_event = {
 	id = rebels.20
 	desc = "EVTDESCREBELS20"
 	picture = GFX_evt_wounded
-	
+
 	min_age = 16
 	capable_only = yes
 	prisoner = no
-	
+
 	trigger = {
 		in_command = no
 		in_battle = no
@@ -1954,7 +1967,7 @@ character_event = {
 		NOT = { trait = maimed }
 		NOT = { trait = full_cybernetic_conversion }
 	}
-	
+
 	mean_time_to_happen = {
 		months = 12
 		modifier = {
@@ -2072,7 +2085,7 @@ character_event = {
 	desc = "EVTDESCREBELS21"
 	is_triggered_only = yes
 	notification = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" } # Escape option
 }
 
@@ -2081,11 +2094,11 @@ character_event = {
 	id = rebels.25
 	desc = "EVTDESCREBELS25"
 	picture = GFX_evt_wounded
-	
+
 	min_age = 16
 	capable_only = yes
 	prisoner = no
-	
+
 	trigger = {
 		in_command = no
 		in_battle = no
@@ -2094,7 +2107,7 @@ character_event = {
 		NOT = { trait = maimed }
 		NOT = { trait = full_cybernetic_conversion }
 	}
-	
+
 	mean_time_to_happen = {
 		months = 24
 		modifier = {
@@ -2212,7 +2225,7 @@ character_event = {
 	desc = "EVTDESCREBELS26"
 	is_triggered_only = yes
 	notification = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" } # Escape option
 }
 
@@ -2221,18 +2234,18 @@ character_event = {
 	id = rebels.30
 	desc = "EVTDESCREBELS30"
 	picture = GFX_evt_wounded
-	
+
 	min_age = 16
 	capable_only = yes
 	prisoner = no
-	
+
 	trigger = {
 		in_command = no
 		in_battle = no
 		in_siege = no
 		location = { has_province_modifier = riots }
 	}
-	
+
 	mean_time_to_happen = {
 		months = 48
 		modifier = {
@@ -2350,7 +2363,7 @@ character_event = {
 	desc = "EVTDESCREBELS31"
 	is_triggered_only = yes
 	notification = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" } # Escape option
 }
 
@@ -2361,10 +2374,10 @@ province_event = {
 	desc = "EVTDESCREBELS100"
 	picture = GFX_evt_rebels
 	is_triggered_only = yes
-	
+
 	trigger = {
 		revolt_risk = 0.5
-		
+
 		# There is no ongoing same-ideology rebellion
 		NOT = {
 			owner = {
@@ -2389,16 +2402,16 @@ province_event = {
 		NOT = { has_province_modifier = public_against_duke }
 		NOT = { has_province_modifier = public_against_king }
 		NOT = { has_province_modifier = public_against_emperor }
-		
+
 		# Favors democratic rebellions over other kinds
 		OR = {
 			is_democratic_trigger = yes
-			owner = { is_corporate_trigger = yes }
+			owner = { is_civil_trigger = yes }
 		}
 		is_autocratic_trigger = no
 		is_theocratic_trigger = no
 	}
-	
+
 	option = {
 		# Rebellion target is independent, no need for escalation check
 		# (don't use an ordinary independence check as revolts screw it up)
@@ -2440,7 +2453,7 @@ province_event = {
 						home = ROOT
 						owner = THIS
 						leader = THIS
-						troops = { dreadnoughts = { 1 1 } }
+						troops = { knights = { 1 1 } }
 						attrition = 1.0
 					}
 					ROOT = {
@@ -2490,7 +2503,7 @@ province_event = {
 						home = ROOT
 						owner = THIS
 						leader = THIS
-						troops = { dreadnoughts = { 1 1 } }
+						troops = { knights = { 1 1 } }
 						attrition = 1.0
 					}
 					ROOT = {
@@ -2509,7 +2522,7 @@ province_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		# Owner is not independent - this needs to go to the top first
 		# (don't use an ordinary independence check as revolts screw it up)
@@ -2527,7 +2540,7 @@ character_event = {
 	desc = "EVTDESCREBELS101"
 	picture = GFX_evt_rebels
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTAREBELS101"
 		top_liege = { letter_event = { id = rebels.102 tooltip = "EVTTOOLTIPREBELS102" } }
@@ -2539,7 +2552,7 @@ letter_event = {
 	id = rebels.102
 	desc = "EVTDESCREBELS102"
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTACCEPT"
 		FROMFROM = { province_event = { id = rebels.103 tooltip = "EVTTOOLTIPREBELS103" } }
@@ -2673,7 +2686,7 @@ letter_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		name = "EVTOPTREFUSE"
 		# Public Order becomes weak if applicable
@@ -2738,7 +2751,7 @@ province_event = {
 	desc = "EVTDESCREBELS103"
 	picture = GFX_evt_rebels
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTAREBELS103"
 		random_list = {
@@ -2775,7 +2788,7 @@ province_event = {
 						home = ROOT
 						owner = THIS
 						leader = THIS
-						troops = { dreadnoughts = { 1 1 } }
+						troops = { knights = { 1 1 } }
 						attrition = 1.0
 					}
 					ROOT = { owner = { any_realm_lord = { opinion = { who = PREVPREV modifier = opinion_criminal_treason } } } }
@@ -2824,7 +2837,7 @@ province_event = {
 						home = ROOT
 						owner = THIS
 						leader = THIS
-						troops = { dreadnoughts = { 1 1 } }
+						troops = { knights = { 1 1 } }
 						attrition = 1.0
 					}
 					ROOT = { owner = { any_realm_lord = { opinion = { who = PREVPREV modifier = opinion_criminal_treason } } } }
@@ -2850,7 +2863,7 @@ province_event = {
 	desc = "EVTDESCREBELS104"
 	picture = GFX_evt_rebels
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTAREBELS104"
 		random_list = {
@@ -2887,7 +2900,7 @@ province_event = {
 						home = ROOT
 						owner = THIS
 						leader = THIS
-						troops = { dreadnoughts = { 1 1 } }
+						troops = { knights = { 1 1 } }
 						attrition = 1.0
 					}
 					ROOT = { owner = { any_realm_lord = { opinion = { who = PREVPREV modifier = opinion_criminal_treason } } } }
@@ -2936,7 +2949,7 @@ province_event = {
 						home = ROOT
 						owner = THIS
 						leader = THIS
-						troops = { dreadnoughts = { 1 1 } }
+						troops = { knights = { 1 1 } }
 						attrition = 1.0
 					}
 					ROOT = { owner = { any_realm_lord = { opinion = { who = PREVPREV modifier = opinion_criminal_treason } } } }
@@ -2962,10 +2975,10 @@ province_event = {
 	desc = "EVTDESCREBELS110"
 	picture = GFX_evt_rebels
 	is_triggered_only = yes
-	
+
 	trigger = {
 		revolt_risk = 0.5
-		
+
 		# There is no ongoing same-ideology rebellion
 		NOT = {
 			owner = {
@@ -2985,7 +2998,7 @@ province_event = {
 				}
 			}
 		}
-		
+
 		# Angry at the sector government
 		OR = {
 			owner = { primary_title = { tier = duke } }
@@ -2997,12 +3010,12 @@ province_event = {
 		# Favors democratic rebellions over other kinds
 		OR = {
 			is_democratic_trigger = yes
-			owner = { is_corporate_trigger = yes }
+			owner = { is_civil_trigger = yes }
 		}
 		is_autocratic_trigger = no
 		is_theocratic_trigger = no
 	}
-	
+
 	option = {
 		# Rebellion target is independent, no need for escalation check
 		# (don't use an ordinary independence check as revolts screw it up)
@@ -3056,7 +3069,7 @@ province_event = {
 						home = ROOT
 						owner = THIS
 						leader = THIS
-						troops = { dreadnoughts = { 1 1 } }
+						troops = { knights = { 1 1 } }
 						attrition = 1.0
 					}
 					ROOT = {
@@ -3118,7 +3131,7 @@ province_event = {
 						home = ROOT
 						owner = THIS
 						leader = THIS
-						troops = { dreadnoughts = { 1 1 } }
+						troops = { knights = { 1 1 } }
 						attrition = 1.0
 					}
 					ROOT = {
@@ -3149,7 +3162,7 @@ province_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		# Owner is not independent - this needs to go to the top first
 		# (don't use an ordinary independence check as revolts screw it up)
@@ -3194,10 +3207,10 @@ province_event = {
 	desc = "EVTDESCREBELS120"
 	picture = GFX_evt_rebels
 	is_triggered_only = yes
-	
+
 	trigger = {
 		revolt_risk = 0.5
-		
+
 		# There is no ongoing same-ideology rebellion
 		NOT = {
 			owner = {
@@ -3217,7 +3230,7 @@ province_event = {
 				}
 			}
 		}
-		
+
 		# Angry at the regional government
 		OR = {
 			owner = { primary_title = { tier = king } }
@@ -3228,12 +3241,12 @@ province_event = {
 		# Favors democratic rebellions over other kinds
 		OR = {
 			is_democratic_trigger = yes
-			owner = { is_corporate_trigger = yes }
+			owner = { is_civil_trigger = yes }
 		}
 		is_autocratic_trigger = no
 		is_theocratic_trigger = no
 	}
-	
+
 	option = {
 		# Rebellion target is independent, no need for escalation check
 		# (don't use an ordinary independence check as revolts screw it up)
@@ -3287,7 +3300,7 @@ province_event = {
 						home = ROOT
 						owner = THIS
 						leader = THIS
-						troops = { dreadnoughts = { 1 1 } }
+						troops = { knights = { 1 1 } }
 						attrition = 1.0
 					}
 					ROOT = {
@@ -3349,7 +3362,7 @@ province_event = {
 						home = ROOT
 						owner = THIS
 						leader = THIS
-						troops = { dreadnoughts = { 1 1 } }
+						troops = { knights = { 1 1 } }
 						attrition = 1.0
 					}
 					ROOT = {
@@ -3380,7 +3393,7 @@ province_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		# Owner is not independent - this needs to go to the top first
 		# (don't use an ordinary independence check as revolts screw it up)
@@ -3425,10 +3438,10 @@ province_event = {
 	desc = "EVTDESCREBELS130"
 	picture = GFX_evt_rebels
 	is_triggered_only = yes
-	
+
 	trigger = {
 		revolt_risk = 0.5
-		
+
 		# There is no ongoing same-ideology rebellion
 		NOT = {
 			owner = {
@@ -3448,7 +3461,7 @@ province_event = {
 				}
 			}
 		}
-		
+
 		# Angry at the regional government
 		OR = {
 			owner = { primary_title = { tier = emperor } }
@@ -3457,12 +3470,12 @@ province_event = {
 		# Favors democratic rebellions over other kinds
 		OR = {
 			is_democratic_trigger = yes
-			owner = { is_corporate_trigger = yes }
+			owner = { is_civil_trigger = yes }
 		}
 		is_autocratic_trigger = no
 		is_theocratic_trigger = no
 	}
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		add_province_modifier = { name = system_in_revolt days = 1825 }
@@ -3500,7 +3513,7 @@ province_event = {
 						home = ROOT
 						owner = THIS
 						leader = THIS
-						troops = { dreadnoughts = { 1 1 } }
+						troops = { knights = { 1 1 } }
 						attrition = 1.0
 					}
 					ROOT = {
@@ -3562,7 +3575,7 @@ province_event = {
 						home = ROOT
 						owner = THIS
 						leader = THIS
-						troops = { dreadnoughts = { 1 1 } }
+						troops = { knights = { 1 1 } }
 						attrition = 1.0
 					}
 					ROOT = {
@@ -3601,7 +3614,7 @@ province_event = {
 	desc = "EVTDESCREBELS140"
 	picture = GFX_evt_rebels
 	is_triggered_only = yes
-	
+
 	trigger = {
 		revolt_risk = 0.25
 		# There is an ongoing same-ideology rebellion
@@ -3623,12 +3636,12 @@ province_event = {
 		}
 		OR = {
 			is_democratic_trigger = yes
-			owner = { is_corporate_trigger = yes }
+			owner = { is_civil_trigger = yes }
 		}
 		is_autocratic_trigger = no
 		is_theocratic_trigger = no
 	}
-	
+
 	option = {
 		trigger = {
 			owner = {
@@ -3652,7 +3665,7 @@ province_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		trigger = {
 			NOT = {
@@ -3695,7 +3708,7 @@ character_event = {
 	desc = "EVTDESCREBELS141"
 	picture = GFX_evt_rebels
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -3706,10 +3719,10 @@ province_event = {
 	desc = "EVTDESCREBELS200"
 	picture = GFX_evt_rebels
 	is_triggered_only = yes
-	
+
 	trigger = {
 		revolt_risk = 0.5
-		
+
 		# There is no ongoing same-ideology rebellion
 		NOT = {
 			owner = {
@@ -3734,7 +3747,7 @@ province_event = {
 		NOT = { has_province_modifier = public_against_duke }
 		NOT = { has_province_modifier = public_against_king }
 		NOT = { has_province_modifier = public_against_emperor }
-		
+
 		# Favors autocratic rebellions over other kinds
 		OR = {
 			is_autocratic_trigger = yes
@@ -3743,7 +3756,7 @@ province_event = {
 		is_democratic_trigger = no
 		is_theocratic_trigger = no
 	}
-	
+
 	option = {
 		# Rebellion target is independent, no need for escalation check
 		# (don't use an ordinary independence check as revolts screw it up)
@@ -3785,7 +3798,7 @@ province_event = {
 						home = ROOT
 						owner = THIS
 						leader = THIS
-						troops = { dreadnoughts = { 1 1 } }
+						troops = { knights = { 1 1 } }
 						attrition = 1.0
 					}
 					ROOT = {
@@ -3835,7 +3848,7 @@ province_event = {
 						home = ROOT
 						owner = THIS
 						leader = THIS
-						troops = { dreadnoughts = { 1 1 } }
+						troops = { knights = { 1 1 } }
 						attrition = 1.0
 					}
 					ROOT = {
@@ -3854,7 +3867,7 @@ province_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		# Owner is not independent - this needs to go to the top first
 		# (don't use an ordinary independence check as revolts screw it up)
@@ -3872,7 +3885,7 @@ character_event = {
 	desc = "EVTDESCREBELS201"
 	picture = GFX_evt_rebels
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTAREBELS201"
 		top_liege = { letter_event = { id = rebels.202 tooltip = "EVTTOOLTIPREBELS102" } }
@@ -3884,7 +3897,7 @@ letter_event = {
 	id = rebels.202
 	desc = "EVTDESCREBELS102"
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTACCEPT"
 		FROMFROM = { province_event = { id = rebels.203 tooltip = "EVTTOOLTIPREBELS103" } }
@@ -4018,7 +4031,7 @@ letter_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		name = "EVTOPTREFUSE"
 		# Public Order becomes weak if applicable
@@ -4083,7 +4096,7 @@ province_event = {
 	desc = "EVTDESCREBELS103"
 	picture = GFX_evt_rebels
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTAREBELS103"
 		random_list = {
@@ -4120,7 +4133,7 @@ province_event = {
 						home = ROOT
 						owner = THIS
 						leader = THIS
-						troops = { dreadnoughts = { 1 1 } }
+						troops = { knights = { 1 1 } }
 						attrition = 1.0
 					}
 					ROOT = { owner = { any_realm_lord = { opinion = { who = PREVPREV modifier = opinion_criminal_treason } } } }
@@ -4169,7 +4182,7 @@ province_event = {
 						home = ROOT
 						owner = THIS
 						leader = THIS
-						troops = { dreadnoughts = { 1 1 } }
+						troops = { knights = { 1 1 } }
 						attrition = 1.0
 					}
 					ROOT = { owner = { any_realm_lord = { opinion = { who = PREVPREV modifier = opinion_criminal_treason } } } }
@@ -4195,7 +4208,7 @@ province_event = {
 	desc = "EVTDESCREBELS104"
 	picture = GFX_evt_rebels
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTAREBELS104"
 		random_list = {
@@ -4232,7 +4245,7 @@ province_event = {
 						home = ROOT
 						owner = THIS
 						leader = THIS
-						troops = { dreadnoughts = { 1 1 } }
+						troops = { knights = { 1 1 } }
 						attrition = 1.0
 					}
 					ROOT = { owner = { any_realm_lord = { opinion = { who = PREVPREV modifier = opinion_criminal_treason } } } }
@@ -4281,7 +4294,7 @@ province_event = {
 						home = ROOT
 						owner = THIS
 						leader = THIS
-						troops = { dreadnoughts = { 1 1 } }
+						troops = { knights = { 1 1 } }
 						attrition = 1.0
 					}
 					ROOT = { owner = { any_realm_lord = { opinion = { who = PREVPREV modifier = opinion_criminal_treason } } } }
@@ -4307,10 +4320,10 @@ province_event = {
 	desc = "EVTDESCREBELS210"
 	picture = GFX_evt_rebels
 	is_triggered_only = yes
-	
+
 	trigger = {
 		revolt_risk = 0.5
-		
+
 		# There is no ongoing same-ideology rebellion
 		NOT = {
 			owner = {
@@ -4330,7 +4343,7 @@ province_event = {
 				}
 			}
 		}
-		
+
 		# Angry at the sector government
 		OR = {
 			owner = { primary_title = { tier = duke } }
@@ -4339,7 +4352,7 @@ province_event = {
 		# And not someone else
 		NOT = { has_province_modifier = public_against_king }
 		NOT = { has_province_modifier = public_against_emperor }
-		
+
 		# Favors autocratic rebellions over other kinds
 		OR = {
 			is_autocratic_trigger = yes
@@ -4348,7 +4361,7 @@ province_event = {
 		is_democratic_trigger = no
 		is_theocratic_trigger = no
 	}
-	
+
 	option = {
 		# Rebellion target is independent, no need for escalation check
 		# (don't use an ordinary independence check as revolts screw it up)
@@ -4402,7 +4415,7 @@ province_event = {
 						home = ROOT
 						owner = THIS
 						leader = THIS
-						troops = { dreadnoughts = { 1 1 } }
+						troops = { knights = { 1 1 } }
 						attrition = 1.0
 					}
 					ROOT = {
@@ -4464,7 +4477,7 @@ province_event = {
 						home = ROOT
 						owner = THIS
 						leader = THIS
-						troops = { dreadnoughts = { 1 1 } }
+						troops = { knights = { 1 1 } }
 						attrition = 1.0
 					}
 					ROOT = {
@@ -4495,7 +4508,7 @@ province_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		# Owner is not independent - this needs to go to the top first
 		# (don't use an ordinary independence check as revolts screw it up)
@@ -4540,10 +4553,10 @@ province_event = {
 	desc = "EVTDESCREBELS220"
 	picture = GFX_evt_rebels
 	is_triggered_only = yes
-	
+
 	trigger = {
 		revolt_risk = 0.5
-		
+
 		# There is no ongoing same-ideology rebellion
 		NOT = {
 			owner = {
@@ -4563,7 +4576,7 @@ province_event = {
 				}
 			}
 		}
-		
+
 		# Angry at the regional government
 		OR = {
 			owner = { primary_title = { tier = king } }
@@ -4571,7 +4584,7 @@ province_event = {
 		}
 		# And not someone else
 		NOT = { has_province_modifier = public_against_emperor }
-		
+
 		# Favors autocratic rebellions over other kinds
 		OR = {
 			is_autocratic_trigger = yes
@@ -4580,7 +4593,7 @@ province_event = {
 		is_democratic_trigger = no
 		is_theocratic_trigger = no
 	}
-	
+
 	option = {
 		# Rebellion target is independent, no need for escalation check
 		# (don't use an ordinary independence check as revolts screw it up)
@@ -4634,7 +4647,7 @@ province_event = {
 						home = ROOT
 						owner = THIS
 						leader = THIS
-						troops = { dreadnoughts = { 1 1 } }
+						troops = { knights = { 1 1 } }
 						attrition = 1.0
 					}
 					ROOT = {
@@ -4696,7 +4709,7 @@ province_event = {
 						home = ROOT
 						owner = THIS
 						leader = THIS
-						troops = { dreadnoughts = { 1 1 } }
+						troops = { knights = { 1 1 } }
 						attrition = 1.0
 					}
 					ROOT = {
@@ -4727,7 +4740,7 @@ province_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		# Owner is not independent - this needs to go to the top first
 		# (don't use an ordinary independence check as revolts screw it up)
@@ -4772,10 +4785,10 @@ province_event = {
 	desc = "EVTDESCREBELS230"
 	picture = GFX_evt_rebels
 	is_triggered_only = yes
-	
+
 	trigger = {
 		revolt_risk = 0.5
-		
+
 		# There is no ongoing same-ideology rebellion
 		NOT = {
 			owner = {
@@ -4795,13 +4808,13 @@ province_event = {
 				}
 			}
 		}
-		
+
 		# Angry at the regional government
 		OR = {
 			owner = { primary_title = { tier = emperor } }
 			has_province_modifier = public_against_emperor
 		}
-		
+
 		# Favors autocratic rebellions over other kinds
 		OR = {
 			is_autocratic_trigger = yes
@@ -4810,7 +4823,7 @@ province_event = {
 		is_democratic_trigger = no
 		is_theocratic_trigger = no
 	}
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		add_province_modifier = { name = system_in_revolt days = 1825 }
@@ -4848,7 +4861,7 @@ province_event = {
 						home = ROOT
 						owner = THIS
 						leader = THIS
-						troops = { dreadnoughts = { 1 1 } }
+						troops = { knights = { 1 1 } }
 						attrition = 1.0
 					}
 					ROOT = {
@@ -4910,7 +4923,7 @@ province_event = {
 						home = ROOT
 						owner = THIS
 						leader = THIS
-						troops = { dreadnoughts = { 1 1 } }
+						troops = { knights = { 1 1 } }
 						attrition = 1.0
 					}
 					ROOT = {
@@ -4949,7 +4962,7 @@ province_event = {
 	desc = "EVTDESCREBELS240"
 	picture = GFX_evt_rebels
 	is_triggered_only = yes
-	
+
 	trigger = {
 		revolt_risk = 0.25
 		# There is an ongoing same-ideology rebellion
@@ -4969,7 +4982,7 @@ province_event = {
 				}
 			}
 		}
-		
+
 		# Favors autocratic rebellions over other kinds
 		OR = {
 			is_autocratic_trigger = yes
@@ -4978,7 +4991,7 @@ province_event = {
 		is_democratic_trigger = no
 		is_theocratic_trigger = no
 	}
-	
+
 	option = {
 		trigger = {
 			owner = {
@@ -5002,7 +5015,7 @@ province_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		trigger = {
 			NOT = {
@@ -5045,7 +5058,7 @@ character_event = {
 	desc = "EVTDESCREBELS241"
 	picture = GFX_evt_rebels
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -5056,10 +5069,10 @@ province_event = {
 	desc = "EVTDESCREBELS300"
 	picture = GFX_evt_rebels
 	is_triggered_only = yes
-	
+
 	trigger = {
 		revolt_risk = 0.5
-		
+
 		# There is no ongoing same-ideology rebellion
 		NOT = {
 			owner = {
@@ -5084,16 +5097,16 @@ province_event = {
 		NOT = { has_province_modifier = public_against_duke }
 		NOT = { has_province_modifier = public_against_king }
 		NOT = { has_province_modifier = public_against_emperor }
-		
+
 		# Favors theocratic rebellions over other kinds
 		OR = {
 			is_theocratic_trigger = yes
-			owner = { is_administrative_trigger = yes }
+			owner = { is_rectorial_trigger = yes }
 		}
 		is_autocratic_trigger = no
 		is_democratic_trigger = no
 	}
-	
+
 	option = {
 		# Rebellion target is independent, no need for escalation check
 		# (don't use an ordinary independence check as revolts screw it up)
@@ -5135,7 +5148,7 @@ province_event = {
 						home = ROOT
 						owner = THIS
 						leader = THIS
-						troops = { dreadnoughts = { 1 1 } }
+						troops = { knights = { 1 1 } }
 						attrition = 1.0
 					}
 					ROOT = {
@@ -5185,7 +5198,7 @@ province_event = {
 						home = ROOT
 						owner = THIS
 						leader = THIS
-						troops = { dreadnoughts = { 1 1 } }
+						troops = { knights = { 1 1 } }
 						attrition = 1.0
 					}
 					ROOT = {
@@ -5204,7 +5217,7 @@ province_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		# Owner is not independent - this needs to go to the top first
 		# (don't use an ordinary independence check as revolts screw it up)
@@ -5222,7 +5235,7 @@ character_event = {
 	desc = "EVTDESCREBELS101"
 	picture = GFX_evt_rebels
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTAREBELS101"
 		top_liege = { letter_event = { id = rebels.302 tooltip = "EVTTOOLTIPREBELS102" } }
@@ -5234,7 +5247,7 @@ letter_event = {
 	id = rebels.302
 	desc = "EVTDESCREBELS102"
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTACCEPT"
 		FROMFROM = { province_event = { id = rebels.303 tooltip = "EVTTOOLTIPREBELS103" } }
@@ -5371,7 +5384,7 @@ letter_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		name = "EVTOPTREFUSE"
 		# Public Order becomes weak if applicable
@@ -5436,7 +5449,7 @@ province_event = {
 	desc = "EVTDESCREBELS103"
 	picture = GFX_evt_rebels
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTAREBELS103"
 		random_list = {
@@ -5473,7 +5486,7 @@ province_event = {
 						home = ROOT
 						owner = THIS
 						leader = THIS
-						troops = { dreadnoughts = { 1 1 } }
+						troops = { knights = { 1 1 } }
 						attrition = 1.0
 					}
 					ROOT = { owner = { any_realm_lord = { opinion = { who = PREVPREV modifier = opinion_criminal_treason } } } }
@@ -5522,7 +5535,7 @@ province_event = {
 						home = ROOT
 						owner = THIS
 						leader = THIS
-						troops = { dreadnoughts = { 1 1 } }
+						troops = { knights = { 1 1 } }
 						attrition = 1.0
 					}
 					ROOT = { owner = { any_realm_lord = { opinion = { who = PREVPREV modifier = opinion_criminal_treason } } } }
@@ -5548,7 +5561,7 @@ province_event = {
 	desc = "EVTDESCREBELS104"
 	picture = GFX_evt_rebels
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTAREBELS104"
 		random_list = {
@@ -5585,7 +5598,7 @@ province_event = {
 						home = ROOT
 						owner = THIS
 						leader = THIS
-						troops = { dreadnoughts = { 1 1 } }
+						troops = { knights = { 1 1 } }
 						attrition = 1.0
 					}
 					ROOT = { owner = { any_realm_lord = { opinion = { who = PREVPREV modifier = opinion_criminal_treason } } } }
@@ -5634,7 +5647,7 @@ province_event = {
 						home = ROOT
 						owner = THIS
 						leader = THIS
-						troops = { dreadnoughts = { 1 1 } }
+						troops = { knights = { 1 1 } }
 						attrition = 1.0
 					}
 					ROOT = { owner = { any_realm_lord = { opinion = { who = PREVPREV modifier = opinion_criminal_treason } } } }
@@ -5660,10 +5673,10 @@ province_event = {
 	desc = "EVTDESCREBELS310"
 	picture = GFX_evt_rebels
 	is_triggered_only = yes
-	
+
 	trigger = {
 		revolt_risk = 0.5
-		
+
 		# There is no ongoing same-ideology rebellion
 		NOT = {
 			owner = {
@@ -5683,7 +5696,7 @@ province_event = {
 				}
 			}
 		}
-		
+
 		# Angry at the sector government
 		OR = {
 			owner = { primary_title = { tier = duke } }
@@ -5692,16 +5705,16 @@ province_event = {
 		# And not someone else
 		NOT = { has_province_modifier = public_against_king }
 		NOT = { has_province_modifier = public_against_emperor }
-		
+
 		# Favors theocratic rebellions over other kinds
 		OR = {
 			is_theocratric_trigger = yes
-			owner = { is_administrative_trigger = yes }
+			owner = { is_rectorial_trigger = yes }
 		}
 		is_democratric_trigger = no
 		is_autocratic_trigger = no
 	}
-	
+
 	option = {
 		# Rebellion target is independent, no need for escalation check
 		# (don't use an ordinary independence check as revolts screw it up)
@@ -5755,7 +5768,7 @@ province_event = {
 						home = ROOT
 						owner = THIS
 						leader = THIS
-						troops = { dreadnoughts = { 1 1 } }
+						troops = { knights = { 1 1 } }
 						attrition = 1.0
 					}
 					ROOT = {
@@ -5817,7 +5830,7 @@ province_event = {
 						home = ROOT
 						owner = THIS
 						leader = THIS
-						troops = { dreadnoughts = { 1 1 } }
+						troops = { knights = { 1 1 } }
 						attrition = 1.0
 					}
 					ROOT = {
@@ -5848,7 +5861,7 @@ province_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		# Owner is not independent - this needs to go to the top first
 		# (don't use an ordinary independence check as revolts screw it up)
@@ -5893,10 +5906,10 @@ province_event = {
 	desc = "EVTDESCREBELS320"
 	picture = GFX_evt_rebels
 	is_triggered_only = yes
-	
+
 	trigger = {
 		revolt_risk = 0.5
-		
+
 		# There is no ongoing same-ideology rebellion
 		NOT = {
 			owner = {
@@ -5916,7 +5929,7 @@ province_event = {
 				}
 			}
 		}
-		
+
 		# Angry at the regional government
 		OR = {
 			owner = { primary_title = { tier = king } }
@@ -5924,16 +5937,16 @@ province_event = {
 		}
 		# And not someone else
 		NOT = { has_province_modifier = public_against_emperor }
-		
+
 		# Favors theocratic rebellions over other kinds
 		OR = {
 			is_theocratric_trigger = yes
-			owner = { is_administrative_trigger = yes }
+			owner = { is_rectorial_trigger = yes }
 		}
 		is_democratric_trigger = no
 		is_autocratic_trigger = no
 	}
-	
+
 	option = {
 		# Rebellion target is independent, no need for escalation check
 		# (don't use an ordinary independence check as revolts screw it up)
@@ -5987,7 +6000,7 @@ province_event = {
 						home = ROOT
 						owner = THIS
 						leader = THIS
-						troops = { dreadnoughts = { 1 1 } }
+						troops = { knights = { 1 1 } }
 						attrition = 1.0
 					}
 					ROOT = {
@@ -6049,7 +6062,7 @@ province_event = {
 						home = ROOT
 						owner = THIS
 						leader = THIS
-						troops = { dreadnoughts = { 1 1 } }
+						troops = { knights = { 1 1 } }
 						attrition = 1.0
 					}
 					ROOT = {
@@ -6080,7 +6093,7 @@ province_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		# Owner is not independent - this needs to go to the top first
 		# (don't use an ordinary independence check as revolts screw it up)
@@ -6125,10 +6138,10 @@ province_event = {
 	desc = "EVTDESCREBELS330"
 	picture = GFX_evt_rebels
 	is_triggered_only = yes
-	
+
 	trigger = {
 		revolt_risk = 0.5
-		
+
 		# There is no ongoing same-ideology rebellion
 		NOT = {
 			owner = {
@@ -6148,22 +6161,22 @@ province_event = {
 				}
 			}
 		}
-		
+
 		# Angry at the regional government
 		OR = {
 			owner = { primary_title = { tier = emperor } }
 			has_province_modifier = public_against_emperor
 		}
-		
+
 		# Favors theocratic rebellions over other kinds
 		OR = {
 			is_theocratric_trigger = yes
-			owner = { is_administrative_trigger = yes }
+			owner = { is_rectorial_trigger = yes }
 		}
 		is_democratric_trigger = no
 		is_autocratic_trigger = no
 	}
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		add_province_modifier = { name = system_in_revolt days = 1825 }
@@ -6201,7 +6214,7 @@ province_event = {
 						home = ROOT
 						owner = THIS
 						leader = THIS
-						troops = { dreadnoughts = { 1 1 } }
+						troops = { knights = { 1 1 } }
 						attrition = 1.0
 					}
 					ROOT = {
@@ -6263,7 +6276,7 @@ province_event = {
 						home = ROOT
 						owner = THIS
 						leader = THIS
-						troops = { dreadnoughts = { 1 1 } }
+						troops = { knights = { 1 1 } }
 						attrition = 1.0
 					}
 					ROOT = {
@@ -6302,10 +6315,10 @@ province_event = {
 	desc = "EVTDESCREBELS340"
 	picture = GFX_evt_rebels
 	is_triggered_only = yes
-	
+
 	trigger = {
 		revolt_risk = 0.25
-		
+
 		# There is an ongoing same-ideology rebellion
 		owner = {
 			OR = {
@@ -6323,16 +6336,16 @@ province_event = {
 				}
 			}
 		}
-		
+
 		# Favors theocratic rebellions over other kinds
 		OR = {
 			is_theocratic_trigger = yes
-			owner = { is_administrative_trigger = yes }
+			owner = { is_rectorial_trigger = yes }
 		}
 		is_autocratic_trigger = no
 		is_democratic_trigger = no
 	}
-	
+
 	option = {
 		trigger = {
 			owner = {
@@ -6356,7 +6369,7 @@ province_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		trigger = {
 			NOT = {
@@ -6399,6 +6412,6 @@ character_event = {
 	desc = "EVTDESCREBELS341"
 	picture = GFX_evt_rebels
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }

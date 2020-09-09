@@ -1,0 +1,41 @@
+namespace = spddebug
+
+character_event = {
+    id = spddebug.1
+    notification = no
+    hide_window = yes
+    is_triggered_only = yes
+    only_playable = yes
+
+    trigger = {
+        OR = {
+            is_patrician = yes
+            FROMFROM = { is_patrician = yes }
+        }
+        has_game_started = yes
+    }
+
+    immediate = {
+        log = "spddebug.1 fired: [Root.GetBestName] got title [From.GetName] from [FromFrom.GetBestName], liege is [Root.Liege.GetBestName]"
+        log = "governments for ROOT and LIEGE are [Root.Government.GetName], [Root.Liege.Government.GetName]"
+        if = {
+            limit = {
+                NOT = {
+                    has_law = succ_seniority
+                }
+            }
+            log = "error: patrician that doesn't have seniority succession law!"
+        }
+        ROOT = {
+            export_to_variable = {
+                which = local_wealth
+                value = wealth
+            }
+            #export_to_variable = {
+            #    which = local_scaled_wealth
+            #    value = scaled_wealth
+            #}
+        }
+        log = "wealth [local_wealth.GetValue]"#" scaled [local_scaled_wealth.GetValue]"
+    }
+}

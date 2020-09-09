@@ -1,0 +1,201 @@
+# ROOT          Voter, the character voting in the election
+# FROM          Candidate, character considered for the title
+# FROMFROM      The title the nomination is for
+# FROMFROMFROM  The title owner's candidate
+
+# This file decides who gets to vote, not how many votes the voter have.
+# The highest scoring ones will be voters.
+# The standard chosen for CotC is that the initial score is -5
+# Thus the bare mininum voters you give a score of 6, and more important ones get increasing scores.
+# This is important in case the number of voters is limited, then only the highest scoring ones will vote.
+
+title_existence_check = {
+    additive_modifier = {
+        value = -1000
+
+        # The title must currently exist
+        FROMFROM = {
+            has_holder = no
+        }
+    }
+}
+
+current_ruler_voter_score = {
+    additive_modifier = {
+        value = 100
+
+        FROMFROM = {
+            holder_scope = {
+                character = ROOT
+            }
+        }
+    }
+}
+
+candidate_voter_score = {
+    additive_modifier = {
+        value = 6
+        character = FROM
+        FROMFROM = { laws_allow_candidate_vote = yes }
+    }
+}
+
+#only get population of title being voted for.
+representative_voter_score = {
+    additive_modifier = {
+        value = 10
+        trigger_if = {
+            limit = { persistent_event_target:representative_of = { always = yes persistent_event_target:representative = { NOT = { character = ROOT } always = yes } } }
+            log = "Representative [This.GetBestName] of [representative_of.GetName]"
+            log = "Representative is not ROOT somehow"
+            always = yes
+        }
+
+        trigger_if = {
+            limit = { persistent_event_target:representative_of = { persistent_event_target:representative = { character = ROOT } } }
+            log = "Representative [This.GetBestName] of [representative_of.GetName]"
+            log = "Representative is ROOT"
+            always = yes
+        }
+        persistent_event_target:representative_of = { always = yes }
+        #FROMFROM = {
+        #    #laws_allow_popular_vote = yes
+        #    holder_scope = {
+        #        ROOT = {
+        #            persistent_event_target:representative_of = {
+        #                always = yes
+        #                #log = "Checking if voter is representative of a [This.GetID] in elections for [FromFrom.GetID]"
+        #                #holder_scope = {
+        #                #    #log = "Checking if voter is representative of a province"
+        #                #    log = "R:[Root.GetBestName] T:[This.GetBestName] PPP:[PrevPrevPrev.GetBestName]"
+        #                #    OR = {
+        #                #        de_jure_liege_or_above = PREVPREVPREV
+        #                #        is_vassal_or_below_of = PREVPREVPREV
+        #                #    }
+        #                #}
+        #            }
+        #        }
+        #    }
+        #}
+    }
+}
+
+#gets the population of the liege of that title too. Intended for appointment-style elections.
+representative_voter_during_appointment_score = {
+    additive_modifier = {
+        value = 10
+        FROMFROM = {
+            laws_allow_popular_vote = yes
+            holder_scope = {
+                liege = {
+                    ROOT = {
+                        persistent_event_target:representative_of = {
+                            holder_scope = {
+                                OR = {
+                                    de_jure_liege_or_above = PREVPREVPREV
+                                    is_vassal_or_below_of = PREVPREVPREV
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+#title senate score
+senator_voter_score = {
+    additive_modifier = {
+        value = 10
+        is_voter = yes
+        FROMFROM = {
+            laws_allow_senate_vote = yes
+            holder_scope = {
+                is_liege_of = ROOT
+            }
+        }
+    }
+}
+
+#liege senate score
+senator_voter_appointment_score = {
+    additive_modifier = {
+        value = 10
+        is_voter = yes
+        FROMFROM = {
+            laws_allow_senate_vote = yes
+            holder_scope = {
+                liege = {
+                    is_liege_of = ROOT
+                }
+            }
+        }
+    }
+}
+
+direct_vassal_voter_score = {
+    additive_modifier = {
+        value = 10
+        is_ruler = yes
+        FROMFROM = {
+            laws_allow_vassals_vote = yes
+            holder_scope = {
+                OR = {
+                    is_liege_of = ROOT
+                    ROOT = { de_jure_liege = PREV }
+                }
+
+            }
+        }
+    }
+}
+
+any_vassal_voter_score = {
+    additive_modifier = {
+        value = 10
+        is_ruler = yes
+        FROMFROM = {
+            laws_allow_indirect_vassals_vote = yes
+            holder_scope = {
+                OR = {
+                    is_vassal_or_below = ROOT
+                    de_jure_vassal_or_below = ROOT
+                }
+            }
+        }
+    }
+}
+
+#realm_lowborn_score = {
+#
+#}
+
+soldier_score = {
+    additive_modifier = {
+        value = 10
+        OR = {
+            has_education_martial_trigger = yes
+            has_lifestyle_martial_trigger = yes
+        }
+        always = no
+    }
+}
+
+scientist_score = {
+    additive_modifier = {
+        value = 10
+        OR = {
+            has_education_learning_trigger = yes
+            has_lifestyle_learning_trigger = yes
+            is_learned_trigger = yes
+        }
+        always = no
+    }
+}
+
+#senate
+#vassals
+#aristocrats
+#soldiers
+#scientists

@@ -3,16 +3,16 @@
 # Supported types:
 # liege_titles, liege_titles_w_claimant, character
 
-# The succession law factions have hard coded elements to ensure that the correct heir is shown in Plot and 
+# The succession law factions have hard coded elements to ensure that the correct heir is shown in Plot and
 # Faction interfaces and that AI faction members vote for laws in accordance with the faction goal.
 # The valid tags correspond to the law name: faction_succ_seniority, faction_succ_primogeniture, etc.
 # (faction_succ_ultimogeniture is fully supported by the code, but not currently implemented)
 faction_liege_loyalist = {
 	type = character
 	exclusive = yes
-	
+
 	warning_level = 0 # At this level of faction power we give player an alert. Set to 0 for no alerts.
-	
+
 	potential = {
 		is_ruler = yes
 		independent = no
@@ -24,7 +24,7 @@ faction_liege_loyalist = {
 			higher_tier_than = BARON
 		}
 		#NOT = { liege = { tier = EMPEROR } } # Direct vassals of Empires use faction_crown_loyalist instead
-		
+
 		NOT = { in_faction = faction_succ_primogeniture }
 		NOT = { in_faction = faction_succ_seniority }
 		#NOT = { in_faction = faction_succ_gavelkind }
@@ -36,12 +36,12 @@ faction_liege_loyalist = {
 		NOT = { in_faction = faction_republic }
 		NOT = { in_faction = faction_claimant }
 		NOT = { in_faction = faction_increase_council_power }
-		
+
 		NOT = { trait = kingsguard }
 		NOT = { trait = archmaester }
-		NOT = { liege = { trait = nightswatch } } 
+		NOT = { liege = { trait = nightswatch } }
 	}
-	
+
 	allow = {
 		prisoner = no
 		NOT = {
@@ -53,10 +53,10 @@ faction_liege_loyalist = {
 				}
 			}
 		}
-		
+
 		NOT = { has_character_modifier = reevaluate_loyalist_faction }
 	}
-	
+
 	# Faction member scope (ROOT = joiner, FROM = target)
 	allow_join = {
 		ROOT = {
@@ -64,7 +64,7 @@ faction_liege_loyalist = {
 			independent = no
 			is_landed = yes
 			is_adult = yes
-			NOT = { trait = incapable }	
+			NOT = { trait = incapable }
 			NOT = {
 				liege = {
 					any_vassal = {
@@ -75,14 +75,14 @@ faction_liege_loyalist = {
 				}
 			}
 			#NOT = { in_faction = faction_crown_loyalist }
-			
+
 			NOT = { has_character_modifier = reevaluate_loyalist_faction }
 		}
-	}	
-	
+	}
+
 	chance = {
 		factor = 2
-		
+
 		#Belligerent faction more likely
 		modifier = {
 			factor = 0.8
@@ -103,15 +103,15 @@ faction_liege_loyalist = {
 			liege = {
 				NOT = { is_friend = ROOT }
 				NOT = { is_allied_with = ROOT }
-				NOT = { has_non_aggression_pact_with = ROOT }	
+				NOT = { has_non_aggression_pact_with = ROOT }
 				OR = {
 					has_regent = yes
 					NOT = { reverse_opinion = { who = ROOT value = 30 } }
-				}	
+				}
 				NAND = {
 					has_regent = yes
 					regent = { reverse_opinion = { who = ROOT value = 50 } }
-				}	
+				}
 				NOT = { is_lover = ROOT }
 				NOT = { reverse_has_opinion_modifier = { who = ROOT modifier = opinion_dynasty_loyalist } }
 				NAND = {
@@ -143,7 +143,7 @@ faction_liege_loyalist = {
 				}
 			}
 		}
-		
+
 		modifier = { #Will not form if they dislike the King or regent, unless honorable and allied
 			factor = 0
 			NOT = { liege = { reverse_opinion = { who = ROOT value = 0 } } }
@@ -153,26 +153,26 @@ faction_liege_loyalist = {
 					top_liege = { is_allied_with = ROOT }
 					top_liege = { has_non_aggression_pact_with = ROOT }
 				}
-			}					
+			}
 		}
-		
+
 		modifier = { #Dothraki will not join an undesirable Khal
 			factor = 0
 			OR = {
 				culture = dothraki
-				culture = jogos_nhai 
+				culture = jogos_nhai
 				is_nomadic = yes
-			}	
+			}
 			liege = {
 				culture = PREV
 				OR = {
 					NOT = { age = 16 }
 					is_female = yes
 					is_weak_khal_trigger = yes
-				}			
-			}					
+				}
+			}
 		}
-		
+
 		modifier = {
 	   		factor = 10
 	   		is_nomadic = yes
@@ -211,57 +211,57 @@ faction_liege_loyalist = {
 		}
 		modifier = { #Will not form if they dislike the regent, unless allied
 			factor = 0
-			liege = { 
+			liege = {
 				has_regent = yes
 				regent = {
 					NOT = { character = ROOT }
 					NOT = { reverse_opinion = { who = ROOT value = 0 } }
-				}	
-			} 
-			NOT = { 
-				liege = { 
+				}
+			}
+			NOT = {
+				liege = {
 					OR = {
 						is_friend = ROOT
 						is_allied_with = ROOT
 						has_non_aggression_pact_with = ROOT
 					}
-				} 
-			}				
+				}
+			}
 		}
-		
+
 		#Alliance
 		modifier = {
 			factor = 2
-			liege = { 
+			liege = {
 				OR = {
 					is_friend = ROOT
 					is_allied_with = ROOT
 					has_non_aggression_pact_with = ROOT
 				}
-			} 
+			}
 		}
 		modifier = {
 			factor = 10
-			liege = { 
+			liege = {
 				OR = {
 					is_friend = ROOT
 					is_allied_with = ROOT
 					has_non_aggression_pact_with = ROOT
-				} 
-			} 
+				}
+			}
 			trait = honorable
 		}
-		
+
 		#Dynastic Loyalty
 		modifier = {
 			factor = 5
-			liege = { 
+			liege = {
 				reverse_has_opinion_modifier = { who = ROOT modifier = opinion_dynasty_loyalist }
-			} 
+			}
 		}
-		
+
 		#More likely to wait for belligerent factions
-		modifier = { 
+		modifier = {
 			factor = 0.1
 			OR = {
 				trait = ambitious
@@ -270,7 +270,7 @@ faction_liege_loyalist = {
 				liege = { NOT = { reverse_opinion = { who = ROOT value = 40 } } }
 			}
 		}
-		
+
 		# Personality Effects
 		modifier = {
 			factor = 5
@@ -304,7 +304,7 @@ faction_liege_loyalist = {
 			factor = 0.8
 			trait = deceitful
 		}
-		
+
 		# Culture and Religion Effects
 		modifier = {
 			factor = 1.5
@@ -342,7 +342,7 @@ faction_liege_loyalist = {
 			trait = radical
 			liege = { NOT = { religion = ROOT } }
 		}
-		
+
 		# Opinion Effects
 		modifier = {
 			factor = 2
@@ -408,7 +408,7 @@ faction_liege_loyalist = {
 			factor = 0.66
 			NOT = { liege = { reverse_opinion = { who = ROOT value = -99 } } }
 		}
-			
+
 		# Liege legitimacy effects
 		modifier = {
 			factor = 0.2
@@ -445,10 +445,10 @@ faction_liege_loyalist = {
 			}
 		}
 	}
-	
+
 	membership = {
 		factor = 2
-		
+
 		#Belligerent faction more likely
 		modifier = {
 			factor = 0.8
@@ -482,11 +482,11 @@ faction_liege_loyalist = {
 				OR = {
 					has_regent = yes
 					NOT = { reverse_opinion = { who = ROOT value = 30 } }
-				}	
+				}
 				NAND = {
 					has_regent = yes
 					regent = { reverse_opinion = { who = ROOT value = 50 } }
-				}	
+				}
 				NOT = { is_lover = ROOT }
 				NOT = { reverse_has_opinion_modifier = { who = ROOT modifier = opinion_dynasty_loyalist } }
 				NAND = {
@@ -520,7 +520,7 @@ faction_liege_loyalist = {
 			NOT = { FROM = { is_friend = ROOT } }
 			NOT = { has_opinion_modifier = { who = FROM modifier = opinion_coerced_into_joining_faction } }
 		}
-		
+
 		modifier = { #Will not join if in other faction
 			factor = 0
 			OR = {
@@ -534,8 +534,8 @@ faction_liege_loyalist = {
 				in_faction = faction_depose_liege
 				in_faction = faction_republic
 				in_faction = faction_increase_council_power
-			}	
-			NOT = { has_opinion_modifier = { who = FROM modifier = opinion_coerced_into_joining_faction } }			
+			}
+			NOT = { has_opinion_modifier = { who = FROM modifier = opinion_coerced_into_joining_faction } }
 		}
 		modifier = { #Will not join if they dislike the King, unless honorable and allied or coerced
 			factor = 0
@@ -547,28 +547,28 @@ faction_liege_loyalist = {
 					top_liege = { has_non_aggression_pact_with = ROOT }
 				}
 			}
-			NOT = { FROM = { is_friend = ROOT } }	
-			NOT = { has_opinion_modifier = { who = FROM modifier = opinion_coerced_into_joining_faction } }			
+			NOT = { FROM = { is_friend = ROOT } }
+			NOT = { has_opinion_modifier = { who = FROM modifier = opinion_coerced_into_joining_faction } }
 		}
-		
+
 		modifier = { #Dothraki will not join an undesirable Khal
 			factor = 0
 			OR = {
 				culture = dothraki
 				culture = jogos_nhai
 				is_nomadic = yes
-			}	
+			}
 			liege = {
 				culture = ROOT
 				OR = {
 					NOT = { age = 16 }
 					is_female = yes
 					is_weak_khal_trigger = yes
-				}			
-			}	
-			NOT = { has_opinion_modifier = { who = FROM modifier = opinion_coerced_into_joining_faction } }			
+				}
+			}
+			NOT = { has_opinion_modifier = { who = FROM modifier = opinion_coerced_into_joining_faction } }
 		}
-		
+
 		modifier = {
 	   		factor = 10
 	   		is_nomadic = yes
@@ -605,28 +605,28 @@ faction_liege_loyalist = {
 				reverse_opinion = { who = ROOT value = -20 }
 			}
 		}
-		
+
 		modifier = { #Will not join if they dislike the regent, unless allied
 			factor = 0
-			liege = { 
+			liege = {
 				has_regent = yes
 				regent = {
 					NOT = { character = ROOT }
 					NOT = { reverse_opinion = { who = ROOT value = 0 } }
-				}	
-			} 
-			NOT = { 
-				liege = { 
+				}
+			}
+			NOT = {
+				liege = {
 					OR = {
 						is_friend = ROOT
 						is_allied_with = ROOT
 						has_non_aggression_pact_with = ROOT
 					}
-				} 
+				}
 			}
-			NOT = { has_opinion_modifier = { who = FROM modifier = opinion_coerced_into_joining_faction } }			
+			NOT = { has_opinion_modifier = { who = FROM modifier = opinion_coerced_into_joining_faction } }
 		}
-		
+
 		#Alliance
 		modifier = {
 			factor = 2
@@ -636,30 +636,30 @@ faction_liege_loyalist = {
 					is_allied_with = ROOT
 					has_non_aggression_pact_with = ROOT
 				}
-			} 
+			}
 		}
 		modifier = {
 			factor = 10
-			liege = { 
+			liege = {
 				OR = {
 					is_friend = ROOT
 					is_allied_with = ROOT
 					has_non_aggression_pact_with = ROOT
 				}
-			} 
+			}
 			trait = honorable
 		}
-		
+
 		#Dynastic Loyalty
 		modifier = {
 			factor = 5
-			liege = { 
+			liege = {
 				reverse_has_opinion_modifier = { who = ROOT modifier = opinion_dynasty_loyalist }
-			} 
+			}
 		}
-		
+
 		#More likely to wait for belligerent factions
-		modifier = { 
+		modifier = {
 			factor = 0.1
 			OR = {
 				trait = ambitious
@@ -668,7 +668,7 @@ faction_liege_loyalist = {
 				liege = { NOT = { reverse_opinion = { who = ROOT value = 40 } } }
 			}
 		}
-			
+
 		# Personality Effects
 		modifier = {
 			factor = 5
@@ -702,7 +702,7 @@ faction_liege_loyalist = {
 			factor = 0.8
 			trait = deceitful
 		}
-		
+
 		# Culture and Religion Effects
 		modifier = {
 			factor = 2
@@ -741,7 +741,7 @@ faction_liege_loyalist = {
 			liege = { NOT = { religion = ROOT } }
 			NOT = { FROM = { is_friend = ROOT } }
 		}
-		
+
 		# Opinion Effects
 		modifier = {
 			factor = 2
@@ -823,7 +823,7 @@ faction_liege_loyalist = {
 			factor = 0.66
 			NOT = { liege = { reverse_opinion = { who = ROOT value = -99 } } }
 		}
-		
+
 		# Liege Personality Effects
 		modifier = {
 			factor = 2
@@ -877,7 +877,7 @@ faction_liege_loyalist = {
 			factor = 0.2
 			liege = { trait = possessed }
 		}
-		
+
 		# Liege legitimacy effects
 		modifier = {
 			factor = 0.2
@@ -914,7 +914,7 @@ faction_liege_loyalist = {
 			}
 		}
 	}
-	
+
 	success = { always = no }
 	abort = { always = no }
 	abort_effect = { }
@@ -927,9 +927,9 @@ faction_liege_loyalist = {
 # Anti-Centralization
 faction_anti_public_order = {
 	type = liege_titles
-	
+
 	warning_level = 1 # At this level of faction power we give player an alert. Set to 0 for no alerts.
-	
+
 	# Plotter scope
 	potential = {
 		prisoner = no
@@ -943,7 +943,7 @@ faction_anti_public_order = {
 		NOT = { has_opinion_modifier = { who = liege modifier = opinion_vetoed_my_proposal } }
 		NOT = { in_faction = faction_pro_public_order }
 	}
-	
+
 	# Target scope
 	allow = {
 		FROM = { crownlaw_title = { title = PREVPREV } }
@@ -954,7 +954,7 @@ faction_anti_public_order = {
 					using_cb = civil_war
 				}
 			}
-			
+
 			NOT = {
 				reverse_has_opinion_modifier = {
 					who = FROM
@@ -963,11 +963,11 @@ faction_anti_public_order = {
 			}
 		}
 	}
-	
+
 	creation_effect = {
 		liege = { character_event = { id = maintenance.900 } }
 	}
-	
+
 	# Faction member scope (ROOT = joiner, FROM = target)
 	allow_join = {
 		ROOT = {
@@ -981,15 +981,15 @@ faction_anti_public_order = {
 			NOT = { in_faction = faction_pro_public_order }
 		}
 	}
-	
+
 	# AI creation weight
 	chance = {
-		factor = 3		
+		factor = 3
 		modifier = {
 			factor = 0
 			FROM = { prisoner = yes }
 		}
-		
+
 		# Situational Issues
 		modifier = {
 			factor = 0
@@ -1007,7 +1007,7 @@ faction_anti_public_order = {
 			factor = 0
 			FROM = { preparing_invasion = yes }
 		}
-		
+
 		# Ideology
 		modifier = {
 			factor = 2
@@ -1095,7 +1095,7 @@ faction_anti_public_order = {
 				trait = radical
 			}
 		}
-		
+
 		# Current centralization
 		modifier = {
 			factor = 0.5
@@ -1109,7 +1109,7 @@ faction_anti_public_order = {
 			factor = 0.12
 			has_law = public_order_0
 		}
-		
+
 		# Cultural and ideological differences
 		modifier = {
 			factor = 4
@@ -1119,7 +1119,7 @@ faction_anti_public_order = {
 			factor = 4
 			holder_scope = { NOT = { religion = FROM } }
 		}
-		
+
 		# Personality Effects
 		modifier = {
 			factor = 0.25
@@ -1163,12 +1163,12 @@ faction_anti_public_order = {
 		}
 		modifier = {
 			factor = 0.5
-			has_law = legislative_authority_0
+			has_law = legislative_type_autocratic
 			FROM = { trait = craven }
 		}
 		modifier = {
 			factor = 0.5
-			has_law = legislative_authority_0
+			has_law = legislative_type_autocratic
 			FROM = { NOT = { trait = brave } }
 		}
 		modifier = {
@@ -1179,59 +1179,59 @@ faction_anti_public_order = {
 			factor = 0.5
 			FROM = { NOT = { trait = brave } }
 		}
-		
+
 		modifier = {
 			factor = 0.8
-			NOT = { has_law = legislative_authority_1 }
+			NOT = { has_law = legislative_type_aristocratic }
 			holder_scope = { reverse_opinion = { who = FROM value = 10 } }
 		}
 		modifier = {
 			factor = 0.8
-			NOT = { has_law = legislative_authority_1 }
+			NOT = { has_law = legislative_type_aristocratic }
 			holder_scope = { reverse_opinion = { who = FROM value = 20 } }
 		}
 		modifier = {
 			factor = 0.8
-			NOT = { has_law = legislative_authority_1 }
+			NOT = { has_law = legislative_type_aristocratic }
 			holder_scope = { reverse_opinion = { who = FROM value = 30 } }
 		}
 		modifier = {
 			factor = 0.8
-			NOT = { has_law = legislative_authority_1 }
+			NOT = { has_law = legislative_type_aristocratic }
 			holder_scope = { reverse_opinion = { who = FROM value = 40 } }
 		}
 		modifier = {
 			factor = 0.8
-			NOT = { has_law = legislative_authority_1 }
+			NOT = { has_law = legislative_type_aristocratic }
 			holder_scope = { reverse_opinion = { who = FROM value = 50 } }
 		}
 		modifier = {
 			factor = 0.8
-			NOT = { has_law = legislative_authority_1 }
+			NOT = { has_law = legislative_type_aristocratic }
 			holder_scope = { reverse_opinion = { who = FROM value = 60 } }
 		}
 		modifier = {
 			factor = 0.8
-			NOT = { has_law = legislative_authority_1 }
+			NOT = { has_law = legislative_type_aristocratic }
 			holder_scope = { reverse_opinion = { who = FROM value = 70 } }
 		}
 		modifier = {
 			factor = 0.8
-			NOT = { has_law = legislative_authority_1 }
+			NOT = { has_law = legislative_type_aristocratic }
 			holder_scope = { reverse_opinion = { who = FROM value = 80 } }
 		}
 		modifier = {
 			factor = 0.8
-			NOT = { has_law = legislative_authority_1 }
+			NOT = { has_law = legislative_type_aristocratic }
 			holder_scope = { reverse_opinion = { who = FROM value = 90 } }
 		}
 		modifier = {
 			factor = 0.8
-			NOT = { has_law = legislative_authority_1 }
+			NOT = { has_law = legislative_type_aristocratic }
 			holder_scope = { reverse_opinion = { who = FROM value = 100 } }
 		}
 	}
-	
+
 	# AI membership weight: ROOT is the prospective member. FROM is the faction leader. FROMFROM is the target title or character.
 	membership = {
 		factor = 1
@@ -1245,12 +1245,12 @@ faction_anti_public_order = {
 				preparing_invasion = yes
 			}
 		}
-		
+
 		modifier = {
 			factor = 0
 			NOT = { crownlaw_title = { title = FROMFROM } }
 		}
-		
+
 		modifier = {
 			factor = 0
 			has_opinion_modifier = {
@@ -1258,7 +1258,7 @@ faction_anti_public_order = {
 				modifier = opinion_coerced_into_leaving_faction
 			}
 		}
-		
+
 		modifier = {
 			factor = 1000
 			has_opinion_modifier = {
@@ -1266,7 +1266,7 @@ faction_anti_public_order = {
 				modifier = opinion_coerced_into_joining_faction
 			}
 		}
-		
+
 		# Ideology
 		modifier = {
 			factor = 2
@@ -1342,7 +1342,7 @@ faction_anti_public_order = {
 			}
 			trait = radical
 		}
-		
+
 		# Current centralization
 		modifier = {
 			factor = 0.5
@@ -1358,7 +1358,7 @@ faction_anti_public_order = {
 			factor = 0.5
 			FROMFROM = { has_law = public_order_0 }
 		}
-		
+
 		# Cultural and ideological differences
 		modifier = {
 			factor = 4
@@ -1368,7 +1368,7 @@ faction_anti_public_order = {
 			factor = 4
 			holder_scope = { NOT = { religion = FROM } }
 		}
-		
+
 		# Personality Effects
 		modifier = {
 			factor = 0.25
@@ -1410,84 +1410,84 @@ faction_anti_public_order = {
 			NOT = { FROMFROM = { current_heir = { character = ROOT } } }
 			trait = proud
 		}
-		
+
 		modifier = {
 			factor = 0.5
-			FROMFROM = { has_law = legislative_authority_0 }
+			FROMFROM = { has_law = legislative_type_autocratic }
 			trait = craven
 		}
 		modifier = {
 			factor = 0.5
-			FROMFROM = { has_law = legislative_authority_0 }
+			FROMFROM = { has_law = legislative_type_autocratic }
 			NOT = { trait = brave }
 		}
 		modifier = {
 			factor = 0.5
 			FROMFROM = {
-				NOT = { has_law = legislative_authority_1 }
+				NOT = { has_law = legislative_type_aristocratic }
 				holder_scope = { reverse_opinion = { who = ROOT value = 10 } }
 			}
 		}
 		modifier = {
 			factor = 0.8
 			FROMFROM = {
-				NOT = { has_law = legislative_authority_1 }
+				NOT = { has_law = legislative_type_aristocratic }
 				holder_scope = { reverse_opinion = { who = ROOT value = 20 } }
 			}
 		}
 		modifier = {
 			factor = 0.8
 			FROMFROM = {
-				NOT = { has_law = legislative_authority_1 }
+				NOT = { has_law = legislative_type_aristocratic }
 				holder_scope = { reverse_opinion = { who = ROOT value = 30 } }
 			}
 		}
 		modifier = {
 			factor = 0.8
 			FROMFROM = {
-				NOT = { has_law = legislative_authority_1 }
+				NOT = { has_law = legislative_type_aristocratic }
 				holder_scope = { reverse_opinion = { who = ROOT value = 40 } }
 			}
 		}
 		modifier = {
 			factor = 0.8
 			FROMFROM = {
-				NOT = { has_law = legislative_authority_1 }
+				NOT = { has_law = legislative_type_aristocratic }
 				holder_scope = { reverse_opinion = { who = ROOT value = 50 } }
 			}
 		}
 		modifier = {
 			factor = 0.8
 			FROMFROM = {
-				NOT = { has_law = legislative_authority_1 }
+				NOT = { has_law = legislative_type_aristocratic }
 				holder_scope = { reverse_opinion = { who = ROOT value = 60 } }
 			}
 		}
 		modifier = {
 			factor = 0.8
 			FROMFROM = {
-				NOT = { has_law = legislative_authority_1 }
+				NOT = { has_law = legislative_type_aristocratic }
 				holder_scope = { reverse_opinion = { who = ROOT value = 70 } }
 			}
 		}
 		modifier = {
 			factor = 0.8
 			FROMFROM = {
-				NOT = { has_law = legislative_authority_1 }
+				NOT = { has_law = legislative_type_aristocratic }
 				holder_scope = { reverse_opinion = { who = ROOT value = 80 } }
 			}
 		}
 		modifier = {
 			factor = 0.8
 			FROMFROM = {
-				NOT = { has_law = legislative_authority_1 }
+				NOT = { has_law = legislative_type_aristocratic }
 				holder_scope = { reverse_opinion = { who = ROOT value = 90 } }
 			}
 		}
 		modifier = {
 			factor = 0.8
 			FROMFROM = {
-				NOT = { has_law = legislative_authority_1 }
+				NOT = { has_law = legislative_type_aristocratic }
 				holder_scope = { reverse_opinion = { who = ROOT value = 100 } }
 			}
 		}
@@ -1498,16 +1498,16 @@ faction_anti_public_order = {
 			}
 		}
 	}
-	
+
 	success = {
 	}
-	
+
 	abort = {
 		always = no
 	}
 	abort_effect = {
 	}
-	
+
 	effect = {
 		FROM = {
 			any_faction_backer = {
@@ -1521,9 +1521,9 @@ faction_anti_public_order = {
 # Anti-Centralization
 faction_anti_centralization = {
 	type = liege_titles
-	
+
 	warning_level = 1 # At this level of faction power we give player an alert. Set to 0 for no alerts.
-	
+
 	# Plotter scope
 	potential = {
 		prisoner = no
@@ -1537,7 +1537,7 @@ faction_anti_centralization = {
 		NOT = { has_opinion_modifier = { who = liege modifier = opinion_vetoed_my_proposal } }
 		NOT = { in_faction = faction_pro_centralization }
 	}
-	
+
 	# Target scope
 	allow = {
 		FROM = { crownlaw_title = { title = PREVPREV } }
@@ -1548,7 +1548,7 @@ faction_anti_centralization = {
 					using_cb = civil_war
 				}
 			}
-			
+
 			NOT = {
 				reverse_has_opinion_modifier = {
 					who = FROM
@@ -1557,11 +1557,11 @@ faction_anti_centralization = {
 			}
 		}
 	}
-	
+
 	creation_effect = {
 		liege = { character_event = { id = maintenance.900 } }
 	}
-	
+
 	# Faction member scope (ROOT = joiner, FROM = target)
 	allow_join = {
 		ROOT = {
@@ -1575,15 +1575,15 @@ faction_anti_centralization = {
 			NOT = { in_faction = faction_pro_centralization }
 		}
 	}
-	
+
 	# AI creation weight
 	chance = {
-		factor = 1		
+		factor = 1
 		modifier = {
 			factor = 0
 			FROM = { prisoner = yes }
 		}
-		
+
 		# Situational Issues
 		modifier = {
 			factor = 0
@@ -1601,7 +1601,7 @@ faction_anti_centralization = {
 			factor = 0
 			FROM = { preparing_invasion = yes }
 		}
-		
+
 		# Ideology
 		modifier = {
 			factor = 2
@@ -1689,7 +1689,7 @@ faction_anti_centralization = {
 				trait = radical
 			}
 		}
-		
+
 		# Current centralization
 		modifier = {
 			factor = 0.5
@@ -1707,7 +1707,7 @@ faction_anti_centralization = {
 			factor = 0.06
 			has_law = centralization_0
 		}
-		
+
 		# Cultural and ideological differences
 		modifier = {
 			factor = 4
@@ -1717,7 +1717,7 @@ faction_anti_centralization = {
 			factor = 4
 			holder_scope = { NOT = { religion = FROM } }
 		}
-		
+
 		# Personality Effects
 		modifier = {
 			factor = 0.25
@@ -1761,12 +1761,12 @@ faction_anti_centralization = {
 		}
 		modifier = {
 			factor = 0.5
-			has_law = legislative_authority_0
+			has_law = legislative_type_autocratic
 			FROM = { trait = craven }
 		}
 		modifier = {
 			factor = 0.5
-			has_law = legislative_authority_0
+			has_law = legislative_type_autocratic
 			FROM = { NOT = { trait = brave } }
 		}
 		modifier = {
@@ -1777,59 +1777,59 @@ faction_anti_centralization = {
 			factor = 0.5
 			FROM = { NOT = { trait = brave } }
 		}
-		
+
 		modifier = {
 			factor = 0.8
-			NOT = { has_law = legislative_authority_1 }
+			NOT = { has_law = legislative_type_aristocratic }
 			holder_scope = { reverse_opinion = { who = FROM value = 10 } }
 		}
 		modifier = {
 			factor = 0.8
-			NOT = { has_law = legislative_authority_1 }
+			NOT = { has_law = legislative_type_aristocratic }
 			holder_scope = { reverse_opinion = { who = FROM value = 20 } }
 		}
 		modifier = {
 			factor = 0.8
-			NOT = { has_law = legislative_authority_1 }
+			NOT = { has_law = legislative_type_aristocratic }
 			holder_scope = { reverse_opinion = { who = FROM value = 30 } }
 		}
 		modifier = {
 			factor = 0.8
-			NOT = { has_law = legislative_authority_1 }
+			NOT = { has_law = legislative_type_aristocratic }
 			holder_scope = { reverse_opinion = { who = FROM value = 40 } }
 		}
 		modifier = {
 			factor = 0.8
-			NOT = { has_law = legislative_authority_1 }
+			NOT = { has_law = legislative_type_aristocratic }
 			holder_scope = { reverse_opinion = { who = FROM value = 50 } }
 		}
 		modifier = {
 			factor = 0.8
-			NOT = { has_law = legislative_authority_1 }
+			NOT = { has_law = legislative_type_aristocratic }
 			holder_scope = { reverse_opinion = { who = FROM value = 60 } }
 		}
 		modifier = {
 			factor = 0.8
-			NOT = { has_law = legislative_authority_1 }
+			NOT = { has_law = legislative_type_aristocratic }
 			holder_scope = { reverse_opinion = { who = FROM value = 70 } }
 		}
 		modifier = {
 			factor = 0.8
-			NOT = { has_law = legislative_authority_1 }
+			NOT = { has_law = legislative_type_aristocratic }
 			holder_scope = { reverse_opinion = { who = FROM value = 80 } }
 		}
 		modifier = {
 			factor = 0.8
-			NOT = { has_law = legislative_authority_1 }
+			NOT = { has_law = legislative_type_aristocratic }
 			holder_scope = { reverse_opinion = { who = FROM value = 90 } }
 		}
 		modifier = {
 			factor = 0.8
-			NOT = { has_law = legislative_authority_1 }
+			NOT = { has_law = legislative_type_aristocratic }
 			holder_scope = { reverse_opinion = { who = FROM value = 100 } }
 		}
 	}
-	
+
 	# AI membership weight: ROOT is the prospective member. FROM is the faction leader. FROMFROM is the target title or character.
 	membership = {
 		factor = 1
@@ -1843,12 +1843,12 @@ faction_anti_centralization = {
 				preparing_invasion = yes
 			}
 		}
-		
+
 		modifier = {
 			factor = 0
 			NOT = { crownlaw_title = { title = FROMFROM } }
 		}
-		
+
 		modifier = {
 			factor = 0
 			has_opinion_modifier = {
@@ -1856,7 +1856,7 @@ faction_anti_centralization = {
 				modifier = opinion_coerced_into_leaving_faction
 			}
 		}
-		
+
 		modifier = {
 			factor = 1000
 			has_opinion_modifier = {
@@ -1864,7 +1864,7 @@ faction_anti_centralization = {
 				modifier = opinion_coerced_into_joining_faction
 			}
 		}
-		
+
 		modifier = {
 			factor = 50
 			reverse_has_opinion_modifier = { who = FROM modifier = opinion_favor_ongoing_anti_centralization }
@@ -1879,7 +1879,7 @@ faction_anti_centralization = {
 			reverse_has_opinion_modifier = { who = FROM modifier = opinion_favor_ongoing_anti_centralization }
 			NOT = { trait = disciplined }
 		}
-		
+
 		# Ideology
 		modifier = {
 			factor = 2
@@ -1955,7 +1955,7 @@ faction_anti_centralization = {
 			}
 			trait = radical
 		}
-		
+
 		# Current centralization
 		modifier = {
 			factor = 0.5
@@ -1973,7 +1973,7 @@ faction_anti_centralization = {
 			factor = 0.06
 			FROMFROM = { has_law = centralization_0 }
 		}
-		
+
 		# Cultural and ideological differences
 		modifier = {
 			factor = 4
@@ -1983,7 +1983,7 @@ faction_anti_centralization = {
 			factor = 4
 			holder_scope = { NOT = { religion = FROM } }
 		}
-		
+
 		# Personality Effects
 		modifier = {
 			factor = 0.25
@@ -2025,89 +2025,89 @@ faction_anti_centralization = {
 			NOT = { FROMFROM = { current_heir = { character = ROOT } } }
 			trait = proud
 		}
-		
+
 		modifier = {
 			factor = 0.5
-			FROMFROM = { has_law = legislative_authority_0 }
+			FROMFROM = { has_law = legislative_type_autocratic }
 			trait = craven
 		}
 		modifier = {
 			factor = 0.5
-			FROMFROM = { has_law = legislative_authority_0 }
+			FROMFROM = { has_law = legislative_type_autocratic }
 			NOT = { trait = brave }
 		}
 		modifier = {
 			factor = 0.8
 			FROMFROM = {
-				NOT = { has_law = legislative_authority_1 }
+				NOT = { has_law = legislative_type_aristocratic }
 				holder_scope = { reverse_opinion = { who = ROOT value = 10 } }
 			}
 		}
 		modifier = {
 			factor = 0.8
 			FROMFROM = {
-				NOT = { has_law = legislative_authority_1 }
+				NOT = { has_law = legislative_type_aristocratic }
 				holder_scope = { reverse_opinion = { who = ROOT value = 20 } }
 			}
 		}
 		modifier = {
 			factor = 0.8
 			FROMFROM = {
-				NOT = { has_law = legislative_authority_1 }
+				NOT = { has_law = legislative_type_aristocratic }
 				holder_scope = { reverse_opinion = { who = ROOT value = 30 } }
 			}
 		}
 		modifier = {
 			factor = 0.8
 			FROMFROM = {
-				NOT = { has_law = legislative_authority_1 }
+				NOT = { has_law = legislative_type_aristocratic }
 				holder_scope = { reverse_opinion = { who = ROOT value = 40 } }
 			}
 		}
 		modifier = {
 			factor = 0.8
 			FROMFROM = {
-				NOT = { has_law = legislative_authority_1 }
+				NOT = { has_law = legislative_type_aristocratic }
 				holder_scope = { reverse_opinion = { who = ROOT value = 50 } }
 			}
 		}
 		modifier = {
 			factor = 0.8
 			FROMFROM = {
-				NOT = { has_law = legislative_authority_1 }
+				NOT = { has_law = legislative_type_aristocratic }
 				holder_scope = { reverse_opinion = { who = ROOT value = 60 } }
 			}
 		}
 		modifier = {
 			factor = 0.8
 			FROMFROM = {
-				NOT = { has_law = legislative_authority_1 }
+				NOT = { has_law = legislative_type_aristocratic }
 				holder_scope = { reverse_opinion = { who = ROOT value = 70 } }
 			}
 		}
 		modifier = {
 			factor = 0.8
 			FROMFROM = {
-				NOT = { has_law = legislative_authority_1 }
+				NOT = { has_law = legislative_type_aristocratic }
 				holder_scope = { reverse_opinion = { who = ROOT value = 80 } }
 			}
 		}
 		modifier = {
 			factor = 0.8
 			FROMFROM = {
-				NOT = { has_law = legislative_authority_1 }
+				NOT = { has_law = legislative_type_aristocratic }
 				holder_scope = { reverse_opinion = { who = ROOT value = 90 } }
 			}
 		}
 		modifier = {
 			factor = 0.8
 			FROMFROM = {
-				NOT = { has_law = legislative_authority_1 }
+				NOT = { has_law = legislative_type_aristocratic }
 				holder_scope = { reverse_opinion = { who = ROOT value = 100 } }
 			}
 		}
 	}
-	
+
 	success = {
 		holder_scope = {
 			FROM = {
@@ -2118,7 +2118,7 @@ faction_anti_centralization = {
 			}
 		}
 	}
-	
+
 	abort = {
 		always = no
 	}
@@ -2130,7 +2130,7 @@ faction_anti_centralization = {
 			}
 		}
 	}
-	
+
 	effect = {
 		FROM = {
 			any_faction_backer = {
@@ -2144,9 +2144,9 @@ faction_anti_centralization = {
 # Pro-Centralization
 faction_pro_centralization = {
 	type = liege_titles
-	
+
 	warning_level = 1 # At this level of faction power we give player an alert. Set to 0 for no alerts.
-	
+
 	# Plotter scope
 	potential = {
 		prisoner = no
@@ -2157,15 +2157,15 @@ faction_pro_centralization = {
 		NOT = { trait = incapable }
 		liege = { NOT = { any_demesne_title = { temporary = yes } } }
 		primary_title = { higher_tier_than = BARON }
-		
+
 		NOT = { has_opinion_modifier = { who = liege modifier = opinion_vetoed_my_proposal } }
 		NOT = { in_faction = faction_anti_centralization }
 	}
-	
+
 	# Target scope
 	allow = {
 		FROM = { crownlaw_title = { title = PREVPREV } }
-		
+
 		holder_scope = {
 			NOT = {
 				any_war = {
@@ -2173,7 +2173,7 @@ faction_pro_centralization = {
 					using_cb = civil_war
 				}
 			}
-			
+
 			NOT = {
 				reverse_has_opinion_modifier = {
 					who = FROM
@@ -2182,11 +2182,11 @@ faction_pro_centralization = {
 			}
 		}
 	}
-	
+
 	creation_effect = {
 		liege = { character_event = { id = maintenance.900 } }
 	}
-	
+
 	# Faction member scope (ROOT = joiner, FROM = target)
 	allow_join = {
 		ROOT = {
@@ -2199,16 +2199,16 @@ faction_pro_centralization = {
 			NOT = { has_opinion_modifier = { who = liege modifier = opinion_vetoed_my_proposal } }
 			NOT = { in_faction = faction_anti_centralization }
 		}
-	}		
-	
+	}
+
 	# AI creation weight
 	chance = {
-		factor = 1		
+		factor = 1
 		modifier = {
 			factor = 0
 			FROM = { prisoner = yes }
 		}
-		
+
 		# Situational Issues
 		modifier = {
 			factor = 0
@@ -2226,7 +2226,7 @@ faction_pro_centralization = {
 			factor = 0
 			FROM = { preparing_invasion = yes }
 		}
-		
+
 		# Ideology
 		modifier = {
 			factor = 0.5
@@ -2314,7 +2314,7 @@ faction_pro_centralization = {
 				trait = radical
 			}
 		}
-		
+
 		# Current centralization
 		modifier = {
 			factor = 0.5
@@ -2332,7 +2332,7 @@ faction_pro_centralization = {
 			factor = 0.06
 			has_law = centralization_4
 		}
-		
+
 		# Cultural and ideological differences
 		modifier = {
 			factor = 0.25
@@ -2342,16 +2342,16 @@ faction_pro_centralization = {
 			factor = 0.25
 			holder_scope = { NOT = { religion = FROM } }
 		}
-		
+
 		# Personality Effects
 		modifier = {
 			factor = 0.5
-			has_law = legislative_authority_0
+			has_law = legislative_type_autocratic
 			FROM = { trait = craven }
 		}
 		modifier = {
 			factor = 0.5
-			has_law = legislative_authority_0
+			has_law = legislative_type_autocratic
 			FROM = { NOT = { trait = brave } }
 		}
 		modifier = {
@@ -2362,59 +2362,59 @@ faction_pro_centralization = {
 			factor = 0.5
 			FROM = { NOT = { trait = brave } }
 		}
-		
+
 		modifier = {
 			factor = 0.8
-			NOT = { has_law = legislative_authority_1 }
+			NOT = { has_law = legislative_type_aristocratic }
 			holder_scope = { reverse_opinion = { who = FROM value = 10 } }
 		}
 		modifier = {
 			factor = 0.8
-			NOT = { has_law = legislative_authority_1 }
+			NOT = { has_law = legislative_type_aristocratic }
 			holder_scope = { reverse_opinion = { who = FROM value = 20 } }
 		}
 		modifier = {
 			factor = 0.8
-			NOT = { has_law = legislative_authority_1 }
+			NOT = { has_law = legislative_type_aristocratic }
 			holder_scope = { reverse_opinion = { who = FROM value = 30 } }
 		}
 		modifier = {
 			factor = 0.8
-			NOT = { has_law = legislative_authority_1 }
+			NOT = { has_law = legislative_type_aristocratic }
 			holder_scope = { reverse_opinion = { who = FROM value = 40 } }
 		}
 		modifier = {
 			factor = 0.8
-			NOT = { has_law = legislative_authority_1 }
+			NOT = { has_law = legislative_type_aristocratic }
 			holder_scope = { reverse_opinion = { who = FROM value = 50 } }
 		}
 		modifier = {
 			factor = 0.8
-			NOT = { has_law = legislative_authority_1 }
+			NOT = { has_law = legislative_type_aristocratic }
 			holder_scope = { reverse_opinion = { who = FROM value = 60 } }
 		}
 		modifier = {
 			factor = 0.8
-			NOT = { has_law = legislative_authority_1 }
+			NOT = { has_law = legislative_type_aristocratic }
 			holder_scope = { reverse_opinion = { who = FROM value = 70 } }
 		}
 		modifier = {
 			factor = 0.8
-			NOT = { has_law = legislative_authority_1 }
+			NOT = { has_law = legislative_type_aristocratic }
 			holder_scope = { reverse_opinion = { who = FROM value = 80 } }
 		}
 		modifier = {
 			factor = 0.8
-			NOT = { has_law = legislative_authority_1 }
+			NOT = { has_law = legislative_type_aristocratic }
 			holder_scope = { reverse_opinion = { who = FROM value = 90 } }
 		}
 		modifier = {
 			factor = 0.8
-			NOT = { has_law = legislative_authority_1 }
+			NOT = { has_law = legislative_type_aristocratic }
 			holder_scope = { reverse_opinion = { who = FROM value = 100 } }
 		}
 	}
-	
+
 	# AI membership weight: ROOT is the prospective member. FROM is the faction leader. FROMFROM is the target title or character.
 	membership = {
 		factor = 1
@@ -2428,12 +2428,12 @@ faction_pro_centralization = {
 				preparing_invasion = yes
 			}
 		}
-		
+
 		modifier = {
 			factor = 0
 			NOT = { crownlaw_title = { title = FROMFROM } }
 		}
-		
+
 		modifier = {
 			factor = 0
 			has_opinion_modifier = {
@@ -2441,7 +2441,7 @@ faction_pro_centralization = {
 				modifier = opinion_coerced_into_leaving_faction
 			}
 		}
-		
+
 		modifier = {
 			factor = 1000
 			has_opinion_modifier = {
@@ -2449,7 +2449,7 @@ faction_pro_centralization = {
 				modifier = opinion_coerced_into_joining_faction
 			}
 		}
-		
+
 		modifier = {
 			factor = 50
 			reverse_has_opinion_modifier = { who = FROM modifier = opinion_favor_ongoing_pro_centralization }
@@ -2464,7 +2464,7 @@ faction_pro_centralization = {
 			reverse_has_opinion_modifier = { who = FROM modifier = opinion_favor_ongoing_pro_centralization }
 			NOT = { trait = disciplined }
 		}
-		
+
 		# Ideology
 		modifier = {
 			factor = 0.5
@@ -2540,7 +2540,7 @@ faction_pro_centralization = {
 			}
 			trait = radical
 		}
-		
+
 		# Current centralization
 		modifier = {
 			factor = 0.5
@@ -2558,7 +2558,7 @@ faction_pro_centralization = {
 			factor = 0.06
 			FROMFROM = { has_law = centralization_4 }
 		}
-		
+
 		# Cultural and ideological differences
 		modifier = {
 			factor = 0.25
@@ -2568,91 +2568,91 @@ faction_pro_centralization = {
 			factor = 0.25
 			holder_scope = { NOT = { religion = FROM } }
 		}
-		
+
 		# Personality Effects
 		modifier = {
 			factor = 0.5
-			FROMFROM = { has_law = legislative_authority_0 }
+			FROMFROM = { has_law = legislative_type_autocratic }
 			trait = craven
 		}
 		modifier = {
 			factor = 0.5
-			FROMFROM = { has_law = legislative_authority_0 }
+			FROMFROM = { has_law = legislative_type_autocratic }
 			NOT = { trait = brave }
 		}
-		
+
 		modifier = {
 			factor = 0.8
 			FROMFROM = {
-				NOT = { has_law = legislative_authority_1 }
+				NOT = { has_law = legislative_type_aristocratic }
 				holder_scope = { reverse_opinion = { who = ROOT value = 10 } }
 			}
 		}
 		modifier = {
 			factor = 0.8
 			FROMFROM = {
-				NOT = { has_law = legislative_authority_1 }
+				NOT = { has_law = legislative_type_aristocratic }
 				holder_scope = { reverse_opinion = { who = ROOT value = 20 } }
 			}
 		}
 		modifier = {
 			factor = 0.8
 			FROMFROM = {
-				NOT = { has_law = legislative_authority_1 }
+				NOT = { has_law = legislative_type_aristocratic }
 				holder_scope = { reverse_opinion = { who = ROOT value = 30 } }
 			}
 		}
 		modifier = {
 			factor = 0.8
 			FROMFROM = {
-				NOT = { has_law = legislative_authority_1 }
+				NOT = { has_law = legislative_type_aristocratic }
 				holder_scope = { reverse_opinion = { who = ROOT value = 40 } }
 			}
 		}
 		modifier = {
 			factor = 0.8
 			FROMFROM = {
-				NOT = { has_law = legislative_authority_1 }
+				NOT = { has_law = legislative_type_aristocratic }
 				holder_scope = { reverse_opinion = { who = ROOT value = 50 } }
 			}
 		}
 		modifier = {
 			factor = 0.8
 			FROMFROM = {
-				NOT = { has_law = legislative_authority_1 }
+				NOT = { has_law = legislative_type_aristocratic }
 				holder_scope = { reverse_opinion = { who = ROOT value = 60 } }
 			}
 		}
 		modifier = {
 			factor = 0.8
 			FROMFROM = {
-				NOT = { has_law = legislative_authority_1 }
+				NOT = { has_law = legislative_type_aristocratic }
 				holder_scope = { reverse_opinion = { who = ROOT value = 70 } }
 			}
 		}
 		modifier = {
 			factor = 0.8
 			FROMFROM = {
-				NOT = { has_law = legislative_authority_1 }
+				NOT = { has_law = legislative_type_aristocratic }
 				holder_scope = { reverse_opinion = { who = ROOT value = 80 } }
 			}
 		}
 		modifier = {
 			factor = 0.8
 			FROMFROM = {
-				NOT = { has_law = legislative_authority_1 }
+				NOT = { has_law = legislative_type_aristocratic }
 				holder_scope = { reverse_opinion = { who = ROOT value = 90 } }
 			}
 		}
 		modifier = {
 			factor = 0.8
 			FROMFROM = {
-				NOT = { has_law = legislative_authority_1 }
+				NOT = { has_law = legislative_type_aristocratic }
 				holder_scope = { reverse_opinion = { who = ROOT value = 100 } }
 			}
 		}
 	}
-	
+
 	success = {
 		holder_scope = {
 			FROM = {
@@ -2663,11 +2663,11 @@ faction_pro_centralization = {
 			}
 		}
 	}
-	
+
 	abort = {
 		always = no
 	}
-	
+
 	abort_effect = {
 		FROM = {
 			any_faction_backer = {
@@ -2676,7 +2676,7 @@ faction_pro_centralization = {
 			}
 		}
 	}
-	
+
 	effect = {
 		FROM = {
 			any_faction_backer = {
@@ -2687,11 +2687,11 @@ faction_pro_centralization = {
 	}
 }
 # Democratic Legislature
-faction_democratic_legislature = {
+faction_estabilish_legislature = {
 	type = liege_titles
-	
-	warning_level = 1 # At this level of faction power we give player an alert. Set to 0 for no alerts.
-	
+
+	warning_level = 0.5 # At this level of faction power we give player an alert. Set to 0 for no alerts.
+
 	# Plotter scope
 	potential = {
 		prisoner = no
@@ -2703,11 +2703,14 @@ faction_democratic_legislature = {
 		liege = { NOT = { any_demesne_title = { temporary = yes } } }
 		primary_title = { higher_tier_than = BARON }
 	}
-	
+
 	# Target scope
 	allow = {
-		FROM = { crownlaw_title = { title = PREVPREV } }
-		
+		FROM = {
+			has_law = law_voting_power_0
+		}
+
+
 		holder_scope = {
 			NOT = {
 				any_war = {
@@ -2715,7 +2718,7 @@ faction_democratic_legislature = {
 					using_cb = civil_war
 				}
 			}
-			
+
 			NOT = {
 				reverse_has_opinion_modifier = {
 					who = FROM
@@ -2724,7 +2727,7 @@ faction_democratic_legislature = {
 			}
 		}
 	}
-	
+
 	# Faction member scope (ROOT = joiner, FROM = target)
 	allow_join = {
 		ROOT = {
@@ -2736,15 +2739,15 @@ faction_democratic_legislature = {
 			prisoner = no
 		}
 	}
-	
+
 	# AI creation weight
 	chance = {
-		factor = 1		
+		factor = 1
 		modifier = {
 			factor = 0
 			FROM = { prisoner = yes }
 		}
-		
+
 		# Situational Issues
 		modifier = {
 			factor = 0
@@ -2758,7 +2761,7 @@ faction_democratic_legislature = {
 			factor = 10
 			holder_scope = { reverse_has_opinion_modifier = { who = FROM modifier = opinion_vetoed_my_proposal } }
 		}
-		
+
 		# Ideology
 		modifier = {
 			factor = 4
@@ -2828,7 +2831,7 @@ faction_democratic_legislature = {
 				trait = radical
 			}
 		}
-		
+
 		# Personality Effects
 		modifier = {
 			factor = 0.2
@@ -2878,7 +2881,7 @@ faction_democratic_legislature = {
 			factor = 0.25
 			FROM = { NOT = { trait = brave } }
 		}
-		
+
 		modifier = {
 			factor = 0.8
 			holder_scope = { reverse_opinion = { who = FROM value = 10 } }
@@ -2920,7 +2923,7 @@ faction_democratic_legislature = {
 			holder_scope = { reverse_opinion = { who = FROM value = 100 } }
 		}
 	}
-	
+
 	# AI membership weight: ROOT is the prospective member. FROM is the faction leader. FROMFROM is the target title or character.
 	membership = {
 		factor = 1
@@ -2934,7 +2937,7 @@ faction_democratic_legislature = {
 				preparing_invasion = yes
 			}
 		}
-		
+
 		modifier = {
 			factor = 0
 			NOT = { crownlaw_title = { title = FROMFROM } }
@@ -2943,7 +2946,7 @@ faction_democratic_legislature = {
 			factor = 10
 			FROMFROM = { holder_scope = { reverse_has_opinion_modifier = { who = ROOT modifier = opinion_vetoed_my_proposal } } }
 		}
-		
+
 		modifier = {
 			factor = 0
 			has_opinion_modifier = {
@@ -2951,7 +2954,7 @@ faction_democratic_legislature = {
 				modifier = opinion_coerced_into_leaving_faction
 			}
 		}
-		
+
 		modifier = {
 			factor = 1000
 			has_opinion_modifier = {
@@ -2959,7 +2962,7 @@ faction_democratic_legislature = {
 				modifier = opinion_coerced_into_joining_faction
 			}
 		}
-		
+
 		# Ideology
 		modifier = {
 			factor = 4
@@ -3017,7 +3020,7 @@ faction_democratic_legislature = {
 			}
 			trait = radical
 		}
-		
+
 		# Personality Effects
 		modifier = {
 			factor = 0.25
@@ -3059,7 +3062,7 @@ faction_democratic_legislature = {
 			NOT = { FROMFROM = { current_heir = { character = ROOT } } }
 			trait = proud
 		}
-		
+
 		modifier = {
 			factor = 0.5
 			trait = craven
@@ -3109,22 +3112,22 @@ faction_democratic_legislature = {
 			FROMFROM = { holder_scope = { reverse_opinion = { who = ROOT value = 100 } } }
 		}
 	}
-	
+
 	success = {
-		has_law = legislative_authority_1
+		has_law = law_voting_power_1
 	}
-	
+
 	abort = {
 		always = no
 	}
-	
+
 	abort_effect = {
 	}
-	
+
 	effect = {
 		FROM = {
 			any_faction_backer = {
-				faction = faction_democratic_legislature
+				faction = faction_estabilish_legislature
 				reverse_opinion = { who = PREV modifier = opinion_supported_my_proposal }
 			}
 		}
@@ -3133,9 +3136,9 @@ faction_democratic_legislature = {
 
 faction_abolish_legislature = {
 	type = liege_titles
-	
-	warning_level = 1 # At this level of faction power we give player an alert. Set to 0 for no alerts.
-	
+
+	warning_level = 0.7 # At this level of faction power we give player an alert. Set to 0 for no alerts.
+
 	# Plotter scope
 	potential = {
 		prisoner = no
@@ -3147,11 +3150,13 @@ faction_abolish_legislature = {
 		liege = { NOT = { any_demesne_title = { temporary = yes } } }
 		primary_title = { higher_tier_than = BARON }
 	}
-	
+
 	# Target scope
 	allow = {
-		FROM = { crownlaw_title = { title = PREVPREV } }
-		
+		FROM = {
+			has_law = law_voting_power_1
+		}
+
 		holder_scope = {
 			NOT = {
 				any_war = {
@@ -3159,7 +3164,7 @@ faction_abolish_legislature = {
 					using_cb = civil_war
 				}
 			}
-			
+
 			NOT = {
 				reverse_has_opinion_modifier = {
 					who = FROM
@@ -3168,11 +3173,11 @@ faction_abolish_legislature = {
 			}
 		}
 	}
-	
+
 	creation_effect = {
 		liege = { character_event = { id = maintenance.900 } }
 	}
-	
+
 	# Faction member scope (ROOT = joiner, FROM = target)
 	allow_join = {
 		ROOT = {
@@ -3184,15 +3189,15 @@ faction_abolish_legislature = {
 			prisoner = no
 		}
 	}
-	
+
 	# AI creation weight
 	chance = {
-		factor = 1		
+		factor = 1
 		modifier = {
 			factor = 0
 			FROM = { prisoner = yes }
 		}
-		
+
 		# Situational Issues
 		modifier = {
 			factor = 0
@@ -3206,7 +3211,7 @@ faction_abolish_legislature = {
 			factor = 0.1
 			holder_scope = { reverse_has_opinion_modifier = { who = FROM modifier = opinion_vetoed_my_proposal } }
 		}
-		
+
 		# Ideology
 		modifier = {
 			factor = 0.25
@@ -3279,7 +3284,7 @@ faction_abolish_legislature = {
 				trait = radical
 			}
 		}
-		
+
 		# Personality Effects
 		modifier = {
 			factor = 0.2
@@ -3301,7 +3306,7 @@ faction_abolish_legislature = {
 			NOT = { current_heir = { character = FROM } }
 			FROM = { trait = proud }
 		}
-		
+
 		modifier = {
 			factor = 0.8
 			holder_scope = { NOT = { reverse_opinion = { who = FROM value = -99 } } }
@@ -3383,7 +3388,7 @@ faction_abolish_legislature = {
 			holder_scope = { reverse_opinion = { who = FROM value = 100 } }
 		}
 	}
-	
+
 	# AI membership weight: ROOT is the prospective member. FROM is the faction leader. FROMFROM is the target title or character.
 	membership = {
 		factor = 1
@@ -3397,7 +3402,7 @@ faction_abolish_legislature = {
 				preparing_invasion = yes
 			}
 		}
-		
+
 		modifier = {
 			factor = 0
 			NOT = { crownlaw_title = { title = FROMFROM } }
@@ -3406,7 +3411,7 @@ faction_abolish_legislature = {
 			factor = 10
 			FROMFROM = { holder_scope = { reverse_has_opinion_modifier = { who = ROOT modifier = opinion_vetoed_my_proposal } } }
 		}
-		
+
 		modifier = {
 			factor = 0
 			has_opinion_modifier = {
@@ -3414,7 +3419,7 @@ faction_abolish_legislature = {
 				modifier = opinion_coerced_into_leaving_faction
 			}
 		}
-		
+
 		modifier = {
 			factor = 1000
 			has_opinion_modifier = {
@@ -3422,7 +3427,7 @@ faction_abolish_legislature = {
 				modifier = opinion_coerced_into_joining_faction
 			}
 		}
-		
+
 		# Ideology
 		modifier = {
 			factor = 0.25
@@ -3483,7 +3488,7 @@ faction_abolish_legislature = {
 			}
 			trait = radical
 		}
-		
+
 		# Personality Effects
 		modifier = {
 			factor = 0.25
@@ -3505,8 +3510,8 @@ faction_abolish_legislature = {
 			NOT = { FROMFROM = { current_heir = { character = ROOT } } }
 			trait = proud
 		}
-		
-		
+
+
 		modifier = {
 			factor = 0.8
 			FROMFROM = { not = { holder_scope = { reverse_opinion = { who = ROOT value = -99 } } } }
@@ -3588,18 +3593,18 @@ faction_abolish_legislature = {
 			FROMFROM = { holder_scope = { reverse_opinion = { who = ROOT value = 100 } } }
 		}
 	}
-	
+
 	success = {
-		has_law = legislative_authority_0
+		has_law = law_voting_power_0
 	}
-	
+
 	abort = {
 		always = no
 	}
-	
+
 	abort_effect = {
 	}
-	
+
 	effect = {
 		holder_scope = {
 			FROM = {
@@ -3616,9 +3621,9 @@ faction_abolish_legislature = {
 faction_devolve_local_government = {
 	type = liege_titles_w_claimant
 	exclusive = yes
-	
+
 	warning_level = 1
-	
+
 	potential = {
 		prisoner = no
 		is_ruler = yes
@@ -3630,7 +3635,7 @@ faction_devolve_local_government = {
 		primary_title = { higher_tier_than = BARON }
 		NOT = { has_character_modifier = faction_claimant_timer }
 	}
-	
+
 	allow = {
 		is_primary_holder_title_tier = no # Secondary titles only
 		higher_tier_than = COUNT # Sectors and regions only
@@ -3686,11 +3691,11 @@ faction_devolve_local_government = {
 		}
 		NOT = { holder_scope = { reverse_has_opinion_modifier = { who = FROM modifier = opinion_coerced_into_leaving_faction } } }
 	}
-	
+
 	creation_effect = {
 		liege = { character_event = { id = maintenance.900 } }
 	}
-	
+
 	# Faction member scope (ROOT = joiner, FROM = target)
 	allow_join = {
 		ROOT = {
@@ -3702,10 +3707,10 @@ faction_devolve_local_government = {
 			prisoner = no
 		}
 	}
-	
+
 	chance = {
 		factor = 5
-		
+
 		# Ambition
 		modifier = {
 			factor = 10
@@ -3719,7 +3724,7 @@ faction_devolve_local_government = {
 			tier = king
 			FROM = { has_ambition = obj_become_king }
 		}
-		
+
 		# Claim strength
 		modifier = {
 			factor = 2
@@ -3729,7 +3734,7 @@ faction_devolve_local_government = {
 			factor = 5
 			new_character = { has_strong_claim = PREV }
 		}
-		
+
 		# Personality
 		modifier = {
 			factor = 10
@@ -3778,7 +3783,7 @@ faction_devolve_local_government = {
 			factor = 0.5
 			FROM = { trait = neurotic }
 		}
-		
+
 		# Cultural and ideological concerns
 		modifier = {
 			factor = 5
@@ -4055,10 +4060,10 @@ faction_devolve_local_government = {
 			holder_scope = { NOT = { reverse_opinion = { who = FROM value = -99 } } }
 		}
 	}
-	
+
 	membership = {
 		factor = 5
-		
+
 		# None of my business
 		modifier = {
 			factor = 0
@@ -4081,7 +4086,7 @@ faction_devolve_local_government = {
 			factor = 1000
 			has_opinion_modifier = { who = FROM modifier = opinion_coerced_into_joining_faction }
 		}
-		
+
 		# Ambition
 		modifier = {
 			factor = 10
@@ -4095,7 +4100,7 @@ faction_devolve_local_government = {
 			FROMFROM = { tier = king }
 			has_ambition = obj_become_king
 		}
-		
+
 		# Claim strength
 		modifier = {
 			factor = 2
@@ -4105,7 +4110,7 @@ faction_devolve_local_government = {
 			factor = 5
 			new_character = { has_strong_claim = FROMFROM }
 		}
-		
+
 		# Personality
 		modifier = {
 			factor = 10
@@ -4154,7 +4159,7 @@ faction_devolve_local_government = {
 			factor = 0.5
 			trait = neurotic
 		}
-		
+
 		# Opinion of claimant
 		modifier = {
 			factor = 0.8
@@ -4337,7 +4342,7 @@ faction_devolve_local_government = {
 			factor = 1.25
 			FROMFROM = { holder_scope = { NOT = { reverse_opinion = { who = ROOT value = -99 } } } }
 		}
-		
+
 		# Cultural concerns
 		modifier = {
 			factor = 5
@@ -4425,7 +4430,7 @@ faction_devolve_local_government = {
 			trait = radical
 		}
 	}
-	
+
 	success = { new_character = { has_landed_title = ROOT } }
 	abort = { always = no }
 	abort_effect = { }
@@ -4459,9 +4464,9 @@ faction_devolve_local_government = {
 
 faction_independence = {
 	type = character
-	
+
 	warning_level = 0.7 # At this level of faction power we give player an alert. Set to 0 for no alerts.
-	
+
 	# Plotter scope
 	potential = {
 		prisoner = no
@@ -4469,9 +4474,9 @@ faction_independence = {
 		independent = no
 		is_landed = yes
 		is_adult = yes
-		
+
 		NOT = { trait = incapable }
-		
+
 		higher_tier_than = BARON
 		OR = {
 			ai = yes
@@ -4479,20 +4484,20 @@ faction_independence = {
 			higher_tier_than = COUNT
 		}
 		NOT = { any_demesne_title = { is_tribal_type_title = yes } }
-		
+
 		liege = {
 			independent = yes
 			NOT = { any_war = { using_cb = cb_faction_independence } }
-			
+
 			# Not allowed to start factions like this if our capital borders the liege's capital
 			NOT = { capital_scope = { any_neighbor_province = { ROOT = { capital_scope = { province = PREVPREV } } } } }
-			
+
 			NOT = { any_demesne_title = { temporary = yes } }
 		}
-		
+
 		NOT = { has_character_modifier = faction_independence_ultimatum_timer }
 	}
-	
+
 	# Target scope
 	allow = {
 		prisoner = no
@@ -4500,7 +4505,7 @@ faction_independence = {
 		NOT = { in_faction = faction_anti_centralization }
 		NOT = { has_opinion_modifier = { who = LIEGE modifier = opinion_coerced_into_leaving_faction } }
 	}
-	
+
 	# Faction member scope (ROOT = joiner, FROM = target)
 	allow_join = {
 		ROOT = {
@@ -4515,21 +4520,21 @@ faction_independence = {
 			NOT = { any_demesne_title = { is_tribal_type_title = yes } }
 		}
 	}
-	
+
 	creation_effect = {
 		liege = { character_event = { id = maintenance.900 } }
 	}
-	
+
 	# AI creation weight
 	chance = {
 		factor = 4
-		
+
 		modifier = {
 			factor = 0
 			religion = hiver
 			liege = { religion = hiver }
 		}
-		
+
 		# Must have a positive reason to want independence
 		modifier = {
 			factor = 0
@@ -4547,7 +4552,7 @@ faction_independence = {
 				duchy = { holder_scope = { is_vassal_or_below = ROOT } }
 			}
 		}
-		
+
 		# Should probably be backing a claimant instead
 		modifier = {
 			factor = 0.25
@@ -4579,17 +4584,17 @@ faction_independence = {
 			factor = 0.25
 			spouse = { any_claim = { holder_scope = { any_vassal = { character = ROOT } } } }
 		}
-		
+
 		modifier = {
 			factor = 0.2
 			FROM = { pacifist = yes }
 		}
-		
+
 		modifier = {
 			factor = 0
 			liege = { current_heir = { character = ROOT } }
 		}
-		
+
 		modifier = {
 			factor = 0
 			lower_tier_than = KING
@@ -4599,7 +4604,7 @@ faction_independence = {
 				NOT = { distance = { who = ROOT distance = 200 } }
 			}
 		}
-		
+
 		modifier = {
 			factor = 0
 			OR = {
@@ -4609,16 +4614,16 @@ faction_independence = {
 				}
 				AND = {
 					leads_faction = faction_independence
-					opinion = { who = LIEGE value = 80 } 
+					opinion = { who = LIEGE value = 80 }
 				}
 			}
 		}
-		
+
 		modifier = {
 			factor = 0
 			preparing_invasion = yes
 		}
-		
+
 		modifier = {
 			factor = 0.25
 			liege = {
@@ -4626,7 +4631,7 @@ faction_independence = {
 				culture_group = ROOT
 			}
 		}
-		
+
 		modifier = {
 			factor = 1.5
 			liege = { distance = { who = ROOT distance = 300 } }
@@ -4635,53 +4640,53 @@ faction_independence = {
 			factor = 2.0
 			liege = { distance = { who = ROOT distance = 400 } }
 		}
-		
+
 		modifier = {
 			factor = 3.0
 			religion = colonial_separatist
 		}
-		
+
 		modifier = {
 			factor = 4.0
 			religion = colonial_separatist
 			liege = { NOT = { culture_group = ROOT } }
 		}
-		
+
 		modifier = {
 			factor = 4.0
 			religion = colonial_separatist
 			trait = ambitious
 		}
-		
+
 		modifier = {
 			factor = 4.0
 			religion = colonial_separatist
 			trait = radical
 		}
-		
+
 		modifier = {
 			factor = 5.0
 			religion = colonial_separatist
-			NOT = { opinion = { who = LIEGE value = -25 } } 
+			NOT = { opinion = { who = LIEGE value = -25 } }
 		}
-		
+
 		modifier = {
 			factor = 6.0
 			religion = colonial_separatist
-			NOT = { opinion = { who = LIEGE value = -50 } } 
+			NOT = { opinion = { who = LIEGE value = -50 } }
 		}
-		
+
 		modifier = {
 			factor = 0.9
 			NOT = {
-				OR = { 
+				OR = {
 					religion = colonial_separatist
 					religion = space_pirate
 					religion = xenoterran
 				}
 			}
 		}
-		
+
 		modifier = {
 			factor = 0.5
 			OR = {
@@ -4692,7 +4697,7 @@ faction_independence = {
 			}
 			liege = { capital_scope = { province_id = 202 } }
 		}
-		
+
 		modifier = {
 			factor = 0.8
 			religion = terran_imperial
@@ -4701,7 +4706,7 @@ faction_independence = {
 			factor = 0.05
 			religion = imperial_cult
 		}
-		
+
 		modifier = {
 			factor = 0.05
 			NOT = { religion = colonial_separatist }
@@ -4709,73 +4714,73 @@ faction_independence = {
 			opinion = { who = LIEGE value = 0 }
 			NOT = { trait = ambitious }
 		}
-		
+
 		modifier = {
 			factor = 0.05
 			NOT = { religion = colonial_separatist }
 			opinion = { who = LIEGE value = 40 }
 		}
-		
+
 		modifier = {
 			factor = 0.05
 			opinion = { who = LIEGE value = 60 }
 		}
-		
+
 		modifier = {
 			factor = 0.9
 			religion = terran_republican
 		}
-		
+
 		modifier = {
 			factor = 0.8
 			religion = astrist
 		}
-		
+
 		modifier = {
 			factor = 0.8
 			religion = neo_socialist
 		}
-		
+
 		modifier = {
 			factor = 1.5
 			liege = { religion = astrist }
 			NOT = { religion = astrist }
 		}
-		
+
 		modifier = {
 			factor = 1.5
 			liege = { religion = neo_socialist }
 			NOT = { religion = neo_socialist }
 		}
-		
+
 		modifier = {
 			factor = 1.5
 			liege = { religion = terran_republican }
 			NOT = { religion = terran_republican }
 		}
-		
+
 		modifier = {
 			factor = 1.5
 			liege = { religion = terran_imperial }
 			NOT = { religion = terran_imperial }
 		}
-		
+
 		modifier = {
 			factor = 5
 			liege = { religion = hiver }
 			NOT = { religion = hiver }
 		}
-		
+
 		modifier = {
 			factor = 2.0
 			liege = { NOT = { religion_group = ROOT } }
 		}
-		
+
 		modifier = {
 			factor = 2
 			liege = { NOT = { culture_group = ROOT } }
 		}
-		
+
 		modifier = {
 			factor = 0.8
 			opinion = { who = liege value = 100 }
@@ -4856,7 +4861,7 @@ faction_independence = {
 			factor = 1.25
 			NOT = { opinion = { who = liege value = -99 } }
 		}
-		
+
 		modifier = {
 			factor = 0.025
 			trait = content
@@ -4901,7 +4906,7 @@ faction_independence = {
 			factor = 4.0
 			trait = ambitious
 		}
-		
+
 		# Geographical Considerations (i.e., pretty borders rules)
 		modifier = {
 			factor = 0.01
@@ -4946,17 +4951,17 @@ faction_independence = {
 			trait = craven
 		}
 	}
-	
+
 	# AI membership weight: ROOT is the prospective member. FROM is the faction leader. FROMFROM is the target title or character.
 	membership = {
 		factor = 4
-		
+
 		modifier = {
 			factor = 0
 			religion = hiver
 			liege = { religion = hiver }
 		}
-		
+
 		# Must have a positive reason to want independence
 		modifier = {
 			factor = 0
@@ -4975,7 +4980,7 @@ faction_independence = {
 			}
 			NOT = { has_opinion_modifier = { who = FROM modifier = opinion_coerced_into_joining_faction } }
 		}
-		
+
 		# Should probably be backing a claimant instead
 		modifier = {
 			factor = 0.25
@@ -5007,12 +5012,12 @@ faction_independence = {
 			factor = 0.25
 			spouse = { any_claim = { holder_scope = { any_vassal = { character = ROOT } } } }
 		}
-		
+
 		modifier = {
 			factor = 0.2
 			pacifist = yes
-		}			
-		
+		}
+
 		modifier = {
 			factor = 0
 			OR = {
@@ -5023,7 +5028,7 @@ faction_independence = {
 				preparing_invasion = yes
 			}
 		}
-		
+
 		modifier = {
 			factor = 0.1
 			lower_tier_than = KING
@@ -5033,17 +5038,17 @@ faction_independence = {
 				NOT = { distance = { who = ROOT distance = 200 } }
 			}
 		}
-		
+
 		modifier = {
 			factor = 0
 			liege = { current_heir = { character = ROOT } }
 		}
-		
+
 		modifier = {
 			factor = 0
 			has_character_modifier = faction_independence_ultimatum_timer
 		}
-		
+
 		modifier = {
 			factor = 0
 			OR = {
@@ -5056,23 +5061,23 @@ faction_independence = {
 					opinion = { who = LIEGE value = 80 }
 				}
 			}
-			
-			NOT = {	
+
+			NOT = {
 				has_opinion_modifier = {
 					who = FROM
 					modifier = opinion_coerced_into_joining_faction
 				}
 			}
 		}
-		
+
 		modifier = {
 			factor = 0.1
-			liege = { 
+			liege = {
 				culture_group = ROOT
 				religion_group = ROOT
 			}
 		}
-		
+
 		modifier = {
 			factor = 0
 			has_opinion_modifier = {
@@ -5080,25 +5085,25 @@ faction_independence = {
 				modifier = opinion_coerced_into_leaving_faction
 			}
 		}
-		
+
 		modifier = {
 			factor = 0
-			
+
 			# Won't join this type of faction if our capital borders the liege's capital
 			liege = { capital_scope = { any_neighbor_province = { ROOT = { capital_scope = { province = PREVPREV } } } } }
 		}
-		
+
 		modifier = {
 			factor = 1000
 			has_opinion_modifier = { who = FROM modifier = opinion_coerced_into_joining_faction }
 		}
-		
+
 		modifier = {
 			factor = 0.1
 			NOT = { religion_group = colonial_separatist }
 			liege = { NOT = { distance = { who = ROOT distance = 200 } } }
 		}
-		
+
 		modifier = {
 			factor = 0.25
 			liege = {
@@ -5106,7 +5111,7 @@ faction_independence = {
 				culture_group = ROOT
 			}
 		}
-		
+
 		modifier = {
 			factor = 1.5
 			liege = { distance = { who = ROOT distance = 300 } }
@@ -5115,12 +5120,12 @@ faction_independence = {
 			factor = 2.0
 			liege = { distance = { who = ROOT distance = 400 } }
 		}
-		
+
 		modifier = {
 			factor = 3.0
 			religion = colonial_separatist
 		}
-		
+
 		modifier = {
 			factor = 4.0
 			religion = colonial_separatist
@@ -5128,42 +5133,42 @@ faction_independence = {
 				NOT = { culture_group = ROOT }
 			}
 		}
-		
+
 		modifier = {
 			factor = 4.0
 			religion = colonial_separatist
 			trait = ambitious
 		}
-		
+
 		modifier = {
 			factor = 4.0
 			religion = colonial_separatist
 			trait = radical
 		}
-		
+
 		modifier = {
 			factor = 5.0
 			religion = colonial_separatist
-			NOT = { opinion = { who = LIEGE value = -25 } } 
+			NOT = { opinion = { who = LIEGE value = -25 } }
 		}
-		
+
 		modifier = {
 			factor = 6.0
 			religion = colonial_separatist
-			NOT = { opinion = { who = LIEGE value = -50 } } 
+			NOT = { opinion = { who = LIEGE value = -50 } }
 		}
-		
+
 		modifier = {
 			factor = 0.9
 			NOT = {
-				OR = { 
+				OR = {
 					religion = colonial_separatist
 					religion = space_pirate
 					religion = xenoterran
 				}
 			}
 		}
-		
+
 		modifier = {
 			factor = 0.1
 			OR = {
@@ -5182,17 +5187,17 @@ faction_independence = {
 				}
 			}
 		}
-		
+
 		modifier = {
 			factor = 0.8
 			religion = terran_imperial
 		}
-		
+
 		modifier = {
 			factor = 0.05
 			religion = imperial_cult
 		}
-		
+
 		modifier = {
 			factor = 0.05
 			NOT = { religion = colonial_separatist }
@@ -5200,74 +5205,74 @@ faction_independence = {
 			opinion = { who = LIEGE value = 0 }
 			NOT = { trait = ambitious }
 		}
-		
+
 		modifier = {
 			factor = 0.05
 			NOT = { religion = colonial_separatist }
 			opinion = { who = LIEGE value = 40 }
 		}
-		
+
 		modifier = {
 			factor = 0.05
 			opinion = { who = LIEGE value = 60 }
 		}
-		
+
 		modifier = {
 			factor = 0.9
 			religion = terran_republican
 		}
-		
+
 		modifier = {
 			factor = 0.8
 			religion = astrist
 		}
-		
+
 		modifier = {
 			factor = 0.8
 			religion = neo_socialist
 		}
-		
+
 		modifier = {
 			factor = 1.5
 			liege = { religion = astrist }
 			NOT = { religion = astrist }
 		}
-		
+
 		modifier = {
 			factor = 1.5
 			liege = { religion = neo_socialist }
 			NOT = { religion = neo_socialist }
 		}
-		
+
 		modifier = {
 			factor = 1.5
 			liege = { religion = terran_republican }
 			NOT = { religion = terran_republican }
 		}
-		
+
 		modifier = {
 			factor = 1.5
 			liege = { religion = terran_imperial }
 			NOT = { religion = terran_imperial }
 		}
-		
+
 		modifier = {
 			factor = 5
 			liege = { religion = hiver }
 			NOT = { religion = hiver }
 		}
-		
+
 		modifier = {
 			factor = 2.0
 			liege = { NOT = { religion_group = ROOT } }
 		}
-		
+
 		modifier = {
 			factor = 1.5
 			liege = { NOT = { culture_group = ROOT } }
 		}
-		
-		
+
+
 		modifier = {
 			factor = 0.8
 			opinion = { who = liege value = 100 }
@@ -5348,7 +5353,7 @@ faction_independence = {
 			factor = 1.25
 			NOT = { opinion = { who = liege value = -99 } }
 		}
-		
+
 		modifier = {
 			factor = 0.025
 			trait = content
@@ -5450,18 +5455,18 @@ faction_independence = {
 			trait = craven
 		}
 	}
-	
+
 	success = {
 		independent = yes
 	}
-	
+
 	abort = {
 		always = no
 	}
-	
+
 	abort_effect = {
 	}
-	
+
 	effect = {
 		FROM = {
 			any_faction_backer = {
@@ -5475,9 +5480,9 @@ faction_independence = {
 # No Confidence
 faction_no_confidence = {
 	type = liege_titles
-	
+
 	warning_level = 0.7 # At this level of faction power we give player an alert. Set to 0 for no alerts.
-	
+
 	# Plotter scope
 	potential = {
 		prisoner = no
@@ -5489,7 +5494,7 @@ faction_no_confidence = {
 		liege = { NOT = { any_demesne_title = { temporary = yes } } }
 		primary_title = { higher_tier_than = BARON }
 	}
-	
+
 	# Target scope
 	allow = {
 		higher_tier_than = duke
@@ -5509,12 +5514,12 @@ faction_no_confidence = {
 				government = administrative_republic
 			}
 		}
-		has_law = legislative_authority_1
+		has_law = legislative_type_aristocratic
 		OR = {
 			FROM = { crownlaw_title = { title = PREVPREV } }
 			is_primary_holder_title = yes
 		}
-		
+
 		holder_scope = {
 			has_regent = no
 			NOT = {
@@ -5523,7 +5528,7 @@ faction_no_confidence = {
 					using_cb = civil_war
 				}
 			}
-			
+
 			NOT = {
 				reverse_has_opinion_modifier = {
 					who = FROM
@@ -5532,11 +5537,11 @@ faction_no_confidence = {
 			}
 		}
 	}
-	
+
 	creation_effect = {
 		liege = { character_event = { id = maintenance.900 } }
 	}
-	
+
 	# Faction member scope (ROOT = joiner, FROM = target)
 	allow_join = {
 		ROOT = {
@@ -5548,16 +5553,16 @@ faction_no_confidence = {
 			prisoner = no
 			NOT = { has_opinion_modifier = { who = liege modifier = opinion_vetoed_my_proposal } }
 		}
-	}		
-	
+	}
+
 	# AI creation weight
 	chance = {
-		factor = 1		
+		factor = 1
 		modifier = {
 			factor = 0
 			FROM = { prisoner = yes }
 		}
-		
+
 		# Situational Issues
 		modifier = {
 			factor = 0
@@ -5621,7 +5626,7 @@ faction_no_confidence = {
 				}
 			}
 		}
-		
+
 		# Cooldown period
 		modifier = {
 			factor = 0
@@ -5638,7 +5643,7 @@ faction_no_confidence = {
 			has_title_flag = flag_election_cycle
 			NOT = { had_title_flag = { flag = flag_election_cycle days = 1095 } }
 		}
-		
+
 		# Personality Effects
 		modifier = {
 			factor = 0.5
@@ -5656,7 +5661,7 @@ faction_no_confidence = {
 			factor = 2
 			FROM = { trait = ambitious }
 		}
-		
+
 		# Opinion of the current occupant
 		modifier = {
 			factor = 0.8
@@ -5738,7 +5743,7 @@ faction_no_confidence = {
 			factor = 1.25
 			holder_scope = { NOT = { reverse_opinion = { who = FROM value = -99 } } }
 		}
-		
+
 		# Opinion of the likely challenger
 		modifier = {
 			factor = 1.25
@@ -5820,7 +5825,7 @@ faction_no_confidence = {
 			factor = 0.8
 			current_heir = { NOT = { reverse_opinion = { who = FROM value = -99 } } }
 		}
-		
+
 		# IS the likely challenger
 		modifier = {
 			factor = 4
@@ -5832,7 +5837,7 @@ faction_no_confidence = {
 			current_heir = { character = FROM }
 			FROM = { trait = ambitious }
 		}
-		
+
 		# Ideological Concerns
 		modifier = {
 			factor = 0.05
@@ -5840,7 +5845,7 @@ faction_no_confidence = {
 			NOT = { trait = pragmatic }
 		}
 	}
-	
+
 	# AI membership weight: ROOT is the prospective member. FROM is the faction leader. FROMFROM is the target title or character.
 	membership = {
 		factor = 1
@@ -5855,7 +5860,7 @@ faction_no_confidence = {
 				preparing_invasion = yes
 			}
 		}
-		
+
 		modifier = {
 			factor = 0
 			has_opinion_modifier = {
@@ -5863,7 +5868,7 @@ faction_no_confidence = {
 				modifier = opinion_coerced_into_leaving_faction
 			}
 		}
-		
+
 		modifier = {
 			factor = 1000
 			has_opinion_modifier = {
@@ -5871,7 +5876,7 @@ faction_no_confidence = {
 				modifier = opinion_coerced_into_joining_faction
 			}
 		}
-		
+
 		modifier = {
 			factor = 50
 			reverse_has_opinion_modifier = { who = FROM modifier = opinion_favor_ongoing_no_confidence }
@@ -5886,7 +5891,7 @@ faction_no_confidence = {
 			reverse_has_opinion_modifier = { who = FROM modifier = opinion_favor_ongoing_no_confidence }
 			NOT = { trait = disciplined }
 		}
-		
+
 		# Cooldown period
 		modifier = {
 			factor = 0
@@ -5909,7 +5914,7 @@ faction_no_confidence = {
 				NOT = { had_title_flag = { flag = flag_election_cycle days = 1095 } }
 			}
 		}
-		
+
 		# Personality Effects
 		modifier = {
 			factor = 0.5
@@ -5927,7 +5932,7 @@ faction_no_confidence = {
 			factor = 2
 			trait = ambitious
 		}
-		
+
 		# Opinion of the current occupant
 		modifier = {
 			factor = 0.8
@@ -6009,7 +6014,7 @@ faction_no_confidence = {
 			factor = 1.25
 			FROMFROM = { NOT = { holder_scope = { reverse_opinion = { who = ROOT value = -99 } } } }
 		}
-		
+
 		# Opinion of the likely challenger
 		modifier = {
 			factor = 1.25
@@ -6091,7 +6096,7 @@ faction_no_confidence = {
 			factor = 0.8
 			FROMFROM = { NOT = { current_heir = { reverse_opinion = { who = ROOT value = -99 } } } }
 		}
-		
+
 		# IS the likely challenger
 		modifier = {
 			factor = 4
@@ -6103,7 +6108,7 @@ faction_no_confidence = {
 			FROMFROM = { current_heir = { character = ROOT } }
 			trait = ambitious
 		}
-		
+
 		# Ideological Concerns
 		modifier = {
 			factor = 0.05
@@ -6111,15 +6116,15 @@ faction_no_confidence = {
 			NOT = { trait = pragmatic }
 		}
 	}
-	
+
 	success = {
 		has_title_flag = flag_holding_elections
 	}
-	
+
 	abort = {
 		always = no
 	}
-	
+
 	abort_effect = {
 		FROM = {
 			any_faction_backer = {
@@ -6127,7 +6132,7 @@ faction_no_confidence = {
 			}
 		}
 	}
-	
+
 	effect = {
 		FROM = {
 			any_faction_backer = {
@@ -6144,7 +6149,7 @@ faction_no_confidence = {
 # faction_monarchist = {
 	# type = character
 	# warning_level = 1.0
-	
+
 	# # Plotter scope
 	# potential = {
 		# prisoner = no
@@ -6164,11 +6169,11 @@ faction_no_confidence = {
 			# NOT = { government = military_command }
 		# }
 	# }
-	
+
 	# creation_effect = {
 		# liege = { character_event = { id = maintenance.900 } }
 	# }
-	
+
 	# # Faction member scope (ROOT = joiner, FROM = target)
 	# allow_join = {
 		# ROOT = {
@@ -6190,11 +6195,11 @@ faction_no_confidence = {
 			# }
 		# }
 	# }
-	
+
 	# # AI creation weight
 	# chance = {
 		# factor = 5
-		
+
 		# # Must have a positive reason to want a monarchy
 		# modifier = {
 			# factor = 0
@@ -6218,7 +6223,7 @@ faction_no_confidence = {
 				# }
 			# }
 		# }
-		
+
 		# # Appropriateness for power base
 		# modifier = {
 			# factor = 0.1
@@ -6227,19 +6232,19 @@ faction_no_confidence = {
 				# is_hereditary_trigger = no
 			# }
 		# }
-		
+
 		# # Conservatism
 		# modifier = {
 			# factor = 4
 			# liege = { is_hereditary_trigger = yes }
 		# }
-		
+
 		# # Legality
 		# modifier = {
 			# factor = 0
 			# liege = { monarchy_is_legal_trigger = no }
 		# }
-		
+
 		# # Ideological concerns
 		# modifier = {
 			# factor = 2
@@ -6415,7 +6420,7 @@ faction_no_confidence = {
 			# }
 			# religion_authority = 1.0
 		# }
-		
+
 		# # Personality
 		# modifier = {
 			# factor = 0.25
@@ -6437,7 +6442,7 @@ faction_no_confidence = {
 			# trait = close_minded
 			# liege = { is_hereditary_trigger = yes }
 		# }
-		
+
 		# # Opinion of current heir under primogeniture
 		# modifier = {
 			# factor = 1.25
@@ -6520,11 +6525,11 @@ faction_no_confidence = {
 			# liege = { primary_title = { heir_under_primogeniture_law = { NOT = { reverse_opinion = { who = ROOT value = -99 } } } } }
 		# }
 	# }
-	
+
 	# # AI membership weight: ROOT is the prospective member. FROM is the faction leader. FROMFROM is the target title or character.
 	# membership = {
 		# factor = 5
-		
+
 		# # Must have a positive reason to want a monarchy
 		# modifier = {
 			# factor = 0
@@ -6548,7 +6553,7 @@ faction_no_confidence = {
 				# }
 			# }
 		# }
-		
+
 		# # Appropriateness for power base
 		# modifier = {
 			# factor = 0.1
@@ -6557,19 +6562,19 @@ faction_no_confidence = {
 				# is_hereditary_trigger = no
 			# }
 		# }
-		
+
 		# # Conservatism
 		# modifier = {
 			# factor = 4
 			# liege = { is_hereditary_trigger = yes }
 		# }
-		
+
 		# # Legality
 		# modifier = {
 			# factor = 0
 			# liege = { monarchy_is_legal_trigger = no }
 		# }
-		
+
 		# # Ideological concerns
 		# modifier = {
 			# factor = 2
@@ -6745,7 +6750,7 @@ faction_no_confidence = {
 			# }
 			# religion_authority = 1.0
 		# }
-		
+
 		# # Personality
 		# modifier = {
 			# factor = 0.25
@@ -6767,7 +6772,7 @@ faction_no_confidence = {
 			# trait = close_minded
 			# liege = { is_hereditary_trigger = yes }
 		# }
-		
+
 		# # Opinion of current heir under primogeniture
 		# modifier = {
 			# factor = 1.25
@@ -6850,18 +6855,18 @@ faction_no_confidence = {
 			# liege = { primary_title = { heir_under_primogeniture_law = { NOT = { reverse_opinion = { who = ROOT value = -99 } } } } }
 		# }
 	# }
-	
+
 	# success = {
 		# always = no
 	# }
-	
+
 	# abort = {
 		# always = no
 	# }
-	
+
 	# abort_effect = {
 	# }
-	
+
 	# effect = {
 	# }
 # }
@@ -6869,7 +6874,7 @@ faction_no_confidence = {
 # faction_republican = {
 	# type = character
 	# warning_level = 1.0
-	
+
 	# # Plotter scope
 	# potential = {
 		# prisoner = no
@@ -6889,11 +6894,11 @@ faction_no_confidence = {
 			# NOT = { government = military_command }
 		# }
 	# }
-	
+
 	# creation_effect = {
 		# liege = { character_event = { id = maintenance.900 } }
 	# }
-	
+
 	# # Faction member scope (ROOT = joiner, FROM = target)
 	# allow_join = {
 		# ROOT = {
@@ -6915,9 +6920,9 @@ faction_no_confidence = {
 			# }
 		# }
 	# }
-	
+
 	# # AI creation weight
-	# chance = {		
+	# chance = {
 		# # Must have a positive reason to want a republic
 		# modifier = {
 			# factor = 0
@@ -6935,28 +6940,28 @@ faction_no_confidence = {
 				# }
 			# }
 		# }
-		
+
 		# # Appropriateness for power base
 		# modifier = {
 			# factor = 0.1
 			# liege = {
-				# is_corporate_trigger = no
+				# is_civil_trigger = no
 				# is_elective_trigger = no
 			# }
 		# }
-		
+
 		# # Conservatism
 		# modifier = {
 			# factor = 4
 			# liege = { is_elective_trigger = yes }
 		# }
-		
+
 		# # Legality
 		# modifier = {
 			# factor = 0
 			# liege = { republic_is_legal_trigger = no }
 		# }
-		
+
 		# # Ideological concerns
 		# modifier = {
 			# factor = 2
@@ -7228,7 +7233,7 @@ faction_no_confidence = {
 			# }
 			# religion_authority = 1.0
 		# }
-		
+
 		# # Personality
 		# modifier = {
 			# factor = 4
@@ -7246,11 +7251,11 @@ faction_no_confidence = {
 			# liege = { is_elective_trigger = yes }
 		# }
 	# }
-	
+
 	# # AI membership weight: ROOT is the prospective member. FROM is the faction leader. FROMFROM is the target title or character.
 	# membership = {
 		# factor = 5
-		
+
 		# # Must have a positive reason to want a republic
 		# modifier = {
 			# factor = 0
@@ -7268,28 +7273,28 @@ faction_no_confidence = {
 				# }
 			# }
 		# }
-		
+
 		# # Appropriateness for power base
 		# modifier = {
 			# factor = 0.1
 			# liege = {
-				# is_corporate_trigger = no
+				# is_civil_trigger = no
 				# is_elective_trigger = no
 			# }
 		# }
-		
+
 		# # Conservatism
 		# modifier = {
 			# factor = 4
 			# liege = { is_elective_trigger = yes }
 		# }
-		
+
 		# # Legality
 		# modifier = {
 			# factor = 0
 			# liege = { republic_is_legal_trigger = no }
 		# }
-		
+
 		# # Ideological concerns
 		# modifier = {
 			# factor = 2
@@ -7561,7 +7566,7 @@ faction_no_confidence = {
 			# }
 			# religion_authority = 1.0
 		# }
-		
+
 		# # Personality
 		# modifier = {
 			# factor = 4
@@ -7579,18 +7584,18 @@ faction_no_confidence = {
 			# liege = { is_elective_trigger = yes }
 		# }
 	# }
-	
+
 	# success = {
 		# always = no
 	# }
-	
+
 	# abort = {
 		# always = no
 	# }
-	
+
 	# abort_effect = {
 	# }
-	
+
 	# effect = {
 	# }
 # }
@@ -7599,7 +7604,7 @@ faction_no_confidence = {
 # faction_technocratic = {
 	# type = character
 	# warning_level = 1.0
-	
+
 	# # Plotter scope
 	# potential = {
 		# prisoner = no
@@ -7619,11 +7624,11 @@ faction_no_confidence = {
 			# NOT = { government = military_command }
 		# }
 	# }
-	
+
 	# creation_effect = {
 		# liege = { character_event = { id = maintenance.900 } }
 	# }
-	
+
 	# # Faction member scope (ROOT = joiner, FROM = target)
 	# allow_join = {
 		# ROOT = {
@@ -7645,11 +7650,11 @@ faction_no_confidence = {
 			# }
 		# }
 	# }
-	
+
 	# # AI creation weight
 	# chance = {
 		# factor = 5
-		
+
 		# # Must have a positive reason to want a technocracy
 		# modifier = {
 			# factor = 0
@@ -7667,28 +7672,28 @@ faction_no_confidence = {
 				# }
 			# }
 		# }
-		
+
 		# # Appropriateness for power base
 		# modifier = {
 			# factor = 0.1
 			# liege = {
-				# is_administrative_trigger = no
+				# is_rectorial_trigger = no
 				# is_appointed_trigger = no
 			# }
 		# }
-		
+
 		# # Conservatism
 		# modifier = {
 			# factor = 4
 			# liege = { is_appointed_trigger = yes }
 		# }
-		
+
 		# # Legality
 		# modifier = {
 			# factor = 0
 			# liege = { directorate_is_legal_trigger = no }
 		# }
-		
+
 		# # Ideological concerns
 		# modifier = {
 			# factor = 2
@@ -7960,7 +7965,7 @@ faction_no_confidence = {
 			# }
 			# religion_authority = 1.0
 		# }
-		
+
 		# # Personality
 		# modifier = {
 			# factor = 4
@@ -7997,11 +8002,11 @@ faction_no_confidence = {
 			# liege = { is_appointed_trigger = yes }
 		# }
 	# }
-	
+
 	# # AI membership weight: ROOT is the prospective member. FROM is the faction leader. FROMFROM is the target title or character.
 	# membership = {
 		# factor = 5
-		
+
 		# # Must have a positive reason to want a technocracy
 		# modifier = {
 			# factor = 0
@@ -8019,28 +8024,28 @@ faction_no_confidence = {
 				# }
 			# }
 		# }
-		
+
 		# # Appropriateness for power base
 		# modifier = {
 			# factor = 0.1
 			# liege = {
-				# is_administrative_trigger = no
+				# is_rectorial_trigger = no
 				# is_appointed_trigger = no
 			# }
 		# }
-		
+
 		# # Conservatism
 		# modifier = {
 			# factor = 4
 			# liege = { is_appointed_trigger = yes }
 		# }
-		
+
 		# # Legality
 		# modifier = {
 			# factor = 0
 			# liege = { directorate_is_legal_trigger = no }
 		# }
-		
+
 		# # Ideological concerns
 		# modifier = {
 			# factor = 2
@@ -8312,7 +8317,7 @@ faction_no_confidence = {
 			# }
 			# religion_authority = 1.0
 		# }
-		
+
 		# # Personality
 		# modifier = {
 			# factor = 4
@@ -8349,18 +8354,18 @@ faction_no_confidence = {
 			# liege = { is_appointed_trigger = yes }
 		# }
 	# }
-	
+
 	# success = {
 		# always = no
 	# }
-	
+
 	# abort = {
 		# always = no
 	# }
-	
+
 	# abort_effect = {
 	# }
-	
+
 	# effect = {
 	# }
 # }

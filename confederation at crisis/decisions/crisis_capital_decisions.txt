@@ -1,0 +1,53 @@
+decisions = {
+	make_earth_capital = {
+		is_high_prio = yes
+		ai_check_interval = 10
+ 		potential = {
+			independent = yes
+			has_landed_title = e_terran_confederation
+			any_realm_lord = {
+				ai = yes
+				OR = {
+					has_landed_title = c_sol
+					has_landed_title = b_earth
+				}
+			}
+			NOR = {
+				government = military_command
+				government = military_base_government
+				government = pc_theocracy
+				government = npc_theocracy
+				government = neofeudal_government
+				government = merchant_republic_government
+				government = pirate_republic_government
+			}
+		}
+		allow = {
+			has_landed_title = e_terran_confederation
+			b_earth = { is_allowed_holding_type = ROOT }
+			any_realm_lord = { has_landed_title = b_earth }
+		}
+		effect = {
+			custom_tooltip = {
+				text = earth_capital
+				hidden_tooltip = {
+					ROOT = {
+					    c_sol = {
+						usurp_title_plus_barony_if_unlanded_and_vassals = PREV
+						}
+						b_earth = {
+							usurp_title = PREV
+						}
+					}
+					b_earth = {
+						ROOT = { capital = PREV }
+					}
+					b_earth = { province_capital = yes }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+}

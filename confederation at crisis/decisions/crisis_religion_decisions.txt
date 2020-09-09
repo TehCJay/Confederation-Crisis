@@ -1,0 +1,147 @@
+
+decisions = {
+    i_am_the_emperor_of_terra = {
+        is_high_prio = yes
+        ai_check_interval = 12
+
+        potential = {
+            religion = terran_imperial
+            OR = {
+                AND = {
+                    e_terran_confederation = { holder = ROOT }
+                    d_terran_imperial_head = { NOT = { holder = ROOT} }
+                }
+                AND = {
+                    has_claim = e_terran_confederation
+                    NOT = { e_terran_confederation = { holder = ROOT } }
+                    e_terran_confederation = {
+                        holder_scope = {
+                            NOT = { religion = terran_imperial }
+                            d_terran_imperial_head = { holder = PREV }
+                        }
+                    }
+                }
+            }
+
+        }
+
+        allow = {
+            OR = {
+                is_monarchy = yes
+                independent = no
+            }
+        }
+
+        effect = {
+            activate_title = {
+                title = d_terran_imperial_head
+                status = yes
+            }
+            d_terran_imperial_head = {
+                usurp_title = ROOT
+            }
+        }
+    }
+
+    i_am_the_augustus_of_terra = {
+        is_high_prio = yes
+        ai_check_interval = 12
+
+        potential = {
+            religion = terran_imperial_cult
+            OR = {
+                AND = {
+                    e_terran_confederation = { holder = ROOT }
+                    d_terran_augustus_emperor = { NOT = { holder = ROOT } }
+                }
+                AND = {
+                    has_claim = e_terran_confederation
+                    NOT = { e_terran_confederation = { holder = ROOT } }
+                    e_terran_confederation = {
+                        holder_scope = {
+                            NOT = { religion = terran_imperial_cult }
+                            d_terran_augustus_emperor = { holder = PREV }
+                        }
+                    }
+                }
+            }
+        }
+
+        allow = {
+            OR = {
+                is_monarchy = yes
+                independent = no
+            }
+        }
+
+        effect = {
+            activate_title = {
+                title = d_terran_augustus_emperor
+                status = yes
+            }
+            d_terran_augustus_emperor = {
+                usurp_title = ROOT
+            }
+        }
+    }
+
+    i_am_the_empire = {
+        is_high_prio = yes
+        ai_check_interval = 12
+
+        potential = {
+            e_terran_confederation = { holder = ROOT }
+            d_terran_imperial_head = { holder = ROOT }
+            d_terran_augustus_emperor = { NOT = { holder = ROOT } }
+            religion = terran_imperial
+            ruled_years = 1
+        }
+
+        allow = {
+            is_monarchy = yes
+            ruled_years = 10
+            piety = 10000
+        }
+
+        effect = {
+            e_terran_confederation = {
+                any_claimant = {
+                    limit = { NOT = { is_close_relative = ROOT } religion = terran_imperial }
+                    score_value = {
+                        value = 1
+
+                        highest_prestige_piety_and_wealth = yes
+                    }
+                    count = 1
+                    d_terran_imperial_head = {
+                        usurp_title = PREV
+                    }
+                }
+            }
+
+            if = {
+                limit = { d_terran_imperial_head = { holder = ROOT } }
+                d_terran_imperial_head = { unsafe_destroy_landed_title = THIS }
+            }
+
+            religion_authority = { modifier = another_imperial_nutty_self_declared_augustus }
+
+            unsafe_religion = terran_imperial_cult
+
+            religion_authority = { modifier = another_nutty_self_declared_augustus }
+
+            activate_title = {
+                title = d_terran_augustus_emperor
+                status = yes
+            }
+            d_terran_augustus_emperor = {
+                usurp_title = ROOT
+            }
+            piety = -5000
+        }
+
+        ai_will_do = {
+            factor = 0
+        }
+    }
+}

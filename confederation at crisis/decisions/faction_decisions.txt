@@ -1,14 +1,14 @@
 plot_decisions = {
 	faction_anti_public_order_bill = {
 		is_high_prio = yes
-		
-		ai_check_interval = 10 
+
+		ai_check_interval = 10
  potential = {
 			leads_faction = faction_anti_public_order
 			NOT = { has_character_flag = flag_making_faction_ultimatum }
-			faction_anti_public_order = { has_law = legislative_authority_1 }
+			faction_anti_public_order = { has_law = law_voting_power_1 }
 		}
-		
+
 		allow = {
 			prisoner = no
 			faction_anti_public_order = { NOT = { has_law = public_order_0 } }
@@ -66,7 +66,7 @@ plot_decisions = {
 				}
 			}
 		}
-		
+
 		effect = {
 			liege = {
 				any_demesne_title = {
@@ -81,21 +81,21 @@ plot_decisions = {
 				}
 			}
 		}
-		
+
 		ai_will_do = {
 			factor = 100
 		}
 	}
 	faction_anti_public_order_demand = {
 		is_high_prio = yes
-		
-		ai_check_interval = 10 
+
+		ai_check_interval = 10
  potential = {
 			leads_faction = faction_anti_public_order
 			NOT = { has_character_flag = flag_making_faction_ultimatum }
-			NOT = { faction_anti_public_order = { has_law = legislative_authority_1 } }
+			NOT = { faction_anti_public_order = { has_law = law_voting_power_1 } }
 		}
-		
+
 		allow = {
 			prisoner = no
 			faction_anti_public_order = { NOT = { has_law = public_order_0 } }
@@ -146,7 +146,7 @@ plot_decisions = {
 				}
 			}
 		}
-		
+
 		effect = {
 			liege = {
 				any_demesne_title = {
@@ -161,21 +161,21 @@ plot_decisions = {
 				}
 			}
 		}
-		
+
 		ai_will_do = {
 			factor = 100
 		}
 	}
 	faction_anti_centralization_bill = {
 		is_high_prio = yes
-		
-		ai_check_interval = 10 
+
+		ai_check_interval = 10
  potential = {
 			leads_faction = faction_anti_centralization
 			NOT = { has_character_flag = flag_making_faction_ultimatum }
-			faction_anti_centralization = { has_law = legislative_authority_1 }
+			faction_anti_centralization = { has_law = law_voting_power_1 }
 		}
-		
+
 		allow = {
 			prisoner = no
 			faction_anti_centralization = { NOT = { has_law = centralization_0 } }
@@ -194,13 +194,13 @@ plot_decisions = {
 			# Must have a majority in the Senate
 			liege = { check_variable = { which = "var_anti_centralization" value = 1 } }
 		}
-		
+
 		effect = {
 			set_character_flag = flag_making_faction_ultimatum
 			set_character_flag = flag_sent_anti_centralization_ultimatum
 			character_event = { id = laws.10000 tooltip = "EVTTOOLTIPLAWS10000" }
 		}
-		
+
 		ai_will_do = {
 			factor = 1
 			modifier = {
@@ -214,14 +214,14 @@ plot_decisions = {
 	}
 	faction_anti_centralization_demand = {
 		is_high_prio = yes
-		
-		ai_check_interval = 10 
+
+		ai_check_interval = 10
  potential = {
 			leads_faction = faction_anti_centralization
 			NOT = { has_character_flag = flag_making_faction_ultimatum }
-			NOT = { faction_anti_centralization = { has_law = legislative_authority_1 } }
+			NOT = { faction_anti_centralization = { has_law = law_voting_power_1 } }
 		}
-		
+
 		allow = {
 			prisoner = no
 			faction_anti_centralization = { NOT = { has_law = centralization_0 } }
@@ -233,13 +233,13 @@ plot_decisions = {
 			}
 			capital_holding = { controller = { character = ROOT } }
 		}
-		
+
 		effect = {
 			set_character_flag = flag_making_faction_ultimatum
 			set_character_flag = flag_sent_anti_centralization_ultimatum
 			character_event = { id = laws.10050 tooltip = "EVTTOOLTIPLAWS10050" }
 		}
-		
+
 		ai_will_do = {
 			factor = 1
 			modifier = {
@@ -337,14 +337,14 @@ plot_decisions = {
 	}
 	faction_pro_centralization_bill = {
 		is_high_prio = yes
-		
-		ai_check_interval = 10 
+
+		ai_check_interval = 10
  potential = {
 			leads_faction = faction_pro_centralization
 			NOT = { has_character_flag = flag_making_faction_ultimatum }
-			crownlaw_title = { has_law = legislative_authority_1 }
+			crownlaw_title = { has_law = law_voting_power_1 }
 		}
-		
+
 		allow = {
 			prisoner = no
 			faction_pro_centralization = { NOT = { has_law = centralization_4 } }
@@ -363,13 +363,13 @@ plot_decisions = {
 			# Must have a majority in the Senate
 			liege = { check_variable = { which = "var_pro_centralization" value = 1 } }
 		}
-		
+
 		effect = {
 			set_character_flag = flag_making_faction_ultimatum
 			set_character_flag = flag_sent_pro_centralization_ultimatum
 			character_event = { id = laws.10100 tooltip = "EVTTOOLTIPLAWS10100" }
 		}
-		
+
 		ai_will_do = {
 			factor = 1
 			modifier = {
@@ -383,14 +383,14 @@ plot_decisions = {
 	}
 	faction_pro_centralization_demand = {
 		is_high_prio = yes
-		
-		ai_check_interval = 10 
+
+		ai_check_interval = 10
  potential = {
 			leads_faction = faction_pro_centralization
 			NOT = { has_character_flag = flag_making_faction_ultimatum }
-			NOT = { crownlaw_title = { has_law = legislative_authority_1 } }
+			NOT = { crownlaw_title = { has_law = law_voting_power_1 } }
 		}
-		
+
 		allow = {
 			prisoner = no
 			faction_pro_centralization = { NOT = { has_law = centralization_4 } }
@@ -407,13 +407,13 @@ plot_decisions = {
 			}
 			capital_holding = { controller = { character = ROOT } }
 		}
-		
+
 		effect = {
 			set_character_flag = flag_making_faction_ultimatum
 			set_character_flag = flag_sent_pro_centralization_ultimatum
 			character_event = { id = laws.10150 tooltip = "EVTTOOLTIPLAWS10150" }
 		}
-		
+
 		ai_will_do = {
 			factor = 1
 			modifier = {
@@ -509,22 +509,22 @@ plot_decisions = {
 			}
 		}
 	}
-	faction_democratic_legislature_demand = {
+	faction_estabilish_legislature_demand = {
 		is_high_prio = yes
-		
-		ai_check_interval = 10 
+
+		ai_check_interval = 10
  potential = {
-			leads_faction = faction_democratic_legislature
+			leads_faction = faction_estabilish_legislature
 			NOT = { has_character_flag = flag_making_faction_ultimatum }
 		}
-		
+
 		allow = {
 			prisoner = no
-			faction_democratic_legislature = { has_law = legislative_authority_0 }
+			faction_estabilish_legislature = { has_law = law_voting_power_0 }
 			liege = {
 				OR = {
 					has_regent = no
-					regent = { in_faction = faction_democratic_legislature }
+					regent = { in_faction = faction_estabilish_legislature }
 				}
 			}
 			liege = {
@@ -535,20 +535,20 @@ plot_decisions = {
 			capital_holding = { controller = { character = ROOT } }
 			NOT = { liege = { check_variable = { which = "var_abolish_legislature" value = 1 } } }
 		}
-		
+
 		effect = {
 			set_character_flag = flag_making_faction_ultimatum
 			set_character_flag = flag_sent_democratic_legislature_ultimatum
 			character_event = { id = laws.10250 tooltip = "EVTTOOLTIPLAWS10250" }
 		}
-		
+
 		ai_will_do = {
 			factor = 1
 			modifier = {
 				factor = 0
 				NOT = {
 					faction_power = {
-						faction = faction_democratic_legislature
+						faction = faction_estabilish_legislature
 						power = 1.0
 					}
 				}
@@ -556,14 +556,14 @@ plot_decisions = {
 					any_realm_character = {
 						has_minor_title = title_regent
 						same_liege = ROOT
-						NOT = { in_faction = faction_democratic_legislature }
+						NOT = { in_faction = faction_estabilish_legislature }
 					}
 				}
 				NOT = {
 					any_realm_character = {
 						has_minor_title = title_prime
 						same_liege = ROOT
-						NOT = { in_faction = faction_democratic_legislature }
+						NOT = { in_faction = faction_estabilish_legislature }
 					}
 				}
 			}
@@ -571,7 +571,7 @@ plot_decisions = {
 				factor = 0
 				NOT = {
 					faction_power = {
-						faction = faction_democratic_legislature
+						faction = faction_estabilish_legislature
 						power = 2.0
 					}
 				}
@@ -580,14 +580,14 @@ plot_decisions = {
 					any_realm_character = {
 						has_minor_title = title_regent
 						same_liege = ROOT
-						NOT = { in_faction = faction_democratic_legislature }
+						NOT = { in_faction = faction_estabilish_legislature }
 					}
 				}
 				NOT = {
 					any_realm_character = {
 						has_minor_title = title_prime
 						same_liege = ROOT
-						NOT = { in_faction = faction_democratic_legislature }
+						NOT = { in_faction = faction_estabilish_legislature }
 					}
 				}
 			}
@@ -595,7 +595,7 @@ plot_decisions = {
 				factor = 0
 				NOT = {
 					faction_power = {
-						faction = faction_democratic_legislature
+						faction = faction_estabilish_legislature
 						power = 3.0
 					}
 				}
@@ -604,14 +604,14 @@ plot_decisions = {
 					any_realm_character = {
 						has_minor_title = title_regent
 						same_liege = ROOT
-						NOT = { in_faction = faction_democratic_legislature }
+						NOT = { in_faction = faction_estabilish_legislature }
 					}
 				}
 				NOT = {
 					any_realm_character = {
 						has_minor_title = title_prime
 						same_liege = ROOT
-						NOT = { in_faction = faction_democratic_legislature }
+						NOT = { in_faction = faction_estabilish_legislature }
 					}
 				}
 			}
@@ -639,14 +639,14 @@ plot_decisions = {
 	}
 	faction_devolve_local_government_bill = {
 		is_high_prio = yes
-		
-		ai_check_interval = 10 
+
+		ai_check_interval = 10
  potential = {
 			leads_faction = faction_devolve_local_government
 			NOT = { has_character_flag = flag_making_faction_ultimatum }
-			faction_devolve_local_government = { has_law = legislative_authority_1 }
+			faction_devolve_local_government = { has_law = law_voting_power_1 }
 		}
-		
+
 		allow = {
 			prisoner = no
 			liege = {
@@ -664,27 +664,27 @@ plot_decisions = {
 			# Must have a majority in the Senate
 			liege = { check_variable = { which = "faction_devolve_local_government" value = 0 } }
 		}
-		
+
 		effect = {
 			set_character_flag = flag_making_faction_ultimatum
 			set_character_flag = flag_sent_devole_local_government_ultimatum
 			character_event = { id = laws.10300 tooltip = "EVTTOOLTIPLAWS10300" }
 		}
-		
+
 		ai_will_do = {
 			factor = 1
 		}
 	}
 	faction_independence_bill = {
 		is_high_prio = yes
-		
-		ai_check_interval = 10 
+
+		ai_check_interval = 10
  potential = {
 			leads_faction = faction_independence
-			crownlaw_title = { has_law = legislative_authority_1 }
+			crownlaw_title = { has_law = law_voting_power_1 }
 			NOT = { has_character_flag = flag_making_faction_ultimatum }
 		}
-		
+
 		allow = {
 			prisoner = no
 			liege = {
@@ -702,13 +702,13 @@ plot_decisions = {
 			# Must have a majority in the Senate
 			liege = { check_variable = { which = "var_independence" value = 1 } }
 		}
-		
+
 		effect = {
 			set_character_flag = flag_making_faction_ultimatum
 			set_character_flag = flag_sent_independence_ultimatum
 			character_event = { id = laws.10400 tooltip = "EVTTOOLTIPLAWS10400" }
 		}
-		
+
 		ai_will_do = {
 			factor = 1
 			# The liege is defending in a war we'd rather they win
@@ -726,14 +726,14 @@ plot_decisions = {
 	}
 	faction_independence_demand = {
 		is_high_prio = yes
-		
-		ai_check_interval = 10 
+
+		ai_check_interval = 10
  potential = {
 			leads_faction = faction_independence
 			NOT = { has_character_flag = flag_making_faction_ultimatum }
-			NOT = { crownlaw_title = { has_law = legislative_authority_1 } }
+			NOT = { crownlaw_title = { has_law = law_voting_power_1 } }
 		}
-		
+
 		allow = {
 			prisoner = no
 			liege = {
@@ -749,13 +749,13 @@ plot_decisions = {
 			}
 			capital_holding = { controller = { character = ROOT } }
 		}
-		
+
 		effect = {
 			set_character_flag = flag_making_faction_ultimatum
 			set_character_flag = flag_sent_independence_ultimatum
 			character_event = { id = laws.10450 days = 3 tooltip = "EVTTOOLTIPLAWS10450" }
 		}
-		
+
 		ai_will_do = {
 			factor = 1
 			modifier = {
@@ -853,8 +853,8 @@ plot_decisions = {
 	}
 	faction_no_confidence_bill = {
 		is_high_prio = yes
-		
-		ai_check_interval = 10 
+
+		ai_check_interval = 10
  potential = {
 			OR = {
 				AND = {
@@ -893,27 +893,27 @@ plot_decisions = {
 				liege = { is_council_content = no }
 			}
 		}
-		
+
 		effect = {
 			set_character_flag = flag_making_faction_ultimatum
 			set_character_flag = flag_sent_no_confidence_ultimatum
 			character_event = { id = laws.10500 tooltip = "EVTTOOLTIPLAWS10500" }
 		}
-		
+
 		ai_will_do = {
 			factor = 1
 		}
 	}
 	faction_abolish_legislature_bill = {
 		is_high_prio = yes
-		
-		ai_check_interval = 10 
+
+		ai_check_interval = 10
  potential = {
 			leads_faction = faction_abolish_legislature
 			NOT = { has_character_flag = flag_making_faction_ultimatum }
-			faction_abolish_legislature = { has_law = legislative_authority_1 }
+			faction_abolish_legislature = { has_law = law_voting_power_1 }
 		}
-		
+
 		allow = {
 			prisoner = no
 			liege = {
@@ -936,7 +936,7 @@ plot_decisions = {
 					NOT = {
 						any_vassal = {
 							faction_power = {
-								faction = faction_democratic_legislature
+								faction = faction_estabilish_legislature
 								power = 1.0
 							}
 						}
@@ -952,7 +952,7 @@ plot_decisions = {
 					NOT = {
 						any_vassal = {
 							faction_power = {
-								faction = faction_democratic_legislature
+								faction = faction_estabilish_legislature
 								power = 2.0
 							}
 						}
@@ -964,27 +964,27 @@ plot_decisions = {
 				}
 			}
 		}
-		
+
 		effect = {
 			set_character_flag = flag_making_faction_ultimatum
 			set_character_flag = flag_sent_anti_centralization_ultimatum
 			character_event = { id = laws.10600 tooltip = "EVTTOOLTIPLAWS10000" }
 		}
-		
+
 		ai_will_do = {
 			factor = 1
 		}
 	}
 	# faction_monarchist_bill = {
 		# is_high_prio = yes
-		
-		# ai_check_interval = 10 
+
+		# ai_check_interval = 10
  #potential = {
 			# leads_faction = faction_monarchist
 			# NOT = { has_character_flag = flag_making_faction_ultimatum }
-			# crownlaw_title = { has_law = legislative_authority_1 }
+			# crownlaw_title = { has_law = law_voting_power_1 }
 		# }
-		
+
 		# allow = {
 			# prisoner = no
 			# liege = { is_hereditary_trigger = no }
@@ -1004,25 +1004,25 @@ plot_decisions = {
 			# liege = { check_variable = { which = "var_monarchist" value = 1 } }
 			# liege = { monarchy_is_legal_trigger = yes }
 		# }
-		
+
 		# effect = {
 			# set_character_flag = flag_making_faction_ultimatum
 			# set_character_flag = flag_sent_monarchist_ultimatum
 			# character_event = { id = laws.10700 tooltip = "EVTTOOLTIPLAWS10700" }
 		# }
-		
+
 		# ai_will_do = { factor = 1 }
 	# }
 	# faction_monarchist_demand = {
 		# is_high_prio = yes
-		
-		# ai_check_interval = 10 
+
+		# ai_check_interval = 10
  #potential = {
 			# leads_faction = faction_monarchist
 			# NOT = { has_character_flag = flag_making_faction_ultimatum }
-			# NOT = { crownlaw_title = { has_law = legislative_authority_1 } }
+			# NOT = { crownlaw_title = { has_law = law_voting_power_1 } }
 		# }
-		
+
 		# allow = {
 			# prisoner = no
 			# liege = { is_hereditary_trigger = no }
@@ -1035,13 +1035,13 @@ plot_decisions = {
 			# capital_holding = { controller = { character = ROOT } }
 			# liege = { monarchy_is_legal_trigger = yes }
 		# }
-		
+
 		# effect = {
 			# set_character_flag = flag_making_faction_ultimatum
 			# set_character_flag = flag_sent_monarchist_ultimatum
 			# character_event = { id = laws.10750 tooltip = "EVTTOOLTIPLAWS10750" }
 		# }
-		
+
 		# ai_will_do = {
 			# factor = 1
 			# modifier = {
@@ -1305,14 +1305,14 @@ plot_decisions = {
 	# }
 	# faction_republican_bill = {
 		# is_high_prio = yes
-		
-		# ai_check_interval = 10 
+
+		# ai_check_interval = 10
  #potential = {
 			# leads_faction = faction_republican
 			# NOT = { has_character_flag = flag_making_faction_ultimatum }
-			# crownlaw_title = { has_law = legislative_authority_1 }
+			# crownlaw_title = { has_law = law_voting_power_1 }
 		# }
-		
+
 		# allow = {
 			# prisoner = no
 			# liege = { is_elective_trigger = no }
@@ -1332,25 +1332,25 @@ plot_decisions = {
 			# liege = { check_variable = { which = "var_republican" value = 1 } }
 			# liege = { republic_is_legal_trigger = yes }
 		# }
-		
+
 		# effect = {
 			# set_character_flag = flag_making_faction_ultimatum
 			# set_character_flag = flag_sent_republican_ultimatum
 			# character_event = { id = laws.10800 tooltip = "EVTTOOLTIPLAWS10700" }
 		# }
-		
+
 		# ai_will_do = { factor = 1 }
 	# }
 	# faction_republican_demand = {
 		# is_high_prio = yes
-		
-		# ai_check_interval = 10 
+
+		# ai_check_interval = 10
  #potential = {
 			# leads_faction = faction_republican
 			# NOT = { has_character_flag = flag_making_faction_ultimatum }
-			# NOT = { crownlaw_title = { has_law = legislative_authority_1 } }
+			# NOT = { crownlaw_title = { has_law = law_voting_power_1 } }
 		# }
-		
+
 		# allow = {
 			# prisoner = no
 			# liege = { is_elective_trigger = no }
@@ -1363,13 +1363,13 @@ plot_decisions = {
 			# capital_holding = { controller = { character = ROOT } }
 			# liege = { republic_is_legal_trigger = yes }
 		# }
-		
+
 		# effect = {
 			# set_character_flag = flag_making_faction_ultimatum
 			# set_character_flag = flag_sent_republican_ultimatum
 			# character_event = { id = laws.10850 tooltip = "EVTTOOLTIPLAWS10750" }
 		# }
-		
+
 		# ai_will_do = {
 			# factor = 1
 			# modifier = {
@@ -1633,14 +1633,14 @@ plot_decisions = {
 	# }
 	# faction_technocratic_bill = {
 		# is_high_prio = yes
-		
-		# ai_check_interval = 10 
+
+		# ai_check_interval = 10
  #potential = {
 			# leads_faction = faction_technocratic
 			# NOT = { has_character_flag = flag_making_faction_ultimatum }
-			# crownlaw_title = { has_law = legislative_authority_1 }
+			# crownlaw_title = { has_law = law_voting_power_1 }
 		# }
-		
+
 		# allow = {
 			# prisoner = no
 			# liege = { is_appointed_trigger = no }
@@ -1660,25 +1660,25 @@ plot_decisions = {
 			# liege = { check_variable = { which = "var_technocratic" value = 1 } }
 			# liege = { directorate_is_legal_trigger = yes }
 		# }
-		
+
 		# effect = {
 			# set_character_flag = flag_making_faction_ultimatum
 			# set_character_flag = flag_sent_technocratic_ultimatum
 			# character_event = { id = laws.10900 tooltip = "EVTTOOLTIPLAWS10700" }
 		# }
-		
+
 		# ai_will_do = { factor = 1 }
 	# }
 	# faction_technocratic_demand = {
 		# is_high_prio = yes
-		
-		# ai_check_interval = 10 
+
+		# ai_check_interval = 10
  #potential = {
 			# leads_faction = faction_technocratic
 			# NOT = { has_character_flag = flag_making_faction_ultimatum }
-			# NOT = { crownlaw_title = { has_law = legislative_authority_1 } }
+			# NOT = { crownlaw_title = { has_law = law_voting_power_1 } }
 		# }
-		
+
 		# allow = {
 			# prisoner = no
 			# liege = { is_appointed_trigger = no }
@@ -1691,13 +1691,13 @@ plot_decisions = {
 			# capital_holding = { controller = { character = ROOT } }
 			# liege = { directorate_is_legal_trigger = yes }
 		# }
-		
+
 		# effect = {
 			# set_character_flag = flag_making_faction_ultimatum
 			# set_character_flag = flag_sent_technocratic_ultimatum
 			# character_event = { id = laws.10950 tooltip = "EVTTOOLTIPLAWS10750" }
 		# }
-		
+
 		# ai_will_do = {
 			# factor = 1
 			# modifier = {

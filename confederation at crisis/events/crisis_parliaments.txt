@@ -2,33 +2,61 @@ namespace = parliaments
 
 character_event = {
 	id = parliaments.001
-	#hide_window = yes
+	hide_window = yes
 	desc = EVTPARLDESC_GRANTING_SENATOR
 	is_triggered_only = yes
-	
+	only_playable = yes
+
 	trigger = {
-		higher_tier_than = DUKE
-		primary_title = { has_law = legislative_authority_1 }
-		gm_can_distribute_title_senator_trigger = yes
-		NOT = { government = military_directorate }
+		NOT = { has_law = legislative_type_autocratic }
 	}
-	
+
 	option = {
 		name = EVTPARL_GRANTING_SENATOR
-		if = {
-			limit = {
-				gm_can_distribute_title_senator_trigger = yes
-			}
-			any_realm_character = {
-				limit = {
-					NOT = {has_minor_title = title_senatorrome}
-					age = 16
-					NOT = { trait = incapable }
-				}
-				set_character_flag = flag_senatorrome
-				give_minor_title = title_senatorrome
-				clr_character_flag = flag_senatorrome
-			}
-		}
+		replace_senators_effect = yes
+	}
+}
+
+character_event = {
+	id = parliaments.002
+	hide_window = no
+	desc = EVTPARLDESC_FIND_SENATOR_CANDIDATES
+	is_triggered_only = yes
+	only_playable = yes
+
+	trigger = {
+		has_law = legislative_type_autocratic
+	}
+
+	immediate = {
+		count_senator_seats_to_fill = yes
+	}
+
+	#option = {
+	#	name = EVTPARL_GRANTING_SENATORA
+	#	any_realm_province = {
+	#		generate_random_highborn_adult_from_province_effect =  yes
+	#	}
+	#}
+
+	option = {
+		name = EVTPARL_GRANTING_SENATORB
+        while = { limit = { check_variable = { which = empty_seats value > 0 } }
+            generate_random_lowborn_adult_from_realm_effect = yes
+            subtract_variable = { which = empty_seats value = 1 }
+        }
+        custom_tooltip = { text = fill_x_empty_senator_seats }
+	}
+}
+
+character_event = {
+	id = parliaments.10
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		log_scopes = yes
+		if = { limit = { data = local_main_government_type_1 } log = "success reading data!" }
+		if = { limit = { event_target:data = local_main_government_type_1 } log = "success reading evt:data!" }
 	}
 }

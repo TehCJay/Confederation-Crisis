@@ -8,7 +8,7 @@ targetted_decisions = {
 			is_ruler = yes
 			has_character_modifier = constitutional_crisis
 		}
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			liege = { character = FROM }
 			in_faction = faction_anti_ruler
@@ -80,7 +80,7 @@ decisions = {
 	# Non-Vassal Based Decisions Ruler Can Make
 	back_down_decision = {
 		is_high_prio = yes
-		ai_check_interval = 10 
+		ai_check_interval = 10
  potential = {
 			has_character_modifier = constitutional_crisis
 			NOT = { has_character_flag = flag_making_crisis_decision }
@@ -118,7 +118,7 @@ decisions = {
 					}
 				}
 			}
-			
+
 			# Pro-ruler faction is very strong
 			modifier = {
 				factor = 0
@@ -138,7 +138,7 @@ decisions = {
 					}
 				}
 			}
-			
+
 			# Pro-ruler faction is moderately strong
 			modifier = {
 				factor = 0
@@ -173,7 +173,7 @@ decisions = {
 					}
 				}
 			}
-			
+
 			# Pro-ruler faction is somewhat strong
 			modifier = {
 				NOT = {
@@ -259,11 +259,11 @@ decisions = {
 decisions = {
 	i_am_the_senate_decision = {
 		is_high_prio = yes
-		ai_check_interval = 10 
- potential = {
+		ai_check_interval = 10
+ 		potential = {
  			# Is in constitutional crisis for dissolving senate
 			has_character_modifier = constitutional_crisis
-			has_character_modifier = crisis_dissolved_legislature  			
+			has_character_modifier = crisis_dissolved_legislature
 		}
 		allow = {
 			piety = 750
@@ -281,16 +281,7 @@ decisions = {
 				factor = 0
 				NOT = {
 					any_vassal = {
-						OR = {
-							kingdom = {
-								has_law = legislative_authority_1
-								holder_scope = { character = ROOT }
-							}
-							empire = {
-								has_law = legislative_authority_1
-								holder_scope = { character = ROOT }
-							}
-						}
+						has_law = legislative_type_aristocratic
 						reverse_has_opinion_modifier = { who = ROOT modifier = opinion_passed_bad_bill }
 					}
 				}
@@ -310,7 +301,7 @@ decisions = {
 				}
 				NOT = { trait = ambitious }
 			}
-			
+
 			# This is a very non-content thing to do!
 			modifier = {
 				factor = 0
@@ -318,4 +309,4 @@ decisions = {
 			}
 		}
 	}
-}	
+}

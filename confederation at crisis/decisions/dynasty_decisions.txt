@@ -17,7 +17,7 @@ targeted_decisions = {
 	commit_suicide = {
 		filter = self
 		ai_target_filter = self
-		ai_check_interval = 40 
+		ai_check_interval = 40
  potential = {
 			is_adult = yes
 			OR = {
@@ -55,7 +55,7 @@ targeted_decisions = {
 					character_event = { id = RIP.30200 }
 				}
 				if = {
-					limit = { trait = incapable } 
+					limit = { trait = incapable }
 					character_event = { id = RIP.30210 }
 				}
 			}
@@ -70,9 +70,6 @@ targeted_decisions = {
 				}
 				death = { death_reason = death_suicide }
 			}
-		}
-		revoke_allowed = {
-			always = no
 		}
 		ai_will_do = {
 			factor = 1
@@ -91,7 +88,7 @@ targeted_decisions = {
 			modifier = {
 				factor = 2.5
 				NOT = { wealth = -300 }
-			}	
+			}
 			modifier = {
 				factor = 2
 				trait = stressed
@@ -107,7 +104,7 @@ targeted_decisions = {
 		ai_target_filter = close_relatives
 		filter = realm
 		only_rulers = yes
-		
+
 		from_potential = {
 			is_ruler = yes
 			OR = {
@@ -117,12 +114,12 @@ targeted_decisions = {
 			NOT = { trait = bastard }
 			NOT = { dynasty = 0 }
 		}
-		
-		ai_check_interval = 40 
+
+		ai_check_interval = 40
  potential = {
-			is_child_of = FROM			
+			is_child_of = FROM
 			trait = bastard
-			NOT = { trait = child_of_consort } #salt child		
+			NOT = { trait = child_of_consort } #salt child
 		}
 		allow = {
 			show_only_failed_conditions = yes
@@ -137,13 +134,13 @@ targeted_decisions = {
 				}
 				custom_tooltip = {
 					text = TOOLTIPlegitimize_bastardONGOING
-					hidden_tooltip = { 
+					hidden_tooltip = {
 						OR = {
 							NOT = { has_character_flag = legitimising_bastard }
 							had_character_flag = { flag = legitimising_bastard days = 30 }
 						}
 					}
-				}				
+				}
 			}
 			#is_liege_or_above = FROM
 			age = 1
@@ -151,9 +148,9 @@ targeted_decisions = {
 		}
 		effect = {
 			if = {
-				limit = { 
+				limit = {
 					FROM = { can_legitimise_bastards_trigger = yes }
-				}				
+				}
 				tooltip = {
 					remove_trait = bastard
 					add_trait = legit_bastard
@@ -161,17 +158,17 @@ targeted_decisions = {
 						limit = {
 							is_patrician = no
 						}
-						dynasty = FROM		
+						dynasty = FROM
 					}
-				}	
+				}
 				mother = {
 					opinion = {
 						who = FROM
 						modifier = legitimized_child
 						years = 10
 					}
-				}				
-				FROM = { 
+				}
+				FROM = {
 					if = {
 						limit = {
 							has_dlc = "Conclave"
@@ -179,7 +176,7 @@ targeted_decisions = {
 						}
 						job_spiritual = { add_favor = PREV }
 					}
-					piety = -20 
+					piety = -20
 					any_child = {
 						limit = {
 							NOT = { character = ROOT }
@@ -209,15 +206,15 @@ targeted_decisions = {
 						host = { character = FROM }
 					}
 					imprison = no
-				}	
-					
+				}
+
 				hidden_tooltip = {
 					character_event = { id = bastard.999 } #generic legitimise event
 				}
 				event_target:chronicle_player = {
 					if = {
-						limit = { 
-							OR = {	
+						limit = {
+							OR = {
 								character = FROM
 								is_close_relative = ROOT
 								is_liege_or_above = FROM
@@ -226,60 +223,60 @@ targeted_decisions = {
 						chronicle = {
 							entry = CHRONICLE_BASTARD_LEGITIMISED
 							portrait = [Root.GetID]
-						}	
+						}
 					}
 				}
 			}
 			else_if = { #find liege for legitmisation
-				limit = { 
-					FROM = { 
-						any_liege = { 
-							tier = KING 
-							can_legitimise_bastards_trigger = yes 
+				limit = {
+					FROM = {
+						any_liege = {
+							tier = KING
+							can_legitimise_bastards_trigger = yes
 							NOT = { war_with = PREV }
 							NOT = { reverse_has_opinion_modifier = { who = ROOT modifier = opinion_refused_legit } }
-						} 
-					} 
+						}
+					}
 				}
 				FROM = {
 					set_character_flag = legitimising_bastard
 					any_liege = {
 						limit = { tier = KING }
-						character_event = { id = bastard.601 days = 3 tooltip = EVTTOOLTIP76107 } 
+						character_event = { id = bastard.601 days = 3 tooltip = EVTTOOLTIP76107 }
 					}
 				}
 			}
 			else_if = { #find liege for legitmisation
-				limit = { 
-					FROM = { 
-						liege = { 
-							can_legitimise_bastards_trigger = yes 
-							NOT = { war_with = PREV } 
+				limit = {
+					FROM = {
+						liege = {
+							can_legitimise_bastards_trigger = yes
+							NOT = { war_with = PREV }
 							NOT = { reverse_has_opinion_modifier = { who = ROOT modifier = opinion_refused_legit } }
-						} 
-					} 
+						}
+					}
 				}
 				FROM = {
 					set_character_flag = legitimising_bastard
 					liege = {
-						character_event = { id = bastard.601 days = 3 tooltip = EVTTOOLTIP76107 } 
+						character_event = { id = bastard.601 days = 3 tooltip = EVTTOOLTIP76107 }
 					}
 				}
 			}
 			else_if = { #find liege for legitmisation
-				limit = { 
-					FROM = { 
-						top_liege = { 
-							can_legitimise_bastards_trigger = yes 
-							NOT = { war_with = PREV } 
+				limit = {
+					FROM = {
+						top_liege = {
+							can_legitimise_bastards_trigger = yes
+							NOT = { war_with = PREV }
 							NOT = { reverse_has_opinion_modifier = { who = ROOT modifier = opinion_refused_legit } }
-						} 
-					} 
+						}
+					}
 				}
 				FROM = {
 					set_character_flag = legitimising_bastard
 					top_liege = {
-						character_event = { id = bastard.601 days = 3 tooltip = EVTTOOLTIP76107 } 
+						character_event = { id = bastard.601 days = 3 tooltip = EVTTOOLTIP76107 }
 					}
 				}
 			}
@@ -287,13 +284,13 @@ targeted_decisions = {
 				random_independent_ruler = {
 					limit = {
 						higher_tier_than = FROM
-						reverse_has_opinion_modifier = { who = FROM modifier = opinion_de_facto_liege }	
+						reverse_has_opinion_modifier = { who = FROM modifier = opinion_de_facto_liege }
 						can_legitimise_bastards_trigger = yes
 						NOT = { war_with = FROM }
 						NOT = { reverse_has_opinion_modifier = { who = ROOT modifier = opinion_refused_legit } }
 					}
 					FROM = { set_character_flag = legitimising_bastard }
-					character_event = { id = bastard.601 days = 3 tooltip = EVTTOOLTIP76107 } 
+					character_event = { id = bastard.601 days = 3 tooltip = EVTTOOLTIP76107 }
 					break = yes
 				}
 				custom_tooltip = {
@@ -301,10 +298,10 @@ targeted_decisions = {
 				}
 			}
 		}
-		
+
 		ai_check_interval = 6
 		ai_will_do = {
-			factor = 1	
+			factor = 1
 			modifier = {
 				factor = 0
 				FROM = {
@@ -334,26 +331,26 @@ targeted_decisions = {
 								}
 							}
 						}
-					}	
-				}	
+					}
+				}
 				NOT = { #Make exception if married to the mother
-					mother = { 
-						is_married = FROM 
+					mother = {
+						is_married = FROM
 						reverse_opinion = { who = FROM value = 20 }
-					} 
+					}
 				}
 			}
 		}
 	}
-	
+
 	# Muslim dynasty head tries to convince a dynasty member to lose the 'Decadent' Trait
 	convince_to_straighten_up = {
 		filter = dynasty
 		ai_target_filter = dynasty
 		only_playable = yes
-		
+
 		hide_in_decisions_list = yes # This decision is shown in the Religion View for each decadent character
-		
+
 		from_potential = {
 			is_playable = yes
 			religion_group = muslim
@@ -362,7 +359,7 @@ targeted_decisions = {
 				NOT = { any_dynasty_member = { is_vassal_or_below = FROM } }
 			}
 		}
-		ai_check_interval = 40 
+		ai_check_interval = 40
  potential = {
 			trait = decadent
 			dynasty = FROM
@@ -388,7 +385,7 @@ targeted_decisions = {
 						FROM = { piety = 100 }
 					}
 				}
-			}	
+			}
 			FROM = {
 				has_regent = no
 				NOT = { trait = decadent }
@@ -416,9 +413,6 @@ targeted_decisions = {
 			character_event = {
 				id = 91350
 			}
-		}
-		revoke_allowed = {
-			always = no
 		}
 		ai_will_do = {
 			factor = 1
@@ -448,15 +442,15 @@ targeted_decisions = {
 			}
 			modifier = {
 				factor = 0.5
-				FROM = { trait = slothful }
+				FROM = { trait = carefree }
 			}
 			modifier = {
 				factor = 0.5
-				FROM = { trait = kind }
+				FROM = { trait = honest }
 			}
 			modifier = {
 				factor = 0.5
-				FROM = { trait = patient }
+				FROM = { trait = friendly }
 			}
 			modifier = {
 				factor = 0.5
@@ -464,15 +458,15 @@ targeted_decisions = {
 			}
 			modifier = {
 				factor = 2
-				FROM = { trait = diligent }
+				FROM = { trait = disciplined }
 			}
 			modifier = {
 				factor = 2
-				FROM = { trait = cruel }
+				FROM = { trait = amoral }
 			}
 			modifier = {
 				factor = 2
-				FROM = { trait = wroth }
+				FROM = { trait = cold }
 			}
 			modifier = {
 				factor = 5
@@ -480,14 +474,14 @@ targeted_decisions = {
 			}
 		}
 	}
-	
+
 	send_child_into_hiding = {
 		is_high_prio = yes
-		
+
 		filter = dynasty
 		ai_target_filter = dynasty
 		only_rulers = yes
-		
+
 		from_potential = {
 			is_ruler = yes
 			has_regent = no
@@ -501,8 +495,8 @@ targeted_decisions = {
 					trait = elusive_shadow
 				}
 			}
-		}		
-		ai_check_interval = 40 
+		}
+		ai_check_interval = 40
  potential = {
 			NOT = { is_inaccessible_trigger = yes }
 			is_ruler = no
@@ -526,7 +520,7 @@ targeted_decisions = {
 				is_inaccessible_trigger = yes
 				has_character_modifier = went_out_of_hiding_timer
 			}
-		}		
+		}
 		allow = {
 			in_command_trigger = no
 			prisoner = no
@@ -577,7 +571,7 @@ targeted_decisions = {
 							}
 						}
 						character_event = { id = CM.6004 }
-						any_backed_character = { 
+						any_backed_character = {
 							character_event = { id = CM.6004 }
 						}
 					}
@@ -591,7 +585,7 @@ targeted_decisions = {
 							}
 						}
 						character_event = { id = CM.6180 }
-						any_backed_character = { 
+						any_backed_character = {
 							character_event = { id = CM.6004 }
 						}
 					}
@@ -662,10 +656,7 @@ targeted_decisions = {
 				}
 			}
 		}
-		
-		revoke_allowed = {
-			always = no
-		}
+
 		ai_will_do = {
 			factor = 1
 			modifier = {
@@ -722,25 +713,25 @@ targeted_decisions = {
 			}
 			modifier = {
 				factor = 10
-				FROM = { trait = paranoid }
-			}					
+				FROM = { trait = neurotic }
+			}
 		}
 	}
-	
+
 	take_child_out_of_hiding = {
 		is_high_prio = yes
-		
+
 		filter = dynasty
 		ai_target_filter = dynasty
 		only_rulers = yes
-		
+
 		from_potential = {
 			is_ruler = yes
 			has_regent = no
 			has_children = yes
 		}
-		
-		ai_check_interval = 40 
+
+		ai_check_interval = 40
  potential = {
 			is_inaccessible_trigger = yes
 			is_ruler = no
@@ -750,7 +741,7 @@ targeted_decisions = {
 			has_character_flag = in_hiding_murder
 			NOT = { any_spouse = { character = FROM } }
 		}
-		
+
 		allow = {
 			trait = in_hiding #Leave this as trait
 		}
@@ -802,15 +793,12 @@ targeted_decisions = {
 				}
 			}
 		}
-		
-		revoke_allowed = {
-			always = no
-		}
+
 		ai_will_do = {
 			factor = 1
 			modifier = {
 				factor = 0.1
-				FROM = { trait = paranoid }
+				FROM = { trait = neurotic }
 			}
 			modifier = {
 				factor = 0
@@ -828,18 +816,18 @@ targeted_decisions = {
 						}
 					}
 				}
-			}		
+			}
 		}
 	}
-	
+
 	go_into_hiding = {
 		is_high_prio = yes
-		
+
 		filter = self
 		ai_target_filter = self
 		only_rulers = yes
-		
-		ai_check_interval = 40 
+
+		ai_check_interval = 40
  potential = {
 			prisoner = no
 			NOT = { is_inaccessible_trigger = yes }
@@ -898,7 +886,7 @@ targeted_decisions = {
 							}
 						}
 						character_event = { id = CM.6000 }
-						any_backed_character = { 
+						any_backed_character = {
 							character_event = { id = CM.6000 }
 						}
 					}
@@ -913,7 +901,7 @@ targeted_decisions = {
 							}
 						}
 						character_event = { id = CM.6180 }
-						any_backed_character = { 
+						any_backed_character = {
 							character_event = { id = CM.6000 }
 						}
 					}
@@ -928,11 +916,8 @@ targeted_decisions = {
 				}
 			}
 		}
-		revoke_allowed = {
-			always = no
-		}
 		ai_will_do = {
-			factor = 1 
+			factor = 1
 			modifier = {
 				factor = 0
 				NOT = {
@@ -979,19 +964,19 @@ targeted_decisions = {
 			}
 			modifier = {
 				factor = 10
-				trait = paranoid
+				trait = neurotic
 			}
 		}
 	}
-	
+
 	come_out_of_hiding = {
 		is_high_prio = yes
-		
+
 		filter = self
 		ai_target_filter = self
 		only_rulers = yes
-		
-		ai_check_interval = 40 
+
+		ai_check_interval = 40
  potential = {
 			is_ruler = yes
 			trait = in_hiding
@@ -1044,14 +1029,11 @@ targeted_decisions = {
 				}
 			}
 		}
-		revoke_allowed = {
-			always = no
-		}
 		ai_will_do = {
 			factor = 1
 			modifier = {
 				factor = 0.1
-				trait = paranoid
+				trait = neurotic
 			}
 			modifier = {
 				factor = 0
@@ -1082,11 +1064,11 @@ targeted_decisions = {
 
 	send_spouse_into_hiding = {
 		is_high_prio = yes
-		
+
 		filter = spouse
 		ai_target_filter = spouse
 		only_rulers = yes
-		
+
 		from_potential = {
 			is_ruler = yes
 			has_regent = no
@@ -1099,8 +1081,8 @@ targeted_decisions = {
 					trait = elusive_shadow
 				}
 			}
-		}	
-		ai_check_interval = 40 
+		}
+		ai_check_interval = 40
  potential = {
 			NOT = { is_inaccessible_trigger = yes }
 			is_ruler = no
@@ -1109,7 +1091,7 @@ targeted_decisions = {
 			NOR = {
 				trait = in_hiding
 				AND = {
-					is_plot_target_of = FROM 
+					is_plot_target_of = FROM
 					FROM = {
 						OR = {
 							has_plot = plot_kill_character
@@ -1170,7 +1152,7 @@ targeted_decisions = {
 							}
 						}
 						character_event = { id = CM.6002 }
-						any_backed_character = { 
+						any_backed_character = {
 							character_event = { id = CM.6002 }
 						}
 					}
@@ -1185,7 +1167,7 @@ targeted_decisions = {
 							}
 						}
 						character_event = { id = CM.6180 }
-						any_backed_character = { 
+						any_backed_character = {
 							character_event = { id = CM.6002 }
 						}
 					}
@@ -1205,11 +1187,8 @@ targeted_decisions = {
 				}
 			}
 		}
-		revoke_allowed = {
-			always = no
-		}
 		ai_will_do = {
-			factor = 1 
+			factor = 1
 			modifier = {
 				factor = 0
 				NOT = {
@@ -1226,7 +1205,7 @@ targeted_decisions = {
 						}
 					}
 				}
-			}			
+			}
 			modifier = {
 				factor = 0.1
 				always = yes
@@ -1237,7 +1216,7 @@ targeted_decisions = {
 			}
 			modifier = {
 				factor = 0.1
-				trait = pregnant 
+				trait = pregnant
 				NOT = {
 					father_of_unborn = {
 						character = FROM
@@ -1266,11 +1245,11 @@ targeted_decisions = {
 			}
 			modifier = {
 				factor = 10
-				FROM = { trait = paranoid }
+				FROM = { trait = neurotic }
 			}
 			modifier = {
 				factor = 10
-				trait = pregnant 
+				trait = pregnant
 				father_of_unborn = {
 					character = FROM
 				}
@@ -1280,16 +1259,16 @@ targeted_decisions = {
 
 	take_spouse_out_of_hiding = {
 		is_high_prio = yes
-		
+
 		filter = spouse
 		ai_target_filter = spouse
 		only_rulers = yes
-		
+
 		from_potential = {
 			is_ruler = yes
 			has_regent = no
 		}
-		ai_check_interval = 40 
+		ai_check_interval = 40
  potential = {
 			trait = in_hiding
 			is_ruler = no
@@ -1325,14 +1304,11 @@ targeted_decisions = {
 				}
 			}
 		}
-		revoke_allowed = {
-			always = no
-		}
 		ai_will_do = {
 			factor = 1
 			modifier = {
 				factor = 0.1
-				FROM = { trait = paranoid }
+				FROM = { trait = neurotic }
 			}
 			modifier = {
 				factor = 0

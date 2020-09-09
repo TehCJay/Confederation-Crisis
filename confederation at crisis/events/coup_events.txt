@@ -4,9 +4,9 @@ namespace = coup
 letter_event = {
 	id = coup.0
 	desc = "EVTDESCCOUP0"
-	border = GFX_evt_letter_frame_intrigue
+	border = GFX_event_letter_frame_intrigue
 	is_triggered_only = yes
-	
+
 	trigger = {
 		FROM = {
 			OR = {
@@ -15,7 +15,7 @@ letter_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		name = "EVTOPTACCEPT" # Surrender
 		FROM = {
@@ -24,19 +24,6 @@ letter_event = {
 				add_law = succ_feudal_elective # Junta established
 				if = {
 					limit = {
-						crownlaw_title = { title = PREV }
-						OR = {
-							has_law = crown_term_length_0
-							has_law = crown_term_length_1
-							has_law = crown_term_length_2
-							has_law = crown_term_length_3
-						}
-					}
-					add_law = crown_term_length_4
-				}
-				if = {
-					limit = {
-						NOT = { crownlaw_title = { title = PREV } }
 						OR = {
 							has_law = local_term_length_0
 							has_law = local_term_length_1
@@ -129,7 +116,7 @@ letter_event = {
 				factor = 1.25
 				FROM = { plot_power = 3 }
 			}
-			
+
 			# Personality
 			modifier = {
 				factor = 0.1
@@ -155,7 +142,7 @@ letter_event = {
 				factor = 4
 				trait = craven
 			}
-			
+
 			# Ideological effects
 			modifier = {
 				factor = 0.5
@@ -176,7 +163,7 @@ letter_event = {
 				NOT = { religion = FROM }
 				trait = radical
 			}
-			
+
 			# Opinion of plotter
 			modifier = {
 				factor = 1.25
@@ -284,9 +271,9 @@ letter_event = {
 letter_event = {
 	id = coup.10
 	desc = "EVTDESCCOUP10"
-	border = GFX_evt_letter_frame_intrigue
+	border = GFX_event_letter_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTCONFIRM"
 		hidden_tooltip = { any_plot_backer = { character_event = { id = coup.12 } } }
@@ -295,19 +282,6 @@ letter_event = {
 			add_law = succ_feudal_elective
 			if = {
 				limit = {
-					crownlaw_title = { title = PREV }
-					OR = {
-						has_law = crown_term_length_0
-						has_law = crown_term_length_1
-						has_law = crown_term_length_2
-						has_law = crown_term_length_3
-					}
-				}
-				add_law = crown_term_length_4
-			}
-			if = {
-				limit = {
-					NOT = { crownlaw_title = { title = PREV } }
 					OR = {
 						has_law = local_term_length_0
 						has_law = local_term_length_1
@@ -325,18 +299,18 @@ character_event = {
 	id = coup.11
 	desc = "EVTDESCCOUP11"
 	picture = GFX_evt_news
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 character_event = {
 	id = coup.12
 	desc = "EVTDESCCOUP12"
 	picture = GFX_evt_coup
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -344,9 +318,9 @@ character_event = {
 letter_event = {
 	id = coup.20
 	desc = "EVTDESCCOUP20"
-	border = GFX_evt_letter_frame_war
+	border = GFX_event_letter_frame_war
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTACOUP20"
 		character_event = { id = coup.100 }
@@ -358,9 +332,9 @@ character_event = {
 	id = coup.30
 	desc = "COUP30"
 	picture = GFX_evt_coup
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		set_character_flag = flag_issued_ultimatum
 		name = "EVTOPTCONFIRM"
@@ -370,7 +344,7 @@ character_event = {
 		plot_target_char = { letter_event = { id = coup.0 tooltip = "EVTTOOLTIPCOUP0" } }
 		ai_chance = { factor = 100 }
 	}
-	
+
 	option = {
 		name = "EVTOPTNEVERMIND"
 		clr_character_flag = flag_launching_coup
@@ -382,10 +356,10 @@ character_event = {
 character_event = {
 	id = coup.100
 	picture = GFX_evt_coup
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	desc = "EVTDESCCOUP100"
 	is_triggered_only = yes
-	
+
 	option = {
 		trigger = {
 			demesne_size = 1
@@ -435,7 +409,7 @@ character_event = {
 		}
 		ai_chance = {
 			factor = 10
-			
+
 			# Military Power
 			modifier = {
 				factor = 1.25
@@ -473,7 +447,7 @@ character_event = {
 				factor = 1.25
 				relative_power_to_liege = 0.9
 			}
-			
+
 			modifier = {
 				factor = 1.25
 				any_plot_backer = {
@@ -601,7 +575,7 @@ character_event = {
 					count = 9
 				}
 			}
-			
+
 			# Personality
 			modifier = {
 				factor = 4
@@ -619,14 +593,14 @@ character_event = {
 				factor = 0.5
 				trait = cold
 			}
-			
+
 			modifier = {
 				factor = 3
 				liege = { war = yes }
 			}
 		}
 	}
-	
+
 	# Surrender
 	option = {
 		name = "EVTOPTBCOUP100"
@@ -663,7 +637,7 @@ letter_event = {
 	desc = "EVTDESCCOUP101"
 	border = GFX_event_letter_frame_war
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -671,9 +645,9 @@ character_event = {
 	id = coup.102
 	desc = "EVTDESCCOUP102"
 	picture = GFX_evt_battle
-	border = GFX_evt_normal_frame_war
+	border = GFX_event_normal_frame_war
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTACOUP102"
 		hidden_tooltip = {
@@ -692,9 +666,9 @@ character_event = {
 	id = coup.103
 	desc = "EVTDESCCOUP103"
 	picture = GFX_evt_battle
-	border = GFX_evt_normal_frame_war
+	border = GFX_event_normal_frame_war
 	is_triggered_only = yes
-	
+
 	option = {
 		# Immediately declare for the rebels
 		trigger = {
@@ -728,7 +702,7 @@ character_event = {
 					trait = brilliant_strategist
 				}
 			}
-			
+
 			# Sneakier characters should not
 			modifier = {
 				factor = 0.2
@@ -749,7 +723,7 @@ character_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		# Pretend to be loyal for a while
 		name = "EVTOPTBCOUP103"
@@ -761,9 +735,9 @@ character_event = {
 	id = coup.104
 	desc = "EVTDESCCOUP104"
 	picture = GFX_evt_news
-	border = GFX_evt_normal_frame_war
+	border = GFX_event_normal_frame_war
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -771,9 +745,9 @@ character_event = {
 letter_event = {
 	id = coup.110
 	desc = "EVTDESCCOUP110"
-	border = GFX_evt_letter_frame_intrigue
+	border = GFX_event_letter_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -781,9 +755,9 @@ character_event = {
 	id = coup.111
 	desc = "EVTDESCCOUP111"
 	picture = GFX_evt_thrown_into_dungeon
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTACOUP111" }
 }
 
@@ -793,9 +767,9 @@ character_event = {
 	id = coup.120
 	desc = "EVTDESCCOUP120"
 	picture = GFX_evt_battle
-	border = GFX_evt_normal_frame_war
+	border = GFX_event_normal_frame_war
 	is_triggered_only = yes # Triggered on combat pulse
-	
+
 	trigger = {
 		demesne_size = 1
 		# Currently in battle with a coconspirator
@@ -836,7 +810,7 @@ character_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		name = "EVTOPTACOUP120"
 		hidden_tooltip = {
@@ -899,36 +873,36 @@ character_event = {
 	id = coup.121
 	desc = "EVTDESCCOUP121"
 	picture = GFX_evt_battle
-	border = GFX_evt_normal_frame_war
+	border = GFX_event_normal_frame_war
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTACOUP121" }
 }
 character_event = {
 	id = coup.122
 	desc = "EVTDESCCOUP122"
 	picture = GFX_evt_battle
-	border = GFX_evt_normal_frame_war
+	border = GFX_event_normal_frame_war
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTACOUP122" }
 }
 character_event = {
 	id = coup.123
 	desc = "EVTDESCCOUP123"
 	picture = GFX_evt_battle
-	border = GFX_evt_normal_frame_war
+	border = GFX_event_normal_frame_war
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTACOUP123" }
 }
 character_event = {
 	id = coup.124
 	desc = "EVTDESCCOUP124"
 	picture = GFX_evt_battle
-	border = GFX_evt_normal_frame_war
+	border = GFX_event_normal_frame_war
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTACOUP124" }
 }
 
@@ -937,12 +911,12 @@ character_event = {
 	id = coup.130
 	desc = "EVTDESCCOUP130"
 	picture = GFX_evt_cabal
-	border = GFX_evt_normal_frame_war
-	
+	border = GFX_event_normal_frame_war
+
 	min_age = 16
 	prisoner = no
 	only_capable = yes
-	
+
 	trigger = {
 		any_backed_character = {
 			any_war = {
@@ -957,7 +931,7 @@ character_event = {
 			}
 		}
 	}
-	
+
 	mean_time_to_happen = {
 		months = 60
 		modifier = {
@@ -981,7 +955,7 @@ character_event = {
 			liege = { wealth = 1000 }
 		}
 	}
-	
+
 	option = {
 		trigger = { is_ruler = yes }
 		name = "EVTOPTACOUP130"
@@ -1011,7 +985,7 @@ character_event = {
 			ROOT = { join_attacker_wars = PREV }
 		}
 	}
-	
+
 	option = {
 		trigger = { is_ruler = no }
 		name = "EVTOPTBCOUP130"
@@ -1042,9 +1016,9 @@ character_event = {
 letter_event = {
 	id = coup.131
 	desc = "EVTDESCCOUP131"
-	border = GFX_evt_letter_frame_war
+	border = GFX_event_letter_frame_war
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTACOUP131"
 		plot_target_char = {
@@ -1056,9 +1030,9 @@ letter_event = {
 letter_event = {
 	id = coup.132
 	desc = "EVTDESCCOUP132"
-	border = GFX_evt_letter_frame_war
+	border = GFX_event_letter_frame_war
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTACOUP121"
 		plot_target_char = { transfer_scaled_wealth = { to = ROOT value = 1 } }
@@ -1069,18 +1043,18 @@ character_event = {
 	id = coup.133
 	desc = "EVTDESCCOUP133"
 	picture = GFX_evt_battle
-	border = GFX_evt_normal_frame_war
+	border = GFX_event_normal_frame_war
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTACOUP133" }
 }
 character_event = {
 	id = coup.134
 	desc = "EVTDESCCOUP134"
 	picture = GFX_evt_battle
-	border = GFX_evt_normal_frame_war
+	border = GFX_event_normal_frame_war
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTACOUP134" }
 }
 
@@ -1089,9 +1063,9 @@ character_event = {
 	# id = coup.140
 	# desc = "EVTDESCCOUP140"
 	# picture = GFX_evt_siege
-	# border = GFX_evt_normal_frame_war
+	# border = GFX_event_normal_frame_war
 	# is_triggered_only = yes # Triggered on siege pulse
-	
+
 	# trigger = {
 		# is_attacker = no
 		# siege = {
@@ -1114,7 +1088,7 @@ character_event = {
 			# }
 		# }
 	# }
-	
+
 	# option = {
 		# trigger = { is_ruler = yes }
 		# name = "EVTOPTACOUP140"
@@ -1149,7 +1123,7 @@ character_event = {
 			# }
 		# }
 	# }
-	
+
 	# option = {
 		# trigger = { is_ruler = no }
 		# name = "EVTOPTBCOUP140"
@@ -1189,17 +1163,17 @@ character_event = {
 	# id = coup.141
 	# desc = "EVTDESCCOUP141"
 	# picture = GFX_evt_siege
-	# border = GFX_evt_normal_frame_war
+	# border = GFX_event_normal_frame_war
 	# is_triggered_only = yes
-	
+
 	# option = { name = "EVTOPTACOUP141" }
 # }
 # letter_event = {
 	# id = coup.142
 	# desc = "EVTDESCCOUP142"
-	# border = GFX_evt_letter_frame_war
+	# border = GFX_event_letter_frame_war
 	# is_triggered_only = yes
-	
+
 	# option = {
 		# name = "EVTOPTACOUP142"
 	# }
@@ -1207,9 +1181,9 @@ character_event = {
 # letter_event = {
 	# id = coup.143
 	# desc = "EVTDESCCOUP143"
-	# border = GFX_evt_letter_frame_war
+	# border = GFX_event_letter_frame_war
 	# is_triggered_only = yes
-	
+
 	# option = {
 		# name = "EVTOPTACOUP143"
 		# reverse_banish = FROM
@@ -1219,18 +1193,18 @@ character_event = {
 	# id = coup.144
 	# desc = "EVTDESCCOUP144"
 	# picture = GFX_evt_siege
-	# border = GFX_evt_normal_frame_war
+	# border = GFX_event_normal_frame_war
 	# is_triggered_only = yes
-	
+
 	# option = { name = "EVTOPTACOUP144" }
 # }
 # character_event = {
 	# id = coup.145
 	# desc = "EVTDESCCOUP145"
 	# picture = GFX_evt_siege
-	# border = GFX_evt_normal_frame_war
+	# border = GFX_event_normal_frame_war
 	# is_triggered_only = yes
-	
+
 	# option = { name = "EVTOPTACOUP145" }
 # }
 
@@ -1239,13 +1213,13 @@ character_event = {
 	id = coup.150
 	desc = "EVTDESCCOUP150"
 	picture = GFX_evt_battle
-	border = GFX_evt_normal_frame_war
-	
+	border = GFX_event_normal_frame_war
+
 	min_age = 16
 	only_rulers = yes
 	prisoner = no
 	capable_only = yes
-	
+
 	trigger = {
 		demesne_size = 1
 		any_backed_character = {
@@ -1257,11 +1231,11 @@ character_event = {
 			}
 		}
 	}
-	
+
 	mean_time_to_happen = {
 		months = 24
 	}
-	
+
 	option = {
 		name = "EVTOPTACOUP150"
 		random_backed_character = {
@@ -1286,26 +1260,26 @@ character_event = {
 letter_event = {
 	id = coup.151
 	desc = "EVTDESCCOUP151"
-	border = GFX_evt_letter_frame_war
+	border = GFX_event_letter_frame_war
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTACOUP151" }
 }
 letter_event = {
 	id = coup.152
 	desc = "EVTDESCCOUP152"
-	border = GFX_evt_letter_frame_war
+	border = GFX_event_letter_frame_war
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTACOUP152" }
 }
 character_event = {
 	id = coup.153
 	desc = "EVTDESCCOUP153"
 	picture = GFX_evt_battle
-	border = GFX_evt_normal_frame_war
+	border = GFX_event_normal_frame_war
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTACOUP153" }
 }
 
@@ -1315,12 +1289,12 @@ character_event = {
 	desc = "EVTDESCCOUP200"
 	picture = GFX_evt_battle
 	border = GFX_evt_character_frame_intrigue
-	
+
 	min_age = 16
 	only_playable = yes
 	prisoner = no
 	capable_only = yes
-	
+
 	trigger = {
 		OR = {
 			has_plot = plot_coup
@@ -1328,9 +1302,9 @@ character_event = {
 		}
 		NOT = { any_current_enemy = { always = yes } }
 		is_plot_active = no
-		
+
 		is_military_trigger = yes # Must have a military command
-		
+
 		# Must be within strike distance of the capital
 		# (strike distance set at two jumps for now)
 		plot_target_char = {
@@ -1345,18 +1319,18 @@ character_event = {
 					}
 				}
 			}
-			
+
 			# Must not already be imprisoned
 			prisoner = no
 		}
-		
+
 		# Avoid spamming
 		OR = {
 			NOT = { has_character_flag = flag_coup_delay }
 			had_character_flag = { flag = flag_coup_delay days = 720 }
 		}
 	}
-	
+
 	mean_time_to_happen = {
 		months = 60
 		modifier = {
@@ -1392,7 +1366,7 @@ character_event = {
 			plot_power = 2
 		}
 	}
-	
+
 	option = {
 		name = "EVTOPTACOUP200"
 		activate_plot = yes
@@ -1405,10 +1379,10 @@ character_event = {
 					# Military and capable
 					is_military_trigger = yes
 					has_regent = no
-					
+
 					# Not a plot backer
 					NOT = { any_backed_character = { character = ROOT } }
-					
+
  					# No more than one jump away
 					location = {
 						OR = {
@@ -1416,10 +1390,10 @@ character_event = {
 							any_neighbor_province = { any_province_character = { character = PREVPREVPREVPREV } }
 						}
 					}
-					
+
 					# Intrigue greater than plotter's
 					ROOT = { NOT = { intrigue = PREV } }
-					
+
 					# Comparable military power to plotter's
 					relative_power = { who = ROOT power = 0.75 }
 				}
@@ -1455,7 +1429,7 @@ character_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		name = "EVTOPTBCOUP200"
 		clr_character_flag = flag_coup_delay
@@ -1466,9 +1440,9 @@ character_event = {
 letter_event = {
 	id = coup.201
 	desc = "EVTDESCCOUP201"
-	border = GFX_evt_letter_frame_intrigue
+	border = GFX_event_letter_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = { name = "EVTOPTCONFIRM" }
 }
 
@@ -1477,15 +1451,15 @@ character_event = {
 	id = coup.202
 	desc = "EVTDESCCOUP202"
 	picture = GFX_evt_military_parade
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTACOUP202" # Stop them
 		set_character_flag = flag_coup_intervener
 		ai_chance = {
 			factor = 50
-			
+
 			# Personality
 			modifier = {
 				factor = 2
@@ -1495,7 +1469,7 @@ character_event = {
 				factor = 0.5
 				trait = carefree
 			}
-			
+
 			# Sense of Duty
 			modifier = {
 				factor = 2
@@ -1525,7 +1499,7 @@ character_event = {
 				liege = { religion = ROOT }
 				trait = radical
 			}
-			
+
 			# Opinions
 			modifier = {
 				factor = 1.25
@@ -1689,7 +1663,7 @@ character_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		# Do nothing
 		name = "EVTOPTBCOUP202"
@@ -1701,7 +1675,7 @@ character_event = {
 	id = coup.203
 	hide_window = yes
 	is_triggered_only = yes
-	
+
 	immediate = {
 		if = {
 			limit = {
@@ -1732,9 +1706,9 @@ character_event = {
 	id = coup.204
 	desc = "EVTDESCCOUP204"
 	picture = GFX_evt_council
-	border = GFX_evt_normal_frame_intrigue
+	border = GFX_event_normal_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTACOUP204"
 		activate_plot = no
@@ -1747,14 +1721,14 @@ character_event = {
 	id = coup.205
 	hide_window = yes
 	is_triggered_only = yes
-	
+
 	option = {
 		# Coup successful!
 		FROM = { FROM = { narrative_event = { id = coup.210 } } }
 		FROM = { FROM = { set_character_flag = flag_coup_successful } }
 		ai_chance = { factor = 50 }
 	}
-	
+
 	option = {
 		# Coup foiled by target
 		FROM = { FROM = { narrative_event = { id = coup.220 } } }
@@ -1790,7 +1764,7 @@ character_event = {
 					trait = friendly
 				}
 			}
-			
+
 			# Compared Intrigue
 			modifier = {
 				factor = 1.25
@@ -2195,7 +2169,7 @@ character_event = {
 			}
 		}
 	}
-	
+
 	option = {
 		# Coup foiled by intervener
 		trigger = { FROM = { any_vassal = { has_character_flag = flag_coup_intervener } } }
@@ -2484,7 +2458,7 @@ character_event = {
 					}
 				}
 			}
-			
+
 			# Comparative military strength
 			modifier = {
 				factor = 4
@@ -2553,9 +2527,9 @@ narrative_event = {
 	title = "OP_ROOT"
 	desc = "EVTDESCCOUP210"
 	picture = GFX_evt_military_coup
-	border = GFX_evt_narrative_frame_intrigue
+	border = GFX_event_narrative_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTACOUP210"
 		plot_target_char = {
@@ -2570,9 +2544,9 @@ narrative_event = {
 	title = "OP_FROM"
 	desc = "EVTDESCCOUP211"
 	picture = GFX_evt_military_coup
-	border = GFX_evt_narrative_frame_intrigue
+	border = GFX_event_narrative_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTACOUP211"
 		imprison = FROM
@@ -2588,19 +2562,6 @@ narrative_event = {
 				add_law = succ_feudal_elective # Junta established
 				if = {
 					limit = {
-						crownlaw_title = { title = PREV }
-						OR = {
-							has_law = crown_term_length_0
-							has_law = crown_term_length_1
-							has_law = crown_term_length_2
-							has_law = crown_term_length_3
-						}
-					}
-					add_law = crown_term_length_4
-				}
-				if = {
-					limit = {
-						NOT = { crownlaw_title = { title = PREV } }
 						OR = {
 							has_law = local_term_length_0
 							has_law = local_term_length_1
@@ -2619,9 +2580,9 @@ narrative_event = {
 	title = "OP_FROMFROM"
 	desc = "EVTDESCCOUP212"
 	picture = GFX_evt_military_coup
-	border = GFX_evt_narrative_frame_intrigue
+	border = GFX_event_narrative_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		trigger = {
 			NOT = { any_backed_character = { character = FROMFROM } }
@@ -2629,12 +2590,12 @@ narrative_event = {
 		}
 		name = "EVTOPTACOUP212"
 	}
-	
+
 	option = {
 		trigger = { any_backed_character = { character = FROMFROM } }
 		name = "EVTOPTBCOUP212"
 	}
-	
+
 	option = {
 		trigger = { has_character_flag = flag_coup_intervener }
 		clr_character_flag = flag_coup_intervener
@@ -2648,9 +2609,9 @@ narrative_event = {
 	title = "OP_ROOT"
 	desc = "EVTDESCCOUP220"
 	picture = GFX_evt_military_coup
-	border = GFX_evt_narrative_frame_intrigue
+	border = GFX_event_narrative_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTACOUP220"
 		plot_target_char = {
@@ -2664,9 +2625,9 @@ narrative_event = {
 	title = "OP_FROM"
 	desc = "EVTDESCCOUP211"
 	picture = GFX_evt_military_coup
-	border = GFX_evt_narrative_frame_intrigue
+	border = GFX_event_narrative_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTACOUP211"
 		hidden_tooltip = {
@@ -2683,9 +2644,9 @@ narrative_event = {
 	title = "OP_FROMFROM"
 	desc = "EVTDESCCOUP222"
 	picture = GFX_evt_military_coup
-	border = GFX_evt_narrative_frame_intrigue
+	border = GFX_event_narrative_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		trigger = {
 			NOT = { any_backed_character = { character = FROMFROM } }
@@ -2694,13 +2655,13 @@ narrative_event = {
 		clr_character_flag = flag_coup_intervener
 		name = "EVTOPTACOUP222"
 	}
-	
+
 	option = {
 		trigger = { any_backed_character = { character = FROMFROM } }
 		clr_character_flag = flag_coup_intervener
 		name = "EVTOPTBCOUP222"
 	}
-	
+
 	option = {
 		trigger = { has_character_flag = flag_coup_intervener }
 		clr_character_flag = flag_coup_intervener
@@ -2712,7 +2673,7 @@ character_event = {
 	id = coup.230
 	hide_window = yes
 	is_triggered_only = yes
-	
+
 	immediate = {
 		plot_target_char = {
 			random_vassal = {
@@ -2727,9 +2688,9 @@ narrative_event = {
 	title = "OP_FROM"
 	desc = "EVTDESCCOUP231"
 	picture = GFX_evt_military_coup
-	border = GFX_evt_narrative_frame_intrigue
+	border = GFX_event_narrative_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTACOUP231"
 		clr_character_flag = flag_coup_intervener
@@ -2752,9 +2713,9 @@ narrative_event = {
 	title = "OP_ROOT"
 	desc = "EVTDESCCOUP232"
 	picture = GFX_evt_military_coup
-	border = GFX_evt_narrative_frame_intrigue
+	border = GFX_event_narrative_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTACOUP232"
 		plot_target_char = {
@@ -2777,14 +2738,14 @@ narrative_event = {
 	title = "OP_FROM"
 	desc = "EVTDESCCOUP233"
 	picture = GFX_evt_military_coup
-	border = GFX_evt_narrative_frame_intrigue
+	border = GFX_event_narrative_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		trigger = { NOT = { any_backed_character = { character = FROM } } }
 		name = "EVTOPTACOUP233"
 	}
-	
+
 	option = {
 		trigger = { any_backed_character = { character = FROM } }
 		name = "EVTOPTBCOUP233"
@@ -2795,9 +2756,9 @@ narrative_event = {
 	title = "OP_FROM"
 	desc = "EVTDESCCOUP234"
 	picture = GFX_evt_military_coup
-	border = GFX_evt_narrative_frame_intrigue
+	border = GFX_event_narrative_frame_intrigue
 	is_triggered_only = yes
-	
+
 	option = {
 		name = "EVTOPTACOUP234"
 		FROM = { character_event = { id = coup.100 tooltip = "EVTTOOLTIPCOUP100" } }
