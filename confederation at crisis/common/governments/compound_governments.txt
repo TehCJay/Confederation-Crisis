@@ -16,45 +16,32 @@ feudal_governments = {
 			FORT
 			HOSPITAL
 		}
+		allowed_holdings_culture = { # Will not get the wrong government type penalty for tribes of the same culture
+			TRIBAL
+		}
 		potential = {
 			NOT = { trait = hiver_implant }
 			holy_order = no
-			higher_tier_than = COUNT
 			NOT = {
 				is_government_potential = merchant_republic_government
 				is_government_potential = neofeudal_government
 				is_government_potential = military_command
                 is_government_potential = holy_terran_government
-                is_government_potential = pc_appointed_governor
-                is_government_potential = npc_appointed_governor
 			}
 			OR = {
-				AND = {
-					has_law = local_main_government_type_0
-					has_law = local_secondary_government_type_1
-				}
-				AND = {
-					has_law = local_main_government_type_1
-					has_law = local_secondary_government_type_0
+				capital_holding = { holding_type = castle }
+				capital_holding = { holding_type = city }
+			}
+			OR = {
+				primary_title = { has_title_flag = established_imperial_government }
+				top_liege = {
+					primary_title = { has_title_flag = established_imperial_government }
 				}
 			}
 		}
 
         accepts_liege_governments = {
-            military_government
-            pc_civil_government
-            pc_rectorial_government
-            npc_civil_government
-            npc_rectorial_government
             imperialistic_government
-            pc_technocratic_government
-            pc_theocratic_government
-            npc_technocratic_government
-            npc_theocratic_government
-            holy_terran_government
-            merchant_republic_government
-            pc_appointed_governor
-            npc_appointed_governor
         }
         free_revoke_on_governments = {
             hivemind_government
@@ -64,42 +51,23 @@ feudal_governments = {
         }
 		forced_contract = {
 			military_command
-            military_base_government
-            pc_appointed_governor
-            npc_appointed_governor
+			imperialistic_government
 		}
         ignore_in_vassal_limit_calculation = {
             military_command
         }
 		no_vassal_tax = {
 			military_command
-            military_base_government
 		}
-		vassal_call_to_arms = {
-			hivemind_government
-            pirate_kingdom
-            pirate_republic_governor
-            pirate_republic
-            military_government
-            pc_civil_government
-            pc_rectorial_government
-            npc_civil_government
-            npc_rectorial_government
-            imperialistic_government
-            pc_technocratic_government
-            pc_theocratic_government
-            npc_technocratic_government
-            npc_theocratic_government
-            military_command
-            holy_terran_government
-            neofeudal_government
-            merchant_republic_government
-		}
-		barons_need_dynasty = no
+		barons_need_dynasty = yes
 		can_build_tribal = no
 		uses_piety_for_law_change = yes
-        can_grant_kingdoms_and_empires_to_other_government_group = yes
+		can_create_empires = no
+        can_grant_kingdoms_and_empires_to_other_government = yes
+		can_grant_kingdoms_and_empires_to_other_government_group = yes
         aggression = 1.3
+		capital_move_delay = 600
+		court_size_modifier = 10
 	}
 
 	pc_technocratic_government = {
@@ -114,50 +82,35 @@ feudal_governments = {
             FORT
             HOSPITAL
         }
+		allowed_holdings_culture = { # Will not get the wrong government type penalty for tribes of the same culture
+			TRIBAL
+		}
         potential = {
-            ai = no
             NOT = { trait = hiver_implant }
             holy_order = no
-            higher_tier_than = COUNT
+			higher_tier_than = BARON
             NOT = {
                 is_government_potential = merchant_republic_government
                 is_government_potential = neofeudal_government
                 is_government_potential = holy_terran_government
-                is_government_potential = pc_appointed_governor
-                is_government_potential = npc_appointed_governor
             }
-            OR = {
-                AND = {
-                    has_law = local_main_government_type_1
-                    has_law = local_secondary_government_type_2
-                }
-                AND = {
-                    has_law = local_main_government_type_2
-                    has_law = local_secondary_government_type_1
-                }
-            }
-            NOR = {
-                religion_group = religious_group
-                religion_group = religious_terran_group
-                religion = machine_cultist
-            }
+			OR = {
+				capital_holding = { holding_type = temple }
+				capital_holding = { holding_type = city }
+			}
+			religion_group = transhumanist_group
+			NOT = { religion = bio_directionist }
+			OR = {
+				independent = yes
+				top_liege = {
+					religion_group = transhumanist_group
+					NOT = { religion = bio_directionist }
+				}
+			}
         }
 
         accepts_liege_governments = {
-            military_government
-            pc_civil_government
-            pc_rectorial_government
-            npc_civil_government
-            npc_rectorial_government
-            imperialistic_government
             pc_technocratic_government
-            pc_theocratic_government
-            npc_technocratic_government
-            npc_theocratic_government
-            holy_terran_government
-            merchant_republic_government
-            pc_appointed_governor
-            npc_appointed_governor
         }
         free_revoke_on_governments = {
             hivemind_government
@@ -167,42 +120,19 @@ feudal_governments = {
         }
         forced_contract = {
             military_command
-            military_base_government
-            pc_appointed_governor
-            npc_appointed_governor
         }
         ignore_in_vassal_limit_calculation = {
             military_command
         }
         no_vassal_tax = {
-            military_base_government
             military_command
-        }
-        vassal_call_to_arms = {
-            hivemind_government
-            pirate_kingdom
-            pirate_republic_governor
-            pirate_republic
-            military_government
-            pc_civil_government
-            pc_rectorial_government
-            npc_civil_government
-            npc_rectorial_government
-            imperialistic_government
-            pc_technocratic_government
-            pc_theocratic_government
-            npc_technocratic_government
-            npc_theocratic_government
-            military_command
-            holy_terran_government
-            neofeudal_government
-            merchant_republic_government
         }
 
-        barons_need_dynasty = no
+        barons_need_dynasty = yes
         can_build_tribal = no
         uses_piety_for_law_change = yes
-        can_grant_kingdoms_and_empires_to_other_government_group = yes
+        can_grant_kingdoms_and_empires_to_other_government = yes
+		can_grant_kingdoms_and_empires_to_other_government_group = yes
         can_imprison_without_reason = no
         can_revoke_without_reason = no
         free_levies_in_offensive_war = no
@@ -222,51 +152,33 @@ feudal_governments = {
             FORT
             HOSPITAL
         }
+		allowed_holdings_culture = { # Will not get the wrong government type penalty for tribes of the same culture
+			TRIBAL
+		}
         potential = {
-            ai = no
             NOT = { trait = hiver_implant }
-            holy_order = no
-            higher_tier_than = COUNT
-            NOT = {
-                is_government_potential = merchant_republic_government
-                is_government_potential = neofeudal_government
+			holy_order = no
+			higher_tier_than = BARON
+			NOT = {
+				is_government_potential = merchant_republic_government
+				is_government_potential = neofeudal_government
+				is_government_potential = military_command
                 is_government_potential = holy_terran_government
-                is_government_potential = pc_appointed_governor
-                is_government_potential = npc_appointed_governor
-            }
-            OR = {
-                AND = {
-                    has_law = local_main_government_type_0
-                    has_law = local_secondary_government_type_2
-                }
-                AND = {
-                    has_law = local_main_government_type_2
-                    has_law = local_secondary_government_type_0
-                }
-                d_orthodoxy = { holder = PREV }
-            }
-            OR = {
-                religion_group = religious_group
-                religion_group = religious_terran_group
-                religion = machine_cultist
-            }
+			}
+			OR = {
+				capital_holding = { holding_type = castle }
+				capital_holding = { holding_type = temple }
+			}
+			OR = {
+				primary_title = { has_title_flag = established_theocratic_government }
+				top_liege = {
+					primary_title = { has_title_flag = established_theocratic_government }
+				}
+			}
         }
 
         accepts_liege_governments = {
-            military_government
-            pc_civil_government
-            pc_rectorial_government
-            npc_civil_government
-            npc_rectorial_government
-            imperialistic_government
-            pc_technocratic_government
             pc_theocratic_government
-            npc_technocratic_government
-            npc_theocratic_government
-            holy_terran_government
-            merchant_republic_government
-            pc_appointed_governor
-            npc_appointed_governor
         }
         free_revoke_on_governments = {
             hivemind_government
@@ -276,42 +188,19 @@ feudal_governments = {
         }
         forced_contract = {
             military_command
-            military_base_government
-            pc_appointed_governor
-            npc_appointed_governor
         }
         ignore_in_vassal_limit_calculation = {
             military_command
         }
         no_vassal_tax = {
-            military_base_government
             military_command
-        }
-        vassal_call_to_arms = {
-            hivemind_government
-            pirate_kingdom
-            pirate_republic_governor
-            pirate_republic
-            military_government
-            pc_civil_government
-            pc_rectorial_government
-            npc_civil_government
-            npc_rectorial_government
-            imperialistic_government
-            pc_technocratic_government
-            pc_theocratic_government
-            npc_technocratic_government
-            npc_theocratic_government
-            military_command
-            holy_terran_government
-            neofeudal_government
-            merchant_republic_government
         }
 
-        barons_need_dynasty = no
+        barons_need_dynasty = yes
         can_build_tribal = no
         uses_piety_for_law_change = yes
-        can_grant_kingdoms_and_empires_to_other_government_group = yes
+        can_grant_kingdoms_and_empires_to_other_government = yes
+		can_grant_kingdoms_and_empires_to_other_government_group = yes
         can_imprison_without_reason = no
         can_revoke_without_reason = yes
         free_levies_in_offensive_war = yes
@@ -323,8 +212,6 @@ feudal_governments = {
             npc_rectorial_government
             pc_technocratic_government
             pc_theocratic_government
-            npc_technocratic_government
-            npc_theocratic_government
         }
     }
 }
@@ -345,6 +232,7 @@ republic_governments = {
 			HOSPITAL
 		}
         potential = {
+			always = no
             ai = yes
             NOT = { trait = hiver_implant }
             holy_order = no
@@ -407,26 +295,6 @@ republic_governments = {
 		no_vassal_tax = {
 			military_base_government
 			military_command
-		}
-		vassal_call_to_arms = {
-			hivemind_government
-            pirate_kingdom
-            pirate_republic_governor
-            pirate_republic
-            military_government
-            pc_civil_government
-            pc_rectorial_government
-            npc_civil_government
-            npc_rectorial_government
-            imperialistic_government
-            pc_technocratic_government
-            pc_theocratic_government
-            npc_technocratic_government
-            npc_theocratic_government
-            military_command
-            holy_terran_government
-            neofeudal_government
-            merchant_republic_government
 		}
 
 		barons_need_dynasty = no
@@ -457,6 +325,7 @@ theocracy_governments = {
 			HOSPITAL
 		}
         potential = {
+			always = no
             ai = yes
             NOT = { trait = hiver_implant }
             holy_order = no
@@ -521,26 +390,6 @@ theocracy_governments = {
 			military_base_government
 			military_command
 		}
-		vassal_call_to_arms = {
-			hivemind_government
-            pirate_kingdom
-            pirate_republic_governor
-            pirate_republic
-            military_government
-            pc_civil_government
-            pc_rectorial_government
-            npc_civil_government
-            npc_rectorial_government
-            imperialistic_government
-            pc_technocratic_government
-            pc_theocratic_government
-            npc_technocratic_government
-            npc_theocratic_government
-            military_command
-            holy_terran_government
-            neofeudal_government
-            merchant_republic_government
-		}
 
 		barons_need_dynasty = no
         can_build_tribal = no
@@ -557,8 +406,6 @@ theocracy_governments = {
             npc_rectorial_government
             pc_technocratic_government
             pc_theocratic_government
-            npc_technocratic_government
-            npc_theocratic_government
         }
 	}
 }

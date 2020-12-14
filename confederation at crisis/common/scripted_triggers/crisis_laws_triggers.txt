@@ -82,7 +82,7 @@ is_hereditary_trigger = {
                 has_law = succ_seniority
                 has_law = succ_primogeniture
                 has_law = succ_ultimogeniture
-                has_law = succ_feudal_elective
+                has_law = succ_tanistry
             }
         }
     }
@@ -107,9 +107,7 @@ is_dictatorship_trigger = {
     custom_tooltip = {
         text = "ISDICTATORSHIP"
         hidden_tooltip = {
-            #OR = {
-                has_law = succ_dictatorship
-            #}
+			has_law = succ_dictatorship_appointment
         }
     }
 }
@@ -126,6 +124,7 @@ is_elective_trigger = {
                 has_law = succ_eldership
                 has_law = succ_byzantine_elective #pirate elective it seems
                 has_law = succ_tanistry
+				has_law = succ_feudal_elective
                 has_law = succ_papal_succession
                 has_law = succ_open_elective
                 has_law = succ_patrician_elective
@@ -133,6 +132,147 @@ is_elective_trigger = {
             }
         }
     }
+}
+
+is_hereditary_religion = {
+	custom_tooltip = {
+		text = "HEREDITARYRELIGION"
+		hidden_tooltip = {
+			holder_scope = {
+			OR = {
+				religion = terran_imperial
+				religion = neo_feudal
+				religion_group = religious_group
+				religion_group = religious_terran_group
+				religion = bio_directionist
+			}
+			}
+		}
+	}
+}
+
+is_elective_religion = {
+	custom_tooltip = {
+		text = "ELECTIVERELIGION"
+		hidden_tooltip = {
+			holder_scope = {
+			OR = {
+				religion = terran_federalist
+				religion = terran_republican
+				religion = terran_imperial
+				religion = colonial_separatist
+				religion = neo_socialist
+				religion = astrist
+				religion = cyberneticist
+				religion = machine_cultist
+				religion_group = religious_group
+				religion_group = religious_terran_group
+			}
+			}
+		}
+	}
+}
+
+legislature_full_power_trigger = {
+	NOR = {
+		has_law = law_voting_power_0
+		has_law = banish_voting_power_0
+		has_law = revoke_title_voting_power_0
+		has_law = grant_title_voting_power_0
+		has_law = imprison_voting_power_0
+		has_law = execution_voting_power_0
+		has_law = war_voting_power_0
+		has_law = succession_voting_power_0
+	}
+}
+
+legislature_high_power_trigger = {
+	calc_true_if = {
+		amount = 2
+		has_law = law_voting_power_0
+		has_law = banish_voting_power_0
+		has_law = revoke_title_voting_power_0
+		has_law = grant_title_voting_power_0
+		has_law = imprison_voting_power_0
+		has_law = execution_voting_power_0
+		has_law = war_voting_power_0
+		has_law = succession_voting_power_0
+	}
+	NOT = {
+		calc_true_if = {
+			amount = 4
+			has_law = law_voting_power_0
+			has_law = banish_voting_power_0
+			has_law = revoke_title_voting_power_0
+			has_law = grant_title_voting_power_0
+			has_law = imprison_voting_power_0
+			has_law = execution_voting_power_0
+			has_law = war_voting_power_0
+			has_law = succession_voting_power_0
+		}
+	}
+}
+
+legislature_medium_power_trigger = {
+	calc_true_if = {
+		amount = 4
+		has_law = law_voting_power_0
+		has_law = banish_voting_power_0
+		has_law = revoke_title_voting_power_0
+		has_law = grant_title_voting_power_0
+		has_law = imprison_voting_power_0
+		has_law = execution_voting_power_0
+		has_law = war_voting_power_0
+		has_law = succession_voting_power_0
+	}
+	NOT = {
+		calc_true_if = {
+			amount = 6
+			has_law = law_voting_power_0
+			has_law = banish_voting_power_0
+			has_law = revoke_title_voting_power_0
+			has_law = grant_title_voting_power_0
+			has_law = imprison_voting_power_0
+			has_law = execution_voting_power_0
+			has_law = war_voting_power_0
+			has_law = succession_voting_power_0
+		}
+	}
+}
+
+legislature_low_power_trigger = {
+	calc_true_if = {
+		amount = 6
+		has_law = law_voting_power_0
+		has_law = banish_voting_power_0
+		has_law = revoke_title_voting_power_0
+		has_law = grant_title_voting_power_0
+		has_law = imprison_voting_power_0
+		has_law = execution_voting_power_0
+		has_law = war_voting_power_0
+		has_law = succession_voting_power_0
+	}
+	NAND = {
+		has_law = law_voting_power_0
+		has_law = banish_voting_power_0
+		has_law = revoke_title_voting_power_0
+		has_law = grant_title_voting_power_0
+		has_law = imprison_voting_power_0
+		has_law = execution_voting_power_0
+		has_law = war_voting_power_0
+		has_law = succession_voting_power_0
+	}
+}
+
+legislature_no_power_trigger = {
+	has_law = law_voting_power_0
+	has_law = banish_voting_power_0
+	has_law = revoke_title_voting_power_0
+	has_law = grant_title_voting_power_0
+	has_law = imprison_voting_power_0
+	has_law = execution_voting_power_0
+	has_law = war_voting_power_0
+	has_law = succession_voting_power_0
 }
 
 is_monarchy = {
@@ -181,16 +321,21 @@ laws_allow_inheritance = {
 
 #this is to allow liege appointing the government in question
 laws_allow_appointment = {
-    holder_scope = { independent = no }
-    crownlaw_title = {
-        OR = {
-            has_law = disobedience_1
-            has_law = centralization_1
-            has_law = centralization_2
-            has_law = centralization_3
-            has_law = centralization_4
-        }
-    }
+	custom_tooltip = {
+		text = "APPOINTMENTTOOLTIP"
+		hidden_tooltip = {
+			holder_scope = { independent = no }
+			crownlaw_title = {
+				OR = {
+					has_law = disobedience_1
+					has_law = centralization_1
+					has_law = centralization_2
+					has_law = centralization_3
+					has_law = centralization_4
+				}
+			}
+		}
+	}
 }
 
 #dictatorship is like appointment but for "self" appointment
@@ -221,13 +366,15 @@ laws_allow_dictatorship = {
 
 #also dicatorship
 liege_allows_inheritance = {
+	custom_tooltip = {
+	text = "LIEGEALLOWSINHERITANCETOOLTIP"
+	hidden_tooltip = {
     trigger_if = {
         limit = {
             OR = {
                 crownlaw_title = {
                     has_law = public_order_0
                 }
-                holder_scope = { independent = yes }
                 has_law = disobedience_1
             }
         }
@@ -254,16 +401,20 @@ liege_allows_inheritance = {
             }
         }
     }
+	}
+	}
 }
 
 liege_allows_elections = {
+	custom_tooltip = {
+	text = "LIEGEALLOWSELECTIONSTOOLTIP"
+	hidden_tooltip = {
     trigger_if = {
         limit = {
             OR = {
                 crownlaw_title = {
                     has_law = public_order_0
                 }
-                holder_scope = { independent = yes }
                 has_law = disobedience_1
             }
         }
@@ -290,6 +441,8 @@ liege_allows_elections = {
             }
         }
     }
+	}
+	}
 }
 
 liege_allows_appointment = {
@@ -299,7 +452,6 @@ liege_allows_appointment = {
                 crownlaw_title = {
                     has_law = public_order_0
                 }
-                holder_scope = { independent = yes }
                 has_law = disobedience_1
             }
         }

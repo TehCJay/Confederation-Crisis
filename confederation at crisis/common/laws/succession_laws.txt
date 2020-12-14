@@ -17,7 +17,16 @@ succession_laws = {
 		}
 
 		allow = {
-			liege_allows_inheritance = yes
+			OR = {
+				AND = {
+					holder_scope = { independent = no }
+					liege_allows_inheritance = yes
+				}
+				AND = {
+					holder_scope = { independent = yes }
+					is_hereditary_religion = yes
+				}
+			}
 			#is_senate_voted_succession = yes
 			base_requeriment_for_succession_change = yes
 		}
@@ -207,7 +216,16 @@ succession_laws = {
 		}
 
 		allow = {
-			liege_allows_inheritance = yes
+			OR = {
+				AND = {
+					holder_scope = { independent = no }
+					liege_allows_inheritance = yes
+				}
+				AND = {
+					holder_scope = { independent = yes }
+					is_hereditary_religion = yes
+				}
+			}
 			#is_senate_voted_succession = yes
 			base_requeriment_for_succession_change = yes
 
@@ -249,7 +267,7 @@ succession_laws = {
 		}
 	}
 
-	succ_feudal_elective = { #Federal Elections, it is only for when the emperor is elected by the kings.
+	succ_feudal_elective = { #Federal Elections
 		oldest_child_opinion = -15
 		child_opinion = -5
 		dynasty_opinion = -5
@@ -260,9 +278,11 @@ succession_laws = {
 				is_merchant_republic = no
 				is_patrician = no
 				NOT = { is_law_potential = succ_catholic_bishopric }
-				tier = EMPEROR
 			}
-			laws_allow_elections = yes
+			OR = {
+				laws_allow_elections = yes
+				laws_allow_inheritance = yes
+			}
 		}
 
 		allow = {
@@ -279,7 +299,7 @@ succession_laws = {
 
 			succession = {
 				base_type = feudal_elective
-				voting_rules = generic_election_rules
+				voting_rules = feudal_elective
 			}
 		}
 	}
@@ -333,22 +353,16 @@ succession_laws = {
 			}
 			OR = {
 				is_landless_type_title = no
-				is_tribal_type_title = yes
 				temporary = yes
 			}
 			holder_scope = {
-				OR = {
-					government = pirate_kingdom
-					AND = {
-						independent = yes
-						is_hereditary_trigger = yes
-					}
-				}
+				government = pirate_kingdom
 			}
+			independent = yes
 		}
 
 		allow = {
-			liege_allows_elections = yes
+			religion = space_pirate
 		}
 
 		pass_effect = {
@@ -360,7 +374,7 @@ succession_laws = {
 
 			succession = {
 				base_type = feudal_elective
-				voting_rules = generic_election_rules
+				voting_rules = byzantine_elective
 			}
 		}
 	}
@@ -376,14 +390,25 @@ succession_laws = {
 				is_merchant_republic = no
 				is_patrician = no
 				NOT = { is_law_potential = succ_catholic_bishopric }
-				tier = EMPEROR
 			}
-			laws_allow_elections = yes
-			laws_allow_inheritance = yes
+			OR = {
+				laws_allow_elections = yes
+				laws_allow_inheritance = yes
+			}
 		}
 
 		allow = {
-			liege_allows_inheritance = yes
+			OR = {
+				AND = {
+					holder_scope = { independent = no }
+					liege_allows_inheritance = yes
+				}
+				AND = {
+					holder_scope = { independent = yes }
+					is_hereditary_religion = yes
+				}
+				religion = astrist
+			}
 			#is_senate_voted_succession = yes
 			base_requeriment_for_succession_change = yes
 		}
@@ -397,7 +422,7 @@ succession_laws = {
 
 			succession = {
 				base_type = tanistry
-				voting_rules = generic_election_rules
+				voting_rules = tanistry
 			}
 		}
 	}
@@ -418,7 +443,16 @@ succession_laws = {
 		}
 
 		allow = {
-			liege_allows_inheritance = yes
+			OR = {
+				AND = {
+					holder_scope = { independent = no }
+					liege_allows_inheritance = yes
+				}
+				AND = {
+					holder_scope = { independent = yes }
+					is_hereditary_religion = yes
+				}
+			}
 			#is_senate_voted_succession = yes
 			base_requeriment_for_succession_change = yes
 		}
@@ -463,7 +497,7 @@ succession_laws = {
 		}
 
 		allow = {
-			liege_allows_inheritance = yes
+			religion = space_pirate
 			#is_senate_voted_succession = yes
 			base_requeriment_for_succession_change = yes
 		}
@@ -704,11 +738,11 @@ succession_laws = {
 		}
 	}
 
-	succ_dictatorship = {
+	succ_dictatorship_appointment = {
 		oldest_child_opinion = -15
 		child_opinion = -5
 		dynasty_opinion = -5
-		vassal_opinion = 10
+		vassal_opinion = -10
 
 		potential = {
 			holder_scope = {
@@ -721,6 +755,7 @@ succession_laws = {
 
 		allow = {
 			liege_allows_inheritance = yes
+			is_dictatorship_trigger = yes
 
 			holder_scope = {
 				show_scope_change = no
@@ -737,11 +772,11 @@ succession_laws = {
 		}
 
 		pass_effect = {
-			log = "succ_dictatorship pass ([This.GetFullBaseName])"
+			log = "succ_dictatorship_appointment pass ([This.GetFullBaseName])"
 		}
 
 		effect = {
-			log = "succ_dictatorship ([This.GetFullBaseName])"
+			log = "succ_dictatorship_appointment ([This.GetFullBaseName])"
 
 			succession = {
 				base_type = feudal_elective
@@ -820,7 +855,16 @@ succession_laws = {
 		}
 
 		allow = {
-			liege_allows_elections = yes
+			OR = {
+				AND = {
+					holder_scope = { independent = no }
+					liege_allows_elections = yes
+				}
+				AND = {
+					holder_scope = { independent = yes }
+					is_elective_religion = yes
+				}
+			}
 			base_requeriment_for_succession_change = yes
 		}
 
@@ -833,7 +877,7 @@ succession_laws = {
 
 			succession = {
 				base_type = feudal_elective
-				voting_rules = generic_election_rules
+				voting_rules = feudal_elective
 			}
 		}
 	}

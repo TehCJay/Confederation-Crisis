@@ -105,8 +105,8 @@ NDefines.NMilitary.LEVY_MAINTENANCE_FACTOR = 5                 -- how much to mu
 -- retinue stuff
 NDefines.NMilitary.RETINUE_FROM_REALMSIZE = 10                  -- for a count. for duke is *1.5, for king is *2, for emperor is *2.5
 NDefines.NMilitary.RETINUE_HIRE_COST_MULTIPLIER = 0             -- retinue creation price in gold, as percentage of its retinue cap usage
-NDefines.NMilitary.RETINUE_REINFORCE_COST = 100                   -- how much it costs to build a single unit in cents of gold, based on its retinue cap usage.
-NDefines.NMilitary.RETINUE_CONSTANT_COST = 0.2*NDefines.NMilitary.LEVY_MAINTENANCE_FACTOR -- idea here is retinue montly costs is 20% of what it would cost if same army was a levy
+NDefines.NMilitary.RETINUE_REINFORCE_COST = 25                   -- how much it costs to build a single unit in cents of gold, based on its retinue cap usage.
+NDefines.NMilitary.RETINUE_CONSTANT_COST = 0.2 -- idea here is retinue montly costs is 20% of what it would cost if same army was a levy
 NDefines.NMilitary.MIN_RETINUE = 0
 NDefines.NMilitary.RETINUE_INCREASE_PER_TECH = 0.1              -- since this is "per tech"  it means at the end of the game the total is multiplied by 8, since that is the tech levels the game support.
 NDefines.NMilitary.RETINUE_REINFORCE_RATE = 0.1

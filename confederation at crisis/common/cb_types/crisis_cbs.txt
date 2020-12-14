@@ -94,50 +94,66 @@ civil_war = {
 				}
 			}
 			# Oterhwise, the incoming government should use ROOT's power base and FROM's legitimacy type
+			
 			if = {
-				limit = { FROM = { is_hereditary_trigger = yes } }
-				if = {
-					limit = { ROOT = { is_military_trigger = yes } }
-					ROOT = { set_government_type = military_monarchy }
+				limit = { 
+					ROOT = {
+						AND = {
+							religion = neo_feudal
+							capital_holding = { holding_type = castle }
+						}
+					}
 				}
-				if = {
-					limit = { ROOT = { is_civil_trigger = yes } }
-					ROOT = { set_government_type = corporate_monarchy }
-				}
-				if = {
-					limit = { ROOT = { is_rectorial_trigger = yes } }
-					ROOT = { set_government_type = administrative_monarchy }
-				}
+				ROOT = { set_government_type = neofeudal_government }
 			}
 			if = {
-				limit = { FROM = { is_elective_trigger = yes } }
-				if = {
-					limit = { ROOT = { is_military_trigger = yes } }
-					ROOT = { set_government_type = military_republic }
-				}
-				if = {
-					limit = { ROOT = { is_civil_trigger = yes } }
-					ROOT = { set_government_type = corporate_republic }
-				}
-				if = {
-					limit = { ROOT = { is_rectorial_trigger = yes } }
-					ROOT = { set_government_type = administrative_republic }
-				}
+				limit = { ROOT = { capital_holding = { holding_type = city } } }
+				ROOT = { set_government_type = pc_civil_government }
 			}
 			if = {
-				limit = { FROM = { is_appointed_trigger = yes } }
-				if = {
-					limit = { ROOT = { is_military_trigger = yes } }
-					ROOT = { set_government_type = military_directorate }
+				limit = { ROOT = { capital_holding = { holding_type = castle } } }
+				ROOT = { set_government_type = military_government }
+			}
+			if = {
+				limit = { ROOT = { capital_holding = { holding_type = temple } } }
+				ROOT = { set_government_type = pc_rectorial_government }
+			}
+			if = {
+				limit = { 
+					ROOT = {
+						AND = {
+							religion_ = outlaw_group
+							capital_holding = { holding_type = castle }
+						}
+					}
 				}
-				if = {
-					limit = { ROOT = { is_civil_trigger = yes } }
-					ROOT = { set_government_type = corporate_directorate }
+				ROOT = { set_government_type = pirate_kingdom }
+			}
+			if = {
+				limit = { 
+					ROOT = {
+						AND = {
+							religion_ = outlaw_group
+							capital_holding = { holding_type = city }
+						}
+					}
 				}
-				if = {
-					limit = { ROOT = { is_rectorial_trigger = yes } }
-					ROOT = { set_government_type = administrative_directorate }
+				ROOT = { set_government_type = pirate_republic }
+			}
+			if = {
+				limit = {
+					ROOT = {
+						AND = {
+							religion_ = transhumanist_group
+							NOT = { religion = bio_directionist }
+							OR = {
+								capital_holding = { holding_type = city }
+								capital_holding = { holding_type = temple }
+							}
+						}
+					}
 				}
+				ROOT = { set_government_type = pc_technocratic_government }
 			}
 		}
 
@@ -482,7 +498,7 @@ democratic_rebellion = {
 				set_government_type = merchant_republic_government
 			}
 			if = {
-				limit = { is_government_potential = pirate_republic }
+				limit = { religion_group = outlaw_group }
 				set_government_type = pirate_republic
 			}
 			if = {
@@ -490,7 +506,14 @@ democratic_rebellion = {
 					NOT = { is_government_potential = merchant_republic_government }
 					NOT = { is_government_potential = pirate_republic }
 				}
-				set_government_type = corporate_republic
+				set_government_type = pc_civil_government
+			}
+			if = {
+				limit = {
+					religion_group = transhumanist_group
+					NOT = { religion = bio_directionist }
+				}
+				set_government_type = pc_technocratic_government
 			}
 		}
 	}
@@ -678,24 +701,25 @@ autocratic_rebellion = {
 			}
 			if = {
 				limit = {
-					OR = {
-						religion = terran_imperial
-						religion = neo_feudal
-						religion = imperial_cult
-						religion = bio_directionist
-					}
+					religion = neo_feudal
 				}
-				set_government_type = military_monarchy
+				set_government_type = neofeudal_government
 			}
 			if = {
 				limit = {
-					NOT = { religion = space_pirate }
-					NOT = { religion = terran_imperial }
-					NOT = { religion = imperial_cult }
-					NOT = { religion = bio_directionist }
-					NOT = { religion = neo_feudal }
+					religion = imperial_cult
 				}
-				set_government_type = military_directorate
+				set_government_type = pc_theocratic_government
+			}
+			if = {
+				limit = {
+					NOR = {
+						religion_group = outlaw_group
+						religion = neo_feudal
+						religion = imperial_cult
+					}
+				}
+				set_government_type = military_government
 			}
 		}
 	}
@@ -871,7 +895,22 @@ theocratic_rebellion = {
 		ROOT = {
 			occupy_minors_of_occupied_settlements = FROM
 			gain_all_occupied_titles = FROM
-			set_government_type = administrative_directorate
+			if = {
+				limit = {
+					religion_group = transhumanist_group
+					NOT = { religion = bio_directionist }
+				}
+				set_government_type = pc_technocratic_government
+			}
+			if = {
+				limit = {
+					OR = {
+						religion = bio_directionist
+						NOT = { religion_group = transhumanist_group }
+					}
+				}
+				set_government_type = pc_rectorial_government
+			}
 		}
 	}
 
