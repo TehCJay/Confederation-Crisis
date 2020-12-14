@@ -105,12 +105,8 @@ targetted_decisions = {
 					}
 				}
 				AND = {
-					religion_group = zoroastrian_group
-					FROM = { religion_group = zoroastrian_group }
-				}
-				AND = {
-					religion = messalian
-					FROM = { religion = messalian }
+					religion=bio_directionist
+					FROM = {religion=bio_directionst}
 				}
 			}
 
@@ -121,8 +117,12 @@ targetted_decisions = {
 					NOT = { same_sex = FROM }
 				}
 				AND = {
-					FROM = { trait = homosexual }
+					OR={ FROM = {trait = homosexual}
+						 FROM = {trait = bisexual}
+						}
+					OR={
 					trait = homosexual
+					trait =bisexual }
 					same_sex = FROM
 				}
 			}
@@ -154,8 +154,7 @@ targetted_decisions = {
 					if = {
 						limit = {
 							is_close_relative = ROOT
-							NOT = { religion = messalian }
-							NOT = { religion = zoroastrian }
+							NOT = { religion = bio_directionist}
 						}
 						character_event = { id = WoL.102 days = 1 } # Warning - Incest scandal risk
 						break = yes

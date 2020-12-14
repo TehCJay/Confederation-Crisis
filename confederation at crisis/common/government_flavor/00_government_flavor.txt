@@ -7,6 +7,7 @@ government_flavor = {
 	graphics = GFX_evt_found_hre
 	priority = 1
 	trigger = {
+		always = no
 		government = military_government
 		has_law = succ_feudal_elective
 		OR = {
@@ -35,78 +36,67 @@ government_flavor = {
 }
 
 government_flavor = {
-	name = gov_abs_military_republic
+	name = gov_military_government
 	graphics = GFX_evt_govplaceholder
 	priority = 1
 	trigger = {
-		government = military_republic
-		has_law = legislative_type_autocratic
-		has_law = law_voting_power_0
-		has_law = war_voting_power_0
-		has_law = revoke_title_voting_power_0
-		has_law = imprison_voting_power_0
-		has_law = grant_title_voting_power_0
-		has_law = banish_voting_power_0
-		has_law = execution_voting_power_0
-		has_law = succession_voting_power_0
+		government = military_government
 	}
 }
 
 government_flavor = {
-	name = gov_nnabs_military_republic
+	name = gov_civil_government
 	graphics = GFX_evt_govplaceholder
 	priority = 1
 	trigger = {
-		government = military_republic
-		NAND = {
-			has_law = legislative_type_autocratic
-			has_law = law_voting_power_0
-			has_law = war_voting_power_0
-			has_law = revoke_title_voting_power_0
-			has_law = imprison_voting_power_0
-			has_law = grant_title_voting_power_0
-			has_law = banish_voting_power_0
-			has_law = execution_voting_power_0
-			has_law = succession_voting_power_0
+		OR = {
+			government = pc_civil_government
+			government = npc_civil_government
 		}
 	}
 }
 
 government_flavor = {
-	name = gov_abs_military_monarchy
+	name = gov_rectorial_government
 	graphics = GFX_evt_govplaceholder
 	priority = 1
 	trigger = {
-		government = military_monarchy
-		has_law = legislative_type_autocratic
-		has_law = law_voting_power_0
-		has_law = war_voting_power_0
-		has_law = revoke_title_voting_power_0
-		has_law = imprison_voting_power_0
-		has_law = grant_title_voting_power_0
-		has_law = banish_voting_power_0
-		has_law = execution_voting_power_0
-		has_law = succession_voting_power_0
+		OR = {
+			government = pc_rectorial_government
+			government = npc_rectorial_government
+		}
 	}
 }
-
 government_flavor = {
-	name = gov_nnabs_military_monarchy
+	name = gov_imperial_government
 	graphics = GFX_evt_govplaceholder
 	priority = 1
 	trigger = {
-		government = military_monarchy
-		NAND = {
-			has_law = legislative_type_autocratic
-			has_law = law_voting_power_0
-			has_law = war_voting_power_0
-			has_law = revoke_title_voting_power_0
-			has_law = imprison_voting_power_0
-			has_law = grant_title_voting_power_0
-			has_law = banish_voting_power_0
-			has_law = execution_voting_power_0
-			has_law = succession_voting_power_0
-		}
+		government = imperialistic_government
+	}
+}
+government_flavor = {
+	name = gov_technocracy_government
+	graphics = GFX_evt_govplaceholder
+	priority = 1
+	trigger = {
+		government = pc_technocratic_government
+	}
+}
+government_flavor = {
+	name = gov_theocracy_government
+	graphics = GFX_evt_govplaceholder
+	priority = 1
+	trigger = {
+		government = pc_theocratic_government
+	}
+}
+government_flavor = {
+	name = gov_neofeudal_government
+	graphics = GFX_evt_govplaceholder
+	priority = 1
+	trigger = {
+		government = neofeudal_government
 	}
 }
 government_flavor = {
@@ -128,213 +118,7 @@ government_flavor = {
 }
 
 government_flavor = {
-	name = gov_nnabs_military_directorate
-	graphics = GFX_evt_govplaceholder
-	priority = 1
-	trigger = {
-		government = military_directorate
-		NAND = {
-			has_law = legislative_type_autocratic
-			has_law = law_voting_power_0
-			has_law = war_voting_power_0
-			has_law = revoke_title_voting_power_0
-			has_law = imprison_voting_power_0
-			has_law = grant_title_voting_power_0
-			has_law = banish_voting_power_0
-			has_law = execution_voting_power_0
-			has_law = succession_voting_power_0
-		}
-	}
-}
-government_flavor = {
-	name = gov_abs_administrative_republic
-	graphics = GFX_evt_govplaceholder
-	priority = 1
-	trigger = {
-		government = administrative_republic
-		has_law = legislative_type_autocratic
-		has_law = law_voting_power_0
-		has_law = war_voting_power_0
-		has_law = revoke_title_voting_power_0
-		has_law = imprison_voting_power_0
-		has_law = grant_title_voting_power_0
-		has_law = banish_voting_power_0
-		has_law = execution_voting_power_0
-		has_law = succession_voting_power_0
-	}
-}
-
-government_flavor = {
-	name = gov_nnabs_administrative_republic
-	graphics = GFX_evt_govplaceholder
-	priority = 1
-	trigger = {
-		government = administrative_republic
-		NAND = {
-			has_law = legislative_type_autocratic
-			has_law = law_voting_power_0
-			has_law = war_voting_power_0
-			has_law = revoke_title_voting_power_0
-			has_law = imprison_voting_power_0
-			has_law = grant_title_voting_power_0
-			has_law = banish_voting_power_0
-			has_law = execution_voting_power_0
-			has_law = succession_voting_power_0
-		}
-	}
-}
-government_flavor = {
-	name = gov_abs_administrative_monarchy
-	graphics = GFX_evt_govplaceholder
-	priority = 1
-	trigger = {
-		government = administrative_monarchy
-		has_law = legislative_type_autocratic
-		has_law = law_voting_power_0
-		has_law = war_voting_power_0
-		has_law = revoke_title_voting_power_0
-		has_law = imprison_voting_power_0
-		has_law = grant_title_voting_power_0
-		has_law = banish_voting_power_0
-		has_law = execution_voting_power_0
-		has_law = succession_voting_power_0
-	}
-}
-
-government_flavor = {
-	name = gov_nnabs_administrative_monarchy
-	graphics = GFX_evt_govplaceholder
-	priority = 1
-	trigger = {
-		government = administrative_monarchy
-		NAND = {
-			has_law = legislative_type_autocratic
-			has_law = law_voting_power_0
-			has_law = war_voting_power_0
-			has_law = revoke_title_voting_power_0
-			has_law = imprison_voting_power_0
-			has_law = grant_title_voting_power_0
-			has_law = banish_voting_power_0
-			has_law = execution_voting_power_0
-			has_law = succession_voting_power_0
-		}
-	}
-}
-government_flavor = {
-	name = gov_abs_administrative_directorate
-	graphics = GFX_evt_govplaceholder
-	priority = 1
-	trigger = {
-		government = administrative_directorate
-		has_law = legislative_type_autocratic
-		has_law = law_voting_power_0
-		has_law = war_voting_power_0
-		has_law = revoke_title_voting_power_0
-		has_law = imprison_voting_power_0
-		has_law = grant_title_voting_power_0
-		has_law = banish_voting_power_0
-		has_law = execution_voting_power_0
-		has_law = succession_voting_power_0
-	}
-}
-
-government_flavor = {
-	name = gov_nnabs_administrative_directorate
-	graphics = GFX_evt_govplaceholder
-	priority = 1
-	trigger = {
-		government = administrative_directorate
-		NAND = {
-			has_law = legislative_type_autocratic
-			has_law = law_voting_power_0
-			has_law = war_voting_power_0
-			has_law = revoke_title_voting_power_0
-			has_law = imprison_voting_power_0
-			has_law = grant_title_voting_power_0
-			has_law = banish_voting_power_0
-			has_law = execution_voting_power_0
-			has_law = succession_voting_power_0
-		}
-	}
-}
-government_flavor = {
-	name = gov_abs_corporate_republic
-	graphics = GFX_evt_govplaceholder
-	priority = 1
-	trigger = {
-		government = corporate_republic
-		has_law = legislative_type_autocratic
-		has_law = law_voting_power_0
-		has_law = war_voting_power_0
-		has_law = revoke_title_voting_power_0
-		has_law = imprison_voting_power_0
-		has_law = grant_title_voting_power_0
-		has_law = banish_voting_power_0
-		has_law = execution_voting_power_0
-		has_law = succession_voting_power_0
-	}
-}
-
-
-government_flavor = {
-	name = gov_nnabs_corporate_monarchy
-	graphics = GFX_evt_govplaceholder
-	priority = 1
-	trigger = {
-		government = corporate_monarchy
-		NAND = {
-			has_law = legislative_type_autocratic
-			has_law = law_voting_power_0
-			has_law = war_voting_power_0
-			has_law = revoke_title_voting_power_0
-			has_law = imprison_voting_power_0
-			has_law = grant_title_voting_power_0
-			has_law = banish_voting_power_0
-			has_law = execution_voting_power_0
-			has_law = succession_voting_power_0
-		}
-	}
-}
-government_flavor = {
-	name = gov_abs_corporate_directorate
-	graphics = GFX_evt_govplaceholder
-	priority = 1
-	trigger = {
-		government = corporate_directorate
-		has_law = legislative_type_autocratic
-		has_law = law_voting_power_0
-		has_law = war_voting_power_0
-		has_law = revoke_title_voting_power_0
-		has_law = imprison_voting_power_0
-		has_law = grant_title_voting_power_0
-		has_law = banish_voting_power_0
-		has_law = execution_voting_power_0
-		has_law = succession_voting_power_0
-	}
-}
-
-government_flavor = {
-	name = gov_nnabs_corporate_directorate
-	graphics = GFX_evt_govplaceholder
-	priority = 1
-	trigger = {
-		government = corporate_directorate
-		NAND = {
-			has_law = legislative_type_autocratic
-			has_law = law_voting_power_0
-			has_law = war_voting_power_0
-			has_law = revoke_title_voting_power_0
-			has_law = imprison_voting_power_0
-			has_law = grant_title_voting_power_0
-			has_law = banish_voting_power_0
-			has_law = execution_voting_power_0
-			has_law = succession_voting_power_0
-		}
-	}
-}
-
-government_flavor = {
-	name = gov_military_command_flavor
+	name = gov_military_command_basic
 	graphics = GFX_evt_govplaceholder
 	priority = 1
 	trigger = {
@@ -343,11 +127,39 @@ government_flavor = {
 }
 
 government_flavor = {
-	name = gov_merchant_republic_government_flavor
+	name = gov_merchant_republic_government_basic
 	graphics = GFX_evt_govplaceholder
 	priority = 1
 	trigger = {
 		government = merchant_republic_government
+	}
+}
+
+government_flavor = {
+	name = gov_pirate_government_basic
+	graphics = GFX_evt_govplaceholder
+	priority = 1
+	trigger = {
+		religion = space_pirate
+		OR = {
+			government = pirate_kingdom
+			government = pirate_republic
+			government = pirate_republic_governor
+		}
+	}
+}
+
+government_flavor = {
+	name = gov_mafia_government_basic
+	graphics = GFX_evt_govplaceholder
+	priority = 1
+	trigger = {
+		religion = mobster
+		OR = {
+			government = pirate_kingdom
+			government = pirate_republic
+			government = pirate_republic_governor
+		}
 	}
 }
 
@@ -364,6 +176,28 @@ government_flavor = {
 		higher_tier_than = BARON
 		liege = { tier = EMPEROR }
 		culture_group = terran_group
+		independent = no
+	}
+}
+
+government_flavor = {
+	name = gov_arthurian_neofeudal
+	graphics = GFX_evt_govplaceholder
+	priority = 2
+	trigger = {
+		government = neofeudal_government
+		higher_tier_than = DUKE
+		dynasty = 20020
+	}
+}
+
+government_flavor = {
+	name = gov_military_command_fleet
+	graphics = GFX_evt_govplaceholder
+	priority = 2
+	trigger = {
+		government = military_command
+		primary_title = { is_fleet_title_trigger = yes }
 	}
 }
 

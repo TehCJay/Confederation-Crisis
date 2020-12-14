@@ -1,4 +1,5 @@
 #these are for governments tied to special features, be careful in messing with them.
+#Disabled most of these as I can do without them, but left in just in case - Golden
 
 feudal_governments = {
 
@@ -20,6 +21,7 @@ feudal_governments = {
 			HOSPITAL
 		}
         potential = {
+			always = no
             NOT = { trait = hiver_implant }
             holy_order = no
             independent = no
@@ -71,26 +73,6 @@ feudal_governments = {
 			military_base_government
 			military_command
 		}
-		vassal_call_to_arms = {
-            hivemind_government
-            pirate_kingdom
-            pirate_republic_governor
-            pirate_republic
-            military_government
-            pc_civil_government
-            pc_rectorial_government
-            npc_civil_government
-            npc_rectorial_government
-            imperialistic_government
-            pc_technocratic_government
-            pc_theocratic_government
-            npc_technocratic_government
-            npc_theocratic_government
-            military_command
-            holy_terran_government
-            neofeudal_government
-            merchant_republic_government
-        }
 
 		barons_need_dynasty = no
 		can_build_tribal = no
@@ -115,9 +97,24 @@ feudal_governments = {
 			FORT
 			HOSPITAL
 		}
+		allowed_holdings_culture = { # Will not get the wrong government type penalty for tribes of the same culture
+			TRIBAL
+		}
         potential = {
             NOT = { trait = hiver_implant }
-            primary_title = { is_fleet_title_trigger = yes }
+			OR = {
+				primary_title = { is_fleet_title_trigger = yes }
+				tier = BARON
+				any_liege = {
+					primary_title = { is_fleet_title_trigger = yes }
+				}
+			}
+			independent = no
+			capital_holding = { holding_type = castle }
+			NOR = {
+                is_government_potential = neofeudal_government
+				is_government_potential = pirate_kingdom
+            }
         }
 
 		accepts_liege_governments = {
@@ -129,12 +126,8 @@ feudal_governments = {
             imperialistic_government
             pc_technocratic_government
             pc_theocratic_government
-            npc_technocratic_government
-            npc_theocratic_government
             holy_terran_government
             merchant_republic_government
-            pc_appointed_governor
-            npc_appointed_governor
 		}
 		free_revoke_on_governments = {
             hivemind_government
@@ -144,47 +137,24 @@ feudal_governments = {
         }
         forced_contract = {
             military_command
-            military_base_government
-            pc_appointed_governor
-            npc_appointed_governor
         }
 		no_vassal_tax = {
-			military_base_government
 			military_command
 		}
 		ignore_in_vassal_limit_calculation = {
 			military_command
 		}
-		vassal_call_to_arms = {
-            hivemind_government
-            pirate_kingdom
-            pirate_republic_governor
-            pirate_republic
-            military_government
-            pc_civil_government
-            pc_rectorial_government
-            npc_civil_government
-            npc_rectorial_government
-            imperialistic_government
-            pc_technocratic_government
-            pc_theocratic_government
-            npc_technocratic_government
-            npc_theocratic_government
-            military_command
-            holy_terran_government
-            neofeudal_government
-            merchant_republic_government
-        }
 
         unit_modifier = {
             levy_size = 0.5
             land_organization = 0.5
             land_morale = 0.5
-            key = "military_command_levy"
+            key = "MILITARY_SOCIETY"
         }
 
 		dukes_called_kings = yes
-		barons_need_dynasty = no
+		barons_need_dynasty = yes
+		can_grant_kingdoms_and_empires_to_other_government = yes
 		can_grant_kingdoms_and_empires_to_other_government_group = yes
 
 		can_build_tribal = no
@@ -230,6 +200,7 @@ feudal_governments = {
             pirate_republic
         }
         potential = {
+			always = no
             NOT = { trait = hiver_implant }
             higher_tier_than = BARON
             lower_tier_than = EMPEROR
@@ -252,26 +223,6 @@ feudal_governments = {
             military_base_government
             pc_appointed_governor
             npc_appointed_governor
-        }
-        vassal_call_to_arms = {
-            hivemind_government
-            pirate_kingdom
-            pirate_republic_governor
-            pirate_republic
-            military_government
-            pc_civil_government
-            pc_rectorial_government
-            npc_civil_government
-            npc_rectorial_government
-            imperialistic_government
-            pc_technocratic_government
-            pc_theocratic_government
-            npc_technocratic_government
-            npc_theocratic_government
-            military_command
-            holy_terran_government
-            neofeudal_government
-            merchant_republic_government
         }
         dukes_called_kings = no
         barons_need_dynasty = no
@@ -335,6 +286,7 @@ republic_governments = {
             pirate_republic
         }
 		potential = {
+			always = no
 			NOT = { trait = hiver_implant }
 			higher_tier_than = BARON
 			lower_tier_than = EMPEROR
@@ -358,28 +310,8 @@ republic_governments = {
             pc_appointed_governor
             npc_appointed_governor
 		}
-		vassal_call_to_arms = {
-            hivemind_government
-            pirate_kingdom
-            pirate_republic_governor
-            pirate_republic
-            military_government
-            pc_civil_government
-            pc_rectorial_government
-            npc_civil_government
-            npc_rectorial_government
-            imperialistic_government
-            pc_technocratic_government
-            pc_theocratic_government
-            npc_technocratic_government
-            npc_theocratic_government
-            military_command
-            holy_terran_government
-            neofeudal_government
-            merchant_republic_government
-        }
 		dukes_called_kings = no
-		barons_need_dynasty = no
+		barons_need_dynasty = yes
 		can_be_granted_kingdoms_and_empires_by_other_government = yes
 
 		can_build_tribal = no

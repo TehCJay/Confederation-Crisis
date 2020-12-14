@@ -23,8 +23,8 @@ character_event = { # Terran Confederation
 			has_global_flag = flag_terran_peoples_republic_name
 		}
 		OR = {
-			government = military_republic
-			government = corporate_republic
+			government = pc_civil_government
+			government = npc_civil_government
 			government = merchant_republic_government
 		}
 		e_terran_confederation = { NOT = { has_law = centralization_4 } }
@@ -92,11 +92,10 @@ character_event = { # Terran Empire
 	trigger = {
 		has_landed_title = e_terran_confederation
 		OR = {
-			government = military_monarchy
-			government = corporate_monarchy
-			government = administrative_monarchy
+			government = imperialistic_government
+			government = neofeudal_government
 		}
-		NOT = { religion_group = religious_group }
+		NOT = { religion_group = religious_terran_group }
 		NOT = { has_global_flag = flag_terran_empire_name }
 		NOT = { has_global_flag = flag_holy_terran_empire_name }
 	}
@@ -162,13 +161,9 @@ character_event = { # Terran Hegemony
 
 	trigger = {
 		has_landed_title = e_terran_confederation
-		OR = {
-			government = military_directorate
-			government = corporate_directorate
-		}
+		government = military_government
 		NOT = { has_global_flag = flag_terran_hegemony_name }
 		NOT = { has_global_flag = flag_terran_directorate_name }
-		e_terran_confederation = { NOT = { has_law = legislative_type_aristocratic } }
 	}
 
 	option = {
@@ -232,11 +227,10 @@ character_event = { # Terran Republic
 
 	trigger = {
 		has_landed_title = e_terran_confederation
-		has_landed_title = e_terran_confederation
 		NOT = { has_global_flag = flag_terran_republic_name }
 		OR = {
-			government = military_republic
-			government = corporate_republic
+			government = pc_civil_government
+			government = npc_civil_government
 			government = merchant_republic_government
 		}
 		e_terran_confederation = { has_law = centralization_4 }
@@ -303,7 +297,13 @@ character_event = { # Terran Directorate
 
 	trigger = {
 		has_landed_title = e_terran_confederation
-		government = administrative_directorate
+		OR = {
+			government = pc_rectorial_government
+			government = npc_rectorial_government
+			government = pc_technocratic_government
+			government = npc_technocratic_government
+		}
+		NOT = { religion = neo_socialist }
 		NOT = { has_global_flag = flag_terran_directorate_name }
 	}
 
@@ -369,14 +369,11 @@ character_event = { # Holy Terran Empire
 	trigger = {
 		has_landed_title = e_terran_confederation
 		OR = {
-			government = military_monarchy
-			government = corporate_monarchy
-			government = administrative_monarchy
+			government = imperialistic_government
+			government = neofeudal_government
+			government = holy_terran_government
 		}
-		OR = {
-			religion_group = religious_group
-			religion = machine_cultist
-		}
+		religion_group = religious_terran_group
 		NOT = { has_global_flag = flag_holy_terran_empire_name }
 	}
 
@@ -442,7 +439,11 @@ character_event = { # Terran People's Union
 	trigger = {
 		has_landed_title = e_terran_confederation
 		NOT = { has_global_flag = flag_terran_peoples_union_name }
-		government = administrative_republic
+		OR = {
+			government = pc_rectorial_government
+			government = npc_rectorial_government
+		}
+		religion = neo_socialist
 		e_terran_confederation = { NOT = { has_law = centralization_4 } }
 	}
 
@@ -508,7 +509,11 @@ character_event = { # Terran People's Republic
 	trigger = {
 		has_landed_title = e_terran_confederation
 		NOT = { has_global_flag = flag_terran_peoples_republic_name }
-		government = administrative_republic
+		OR = {
+			government = pc_rectorial_government
+			government = npc_rectorial_government
+		}
+		religion = neo_socialist
 		e_terran_confederation = { has_law = centralization_4 }
 	}
 

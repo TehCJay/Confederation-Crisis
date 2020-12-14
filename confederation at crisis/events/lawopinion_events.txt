@@ -225,6 +225,7 @@ character_event = {
 	only_independent = yes
 
 	trigger = {
+		always = no
 		crownlaw_title = {
 			has_law = legislative_type_aristocratic
 		}
@@ -248,6 +249,7 @@ character_event = {
 	only_independent = yes
 
 	trigger = {
+		always = no
 		crownlaw_title = {
 			has_law = legislative_type_autocratic
 		}
@@ -395,189 +397,6 @@ character_event = {
 		remove_character_modifier = termlen0_opmod
 		remove_character_modifier = termlen2_opmod
 		remove_character_modifier = termlen1_opmod
-	}
-}
-
-character_event = {
-	id = lawopinion.019
-	hide_window = yes
-
-	only_playable = yes
-	only_independent = yes
-
-	trigger = {
-		crownlaw_title = {
-			has_law = military_vassal_legitimacy_0
-		}
-		NOT = { has_character_flag = mil_leg_0 }
-	}
-
-	mean_time_to_happen = {
-		days = 1
-	}
-
-	immediate = {
-		set_character_flag = mil_leg_0
-		clr_character_flag = mil_leg_1
-		any_vassal = {
-			limit = { is_military_trigger = yes }
-			remove_character_modifier = milgov1_opmod
-		}
-	}
-}
-
-character_event = {
-	id = lawopinion.020
-	hide_window = yes
-
-	only_playable = yes
-	only_independent = yes
-
-	trigger = {
-		OR = {
-			crownlaw_title = {
-				has_law = military_vassal_legitimacy_1
-			}
-			crownlaw_title = {
-				has_law = military_vassal_legitimacy_2
-			}
-		}
-		NOT = { has_character_flag = mil_leg_1 }
-	}
-
-	mean_time_to_happen = {
-		days = 1
-	}
-
-	immediate = {
-		set_character_flag = mil_leg_1
-		clr_character_flag = mil_leg_0
-		any_vassal = {
-			limit = { is_military_trigger = yes }
-			add_character_modifier = { name = milgov1_opmod duration = -1 }
-		}
-	}
-}
-
-character_event = {
-	id = lawopinion.021
-	hide_window = yes
-
-	only_playable = yes
-	only_independent = yes
-
-	trigger = {
-		crownlaw_title = {
-			has_law = republic_vassal_legitimacy_0
-		}
-		NOT = { has_character_flag = rep_leg_0 }
-	}
-
-	mean_time_to_happen = {
-		days = 1
-	}
-
-	immediate = {
-		set_character_flag = rep_leg_0
-		clr_character_flag = rep_leg_1
-		any_vassal = {
-			limit = { is_civil_trigger = yes }
-			remove_character_modifier = civgov1_opmod
-		}
-	}
-}
-
-character_event = {
-	id = lawopinion.022
-	hide_window = yes
-
-	only_playable = yes
-	only_independent = yes
-
-	trigger = {
-		OR = {
-			crownlaw_title = {
-				has_law = republic_vassal_legitimacy_1
-			}
-			crownlaw_title = {
-				has_law = republic_vassal_legitimacy_2
-			}
-		}
-		NOT = { has_character_flag = rep_leg_1 }
-	}
-
-	mean_time_to_happen = {
-		days = 1
-	}
-
-	immediate = {
-		set_character_flag = rep_leg_1
-		clr_character_flag = rep_leg_0
-		any_vassal = {
-			limit = { is_civil_trigger = yes }
-			add_character_modifier = { name = civgov1_opmod duration = -1 }
-		}
-	}
-}
-
-character_event = {
-	id = lawopinion.023
-	hide_window = yes
-
-	only_playable = yes
-	only_independent = yes
-
-	trigger = {
-		crownlaw_title = {
-			has_law = theocracy_vassal_legitimacy_0
-		}
-		NOT = { has_character_flag = the_leg_0 }
-	}
-
-	mean_time_to_happen = {
-		days = 1
-	}
-
-	immediate = {
-		set_character_flag = the_leg_0
-		clr_character_flag = the_leg_1
-		any_vassal = {
-			limit = { is_rectorial_trigger = yes }
-			remove_character_modifier = admgov1_opmod
-		}
-	}
-}
-
-character_event = {
-	id = lawopinion.024
-	hide_window = yes
-
-	only_playable = yes
-	only_independent = yes
-
-	trigger = {
-		OR = {
-			crownlaw_title = {
-				has_law = theocracy_vassal_legitimacy_1
-			}
-			crownlaw_title = {
-				has_law = theocracy_vassal_legitimacy_2
-			}
-		}
-		NOT = { has_character_flag = the_leg_1 }
-	}
-
-	mean_time_to_happen = {
-		days = 1
-	}
-
-	immediate = {
-		set_character_flag = the_leg_1
-		clr_character_flag = the_leg_0
-		any_vassal = {
-			limit = { is_rectorial_trigger = yes }
-			add_character_modifier = { name = admgov1_opmod duration = -1 }
-		}
 	}
 }
 

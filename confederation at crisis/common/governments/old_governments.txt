@@ -16,12 +16,21 @@ feudal_governments = {
 		}
 		free_revoke_on_governments_religion = {
 			# Can revoke ANYONE
-			military_monarchy
-			military_republic
-			military_directorate
 			military_command
-			merchant_republic_government
+			military_government
+            pc_civil_government
+            pc_rectorial_government
+            npc_civil_government
+            npc_rectorial_government
+            imperialistic_government
+            pc_technocratic_government
+            pc_theocratic_government
+            holy_terran_government
+            merchant_republic_government
+			neofeudal_government
 			pirate_kingdom
+			pirate_republic_governor
+			pirate_republic
 		}
 		potential = {
 			trait = hiver_implant
@@ -37,21 +46,6 @@ feudal_governments = {
 		}
 		ignore_in_vassal_limit_calculation = {
 			military_command
-		}
-		vassal_call_to_arms = {
-			military_command
-			military_monarchy
-			corporate_republic
-			administrative_republic
-			merchant_republic_government
-			military_republic
-			administrative_monarchy
-			administrative_directorate
-			corporate_directorate
-			corporate_monarchy
-			hivemind_government
-			pirate_kingdom
-			pirate_republic
 		}
 		can_build_tribal = no
 		uses_piety_for_law_change = yes
@@ -82,7 +76,6 @@ feudal_governments = {
 		allowed_holdings = {
 			CASTLE
 			FORT
-			TEMPLE
 			HOSPITAL
 		}
 		builds_with_prestige = {
@@ -100,30 +93,24 @@ feudal_governments = {
 			}
 			is_patrician = no
 			NOT = { trait = hiver_implant }
-			#primary_title = { is_fleet_title_trigger = no }
 			religion_group = outlaw_group
-			# OR = {
-				# independent = yes
-				# AND = {
-					# top_liege = {
-						# government = pirate_kingdom
-						# tier = EMPEROR
-						# culture = ROOT
-						# religion = ROOT
-					# }
-					# higher_tier_than = baron
-				# }
-			# }
+			capital_holding = { holding_type = castle }
+			OR = {
+				independent = yes
+				top_liege = {
+					religion_group = outlaw_group
+				}
+			}
 		}
 		title_prefix = "pirate_kingdom_"
 		color = { 64 32 32 }
 
 		dukes_called_kings = yes
-		barons_need_dynasty = no
+		barons_need_dynasty = yes
 
 		allow_looting = yes
 		ignores_de_jure_laws = yes
-
+		barons_need_dynasty = yes
 		can_build_city = no
 		can_build_tribal = no
 		uses_piety_for_law_change = yes
@@ -133,33 +120,16 @@ feudal_governments = {
 		ignore_in_vassal_limit_calculation = {
 			military_command
 		}
-		vassal_call_to_arms = {
-			military_command
-			military_monarchy
-			corporate_republic
-			administrative_republic
-			merchant_republic_government
-			military_republic
-			administrative_monarchy
-			administrative_directorate
-			corporate_directorate
-			corporate_monarchy
-			hivemind_government
-			pirate_kingdom
-			pirate_republic
-			pirate_republic_governor
-		}
 
 	}
 	pirate_republic_governor = { #test while trying to make pirate republic vassals creatable for pirate kingdoms
 		preferred_holdings = { CITY }
 		allowed_holdings = {
 			CITY
-			CASTLE
 			FORT
 			HOSPITAL
 		}
-		accepts_liege_governments = { # Accepts other republics
+		accepts_liege_governments = { # Accepts other pirate republics
 			pirate_republic
 		}
 		frame_suffix = "_merchantrepublic"
@@ -174,14 +144,13 @@ feudal_governments = {
 
 		can_imprison_without_reason = no
 		can_revoke_without_reason = no
-
+		barons_need_dynasty = yes
 		can_build_castle = no
 		can_build_tribal = no
 
 		capital_move_delay = 600
 
 		## Modifiers
-		court_size_modifier = 5
 	}
 
 	# Military Group
@@ -1158,7 +1127,6 @@ republic_governments = {
 		frame_suffix = "_merchantrepublic"
 		title_prefix = "pirate_republic_"
 		potential = {
-			always = no
 			NOT = { is_government_potential = hivemind_government }
 			religion_group = outlaw_group
 
@@ -1171,10 +1139,6 @@ republic_governments = {
 					capital_holding = {
 						holding_type = city
 					}
-                    OR = {
-                        has_law = local_main_government_type_1
-                        has_law = local_secondary_government_type_1
-                    }
 
 					# MR can't be under MR
 					trigger_if = {
@@ -1234,22 +1198,6 @@ republic_governments = {
 		}
 		forced_contract = {
 			military_command
-		}
-		vassal_call_to_arms = {
-			military_command
-			military_monarchy
-			corporate_republic
-			administrative_republic
-			merchant_republic_government
-			military_republic
-			administrative_monarchy
-			administrative_directorate
-			corporate_directorate
-			corporate_monarchy
-			hivemind_government
-			pirate_kingdom
-			pirate_republic
-			pirate_republic_governor
 		}
 		allow_looting = yes
 		ignores_de_jure_laws = yes

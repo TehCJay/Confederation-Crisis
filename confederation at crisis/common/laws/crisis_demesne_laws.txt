@@ -17,14 +17,6 @@ law_groups = {
 		law_type = realm
 		allowed_for_councillors = yes
 	}
-	local_main_government_type = {
-		law_type = realm
-		allowed_for_councillors = yes
-	}
-	local_secondary_government_type = {
-		law_type = realm
-		allowed_for_councillors = yes
-	}
 	police_budget = {
 		law_type = realm
 		allowed_for_councillors = yes
@@ -184,14 +176,14 @@ laws = {
 			factor = 0
 		}
 
-		court_size_maintenance_cost_modifier = 0
+		#court_size_maintenance_cost_modifier = 0
 		court_size_modifier = -15
 		#monthly_character_wealth = 0 # can't take money, only add.
 		monthly_character_prestige = 1
 		monthly_character_piety = -1
-		global_tax_modifier = 0
+		#global_tax_modifier = 0
 		vassal_limit = -5
-		demesne_size = 3
+		demesne_size = 2
 		global_revolt_risk = 0.05
 	}
 	legislative_efficiency_1 = {
@@ -229,8 +221,8 @@ laws = {
 		#monthly_character_wealth = 0 # can't take money, only add.
 		monthly_character_prestige = 0.5
 		monthly_character_piety = -0.5
-		global_tax_modifier = -0.01
-		vassal_limit = 0
+		#global_tax_modifier = -0.01
+		#vassal_limit = 0
 		demesne_size = 1
 		global_revolt_risk = 0.02
 	}
@@ -269,9 +261,9 @@ laws = {
 		#monthly_character_wealth = 0 # can't take money, only add.
 		monthly_character_prestige = 0.1
 		monthly_character_piety = -0.1
-		global_tax_modifier = -0.03
+		#global_tax_modifier = -0.03
 		vassal_limit = 5
-		demesne_size = 0
+		#demesne_size = 0
 		global_revolt_risk = -0.01
 	}
 	legislative_efficiency_3 = {
@@ -307,12 +299,12 @@ laws = {
 			#}
 		}
 
-		court_size_maintenance_cost_modifier = 5
+		court_size_maintenance_cost_modifier = 3
 		court_size_modifier = 1
 		#monthly_character_wealth = 0 # can't take money, only add.
 		monthly_character_prestige = -0.2
 		monthly_character_piety = 1
-		global_tax_modifier = -0.08
+		#global_tax_modifier = -0.08
 		vassal_limit = 10
 		demesne_size = -1
 		global_revolt_risk = -0.05
@@ -345,14 +337,14 @@ laws = {
 			factor = 100
 		}
 
-		court_size_maintenance_cost_modifier = 15
+		court_size_maintenance_cost_modifier = 5
 		court_size_modifier = 10
 		#monthly_character_wealth = 0 # can't take money, only add.
 		monthly_character_prestige = -0.5
-		monthly_character_piety = 5
-		global_tax_modifier = -0.15
+		monthly_character_piety = 3
+		#global_tax_modifier = -0.15
 		vassal_limit = 20
-		demesne_size = -4
+		demesne_size = -2
 		global_revolt_risk = -0.1
 	}
 
@@ -361,7 +353,7 @@ laws = {
 		group = disobedience
 
 		potential = {
-			always = yes
+			holder_scope = { independent = no }
 		}
 		allow = {
 			always = yes
@@ -388,10 +380,12 @@ laws = {
 		group = disobedience
 
 		potential = {
-			always = yes
+			holder_scope = { independent = no }
 		}
 		allow = {
-			always = yes
+			top_liege = {
+				has_law = public_order_0
+			}
 		}
 		pass_effect = {
 		}
@@ -408,287 +402,6 @@ laws = {
 			}
 			hidden_tooltip = {
 				revoke_law = disobedience_0
-			}
-		}
-	}
-
-	# Laws to pick government type
-	local_main_government_type_0 = {
-		group = local_main_government_type
-
-		potential = {
-			always = yes
-		}
-		allow = {
-		}
-		pass_effect = {
-		}
-		effect = {
-			hidden_tooltip = {
-				revoke_law = local_main_government_type_1
-				revoke_law = local_main_government_type_2
-			}
-		}
-		default_selection = {
-			factor = 0
-
-			additive_modifier = {
-				value = 100
-				holder_scope = {
-					capital_holding = {
-						holding_type = castle
-					}
-				}
-			}
-		}
-	}
-	local_main_government_type_1 = {
-		group = local_main_government_type
-
-		potential = {
-			always = yes
-		}
-		allow = {
-		}
-		pass_effect = {
-		}
-		effect = {
-			hidden_tooltip = {
-				revoke_law = local_main_government_type_0
-				revoke_law = local_main_government_type_2
-			}
-		}
-		default_selection = {
-			factor = 0
-
-			additive_modifier = {
-				value = 100
-				holder_scope = {
-					capital_holding = {
-						holding_type = city
-					}
-				}
-			}
-		}
-	}
-	local_main_government_type_2 = {
-		group = local_main_government_type
-
-		potential = {
-			always = yes
-		}
-		allow = {
-		}
-		pass_effect = {
-		}
-		effect = {
-			hidden_tooltip = {
-				revoke_law = local_main_government_type_0
-				revoke_law = local_main_government_type_1
-			}
-		}
-		default_selection = {
-			factor = 0
-
-			additive_modifier = {
-				value = 100
-				holder_scope = {
-					capital_holding = {
-						holding_type = temple
-					}
-				}
-			}
-		}
-	}
-
-	local_secondary_government_type_0 = {
-		group = local_secondary_government_type
-
-		potential = {
-			always = yes
-		}
-		allow = {
-			OR = {
-				holder_scope = { higher_tier_than = COUNT }
-				has_law = local_main_government_type_0
-			}
-		}
-		pass_effect = {
-		}
-		effect = {
-			hidden_tooltip = {
-				revoke_law = local_secondary_government_type_1
-				revoke_law = local_secondary_government_type_2
-			}
-		}
-		default_selection = {
-			factor = 0
-
-			additive_modifier = {
-				value = 100
-				holder_scope = {
-					capital_holding = {
-						holding_type = city
-					}
-					ideology_is_militaristic = yes
-					ideology_is_civilian = yes
-				}
-			}
-
-			additive_modifier = {
-				value = 100
-				holder_scope = {
-					capital_holding = {
-						holding_type = temple
-					}
-					ideology_is_militaristic = yes
-					ideology_is_rectorial = yes
-					OR = {
-						religion_group = religious_group
-						religion_group = religious_terran_group
-						religion = machine_cultist
-					}
-				}
-			}
-
-			additive_modifier = {
-				value = 100
-				holder_scope = {
-					capital_holding = {
-						holding_type = castle
-					}
-					ideology_is_not_rectorial = yes
-					ideology_is_not_civilian = yes
-				}
-			}
-		}
-	}
-	local_secondary_government_type_1 = {
-		group = local_secondary_government_type
-
-		potential = {
-			always = yes
-		}
-		allow = {
-			OR = {
-				holder_scope = { higher_tier_than = COUNT }
-				has_law = local_main_government_type_1
-			}
-		}
-		pass_effect = {
-		}
-		effect = {
-			hidden_tooltip = {
-				revoke_law = local_secondary_government_type_0
-				revoke_law = local_secondary_government_type_2
-			}
-		}
-		default_selection = {
-			factor = 0
-
-			additive_modifier = {
-				value = 100
-				holder_scope = {
-					capital_holding = {
-						holding_type = city
-					}
-					ideology_is_not_militaristic = yes
-					ideology_is_not_rectorial = yes
-				}
-			}
-
-			additive_modifier = {
-				value = 100
-				holder_scope = {
-					capital_holding = {
-						holding_type = temple
-					}
-					ideology_is_civilian = yes
-					ideology_is_rectorial = yes
-					NOR = {
-						religion_group = religious_group
-						religion_group = religious_terran_group
-						religion = machine_cultist
-					}
-				}
-			}
-
-			additive_modifier = {
-				value = 100
-				holder_scope = {
-					capital_holding = {
-						holding_type = castle
-					}
-					ideology_is_militaristic = yes
-					ideology_is_civilian = yes
-				}
-			}
-		}
-	}
-	local_secondary_government_type_2 = {
-		group = local_secondary_government_type
-
-		potential = {
-			always = yes
-		}
-		allow = {
-			OR = {
-				holder_scope = { higher_tier_than = COUNT }
-				has_law = local_main_government_type_2
-			}
-		}
-		pass_effect = {
-		}
-		effect = {
-			hidden_tooltip = {
-				revoke_law = local_secondary_government_type_0
-				revoke_law = local_secondary_government_type_1
-			}
-		}
-		default_selection = {
-			factor = 0
-
-			additive_modifier = {
-				value = 100
-				holder_scope = {
-					capital_holding = {
-						holding_type = city
-					}
-					ideology_is_civilian = yes
-					ideology_is_rectorial = yes
-					NOR = {
-						religion_group = religious_group
-						religion_group = religious_terran_group
-						religion = machine_cultist
-					}
-				}
-			}
-
-			additive_modifier = {
-				value = 100
-				holder_scope = {
-					capital_holding = {
-						holding_type = temple
-					}
-					ideology_is_not_civilian = yes
-					ideology_is_not_militaristic = yes
-				}
-			}
-
-			additive_modifier = {
-				value = 100
-				holder_scope = {
-					capital_holding = {
-						holding_type = castle
-					}
-					ideology_is_militaristic = yes
-					ideology_is_rectorial = yes
-					OR = {
-						religion_group = religious_group
-						religion_group = religious_terran_group
-						religion = machine_cultist
-					}
-				}
 			}
 		}
 	}

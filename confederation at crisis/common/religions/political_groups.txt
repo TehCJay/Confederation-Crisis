@@ -21,19 +21,19 @@ political_terran_group = {
 
 		# Localization
 		crusade_name = UNIFICATION
-		scripture_name = THE_LAW
+		scripture_name = THE_CONSTITUTION
 		piety_name = CREDIBILITY
-		high_god_name = GOD_GOD
-		god_names = { GOD_GOD GOD_HOLY_TERRA GOD_THE_LORD }
+		high_god_name = REGULAR_TERRA
+		god_names = { REGULAR_TERRA GOD_FEDERALISM GOD_THE_REPUBLIC }
 		priest_title = RECTOR
 		# Actually randomly-generated names for military operations and science projects
 		evil_god_names = {
-			PLACEHOLDER
+			EVIL_DESPOTISM EVIL_SEPARATISM
 		}
 
 		# Ai Behaviour
 		ai_convert_same_group = 1
-		ai_convert_other_group = 2
+		ai_convert_other_group = 1
 		pacifist = no #Affects wars, plots, etc...
 		aggression = 0.6 #Affects how much it wants wars.
 		rel_head_defense = no
@@ -106,8 +106,8 @@ political_terran_group = {
 		# At least we need to give +10 opinion toward this religion, from related religious groups
 		# Default inter-group opinion is -20, thus end result is -10 instead.
 		character_modifier = {
-			religious_terran_group_opinion = 10
-			political_group_opinion = 10
+			religious_terran_group_opinion = 10 #Longstanding history of cooperation with the Pilgrimage religions
+			terran_republican_opinion = 5 #Opposing ideas on how the Confederation should be structured and governed, but still a lot in common
 		}
 	}
 	terran_republican = {
@@ -118,14 +118,14 @@ political_terran_group = {
 
 		# Localization
 		crusade_name = UNIFICATION
-		scripture_name = THE_LAW
+		scripture_name = THE_CONSTITUTION
 		piety_name = CREDIBILITY
-		high_god_name = GOD_GOD
-		god_names = { GOD_GOD GOD_HOLY_TERRA GOD_THE_LORD }
+		high_god_name = REGULAR_TERRA
+		god_names = { REGULAR_TERRA GOD_UNITY GOD_THE_REPUBLIC }
 		priest_title = RECTOR
 		# Actually randomly-generated names for military operations and science projects
 		evil_god_names = {
-			PLACEHOLDER
+			EVIL_DESPOTISM EVIL_SEPARATISM GOD_FEDERALISM
 		}
 
 		# Ai Behaviour
@@ -203,8 +203,8 @@ political_terran_group = {
 		# At least we need to give +10 opinion toward this religion, from related religious groups
 		# Default inter-group opinion is -20, thus end result is -10 instead.
 		character_modifier = {
-			religious_terran_group_opinion = 10
-			political_group_opinion = 10
+			religious_terran_group_opinion = 10 #Longstanding history of cooperation with the Pilgrimage religions
+			terran_federalist_opinion = 5 #Opposing ideas on how the Confederation should be structured and governed, but still a lot in common
 		}
 	}
 	terran_imperial = {
@@ -218,11 +218,10 @@ political_terran_group = {
 		scripture_name = THE_THESIS
 		piety_name = LEGITIMACY
 		high_god_name = GOD_GOD
-		god_names = { GOD_GOD GOD_HOLY_TERRA GOD_THE_LORD }
+		god_names = { GOD_UNITY REGULAR_TERRA GOD_THE_EMPEROR }
 		priest_title = RECTOR
-		# Actually randomly-generated names for military operations and science projects
 		evil_god_names = {
-			PLACEHOLDER
+			EVIL_REPUBLICANISM EVIL_SEPARATISM
 		}
 
 		# Ai Behaviour
@@ -300,8 +299,7 @@ political_terran_group = {
 		# At least we need to give +10 opinion toward this religion, from related religious groups
 		# Default inter-group opinion is -20, thus end result is -10 instead.
 		character_modifier = {
-			religious_terran_group_opinion = 10
-			political_group_opinion = 10
+			religious_terran_group_opinion = 10 #Relations with the Pilgrimage religions are generally good, so long as they're loyal
 		}
 	}
 }
@@ -326,11 +324,11 @@ political_group = {
 		# Localization
 		scripture_name = THE_ARTICLES
 		piety_name = CREDIBILITY
-		high_god_name = GOD_GOD
-		god_names = { GOD_GOD GOD_THE_LORD }
+		high_god_name = GOD_LIBERTY
+		god_names = { GOD_LIBERTY GOD_INDEPENDENCE GOD_ORION_LEAGUE }
 		priest_title = RECTOR
 		evil_god_names = {
-			PLACEHOLDER
+			EVIL_TYRANNY EVIL_TERRANS
 		}
 
 		# Ai Behaviour
@@ -408,8 +406,8 @@ political_group = {
 		# At least we need to give +10 opinion toward this religion, from related religious groups
 		# Default inter-group opinion is -20, thus end result is -10 instead.
 		character_modifier = {
-			religious_group_opinion = 10
-			political_terran_group_opinion = 10
+			religious_group_opinion = 10#United by a common opposition to Terra
+			political_terran_group_opinion = -10#Formed the core of the Orion League
 		}
 	}
 	neo_feudal = {
@@ -423,10 +421,10 @@ political_group = {
 		scripture_name = THE_OATHS
 		piety_name = LEGITIMACY
 		high_god_name = GOD_GOD
-		god_names = { GOD_GOD GOD_THE_LORD }
+		god_names = { GOD_CHIVALRY GOD_LIBERTY GOD_THE_WORTHIES }
 		priest_title = RECTOR
 		evil_god_names = {
-
+			EVIL_COWARDICE EVIL_TYRANNY EVIL_BRUTUS EVIL_MORDRED
 		}
 
 		# Ai Behaviour
@@ -441,13 +439,13 @@ political_group = {
 		matrilineal_marriages = yes
 		female_temple_holders = yes
 		male_temple_holders = yes
-		feminist = yes # affects opinion modifier toward female rulers
+		feminist = no # affects opinion modifier toward female rulers
 
 		# Religious Head Powers (assuming it has a religious head)
 		autocephaly = yes
 		can_have_antipopes = no
 		#can_grant_invasion_cb = no
-		can_call_crusade = yes
+		can_call_crusade = no
 		can_grant_divorce = yes
 
 		# Secular Rulers Powers
@@ -500,18 +498,24 @@ political_group = {
 		ignores_defensive_attrition = yes
 		castes = no
 		caste_opinions = no
+		unit_modifier = {
+		levy_size = 0.40
+		light_infantry_offensive = 0.1
+		heavy_infantry_offensive = 0.1
+		pikemen_offensive = 0.1
+		key = "CHIVALRIC_RELIGION"
+		}
 
 		# At least we need to give +10 opinion toward this religion, from related religious groups
 		# Default inter-group opinion is -20, thus end result is -10 instead.
 		character_modifier = {
-			religious_group_opinion = 10
-			political_terran_group_opinion = 10
-			transhumanist_group_opinion = 5
+			religious_group_opinion = 10 #Generally amicable to the religious
+			religious_terran_group_opinion = 5 #See above, but to a lesser extent due to the anti-Terran mentality of Neo-Feudals
 		}
 	}
 	neo_socialist = {
 		graphical_culture = westerngfx
-		has_coa_on_barony_only = no
+		has_coa_on_barony_only = yes
 		icon = 5
 
 		color = { 0.8 0.2 0.2 }
@@ -520,11 +524,12 @@ political_group = {
 		crusade_name = CRUSADE
 		scripture_name = THE_MANIFESTOS
 		piety_name = CREDIBILITY
-		high_god_name = GOD_GOD
-		god_names = { GOD_THE_GREATER_GOOD GOD_THE_CAUSE }
+		high_god_name = GOD_IMMORTAL_SCIENCE
+		god_names = { GOD_MARX GOD_THEORY GOD_LENIN GOD_TROTSKY GOD_STALIN }
 		evil_god_names = {
-
+			EVIL_CAPITALISM EVIL_SPLITTERS GOD_LENIN GOD_TROTSKY GOD_STALIN
 		}
+		#This is intentional
 
 		# Ai Behaviour
 		ai_convert_same_group = 1
@@ -544,7 +549,7 @@ political_group = {
 		autocephaly = yes # Also they have no normal head either.
 		can_have_antipopes = no
 		#can_grant_invasion_cb = no
-		can_call_crusade = yes
+		can_call_crusade = no
 		can_grant_divorce = yes
 
 		# Secular Rulers Powers
@@ -601,8 +606,7 @@ political_group = {
 		# At least we need to give +10 opinion toward this religion, from related religious groups
 		# Default inter-group opinion is -20, thus end result is -10 instead.
 		character_modifier = {
-			religious_group_opinion = 10
-			political_terran_group_opinion = 10
+			#This will be refined in the future
 		}
 	}
 	astrist = {
@@ -615,13 +619,13 @@ political_group = {
 		scripture_name = THE_DOCTRINE
 		piety_name = CREDIBILITY
 		high_god_name = GOD_GOD
-		god_names = { GOD_THE_GREATER_GOOD GOD_THE_CAUSE }
+		god_names = { GOD_THE_CAUSE GOD_BOUNDLESS_VOID }
 		evil_god_names = {
-
+			EVIL_TERRANS EVIL_GRAVITY EVIL_INSUBORDINATION
 		}
 
 		# Ai Behaviour
-		ai_convert_same_group = 0
+		ai_convert_same_group = 1
 		ai_convert_other_group = 1
 		pacifist = no #Affects wars, plots, etc...
 		aggression = 2 #Affects how much it wants wars.
@@ -691,25 +695,34 @@ political_group = {
 		ignores_defensive_attrition = yes
 		castes = no
 		caste_opinions = no
-
-		# At least we need to give +10 opinion toward this religion, from related religious groups
-		# Default inter-group opinion is -20, thus end result is -10 instead.
+		#Astrists are born and raised for space combat, but perform poorly in atmosphere.
 		unit_modifier = {
-			garrison_size = -0.2
-			levy_size = -0.2
 			retinuesize_perc = 1
 			retinue_maintenence_cost = -0.5
-
+			light_infantry_offensive = 0.1
+			light_infantry_defensive = 0.1
+			heavy_infantry_offensive = 0.1
+			heavy_infantry_defensive = 0.1
+			pikemen_offensive = 0.1
+			pikemen_defensive = 0.1
+			light_cavalry_offensive = 0.1
+			light_cavalry_defensive = 0.1
+			knights_offensive = 0.1
+			knights_defensive = 0.1
+			archers_offensive = -0.2
+			archers_defensive = -0.2
 			key = "SPACER_RELIGION"
 		}
-
+		# At least we need to give +10 opinion toward this religion, from related religious groups
+		# Default inter-group opinion is -20, thus end result is -10 instead.
 		character_modifier = {
-			martial = 1
-			religious_group_opinion = 10
-			political_terran_group_opinion = 10
-			general_opinion = -5
+			martial = 2
+			religious_group_opinion = 10 #Mainly for Novyy Edem, which adheres to a more religious form of Astrism and gets along well with the non-Pilgrimage religions. Will be replaced when the Astrist rework eventually happens
+			political_terran_group_opinion = -10 #Astrists are not on good terms with Terrans
+			religious_terran_group_opinion = -10 #See above
+			general_opinion = -5 #Militaristic Isolationists
 			same_religion_opinion = 5 #to counterbalance the line above
-			liege_opinion = 15
+			liege_opinion = 15 #Astrists place emphasis on loyalty and deference to superiors
 		}
 	}
 }
