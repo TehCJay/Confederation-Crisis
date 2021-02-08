@@ -1608,3 +1608,38 @@ is_local_terran_culture_trigger = {
 		}
 	}
 }
+
+is_terran_culture = {
+	culture_group = terran_group
+}
+
+is_core_culture = {
+	OR = {
+		is_terran_culture = yes
+		is_outer_core_culture = yes
+	}
+}
+
+is_outer_core_culture = {
+	OR = {
+		culture_group = xingjie_group
+		culture_group = celestean_group
+		culture_group = samawati_group
+		culture_group = angani_group
+		culture_group = frontiersman_group
+		culture = russo_centauri
+	}
+}
+
+is_periphery_culture = {
+	OR = {
+		culture_group = bianjiangese_group
+		culture_group = orion_group
+		culture_group = indo_aryan_group
+		culture_group = avalonian_group
+		culture_group = tengoku_group
+		culture_group = goldrus_group
+		culture_group = outerrim_group
+	}
+	NOT = { culture = russo_centauri }
+}
