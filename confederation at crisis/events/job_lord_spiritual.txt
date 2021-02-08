@@ -38,21 +38,19 @@ character_event = {
 	picture = GFX_evt_heretic
 	border = GFX_event_normal_frame_religion
 
+	min_age = 16
+	capable_only = yes
+	prisoner = no
 	has_job_title = yes
 
 	trigger = {
 		has_job_action = action_inquisition
-		in_seclusion = no
-
-		NOR = {
-			religion = location
-			has_character_modifier = bedridden_illness
-		}
-
+		NOT = { has_character_modifier = in_seclusion }
+		NOT = { has_character_modifier = bedridden_illness }
+		NOT = { trait = incapable }
+		NOT = { location = { religion = ROOT } }
 		location = {
-			owner = {
-				same_realm = ROOT
-			}
+			owner = { same_realm = ROOT }
 		}
 	}
 
@@ -61,7 +59,7 @@ character_event = {
 
 		job_event_mtth_modifier_learning_score = yes
 
-		mult_modifier = {
+		modifier = {
 			factor = 2.0
 
 			liege = {
@@ -70,143 +68,133 @@ character_event = {
 			}
 		}
 
-		mult_modifier = {
+		modifier = {
 			factor = 0.6
 
 			has_religion_feature = religion_proselytizing
 		}
 
-		mult_modifier = {
+		modifier = {
 			factor = 2.5
 
 			has_religion_feature = religion_cosmopolitan
 		}
 
-		mult_modifier = {
+		#modifier = {
+		#	factor = 0.75
+		#
+		#	liege = {
+		#		has_artifact = finger_of_st_john
+		#	}
+		#}
+
+		modifier = {
+			factor = 0.9
+			has_job_action = action_inquisition
+			location = { culture_group = ROOT }
+		}
+
+		modifier = {
+			factor = 0.9
+			has_job_action = action_inquisition
+			location = { culture = ROOT }
+		}
+
+		#modifier = {
+		#	factor = 0.5
+		#	has_job_action = action_inquisition
+		#	location = { religion_group = ROOT }
+		#}
+
+		modifier = {
 			factor = 0.75
-
-			liege = {
-				has_artifact = finger_of_st_john
-			}
+			has_job_action = action_inquisition
+			location = { has_province_modifier = depopulated_1 }
 		}
-
-		mult_modifier = {
-			factor = 0.75
-
-			culture_group = location
-		}
-
-		mult_modifier = {
-			factor = 0.75
-
-			culture = location
-		}
-
-		mult_modifier = {
-			factor = 0.5
-
-			religion_group = location
-		}
-
-		mult_modifier = {
-			factor = 0.75
-
-			location = {
-				has_province_modifier = depopulated_1
-			}
-		}
-
-		mult_modifier = {
+		modifier = {
 			factor = 0.50
-
-			location = {
-				has_province_modifier = depopulated_2
-			}
+			has_job_action = action_inquisition
+			location = { has_province_modifier = depopulated_2 }
 		}
-
-		mult_modifier = {
+		modifier = {
 			factor = 0.25
-
-			location = {
-				has_province_modifier = depopulated_3
-			}
+			has_job_action = action_inquisition
+			location = { has_province_modifier = depopulated_3 }
 		}
 
-		mult_modifier = {
+		modifier = {
 			factor = 3.0
-
-			location = {
-				is_hard_to_convert = yes
-			}
+			has_job_action = action_inquisition
+			location = { is_hard_to_convert = yes }
 		}
 
-		mult_modifier = {
-			factor = 3.0
+		modifier = {
+			factor = 1.1
 
 			NOT = { religion_authority = 0.10 }
 		}
 
-		mult_modifier = {
-			factor = 2.0
+		modifier = {
+			factor = 1.1
 
 			NOT = { religion_authority = 0.20 }
 		}
 
-		mult_modifier = {
-			factor = 1.5
+		modifier = {
+			factor = 1.1
 
 			NOT = { religion_authority = 0.30 }
 		}
 
-		mult_modifier = {
-			factor = 1.5
+		modifier = {
+			factor = 1.1
 
 			NOT = { religion_authority = 0.40 }
 		}
 
-		mult_modifier = {
-			factor = 1.5
+		modifier = {
+			factor = 1.1
 
 			NOT = { religion_authority = 0.50 }
 		}
 
-		mult_modifier = {
-			factor = 0.75
+		modifier = {
+			factor = 0.9
 
 			religion_authority = 0.60
 		}
 
-		mult_modifier = {
-			factor = 0.75
+		modifier = {
+			factor = 0.9
 
 			religion_authority = 0.70
 		}
 
-		mult_modifier = {
-			factor = 0.75
+		modifier = {
+			factor = 0.9
 
 			religion_authority = 0.80
 		}
 
-		mult_modifier = {
-			factor = 0.75
+		modifier = {
+			factor = 0.9
 
 			religion_authority = 0.90
 		}
 
-		mult_modifier = {
-			factor = 0.75
-
-			liege = {
-				society_rank = {
-					society = monastic_order_dominican
-					rank == 4
-				}
-			}
-		}
+		#modifier = {
+		#	factor = 0.75
+		#
+		#	liege = {
+		#		society_rank = {
+		#			society = monastic_order_dominican
+		#			rank == 4
+		#		}
+		#	}
+		#}
 
 		# Bloodlines
-		mult_modifier = {
+		modifier = {
 			factor = 0.75
 
 			liege = {
@@ -217,7 +205,7 @@ character_event = {
 			}
 		}
 
-		mult_modifier = {
+		modifier = {
 			factor = 0.75
 
 			# If chaplain is also your relative
@@ -227,31 +215,27 @@ character_event = {
 			}
 		}
 
-		mult_modifier = {
+		modifier = {
 			factor = 0.6
-
-			liege = {
-				any_owned_bloodline = {
-					has_bloodline_flag = inquisitional_saintly_bloodline
-					bloodline_is_active_for = PREV
-
-					founder = {
-						religion = ROOT
-					}
-				}
-
-				NOT = {
+			NOT = {
+				liege = {
 					any_owned_bloodline = {
 						has_bloodline_flag = inquisitional_bloodline
 						bloodline_is_active_for = PREV
 					}
 				}
 			}
+			liege = {
+		    	any_owned_bloodline = {
+    				has_bloodline_flag = inquisitional_saintly_bloodline
+    				founder = {
+    					religion = ROOT
+    				}
+    			}
+    		}
 		}
-
-		mult_modifier = {
+		modifier = {
 			factor = 0.4
-
 			liege = {
 				any_owned_bloodline = {
 					has_bloodline_flag = inquisitional_bloodline
@@ -260,18 +244,8 @@ character_event = {
 			}
 		}
 
-		mult_modifier = {
-			factor = 0.6
-
-			religion = hindu
-
-			any_owned_bloodline = {
-				has_bloodline_flag = bloodline_faster_hindu
-			}
-		}
-
 		# Effect of wonder upgrades
-		mult_modifier = {
+		modifier = {
 			factor = 0.6
 
 			liege = {
@@ -287,78 +261,70 @@ character_event = {
 				}
 			}
 		}
-
-		# Hindus and Buddhists have a hard time converting other Indian religions
-		mult_modifier = {
+		
+		# Colonial Sepratist has a hard time converting other non-terran political religions
+		#modifier = {
+		#	factor = 3.0
+		#	has_job_action = action_inquisition
+		#	religion = colonial_separatist
+		#	location = {
+		#		religion_group = political_group
+		#	}
+		#}
+		# Use this for religions who are bad at converting all non-outlaws
+		
+		#modifier = {
+		#	factor = 3.0
+		#	has_job_action = action_inquisition
+		#	religion_group = outlaw_group
+		#	OR = {
+		#		religion = jain
+		#		religion = taoist
+		#		religion = bon
+		#		religion = bon_reformed
+		#	}
+		#	location = {
+		#		NOT = { religion_group = pagan_group }
+		#	}
+		#}
+		
+		#Naughty outlaws
+		modifier = {
 			factor = 3.0
-
-			OR = {
-				religion = hindu
-				religion = buddhist
-			}
-
+			has_job_action = action_inquisition
+			religion_group = outlaw_group
+			#is_reformed_religion = no
 			location = {
-				religion_group = indian_group
-				NOT = { religion = taoist }
-			}
-		}
-
-		# Jains, Taoists and Bön have a hard time converting ALL non-pagans
-		mult_modifier = {
-			factor = 3.0
-
-			OR = {
-				religion = jain
-				religion = taoist
-				religion = bon
-				religion = bon_reformed
-			}
-
-			location = {
-				NOT = { religion_group = pagan_group }
-			}
-		}
-
-
-		mult_modifier = {
-			factor = 3.0
-
-			religion_group = pagan_group
-			is_reformed_religion = no
-
-			location = {
-				trigger_if = {
-					limit = { religion_group = pagan_group }
-					is_reformed_religion = yes
+				OR = {
+					NOT = { religion_group = outlaw_group }
+					#is_reformed_religion = yes
 				}
 			}
 		}
 
-		mult_modifier = {
+		modifier = {
 			factor = 1.5
-
-			location = {
-				is_heresy_of = ROOT
-			}
+			has_job_action = action_inquisition
+			location = { is_heresy_of = ROOT }
 		}
 
-		mult_modifier = {
+		modifier = {
 			factor = 0.75
-
+			has_job_action = action_inquisition
 			location = {
 				has_province_modifier = force_converting
 			}
 		}
 
-		mult_modifier = {
+		modifier = {
 			factor = 3.0
-
+			has_job_action = action_inquisition
 			location = {
 				has_province_modifier = heretic_stronghold
 			}
 		}
 
-		mult_modifier = {
+		modifier = {
 			factor = 3
 
 			has_game_rule = {
@@ -366,43 +332,1747 @@ character_event = {
 				value = slower
 			}
 		}
+		
+		modifier = {
+			factor = 0.75
+			has_job_action = action_inquisition
+			
+			ideology_is_militaristic = yes
+			
+			location = {
+				ideology_is_militaristic = no #Works better against non-military ideologies in military setting
+				owner = { is_military_trigger = yes }
+			}
+		}
+		
+		modifier = {
+			factor = 0.75
+			has_job_action = action_inquisition
+			
+			ideology_is_pro_democratic = yes
+			
+			location = {
+				ideology_is_pro_democratic = no #Works better against non-democratic ideologies in democratic setting
+				owner = { is_civil_trigger = yes }
+			}
+		}
+		
+		#Terran Federalist
+		#
+		#
+		
+			# Existing ideological similarities/differences
+			modifier = {
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = terran_federalist
+				
+				location = {
+					religion_group = political_terran_group
+				}
+			}
 
+			modifier = {
+				factor = 1.33
+				has_job_action = action_inquisition
+				
+				religion = terran_federalist
+				
+				location = {
+					OR = {
+						religion_group = political_group
+						religion_group = religious_terran_group
+					}
+				}
+			}
+			
+			modifier = {
+				factor = 2
+				has_job_action = action_inquisition
+				
+				religion = terran_federalist
+				
+				location = {
+					OR = {
+						religion_group = religious_group
+						religion_group = transhumanist_group
+						religion_group = outlaw_group
+					}
+				}
+			}
+			
+			# Proximity to Earth
+			
+			modifier = {#Bonus against political in outer core world
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = terran_federalist
+				
+				location = {
+					religion_group = political_group
+					is_outer_core_culture = yes
+				}
+			}
+			
+			modifier = {#Bonus against terran political in outer core and periphery
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = terran_federalist
+				
+				location = {
+					religion_group = political_terran_group
+					OR = {
+						is_outer_core_culture = yes
+						is_periphery_culture = yes
+					}
+				}
+			}
+			
+			modifier = {#Penalty against non-terran political in the periphery
+				factor = 1.33
+				has_job_action = action_inquisition
+				
+				religion = terran_federalist
+				
+				location = {
+					NOT = {religion_group = political_terran_group}
+					is_periphery_culture = yes
+				}
+			}
+			
+			# Democratic provinces tend to prefer democratic ideologies
+			#modifier = {
+			
+			
+		#Terran Republican
+		#
+		#
+		
+			# Existing ideological similarities/differences
+			modifier = {
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = terran_republican
+				
+				location = {
+					religion_group = political_terran_group
+				}
+			}
+
+			modifier = {
+				factor = 1.33
+				has_job_action = action_inquisition
+				
+				religion = terran_republican
+				
+				location = {
+					OR = {
+						religion_group = political_group
+						religion_group = religious_terran_group
+					}
+				}
+			}
+			
+			modifier = {
+				factor = 2
+				has_job_action = action_inquisition
+				
+				religion = terran_republican
+				
+				location = {
+					OR = {
+						religion_group = religious_group
+						religion_group = transhumanist_group
+						religion_group = outlaw_group
+					}
+				}
+			}
+			
+			# Proximity to Earth
+			
+			modifier = {#Bonus against non-terran political in the core
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = terran_republican
+				
+				location = {
+					religion_group = political_group
+					is_core_culture = yes
+				}
+			}
+			
+			modifier = {#Bonus against terran federalist in terra areas
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				OR = {
+					religion = terran_republican
+					religion = terran_imperial
+				}
+				
+				location = {
+					religion = terran_federalist
+					is_terran_culture = yes
+				}
+			}
+			
+			modifier = {#Penalty against all in periphery
+				factor = 1.33
+				has_job_action = action_inquisition
+				
+				OR = {
+					religion = terran_republican
+					religion = terran_imperial
+				}
+				
+				location = {
+					is_periphery_culture = yes
+				}
+			}
+			
+			modifier = {#Penalty against federalism in the outer core
+				factor = 1.33
+				has_job_action = action_inquisition
+				
+				OR = {
+					religion = terran_republican
+					religion = terran_imperial
+				}
+				
+				location = {
+					religion = terran_federalist
+					is_outer_core_culture = yes
+				}
+			}
+			
+			# Democratic provinces tend to prefer democratic ideologies
+			#modifier = {
+		
+		#Terran Imperialism
+		#
+		#
+		
+			# Existing ideological similarities/differences
+			modifier = {
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = terran_imperial
+				
+				location = {
+					OR = {
+						religion_group = political_terran_group
+						religion = astrist
+						religion = neo_feudal
+					}
+				}
+			}
+
+			modifier = {
+				factor = 1.33
+				has_job_action = action_inquisition
+				
+				religion = terran_imperial
+				
+				location = {
+					OR = {
+						religion_group = political_group
+						religion_group = religious_terran_group
+					}
+					NOR = {
+						religion = astrist
+						religion = neo_feudal
+					}
+				}
+			}
+			
+			modifier = {
+				factor = 2
+				has_job_action = action_inquisition
+				
+				religion = terran_imperial
+				
+				location = {
+					OR = {
+						religion_group = religious_group
+						religion_group = transhumanist_group
+						religion_group = outlaw_group
+					}
+				}
+			}
+			
+			# Proximity to Earth
+			
+			modifier = {#Bonus against non terran political in the core worlds
+				factor = 0.66
+				has_job_action = action_inquisition
+				
+				religion = terran_imperial
+				
+				location = {
+					religion_group = political_group
+					is_core_culture = yes
+				}
+			}
+			
+			#modifier = {#Bonus against terran federalist in terra areas     	Used for both in republican
+			
+			#modifier = {#Penalty in the periphery  							Used for both in republican
+			
+			
+			# Military provinces tend to prefer military ideologies
+			#modifier = {
+			
+			
+		#Colonial Separatism
+		#
+		#
+		
+			# Existing ideological similarities/differences
+			modifier = {
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = colonial_separatist
+				
+				location = {
+					religion_group = political_group
+				}
+			}
+
+			modifier = {
+				factor = 1.33
+				has_job_action = action_inquisition
+				
+				religion = colonial_separatist
+				
+				location = {
+					OR = {
+						religion_group = political_terran_group
+						religion_group = religious_group
+					}
+				}
+			}
+			
+			modifier = {
+				factor = 2
+				has_job_action = action_inquisition
+				
+				religion = colonial_separatist
+				
+				location = {
+					OR = {
+						religion_group = religious_terran_group
+						religion_group = transhumanist_group
+						religion_group = outlaw_group
+					}
+				}
+			}
+			
+			# Proximity to Earth
+			
+			modifier = {# Bonus against terran in periphery							#For all non-terran political				
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion_group = political_group
+				
+				location = {
+					religion_group = political_terran_group
+					is_periphery_culture = yes
+				}
+			}
+			
+			modifier = {# Major extra Bonus against terran in periphery							
+				factor = 0.25
+				has_job_action = action_inquisition
+				
+				religion = colonial_separatist
+				
+				location = {
+					religion_group = political_terran_group
+					is_periphery_culture = yes
+				}
+			}
+			
+			modifier = {#Penalty against terran in the core worlds
+				factor = 3
+				has_job_action = action_inquisition
+				
+				religion = colonial_separatist
+				
+				location = {
+					is_outer_core_culture = yes
+				}
+			}
+			
+			modifier = {#Massive penalty in terran worlds
+				factor = 100
+				has_job_action = action_inquisition
+				
+				religion = colonial_separatist
+				
+				location = {
+					is_terran_culture = yes
+				}
+			}
+			
+			#modifier = {#Bonus when not in the empire
+			#	factor = 0.5
+			#	has_job_action = action_inquisition
+			#	
+			#	religion = colonial_separatist
+			#	
+			#	
+			#	location = {
+			#		NOT = { owner = { top_liege = { primary_title = e_terran_confederation} } }
+			#		#empire = { NOT = { title = e_terran_confederation } }
+			#	}
+			#}
+			
+			#modifier = {#Penalty when in the empire
+			#	factor = 2
+			#	has_job_action = action_inquisition
+			#	
+			#	religion = colonial_separatist
+			#	
+			#	#top_liege = { primary_title = e_terran_confederation}
+			#	location = {
+			#		owner = { top_liege = { primary_title = e_terran_confederation} }
+			#		#empire = { title = e_terran_confederation }
+			#	}
+			#}
+			
+			# Democratic provinces tend to prefer democratic ideologies
+			#modifier = {
+			
+			
+		#Neo-Feudal
+		#
+		#
+		
+			# Existing ideological similarities/differences
+			modifier = {
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = neo_feudal
+				
+				location = {
+					OR = {
+						religion = terran_imperial
+						religion = bio_directionist
+						religion_group = political_group
+					}
+					NOT = { religion = neo_socialist}
+				}
+			}
+
+			modifier = {
+				factor = 1.33
+				has_job_action = action_inquisition
+				
+				religion = neo_feudal
+				
+				location = {
+					OR = {
+						religion_group = religious_group
+						religion_group = religious_terran_group
+					}
+				}
+			}
+			
+			modifier = {
+				factor = 2
+				has_job_action = action_inquisition
+				
+				religion = neo_feudal
+				
+				location = {
+					OR = {
+						religion = neo_socialist
+						religion_group = political_terran_group
+						religion_group = transhumanist_group
+						religion_group = outlaw_group
+					}
+					NOR = { 
+						religion = bio_directionist
+						religion = terran_imperial 
+					}
+				}
+			}
+			
+			# Proximity to Earth
+			
+			#modifier = {#Bonus against terran political in periphery					#Done in colonial sepratist
+			
+			modifier = {#Penalty in core worlds
+				factor = 1.33
+				has_job_action = action_inquisition
+				
+				religion = neo_feudal
+				
+				location = {
+					is_core_culture = yes
+				}
+			}
+			
+			# Military provinces tend to prefer military ideologies
+			#modifier = {
+			
+			
+		#Neo-Socialist
+		#
+		#
+		
+			# Existing ideological similarities/differences
+			modifier = {
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = neo_socialist
+				
+				location = {
+					OR = {
+						religion = colonial_separatist
+						religion_group = political_terran_group
+					}
+					NOT = { religion = terran_imperial}
+				}
+			}
+
+			modifier = {
+				factor = 1.33
+				has_job_action = action_inquisition
+				
+				religion = neo_socialist
+				
+				location = {
+					OR = {
+						religion = terran_imperial
+					}
+				}
+			}
+			
+			modifier = {
+				factor = 2
+				has_job_action = action_inquisition
+				
+				religion = neo_socialist
+				
+				location = {
+					OR = {
+						religion_group = political_group
+						religion_group = religious_terran_group
+						religion_group = religious_group
+						religion_group = transhumanist_group
+						religion_group = outlaw_group
+					}
+					NOR = { 
+						religion = colonial_separatist
+					}
+				}
+			}
+			
+		#Astrist
+		#
+		#
+		
+			# Existing ideological similarities/differences
+			modifier = {
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = astrist
+				
+				location = {
+					OR = {
+						religion = terran_imperial
+						religion = neo_feudal
+					}
+				}
+			}
+
+			modifier = {
+				factor = 1.33
+				has_job_action = action_inquisition
+				
+				religion = astrist
+				
+				location = {
+					OR = {
+						religion_group = political_terran_group
+						religion_group = political_group
+					}
+					NOR = { 
+						religion = terran_imperial
+						religion = neo_socialist
+						religion = neo_feudal
+					}
+				}
+			}
+			
+			modifier = {
+				factor = 2
+				has_job_action = action_inquisition
+				
+				religion = astrist
+				
+				location = {
+					OR = {
+						religion = neo_socialist
+						religion_group = religious_group
+						religion_group = religious_terran_group
+						religion_group = transhumanist_group
+						religion_group = outlaw_group
+					}
+				}
+			}
+			
+			# Proximity to Earth
+			
+			#modifier = {#Penalty in core worlds
+			
+			modifier = {#Bonus in periphery
+				factor = 0.5
+				has_job_action = action_inquisition
+				
+				religion = astrist
+				
+				location = {
+					is_periphery_culture = yes
+				}
+			}
+			
+			modifier = {#Major penalty in terran worlds
+				factor = 4
+				has_job_action = action_inquisition
+				
+				religion = astrist
+				
+				location = {
+					OR = {
+						religion_group = political_terran_group
+						religion_group = religious_terran_group
+					}
+					is_terran_culture = yes
+				}
+			}
+			
+			# Military provinces tend to prefer military ideologies
+			#modifier = {
+		
+		#Cyberneticist
+		#
+		#
+		
+			# Existing ideological similarities/differences
+			modifier = {
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = cyberneticist
+				
+				location = {
+					religion_group = transhumanist_group
+				}
+			}
+		
+			modifier = {
+				factor = 1.33
+				has_job_action = action_inquisition
+				
+				religion = cyberneticist
+				
+				location = {
+					OR = {
+						religion_group = political_group
+						religion_group = outlaw_group
+					}
+				}
+			}
+			
+			modifier = {
+				factor = 2
+				has_job_action = action_inquisition
+				
+				religion = cyberneticist
+				
+				location = {
+					OR = {
+						religion_group = political_terran_group
+						religion_group = religious_group
+					}
+				}
+			}
+			
+			modifier = {
+				factor = 3
+				has_job_action = action_inquisition
+				
+				religion = cyberneticist
+				
+				location = {
+					religion_group = religious_terran_group
+				}
+			}
+			
+			# Transhumanists become stronger as tech increaces
+			
+			modifier = {
+				factor = 1.4
+				has_job_action = action_inquisition
+				
+				religion_group = transhumanist_group
+				NOR = {
+					religion = bio_directionist
+					religion = hiver
+				}
+				
+				location = {
+					NOT = { TECH_CYBERNETICS = 1 }
+				}
+			}
+			
+			modifier = {
+				factor = 1.25
+				has_job_action = action_inquisition
+				
+				religion_group = transhumanist_group
+				NOR = {
+					religion = bio_directionist
+					religion = hiver
+				}
+				
+				location = {
+					NOT = { TECH_CYBERNETICS = 2 }
+				}
+			}
+			
+			modifier = {
+				factor = 1.1
+				has_job_action = action_inquisition
+				
+				religion_group = transhumanist_group
+				NOR = {
+					religion = bio_directionist
+					religion = hiver
+				}
+				
+				location = {
+					NOT = { TECH_CYBERNETICS = 3 }
+				}
+			}
+			
+			modifier = {
+				factor = 0.9
+				has_job_action = action_inquisition
+				
+				religion_group = transhumanist_group
+				NOR = {
+					religion = bio_directionist
+					religion = hiver
+				}
+				
+				location = {
+					TECH_CYBERNETICS = 6
+				}
+			}
+			
+			modifier = {
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion_group = transhumanist_group
+				NOR = {
+					religion = bio_directionist
+					religion = hiver
+				}
+				
+				location = {
+					TECH_CYBERNETICS = 7
+				}
+			}
+			
+			modifier = {
+				factor = 0.6
+				has_job_action = action_inquisition
+				
+				religion_group = transhumanist_group
+				NOR = {
+					religion = bio_directionist
+					religion = hiver
+				}
+				
+				location = {
+					TECH_CYBERNETICS = 8
+				}
+			}
+			
+			#modifier = {#Bonus in periphery
+			#	factor = 0.5
+			#	has_job_action = action_inquisition
+			#	
+			#	religion = astrist
+			#	
+			#	location = {
+			#		is_periphery_culture = yes
+			#	}
+			#}
+			
+			# Military provinces tend to prefer military ideologies
+			#modifier = {
+			
+			
+		#Hiver
+		#
+		#
+		
+			# Nobody likes them :(
+			modifier = {
+				factor = 10
+				has_job_action = action_inquisition
+				
+				religion = hiver
+				
+				location = {
+					NOR = {
+						religion = cyberneticist
+						religion = machine_cultist
+					}
+				}
+			}
+			
+			modifier = { #Can't convert them
+				factor = 100
+				has_job_action = action_inquisition
+				
+				location = {
+					religion = hiver
+				}
+			}
+			
+		
+		# Machine Cult
+		#
+		#
+		
+			# Existing ideological similarities/differences
+			modifier = {
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = machine_cultist
+				
+				location = {
+					religion_group = transhumanist_group
+					religion_group = religious_group
+					
+				}
+			}
+		
+			modifier = {
+				factor = 1.33
+				has_job_action = action_inquisition
+				
+				religion = machine_cultist
+				
+				location = {
+					OR = {
+						religion_group = outlaw_group
+						religion_group = religious_terran_group
+					}
+				}
+			}
+			
+			modifier = {
+				factor = 2
+				has_job_action = action_inquisition
+				
+				religion = machine_cultist
+				
+				location = {
+					OR = {
+						religion_group = political_group
+						religion_group = political_terran_group
+					}
+				}
+			}
+			
+		
+		# Bio-Directionist
+		#
+		#
+		
+			# Existing ideological similarities/differences
+			modifier = {
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = bio_directionist
+				
+				location = {
+					religion_group = transhumanist_group
+					religion = neo_feudal
+				}
+			}
+		
+			modifier = {
+				factor = 1.33
+				has_job_action = action_inquisition
+				
+				religion = bio_directionist
+				
+				location = {
+					OR = {
+						religion_group = political_group
+						religion_group = outlaw_group
+					}
+					NOT = { religion = neo_feudal }
+				}
+			}
+			
+			modifier = {
+				factor = 2
+				has_job_action = action_inquisition
+				
+				religion = bio_directionist
+				
+				location = {
+					OR = {
+						religion_group = political_terran_group
+						religion_group = religious_group
+					}
+				}
+			}
+			
+			modifier = {
+				factor = 3
+				has_job_action = action_inquisition
+				
+				religion = bio_directionist
+				
+				location = {
+					religion_group = religious_terran_group
+				}
+			}
+			
+			# Transhumanists become stronger as tech increaces
+			
+			modifier = {
+				factor = 1.4
+				has_job_action = action_inquisition
+				
+				religion = bio_directionist
+				
+				location = {
+					NOT = { TECH_BIOTECH = 1 }
+				}
+			}
+			
+			modifier = {
+				factor = 1.25
+				has_job_action = action_inquisition
+				
+				religion = bio_directionist
+				
+				location = {
+					NOT = { TECH_BIOTECH = 2 }
+				}
+			}
+			
+			modifier = {
+				factor = 1.1
+				has_job_action = action_inquisition
+				
+				religion = bio_directionist
+				
+				location = {
+					NOT = { TECH_BIOTECH = 3 }
+				}
+			}
+			
+			modifier = {
+				factor = 0.9
+				has_job_action = action_inquisition
+				
+				religion = bio_directionist
+				
+				location = {
+					TECH_BIOTECH = 6
+				}
+			}
+			
+			modifier = {
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = bio_directionist
+				
+				location = {
+					TECH_BIOTECH = 7
+				}
+			}
+			
+			modifier = {
+				factor = 0.6
+				has_job_action = action_inquisition
+				
+				religion = bio_directionist
+				
+				location = {
+					TECH_BIOTECH = 8
+				}
+			}
+			
+			#modifier = {#Bonus in periphery
+			#	factor = 0.5
+			#	has_job_action = action_inquisition
+			#	
+			#	religion = astrist
+			#	
+			#	location = {
+			#		is_periphery_culture = yes
+			#	}
+			#}
+			
+			# Military provinces tend to prefer military ideologies
+			
+			
+			
+		#Orthodox
+		#
+		#
+		
+			# Existing ideological similarities/differences
+			modifier = {
+				factor = 0.5
+				has_job_action = action_inquisition
+				
+				religion = orthodox
+				
+				location = {
+					religion = pilgrim
+				}
+			}
+			
+			modifier = {
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = orthodox
+				
+				location = {
+					NOT = { religion = pilgrim }
+					religion_group = religious_terran_group
+				}
+			}
+
+			modifier = {
+				factor = 1.33
+				has_job_action = action_inquisition
+				
+				religion = orthodox
+				
+				location = {
+					religion_group = political_terran_group
+				}
+			}
+			
+			modifier = {
+				factor = 2
+				has_job_action = action_inquisition
+				
+				religion = orthodox
+				
+				location = {
+					NOT = { religion = xenoterran }
+					OR = {
+						religion_group = religious_group
+						religion_group = political_group
+						religion_group = outlaw_group
+					}
+					
+				}
+			}
+			
+			modifier = {
+				factor = 3
+				has_job_action = action_inquisition
+				
+				religion = orthodox
+				
+				location = {
+					OR = {
+						religion = xenoterran
+						religion_group = transhumanist_group
+					}
+				}
+			}
+			
+		#Pilgrim
+		#
+		#
+		
+			# Existing ideological similarities/differences
+			
+			modifier = {
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = pilgrim
+				
+				location = {
+					NOT = { religion = orthodox }
+					religion_group = religious_terran_group
+				}
+			}
+
+			modifier = {
+				factor = 1.33
+				has_job_action = action_inquisition
+				
+				religion = pilgrim
+				
+				location = {
+					religion_group = political_terran_group
+				}
+			}
+			
+			modifier = {
+				factor = 2
+				has_job_action = action_inquisition
+				
+				religion = pilgrim
+				
+				location = {
+					NOT = { religion = xenoterran }
+					OR = {
+						religion_group = religious_group
+						religion_group = political_group
+						religion_group = outlaw_group
+					}
+					
+				}
+			}
+			
+			modifier = {
+				factor = 3
+				has_job_action = action_inquisition
+				
+				religion = orthodox
+				
+				location = {
+					OR = {
+						religion = xenoterran
+						religion_group = transhumanist_group
+					}
+				}
+			}
+			
+		#Sect Adoptionist
+		#
+		#
+		
+			# Existing ideological similarities/differences
+			
+			modifier = {
+				factor = 0.5
+				has_job_action = action_inquisition
+				
+				religion = adoptionist_cultist
+				
+				location = {
+					religion = adoptionist
+				}
+			}
+			
+			
+			modifier = {
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = adoptionist_cultist
+				
+				location = {
+					NOT = { religion = adoptionist }
+					religion_group = religious_group
+				}
+			}
+
+			#modifier = {
+			#	factor = 1.5
+			#	has_job_action = action_inquisition
+			#	
+			#	religion = adoptionist_cultist
+			#	
+			#	location = {
+			#		religion_group = political_terran_group
+			#	}
+			#}
+			
+			modifier = {
+				factor = 2
+				has_job_action = action_inquisition
+				
+				religion = adoptionist_cultist
+				
+				location = {
+					OR = {
+						religion_group = political_group
+						religion_group = religious_terran_group
+						religion_group = outlaw_group
+					}
+					
+				}
+			}
+			
+			modifier = {
+				factor = 3
+				has_job_action = action_inquisition
+				
+				religion = adoptionist_cultist
+				
+				location = {
+					OR = {
+						religion_group = transhumanist_group
+						religion_group = political_terran_group
+					}
+				}
+			}	
+			
+			modifier = { # Traditional ideology of the Sexto Solar culture group
+				factor = 0.25
+				has_job_action = action_inquisition
+				
+				religion = adoptionist_cultist
+				
+				location = {
+					NOT = { religion = adoptionist }
+					culture_group = sexto_solar_group
+				}
+			}	
+		
+		#Adoptionist
+		#
+		#
+		
+			# Existing ideological similarities/differences
+			
+			modifier = {
+				factor = 0.5
+				has_job_action = action_inquisition
+				
+				religion = adoptionist
+				
+				location = {
+					religion = adoptionist_cultist
+				}
+			}
+			
+			
+			modifier = {
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = adoptionist
+				
+				location = {
+					NOT = { religion = adoptionist_cultist }
+					religion_group = religious_group
+				}
+			}
+
+			#modifier = {
+			#	factor = 1.5
+			#	has_job_action = action_inquisition
+			#	
+			#	religion = adoptionist
+			#	
+			#	location = {
+			#		religion_group = political_terran_group
+			#	}
+			#}
+			
+			modifier = {
+				factor = 2
+				has_job_action = action_inquisition
+				
+				religion = adoptionist
+				
+				location = {
+					OR = {
+						religion_group = political_group
+						religion_group = religious_terran_group
+						religion_group = outlaw_group
+					}
+					
+				}
+			}
+			
+			modifier = {
+				factor = 3
+				has_job_action = action_inquisition
+				
+				religion = adoptionist_cultist
+				
+				location = {
+					OR = {
+						religion_group = transhumanist_group
+						religion_group = political_terran_group
+					}
+				}
+			}	
+			
+			modifier = { # Traditional ideology of the Sexto Solar culture group
+				factor = 0.25
+				has_job_action = action_inquisition
+				
+				religion = adoptionist_cultist
+				
+				location = {
+					NOT = { religion = adoptionist_cultist }
+					culture_group = sexto_solar_group
+				}
+			}
+
+		# Imperial Cult
+		#
+		#
+		
+			# Existing ideological similarities/differences
+					
+			modifier = {
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = imperial_cult
+				
+				location = {
+					OR = {
+						religion = astrist
+						religion = neo_feudal
+						religion = terran_imperial
+					}
+				}
+			}
+
+			modifier = {
+				factor = 1.33
+				has_job_action = action_inquisition
+				
+				religion = imperial_cult
+				
+				location = {
+					OR = {
+						religion_group = religious_group
+						religion_group = political_group
+					}
+				}
+				NOR = {
+					religion = astrist
+					religion = neo_feudal
+				}
+			}
+			
+			modifier = {
+				factor = 2
+				has_job_action = action_inquisition
+				
+				religion = imperial_cult
+				
+				location = {
+					OR = {
+						religion_group = political_terran_group
+						religion_group = religious_terran_group
+						religion_group = outlaw_group
+						religion_group = transhumanist_group
+					}
+					NOT = {
+						religion = terran_imperial
+					}
+				}
+			}
+			
+			modifier = { # Harder to take these people seriously as gods
+				factor = 10
+				has_job_action = action_inquisition
+				
+				religion = imperial_cult
+				
+				top_liege = { is_elective_trigger = yes }
+				
+			}
+			
+		# Solar Cultist
+		#
+		#
+		
+			# Existing ideological similarities/differences
+			modifier = {
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = solar_cultist
+				
+				location = {
+					religion_group = religious_terran_group
+				}
+			}
+
+			modifier = {
+				factor = 1.33
+				has_job_action = action_inquisition
+				
+				religion = solar_cultist
+				
+				location = {
+					OR = {
+						religion_group = political_terran_group
+						religion_group = religious_group
+					}
+					NOT = { religion = xenoterran }
+				}
+			}
+			
+			modifier = {
+				factor = 2
+				has_job_action = action_inquisition
+				
+				religion = solar_cultist
+				
+				location = {
+					OR = {
+						religion_group = political_group
+						religion_group = outlaw_group
+					}
+				}
+			}
+			
+			modifier = {
+				factor = 3
+				has_job_action = action_inquisition
+				
+				religion = solar_cultist
+				
+				location = {
+					OR = {
+						religion_group = transhumanist_group
+						religion = xenoterran
+					}
+				}
+			}
+			
+			# Proximity to Earth
+			
+			#modifier = {#Bonus when not in the empire
+			#	factor = 0.5
+			#	has_job_action = action_inquisition
+			#	
+			#	religion = solar_cultist
+			#	
+			#	NOT = { top_liege = { primary_title = e_terran_confederation} }
+			#}
+			
+			#modifier = {#Penalty when in the empire
+			#	factor = 2
+			#	has_job_action = action_inquisition
+			#	
+			#	religion = solar_cultist
+			#	
+			#	top_liege = { primary_title = e_terran_confederation}
+			#}
+			
+			modifier = {#Bonus when on terran worlds
+				factor = 0.5
+				has_job_action = action_inquisition
+				
+				religion = solar_cultist
+				
+				location = {
+					is_terran_culture = yes
+				}
+			}
+			
+			modifier = {#Bonus when on outer core
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = solar_cultist
+				
+				location = {
+					is_outer_core_culture = yes
+				}
+			}
+			
+			modifier = {#Penalty in the periphery
+				factor = 3
+				has_job_action = action_inquisition
+				
+				religion = solar_cultist
+				
+				location = {
+					is_periphery_culture = yes
+				}
+			}
+			
+		# Solarian
+		#
+		#
+		
+			# Existing ideological similarities/differences
+			modifier = {
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = solarian
+				
+				location = {
+					religion_group = religious_terran_group
+				}
+			}
+
+			modifier = {
+				factor = 1.33
+				has_job_action = action_inquisition
+				
+				religion = solarian
+				
+				location = {
+					OR = {
+						religion_group = political_terran_group
+						religion_group = religious_group
+					}
+					NOT = { religion = xenoterran }
+				}
+			}
+			
+			modifier = {
+				factor = 2
+				has_job_action = action_inquisition
+				
+				religion = solarian
+				
+				location = {
+					OR = {
+						religion_group = political_group
+						religion_group = outlaw_group
+					}
+				}
+			}
+			
+			modifier = {
+				factor = 3
+				has_job_action = action_inquisition
+				
+				religion = solarian
+				
+				location = {
+					OR = {
+						religion_group = transhumanist_group
+						religion = xenoterran
+					}
+				}
+			}
+			
+			# Proximity to Earth
+			
+			#modifier = {#Bonus when not in the empire
+			#	factor = 0.5
+			#	has_job_action = action_inquisition
+			#	
+			#	religion = solar_cultist
+			#	
+			#	NOT = { top_liege = { primary_title = e_terran_confederation} }
+			#}
+			
+			#modifier = {#Penalty when in the empire
+			#	factor = 2
+			#	has_job_action = action_inquisition
+			#	
+			#	religion = solar_cultist
+			#	
+			#	top_liege = { primary_title = e_terran_confederation}
+			#}
+			
+			modifier = {#Bonus when on terran worlds
+				factor = 0.5
+				has_job_action = action_inquisition
+				
+				religion = solarian
+				
+				location = {
+					is_terran_culture = yes
+				}
+			}
+			
+			modifier = {#Bonus when on outer core
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = solarian
+				
+				location = {
+					is_outer_core_culture = yes
+				}
+			}
+			
+			modifier = {#Penalty in the periphery
+				factor = 3
+				has_job_action = action_inquisition
+				
+				religion = solarian
+				
+				location = {
+					is_periphery_culture = yes
+				}
+			}
+			
+		# Xenoterran
+		#
+		#
+		
+			# Existing ideological similarities/differences
+			modifier = {
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = xenoterran
+				
+				location = {
+					OR = {
+						religion = astrist
+						religion = adoptionist_cultist
+					}
+				}
+			}
+
+			#modifier = {
+			#	factor = 1.5
+			#	has_job_action = action_inquisition
+			#	
+			#	religion = xenoterran
+			#	
+			#	location = {
+			#		OR = {
+			#			religion_group = political_group
+			#			religion_group = religious_group
+			#		}
+			#		NOR = { 
+			#			religion = adoptionist_cultist 
+			#			religion = astrist 
+			#		}
+			#	}
+			#}
+			
+			modifier = {
+				factor = 2
+				has_job_action = action_inquisition
+				
+				religion = xenoterran
+				
+				location = {
+					OR = {
+						religion_group = political_group
+						religion_group = religious_group
+						religion_group = outlaw_group
+						
+					}
+					NOR = { 
+						religion = adoptionist_cultist 
+						religion = astrist 
+					}
+				}
+			}
+			
+			modifier = {
+				factor = 3
+				has_job_action = action_inquisition
+				
+				religion = xenoterran
+				
+				location = {
+					OR = {
+						religion_group = transhumanist_group
+						religion_group = political_terran_group
+						religion_group = religious_terran_group
+					}
+				}
+			}
+			
+			# Proximity to Earth
+			
+			modifier = {#Bonus when on periphery worlds
+				factor = 0.66
+				has_job_action = action_inquisition
+				
+				religion = xenoterran
+				
+				location = {
+					OR = {
+						religion_group = political_terran_group
+						religion_group = religious_terran_group
+					}
+					is_periphery_culture = yes
+				}
+			}
+			
+			modifier = {#Penalty in the outer core
+				factor = 1.5
+				has_job_action = action_inquisition
+				
+				religion = xenoterran
+				
+				location = {
+					OR = {
+						religion_group = political_terran_group
+						religion_group = religious_terran_group
+					}
+					is_outer_core_culture = yes
+				}
+			}
+			
+			modifier = {#Major penalty on terran worlds
+				factor = 10
+				has_job_action = action_inquisition
+				
+				religion = xenoterran
+				
+				location = {
+					is_terran_culture = yes
+				}
+			}
 	}
-
+	
 	option = {
 		name = evt_lordspiritual_001_desc_a
 
 		piety = 10
-
-		location = {
-			show_scope_change = no
-
-			religion = ROOT
-
-			if = {
-				limit = { has_province_modifier = heretic_stronghold }
-				remove_province_modifier = heretic_stronghold
+		location = { religion = ROOT }
+		hidden_tooltip = {
+			location = {
+				if = {
+					limit = { has_province_modifier = heretic_stronghold }
+					remove_province_modifier = heretic_stronghold
+				}
 			}
 		}
-
 		liege = {
-			show_scope_change = no
-
-			letter_event = {
-				id = lordspiritual.002
-				tooltip = evt_lordspiritual_001_option_a_tooltip
-			}
-
-			hidden_effect = {
-				top_liege = {
-					if = {
-						limit = {
+			letter_event = { id = "lordspiritual.002" tooltip = evt_lordspiritual_001_option_a_tooltip }
+			hidden_tooltip = {
+				if = {
+					limit = {
+						top_liege = {
 							NOT = { character = PREV }
 							religion = ROOT
 						}
 					}
-
-					character_event = { id = lordspiritual.003 }
+					top_liege = { character_event = { id = "lordspiritual.003" } }
 				}
 			}
 		}
@@ -419,38 +2089,29 @@ letter_event = {
 
 	option = {
 		name = EXCELLENT
-
 		piety = 15
-
-		hidden_effect = {
+		hidden_tooltip = {
 			if = {
-				limit = { has_ambition = obj_strengthen_religion }
-
-				change_variable = {
-					which = strengthen_religion
-					value = 1
+				limit = {
+					has_ambition = obj_strengthen_religion
 				}
+				change_variable = { which = strengthen_religion value = 1 }
 			}
 		}
-
 		if = {
 			limit = {
 				is_heretic = no
-
 				rightful_religious_head_scope = {
 					ROOT = {
 						NOT = { excommunicated_for = PREV }
 					}
 				}
 			}
-
 			religion_head = {
-				show_scope_change = no
-
 				opinion = {
-					name = opinion_converted_province
+					modifier = opinion_converted_province
 					who = ROOT
-					years = 2
+					months = 24
 				}
 			}
 		}
@@ -466,9 +2127,7 @@ character_event = {
 
 	is_triggered_only = yes
 	notification = yes
-
-	ai = no
-
+	
 	option = {
 		name = EXCELLENT
 	}
@@ -482,34 +2141,33 @@ character_event = {
 	picture = GFX_evt_heretic
 	border = GFX_event_normal_frame_religion
 
+	min_age = 16
+	capable_only = yes
+	prisoner = no
 	has_job_title = yes
 
 	trigger = {
 		has_job_action = action_inquisition
-		in_seclusion = no
-		NOT = {	has_character_modifier = bedridden_illness }
+		NOT = { has_character_modifier = in_seclusion }
+		NOT = { has_character_modifier = bedridden_illness }
+		NOT = { trait = incapable }
 
 		location = {
 			any_province_character = {
-				same_realm = ROOT
-				is_adult = yes
-
-				NOR = {
-					religion = ROOT
-					is_liege_of = ROOT
-				}
-
 				ai = yes
-
-				trigger_if = {
-					limit = { is_ruler = yes }
-
+				is_adult = yes
+				NOT = { character = ROOT }
+				NOT = { is_liege_of = ROOT }
+				NOT = { religion = ROOT }
+				OR = {
+					is_ruler = no
 					primary_title = {
 						controls_religion = no
 						mercenary = no
 						holy_order = no
 					}
 				}
+				same_realm = ROOT
 			}
 		}
 	}
@@ -519,82 +2177,1786 @@ character_event = {
 
 		job_event_mtth_modifier_learning_score = yes
 
-		mult_modifier = {
+		modifier = {
 			factor = 0.75
 
 			has_religion_feature = religion_proselytizing
 		}
 
-		mult_modifier = {
+		modifier = {
 			factor = 2.75
 
 			has_religion_feature = religion_cosmopolitan
 		}
 
-		mult_modifier = {
+		modifier = {
 			factor = 2.0
 
 			NOT = { religion_authority = 0.40 }
 		}
 
-		mult_modifier = {
+		modifier = {
 			factor = 2.0
 
 			NOT = { religion_authority = 0.20 }
 		}
 
-		mult_modifier = {
+		modifier = {
 			factor = 0.75
 
 			religion_authority = 0.60
 		}
 
-		mult_modifier = {
+		modifier = {
 			factor = 0.75
 
 			religion_authority = 0.80
 		}
 
-		mult_modifier = {
+		modifier = {
 			factor = 3.0
 
-			religion_group = pagan_group
-			is_reformed_religion = no
+			religion_group = outlaw_group
+			#is_reformed_religion = no
 		}
+		
+		modifier = {
+			factor = 0.75
+			has_job_action = action_inquisition
+			
+			ideology_is_militaristic = yes
+			
+			location = {
+				ideology_is_militaristic = no #Works better against non-military ideologies in military setting
+				owner = { is_military_trigger = yes }
+			}
+		}
+		
+		modifier = {
+			factor = 0.75
+			has_job_action = action_inquisition
+			
+			ideology_is_pro_democratic = yes
+			
+			location = {
+				ideology_is_pro_democratic = no #Works better against non-democratic ideologies in democratic setting
+				owner = { is_civil_trigger = yes }
+			}
+		}
+		
+		#Terran Federalist
+		#
+		#
+		
+			# Existing ideological similarities/differences
+			modifier = {
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = terran_federalist
+				
+				location = {
+					religion_group = political_terran_group
+				}
+			}
+
+			modifier = {
+				factor = 1.33
+				has_job_action = action_inquisition
+				
+				religion = terran_federalist
+				
+				location = {
+					OR = {
+						religion_group = political_group
+						religion_group = religious_terran_group
+					}
+				}
+			}
+			
+			modifier = {
+				factor = 2
+				has_job_action = action_inquisition
+				
+				religion = terran_federalist
+				
+				location = {
+					OR = {
+						religion_group = religious_group
+						religion_group = transhumanist_group
+						religion_group = outlaw_group
+					}
+				}
+			}
+			
+			# Proximity to Earth
+			
+			modifier = {#Bonus against political in outer core world
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = terran_federalist
+				
+				location = {
+					religion_group = political_group
+					is_outer_core_culture = yes
+				}
+			}
+			
+			modifier = {#Bonus against terran political in outer core and periphery
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = terran_federalist
+				
+				location = {
+					religion_group = political_terran_group
+					OR = {
+						is_outer_core_culture = yes
+						is_periphery_culture = yes
+					}
+				}
+			}
+			
+			modifier = {#Penalty against non-terran political in the periphery
+				factor = 1.33
+				has_job_action = action_inquisition
+				
+				religion = terran_federalist
+				
+				location = {
+					NOT = {religion_group = political_terran_group}
+					is_periphery_culture = yes
+				}
+			}
+			
+			# Democratic provinces tend to prefer democratic ideologies
+			#modifier = {
+			
+			
+		#Terran Republican
+		#
+		#
+		
+			# Existing ideological similarities/differences
+			modifier = {
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = terran_republican
+				
+				location = {
+					religion_group = political_terran_group
+				}
+			}
+
+			modifier = {
+				factor = 1.33
+				has_job_action = action_inquisition
+				
+				religion = terran_republican
+				
+				location = {
+					OR = {
+						religion_group = political_group
+						religion_group = religious_terran_group
+					}
+				}
+			}
+			
+			modifier = {
+				factor = 2
+				has_job_action = action_inquisition
+				
+				religion = terran_republican
+				
+				location = {
+					OR = {
+						religion_group = religious_group
+						religion_group = transhumanist_group
+						religion_group = outlaw_group
+					}
+				}
+			}
+			
+			# Proximity to Earth
+			
+			modifier = {#Bonus against non-terran political in the core
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = terran_republican
+				
+				location = {
+					religion_group = political_group
+					is_core_culture = yes
+				}
+			}
+			
+			modifier = {#Bonus against terran federalist in terra areas
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				OR = {
+					religion = terran_republican
+					religion = terran_imperial
+				}
+				
+				location = {
+					religion = terran_federalist
+					is_terran_culture = yes
+				}
+			}
+			
+			modifier = {#Penalty against all in periphery
+				factor = 1.33
+				has_job_action = action_inquisition
+				
+				OR = {
+					religion = terran_republican
+					religion = terran_imperial
+				}
+				
+				location = {
+					is_periphery_culture = yes
+				}
+			}
+			
+			modifier = {#Penalty against federalism in the outer core
+				factor = 1.33
+				has_job_action = action_inquisition
+				
+				OR = {
+					religion = terran_republican
+					religion = terran_imperial
+				}
+				
+				location = {
+					religion = terran_federalist
+					is_outer_core_culture = yes
+				}
+			}
+			
+			# Democratic provinces tend to prefer democratic ideologies
+			#modifier = {
+		
+		#Terran Imperialism
+		#
+		#
+		
+			# Existing ideological similarities/differences
+			modifier = {
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = terran_imperial
+				
+				location = {
+					OR = {
+						religion_group = political_terran_group
+						religion = astrist
+						religion = neo_feudal
+					}
+				}
+			}
+
+			modifier = {
+				factor = 1.33
+				has_job_action = action_inquisition
+				
+				religion = terran_imperial
+				
+				location = {
+					OR = {
+						religion_group = political_group
+						religion_group = religious_terran_group
+					}
+					NOR = {
+						religion = astrist
+						religion = neo_feudal
+					}
+				}
+			}
+			
+			modifier = {
+				factor = 2
+				has_job_action = action_inquisition
+				
+				religion = terran_imperial
+				
+				location = {
+					OR = {
+						religion_group = religious_group
+						religion_group = transhumanist_group
+						religion_group = outlaw_group
+					}
+				}
+			}
+			
+			# Proximity to Earth
+			
+			modifier = {#Bonus against non terran political in the core worlds
+				factor = 0.66
+				has_job_action = action_inquisition
+				
+				religion = terran_imperial
+				
+				location = {
+					religion_group = political_group
+					is_core_culture = yes
+				}
+			}
+			
+			#modifier = {#Bonus against terran federalist in terra areas     	Used for both in republican
+			
+			#modifier = {#Penalty in the periphery  							Used for both in republican
+			
+			
+			# Military provinces tend to prefer military ideologies
+			#modifier = {
+			
+			
+		#Colonial Separatism
+		#
+		#
+		
+			# Existing ideological similarities/differences
+			modifier = {
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = colonial_separatist
+				
+				location = {
+					religion_group = political_group
+				}
+			}
+
+			modifier = {
+				factor = 1.33
+				has_job_action = action_inquisition
+				
+				religion = colonial_separatist
+				
+				location = {
+					OR = {
+						religion_group = political_terran_group
+						religion_group = religious_group
+					}
+				}
+			}
+			
+			modifier = {
+				factor = 2
+				has_job_action = action_inquisition
+				
+				religion = colonial_separatist
+				
+				location = {
+					OR = {
+						religion_group = religious_terran_group
+						religion_group = transhumanist_group
+						religion_group = outlaw_group
+					}
+				}
+			}
+			
+			# Proximity to Earth
+			
+			modifier = {# Bonus against terran in periphery							#For all non-terran political				
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion_group = political_group
+				
+				location = {
+					religion_group = political_terran_group
+					is_periphery_culture = yes
+				}
+			}
+			
+			modifier = {# Major extra Bonus against terran in periphery							
+				factor = 0.25
+				has_job_action = action_inquisition
+				
+				religion = colonial_separatist
+				
+				location = {
+					religion_group = political_terran_group
+					is_periphery_culture = yes
+				}
+			}
+			
+			modifier = {#Penalty against terran in the core worlds
+				factor = 3
+				has_job_action = action_inquisition
+				
+				religion = colonial_separatist
+				
+				location = {
+					is_outer_core_culture = yes
+				}
+			}
+			
+			modifier = {#Massive penalty in terran worlds
+				factor = 100
+				has_job_action = action_inquisition
+				
+				religion = colonial_separatist
+				
+				location = {
+					is_terran_culture = yes
+				}
+			}
+			
+			#modifier = {#Bonus when not in the empire
+			#	factor = 0.5
+			#	has_job_action = action_inquisition
+			#	
+			#	religion = colonial_separatist
+			#	
+			#	
+			#	location = {
+			#		NOT = { owner = { top_liege = { primary_title = e_terran_confederation} } }
+			#		#empire = { NOT = { title = e_terran_confederation } }
+			#	}
+			#}
+			
+			#modifier = {#Penalty when in the empire
+			#	factor = 2
+			#	has_job_action = action_inquisition
+			#	
+			#	religion = colonial_separatist
+			#	
+			#	#top_liege = { primary_title = e_terran_confederation}
+			#	location = {
+			#		owner = { top_liege = { primary_title = e_terran_confederation} }
+			#		#empire = { title = e_terran_confederation }
+			#	}
+			#}
+			
+			# Democratic provinces tend to prefer democratic ideologies
+			#modifier = {
+			
+			
+		#Neo-Feudal
+		#
+		#
+		
+			# Existing ideological similarities/differences
+			modifier = {
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = neo_feudal
+				
+				location = {
+					OR = {
+						religion = terran_imperial
+						religion = bio_directionist
+						religion_group = political_group
+					}
+					NOT = { religion = neo_socialist}
+				}
+			}
+
+			modifier = {
+				factor = 1.33
+				has_job_action = action_inquisition
+				
+				religion = neo_feudal
+				
+				location = {
+					OR = {
+						religion_group = religious_group
+						religion_group = religious_terran_group
+					}
+				}
+			}
+			
+			modifier = {
+				factor = 2
+				has_job_action = action_inquisition
+				
+				religion = neo_feudal
+				
+				location = {
+					OR = {
+						religion = neo_socialist
+						religion_group = political_terran_group
+						religion_group = transhumanist_group
+						religion_group = outlaw_group
+					}
+					NOR = { 
+						religion = bio_directionist
+						religion = terran_imperial 
+					}
+				}
+			}
+			
+			# Proximity to Earth
+			
+			#modifier = {#Bonus against terran political in periphery					#Done in colonial sepratist
+			
+			modifier = {#Penalty in core worlds
+				factor = 1.33
+				has_job_action = action_inquisition
+				
+				religion = neo_feudal
+				
+				location = {
+					is_core_culture = yes
+				}
+			}
+			
+			# Military provinces tend to prefer military ideologies
+			#modifier = {
+			
+			
+		#Neo-Socialist
+		#
+		#
+		
+			# Existing ideological similarities/differences
+			modifier = {
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = neo_socialist
+				
+				location = {
+					OR = {
+						religion = colonial_separatist
+						religion_group = political_terran_group
+					}
+					NOT = { religion = terran_imperial}
+				}
+			}
+
+			modifier = {
+				factor = 1.33
+				has_job_action = action_inquisition
+				
+				religion = neo_socialist
+				
+				location = {
+					OR = {
+						religion = terran_imperial
+					}
+				}
+			}
+			
+			modifier = {
+				factor = 2
+				has_job_action = action_inquisition
+				
+				religion = neo_socialist
+				
+				location = {
+					OR = {
+						religion_group = political_group
+						religion_group = religious_terran_group
+						religion_group = religious_group
+						religion_group = transhumanist_group
+						religion_group = outlaw_group
+					}
+					NOR = { 
+						religion = colonial_separatist
+					}
+				}
+			}
+			
+		#Astrist
+		#
+		#
+		
+			# Existing ideological similarities/differences
+			modifier = {
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = astrist
+				
+				location = {
+					OR = {
+						religion = terran_imperial
+						religion = neo_feudal
+					}
+				}
+			}
+
+			modifier = {
+				factor = 1.33
+				has_job_action = action_inquisition
+				
+				religion = astrist
+				
+				location = {
+					OR = {
+						religion_group = political_terran_group
+						religion_group = political_group
+					}
+					NOR = { 
+						religion = terran_imperial
+						religion = neo_socialist
+						religion = neo_feudal
+					}
+				}
+			}
+			
+			modifier = {
+				factor = 2
+				has_job_action = action_inquisition
+				
+				religion = astrist
+				
+				location = {
+					OR = {
+						religion = neo_socialist
+						religion_group = religious_group
+						religion_group = religious_terran_group
+						religion_group = transhumanist_group
+						religion_group = outlaw_group
+					}
+				}
+			}
+			
+			# Proximity to Earth
+			
+			#modifier = {#Penalty in core worlds
+			
+			modifier = {#Bonus in periphery
+				factor = 0.5
+				has_job_action = action_inquisition
+				
+				religion = astrist
+				
+				location = {
+					is_periphery_culture = yes
+				}
+			}
+			
+			modifier = {#Major penalty in terran worlds
+				factor = 4
+				has_job_action = action_inquisition
+				
+				religion = astrist
+				
+				location = {
+					OR = {
+						religion_group = political_terran_group
+						religion_group = religious_terran_group
+					}
+					is_terran_culture = yes
+				}
+			}
+			
+			# Military provinces tend to prefer military ideologies
+			#modifier = {
+		
+		#Cyberneticist
+		#
+		#
+		
+			# Existing ideological similarities/differences
+			modifier = {
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = cyberneticist
+				
+				location = {
+					religion_group = transhumanist_group
+				}
+			}
+		
+			modifier = {
+				factor = 1.33
+				has_job_action = action_inquisition
+				
+				religion = cyberneticist
+				
+				location = {
+					OR = {
+						religion_group = political_group
+						religion_group = outlaw_group
+					}
+				}
+			}
+			
+			modifier = {
+				factor = 2
+				has_job_action = action_inquisition
+				
+				religion = cyberneticist
+				
+				location = {
+					OR = {
+						religion_group = political_terran_group
+						religion_group = religious_group
+					}
+				}
+			}
+			
+			modifier = {
+				factor = 3
+				has_job_action = action_inquisition
+				
+				religion = cyberneticist
+				
+				location = {
+					religion_group = religious_terran_group
+				}
+			}
+			
+			# Transhumanists become stronger as tech increaces
+			
+			modifier = {
+				factor = 1.4
+				has_job_action = action_inquisition
+				
+				religion_group = transhumanist_group
+				NOR = {
+					religion = bio_directionist
+					religion = hiver
+				}
+				
+				location = {
+					NOT = { TECH_CYBERNETICS = 1 }
+				}
+			}
+			
+			modifier = {
+				factor = 1.25
+				has_job_action = action_inquisition
+				
+				religion_group = transhumanist_group
+				NOR = {
+					religion = bio_directionist
+					religion = hiver
+				}
+				
+				location = {
+					NOT = { TECH_CYBERNETICS = 2 }
+				}
+			}
+			
+			modifier = {
+				factor = 1.1
+				has_job_action = action_inquisition
+				
+				religion_group = transhumanist_group
+				NOR = {
+					religion = bio_directionist
+					religion = hiver
+				}
+				
+				location = {
+					NOT = { TECH_CYBERNETICS = 3 }
+				}
+			}
+			
+			modifier = {
+				factor = 0.9
+				has_job_action = action_inquisition
+				
+				religion_group = transhumanist_group
+				NOR = {
+					religion = bio_directionist
+					religion = hiver
+				}
+				
+				location = {
+					TECH_CYBERNETICS = 6
+				}
+			}
+			
+			modifier = {
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion_group = transhumanist_group
+				NOR = {
+					religion = bio_directionist
+					religion = hiver
+				}
+				
+				location = {
+					TECH_CYBERNETICS = 7
+				}
+			}
+			
+			modifier = {
+				factor = 0.6
+				has_job_action = action_inquisition
+				
+				religion_group = transhumanist_group
+				NOR = {
+					religion = bio_directionist
+					religion = hiver
+				}
+				
+				location = {
+					TECH_CYBERNETICS = 8
+				}
+			}
+			
+			#modifier = {#Bonus in periphery
+			#	factor = 0.5
+			#	has_job_action = action_inquisition
+			#	
+			#	religion = astrist
+			#	
+			#	location = {
+			#		is_periphery_culture = yes
+			#	}
+			#}
+			
+			# Military provinces tend to prefer military ideologies
+			#modifier = {
+			
+			
+		#Hiver
+		#
+		#
+		
+			# Nobody likes them :(
+			modifier = {
+				factor = 10
+				has_job_action = action_inquisition
+				
+				religion = hiver
+				
+				location = {
+					NOR = {
+						religion = cyberneticist
+						religion = machine_cultist
+					}
+				}
+			}
+			
+			modifier = { #Can't convert them
+				factor = 100
+				has_job_action = action_inquisition
+				
+				location = {
+					religion = hiver
+				}
+			}
+			
+		
+		# Machine Cult
+		#
+		#
+		
+			# Existing ideological similarities/differences
+			modifier = {
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = machine_cultist
+				
+				location = {
+					religion_group = transhumanist_group
+					religion_group = religious_group
+					
+				}
+			}
+		
+			modifier = {
+				factor = 1.33
+				has_job_action = action_inquisition
+				
+				religion = machine_cultist
+				
+				location = {
+					OR = {
+						religion_group = outlaw_group
+						religion_group = religious_terran_group
+					}
+				}
+			}
+			
+			modifier = {
+				factor = 2
+				has_job_action = action_inquisition
+				
+				religion = machine_cultist
+				
+				location = {
+					OR = {
+						religion_group = political_group
+						religion_group = political_terran_group
+					}
+				}
+			}
+			
+		
+		# Bio-Directionist
+		#
+		#
+		
+			# Existing ideological similarities/differences
+			modifier = {
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = bio_directionist
+				
+				location = {
+					religion_group = transhumanist_group
+					religion = neo_feudal
+				}
+			}
+		
+			modifier = {
+				factor = 1.33
+				has_job_action = action_inquisition
+				
+				religion = bio_directionist
+				
+				location = {
+					OR = {
+						religion_group = political_group
+						religion_group = outlaw_group
+					}
+					NOT = { religion = neo_feudal }
+				}
+			}
+			
+			modifier = {
+				factor = 2
+				has_job_action = action_inquisition
+				
+				religion = bio_directionist
+				
+				location = {
+					OR = {
+						religion_group = political_terran_group
+						religion_group = religious_group
+					}
+				}
+			}
+			
+			modifier = {
+				factor = 3
+				has_job_action = action_inquisition
+				
+				religion = bio_directionist
+				
+				location = {
+					religion_group = religious_terran_group
+				}
+			}
+			
+			# Transhumanists become stronger as tech increaces
+			
+			modifier = {
+				factor = 1.4
+				has_job_action = action_inquisition
+				
+				religion = bio_directionist
+				
+				location = {
+					NOT = { TECH_BIOTECH = 1 }
+				}
+			}
+			
+			modifier = {
+				factor = 1.25
+				has_job_action = action_inquisition
+				
+				religion = bio_directionist
+				
+				location = {
+					NOT = { TECH_BIOTECH = 2 }
+				}
+			}
+			
+			modifier = {
+				factor = 1.1
+				has_job_action = action_inquisition
+				
+				religion = bio_directionist
+				
+				location = {
+					NOT = { TECH_BIOTECH = 3 }
+				}
+			}
+			
+			modifier = {
+				factor = 0.9
+				has_job_action = action_inquisition
+				
+				religion = bio_directionist
+				
+				location = {
+					TECH_BIOTECH = 6
+				}
+			}
+			
+			modifier = {
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = bio_directionist
+				
+				location = {
+					TECH_BIOTECH = 7
+				}
+			}
+			
+			modifier = {
+				factor = 0.6
+				has_job_action = action_inquisition
+				
+				religion = bio_directionist
+				
+				location = {
+					TECH_BIOTECH = 8
+				}
+			}
+			
+			#modifier = {#Bonus in periphery
+			#	factor = 0.5
+			#	has_job_action = action_inquisition
+			#	
+			#	religion = astrist
+			#	
+			#	location = {
+			#		is_periphery_culture = yes
+			#	}
+			#}
+			
+			# Military provinces tend to prefer military ideologies
+			
+			
+			
+		#Orthodox
+		#
+		#
+		
+			# Existing ideological similarities/differences
+			modifier = {
+				factor = 0.5
+				has_job_action = action_inquisition
+				
+				religion = orthodox
+				
+				location = {
+					religion = pilgrim
+				}
+			}
+			
+			modifier = {
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = orthodox
+				
+				location = {
+					NOT = { religion = pilgrim }
+					religion_group = religious_terran_group
+				}
+			}
+
+			modifier = {
+				factor = 1.33
+				has_job_action = action_inquisition
+				
+				religion = orthodox
+				
+				location = {
+					religion_group = political_terran_group
+				}
+			}
+			
+			modifier = {
+				factor = 2
+				has_job_action = action_inquisition
+				
+				religion = orthodox
+				
+				location = {
+					NOT = { religion = xenoterran }
+					OR = {
+						religion_group = religious_group
+						religion_group = political_group
+						religion_group = outlaw_group
+					}
+					
+				}
+			}
+			
+			modifier = {
+				factor = 3
+				has_job_action = action_inquisition
+				
+				religion = orthodox
+				
+				location = {
+					OR = {
+						religion = xenoterran
+						religion_group = transhumanist_group
+					}
+				}
+			}
+			
+		#Pilgrim
+		#
+		#
+		
+			# Existing ideological similarities/differences
+			
+			modifier = {
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = pilgrim
+				
+				location = {
+					NOT = { religion = orthodox }
+					religion_group = religious_terran_group
+				}
+			}
+
+			modifier = {
+				factor = 1.33
+				has_job_action = action_inquisition
+				
+				religion = pilgrim
+				
+				location = {
+					religion_group = political_terran_group
+				}
+			}
+			
+			modifier = {
+				factor = 2
+				has_job_action = action_inquisition
+				
+				religion = pilgrim
+				
+				location = {
+					NOT = { religion = xenoterran }
+					OR = {
+						religion_group = religious_group
+						religion_group = political_group
+						religion_group = outlaw_group
+					}
+					
+				}
+			}
+			
+			modifier = {
+				factor = 3
+				has_job_action = action_inquisition
+				
+				religion = orthodox
+				
+				location = {
+					OR = {
+						religion = xenoterran
+						religion_group = transhumanist_group
+					}
+				}
+			}
+			
+		#Sect Adoptionist
+		#
+		#
+		
+			# Existing ideological similarities/differences
+			
+			modifier = {
+				factor = 0.5
+				has_job_action = action_inquisition
+				
+				religion = adoptionist_cultist
+				
+				location = {
+					religion = adoptionist
+				}
+			}
+			
+			
+			modifier = {
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = adoptionist_cultist
+				
+				location = {
+					NOT = { religion = adoptionist }
+					religion_group = religious_group
+				}
+			}
+
+			#modifier = {
+			#	factor = 1.5
+			#	has_job_action = action_inquisition
+			#	
+			#	religion = adoptionist_cultist
+			#	
+			#	location = {
+			#		religion_group = political_terran_group
+			#	}
+			#}
+			
+			modifier = {
+				factor = 2
+				has_job_action = action_inquisition
+				
+				religion = adoptionist_cultist
+				
+				location = {
+					OR = {
+						religion_group = political_group
+						religion_group = religious_terran_group
+						religion_group = outlaw_group
+					}
+					
+				}
+			}
+			
+			modifier = {
+				factor = 3
+				has_job_action = action_inquisition
+				
+				religion = adoptionist_cultist
+				
+				location = {
+					OR = {
+						religion_group = transhumanist_group
+						religion_group = political_terran_group
+					}
+				}
+			}	
+			
+			modifier = { # Traditional ideology of the Sexto Solar culture group
+				factor = 0.25
+				has_job_action = action_inquisition
+				
+				religion = adoptionist_cultist
+				
+				location = {
+					NOT = { religion = adoptionist }
+					culture_group = sexto_solar_group
+				}
+			}	
+		
+		#Adoptionist
+		#
+		#
+		
+			# Existing ideological similarities/differences
+			
+			modifier = {
+				factor = 0.5
+				has_job_action = action_inquisition
+				
+				religion = adoptionist
+				
+				location = {
+					religion = adoptionist_cultist
+				}
+			}
+			
+			
+			modifier = {
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = adoptionist
+				
+				location = {
+					NOT = { religion = adoptionist_cultist }
+					religion_group = religious_group
+				}
+			}
+
+			#modifier = {
+			#	factor = 1.5
+			#	has_job_action = action_inquisition
+			#	
+			#	religion = adoptionist
+			#	
+			#	location = {
+			#		religion_group = political_terran_group
+			#	}
+			#}
+			
+			modifier = {
+				factor = 2
+				has_job_action = action_inquisition
+				
+				religion = adoptionist
+				
+				location = {
+					OR = {
+						religion_group = political_group
+						religion_group = religious_terran_group
+						religion_group = outlaw_group
+					}
+					
+				}
+			}
+			
+			modifier = {
+				factor = 3
+				has_job_action = action_inquisition
+				
+				religion = adoptionist_cultist
+				
+				location = {
+					OR = {
+						religion_group = transhumanist_group
+						religion_group = political_terran_group
+					}
+				}
+			}	
+			
+			modifier = { # Traditional ideology of the Sexto Solar culture group
+				factor = 0.25
+				has_job_action = action_inquisition
+				
+				religion = adoptionist_cultist
+				
+				location = {
+					NOT = { religion = adoptionist_cultist }
+					culture_group = sexto_solar_group
+				}
+			}
+
+		# Imperial Cult
+		#
+		#
+		
+			# Existing ideological similarities/differences
+					
+			modifier = {
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = imperial_cult
+				
+				location = {
+					OR = {
+						religion = astrist
+						religion = neo_feudal
+						religion = terran_imperial
+					}
+				}
+			}
+
+			modifier = {
+				factor = 1.33
+				has_job_action = action_inquisition
+				
+				religion = imperial_cult
+				
+				location = {
+					OR = {
+						religion_group = religious_group
+						religion_group = political_group
+					}
+				}
+				NOR = {
+					religion = astrist
+					religion = neo_feudal
+				}
+			}
+			
+			modifier = {
+				factor = 2
+				has_job_action = action_inquisition
+				
+				religion = imperial_cult
+				
+				location = {
+					OR = {
+						religion_group = political_terran_group
+						religion_group = religious_terran_group
+						religion_group = outlaw_group
+						religion_group = transhumanist_group
+					}
+					NOT = {
+						religion = terran_imperial
+					}
+				}
+			}
+			
+			modifier = { # Harder to take these people seriously as gods
+				factor = 10
+				has_job_action = action_inquisition
+				
+				religion = imperial_cult
+				
+				top_liege = { is_elective_trigger = yes }
+				
+			}
+			
+		# Solar Cultist
+		#
+		#
+		
+			# Existing ideological similarities/differences
+			modifier = {
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = solar_cultist
+				
+				location = {
+					religion_group = religious_terran_group
+				}
+			}
+
+			modifier = {
+				factor = 1.33
+				has_job_action = action_inquisition
+				
+				religion = solar_cultist
+				
+				location = {
+					OR = {
+						religion_group = political_terran_group
+						religion_group = religious_group
+					}
+					NOT = { religion = xenoterran }
+				}
+			}
+			
+			modifier = {
+				factor = 2
+				has_job_action = action_inquisition
+				
+				religion = solar_cultist
+				
+				location = {
+					OR = {
+						religion_group = political_group
+						religion_group = outlaw_group
+					}
+				}
+			}
+			
+			modifier = {
+				factor = 3
+				has_job_action = action_inquisition
+				
+				religion = solar_cultist
+				
+				location = {
+					OR = {
+						religion_group = transhumanist_group
+						religion = xenoterran
+					}
+				}
+			}
+			
+			# Proximity to Earth
+			
+			#modifier = {#Bonus when not in the empire
+			#	factor = 0.5
+			#	has_job_action = action_inquisition
+			#	
+			#	religion = solar_cultist
+			#	
+			#	NOT = { top_liege = { primary_title = e_terran_confederation} }
+			#}
+			
+			#modifier = {#Penalty when in the empire
+			#	factor = 2
+			#	has_job_action = action_inquisition
+			#	
+			#	religion = solar_cultist
+			#	
+			#	top_liege = { primary_title = e_terran_confederation}
+			#}
+			
+			modifier = {#Bonus when on terran worlds
+				factor = 0.5
+				has_job_action = action_inquisition
+				
+				religion = solar_cultist
+				
+				location = {
+					is_terran_culture = yes
+				}
+			}
+			
+			modifier = {#Bonus when on outer core
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = solar_cultist
+				
+				location = {
+					is_outer_core_culture = yes
+				}
+			}
+			
+			modifier = {#Penalty in the periphery
+				factor = 3
+				has_job_action = action_inquisition
+				
+				religion = solar_cultist
+				
+				location = {
+					is_periphery_culture = yes
+				}
+			}
+			
+		# Solarian
+		#
+		#
+		
+			# Existing ideological similarities/differences
+			modifier = {
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = solarian
+				
+				location = {
+					religion_group = religious_terran_group
+				}
+			}
+
+			modifier = {
+				factor = 1.33
+				has_job_action = action_inquisition
+				
+				religion = solarian
+				
+				location = {
+					OR = {
+						religion_group = political_terran_group
+						religion_group = religious_group
+					}
+					NOT = { religion = xenoterran }
+				}
+			}
+			
+			modifier = {
+				factor = 2
+				has_job_action = action_inquisition
+				
+				religion = solarian
+				
+				location = {
+					OR = {
+						religion_group = political_group
+						religion_group = outlaw_group
+					}
+				}
+			}
+			
+			modifier = {
+				factor = 3
+				has_job_action = action_inquisition
+				
+				religion = solarian
+				
+				location = {
+					OR = {
+						religion_group = transhumanist_group
+						religion = xenoterran
+					}
+				}
+			}
+			
+			# Proximity to Earth
+			
+			#modifier = {#Bonus when not in the empire
+			#	factor = 0.5
+			#	has_job_action = action_inquisition
+			#	
+			#	religion = solar_cultist
+			#	
+			#	NOT = { top_liege = { primary_title = e_terran_confederation} }
+			#}
+			
+			#modifier = {#Penalty when in the empire
+			#	factor = 2
+			#	has_job_action = action_inquisition
+			#	
+			#	religion = solar_cultist
+			#	
+			#	top_liege = { primary_title = e_terran_confederation}
+			#}
+			
+			modifier = {#Bonus when on terran worlds
+				factor = 0.5
+				has_job_action = action_inquisition
+				
+				religion = solarian
+				
+				location = {
+					is_terran_culture = yes
+				}
+			}
+			
+			modifier = {#Bonus when on outer core
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = solarian
+				
+				location = {
+					is_outer_core_culture = yes
+				}
+			}
+			
+			modifier = {#Penalty in the periphery
+				factor = 3
+				has_job_action = action_inquisition
+				
+				religion = solarian
+				
+				location = {
+					is_periphery_culture = yes
+				}
+			}
+			
+		# Xenoterran
+		#
+		#
+		
+			# Existing ideological similarities/differences
+			modifier = {
+				factor = 0.75
+				has_job_action = action_inquisition
+				
+				religion = xenoterran
+				
+				location = {
+					OR = {
+						religion = astrist
+						religion = adoptionist_cultist
+					}
+				}
+			}
+
+			#modifier = {
+			#	factor = 1.5
+			#	has_job_action = action_inquisition
+			#	
+			#	religion = xenoterran
+			#	
+			#	location = {
+			#		OR = {
+			#			religion_group = political_group
+			#			religion_group = religious_group
+			#		}
+			#		NOR = { 
+			#			religion = adoptionist_cultist 
+			#			religion = astrist 
+			#		}
+			#	}
+			#}
+			
+			modifier = {
+				factor = 2
+				has_job_action = action_inquisition
+				
+				religion = xenoterran
+				
+				location = {
+					OR = {
+						religion_group = political_group
+						religion_group = religious_group
+						religion_group = outlaw_group
+						
+					}
+					NOR = { 
+						religion = adoptionist_cultist 
+						religion = astrist 
+					}
+				}
+			}
+			
+			modifier = {
+				factor = 3
+				has_job_action = action_inquisition
+				
+				religion = xenoterran
+				
+				location = {
+					OR = {
+						religion_group = transhumanist_group
+						religion_group = political_terran_group
+						religion_group = religious_terran_group
+					}
+				}
+			}
+			
+			# Proximity to Earth
+			
+			modifier = {#Bonus when on periphery worlds
+				factor = 0.66
+				has_job_action = action_inquisition
+				
+				religion = xenoterran
+				
+				location = {
+					OR = {
+						religion_group = political_terran_group
+						religion_group = religious_terran_group
+					}
+					is_periphery_culture = yes
+				}
+			}
+			
+			modifier = {#Penalty in the outer core
+				factor = 1.5
+				has_job_action = action_inquisition
+				
+				religion = xenoterran
+				
+				location = {
+					OR = {
+						religion_group = political_terran_group
+						religion_group = religious_terran_group
+					}
+					is_outer_core_culture = yes
+				}
+			}
+			
+			modifier = {#Major penalty on terran worlds
+				factor = 10
+				has_job_action = action_inquisition
+				
+				religion = xenoterran
+				
+				location = {
+					is_terran_culture = yes
+				}
+			}
 	}
-
-	option = {
-		name = evt_lordspiritual_101_option_a
-
+	option = {###
+		name = "evt_lordspiritual_101_option_a"
 		piety = 5
-
 		location = {
 			random_province_character = {
 				limit = {
-					same_realm = ROOT
-					is_adult = yes
 					ai = yes
-
-					NOR = {
-						religion = ROOT
-						is_liege_of = ROOT
-					}
-
-					trigger_if = {
-						limit = { is_ruler = yes }
-
+					is_adult = yes
+					NOT = { character = ROOT }
+					NOT = { is_liege_of = ROOT }
+					NOT = { religion = ROOT }
+					OR = {
+						is_ruler = no
 						primary_title = {
 							controls_religion = no
 							mercenary = no
 							holy_order = no
 						}
 					}
+					same_realm = ROOT
 				}
-
-				letter_event = {
-					id = lordspiritual.102
-					tooltip = evt_lordspiritual_101_option_a_tooltip
-				}
+				letter_event = { id = lordspiritual.102 tooltip = "evt_lordspiritual_101_option_a_tooltip" }
 			}
 		}
 	}
@@ -612,7 +3974,7 @@ letter_event = {
 		name = evt_lordspiritual_102_option_a
 
 		if = {
-			limit = { higher_real_tier_than = BARON }
+			limit = { higher_tier_than = BARON }
 
 			religion_authority = {
 				name = ruler_converted_from
@@ -624,30 +3986,25 @@ letter_event = {
 		save_event_target_as = portrait_target
 
 		if = {
-			limit = { higher_real_tier_than = BARON }
+			limit = { higher_tier_than = BARON }
 
 			religion_authority = {
 				name = ruler_converted_to
 			}
 		}
-
-		hidden_effect = {
+		hidden_tooltip = {
 			FROM = {
-				liege = {
-					letter_event = { id = lordspiritual.103 } # inform liege
-				}
+				liege = { letter_event = { id = lordspiritual.103 } }
 			}
-
-			liege = {
-				if = {
-					limit = {
+			if = {
+				limit = {
+					liege = {
 						job_spiritual = {
 							NOT = { character = FROM }
 						}
 					}
 				}
-
-				letter_event = { id = lordspiritual.104 } # inform target's liege
+				liege = { letter_event = { id = lordspiritual.104 } }
 			}
 		}
 	}
@@ -661,8 +4018,6 @@ letter_event = {
 
 	is_triggered_only = yes
 	show_from_from = yes
-
-	ai = no
 
 	option = {
 		name = GOOD
@@ -678,26 +4033,15 @@ letter_event = {
 	border = GFX_event_letter_frame_religion
 
 	is_triggered_only = yes
-
-	ai = no
-
+	
 	option = {
-		name = GOOD
-
-		trigger = {
-			religion = FROM
-		}
-
+		name = "GOOD"
+		trigger = { FROM = { religion = ROOT } }
 		show_portrait = event_target:portrait_target
 	}
-
 	option = {
-		name = evt_lordspiritual_104_option_b
-
-		trigger = {
-			NOT = { religion = FROM }
-		}
-
+		name = "evt_lordspiritual_104_option_b"
+		trigger = { FROM = { NOT = { religion = ROOT } } }
 		show_portrait = event_target:portrait_target
 	}
 }
@@ -710,19 +4054,19 @@ character_event = {
 	picture = GFX_evt_peasants
 	border = GFX_event_normal_frame_religion
 
+	min_age = 16
+	capable_only = yes
+	prisoner = no
 	has_job_title = yes
 
 	trigger = {
 		has_job_action = action_inquisition
-		in_seclusion = no
-		NOT = {	has_character_modifier = bedridden_illness }
-
+		NOT = { has_character_modifier = in_seclusion }
+		NOT = { has_character_modifier = bedridden_illness }
+		NOT = { trait = incapable }
 		location = {
 			NOT = { religion = ROOT }
-
-			owner = {
-				same_realm = ROOT
-			}
+			owner = { same_realm = ROOT }
 		}
 	}
 
@@ -731,16 +4075,16 @@ character_event = {
 
 		job_event_mtth_modifier_inverted_learning_score = yes
 
-		mult_modifier = {
+		modifier = {
 			factor = 2.0
 
 			liege = {
-				real_tier = COUNT
+				tier = COUNT
 				ai = yes
 			}
 		}
 
-		mult_modifier = {
+		modifier = {
 			factor = 1.5
 
 			liege = {
@@ -751,7 +4095,7 @@ character_event = {
 			}
 		}
 
-		mult_modifier = {
+		modifier = {
 			factor = 1.5
 
 			# If chaplain is also your relative
@@ -761,43 +4105,43 @@ character_event = {
 			}
 		}
 
-		mult_modifier = {
+		modifier = {
 			factor = 0.75
 
 			has_religion_feature = religion_dogmatic
 		}
 
-		mult_modifier = {
+		modifier = {
 			factor = 1.25
 
 			has_religion_feature = religion_proselytizing
 		}
 
-		mult_modifier = {
+		modifier = {
 			factor = 2.75
 
 			has_religion_feature = religion_cosmopolitan
 		}
 
-		mult_modifier = {
+		modifier = {
 			factor = 0.75
 
 			NOT = { religion_authority = 0.40 }
 		}
 
-		mult_modifier = {
+		modifier = {
 			factor = 0.75
 
 			NOT = { religion_authority = 0.20 }
 		}
 
-		mult_modifier = {
+		modifier = {
 			factor = 2.0
 
 			religion_authority = 0.60
 		}
 
-		mult_modifier = {
+		modifier = {
 			factor = 2.0
 
 			religion_authority = 0.80
@@ -823,14 +4167,11 @@ character_event = {
 			}
 
 			10 = {
+				hidden_tooltip = {
+					liege = { character_event = { id = lordspiritual.205 } }
+				}
 				death = {
 					death_reason = death_rabble
-				}
-
-				hidden_effect = {
-					liege = {
-						character_event = { id = lordspiritual.205 }
-					}
 				}
 			}
 		}
@@ -871,23 +4212,13 @@ character_event = {
 	option = {
 		name = evt_lordspiritual_203_option_a
 		trigger = {
-
-			NOR = {
-				religion_group = muslim
-				trait = wroth
-			}
+			NOT = { trait = wroth }
 		}
 
 		add_trait = wounded
-
-		liege = {
-			show_scope_change = no
-
-			character_event = {
-				id = lordspiritual.204
-				tooltip = evt_lordspiritual_203_option_a_tooltip
-			}
-		}
+		
+		liege = { letter_event = { id = lordspiritual.204 tooltip = "evt_lordspiritual_203_option_a_tooltip" } }
+		
 	}
 
 	option = {
@@ -901,39 +4232,8 @@ character_event = {
 
 		add_trait = wounded
 		add_trait = zealous
-
-		liege = {
-			show_scope_change = no
-
-			character_event = {
-				id = lordspiritual.204
-				tooltip = evt_lordspiritual_203_option_a_tooltip
-			}
-		}
-	}
-
-	option = {
-		name = evt_lordspiritual_203_option_c
-
-		trigger = {
-			religion_group = muslim
-
-			NAND = {
-				trait = wroth
-				NOT = { trait = humble }
-			}
-		}
-
-		add_trait = wounded
-
-		liege = {
-			show_scope_change = no
-
-			character_event = {
-				id = lordspiritual.204
-				tooltip = evt_lordspiritual_203_option_a_tooltip
-			}
-		}
+		
+		liege = { letter_event = { id = lordspiritual.204 tooltip = "evt_lordspiritual_203_option_a_tooltip" } }
 	}
 }
 
@@ -977,42 +4277,41 @@ character_event = {
 }
 
 # 903: The Lord Spiritual suspects a subject character of heresy
-character_event = {
+character_event = {######################################################################################
 	id = lordspiritual.301
 	title = evt_lordspiritual_301_title
 	desc = evt_lordspiritual_301_desc_a
 	picture = GFX_evt_heretic
 	border = GFX_event_normal_frame_religion
 
+	min_age = 16
+	capable_only = yes
+	prisoner = no
 	has_job_title = yes
 
 	trigger = {
 		has_job_action = action_inquisition
-		trait = zealous
-		in_seclusion = no
-
-		NOR = {
-			religion_group = pagan_group
-			religion_group = indian_group
-			has_character_modifier = bedridden_illness
-			has_religion_feature = religion_cosmopolitan
-		}
+		NOT = { has_character_modifier = in_seclusion }
+		NOT = { has_character_modifier = bedridden_illness }
+		NOT = { trait = incapable }
+		NOT = { religion_group = outlaw_group }
+		trait = radical
 
 		location = {
 			any_province_lord = {
-				trait = cynical
-				religion_group = ROOT
-				age >= 20
-				piety < 100
-				same_realm = ROOT
-				can_change_religion = yes
-
-				NOR = {
-					has_character_flag = no_heretic
-					has_character_flag = branded_heretic
-					is_liege_of = ROOT
-					character = ROOT
+				OR = {
+					trait = amoral
+					trait = pragmatic
 				}
+				NOT = { is_liege_of = ROOT }
+				NOT = { has_character_flag = no_heretic }
+				NOT = { has_character_flag = branded_heretic }
+				NOT = { character = ROOT }
+				age = 20
+				same_realm = ROOT
+				religion_group = ROOT
+				can_change_religion = yes
+				NOT = { piety = 100 }
 			}
 		}
 	}
@@ -1022,31 +4321,31 @@ character_event = {
 
 		job_event_mtth_modifier_learning_score = yes
 
-		mult_modifier = {
+		modifier = {
 			factor = 1.5
 
 			has_religion_feature = religion_dogmatic
 		}
 
-		mult_modifier = {
+		modifier = {
 			factor = 2.0
 
 			NOT = { religion_authority = 0.40 }
 		}
 
-		mult_modifier = {
+		modifier = {
 			factor = 2.0
 
 			NOT = { religion_authority = 0.20 }
 		}
 
-		mult_modifier = {
+		modifier = {
 			factor = 0.75
 
 			religion_authority = 0.60
 		}
 
-		mult_modifier = {
+		modifier = {
 			factor = 0.75
 
 			religion_authority = 0.80
@@ -1057,21 +4356,20 @@ character_event = {
 		location = {
 			random_province_lord = {
 				limit = {
-					trait = cynical
-					religion_group = ROOT
-					age >= 20
-					piety < 100
-					same_realm = ROOT
-					can_change_religion = yes
-
-					NOR = {
-						has_character_flag = no_heretic
-						has_character_flag = branded_heretic
-						is_liege_of = ROOT
-						character = ROOT
+					OR = {
+						trait = amoral
+						trait = pragmatic
 					}
+					NOT = { is_liege_of = ROOT }
+					NOT = { has_character_flag = no_heretic }
+					NOT = { has_character_flag = branded_heretic }
+					NOT = { character = ROOT }
+					age = 20
+					same_realm = ROOT
+					religion_group = ROOT
+					can_change_religion = yes
+					NOT = { piety = 100 }
 				}
-
 				save_event_target_as = suspected_heretic
 			}
 		}
@@ -1081,18 +4379,10 @@ character_event = {
 		name = evt_lordspiritual_301_option_a
 
 		ai_chance = { factor = 75 }
-
+		
 		location = {
-			show_scope_change = no
-
 			event_target:suspected_heretic = {
-				show_scope_change = no
-
-				character_event = {
-					id = lordspiritual.302
-					days = 7
-					tooltip = evt_lordspiritual_301_option_a_tooltip
-				}
+				character_event = { id = lordspiritual.302 days = 7 tooltip = "evt_lordspiritual_301_option_a_tooltip" }
 			}
 		}
 	}
@@ -1113,39 +4403,9 @@ character_event = {
 		trigger = {
 			NOT = {	religion_group = muslim	}
 		}
-
+		
 		FROM = {
-			show_scope_change = no
-
-			liege = {
-				show_scope_change = no
-
-				letter_event = {
-					id = lordspiritual.303
-					tooltip = evt_lordspiritual_302_option_a_tooltip
-				}
-			}
-		}
-	}
-
-	option = {
-		name = evt_lordspiritual_302_option_b
-
-		trigger = {
-			religion_group = muslim
-		}
-
-		FROM = {
-			show_scope_change = no
-
-			liege = {
-				show_scope_change = no
-
-				letter_event = {
-					id = lordspiritual.303
-					tooltip = evt_lordspiritual_302_option_b_tooltip
-				}
-			}
+			liege = { letter_event = { id = lordspiritual.303 tooltip = "evt_lordspiritual_302_option_a_tooltip" } }
 		}
 	}
 }
@@ -1163,55 +4423,30 @@ letter_event = {
 
 		ai_chance = {
 			factor = 50
-
-			mult_modifier = {
+			modifier = {
 				factor = 2.0
-
-				opinion = {
-					who = FROM
-					value >= 50
-				}
+				opinion = { who = FROM value = 50 }
 			}
-
-			mult_modifier = {
+			modifier = {
 				factor = 2.0
-
-				opinion = {
-					who = FROM
-					value >= 75
-				}
+				opinion = { who = FROM value = 75 }
 			}
 		}
-
+		
 		FROM = {
-			show_scope_change = no
-
-			letter_event = {
-				id = lordspiritual.304
-				days = 7
-				tooltip = evt_lordspiritual_303_option_a_tooltip_1
-			}
-
+			letter_event = { id = lordspiritual.304 days = 7 tooltip = "evt_lordspiritual_303_option_a_tooltip_1" }
 			opinion = {
-				name = opinion_grateful
+				modifier = opinion_grateful
 				who = ROOT
 				years = 1
 			}
-
 			set_character_flag = no_heretic
 		}
-
+		
 		job_spiritual = {
-			show_scope_change = no
-
-			letter_event = {
-				id = lordspiritual.305
-				days = 7
-				tooltip = evt_lordspiritual_303_option_a_tooltip_2
-			}
-
+			letter_event = { id = lordspiritual.305 days = 7 tooltip = "evt_lordspiritual_303_option_a_tooltip_2" }
 			opinion = {
-				name = opinion_chastised_by_liege
+				modifier = opinion_chastised_by_liege
 				who = ROOT
 				years = 1
 			}
@@ -1223,52 +4458,28 @@ letter_event = {
 
 		ai_chance = {
 			factor = 50
-
-			mult_modifier = {
+			modifier = {
 				factor = 2.0
-
-				opinion = {
-					who = FROM
-					value < -25
-				}
+				NOT = { opinion = { who = FROM value = -25 } }
 			}
-
-			mult_modifier = {
+			modifier = {
 				factor = 2.0
-
-				opinion = {
-					who = FROM
-					value < -50
-				}
+				NOT = { opinion = { who = FROM value = -50 } }
 			}
 		}
-
+		
 		FROM = {
-			show_scope_change = no
-
-			set_character_flag = branded_heretic
-
-			letter_event = {
-				id = lordspiritual.306
-				days = 7
-				tooltip = evt_lordspiritual_303_option_b_tooltip_1
-			}
-
+			letter_event = { id = lordspiritual.306 days = 7 tooltip = "evt_lordspiritual_303_option_b_tooltip_1" }
 			opinion = {
-				name = opinion_branded_heretic
+				modifier = opinion_branded_heretic
 				who = ROOT
 				years = 5
 			}
+			set_character_flag = branded_heretic
 		}
-
+		
 		job_spiritual = {
-			show_scope_change = no
-
-			letter_event = {
-				id = lordspiritual.307
-				days = 7
-				tooltip = evt_lordspiritual_303_option_b_tooltip_2
-			}
+			letter_event = { id = lordspiritual.307 days = 7 tooltip = "evt_lordspiritual_303_option_b_tooltip_2" }
 		}
 	}
 }
@@ -1290,16 +4501,6 @@ letter_event = {
 
 		piety = 5
 	}
-
-	option = {
-		name = evt_lordspiritual_304_option_b
-
-		trigger = {
-			religion_group = muslim
-		}
-
-		piety = 5
-	}
 }
 
 # 20034: Lord Spiritual: Noble isn't heretic
@@ -1309,15 +4510,12 @@ letter_event = {
 	border = GFX_event_letter_frame_religion
 
 	is_triggered_only = yes
-
+	
 	option = {
-		name = evt_lordspiritual_305_option_a
-
-		liege = {
-			show_scope_change = no
-
+		name = "evt_lordspiritual_305_option_a"
+		liege = {	
 			reverse_opinion = {
-				name = opinion_disappointed
+				modifier = opinion_disappointed
 				who = ROOT
 				years = 1
 			}
@@ -1332,20 +4530,16 @@ letter_event = {
 	border = GFX_event_letter_frame_religion
 
 	is_triggered_only = yes
-
+	
 	option = {
-		name = evt_lordspiritual_306_option_a
-
+		name = "evt_lordspiritual_306_option_a"
 		FROM = {
-			show_scope_change = no
-
 			opinion = {
-				name = opinion_branded_heretic
+				modifier = opinion_branded_heretic
 				who = ROOT
 				years = 5
 			}
 		}
-
 		piety = -50
 	}
 }
@@ -1372,19 +4566,19 @@ character_event = {
 	picture = GFX_evt_peasants
 	border = GFX_event_normal_frame_religion
 
+	min_age = 16
+	capable_only = yes
+	prisoner = no
 	has_job_title = yes
 
 	trigger = {
 		has_job_action = action_inquisition
-		in_seclusion = no
-
-		NOR = {
-			religion = location
-			has_character_modifier = bedridden_illness
-			has_religion_feature = religion_cosmopolitan
-		}
-
+		NOT = { has_character_modifier = in_seclusion }
+		NOT = { has_character_modifier = bedridden_illness }
+		NOT = { trait = incapable }
+		NOT = { has_religion_feature = religion_cosmopolitan }
 		location = {
+			NOT = { religion = ROOT }
 			NOT = { has_province_modifier = religious_tension }
 		}
 	}
@@ -1426,25 +4620,30 @@ character_event = {
 
 	option = {
 		name = evt_lordspiritual_401_option_a
-
-		hidden_effect = {
+		
+		hidden_tooltip = {
 			location = {
 				# Inform barons about the rebels
-				any_province_lord = {
-					limit = {
-						NOT = { is_liege_of = ROOT }
-					}
-
-					character_event = {
-						id = lordspiritual.402
-						days = 1
+				owner = {
+					if = {
+						limit = {
+							is_liege_of = ROOT
+						}
+						set_character_flag = liege_informed
 					}
 				}
-			}
-
-			# Inform liege
-			liege = {
-				letter_event = { id = lordspiritual.403 }
+				any_province_lord = {
+					limit = {
+						NOT = { has_character_flag = liege_informed }
+						ai = no
+					}
+					character_event = { id = lordspiritual.402 days = 1 }
+				}
+				# Inform liege
+				ROOT = {
+					liege = { letter_event = { id = lordspiritual.403 } }
+					clr_character_flag = liege_informed
+				}
 			}
 		}
 	}
@@ -1476,32 +4675,24 @@ letter_event = {
 
 	option = {
 		name = evt_lordspiritual_403_option_a
-
+		
 		FROM = {
-			show_scope_change = no
-
 			location = {
-				show_scope_change = no
-
 				# Increase revolt risk
 				add_province_modifier = {
 					name = religious_tension
-					years = 1
+					duration = 365
 				}
-
 				# Province barons
 				any_province_lord = {
 					limit = {
-						NOR = {
-							character = ROOT
-							character = FROM
-						}
+						NOT = { character = ROOT }
+						NOT = { character = FROM }
 					}
-
 					opinion = {
-						name = opinion_irritated
 						who = ROOT
-						years = 1
+						modifier = opinion_irritated
+						months = 12
 					}
 				}
 			}
@@ -1510,65 +4701,65 @@ letter_event = {
 }
 
 # Chaplain arrives at Pagan capital
-character_event = {
-	id = 39650
-	desc = EVTDESC39650
-	picture = GFX_evt_bishop
-	border = GFX_event_normal_frame_religion
-
-	has_job_title = yes
-
-	trigger = {
-		has_job_action = action_inquisition
-		in_seclusion = no
-
-		NOR = {
-			has_character_modifier = bedridden_illness
-			has_character_flag = preacher_arrives
-		}
-
-		location = {
-			owner = {
-				religion_group = pagan_group
-
-				NOR = {
-					religion = ROOT
-					same_realm = ROOT
-					has_character_flag = flag_converting_baptism
-					has_character_modifier = baptism_request_cooldown
-					character = ROOT
-					is_liege_of = ROOT
-				}
-
-				controls_religion = no
-			}
-		}
-	}
-
-	mean_time_to_happen = {
-		days = 1
-	}
-
-	option = {
-		name = EVTOPTA39650
-
-		set_character_flag = preacher_arrives
-
-		location = {
-			show_scope_change = no
-
-			owner = {
-				show_scope_change = no
-
-				character_event = {
-					id = 39600 # continues in religious_events.txt
-					days = 4
-					tooltip = EVTTOOLTIP39600
-				}
-			}
-		}
-	}
-}
+#character_event = {
+#	id = 39650
+#	desc = EVTDESC39650
+#	picture = GFX_evt_bishop
+#	border = GFX_event_normal_frame_religion
+#
+#	has_job_title = yes
+#
+#	trigger = {
+#		has_job_action = action_inquisition
+#		in_seclusion = no
+#
+#		NOR = {
+#			has_character_modifier = bedridden_illness
+#			has_character_flag = preacher_arrives
+#		}
+#
+#		location = {
+#			owner = {
+#				religion_group = pagan_group
+#
+#				NOR = {
+#					religion = ROOT
+#					same_realm = ROOT
+#					has_character_flag = flag_converting_baptism
+#					has_character_modifier = baptism_request_cooldown
+#					character = ROOT
+#					is_liege_of = ROOT
+#				}
+#
+#				controls_religion = no
+#			}
+#		}
+#	}
+#
+#	mean_time_to_happen = {
+#		days = 1
+#	}
+#
+#	option = {
+#		name = EVTOPTA39650
+#
+#		set_character_flag = preacher_arrives
+#
+#		location = {
+#			show_scope_change = no
+#
+#			owner = {
+#				show_scope_change = no
+#
+#				character_event = {
+#					id = 39600 # continues in religious_events.txt
+#					days = 4
+#					tooltip = EVTTOOLTIP39600
+#				}
+#			}
+#		}
+#	}
+#}
 
 # Chaplain has a chance of converting the Pagan lord
 character_event = {
@@ -1895,22 +5086,22 @@ character_event = {
 	picture = GFX_evt_bishop
 	border = GFX_event_normal_frame_religion
 
+	min_age = 16
+	capable_only = yes
+	prisoner = no
 	has_job_title = yes
 
 	trigger = {
 		has_job_action = action_improve_rel_relations
-		in_seclusion = no
-		NOT = {	has_character_modifier = bedridden_illness }
-
-		location = {
+		NOT = { has_character_modifier = in_seclusion }
+		NOT = { has_character_modifier = bedridden_illness }
+		NOT = { trait = incapable }
+		location = { 
 			any_province_lord = {
+				NOT = { character = ROOT }
 				is_priest = yes
 				religion = ROOT
-
-				NOR = {
-					character = ROOT
-					is_liege_of = ROOT
-				}
+				NOT = { is_liege_of = ROOT }
 			}
 		}
 	}
@@ -1947,24 +5138,16 @@ character_event = {
 
 	option = {
 		name = evt_lordspiritual_501_option_a
-
-		hidden_effect = {
+		
+		hidden_tooltip = {
 			location = {
 				random_province_lord = {
 					limit = {
 						is_priest = yes
 						religion = ROOT
-
-						NOR = {
-							is_liege_of = ROOT
-							character = ROOT
-						}
+						NOT = { is_liege_of = ROOT }
 					}
-
-					character_event = {
-						id = lordspiritual.502
-						days = 7
-					}
+					character_event = { id = lordspiritual.502 days = 7 }
 				}
 			}
 		}
@@ -1982,12 +5165,10 @@ character_event = {
 
 	option = {
 		name = evt_lordspiritual_502_option_a
-
-		hidden_effect = {
+		
+		hidden_tooltip = {
 			FROM = {
-				liege = {
-					letter_event = { id = lordspiritual.503 }
-				}
+				liege = { letter_event = { id = lordspiritual.503 } }
 			}
 		}
 	}
@@ -2006,10 +5187,8 @@ letter_event = {
 		name = PERFECT
 
 		FROM = {
-			show_scope_change = no
-
 			opinion = {
-				name = opinion_improved_relations
+				modifier = opinion_improved_relations
 				who = ROOT
 				years = 2
 			}
@@ -2025,31 +5204,28 @@ character_event = {
 	picture = GFX_evt_pope_feast
 	border = GFX_event_normal_frame_religion
 
+	min_age = 16
+	capable_only = yes
+	prisoner = no
 	has_job_title = yes
 
 	trigger = {
 		has_job_action = action_improve_rel_relations
-		in_seclusion = no
-
-		NOR = {
-			religion_group = indian_group
-			has_character_modifier = bedridden_illness
-		}
-
+		NOT = { has_character_modifier = in_seclusion }
+		NOT = { has_character_modifier = bedridden_illness }
+		NOT = { trait = incapable }
 		religion_head = {
 			NOT = { character = liege }
 		}
-
-		location = {
+		location = { 
 			any_province_lord = {
+				NOT = { character = ROOT }
 				is_priest = yes
-				religion = ROOT
+				NOT = { is_liege_of = ROOT }
 				same_realm = ROOT
-				controls_religion = no
-
-				NOR = {
-					character = ROOT
-					is_liege_of = ROOT
+				religion = ROOT
+				religion_head = {
+					NOT = { character = PREV }
 				}
 			}
 		}
@@ -2064,25 +5240,19 @@ character_event = {
 	option = {
 		name = evt_lordspiritual_601_option_a
 
-		hidden_effect = {
+		hidden_tooltip = {
 			location = {
 				random_province_lord = {
 					limit = {
 						is_priest = yes
-						religion = ROOT
+						NOT = { is_liege_of = ROOT }
 						same_realm = ROOT
-						controls_religion = no
-
-						NOR = {
-							is_liege_of = ROOT
-							character = ROOT
+						religion = ROOT
+						religion_head = {
+							NOT = { character = PREV }
 						}
 					}
-
-					character_event = {
-						id = lordspiritual.602
-						days = 7
-					}
+					character_event = { id = lordspiritual.602 days = 7 }
 				}
 			}
 		}
@@ -2101,11 +5271,9 @@ character_event = {
 	option = {
 		name = evt_lordspiritual_602_option_a
 
-		hidden_effect = {
+		hidden_tooltip = {
 			FROM = {
-				liege = {
-					letter_event = { id = lordspiritual.603 }
-				}
+				liege = { letter_event = { id = lordspiritual.603 } }
 			}
 		}
 	}
@@ -2124,13 +5292,9 @@ letter_event = {
 		name = EXCELLENT
 
 		FROM = {
-			show_scope_change = no
-
 			religion_head = {
-				show_scope_change = no
-
 				reverse_opinion = {
-					name = opinion_head_of_religion_negative
+					modifier = opinion_head_of_religion_negative
 					who = PREV
 					years = 2
 				}
@@ -2152,12 +5316,16 @@ character_event = {
 	picture = GFX_evt_emissary
 	border = GFX_event_normal_frame_religion
 
+	min_age = 16
+	capable_only = yes
+	prisoner = no
 	has_job_title = yes
 
 	trigger = {
 		has_job_action = action_advance_cul_tech
-		in_seclusion = no
-		NOT = {	has_character_modifier = bedridden_illness }
+		NOT = { has_character_modifier = in_seclusion }
+		NOT = { has_character_modifier = bedridden_illness }
+		NOT = { trait = incapable }
 	}
 
 	mean_time_to_happen = {
@@ -2165,7 +5333,7 @@ character_event = {
 
 		job_event_mtth_modifier_learning_score = yes
 
-		mult_modifier = {
+		modifier = {
 			factor = 0.5
 
 			OR = {
@@ -2174,19 +5342,19 @@ character_event = {
 			}
 		}
 
-		mult_modifier = {
+		modifier = {
 			factor = 2
 
 			has_religion_feature = religion_dogmatic
 		}
 
-		mult_modifier = {
+		modifier = {
 			factor = 0.75
 
 			has_religion_feature = religion_cosmopolitan
 		}
 
-		mult_modifier = {
+		modifier = {
 			factor = 0.5
 
 			liege = {
@@ -2197,7 +5365,7 @@ character_event = {
 			}
 		}
 
-		mult_modifier = {
+		modifier = {
 			factor = 0.5
 
 			# If chaplain is also your relative
@@ -2207,18 +5375,10 @@ character_event = {
 			}
 		}
 	}
-
+	
 	option = {
-		name = evt_lordspiritual_701_option_a
-
-		liege = {
-			show_scope_change = no
-
-			letter_event = {
-				id = lordspiritual.702
-				tooltip = evt_lordspiritual_701_option_a_tooltip
-			}
-		}
+		name = "evt_lordspiritual_701_option_a"
+		liege = { letter_event = { id = lordspiritual.702 tooltip = "evt_lordspiritual_701_option_a_tooltip" } }
 	}
 }
 
@@ -2229,24 +5389,28 @@ letter_event = {
 	border = GFX_event_letter_frame_religion
 
 	is_triggered_only = yes
-
+	
 	option = {
-		name = evt_lordspiritual_702_option_a
-
+		name = "evt_lordspiritual_702_option_a"
 		scaled_wealth = -0.5
 		culture_techpoints = 50
-
-		FROM = {
-			show_scope_change = no
-
-			location = {
-				show_scope_change = no
-
-				increase_prosperity_variable_effect = yes
+		if = {
+			limit = {
+				has_dlc = "Reapers"
+			}
+			custom_tooltip = {
+				text = increase_prosperity_custom_tooltip
+				hidden_tooltip = {
+					FROM = {
+						location = {
+							change_variable = { which = prosperity_value value = 6 }
+						}
+					}
+				}
 			}
 		}
 	}
-
+	
 	option = {
 		name = evt_lordspiritual_702_option_b
 	}
@@ -2260,35 +5424,26 @@ character_event = {
 	picture = GFX_evt_heretic
 	border = GFX_event_normal_frame_religion
 
+	min_age = 16
+	capable_only = yes
+	prisoner = no
 	has_job_title = yes
 
 	trigger = {
 		has_job_action = action_advance_cul_tech
-
-		OR = {
-			religion_group = christian
-			religion_group = muslim
-			religion_group = jewish_group
-		}
-
-		liege = {
-			is_heretic = no
-
-			OR = {
-				religion_group = christian
-				religion_group = muslim
-				religion_group = jewish_group
-			}
-		}
-
+		NOT = { has_character_modifier = in_seclusion }
+		NOT = { has_character_modifier = bedridden_illness }
+		NOT = { trait = incapable }
+		NOT = { has_religion_feature = religion_cosmopolitan }
 		is_heretic = no
 		has_secret_religion = no
-		controls_religion = no
-		in_seclusion = no
-
-		NOR = {
-			has_character_modifier = bedridden_illness
-			has_religion_feature = religion_cosmopolitan
+		NOT = { religion_group = outlaw_group }
+		liege = {
+			is_heretic = no
+			NOT = { religion_group = outlaw_group }
+		}
+		NOT = {
+			religion_head = { character = ROOT }
 		}
 	}
 
@@ -2303,18 +5458,13 @@ character_event = {
 			has_religion_feature = religion_dogmatic
 		}
 	}
-
+	
 	option = {
-		name = evt_lordspiritual_801_option_a
-
+		name = "evt_lordspiritual_801_option_a"
 		ai_chance = { factor = 80 }
-
 		become_heretic = yes
-
-		hidden_effect = {
-			liege = {
-				letter_event = { id = lordspiritual.802 }
-			}
+		hidden_tooltip = {
+			liege = { letter_event = { id = lordspiritual.802 } }
 		}
 	}
 
@@ -2332,39 +5482,24 @@ letter_event = {
 	border = GFX_event_letter_frame_religion
 
 	is_triggered_only = yes
-
+	
 	option = {
-		name = evt_lordspiritual_802_option_a
-
+		name = "evt_lordspiritual_802_option_a"
 		ai_chance = { factor = 100 }
-
-		FROM = {
-			show_scope_change = no
-
-			imprison = yes
-		}
+		FROM = { imprison = yes }
 	}
-
+	
 	option = {
-		name = evt_lordspiritual_802_option_b
-
+		name = "evt_lordspiritual_802_option_b"
 		trigger = {
-			NOT = { religion = FROM }
-			has_secret_religion = no
+			NOR = {
+				religion = FROM
+				has_secret_religion = yes
+			}
 		}
-
-		set_secret_religion = {
-			target_type = public
-			target = FROM
-		}
-
-		FROM = {
-			show_scope_change = no
-
-			letter_event = { id = lordspiritual.803 }
-		}
-
 		ai_chance = { factor = 0 }
+		set_secret_religion = { target_type = public target = FROM }
+		FROM = { letter_event = { id = lordspiritual.803 } }
 	}
 
 	option = {
@@ -2383,35 +5518,22 @@ letter_event = {
 	border = GFX_event_letter_frame_religion
 
 	is_triggered_only = yes
-
+	
 	option = {
 		name = evt_lordspiritual_803_option_a
-
 		religion = FROM
-
-		set_secret_religion = {
-			target_type = true
-			target = FROM
+		set_secret_religion = { target_type = true target = FROM }
+		hidden_tooltip = {
+			liege = { letter_event = { id = lordspiritual.804 } }
 		}
-
-		hidden_effect = {
-			liege = {
-				letter_event = { id = lordspiritual.804 }
-			}
-		}
-
 		ai_chance = { factor = 10 }
 	}
-
+	
 	option = {
 		name = evt_lordspiritual_803_option_b
-
-		hidden_effect = {
-			liege = {
-				letter_event = { id = lordspiritual.805 }
-			}
+		hidden_tooltip = {
+			liege = { letter_event = { id = lordspiritual.805 } }
 		}
-
 		ai_chance = { factor = 5 }
 	}
 }
@@ -2423,8 +5545,6 @@ letter_event = {
 	border = GFX_event_letter_frame_religion
 
 	is_triggered_only = yes
-
-	ai = no
 
 	option = {
 		name = evt_lordspiritual_804_option_a
@@ -2438,8 +5558,6 @@ letter_event = {
 	border = GFX_event_letter_frame_religion
 
 	is_triggered_only = yes
-
-	ai = no
 
 	option = {
 		name = evt_lordspiritual_805_option_a

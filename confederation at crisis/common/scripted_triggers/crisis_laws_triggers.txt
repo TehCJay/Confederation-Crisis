@@ -445,6 +445,48 @@ liege_allows_elections = {
 	}
 }
 
+liege_wants_elections = {
+	OR = {
+		AND = {
+			crownlaw_title = { has_law = military_vassal_legitimacy_1 }
+			holder_scope = { is_military_trigger = yes }
+		}
+		AND = {
+			crownlaw_title = { has_law = republic_vassal_legitimacy_1 }
+			holder_scope = { is_civil_trigger = yes }
+		}
+		AND = {
+			crownlaw_title = { has_law = theocracy_vassal_legitimacy_1 }
+			holder_scope = { is_rectorial_trigger = yes }
+		}
+	}
+}
+
+
+#NPC governemnt
+#Liege wants elections
+#	Barony
+#	Liege has authority
+
+requires_open_succession = {
+	liege_wants_elections = yes
+	holder_scope = {
+		OR = {
+			government = npc_civil_government
+			government = npc_rectorial_government
+		}
+	}
+	OR = {
+		tier = BARON
+		NOR = {
+			crownlaw_title = {
+				has_law = public_order_0
+			}
+			has_law = disobedience_1
+		}
+	}
+}
+
 liege_allows_appointment = {
     trigger_if = {
         limit = {
