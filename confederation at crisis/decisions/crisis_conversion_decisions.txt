@@ -147,14 +147,33 @@ targetted_decisions = {
 		potential = {
 			NOT = { character = FROM }
 			NOT = { culture = FROM }
+			OR = {
+				AND = {
+					culture_group = terran_group
+					FROM = {
+						NOT = { culture_group = terran_group }
+					}
+				}
+				NOT = { culture_group = terran_group }
+			}
 		}
 		allow = {
 			FROM = { prestige = 200 }
 		}
 		effect = {
-			FROM = {
-				prestige = -200
-				culture = ROOT
+			if = {
+				limit = {
+					culture_group = terran_group
+				}
+				FROM = {
+					terranify_culture_effect = yes
+				}
+			}
+			else = {
+				FROM = {
+					prestige = -200
+					culture = ROOT
+				}
 			}
 		}
 		revoke_allowed = {
@@ -177,6 +196,15 @@ targetted_decisions = {
 			liege = {
 				NOT = { character = ROOT }
 				NOT = { culture = ROOT }
+				OR = {
+					AND = {
+						culture_group = terran_group
+						ROOT = {
+							NOT = { culture_group = terran_group }
+						}
+					}
+					NOT = { culture_group = terran_group }
+				}
 			}
 		}
 		allow = {
@@ -184,8 +212,20 @@ targetted_decisions = {
 		}
 		effect = {
 			prestige = -200
-			liege = {
-				reverse_culture = ROOT
+			if = {
+				limit = {
+					liege = {
+						culture_group = terran_group
+					}
+				}
+				ROOT = {
+					terranify_culture_effect = yes
+				}
+			}
+			else = {
+				liege = {
+					reverse_culture = ROOT
+				}
 			}
 		}
 		revoke_allowed = {
@@ -210,9 +250,27 @@ targetted_decisions = {
 				NOT = { culture = ROOT }
 			}
 			OR = {
+				AND = {
+					NOT = { culture_group = terran_group }
+					capital_scope = { culture_group = terran_group }
+				}
+				capital_scope = {
+					NOT = { culture_group = terran_group }
+				}
+			}
+			OR = {
 				independent = yes
 				liege = {
 					NOT = { culture = ROOT }
+					OR = {
+						AND = {
+							culture_group = terran_group
+							ROOT = {
+								NOT = { culture_group = terran_group }
+							}
+						}
+						NOT = { culture_group = terran_group }
+					}
 				}
 			}
 			holy_order = no
@@ -224,8 +282,18 @@ targetted_decisions = {
 		}
 		effect = {
 			prestige = -500
-			capital_scope = {
-				reverse_culture = ROOT
+			if = {
+				limit = {
+					NOT = { culture_group = terran_group }
+				}
+				ROOT = {
+					terranify_culture_effect = yes
+				}
+			}
+			else = {
+				capital_scope = {
+					reverse_culture = ROOT
+				}
 			}
 			hidden_tooltip = {
 				any_child = {
@@ -658,153 +726,18 @@ decisions = {
 		is_high_prio = yes
 		
 		potential = {
-			is_playable = yes
-			OR = { 
-				culture_group = terran_group
-				culture = greek
-			}
-			has_dlc = "Holy Fury"
-			has_landed_title = e_terran_confederation
-			OR = {
-				religion = imperial_cult
-				religion = solarian
-				religion = neo_socialist
-				religion = neo_feudalist
-				government = military_monarchy
-				}
-			NOT = { government = corporate_republic }
-			NOT = { has_global_flag = flag_started_roman_renaissance }
-			NOT = {
-				has_alternate_start_parameter = { key = culture_names value = random }
-			}
+			always = no
 		}
 		allow = {
-			show_only_failed_conditions = yes
-			OR = { 
-				religion_group = political_group 
-				religion = religious_group
-				religion = transhumanist_group
-			}
-			capital_scope = { province = 202 }
-			ruled_years = 10
-			war = no
+			always = no
 		}
 		effect = {
-			set_global_flag = flag_started_roman_renaissance
-			culture = terran
-			hidden_tooltip = {
-				any_courtier_or_vassal = { 
-					limit = { lower_tier_than = COUNT }
-					culture = terran
-				}
-			}
-			capital_scope = { culture = terran }
-			custom_tooltip = {
-				text = tooltip_roman_culture_starts_spreading
-				hidden_tooltip = {
-					any_realm_province = {
-						if = {
-							limit = { any_neighbor_province = { province = 202 } }
-							culture = terran
-						}
-						if = {
-							limit = { 
-								culture_group = terran_group
-								NOT = { distance = { where = 202 distance = 100 } } 
-							}
-							random = { 
-								chance = 40 
-								culture = terran 
-							}
-						}
-						if = {
-							limit = { 
-								culture_group = terran_group
-								NOT = { distance = { where = 202 distance = 200 } } 
-							}
-							random = { 
-								chance = 20 
-								culture = terran 
-							}
-						}
-						if = {
-							limit = { 
-								culture_group = terran_group
-								NOT = { distance = { where = 202 distance = 400 } } 
-							}
-							random = { 
-								chance = 5
-								culture = terran 
-							}
-						}
-					}
-				}
-			}
-			hidden_tooltip = {
-				if = { #Terran Emperor gets chance to spread Ideologies a bit alongside the culture.
-					limit = { OR = { religion = imperial_cult religion = solarian religion = neo_feudal religion = neo_socialist} }
-					any_realm_province = {
-						if = {
-							limit = { any_neighbor_province = { province = 202 } }
-							religion = ROOT
-						}
-						if = {
-							limit = { 
-								culture = terran
-								NOT = { distance = { where = 202 distance = 100 } } 
-							}
-							random = { 
-								chance = 10 
-								religion = ROOT
-							}
-						}
-						if = {
-							limit = { 
-								culture = terran
-								NOT = { distance = { where = 202 distance = 200 } } 
-							}
-							random = { 
-								chance = 5 
-								religion = ROOT
-							}
-						}
-					}
-				}
-			}
-			hidden_tooltip = { #Special event if there are still enough political_group provinces around (which is very likely)
-				if = {
-					limit = { 
-						any_realm_province = { 
-							religion_group = political_group
-							count = 10
-						} 
-					}
-					character_event = { id = HF.23119 days = 150 random = 50 }
-				}
-			}
 		}
 		revoke_allowed = {
 			always = no
 		}
 		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 3
-				OR = {
-					religion = imperial_cult
-					religion = solarian
-					religion = neo_socialist
-					religion = neo_feudal
-				}
-			}
-			modifier = {
-				factor = 0.01 #Would consider it a step down.
-				OR = {
-					religion = terran_republican
-					religion = terran_federalist
-					religion = colonial_separatist
-				}
-			}
+			factor = 0
 		}
 	}
 	embrace_terran_culture = {
@@ -812,135 +745,18 @@ decisions = {
 		only_playable = yes
 		
 		potential = {
-			is_playable = yes
-			NOT = { culture = terran }
-			OR = { 
-				culture_group = terran_group 
-				religion = terran_imperial
-			}
-			has_dlc = "Holy Fury"
-			NOT = { government = corporate_republic }
-			has_global_flag = flag_started_roman_renaissance
-			NOT = {
-				has_alternate_start_parameter = { key = culture_names value = random }
-			}
-			top_liege = { has_landed_title = e_roman_empire }
+			always = no
 		}
 		allow = {
-			show_only_failed_conditions = yes
-			OR = { 
-				culture_group = terran_group 
-				religion = terran_imperial
-			}
+			always = no
 		}
 		effect = {
-			culture = terran
-			hidden_tooltip = {
-				any_courtier_or_vassal = { 
-					limit = { lower_tier_than = COUNT }
-					culture = terran
-				}
-			}
-			capital_scope = { culture = terran }
-			custom_tooltip = {
-				text = tooltip_roman_culture_spreads
-				hidden_tooltip = {
-					any_demesne_province = {
-						if = {
-							limit = { any_neighbor_province = { province = 202 } }
-							culture = terran
-						}
-						if = {
-							limit = { 
-								culture_group = terran_group
-								capital_scope = { NOT = { distance = { where = PREV distance = 100 } } } 
-							}
-							random = { 
-								chance = 40 
-								culture = terran 
-							}
-						}
-						if = {
-							limit = { 
-								culture_group = terran_group
-								capital_scope = { NOT = { distance = { where = PREV distance = 200 } } } 
-							}
-							random = { 
-								chance = 20 
-								culture = terran 
-							}
-						}
-						if = {
-							limit = { 
-								culture_group = terran_group
-								capital_scope = { NOT = { distance = { where = PREV distance = 400 } } } 
-							}
-							random = { 
-								chance = 5
-								culture = terran 
-							}
-						}
-					}
-				}
-			}
-			if = { #Terran Emperor gets chance to spread Ideology a bit alongside the culture.
-				limit = { OR = { religion = imperial_cult religion = solarian religion = neo_feudal religion = neo_socialist} }
-				hidden_tooltip = {
-					any_demesne_province = {
-						if = {
-							limit = { any_neighbor_province = { province = 202 } }
-							religion = ROOT
-						}
-						if = {
-							limit = { 
-								culture = terran
-								capital_scope = { NOT = { distance = { where = PREV distance = 100 } } } 
-							}
-							random = { 
-								chance = 10 
-								religion = ROOT
-							}
-						}
-						if = {
-							limit = { 
-								culture = terran
-								capital_scope = { NOT = { distance = { where = PREV distance = 200 } } } 
-							}
-							random = { 
-								chance = 5 
-								religion = ROOT
-							}
-						}
-					}
-				}
-			}
 		}
 		revoke_allowed = {
 			always = no
 		}
 		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 3
-				OR = {
-					religion = imperial_cult
-					religion = solarian
-					religion = neo_socialist
-					religion = neo_feudal
-				}
-			}
-			modifier = {
-				factor = 3
-				capital_scope = { culture = terran } 
-			}
-			modifier = {
-				factor = 0.01 #Would consider it a step down.
-				OR = {
-					religion = terran_republican
-					religion = terran_federalist
-					religion = colonial_separatist
-				}
-			}
+			factor = 0
 		}
 	}
 }

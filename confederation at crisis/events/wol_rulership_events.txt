@@ -36,7 +36,7 @@ character_event = {
 		}
 		if = {
 			limit = {
-				NOT = { trait = diligent }
+				NOT = { trait = disciplined }
 				random = 85
 			}
 			character_event = { id = WoL.12504 }
@@ -204,13 +204,13 @@ character_event = {
 	option = {
 		name = EXCELLENT
 		if = {
-			limit = { trait = slothful }
-			remove_trait = slothful
+			limit = { trait = carefree }
+			remove_trait = carefree
 			break = yes
 		}
 		if = {
-			limit = { NOT = { trait = slothful } }
-			add_trait = diligent
+			limit = { NOT = { trait = carefree } }
+			add_trait = disciplined
 			break = yes
 		}
 	}
@@ -488,6 +488,12 @@ character_event = {
 		}
 		new_character = {
 			prisoner = yes
+			if = {
+				limit = { 
+					culture_group = terran_group 
+				}
+				terran_scrambled_effect = yes
+			}
 		}
 		FROMFROM = { clr_province_flag = castle_province }
 		clr_global_flag = rulership_castle
@@ -1259,6 +1265,12 @@ character_event = {
 				}
 				new_character = {
 					save_event_target_as = suspected_witch
+					if = {
+						limit = { 
+							culture_group = terran_group 
+						}
+						terran_scrambled_effect = yes
+					}
 				}
 			}
 			10 = {
@@ -1280,6 +1292,12 @@ character_event = {
 				}
 				new_character = {
 					save_event_target_as = suspected_witch
+					if = {
+						limit = { 
+							culture_group = terran_group 
+						}
+						terran_scrambled_effect = yes
+					}
 				}
 			}
 		}

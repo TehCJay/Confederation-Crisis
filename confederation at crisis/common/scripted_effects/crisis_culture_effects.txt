@@ -1,0 +1,149 @@
+terranify_culture_effect = {
+	if = {
+		limit = {
+			culture_group = terran_group
+		}
+		#If already terran, do nothing
+	}
+	else_if = {
+		limit = {
+			culture_group = tengoku_group
+		}
+		culture = japanese_terran
+	}
+	else_if = {
+		limit = {
+			OR = {
+				culture_group = bianjiangese_group
+				culture_group = xingjie_group
+			}
+		}
+		culture = sino_terran
+	}
+	else_if = {
+		limit = {
+			OR = {
+				culture_group = celestean_group
+				culture_group = orion_group
+			}
+			NOT = {culture = mesoamerican_sexto_solar}
+		}
+		culture = hispanic_terran
+	}
+	else_if = {
+		limit = {
+			culture = mesoamerican_sexto_solar
+		}
+		culture = mesoamerican_terran
+	}
+	else_if = {
+		limit = {
+			culture_group = angani_group
+			NOT = {culture = ethiopian_angani}
+			NOT = {culture = west_afro_angani}
+		}
+		culture = east_afro_terran
+	}
+	else_if = {
+		limit = {
+			culture = ethiopian_angani
+		}
+		culture = ethiopian_terran
+	}
+	else_if = {
+		limit = {
+			culture = west_afro_angani
+		}
+		culture = west_afro_terran
+	}
+	else_if = {
+		limit = {
+			culture_group = samawati_group
+			NOT = {culture = iranian_samawati}
+		}
+		culture = arab_terran
+	}
+	else_if = {
+		limit = {
+			culture = iranian_samawati
+		}
+		culture = iranian_terran
+	}
+	else_if = {
+		limit = {
+			OR = {
+				culture_group = frontiersman_group
+				culture_group = avalonian_group
+			}
+		}
+		culture = anglo_terran
+	}
+	else_if = {
+		limit = {
+			culture_group = indo_aryan_group
+		}
+		culture = indo_terran
+	}
+	else_if = {
+		limit = {
+			culture_group = goldrus_group
+		}
+		culture = russo_terran
+	}
+	else_if = {
+		limit = {
+			culture_group = outerrim_group
+		}
+		culture = german_terran
+	}
+	else = {
+		culture = terran_terran #Fallback if all others fail, should be impossible unless new culture GROUPS are added
+	}
+}
+
+terran_scrambled_effect = {
+	random_list = {
+		10 = {
+			culture = anglo_terran
+		}
+		10 = {
+			culture = arab_terran
+		}
+		10 = {
+			culture = east_afro_terran
+		}
+		10 = {
+			culture = ethiopian_terran
+		}
+		10 = {
+			culture = indo_terran
+		}
+		10 = {
+			culture = iranian_terran
+		}
+		10 = {
+			culture = japanese_terran
+		}
+		10 = {
+			culture = mesoamerican_terran
+		}
+		10 = {
+			culture = russo_terran
+		}
+		10 = {
+			culture = sino_terran
+		}
+		10 = {
+			culture = west_afro_terran
+		}
+		10 = {
+			culture = german_terran
+		}
+		30 = {
+			trigger = {
+				culture_group = terran_group
+			}
+			culture = ROOT #Bonus chance for hirer's culture
+		}
+	}
+}

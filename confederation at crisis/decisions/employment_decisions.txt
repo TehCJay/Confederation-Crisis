@@ -33,12 +33,24 @@ decisions = {
 		}
 		effect = {
 			scaled_wealth = -0.25
+			create_character = {
+				culture = ROOT
+			}
+			new_character = {
+				if = {
+					limit = { 
+						culture_group = terran_group 
+					}
+					terran_scrambled_effect = yes
+				}
+				save_event_target_as = target_stupid
+			}
 			random_list = {
 				50 = {
 					create_random_diplomat = {
 						random_traits = yes
 						religion = ROOT
-						culture = ROOT
+						culture = event_target:target_stupid
 						dynasty = actually_culture
 						female = yes
 						attributes = {
@@ -54,7 +66,7 @@ decisions = {
 					create_random_diplomat = {
 						random_traits = yes
 						religion = ROOT
-						culture = ROOT
+						culture = event_target:target_stupid
 						dynasty = actually_culture
 						female = no
 						attributes = {
@@ -275,9 +287,18 @@ decisions = {
 						add_trait = born_in_the_purple
 					}
 				}
+				#if = {
+				#	limit = { 
+				#		culture_group = terran_group 
+				#	}
+				#	terran_scrambled_effect = yes
+				#}
 				set_dynasty_flag = flag_valid_surname
 				save_event_target_as = invited_character
+				event_target:target_stupid = { banish = yes }
+				event_target:target_stupid = { death = { death_reason = death_natural } }
 			}
+			
 			character_event = { id = NE.1 }
 		}
 		ai_will_do = {
@@ -358,12 +379,24 @@ decisions = {
 		}
 		effect = {
 			scaled_wealth = -0.25
+			create_character = {
+				culture = ROOT
+			}
+			new_character = {
+				if = {
+					limit = { 
+						culture_group = terran_group 
+					}
+					terran_scrambled_effect = yes
+				}
+				save_event_target_as = target_stupid
+			}
 			random_list = {
 				50 = {
 					create_random_steward = {
 						random_traits = yes
 						religion = ROOT
-						culture = ROOT
+						culture = event_target:target_stupid
 						dynasty = actually_culture
 						female = yes
 						attributes = {
@@ -379,7 +412,7 @@ decisions = {
 					create_random_steward = {
 						random_traits = yes
 						religion = ROOT
-						culture = ROOT
+						culture = event_target:target_stupid
 						dynasty = actually_culture
 						female = no
 						attributes = {
@@ -602,6 +635,8 @@ decisions = {
 				}
 				set_dynasty_flag = flag_valid_surname
 				save_event_target_as = invited_character
+				event_target:target_stupid = { banish = yes }
+				event_target:target_stupid = { death = { death_reason = death_natural } }
 			}
 			character_event = { id = NE.1 }
 		}
@@ -635,12 +670,24 @@ decisions = {
 		}
 		effect = {
 			scaled_wealth = -0.25
+			create_character = {
+				culture = ROOT
+			}
+			new_character = {
+				if = {
+					limit = { 
+						culture_group = terran_group 
+					}
+					terran_scrambled_effect = yes
+				}
+				save_event_target_as = target_stupid
+			}
 			random_list = {
 				50 = {
 					create_random_intriguer = {
 						random_traits = yes
 						religion = ROOT
-						culture = ROOT
+						culture = event_target:target_stupid
 						dynasty = actually_culture
 						female = yes
 						attributes = {
@@ -656,7 +703,7 @@ decisions = {
 					create_random_intriguer = {
 						random_traits = yes
 						religion = ROOT
-						culture = ROOT
+						culture = event_target:target_stupid
 						dynasty = actually_culture
 						female = no
 						attributes = {
@@ -879,6 +926,8 @@ decisions = {
 				}
 				set_dynasty_flag = flag_valid_surname
 				save_event_target_as = invited_character
+				event_target:target_stupid = { banish = yes }
+				event_target:target_stupid = { death = { death_reason = death_natural } }
 			}
 			character_event = { id = NE.1 }
 		}
@@ -914,12 +963,24 @@ decisions = {
 		effect = {
 			piety = -25
 			scaled_wealth = -0.25
+			create_character = {
+				culture = ROOT
+			}
+			new_character = {
+				if = {
+					limit = { 
+						culture_group = terran_group 
+					}
+					terran_scrambled_effect = yes
+				}
+				save_event_target_as = target_stupid
+			}
 			random_list = {
 				50 = {
 					create_random_priest = {
 						random_traits = yes
 						religion = ROOT
-						culture = ROOT
+						culture = event_target:target_stupid
 						dynasty = actually_culture
 						female = yes
 						attributes = {
@@ -935,7 +996,7 @@ decisions = {
 					create_random_priest = {
 						random_traits = yes
 						religion = ROOT
-						culture = ROOT
+						culture = event_target:target_stupid
 						dynasty = actually_culture
 						female = no
 						attributes = {
@@ -1156,6 +1217,8 @@ decisions = {
 				}
 				set_dynasty_flag = flag_valid_surname
 				save_event_target_as = invited_character
+				event_target:target_stupid = { banish = yes }
+				event_target:target_stupid = { death = { death_reason = death_natural } }
 			}
 			character_event = { id = NE.1 }
 		}
@@ -1193,7 +1256,20 @@ decisions = {
 		effect = {
 			scaled_wealth = -0.20
 			create_character = {
+				culture = ROOT
+			}
+			new_character = {
+				if = {
+					limit = { 
+						culture_group = terran_group 
+					}
+					terran_scrambled_effect = yes
+				}
+				save_event_target_as = target_stupid
+			}
+			create_character = {
 				random_traits = yes
+				culture = event_target:target_stupid
 				dynasty = actually_culture
 				female = yes
 				age = 18
@@ -1303,6 +1379,8 @@ decisions = {
 						add_trait = born_in_the_purple
 					}
 				}
+				event_target:target_stupid = { banish = yes }
+				event_target:target_stupid = { death = { death_reason = death_natural } }
 			}
 			character_event = { id = NE.1 }
 		}
@@ -1327,7 +1405,20 @@ decisions = {
 		effect = {
 			scaled_wealth = -0.20
 			create_character = {
+				culture = ROOT
+			}
+			new_character = {
+				if = {
+					limit = { 
+						culture_group = terran_group 
+					}
+					terran_scrambled_effect = yes
+				}
+				save_event_target_as = target_stupid
+			}
+			create_character = {
 				random_traits = yes
+				culture = event_target:target_stupid
 				dynasty = actually_culture
 				female = no
 				age = 18
@@ -1437,6 +1528,8 @@ decisions = {
 						add_trait = born_in_the_purple
 					}
 				}
+				event_target:target_stupid = { banish = yes }
+				event_target:target_stupid = { death = { death_reason = death_natural } }
 			}
 			character_event = { id = NE.1 }
 		}

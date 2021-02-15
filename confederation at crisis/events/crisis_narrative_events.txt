@@ -521,12 +521,18 @@ narrative_event = { #Assassination succeeded
 		}
 		new_character = {
 			if = {
-					limit = { location = { province_id = 202 } }
-					random = {
-						chance = 66
-						add_trait = born_in_the_purple
-					}
+				limit = { location = { province_id = 202 } }
+				random = {
+					chance = 66
+					add_trait = born_in_the_purple
 				}
+			}
+			if = {
+				limit = { 
+					culture_group = terran_group 
+				}
+				terran_scrambled_effect = yes
+			}
 			save_event_target_as = confed_imperialist_admiral
 			set_dynasty_flag = flag_valid_surname
 		}
