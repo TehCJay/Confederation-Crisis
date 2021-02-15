@@ -811,7 +811,15 @@ character_event = {
 			dynasty = actually_culture
 			female = no
 		}
-		new_character = { set_dynasty_flag = flag_valid_surname }
+		new_character = { 
+			set_dynasty_flag = flag_valid_surname
+			if = {
+				limit = { 
+					culture_group = terran_group 
+				}
+				terran_scrambled_effect = yes
+			}
+		}
 		scaled_wealth = -0.1
 	}
 	option = {
@@ -942,6 +950,12 @@ character_event = {
 		}
 		new_character = {
 			set_dynasty_flag = flag_valid_surname
+			if = {
+				limit = { 
+					culture_group = terran_group 
+				}
+				terran_scrambled_effect = yes
+			}
 			ROOT = {
 				random_current_enemy = {
 					limit = {

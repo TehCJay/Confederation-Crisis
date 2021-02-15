@@ -93,11 +93,13 @@ feudal_governments = {
 			}
 			is_patrician = no
 			NOT = { trait = hiver_implant }
-			religion_group = outlaw_group
 			capital_holding = { holding_type = castle }
 			OR = {
-				independent = yes
-				top_liege = {
+				AND = {
+					independent = yes
+					religion_group = outlaw_group
+				}
+				any_liege = {
 					religion_group = outlaw_group
 				}
 			}
@@ -111,7 +113,6 @@ feudal_governments = {
 		allow_looting = yes
 		ignores_de_jure_laws = yes
 		barons_need_dynasty = yes
-		can_build_city = no
 		can_build_tribal = no
 		uses_piety_for_law_change = yes
 		no_vassal_tax = {
@@ -138,6 +139,9 @@ feudal_governments = {
 			religion_group = outlaw_group
 			NOT = { is_government_potential = pirate_republic }
 			holy_order = no
+			any_liege = {
+				government = pirate_republic
+			}
 		}
 
 		color = { 209 125 130 }
@@ -1134,7 +1138,7 @@ republic_governments = {
 				AND = {
 					# Require at least one province and be Duke tier or higher
 					higher_real_tier_than = COUNT
-					num_of_count_titles >= 1
+					num_of_baron_titles >= 1 #Does not need only counties, barony only works too
 					capital_holding = {
 						holding_type = city
 					}

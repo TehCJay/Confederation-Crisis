@@ -32,6 +32,12 @@ generate_random_soldier_adult_from_province_effect = {
         roll1d60 = yes
         new_character = {
             add_age = local_dice1d60
+			if = {
+				limit = { 
+					culture_group = terran_group 
+				}
+				terran_scrambled_effect = yes
+			}
         }
         random = {
             chance = 1
@@ -71,6 +77,12 @@ generate_random_lowborn_adult_from_province_effect = {
         roll1d60 = yes
         new_character = {
             add_age = local_dice1d60
+			if = {
+				limit = { 
+					culture_group = terran_group 
+				}
+				terran_scrambled_effect = yes
+			}
         }
         random = {
             chance = 1
@@ -110,6 +122,12 @@ generate_random_highborn_adult_from_province_effect = {
         roll1d60 = yes
         new_character = {
             add_age = local_dice1d60
+			if = {
+				limit = { 
+					culture_group = terran_group 
+				}
+				terran_scrambled_effect = yes
+			}
         }
         random = {
             chance = 1
@@ -389,11 +407,23 @@ replace_senators_effect = {
 # From Vanilla but heavily edited
 
 spawn_good_commander_effect = {
+	create_character = {
+		culture = ROOT
+	}
+	new_character = {
+		if = {
+			limit = { 
+				culture_group = terran_group 
+			}
+			terran_scrambled_effect = yes
+		}
+		save_event_target_as = target_stupid
+	}
     random_list = {
         50 = {
             create_random_soldier = {
                 random_traits = yes
-                culture = ROOT
+                culture = event_target:target_stupid
                 religion = ROOT
                 female = yes
                 dynasty = actually_culture
@@ -409,7 +439,7 @@ spawn_good_commander_effect = {
         50 = {
             create_random_soldier = {
                 random_traits = yes
-                culture = ROOT
+                culture = event_target:target_stupid
                 religion = ROOT
                 female = no
                 dynasty = actually_culture
@@ -570,18 +600,66 @@ spawn_good_commander_effect = {
                 add_trait = odin_mk_v
             }
         }
+		if = {
+			limit = { any_liege = { trait = spacer_physiology } }
+			random = {
+				chance = 10
+				remove_trait = heavy_worlder
+				add_trait = spacer_physiology
+			}
+		}
+		if = {
+			limit = { religion = astrist }
+			random = {
+				chance = 25
+				remove_trait = heavy_worlder
+				add_trait = spacer_physiology
+			}
+		}
+		if = {
+			limit = {
+				religion = astrist
+				top_liege = { trait = spacer_physiology }
+				}
+			random = {
+				chance = 25
+				remove_trait = heavy_worlder
+				add_trait = spacer_physiology
+			}
+		}
+		if = {
+			limit = { location = { province_id = 202 } }
+			random = {
+				chance = 66
+				add_trait = born_in_the_purple
+			}
+		}
         set_dynasty_flag = flag_valid_surname
         set_character_flag = invited_soldier
         save_event_target_as = invited_character
+		event_target:target_stupid = { banish = yes }
+		event_target:target_stupid = { death = { death_reason = death_natural } }
     }
 }
 
 spawn_great_commander_effect = {
+	create_character = {
+		culture = ROOT
+	}
+	new_character = {
+		if = {
+			limit = { 
+				culture_group = terran_group 
+			}
+			terran_scrambled_effect = yes
+		}
+		save_event_target_as = target_stupid
+	}
     random_list = {
         50 = {
             create_random_soldier = {
                 random_traits = yes
-                culture = ROOT
+                culture = event_target:target_stupid
                 religion = ROOT
                 female = yes
                 dynasty = actually_culture
@@ -597,7 +675,7 @@ spawn_great_commander_effect = {
         50 = {
             create_random_soldier = {
                 random_traits = yes
-                culture = ROOT
+                culture = event_target:target_stupid
                 religion = ROOT
                 female = no
                 dynasty = actually_culture
@@ -810,69 +888,6 @@ spawn_great_commander_effect = {
                 add_trait = odin_mk_v
             }
         }
-        # Biological Traits for specific cultures
-        if = {
-            limit = { culture = heavy_worlder_ge }
-            random = {
-                chance = 60
-                remove_trait = spacer_physiology
-                add_trait = heavy_worlder
-            }
-        }
-        if = {
-            limit = { culture = cat_splice_ge }
-            random = {
-                chance = 60
-                add_trait = cat_splice
-            }
-        }
-        if = {
-            limit = { culture = organic_wifi_ge }
-            random = {
-                chance = 60
-                add_trait = organic_wifi
-            }
-        }
-        if = {
-            limit = { culture = bio_ge }
-            random = {
-                chance = 35
-                remove_trait = organic_wifi
-                remove_trait = cat_splice
-                remove_trait = spacer_physiology
-                add_trait = heavy_worlder
-            }
-        }
-        if = {
-            limit = { culture = bio_ge }
-            random = {
-                chance = 25
-                remove_trait = organic_wifi
-                remove_trait = heavy_worlder
-                remove_trait = spacer_physiology
-                add_trait = cat_splice
-            }
-        }
-        if = {
-            limit = { culture = bio_ge }
-            random = {
-                chance = 35
-                remove_trait = cat_splice
-                remove_trait = heavy_worlder
-                remove_trait = spacer_physiology
-                add_trait = organic_wifi
-            }
-        }
-        if = {
-            limit = { culture = bio_ge }
-            random = {
-                chance = 5
-                remove_trait = organic_wifi
-                remove_trait = heavy_worlder
-                remove_trait = cat_splice
-                add_trait = spacer_physiology
-            }
-        }
         if = {
             limit = { any_liege = { trait = spacer_physiology } }
             random = {
@@ -910,15 +925,29 @@ spawn_great_commander_effect = {
         set_dynasty_flag = flag_valid_surname
         set_character_flag = invited_soldier
         save_event_target_as = invited_character
+		event_target:target_stupid = { banish = yes }
+		event_target:target_stupid = { death = { death_reason = death_natural } }
     }
 }
 
 spawn_fantastic_commander_effect = {
+	create_character = {
+		culture = ROOT
+	}
+	new_character = {
+		if = {
+			limit = { 
+				culture_group = terran_group 
+			}
+			terran_scrambled_effect = yes
+		}
+		save_event_target_as = target_stupid
+	}
     random_list = {
         50 = {
             create_random_soldier = {
                 random_traits = yes
-                culture = ROOT
+                culture = event_target:target_stupid
                 religion = ROOT
                 female = yes
                 dynasty = actually_culture
@@ -934,7 +963,7 @@ spawn_fantastic_commander_effect = {
         50 = {
             create_random_soldier = {
                 random_traits = yes
-                culture = ROOT
+                culture = event_target:target_stupid
                 religion = ROOT
                 female = no
                 dynasty = actually_culture
@@ -1230,68 +1259,6 @@ spawn_fantastic_commander_effect = {
         }
         # Biological Traits for specific cultures
         if = {
-            limit = { culture = heavy_worlder_ge }
-            random = {
-                chance = 60
-                remove_trait = spacer_physiology
-                add_trait = heavy_worlder
-            }
-        }
-        if = {
-            limit = { culture = cat_splice_ge }
-            random = {
-                chance = 60
-                add_trait = cat_splice
-            }
-        }
-        if = {
-            limit = { culture = organic_wifi_ge }
-            random = {
-                chance = 60
-                add_trait = organic_wifi
-            }
-        }
-        if = {
-            limit = { culture = bio_ge }
-            random = {
-                chance = 35
-                remove_trait = organic_wifi
-                remove_trait = cat_splice
-                remove_trait = spacer_physiology
-                add_trait = heavy_worlder
-            }
-        }
-        if = {
-            limit = { culture = bio_ge }
-            random = {
-                chance = 25
-                remove_trait = organic_wifi
-                remove_trait = heavy_worlder
-                remove_trait = spacer_physiology
-                add_trait = cat_splice
-            }
-        }
-        if = {
-            limit = { culture = bio_ge }
-            random = {
-                chance = 35
-                remove_trait = cat_splice
-                remove_trait = heavy_worlder
-                remove_trait = spacer_physiology
-                add_trait = organic_wifi
-            }
-        }
-        if = {
-            limit = { culture = bio_ge }
-            random = {
-                chance = 5
-                remove_trait = organic_wifi
-                remove_trait = heavy_worlder
-                remove_trait = cat_splice
-                add_trait = spacer_physiology
-            }
-        }
-        if = {
             limit = { any_liege = { trait = spacer_physiology } }
             random = {
                 chance = 10
@@ -1328,5 +1295,7 @@ spawn_fantastic_commander_effect = {
         set_dynasty_flag = flag_valid_surname
         set_character_flag = invited_soldier
         save_event_target_as = invited_character
+		event_target:target_stupid = { banish = yes }
+		event_target:target_stupid = { death = { death_reason = death_natural } }
     }
 }
