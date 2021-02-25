@@ -5631,87 +5631,87 @@ obj_great_council = {
 	}
 }
 
-obj_civilize_province = {
-	type = character
-
-	potential = {
-		is_ruler = yes
-		any_realm_province = {
-			NOR = {
-				culture = ROOT
-				owner = { culture = PREV }
-			}
-		}
-		NOT = { has_character_flag = civilized_province }
-		#NOT = { has_law = culture_conversion_0 }
-	}
-
-	allow = {
-		prisoner = no
-		is_adult = yes
-		NOT = { trait = incapable }
-	}
-	chance = {
-		factor = 5
-	}
-	creation_effect = {
-		if = {
-			limit = { ai = yes }
-			add_character_modifier = {
-				name = "ai_objective_timer"
-				duration = 1825
-				hidden = yes
-			}
-		}
-	}
-	success = {
-		has_character_flag = civilized_province
-	}
-	abort = {
-		OR = {
-			AND = {
-				NOT = { has_character_flag = civilized_province}
-				NOT = {
-					any_realm_province = {
-						NOR = {
-							culture = ROOT
-							owner = { culture = PREV }
-						}
-					}
-				}
-			}
-			trait = incapable
-			prisoner = yes
-			AND = {
-				ai = yes
-				NOT = { has_character_modifier = ai_objective_timer }
-			}
-		}
-	}
-	abort_effect = {
-		if = {
-			limit = { ai = yes }
-			remove_character_modifier = ai_objective_timer
-		}
-	}
-	effect = {
-		hidden_tooltip = {
-			if = {
-				limit = { ai = yes }
-				remove_character_modifier = ai_objective_timer
-			}
-		}
-		if = {
-			limit = {
-				NOT = { has_character_flag = already_civilized_province}
-			}
-			change_stewardship = 1
-			set_character_flag = already_civilized_province
-		}
-		prestige = 100
-		clr_character_flag = civilized_province
-	}
-}
+#obj_civilize_province = {
+#	type = character
+#
+#	potential = {
+#		is_ruler = yes
+#		any_realm_province = {
+#			NOR = {
+#				culture = ROOT
+#				owner = { culture = PREV }
+#			}
+#		}
+#		NOT = { has_character_flag = civilized_province }
+#		#NOT = { has_law = culture_conversion_0 }
+#	}
+#
+#	allow = {
+#		prisoner = no
+#		is_adult = yes
+#		NOT = { trait = incapable }
+#	}
+#	chance = {
+#		factor = 5
+#	}
+#	creation_effect = {
+#		if = {
+#			limit = { ai = yes }
+#			add_character_modifier = {
+#				name = "ai_objective_timer"
+#				duration = 1825
+#				hidden = yes
+#			}
+#		}
+#	}
+#	success = {
+#		has_character_flag = civilized_province
+#	}
+#	abort = {
+#		OR = {
+#			AND = {
+#				NOT = { has_character_flag = civilized_province}
+#				NOT = {
+#					any_realm_province = {
+#						NOR = {
+#							culture = ROOT
+#							owner = { culture = PREV }
+#						}
+#					}
+#				}
+#			}
+#			trait = incapable
+#			prisoner = yes
+#			AND = {
+#				ai = yes
+#				NOT = { has_character_modifier = ai_objective_timer }
+#			}
+#		}
+#	}
+#	abort_effect = {
+#		if = {
+#			limit = { ai = yes }
+#			remove_character_modifier = ai_objective_timer
+#		}
+#	}
+#	effect = {
+#		hidden_tooltip = {
+#			if = {
+#				limit = { ai = yes }
+#				remove_character_modifier = ai_objective_timer
+#			}
+#		}
+#		if = {
+#			limit = {
+#				NOT = { has_character_flag = already_civilized_province}
+#			}
+#			change_stewardship = 1
+#			set_character_flag = already_civilized_province
+#		}
+#		prestige = 100
+#		clr_character_flag = civilized_province
+#	}
+#}
 
 obj_be_legitimized = {
 	type = character
