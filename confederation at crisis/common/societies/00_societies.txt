@@ -1,0 +1,998 @@
+###THE ACADEMY OF SCIENCES###
+hermetics = {
+	primary_attribute = learning
+	opinion_to_other_members = +10
+	opinion_per_rank_above = +5
+	sound = hermetic_society_interface
+	society_rank_up_decision = request_to_rank_up_within_society
+	society_influence = no
+	non_interference = {
+		always = yes
+	}
+
+	active = {
+		has_dlc = "Mystics"
+	}
+	indestructible = yes
+
+	can_join_society = {
+		hidden_trigger = {
+			NAND = {
+				ai = yes
+				is_society_rank_full = {
+					society = hermetics
+					rank = 1
+				}
+			}
+			OR = {
+				is_landed = yes
+				is_patrician = yes
+			}
+		}
+		learning = 10
+		OR = {
+			has_religion_feature = religion_astrology
+			religion_group = political_group
+			religion_group = religious_group
+			religion_group = political_terran_group
+			religion_group = religious_terran_group
+			religion_group = transhumanist_group
+			religion_group = outlaw_group
+			custom_tooltip = {
+				text = zunist_hermetic_join_tooltip
+				hidden_trigger = {
+					OR = {
+						religion = solar_cultist
+						religion = solarian
+					}
+				}
+			}
+			custom_tooltip = {
+				text = hellenic_hermetic_join_tooltip
+
+				OR = {
+					religion = imperial_cult
+					religion = hellenic_pagan_reformed
+				}
+			}
+			religion = taoist
+		}
+		NOR = {
+			is_nomadic = yes
+			is_tribal = yes
+		}
+		hidden_trigger = { mercenary = no }
+		age = 16
+		hidden_trigger = {
+			NOT = { has_character_flag = society_join_block }
+		}
+		trigger_if = {
+			limit = { prisoner = yes }
+			prisoner = no
+		}
+	}
+
+	show_society = {
+		OR = {
+			has_religion_feature = religion_astrology
+			religion_group = political_group
+			religion_group = religious_group
+			religion_group = political_terran_group
+			religion_group = religious_terran_group
+			religion_group = transhumanist_group
+			religion_group = outlaw_group
+			society_member_of = hermetics
+		}
+	}
+
+	potential = {
+		#If something is added here, it could break apprenticeship. Create an event if they can get kicked out. title_hermetics_apprentice
+	}
+
+	society_rank = {
+		level = 1
+		limit = 200
+		startup_limit = 10
+		modifier = {
+			church_opinion = -5
+			#economy_techpoints = 0.05
+		}
+		decisions = {
+			hermetics_write_theory_paper # Enables you to write a theorem paper that, if approved, gives you society power
+		}
+	}
+
+	society_rank = {
+		level = 2
+		limit = 100
+		startup_limit = 6
+		modifier = {
+			learning = 1
+		}
+		decisions = {
+			hermetics_perform_scrying # Enables you to perform a scrying and gain an omen
+			brew_happiness_potion # Enables you to brew a potion
+		}
+	}
+
+	society_rank = {
+		level = 3
+		limit = 50
+		startup_limit = 4
+		modifier = {
+			learning = 2
+			church_opinion = +5
+			health = 3
+		}
+		decisions = {
+			hermetics_make_horoscope # Enables you to "predict" your children's future
+		}
+	}
+
+	society_rank = {
+		level = 4
+		limit = 20
+		startup_limit = 2
+		modifier = {
+			learning = 3
+			church_opinion = +10
+			health = 5
+		}
+		decisions = {
+			choose_hermetic_art # Enables you to pick/change your lifestyle trait
+			hermetics_write_magnum_opus # Write an enciphered book of lore (artifact)
+		}
+	}
+
+	plots = {
+	}
+
+	monthly_currency_gain = {
+		name = currency_name_hermetics
+
+		per_attribute = {
+    		name = learning
+    		value = 0.5
+    	}
+		has_trait = {
+			value = 2
+			trait = diligent
+		}
+		has_trait = {
+			value = 1
+			trait = scholar
+		}
+		has_trait = {
+			value = 1
+			trait = mystic
+		}
+		has_trait = {
+			value = 1
+			trait = erudite
+		}
+		has_trait = {
+			value = 1
+			trait = stubborn
+		}
+		has_trait = {
+			value = 1
+			trait = patient
+		}
+		has_trait = {
+			value = 1
+			trait = genius
+		}
+		has_trait = {
+			value = 1
+			trait = quick
+		}
+		has_trait = {
+			value = 1
+			trait = shrewd
+		}
+		has_trait = {
+			value = 1
+			trait = just
+		}
+		society_rank = {
+			rank = 4
+			value = 10
+		}
+	}
+
+	member_score_per_attribute = 3
+	member_score_per_rank = 100
+
+	member_score = {
+		value = 10
+
+		modifier = {
+			factor = 2
+			trait = diligent
+		}
+		modifier = {
+			factor = 1.5
+			trait = scholar
+		}
+		modifier = {
+			factor = 1.5
+			trait = mystic
+		}
+		modifier = {
+			factor = 1.5
+			trait = erudite
+		}
+		modifier = {
+			factor = 1.5
+			trait = stubborn
+		}
+		modifier = {
+			factor = 1.5
+			trait = patient
+		}
+		modifier = {
+			factor = 1.5
+			OR = {
+				trait = genius
+				trait = quick
+				trait = shrewd
+			}
+		}
+		modifier = {
+			factor = 1.5
+			trait = just
+		}
+	}
+
+	startup_populate = {
+	    trigger = {
+			ai = yes
+			historical = no
+	    	controls_religion = no
+			age = 16
+			is_in_society = no
+			is_dumb_trigger = no
+			OR = {
+				NOT = { is_priest = yes }
+				OR = {
+					trait = mystic
+					trait = scholar
+					trait = skeptic
+				}
+			}
+			OR = {
+				AND = {
+					is_landed = yes
+					OR = {
+						learning = 14
+						trait = scholar
+						trait = faqih
+						trait = erudite
+						trait = genius
+						trait = mystic
+					}
+				}
+				AND = {
+					learning = 18
+					OR = {
+						trait = scholar
+						trait = faqih
+						trait = erudite
+						trait = genius
+						trait = mystic
+						learning = 20
+					}
+				}
+			}
+			OR = {
+				religion_group = political_group
+				religion_group = religious_group
+				religion_group = political_terran_group
+				religion_group = religious_terran_group
+				religion_group = transhumanist_group
+				religion_group = outlaw_group
+			}
+		}
+	}
+}
+
+###THE COMMISSION###
+the_assassins = {
+	primary_attribute = intrigue
+	is_secret = yes
+	devil_worshipper = no
+	opinion_to_other_members = +10
+	opinion_to_pretenders = -10			#Pretenders is the opinion you have of people perceived/discovered to be in your society.
+	opinion_to_perceived_members = -20 	#Perceived is the opinion you have of people perceived/discovered to be of a society you're not part of
+	opinion_per_rank_above = +10
+	society_rank_up_decision = request_to_rank_up_within_society
+	sound = assassins_interface
+	society_influence = no
+
+	active = {
+		has_dlc = "Mystics"
+	}
+	indestructible = yes
+
+	can_join_society = {
+		hidden_trigger = {
+			NAND = {
+				ai = yes
+				is_society_rank_full = {
+					society = the_assassins
+					rank = 1
+				}
+			}
+		}
+		age = 16
+		OR = {
+			true_religion = criminal_syndicate
+			AND = {
+				trait = greedy
+				trait = deceitful
+				NOT = { trait = radical }
+				OR = {
+					trait = schemer
+					trait = elusive_shadow
+					intrigue = 18
+				}
+			}
+			AND = {
+				ai = no
+				NOT = { trait = radical }
+				any_playable_ruler = {
+					religion = criminal_syndicate
+					NOT = {
+						distance_from_realm = { value = 300 who = ROOT }
+					}
+				}
+			}
+		}
+		hidden_trigger = {
+			NOT = { has_character_flag = society_join_block }
+		}
+		trigger_if = {
+			limit = { prisoner = yes }
+			prisoner = no
+		}
+	}
+
+	show_society = {
+		OR = {
+			society_member_of = the_assassins #You can always see the society you are a part of
+			AND = {
+				OR = {
+					religion = criminal_syndicate
+					secret_religion = criminal_syndicate
+					AND = {
+						ai = no
+						NOT = { trait = radical }
+						any_playable_ruler = {
+							religion = criminal_syndicate
+							NOT = {
+								distance_from_realm = { value = 300 who = ROOT }
+							}
+						}
+					}
+				}
+				age = 16
+			}
+		}
+	}
+
+	potential = {
+		OR = {
+			religion = criminal_syndicate
+			secret_religion = criminal_syndicate
+		}
+	}
+
+	society_rank = {
+		level = 1
+		limit = 20
+		startup_limit = 10
+		modifier = {
+			is_visible = {
+				OR = {
+					society_member_of = the_assassins
+					FROM = { is_society_discovered = yes }
+				}
+			}
+			murder_plot_power_modifier = 0.1 # increased plotpower
+		}
+		decisions = {
+			decision_abduct
+			assassins_borrow_money
+			assassins_donate
+			assassins_drug_effect
+		}
+	}
+
+	society_rank = {
+		level = 2
+		limit = 15
+		startup_limit = 6
+		modifier = {
+			is_visible = {
+				OR = {
+					society_member_of = the_assassins
+					FROM = { is_society_discovered = yes }
+				}
+			}
+			murder_plot_power_modifier = 0.2 # further increased plotpower
+			defensive_plot_power_modifier = 0.1
+			intrigue = 1
+			combat_rating = 10 # bonus to dueling
+		}
+		powers = {
+			warrior_lodge_duel #Passive Power: Unlocks Duel
+		}
+		decisions = {
+			assassins_scare_ruler #Available (targeted) Power: Can scare rulers to get a Favor (leave a dagger on their pillow, etc.
+		}
+	}
+
+	society_rank = {
+		level = 3
+		limit = 5
+		startup_limit = 3
+		modifier = {
+			is_visible = {
+				OR = {
+					society_member_of = the_assassins
+					FROM = { is_society_discovered = yes }
+				}
+			}
+			murder_plot_power_modifier = 0.30 # further increased plotpower
+			defensive_plot_power_modifier = 0.15
+			intrigue = 2 # further increase
+			combat_rating = 10 # bonus to dueling (left over)
+			plot_discovery_chance = 0.1 # bonus to plot discovery chance
+		}
+		powers = {
+			warrior_lodge_survivor #Passive Power: Survivor
+		}
+		decisions = {
+			assassins_raise_ships #Available Power: Can raise special fleet of Ships
+		}
+	}
+
+	society_rank = {
+		level = 4
+		limit = 1
+		startup_limit = 1
+		modifier = {
+			is_visible = {
+				OR = {
+					society_member_of = the_assassins
+					FROM = { is_society_discovered = yes }
+				}
+			}
+			murder_plot_power_modifier = 0.50 # further increased plotpower
+			defensive_plot_power_modifier = 0.25
+			intrigue = 3 # further increase
+			combat_rating = 10 # bonus to dueling (left over)
+			plot_discovery_chance = 0.2 # further bonus to plot discovery chance
+		}
+		decisions = {
+			assassins_raise_troops #Available Power: Can raise a special regiment
+			assassins_mark_for_death #Available (targeted) Power: Mark for death (+ assassins_clear_marked_for_death_target i.e. the clearing of the mark)
+		}
+		obedience_tooltip = obedience_tooltip #this can be unique per rank/society
+		obedient = {
+			ROOT = {
+				always = yes
+			}
+		}
+	}
+
+	monthly_currency_gain = {
+		name = currency_name_the_assassins
+
+		per_attribute = {
+			name = intrigue
+			value = 0.5
+		}
+		has_trait = {
+			trait = radical
+			value = 3
+		}
+		has_trait = {
+			trait = greedy
+			value = 3
+		}
+		has_trait = {
+			trait = ruthless
+			value = 3
+		}
+		has_trait = {
+			trait = cruel
+			value = 3
+		}
+		has_trait = {
+			trait = schemer
+			value = 3
+		}
+		has_trait = {
+			trait = strong
+			value = 1
+		}
+		has_trait = {
+			trait = robust
+			value = 1
+		}
+		has_trait = {
+			trait = genius
+			value = 1
+		}
+		has_trait = {
+			trait = quick
+			value = 1
+		}
+		has_trait = {
+			trait = shrewd
+			value = 1
+		}
+		has_trait = {
+			trait = diligent
+			value = 1
+		}
+		has_trait = {
+			trait = patient
+			value = 1
+		}
+		has_trait = {
+			trait = temperate
+			value = 1
+		}
+		has_trait = {
+			trait = charitable
+			value = 1
+		}
+		society_rank = {
+			rank = 4
+			value = 10
+		}
+	}
+
+	member_score_per_attribute = 3
+	member_score_per_rank = 100
+
+	member_score = {
+		value = 10
+
+		modifier = {
+			primary_title = { title = d_hashshashin }
+			factor = 2
+		}
+		modifier = {
+			trait = radical
+			factor = 1.3
+		}
+		modifier = {
+			trait = greedy
+			factor = 1.3
+		}
+		modifier = {
+			trait = ruthless
+			factor = 1.3
+		}
+		modifier = {
+			trait = cruel
+			factor = 1.3
+		}
+		modifier = {
+			trait = schemer
+			factor = 1.3
+		}
+		modifier = {
+			trait = strong
+			factor = 1.1
+		}
+		modifier = {
+			trait = robust
+			factor = 1.1
+		}
+		modifier = {
+			trait = genius
+			factor = 1.1
+		}
+		modifier = {
+			trait = quick
+			factor = 1.1
+		}
+		modifier = {
+			trait = shrewd
+			factor = 1.1
+		}
+		modifier = {
+			trait = diligent
+			factor = 1.1
+		}
+		modifier = {
+			trait = patient
+			factor = 1.1
+		}
+		modifier = {
+			trait = temperate
+			factor = 1.1
+		}
+		modifier = {
+			trait = charitable
+			factor = 1.1
+		}
+	}
+
+	startup_populate = {
+	    trigger = {
+			ai = yes
+			historical = no
+	    	controls_religion = no
+			religion = criminal_syndicate
+			age = 16
+			OR = {
+				is_female = no
+				has_game_rule = {
+					name = gender
+					value = all
+				}
+				has_religion_feature = religion_matriarchal
+			}
+			OR = {
+				is_female = yes
+				NOT = {
+					has_religion_feature = religion_matriarchal
+				}
+			}
+			NOT = { trait = decadent }
+			OR = {
+				trait = radical
+				trait = schemer
+				trait = elusive_shadow
+				trait = deceitful
+				trait = ambitious
+				intrigue = 18
+			}
+			is_in_society = no
+			NOT = { higher_tier_than = DUKE }
+			NOT = { mercenary = yes }
+			OR = {
+				NOT = { holy_order = yes }
+				primary_title = { title = d_hades }
+			}
+		}
+	}
+}
+
+###GALACTIC COUNCIL###
+monastic_order_stoics = {
+	primary_attribute = diplomacy
+	opinion_to_other_members = +10
+	opinion_per_rank_above = +5
+	sound = monastic_orders_interface
+	society_rank_up_decision = request_to_rank_up_within_society
+	society_influence = no
+	non_interference = {
+		always = yes
+	}
+
+	active = {
+		has_dlc = "Mystics"
+	}
+	indestructible = yes
+
+	can_join_society = {
+		hidden_trigger = {
+			NAND = {
+				ai = yes
+				is_society_rank_full = {
+					society = monastic_order_stoics
+					rank = 1
+				}
+			}
+		}
+		age = 16
+		NOR = {
+			religion = hiver
+			religion = imperial_cult
+			religion = astrist
+			religion = xenoterran
+			religion_group = outlaw_group
+			is_tribal = yes
+			is_nomadic = yes
+		}
+		OR = {
+			religion_group = political_group
+			religion_group = religious_group
+			religion_group = political_terran_group
+			religion_group = religious_terran_group
+			religion_group = transhumanist_group
+		}
+		NOT = { trait = excommunicated }
+		NOT = { trait = radical }
+		NOT = { trait = warlord }
+		custom_tooltip = {
+			text = did_not_betray_society
+			NOT = { has_character_flag = betrayed_monastic_order_stoics }
+		}
+		scaled_wealth = 0.25
+		hidden_trigger = {
+		NOT = { has_character_flag = society_join_block } }
+		trigger_if = {
+			limit = { prisoner = yes }
+			prisoner = no
+		}
+	}
+
+	show_society = {
+		NOR = {
+			religion = hiver
+			religion = imperial_cult
+			religion = astrist
+			religion = xenoterran
+			religion_group = outlaw_group
+			is_tribal = yes
+			is_nomadic = yes
+		}
+		OR = {
+			religion_group = political_group
+			religion_group = religious_group
+			religion_group = political_terran_group
+			religion_group = religious_terran_group
+			religion_group = transhumanist_group
+			society_member_of = monastic_order_stoics
+		}
+	}
+
+	potential = {
+	}
+
+	society_rank = {
+		level = 1
+		limit = 60
+		startup_limit = 10
+		modifier = {
+			monthly_character_piety = 0.05
+		}
+	}
+
+	society_rank = {
+		level = 2
+		limit = 30
+		startup_limit = 6
+		modifier = {
+			monthly_character_piety = 0.1
+			diplomacy = 1
+		}
+		decisions = {
+
+			monastic_orders_spiritual_guidance
+		}
+		custom_tooltip = monastic_order_education_power_tt
+	}
+
+	society_rank = {
+		level = 3
+		limit = 25
+		startup_limit = 4
+		modifier = {
+			monthly_character_piety = 0.2
+			diplomacy = 1
+			stewardship = 1
+			build_cost_city_modifier = -0.25
+			global_revolt_risk = -0.02
+		}
+		decisions = {
+			monastic_orders_teach_virtue
+		}
+		custom_tooltip = dharmic_good_trait_power_tt
+	}
+
+	society_rank = {
+		level = 4
+		limit = 8
+		startup_limit = 2
+		modifier = {
+			monthly_character_piety = 0.5
+			diplomacy = 2
+			stewardship = 1
+			build_cost_city_modifier = -0.5
+			global_revolt_risk = -0.06
+		}
+		decisions = {
+			monastic_order_convert_county
+		}
+		custom_tooltip = benedictine_power_diligent_tt
+	}
+
+	monthly_currency_gain = {
+		name = currency_name_monastic_order_stoics
+
+    	per_attribute = {
+    		name = diplomacy
+    		value = 0.5
+    	}
+		has_trait = {
+			trait = confident
+			value = 4
+		}
+		has_trait = {
+			trait = disciplined
+			value = 4
+		}
+		has_trait = {
+			trait = ambitious
+			value = 4
+		}
+		has_trait = {
+			trait = diligent
+			value = 4
+		}
+		has_trait = {
+			trait = gregarious
+			value = 3
+		}
+    	has_trait = {
+			trait = temperate
+			value = 2
+		}
+		has_trait = {
+			trait = born_in_the_purple
+			value = 2
+		}
+		has_trait = {
+			trait = just
+			value = 2
+		}
+		has_trait = {
+			trait = socializer
+			value = 2
+		}
+		has_trait = {
+			trait = outgoing
+			value = 1
+		}
+    	has_trait = {
+			trait = trusting
+			value = 1
+		}
+		has_trait = {
+			trait = charitable
+			value = 1
+		}
+		has_trait = {
+			trait = kind
+			value = 1
+		}
+		has_trait = {
+			trait = patient
+			value = 1
+		}
+		has_trait = {
+			trait = humble
+			value = 1
+		}
+		has_trait = {
+			trait = honest
+			value = 1
+		}
+		has_trait = {
+			trait = gamer
+			value = 1
+		}
+		has_trait = {
+			trait = open_minded
+			value = 1
+		}
+		society_rank = {
+			rank = 4
+			value = 10
+		}
+	}
+
+	member_score_per_attribute = 3
+	member_score_per_rank = 100
+
+	member_score = {
+		value = 10
+
+		modifier = {
+			trait = confident
+			factor = 5
+		}
+		modifier = {
+			trait = disciplined
+			factor = 3
+		}
+		modifier = {
+			trait = diligent
+			factor = 2
+		}
+		modifier = {
+			trait = gregarious
+			factor = 2
+		}
+		modifier = {
+			trait = just
+			factor = 2
+		}
+		modifier = {
+			trait = ambitious
+			factor = 1.2
+		}
+    	modifier = {
+			trait = patient
+			factor = 1.1
+		}
+		modifier = {
+			trait = temperate
+			factor = 1.1
+		}
+		modifier = {
+			trait = charitable
+			factor = 1.1
+		}
+		modifier = {
+			trait = kind
+			factor = 1.1
+		}
+		modifier = {
+			trait = patient
+			factor = 1.1
+		}
+		modifier = {
+			trait = humble
+			factor = 1.1
+		}
+		modifier = {
+			trait = honest
+			factor = 1.1
+		}
+		modifier = {
+			trait = skeptic
+			factor = 1.1
+		}
+	}
+
+	startup_populate = {
+	    trigger = {
+			historical = no
+			ai = yes
+	  	  	controls_religion = no
+		NOR = {
+			religion = hiver
+			religion = imperial_cult
+			religion = astrist
+			religion = xenoterran
+			religion_group = outlaw_group
+			is_tribal = yes
+			is_nomadic = yes
+		}
+			OR = {
+				religion_group = political_group
+				religion_group = religious_group
+				religion_group = political_terran_group
+				religion_group = religious_terran_group
+				religion_group = transhumanist_group
+			}
+			age = 16
+			is_in_society = no
+			NOT = { higher_tier_than = DUKE }
+			NOR = {
+				mercenary = yes
+				holy_order = yes
+			}
+			NOT = { trait = excommunicated }
+			NOT = { trait = radical }
+			has_secret_religion_trait_trigger = no
+			OR = {
+				trait = disciplined
+				trait = confident
+				trait = ambitious
+				trait = gregarious
+				trait = diligent
+				diplomacy = 16
+			}
+		}
+	}
+}

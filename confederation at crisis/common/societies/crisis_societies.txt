@@ -1,0 +1,3314 @@
+### SCHOOLS ###
+# Civilian Schools
+university_of_the_confederation = {
+	primary_attribute = learning
+	opinion_to_other_members = +10
+	opinion_per_rank_above = +5
+	sound = hermetic_society_interface
+	society_rank_up_decision = civilian_school_graduation_decision
+	active = { NOT = { has_global_flag = flag_no_university_of_the_confederation } }
+	
+	show_society = { c_sol = { holder_scope = { is_within_diplo_range = ROOT } } }
+	can_join_society = {
+		age = 18
+		NOT = { religion_group = outlaw_group }
+		NOT = { has_character_flag = flag_expelled_university_of_the_confederation }
+		OR = {
+			has_education_diplomacy_trigger = yes
+			has_education_stewardship_trigger = yes
+			has_education_learning_trigger = yes
+		}
+	}
+	potential = {
+		NOT = { has_character_flag = flag_expelled_university_of_the_confederation }
+		NOT = { c_sol = { holder_scope = { war_with = ROOT } } }
+	}
+	
+	# Student
+	society_rank = {
+		level = 1
+		limit = 200
+		startup_limit = 50
+		modifier = {
+			monthly_character_wealth = -0.2
+		}
+	}
+	
+	# Associate
+	society_rank = {
+		level = 2
+		limit = 500
+		startup_limit = 50
+		modifier = {
+			monthly_character_wealth = -0.1
+			monthly_character_prestige = 0.1
+		}
+	}
+	
+	# Professor
+	society_rank = {
+		level = 3
+		limit = 20
+		startup_limit = 10
+		modifier = {
+			monthly_character_wealth = 0.1
+			monthly_character_prestige = 0.1
+		}
+	}
+	
+	# Rector
+	society_rank = {
+		level = 4
+		limit = 1
+		startup_limit = 1
+		modifier = {
+			monthly_character_wealth = 0.2
+			monthly_character_prestige = 0.25
+		}
+	}
+	
+	monthly_currency_gain = {
+		name = currency_name_university_of_the_confederation
+		per_attribute = {
+			name = learning
+			value = 1
+		}
+		has_trait = {
+			trait = open_minded
+			value = 5
+		}
+		has_trait = {
+			trait = introverted
+			value = 5
+		}
+		has_trait = {
+			trait = disciplined
+			value = 5
+		}
+		has_trait = {
+			trait = honest
+			value = 5
+		}
+		has_trait = {
+			trait = intellectual
+			value = 10
+		}
+		triggered_gain = {
+			trigger = {
+				society_rank >= 2
+				society = {
+					any_society_member = {
+						is_society_grandmaster = yes
+						opinion = { who = ROOT value = 50 }
+					}
+				}
+			}
+			desc = "GRANDMASTERSFAVOR"
+			value = 10
+		}
+	}
+
+	member_score_per_attribute = 3
+	member_score_per_rank = 100
+
+	member_score = {
+		value = 10
+		
+		modifier = {
+			factor = 10
+			OR = {
+				trait = lawyer
+				trait = economist
+				trait = physician
+				trait = scientist
+			}
+		}
+		modifier = {
+			factor = 10
+			trait = intellectual
+		}
+		
+		modifier = {
+			factor = 2
+			crownlaw_title = {
+				OR = {
+					is_landed_title = e_terran_confederation
+					is_landed_title = k_terran_commonwealth
+				}
+			}
+		}
+		modifier = {
+			factor = 4
+			culture_group = terran_group
+		}
+		modifier = {
+			factor = 2
+			trait = disciplined
+		}
+		modifier = {
+			factor = 2
+			trait = open_minded
+		}
+		modifier = {
+			factor = 2
+			trait = confident
+		}
+	}
+
+	startup_populate = {
+	    trigger = {
+			ai = yes
+			historical = no # Historical members should be added manually
+	    	controls_religion = no
+			age = 18
+			is_in_society = no
+			is_dumb_trigger = no
+			NOT = { religion_group = outlaw_group }
+			OR = {
+				c_huangjing = { same_realm = ROOT }
+				culture_group = terran_group
+			}
+			OR = {
+				has_education_diplomacy_trigger = yes
+				has_education_stewardship_trigger = yes
+				has_education_learning_trigger = yes
+			}
+			OR = {
+				diplomacy = 8
+				stewardship = 8
+				learning = 12
+				NOT = { age = 25 }
+			}
+			learning = 8
+		}
+	}
+}
+university_of_huangjing = {
+	primary_attribute = learning
+	opinion_to_other_members = +10
+	opinion_per_rank_above = +5
+	sound = hermetic_society_interface
+	society_rank_up_decision = civilian_school_graduation_decision
+	active = { NOT = { has_global_flag = flag_no_university_of_huangjing } }
+	
+	show_society = { c_huangjing = { holder_scope = { is_within_diplo_range = ROOT } } }
+	can_join_society = {
+		age = 18
+		NOT = { religion_group = outlaw_group }
+		NOT = { has_character_flag = flag_expelled_university_of_huangjing }
+		OR = {
+			has_education_diplomacy_trigger = yes
+			has_education_stewardship_trigger = yes
+			has_education_learning_trigger = yes
+		}
+	}
+	potential = {
+		NOT = { has_character_flag = flag_expelled_university_of_huangjing }
+		NOT = { c_huangjing = { holder_scope = { war_with = ROOT } } }
+	}
+	
+	# Student
+	society_rank = {
+		level = 1
+		limit = 200
+		startup_limit = 50
+		modifier = {
+			monthly_character_wealth = -0.2
+		}
+	}
+	
+	# Associate
+	society_rank = {
+		level = 2
+		limit = 500
+		startup_limit = 50
+		modifier = {
+			monthly_character_wealth = -0.1
+			monthly_character_prestige = 0.1
+		}
+	}
+	
+	# Professor
+	society_rank = {
+		level = 3
+		limit = 20
+		startup_limit = 10
+		modifier = {
+			monthly_character_wealth = 0.1
+			monthly_character_prestige = 0.1
+		}
+	}
+	
+	# Rector
+	society_rank = {
+		level = 4
+		limit = 1
+		startup_limit = 1
+		modifier = {
+			monthly_character_wealth = 0.2
+			monthly_character_prestige = 0.25
+		}
+	}
+	
+	monthly_currency_gain = {
+		name = currency_name_university_of_huangjing
+		per_attribute = {
+			name = learning
+			value = 1
+		}
+		has_trait = {
+			trait = open_minded
+			value = 5
+		}
+		has_trait = {
+			trait = introverted
+			value = 5
+		}
+		has_trait = {
+			trait = disciplined
+			value = 5
+		}
+		has_trait = {
+			trait = honest
+			value = 5
+		}
+		has_trait = {
+			trait = intellectual
+			value = 10
+		}
+		triggered_gain = {
+			trigger = {
+				society_rank >= 2
+				society = {
+					any_society_member = {
+						is_society_grandmaster = yes
+						opinion = { who = ROOT value = 50 }
+					}
+				}
+			}
+			desc = "GRANDMASTERSFAVOR"
+			value = 10
+		}
+	}
+
+	member_score_per_attribute = 3
+	member_score_per_rank = 100
+
+	member_score = {
+		value = 10
+		
+		modifier = {
+			factor = 10
+			OR = {
+				trait = lawyer
+				trait = economist
+				trait = physician
+				trait = scientist
+			}
+		}
+		modifier = {
+			factor = 10
+			trait = intellectual
+		}
+		
+		modifier = {
+			factor = 2
+			crownlaw_title = {
+				OR = {
+					is_landed_title = e_terran_confederation
+					is_landed_title = e_xingjie
+					is_landed_title = k_xingjie
+				}
+			}
+		}
+		modifier = {
+			factor = 4
+			culture_group = xingjie_group
+		}
+		modifier = {
+			factor = 2
+			trait = disciplined
+		}
+		modifier = {
+			factor = 2
+			trait = open_minded
+		}
+		modifier = {
+			factor = 2
+			trait = confident
+		}
+	}
+
+	startup_populate = {
+	    trigger = {
+			ai = yes
+			historical = no # Historical members should be added manually
+	    	controls_religion = no
+			age = 18
+			is_in_society = no
+			is_dumb_trigger = no
+			NOT = { religion_group = outlaw_group }
+			OR = {
+				c_huangjing = { same_realm = ROOT }
+				culture_group = xingjie_group
+			}
+			OR = {
+				has_education_diplomacy_trigger = yes
+				has_education_stewardship_trigger = yes
+				has_education_learning_trigger = yes
+			}
+			OR = {
+				diplomacy = 8
+				stewardship = 8
+				learning = 12
+				NOT = { age = 25 }
+			}
+			learning = 8
+		}
+	}
+}
+university_of_encrucijada = {
+	primary_attribute = learning
+	opinion_to_other_members = +10
+	opinion_per_rank_above = +5
+	sound = hermetic_society_interface
+	society_rank_up_decision = civilian_school_graduation_decision
+	active = { NOT = { has_global_flag = flag_no_university_of_encrucijada } }
+	
+	show_society = { c_encrucijada = { holder_scope = { is_within_diplo_range = ROOT } } }
+	can_join_society = {
+		age = 18
+		NOT = { religion_group = outlaw_group }
+		NOT = { has_character_flag = flag_expelled_university_of_encrucijada }
+		OR = {
+			has_education_diplomacy_trigger = yes
+			has_education_stewardship_trigger = yes
+			has_education_learning_trigger = yes
+		}
+	}
+	potential = {
+		NOT = { has_character_flag = flag_expelled_university_of_encrucijada }
+		NOT = { c_encrucijada = { holder_scope = { war_with = ROOT } } }
+	}
+	
+	# Student
+	society_rank = {
+		level = 1
+		limit = 200
+		startup_limit = 50
+		modifier = {
+			monthly_character_wealth = -0.2
+		}
+	}
+	
+	# Associate
+	society_rank = {
+		level = 2
+		limit = 500
+		startup_limit = 50
+		modifier = {
+			monthly_character_wealth = -0.1
+			monthly_character_prestige = 0.1
+		}
+	}
+	
+	# Professor
+	society_rank = {
+		level = 3
+		limit = 20
+		startup_limit = 10
+		modifier = {
+			monthly_character_wealth = 0.1
+			monthly_character_prestige = 0.1
+		}
+	}
+	
+	# Rector
+	society_rank = {
+		level = 4
+		limit = 1
+		startup_limit = 1
+		modifier = {
+			monthly_character_wealth = 0.2
+			monthly_character_prestige = 0.25
+		}
+	}
+	
+	monthly_currency_gain = {
+		name = currency_name_university_of_encrucijada
+		per_attribute = {
+			name = learning
+			value = 1
+		}
+		has_trait = {
+			trait = open_minded
+			value = 5
+		}
+		has_trait = {
+			trait = introverted
+			value = 5
+		}
+		has_trait = {
+			trait = disciplined
+			value = 5
+		}
+		has_trait = {
+			trait = honest
+			value = 5
+		}
+		has_trait = {
+			trait = intellectual
+			value = 10
+		}
+		triggered_gain = {
+			trigger = {
+				society_rank >= 2
+				society = {
+					any_society_member = {
+						is_society_grandmaster = yes
+						opinion = { who = ROOT value = 50 }
+					}
+				}
+			}
+			desc = "GRANDMASTERSFAVOR"
+			value = 10
+		}
+	}
+
+	member_score_per_attribute = 3
+	member_score_per_rank = 100
+
+	member_score = {
+		value = 10
+		
+		modifier = {
+			factor = 10
+			OR = {
+				trait = lawyer
+				trait = economist
+				trait = physician
+				trait = scientist
+			}
+		}
+		modifier = {
+			factor = 10
+			trait = intellectual
+		}
+		
+		modifier = {
+			factor = 2
+			crownlaw_title = {
+				OR = {
+					is_landed_title = e_terran_confederation
+					is_landed_title = e_tierra_celeste
+					is_landed_title = k_tierra_celeste
+				}
+			}
+		}
+		modifier = {
+			factor = 4
+			culture_group = celestean_group
+		}
+		modifier = {
+			factor = 2
+			trait = disciplined
+		}
+		modifier = {
+			factor = 2
+			trait = open_minded
+		}
+		modifier = {
+			factor = 2
+			trait = confident
+		}
+	}
+
+	startup_populate = {
+	    trigger = {
+			ai = yes
+			historical = no # Historical members should be added manually
+	    	controls_religion = no
+			age = 18
+			is_in_society = no
+			is_dumb_trigger = no
+			NOT = { religion_group = outlaw_group }
+			OR = {
+				c_encrucijada = { same_realm = ROOT }
+				culture_group = celestean_group
+			}
+			OR = {
+				has_education_diplomacy_trigger = yes
+				has_education_stewardship_trigger = yes
+				has_education_learning_trigger = yes
+			}
+			OR = {
+				diplomacy = 10
+				stewardship = 10
+				learning = 15
+				NOT = { age = 25 }
+			}
+			learning = 10
+		}
+	}
+}
+university_of_makkat_al_jadiida = {
+	primary_attribute = learning
+	opinion_to_other_members = +10
+	opinion_per_rank_above = +5
+	sound = hermetic_society_interface
+	society_rank_up_decision = civilian_school_graduation_decision
+	active = { NOT = { has_global_flag = flag_no_university_of_makkat_al_jadiida } }
+	
+	show_society = { c_makkat_al_jadiida = { holder_scope = { is_within_diplo_range = ROOT } } }
+	can_join_society = {
+		age = 18
+		NOT = { religion_group = outlaw_group }
+		NOT = { has_character_flag = flag_expelled_university_of_makkat_al_jadiida }
+		OR = {
+			has_education_diplomacy_trigger = yes
+			has_education_stewardship_trigger = yes
+			has_education_learning_trigger = yes
+		}
+	}
+	potential = {
+		NOT = { has_character_flag = flag_expelled_university_of_makkat_al_jadiida }
+		NOT = { c_makkat_al_jadiida = { holder_scope = { war_with = ROOT } } }
+	}
+	
+	# Student
+	society_rank = {
+		level = 1
+		limit = 200
+		startup_limit = 50
+		modifier = {
+			monthly_character_wealth = -0.2
+		}
+	}
+	
+	# Associate
+	society_rank = {
+		level = 2
+		limit = 500
+		startup_limit = 50
+		modifier = {
+			monthly_character_wealth = -0.1
+			monthly_character_prestige = 0.1
+		}
+	}
+	
+	# Professor
+	society_rank = {
+		level = 3
+		limit = 20
+		startup_limit = 10
+		modifier = {
+			monthly_character_wealth = 0.1
+			monthly_character_prestige = 0.1
+		}
+	}
+	
+	# Rector
+	society_rank = {
+		level = 4
+		limit = 1
+		startup_limit = 1
+		modifier = {
+			monthly_character_wealth = 0.2
+			monthly_character_prestige = 0.25
+		}
+	}
+	
+	monthly_currency_gain = {
+		name = currency_name_university_of_makkat_al_jadiida
+		per_attribute = {
+			name = learning
+			value = 1
+		}
+		has_trait = {
+			trait = open_minded
+			value = 5
+		}
+		has_trait = {
+			trait = introverted
+			value = 5
+		}
+		has_trait = {
+			trait = disciplined
+			value = 5
+		}
+		has_trait = {
+			trait = honest
+			value = 5
+		}
+		has_trait = {
+			trait = intellectual
+			value = 10
+		}
+		triggered_gain = {
+			trigger = {
+				society_rank >= 2
+				society = {
+					any_society_member = {
+						is_society_grandmaster = yes
+						opinion = { who = ROOT value = 50 }
+					}
+				}
+			}
+			desc = "GRANDMASTERSFAVOR"
+			value = 10
+		}
+	}
+
+	member_score_per_attribute = 3
+	member_score_per_rank = 100
+
+	member_score = {
+		value = 10
+		
+		modifier = {
+			factor = 10
+			OR = {
+				trait = lawyer
+				trait = economist
+				trait = physician
+				trait = scientist
+			}
+		}
+		modifier = {
+			factor = 10
+			trait = intellectual
+		}
+		
+		modifier = {
+			factor = 2
+			crownlaw_title = {
+				OR = {
+					is_landed_title = e_terran_confederation
+					is_landed_title = e_al_samawat
+					is_landed_title = k_al_samawat
+				}
+			}
+		}
+		modifier = {
+			factor = 4
+			culture_group = samawati_group
+		}
+		modifier = {
+			factor = 2
+			trait = disciplined
+		}
+		modifier = {
+			factor = 2
+			trait = open_minded
+		}
+		modifier = {
+			factor = 2
+			trait = confident
+		}
+	}
+
+	startup_populate = {
+	    trigger = {
+			ai = yes
+			historical = no # Historical members should be added manually
+	    	controls_religion = no
+			age = 18
+			is_in_society = no
+			is_dumb_trigger = no
+			NOT = { religion_group = outlaw_group }
+			OR = {
+				c_makkat_al_jadiida = { same_realm = ROOT }
+				culture_group = samawati_group
+			}
+			OR = {
+				has_education_diplomacy_trigger = yes
+				has_education_stewardship_trigger = yes
+				has_education_learning_trigger = yes
+			}
+			OR = {
+				diplomacy = 10
+				stewardship = 10
+				learning = 15
+				NOT = { age = 25 }
+			}
+			learning = 10
+		}
+	}
+}
+university_of_nyota_mwisho = {
+	primary_attribute = learning
+	opinion_to_other_members = +10
+	opinion_per_rank_above = +5
+	sound = hermetic_society_interface
+	society_rank_up_decision = civilian_school_graduation_decision
+	active = { NOT = { has_global_flag = flag_no_university_of_nyota_mwisho } }
+	
+	show_society = { c_nyota_mwisho = { holder_scope = { is_within_diplo_range = ROOT } } }
+	can_join_society = {
+		age = 18
+		NOT = { religion_group = outlaw_group }
+		NOT = { has_character_flag = flag_expelled_university_of_nyota_mwisho }
+		OR = {
+			has_education_diplomacy_trigger = yes
+			has_education_stewardship_trigger = yes
+			has_education_learning_trigger = yes
+		}
+	}
+	potential = {
+		NOT = { has_character_flag = flag_expelled_university_of_nyota_mwisho }
+		NOT = { c_nyota_mwisho = { holder_scope = { war_with = ROOT } } }
+	}
+	
+	# Student
+	society_rank = {
+		level = 1
+		limit = 200
+		startup_limit = 50
+		modifier = {
+			monthly_character_wealth = -0.2
+		}
+	}
+	
+	# Associate
+	society_rank = {
+		level = 2
+		limit = 500
+		startup_limit = 50
+		modifier = {
+			monthly_character_wealth = -0.1
+			monthly_character_prestige = 0.1
+		}
+	}
+	
+	# Professor
+	society_rank = {
+		level = 3
+		limit = 20
+		startup_limit = 10
+		modifier = {
+			monthly_character_wealth = 0.1
+			monthly_character_prestige = 0.1
+		}
+	}
+	
+	# Rector
+	society_rank = {
+		level = 4
+		limit = 1
+		startup_limit = 1
+		modifier = {
+			monthly_character_wealth = 0.2
+			monthly_character_prestige = 0.25
+		}
+	}
+	
+	monthly_currency_gain = {
+		name = currency_name_university_of_nyota_mwisho
+		per_attribute = {
+			name = learning
+			value = 1
+		}
+		has_trait = {
+			trait = open_minded
+			value = 5
+		}
+		has_trait = {
+			trait = introverted
+			value = 5
+		}
+		has_trait = {
+			trait = disciplined
+			value = 5
+		}
+		has_trait = {
+			trait = honest
+			value = 5
+		}
+		has_trait = {
+			trait = intellectual
+			value = 10
+		}
+		triggered_gain = {
+			trigger = {
+				society_rank >= 2
+				society = {
+					any_society_member = {
+						is_society_grandmaster = yes
+						opinion = { who = ROOT value = 50 }
+					}
+				}
+			}
+			desc = "GRANDMASTERSFAVOR"
+			value = 10
+		}
+	}
+
+	member_score_per_attribute = 3
+	member_score_per_rank = 100
+
+	member_score = {
+		value = 10
+		
+		modifier = {
+			factor = 10
+			OR = {
+				trait = lawyer
+				trait = economist
+				trait = physician
+				trait = scientist
+			}
+		}
+		modifier = {
+			factor = 10
+			trait = intellectual
+		}
+		
+		modifier = {
+			factor = 2
+			crownlaw_title = {
+				OR = {
+					is_landed_title = e_terran_confederation
+					is_landed_title = e_zenye_nyota_angani
+					is_landed_title = k_zenye_nyota_angani
+				}
+			}
+		}
+		modifier = {
+			factor = 4
+			culture_group = angani_group
+		}
+		modifier = {
+			factor = 2
+			trait = disciplined
+		}
+		modifier = {
+			factor = 2
+			trait = open_minded
+		}
+		modifier = {
+			factor = 2
+			trait = confident
+		}
+	}
+
+	startup_populate = {
+	    trigger = {
+			ai = yes
+			historical = no # Historical members should be added manually
+	    	controls_religion = no
+			age = 18
+			is_in_society = no
+			is_dumb_trigger = no
+			NOT = { religion_group = outlaw_group }
+			OR = {
+				c_nyota_mwisho = { same_realm = ROOT }
+				culture_group = angani_group
+			}
+			OR = {
+				has_education_diplomacy_trigger = yes
+				has_education_stewardship_trigger = yes
+				has_education_learning_trigger = yes
+			}
+			OR = {
+				diplomacy = 10
+				stewardship = 10
+				learning = 15
+				NOT = { age = 25 }
+			}
+			learning = 10
+		}
+	}
+}
+university_of_armstrong = {
+	primary_attribute = learning
+	opinion_to_other_members = +10
+	opinion_per_rank_above = +5
+	sound = hermetic_society_interface
+	society_rank_up_decision = civilian_school_graduation_decision
+	active = { NOT = { has_global_flag = flag_no_university_of_armstrong } }
+	
+	show_society = { c_armstrong = { holder_scope = { is_within_diplo_range = ROOT } } }
+	can_join_society = {
+		age = 18
+		NOT = { religion_group = outlaw_group }
+		NOT = { has_character_flag = flag_expelled_university_of_armstrong }
+		OR = {
+			has_education_diplomacy_trigger = yes
+			has_education_stewardship_trigger = yes
+			has_education_learning_trigger = yes
+		}
+	}
+	potential = {
+		NOT = { has_character_flag = flag_expelled_university_of_armstrong }
+		NOT = { c_armstrong = { holder_scope = { war_with = ROOT } } }
+	}
+	
+	# Student
+	society_rank = {
+		level = 1
+		limit = 200
+		startup_limit = 50
+		modifier = {
+			monthly_character_wealth = -0.2
+		}
+	}
+	
+	# Associate
+	society_rank = {
+		level = 2
+		limit = 500
+		startup_limit = 50
+		modifier = {
+			monthly_character_wealth = -0.1
+			monthly_character_prestige = 0.1
+		}
+	}
+	
+	# Professor
+	society_rank = {
+		level = 3
+		limit = 20
+		startup_limit = 10
+		modifier = {
+			monthly_character_wealth = 0.1
+			monthly_character_prestige = 0.1
+		}
+	}
+	
+	# Rector
+	society_rank = {
+		level = 4
+		limit = 1
+		startup_limit = 1
+		modifier = {
+			monthly_character_wealth = 0.2
+			monthly_character_prestige = 0.25
+		}
+	}
+	
+	monthly_currency_gain = {
+		name = currency_name_university_of_armstrong
+		per_attribute = {
+			name = learning
+			value = 1
+		}
+		has_trait = {
+			trait = open_minded
+			value = 5
+		}
+		has_trait = {
+			trait = introverted
+			value = 5
+		}
+		has_trait = {
+			trait = disciplined
+			value = 5
+		}
+		has_trait = {
+			trait = honest
+			value = 5
+		}
+		has_trait = {
+			trait = intellectual
+			value = 10
+		}
+		triggered_gain = {
+			trigger = {
+				society_rank >= 2
+				society = {
+					any_society_member = {
+						is_society_grandmaster = yes
+						opinion = { who = ROOT value = 50 }
+					}
+				}
+			}
+			desc = "GRANDMASTERSFAVOR"
+			value = 10
+		}
+	}
+
+	member_score_per_attribute = 3
+	member_score_per_rank = 100
+
+	member_score = {
+		value = 10
+		
+		modifier = {
+			factor = 10
+			OR = {
+				trait = lawyer
+				trait = economist
+				trait = physician
+				trait = scientist
+			}
+		}
+		modifier = {
+			factor = 10
+			trait = intellectual
+		}
+		
+		modifier = {
+			factor = 2
+			crownlaw_title = {
+				OR = {
+					is_landed_title = e_terran_confederation
+					is_landed_title = e_frontier
+					is_landed_title = k_frontier
+				}
+			}
+		}
+		modifier = {
+			factor = 4
+			culture_group = frontiersman_group
+		}
+		modifier = {
+			factor = 2
+			trait = disciplined
+		}
+		modifier = {
+			factor = 2
+			trait = open_minded
+		}
+		modifier = {
+			factor = 2
+			trait = confident
+		}
+	}
+
+	startup_populate = {
+	    trigger = {
+			ai = yes
+			historical = no # Historical members should be added manually
+	    	controls_religion = no
+			age = 18
+			is_in_society = no
+			is_dumb_trigger = no
+			NOT = { religion_group = outlaw_group }
+			OR = {
+				c_armstrong = { same_realm = ROOT }
+				culture_group = frontiersman_group
+			}
+			OR = {
+				has_education_diplomacy_trigger = yes
+				has_education_stewardship_trigger = yes
+				has_education_learning_trigger = yes
+			}
+			OR = {
+				diplomacy = 10
+				stewardship = 10
+				learning = 15
+				NOT = { age = 25 }
+			}
+			learning = 10
+		}
+	}
+}
+university_of_tereshkova = {
+	primary_attribute = learning
+	opinion_to_other_members = +10
+	opinion_per_rank_above = +5
+	sound = hermetic_society_interface
+	society_rank_up_decision = civilian_school_graduation_decision
+	active = { NOT = { has_global_flag = flag_no_university_of_tereshkova } }
+	
+	show_society = { c_tereshkova = { holder_scope = { is_within_diplo_range = ROOT } } }
+	can_join_society = {
+		age = 18
+		NOT = { religion_group = outlaw_group }
+		NOT = { has_character_flag = flag_expelled_university_of_tereshkova }
+		OR = {
+			has_education_diplomacy_trigger = yes
+			has_education_stewardship_trigger = yes
+			has_education_learning_trigger = yes
+		}
+	}
+	potential = {
+		NOT = { has_character_flag = flag_expelled_university_of_tereshkova }
+		NOT = { c_tereshkova = { holder_scope = { war_with = ROOT } } }
+	}
+	
+	# Student
+	society_rank = {
+		level = 1
+		limit = 200
+		startup_limit = 50
+		modifier = {
+			monthly_character_wealth = -0.2
+		}
+	}
+	
+	# Associate
+	society_rank = {
+		level = 2
+		limit = 500
+		startup_limit = 50
+		modifier = {
+			monthly_character_wealth = -0.1
+			monthly_character_prestige = 0.1
+		}
+	}
+	
+	# Professor
+	society_rank = {
+		level = 3
+		limit = 20
+		startup_limit = 10
+		modifier = {
+			monthly_character_wealth = 0.1
+			monthly_character_prestige = 0.1
+		}
+	}
+	
+	# Rector
+	society_rank = {
+		level = 4
+		limit = 1
+		startup_limit = 1
+		modifier = {
+			monthly_character_wealth = 0.2
+			monthly_character_prestige = 0.25
+		}
+	}
+	
+	monthly_currency_gain = {
+		name = currency_name_university_of_tereshkova
+		per_attribute = {
+			name = learning
+			value = 1
+		}
+		has_trait = {
+			trait = open_minded
+			value = 5
+		}
+		has_trait = {
+			trait = introverted
+			value = 5
+		}
+		has_trait = {
+			trait = disciplined
+			value = 5
+		}
+		has_trait = {
+			trait = honest
+			value = 5
+		}
+		has_trait = {
+			trait = intellectual
+			value = 10
+		}
+		triggered_gain = {
+			trigger = {
+				society_rank >= 2
+				society = {
+					any_society_member = {
+						is_society_grandmaster = yes
+						opinion = { who = ROOT value = 50 }
+					}
+				}
+			}
+			desc = "GRANDMASTERSFAVOR"
+			value = 10
+		}
+	}
+
+	member_score_per_attribute = 3
+	member_score_per_rank = 100
+
+	member_score = {
+		value = 10
+		
+		modifier = {
+			factor = 10
+			OR = {
+				trait = lawyer
+				trait = economist
+				trait = physician
+				trait = scientist
+			}
+		}
+		modifier = {
+			factor = 10
+			trait = intellectual
+		}
+		
+		modifier = {
+			factor = 2
+			crownlaw_title = {
+				OR = {
+					is_landed_title = e_terran_confederation
+					is_landed_title = e_centauri_reach
+					is_landed_title = k_centauri_reach
+				}
+			}
+		}
+		modifier = {
+			factor = 4
+			culture_group = goldrus_group
+		}
+		modifier = {
+			factor = 2
+			trait = disciplined
+		}
+		modifier = {
+			factor = 2
+			trait = open_minded
+		}
+		modifier = {
+			factor = 2
+			trait = confident
+		}
+	}
+
+	startup_populate = {
+	    trigger = {
+			ai = yes
+			historical = no # Historical members should be added manually
+	    	controls_religion = no
+			age = 18
+			is_in_society = no
+			is_dumb_trigger = no
+			NOT = { religion_group = outlaw_group }
+			OR = {
+				c_tereshkova = { same_realm = ROOT }
+				culture_group = goldrus_group
+			}
+			OR = {
+				has_education_diplomacy_trigger = yes
+				has_education_stewardship_trigger = yes
+				has_education_learning_trigger = yes
+			}
+			OR = {
+				diplomacy = 10
+				stewardship = 10
+				learning = 15
+				NOT = { age = 25 }
+			}
+			learning = 10
+		}
+	}
+}
+university_of_xin_qin = {
+	primary_attribute = learning
+	opinion_to_other_members = +10
+	opinion_per_rank_above = +5
+	sound = hermetic_society_interface
+	society_rank_up_decision = civilian_school_graduation_decision
+	active = { NOT = { has_global_flag = flag_no_university_of_xin_qin } }
+	
+	show_society = { c_xin_qin = { holder_scope = { is_within_diplo_range = ROOT } } }
+	can_join_society = {
+		age = 18
+		NOT = { religion_group = outlaw_group }
+		NOT = { has_character_flag = flag_expelled_university_of_xin_qin }
+		OR = {
+			has_education_diplomacy_trigger = yes
+			has_education_stewardship_trigger = yes
+			has_education_learning_trigger = yes
+		}
+	}
+	potential = {
+		NOT = { has_character_flag = flag_expelled_university_of_xin_qin }
+		NOT = { c_xin_qin = { holder_scope = { war_with = ROOT } } }
+	}
+	
+	# Student
+	society_rank = {
+		level = 1
+		limit = 200
+		startup_limit = 50
+		modifier = {
+			monthly_character_wealth = -0.2
+		}
+	}
+	
+	# Associate
+	society_rank = {
+		level = 2
+		limit = 500
+		startup_limit = 50
+		modifier = {
+			monthly_character_wealth = -0.1
+			monthly_character_prestige = 0.1
+		}
+	}
+	
+	# Professor
+	society_rank = {
+		level = 3
+		limit = 20
+		startup_limit = 10
+		modifier = {
+			monthly_character_wealth = 0.1
+			monthly_character_prestige = 0.1
+		}
+	}
+	
+	# Rector
+	society_rank = {
+		level = 4
+		limit = 1
+		startup_limit = 1
+		modifier = {
+			monthly_character_wealth = 0.2
+			monthly_character_prestige = 0.25
+		}
+	}
+	
+	monthly_currency_gain = {
+		name = currency_name_university_of_xin_qin
+		per_attribute = {
+			name = learning
+			value = 1
+		}
+		has_trait = {
+			trait = open_minded
+			value = 5
+		}
+		has_trait = {
+			trait = introverted
+			value = 5
+		}
+		has_trait = {
+			trait = disciplined
+			value = 5
+		}
+		has_trait = {
+			trait = honest
+			value = 5
+		}
+		has_trait = {
+			trait = intellectual
+			value = 10
+		}
+		triggered_gain = {
+			trigger = {
+				society_rank >= 2
+				society = {
+					any_society_member = {
+						is_society_grandmaster = yes
+						opinion = { who = ROOT value = 50 }
+					}
+				}
+			}
+			desc = "GRANDMASTERSFAVOR"
+			value = 10
+		}
+	}
+
+	member_score_per_attribute = 3
+	member_score_per_rank = 100
+
+	member_score = {
+		value = 10
+		
+		modifier = {
+			factor = 10
+			OR = {
+				trait = lawyer
+				trait = economist
+				trait = physician
+				trait = scientist
+			}
+		}
+		modifier = {
+			factor = 10
+			trait = intellectual
+		}
+		
+		modifier = {
+			factor = 2
+			crownlaw_title = {
+				OR = {
+					is_landed_title = e_terran_confederation
+					is_landed_title = e_xin_zizhiqu
+					is_landed_title = k_xin_zizhiqu
+				}
+			}
+		}
+		modifier = {
+			factor = 4
+			culture_group = bianjiangese_group
+		}
+		modifier = {
+			factor = 2
+			trait = disciplined
+		}
+		modifier = {
+			factor = 2
+			trait = open_minded
+		}
+		modifier = {
+			factor = 2
+			trait = confident
+		}
+	}
+
+	startup_populate = {
+	    trigger = {
+			ai = yes
+			historical = no # Historical members should be added manually
+	    	controls_religion = no
+			age = 18
+			is_in_society = no
+			is_dumb_trigger = no
+			NOT = { religion_group = outlaw_group }
+			OR = {
+				c_xin_qin = { same_realm = ROOT }
+				culture_group = bianjiangese_group
+			}
+			OR = {
+				has_education_diplomacy_trigger = yes
+				has_education_stewardship_trigger = yes
+				has_education_learning_trigger = yes
+			}
+			OR = {
+				diplomacy = 10
+				stewardship = 10
+				learning = 15
+				NOT = { age = 25 }
+			}
+			learning = 10
+		}
+	}
+}
+university_of_bianjiang = {
+	primary_attribute = learning
+	opinion_to_other_members = +10
+	opinion_per_rank_above = +5
+	sound = hermetic_society_interface
+	society_rank_up_decision = civilian_school_graduation_decision
+	active = { NOT = { has_global_flag = flag_no_university_of_bianjiang } }
+	
+	show_society = { c_xie_xian = { holder_scope = { is_within_diplo_range = ROOT } } }
+	can_join_society = {
+		age = 18
+		NOT = { religion_group = outlaw_group }
+		NOT = { has_character_flag = flag_expelled_university_of_bianjiang }
+		OR = {
+			has_education_diplomacy_trigger = yes
+			has_education_stewardship_trigger = yes
+			has_education_learning_trigger = yes
+		}
+	}
+	potential = {
+		NOT = { has_character_flag = flag_expelled_university_of_bianjiang }
+		NOT = { c_xie_xian = { holder_scope = { war_with = ROOT } } }
+	}
+	
+	# Student
+	society_rank = {
+		level = 1
+		limit = 200
+		startup_limit = 50
+		modifier = {
+			monthly_character_wealth = -0.2
+		}
+	}
+	
+	# Associate
+	society_rank = {
+		level = 2
+		limit = 500
+		startup_limit = 50
+		modifier = {
+			monthly_character_wealth = -0.1
+			monthly_character_prestige = 0.1
+		}
+	}
+	
+	# Professor
+	society_rank = {
+		level = 3
+		limit = 20
+		startup_limit = 10
+		modifier = {
+			monthly_character_wealth = 0.1
+			monthly_character_prestige = 0.1
+		}
+	}
+	
+	# Rector
+	society_rank = {
+		level = 4
+		limit = 1
+		startup_limit = 1
+		modifier = {
+			monthly_character_wealth = 0.2
+			monthly_character_prestige = 0.25
+		}
+	}
+	
+	monthly_currency_gain = {
+		name = currency_name_university_of_bianjiang
+		per_attribute = {
+			name = learning
+			value = 1
+		}
+		has_trait = {
+			trait = open_minded
+			value = 5
+		}
+		has_trait = {
+			trait = introverted
+			value = 5
+		}
+		has_trait = {
+			trait = disciplined
+			value = 5
+		}
+		has_trait = {
+			trait = honest
+			value = 5
+		}
+		has_trait = {
+			trait = intellectual
+			value = 10
+		}
+		triggered_gain = {
+			trigger = {
+				society_rank >= 2
+				society = {
+					any_society_member = {
+						is_society_grandmaster = yes
+						opinion = { who = ROOT value = 50 }
+					}
+				}
+			}
+			desc = "GRANDMASTERSFAVOR"
+			value = 10
+		}
+	}
+
+	member_score_per_attribute = 3
+	member_score_per_rank = 100
+
+	member_score = {
+		value = 10
+		
+		modifier = {
+			factor = 10
+			OR = {
+				trait = lawyer
+				trait = economist
+				trait = physician
+				trait = scientist
+			}
+		}
+		modifier = {
+			factor = 10
+			trait = intellectual
+		}
+		
+		modifier = {
+			factor = 2
+			crownlaw_title = {
+				OR = {
+					is_landed_title = e_terran_confederation
+					is_landed_title = e_bianjiang
+					is_landed_title = k_bianjiang
+				}
+			}
+		}
+		modifier = {
+			factor = 4
+			culture_group = bianjiangese_group
+		}
+		modifier = {
+			factor = 2
+			trait = disciplined
+		}
+		modifier = {
+			factor = 2
+			trait = open_minded
+		}
+		modifier = {
+			factor = 2
+			trait = confident
+		}
+	}
+
+	startup_populate = {
+	    trigger = {
+			ai = yes
+			historical = no # Historical members should be added manually
+	    	controls_religion = no
+			age = 18
+			is_in_society = no
+			is_dumb_trigger = no
+			NOT = { religion_group = outlaw_group }
+			OR = {
+				c_xie_xian = { same_realm = ROOT }
+				culture_group = bianjiangese_group
+			}
+			OR = {
+				has_education_diplomacy_trigger = yes
+				has_education_stewardship_trigger = yes
+				has_education_learning_trigger = yes
+			}
+			OR = {
+				diplomacy = 10
+				stewardship = 10
+				learning = 15
+				NOT = { age = 25 }
+			}
+			learning = 10
+		}
+	}
+}
+university_of_the_reach = {
+	primary_attribute = learning
+	opinion_to_other_members = +10
+	opinion_per_rank_above = +5
+	sound = hermetic_society_interface
+	society_rank_up_decision = civilian_school_graduation_decision
+	active = { NOT = { has_global_flag = flag_no_university_of_the_reach } }
+	
+	show_society = { c_seldon = { holder_scope = { is_within_diplo_range = ROOT } } }
+	can_join_society = {
+		age = 18
+		NOT = { religion_group = outlaw_group }
+		NOT = { has_character_flag = flag_expelled_university_of_the_reach }
+		OR = {
+			has_education_diplomacy_trigger = yes
+			has_education_stewardship_trigger = yes
+			has_education_learning_trigger = yes
+		}
+	}
+	potential = {
+		NOT = { has_character_flag = flag_expelled_university_of_the_reach }
+		NOT = { c_seldon = { holder_scope = { war_with = ROOT } } }
+	}
+	
+	# Student
+	society_rank = {
+		level = 1
+		limit = 200
+		startup_limit = 50
+		modifier = {
+			monthly_character_wealth = -0.2
+		}
+	}
+	
+	# Associate
+	society_rank = {
+		level = 2
+		limit = 500
+		startup_limit = 50
+		modifier = {
+			monthly_character_wealth = -0.1
+			monthly_character_prestige = 0.1
+		}
+	}
+	
+	# Professor
+	society_rank = {
+		level = 3
+		limit = 20
+		startup_limit = 10
+		modifier = {
+			monthly_character_wealth = 0.1
+			monthly_character_prestige = 0.1
+		}
+	}
+	
+	# Rector
+	society_rank = {
+		level = 4
+		limit = 1
+		startup_limit = 1
+		modifier = {
+			monthly_character_wealth = 0.2
+			monthly_character_prestige = 0.25
+		}
+	}
+	
+	monthly_currency_gain = {
+		name = currency_name_university_of_the_reach
+		per_attribute = {
+			name = learning
+			value = 1
+		}
+		has_trait = {
+			trait = open_minded
+			value = 5
+		}
+		has_trait = {
+			trait = introverted
+			value = 5
+		}
+		has_trait = {
+			trait = disciplined
+			value = 5
+		}
+		has_trait = {
+			trait = honest
+			value = 5
+		}
+		has_trait = {
+			trait = intellectual
+			value = 10
+		}
+		triggered_gain = {
+			trigger = {
+				society_rank >= 2
+				society = {
+					any_society_member = {
+						is_society_grandmaster = yes
+						opinion = { who = ROOT value = 50 }
+					}
+				}
+			}
+			desc = "GRANDMASTERSFAVOR"
+			value = 10
+		}
+	}
+
+	member_score_per_attribute = 3
+	member_score_per_rank = 100
+
+	member_score = {
+		value = 10
+		
+		modifier = {
+			factor = 10
+			OR = {
+				trait = lawyer
+				trait = economist
+				trait = physician
+				trait = scientist
+			}
+		}
+		modifier = {
+			factor = 10
+			trait = intellectual
+		}
+		
+		modifier = {
+			factor = 2
+			crownlaw_title = {
+				OR = {
+					is_landed_title = e_terran_confederation
+					is_landed_title = e_orion_reach
+					is_landed_title = k_orion_reach
+				}
+			}
+		}
+		modifier = {
+			factor = 4
+			culture_group = orion_group
+		}
+		modifier = {
+			factor = 2
+			trait = disciplined
+		}
+		modifier = {
+			factor = 2
+			trait = open_minded
+		}
+		modifier = {
+			factor = 2
+			trait = confident
+		}
+	}
+
+	startup_populate = {
+	    trigger = {
+			ai = yes
+			historical = no # Historical members should be added manually
+	    	controls_religion = no
+			age = 18
+			is_in_society = no
+			is_dumb_trigger = no
+			NOT = { religion_group = outlaw_group }
+			OR = {
+				c_seldon = { same_realm = ROOT }
+				culture_group = orion_group
+			}
+			OR = {
+				has_education_diplomacy_trigger = yes
+				has_education_stewardship_trigger = yes
+				has_education_learning_trigger = yes
+			}
+			OR = {
+				diplomacy = 10
+				stewardship = 10
+				learning = 15
+				NOT = { age = 25 }
+			}
+			learning = 10
+		}
+	}
+}
+university_of_paraiso = {
+	primary_attribute = learning
+	opinion_to_other_members = +10
+	opinion_per_rank_above = +5
+	sound = hermetic_society_interface
+	society_rank_up_decision = civilian_school_graduation_decision
+	active = { NOT = { has_global_flag = flag_no_university_of_paraiso } }
+	
+	show_society = { c_paraiso = { holder_scope = { is_within_diplo_range = ROOT } } }
+	can_join_society = {
+		age = 18
+		NOT = { religion_group = outlaw_group }
+		NOT = { has_character_flag = flag_expelled_university_of_paraiso }
+		OR = {
+			has_education_diplomacy_trigger = yes
+			has_education_stewardship_trigger = yes
+			has_education_learning_trigger = yes
+		}
+	}
+	potential = {
+		NOT = { has_character_flag = flag_expelled_university_of_paraiso }
+		NOT = { c_paraiso = { holder_scope = { war_with = ROOT } } }
+	}
+	
+	# Student
+	society_rank = {
+		level = 1
+		limit = 200
+		startup_limit = 50
+		modifier = {
+			monthly_character_wealth = -0.2
+		}
+	}
+	
+	# Associate
+	society_rank = {
+		level = 2
+		limit = 500
+		startup_limit = 50
+		modifier = {
+			monthly_character_wealth = -0.1
+			monthly_character_prestige = 0.1
+		}
+	}
+	
+	# Professor
+	society_rank = {
+		level = 3
+		limit = 20
+		startup_limit = 10
+		modifier = {
+			monthly_character_wealth = 0.1
+			monthly_character_prestige = 0.1
+		}
+	}
+	
+	# Rector
+	society_rank = {
+		level = 4
+		limit = 1
+		startup_limit = 1
+		modifier = {
+			monthly_character_wealth = 0.2
+			monthly_character_prestige = 0.25
+		}
+	}
+	
+	monthly_currency_gain = {
+		name = currency_name_university_of_paraiso
+		per_attribute = {
+			name = learning
+			value = 1
+		}
+		has_trait = {
+			trait = open_minded
+			value = 5
+		}
+		has_trait = {
+			trait = introverted
+			value = 5
+		}
+		has_trait = {
+			trait = disciplined
+			value = 5
+		}
+		has_trait = {
+			trait = honest
+			value = 5
+		}
+		has_trait = {
+			trait = intellectual
+			value = 10
+		}
+		triggered_gain = {
+			trigger = {
+				society_rank >= 2
+				society = {
+					any_society_member = {
+						is_society_grandmaster = yes
+						opinion = { who = ROOT value = 50 }
+					}
+				}
+			}
+			desc = "GRANDMASTERSFAVOR"
+			value = 10
+		}
+	}
+
+	member_score_per_attribute = 3
+	member_score_per_rank = 100
+
+	member_score = {
+		value = 10
+		
+		modifier = {
+			factor = 10
+			OR = {
+				trait = lawyer
+				trait = economist
+				trait = physician
+				trait = scientist
+			}
+		}
+		modifier = {
+			factor = 10
+			trait = intellectual
+		}
+		
+		modifier = {
+			factor = 2
+			crownlaw_title = {
+				OR = {
+					is_landed_title = e_terran_confederation
+					is_landed_title = e_paraiso
+					is_landed_title = k_paraiso
+				}
+			}
+		}
+		modifier = {
+			factor = 4
+			culture_group = orion_group
+		}
+		modifier = {
+			factor = 2
+			trait = disciplined
+		}
+		modifier = {
+			factor = 2
+			trait = open_minded
+		}
+		modifier = {
+			factor = 2
+			trait = confident
+		}
+	}
+
+	startup_populate = {
+	    trigger = {
+			ai = yes
+			historical = no # Historical members should be added manually
+	    	controls_religion = no
+			age = 18
+			is_in_society = no
+			is_dumb_trigger = no
+			NOT = { religion_group = outlaw_group }
+			OR = {
+				c_paraiso = { same_realm = ROOT }
+				culture_group = orion_group
+			}
+			OR = {
+				has_education_diplomacy_trigger = yes
+				has_education_stewardship_trigger = yes
+				has_education_learning_trigger = yes
+			}
+			OR = {
+				diplomacy = 10
+				stewardship = 10
+				learning = 15
+				NOT = { age = 25 }
+			}
+			learning = 10
+		}
+	}
+}
+university_of_cauraha = {
+	primary_attribute = learning
+	opinion_to_other_members = +10
+	opinion_per_rank_above = +5
+	sound = hermetic_society_interface
+	society_rank_up_decision = civilian_school_graduation_decision
+	active = { NOT = { has_global_flag = flag_no_university_of_cauraha } }
+	
+	show_society = { c_cauraha = { holder_scope = { is_within_diplo_range = ROOT } } }
+	can_join_society = {
+		age = 18
+		NOT = { religion_group = outlaw_group }
+		NOT = { has_character_flag = flag_expelled_university_of_cauraha }
+		OR = {
+			has_education_diplomacy_trigger = yes
+			has_education_stewardship_trigger = yes
+			has_education_learning_trigger = yes
+		}
+	}
+	potential = {
+		NOT = { has_character_flag = flag_expelled_university_of_cauraha }
+		NOT = { c_cauraha = { holder_scope = { war_with = ROOT } } }
+	}
+	
+	# Student
+	society_rank = {
+		level = 1
+		limit = 200
+		startup_limit = 50
+		modifier = {
+			monthly_character_wealth = -0.2
+		}
+	}
+	
+	# Associate
+	society_rank = {
+		level = 2
+		limit = 500
+		startup_limit = 50
+		modifier = {
+			monthly_character_wealth = -0.1
+			monthly_character_prestige = 0.1
+		}
+	}
+	
+	# Professor
+	society_rank = {
+		level = 3
+		limit = 20
+		startup_limit = 10
+		modifier = {
+			monthly_character_wealth = 0.1
+			monthly_character_prestige = 0.1
+		}
+	}
+	
+	# Rector
+	society_rank = {
+		level = 4
+		limit = 1
+		startup_limit = 1
+		modifier = {
+			monthly_character_wealth = 0.2
+			monthly_character_prestige = 0.25
+		}
+	}
+	
+	monthly_currency_gain = {
+		name = currency_name_university_of_cauraha
+		per_attribute = {
+			name = learning
+			value = 1
+		}
+		has_trait = {
+			trait = open_minded
+			value = 5
+		}
+		has_trait = {
+			trait = introverted
+			value = 5
+		}
+		has_trait = {
+			trait = disciplined
+			value = 5
+		}
+		has_trait = {
+			trait = honest
+			value = 5
+		}
+		has_trait = {
+			trait = intellectual
+			value = 10
+		}
+		triggered_gain = {
+			trigger = {
+				society_rank >= 2
+				society = {
+					any_society_member = {
+						is_society_grandmaster = yes
+						opinion = { who = ROOT value = 50 }
+					}
+				}
+			}
+			desc = "GRANDMASTERSFAVOR"
+			value = 10
+		}
+	}
+
+	member_score_per_attribute = 3
+	member_score_per_rank = 100
+
+	member_score = {
+		value = 10
+		
+		modifier = {
+			factor = 10
+			OR = {
+				trait = lawyer
+				trait = economist
+				trait = physician
+				trait = scientist
+			}
+		}
+		modifier = {
+			factor = 10
+			trait = intellectual
+		}
+		
+		modifier = {
+			factor = 2
+			crownlaw_title = {
+				OR = {
+					is_landed_title = e_terran_confederation
+					is_landed_title = e_mukta_duniya
+					is_landed_title = k_mukta_duniya
+				}
+			}
+		}
+		modifier = {
+			factor = 4
+			culture_group = mukta_group
+		}
+		modifier = {
+			factor = 2
+			trait = disciplined
+		}
+		modifier = {
+			factor = 2
+			trait = open_minded
+		}
+		modifier = {
+			factor = 2
+			trait = confident
+		}
+	}
+
+	startup_populate = {
+	    trigger = {
+			ai = yes
+			historical = no # Historical members should be added manually
+	    	controls_religion = no
+			age = 18
+			is_in_society = no
+			is_dumb_trigger = no
+			NOT = { religion_group = outlaw_group }
+			OR = {
+				c_cauraha = { same_realm = ROOT }
+				culture_group = mukta_group
+			}
+			OR = {
+				has_education_diplomacy_trigger = yes
+				has_education_stewardship_trigger = yes
+				has_education_learning_trigger = yes
+			}
+			OR = {
+				diplomacy = 10
+				stewardship = 10
+				learning = 15
+				NOT = { age = 25 }
+			}
+			learning = 10
+		}
+	}
+}
+university_of_tarka = {
+	primary_attribute = learning
+	opinion_to_other_members = +10
+	opinion_per_rank_above = +5
+	sound = hermetic_society_interface
+	society_rank_up_decision = civilian_school_graduation_decision
+	active = { NOT = { has_global_flag = flag_no_university_of_tarka } }
+	
+	show_society = { c_tarka = { holder_scope = { is_within_diplo_range = ROOT } } }
+	can_join_society = {
+		age = 18
+		NOT = { religion_group = outlaw_group }
+		NOT = { has_character_flag = flag_expelled_university_of_tarka }
+		OR = {
+			has_education_diplomacy_trigger = yes
+			has_education_stewardship_trigger = yes
+			has_education_learning_trigger = yes
+		}
+	}
+	potential = {
+		NOT = { has_character_flag = flag_expelled_university_of_tarka }
+		NOT = { c_tarka = { holder_scope = { war_with = ROOT } } }
+	}
+	
+	# Student
+	society_rank = {
+		level = 1
+		limit = 200
+		startup_limit = 50
+		modifier = {
+			monthly_character_wealth = -0.2
+		}
+	}
+	
+	# Associate
+	society_rank = {
+		level = 2
+		limit = 500
+		startup_limit = 50
+		modifier = {
+			monthly_character_wealth = -0.1
+			monthly_character_prestige = 0.1
+		}
+	}
+	
+	# Professor
+	society_rank = {
+		level = 3
+		limit = 20
+		startup_limit = 10
+		modifier = {
+			monthly_character_wealth = 0.1
+			monthly_character_prestige = 0.1
+		}
+	}
+	
+	# Rector
+	society_rank = {
+		level = 4
+		limit = 1
+		startup_limit = 1
+		modifier = {
+			monthly_character_wealth = 0.2
+			monthly_character_prestige = 0.25
+		}
+	}
+	
+	monthly_currency_gain = {
+		name = currency_name_university_of_tarka
+		per_attribute = {
+			name = learning
+			value = 1
+		}
+		has_trait = {
+			trait = open_minded
+			value = 5
+		}
+		has_trait = {
+			trait = introverted
+			value = 5
+		}
+		has_trait = {
+			trait = disciplined
+			value = 5
+		}
+		has_trait = {
+			trait = honest
+			value = 5
+		}
+		has_trait = {
+			trait = intellectual
+			value = 10
+		}
+		triggered_gain = {
+			trigger = {
+				society_rank >= 2
+				society = {
+					any_society_member = {
+						is_society_grandmaster = yes
+						opinion = { who = ROOT value = 50 }
+					}
+				}
+			}
+			desc = "GRANDMASTERSFAVOR"
+			value = 10
+		}
+	}
+
+	member_score_per_attribute = 3
+	member_score_per_rank = 100
+
+	member_score = {
+		value = 10
+		
+		modifier = {
+			factor = 10
+			OR = {
+				trait = lawyer
+				trait = economist
+				trait = physician
+				trait = scientist
+			}
+		}
+		modifier = {
+			factor = 10
+			trait = intellectual
+		}
+		
+		modifier = {
+			factor = 2
+			crownlaw_title = {
+				OR = {
+					is_landed_title = e_terran_confederation
+					is_landed_title = e_tarka
+					is_landed_title = k_tarka
+				}
+			}
+		}
+		modifier = {
+			factor = 4
+			culture_group = tarkan_group
+		}
+		modifier = {
+			factor = 2
+			trait = disciplined
+		}
+		modifier = {
+			factor = 2
+			trait = open_minded
+		}
+		modifier = {
+			factor = 2
+			trait = confident
+		}
+	}
+
+	startup_populate = {
+	    trigger = {
+			ai = yes
+			historical = no # Historical members should be added manually
+	    	controls_religion = no
+			age = 18
+			is_in_society = no
+			is_dumb_trigger = no
+			NOT = { religion_group = outlaw_group }
+			OR = {
+				c_tarka = { same_realm = ROOT }
+				culture_group = tarkan_group
+			}
+			OR = {
+				has_education_diplomacy_trigger = yes
+				has_education_stewardship_trigger = yes
+				has_education_learning_trigger = yes
+			}
+			OR = {
+				diplomacy = 10
+				stewardship = 10
+				learning = 15
+				NOT = { age = 25 }
+			}
+			learning = 10
+		}
+	}
+}
+university_of_avalon = {
+	primary_attribute = learning
+	opinion_to_other_members = +10
+	opinion_per_rank_above = +5
+	sound = hermetic_society_interface
+	society_rank_up_decision = civilian_school_graduation_decision
+	active = { NOT = { has_global_flag = flag_no_university_of_avalon } }
+	
+	show_society = { c_merlin = { holder_scope = { is_within_diplo_range = ROOT } } }
+	can_join_society = {
+		age = 18
+		NOT = { religion_group = outlaw_group }
+		NOT = { has_character_flag = flag_expelled_university_of_avalon }
+		OR = {
+			has_education_diplomacy_trigger = yes
+			has_education_stewardship_trigger = yes
+			has_education_learning_trigger = yes
+		}
+	}
+	potential = {
+		NOT = { has_character_flag = flag_expelled_university_of_avalon }
+		NOT = { c_merlin = { holder_scope = { war_with = ROOT } } }
+	}
+	
+	# Student
+	society_rank = {
+		level = 1
+		limit = 200
+		startup_limit = 50
+		modifier = {
+			monthly_character_wealth = -0.2
+		}
+	}
+	
+	# Associate
+	society_rank = {
+		level = 2
+		limit = 500
+		startup_limit = 50
+		modifier = {
+			monthly_character_wealth = -0.1
+			monthly_character_prestige = 0.1
+		}
+	}
+	
+	# Professor
+	society_rank = {
+		level = 3
+		limit = 20
+		startup_limit = 10
+		modifier = {
+			monthly_character_wealth = 0.1
+			monthly_character_prestige = 0.1
+		}
+	}
+	
+	# Rector
+	society_rank = {
+		level = 4
+		limit = 1
+		startup_limit = 1
+		modifier = {
+			monthly_character_wealth = 0.2
+			monthly_character_prestige = 0.25
+		}
+	}
+	
+	monthly_currency_gain = {
+		name = currency_name_university_of_avalon
+		per_attribute = {
+			name = learning
+			value = 1
+		}
+		has_trait = {
+			trait = open_minded
+			value = 5
+		}
+		has_trait = {
+			trait = introverted
+			value = 5
+		}
+		has_trait = {
+			trait = disciplined
+			value = 5
+		}
+		has_trait = {
+			trait = honest
+			value = 5
+		}
+		has_trait = {
+			trait = intellectual
+			value = 10
+		}
+		triggered_gain = {
+			trigger = {
+				society_rank >= 2
+				society = {
+					any_society_member = {
+						is_society_grandmaster = yes
+						opinion = { who = ROOT value = 50 }
+					}
+				}
+			}
+			desc = "GRANDMASTERSFAVOR"
+			value = 10
+		}
+	}
+
+	member_score_per_attribute = 3
+	member_score_per_rank = 100
+
+	member_score = {
+		value = 10
+		
+		modifier = {
+			factor = 10
+			OR = {
+				trait = lawyer
+				trait = economist
+				trait = physician
+				trait = scientist
+			}
+		}
+		modifier = {
+			factor = 10
+			trait = intellectual
+		}
+		
+		modifier = {
+			factor = 2
+			crownlaw_title = {
+				OR = {
+					is_landed_title = e_terran_confederation
+					is_landed_title = e_avalon
+					is_landed_title = k_avalon
+				}
+			}
+		}
+		modifier = {
+			factor = 4
+			culture_group = avalonian_group
+		}
+		modifier = {
+			factor = 2
+			trait = disciplined
+		}
+		modifier = {
+			factor = 2
+			trait = open_minded
+		}
+		modifier = {
+			factor = 2
+			trait = confident
+		}
+	}
+
+	startup_populate = {
+	    trigger = {
+			ai = yes
+			historical = no # Historical members should be added manually
+	    	controls_religion = no
+			age = 18
+			is_in_society = no
+			is_dumb_trigger = no
+			NOT = { religion_group = outlaw_group }
+			OR = {
+				c_merlin = { same_realm = ROOT }
+				culture_group = avalonian_group
+			}
+			OR = {
+				has_education_diplomacy_trigger = yes
+				has_education_stewardship_trigger = yes
+				has_education_learning_trigger = yes
+			}
+			OR = {
+				diplomacy = 10
+				stewardship = 10
+				learning = 15
+				NOT = { age = 25 }
+			}
+			learning = 10
+		}
+	}
+}
+university_of_franklin = {
+	primary_attribute = learning
+	opinion_to_other_members = +10
+	opinion_per_rank_above = +5
+	sound = hermetic_society_interface
+	society_rank_up_decision = civilian_school_graduation_decision
+	active = { NOT = { has_global_flag = flag_no_university_of_franklin } }
+	
+	show_society = { c_franklin = { holder_scope = { is_within_diplo_range = ROOT } } }
+	can_join_society = {
+		age = 18
+		NOT = { religion_group = outlaw_group }
+		NOT = { has_character_flag = flag_expelled_university_of_franklin }
+		OR = {
+			has_education_diplomacy_trigger = yes
+			has_education_stewardship_trigger = yes
+			has_education_learning_trigger = yes
+		}
+	}
+	potential = {
+		NOT = { has_character_flag = flag_expelled_university_of_franklin }
+		NOT = { c_franklin = { holder_scope = { war_with = ROOT } } }
+	}
+	
+	# Student
+	society_rank = {
+		level = 1
+		limit = 200
+		startup_limit = 50
+		modifier = {
+			monthly_character_wealth = -0.2
+		}
+	}
+	
+	# Associate
+	society_rank = {
+		level = 2
+		limit = 500
+		startup_limit = 50
+		modifier = {
+			monthly_character_wealth = -0.1
+			monthly_character_prestige = 0.1
+		}
+	}
+	
+	# Professor
+	society_rank = {
+		level = 3
+		limit = 20
+		startup_limit = 10
+		modifier = {
+			monthly_character_wealth = 0.1
+			monthly_character_prestige = 0.1
+		}
+	}
+	
+	# Rector
+	society_rank = {
+		level = 4
+		limit = 1
+		startup_limit = 1
+		modifier = {
+			monthly_character_wealth = 0.2
+			monthly_character_prestige = 0.25
+		}
+	}
+	
+	monthly_currency_gain = {
+		name = currency_name_university_of_franklin
+		per_attribute = {
+			name = learning
+			value = 1
+		}
+		has_trait = {
+			trait = open_minded
+			value = 5
+		}
+		has_trait = {
+			trait = introverted
+			value = 5
+		}
+		has_trait = {
+			trait = disciplined
+			value = 5
+		}
+		has_trait = {
+			trait = honest
+			value = 5
+		}
+		has_trait = {
+			trait = intellectual
+			value = 10
+		}
+		triggered_gain = {
+			trigger = {
+				society_rank >= 2
+				society = {
+					any_society_member = {
+						is_society_grandmaster = yes
+						opinion = { who = ROOT value = 50 }
+					}
+				}
+			}
+			desc = "GRANDMASTERSFAVOR"
+			value = 10
+		}
+	}
+
+	member_score_per_attribute = 3
+	member_score_per_rank = 100
+
+	member_score = {
+		value = 10
+		
+		modifier = {
+			factor = 10
+			OR = {
+				trait = lawyer
+				trait = economist
+				trait = physician
+				trait = scientist
+			}
+		}
+		modifier = {
+			factor = 10
+			trait = intellectual
+		}
+		
+		modifier = {
+			factor = 2
+			crownlaw_title = {
+				OR = {
+					is_landed_title = e_terran_confederation
+					is_landed_title = e_new_frontier
+					is_landed_title = k_new_frontier
+				}
+			}
+		}
+		modifier = {
+			factor = 4
+			culture_group = frontiersman_group
+		}
+		modifier = {
+			factor = 2
+			trait = disciplined
+		}
+		modifier = {
+			factor = 2
+			trait = open_minded
+		}
+		modifier = {
+			factor = 2
+			trait = confident
+		}
+	}
+
+	startup_populate = {
+	    trigger = {
+			ai = yes
+			historical = no # Historical members should be added manually
+	    	controls_religion = no
+			age = 18
+			is_in_society = no
+			is_dumb_trigger = no
+			NOT = { religion_group = outlaw_group }
+			OR = {
+				c_franklin = { same_realm = ROOT }
+				culture_group = frontiersman_group
+			}
+			OR = {
+				has_education_diplomacy_trigger = yes
+				has_education_stewardship_trigger = yes
+				has_education_learning_trigger = yes
+			}
+			OR = {
+				diplomacy = 10
+				stewardship = 10
+				learning = 15
+				NOT = { age = 25 }
+			}
+			learning = 10
+		}
+	}
+}
+university_of_hiyokuoka = {
+	primary_attribute = learning
+	opinion_to_other_members = +10
+	opinion_per_rank_above = +5
+	sound = hermetic_society_interface
+	society_rank_up_decision = civilian_school_graduation_decision
+	active = { NOT = { has_global_flag = flag_no_university_of_hiyokuoka } }
+	
+	show_society = { c_hiyokuoka = { holder_scope = { is_within_diplo_range = ROOT } } }
+	can_join_society = {
+		age = 18
+		NOT = { religion_group = outlaw_group }
+		NOT = { has_character_flag = flag_expelled_university_of_hiyokuoka }
+		OR = {
+			has_education_diplomacy_trigger = yes
+			has_education_stewardship_trigger = yes
+			has_education_learning_trigger = yes
+		}
+	}
+	potential = {
+		NOT = { has_character_flag = flag_expelled_university_of_hiyokuoka }
+		NOT = { c_hiyokuoka = { holder_scope = { war_with = ROOT } } }
+	}
+	
+	# Student
+	society_rank = {
+		level = 1
+		limit = 200
+		startup_limit = 50
+		modifier = {
+			monthly_character_wealth = -0.2
+		}
+	}
+	
+	# Associate
+	society_rank = {
+		level = 2
+		limit = 500
+		startup_limit = 50
+		modifier = {
+			monthly_character_wealth = -0.1
+			monthly_character_prestige = 0.1
+		}
+	}
+	
+	# Professor
+	society_rank = {
+		level = 3
+		limit = 20
+		startup_limit = 10
+		modifier = {
+			monthly_character_wealth = 0.1
+			monthly_character_prestige = 0.1
+		}
+	}
+	
+	# Rector
+	society_rank = {
+		level = 4
+		limit = 1
+		startup_limit = 1
+		modifier = {
+			monthly_character_wealth = 0.2
+			monthly_character_prestige = 0.25
+		}
+	}
+	
+	monthly_currency_gain = {
+		name = currency_name_university_of_hiyokuoka
+		per_attribute = {
+			name = learning
+			value = 1
+		}
+		has_trait = {
+			trait = open_minded
+			value = 5
+		}
+		has_trait = {
+			trait = introverted
+			value = 5
+		}
+		has_trait = {
+			trait = disciplined
+			value = 5
+		}
+		has_trait = {
+			trait = honest
+			value = 5
+		}
+		has_trait = {
+			trait = intellectual
+			value = 10
+		}
+		triggered_gain = {
+			trigger = {
+				society_rank >= 2
+				society = {
+					any_society_member = {
+						is_society_grandmaster = yes
+						opinion = { who = ROOT value = 50 }
+					}
+				}
+			}
+			desc = "GRANDMASTERSFAVOR"
+			value = 10
+		}
+	}
+
+	member_score_per_attribute = 3
+	member_score_per_rank = 100
+
+	member_score = {
+		value = 10
+		
+		modifier = {
+			factor = 10
+			OR = {
+				trait = lawyer
+				trait = economist
+				trait = physician
+				trait = scientist
+			}
+		}
+		modifier = {
+			factor = 10
+			trait = intellectual
+		}
+		
+		modifier = {
+			factor = 2
+			crownlaw_title = {
+				OR = {
+					is_landed_title = e_terran_confederation
+					is_landed_title = e_jion
+					is_landed_title = k_jion
+				}
+			}
+		}
+		modifier = {
+			factor = 4
+			culture_group = tengoku_group
+		}
+		modifier = {
+			factor = 2
+			trait = disciplined
+		}
+		modifier = {
+			factor = 2
+			trait = open_minded
+		}
+		modifier = {
+			factor = 2
+			trait = confident
+		}
+	}
+
+	startup_populate = {
+	    trigger = {
+			ai = yes
+			historical = no # Historical members should be added manually
+	    	controls_religion = no
+			age = 18
+			is_in_society = no
+			is_dumb_trigger = no
+			NOT = { religion_group = outlaw_group }
+			OR = {
+				c_hiyokuoka = { same_realm = ROOT }
+				culture_group = tengoku_group
+			}
+			OR = {
+				has_education_diplomacy_trigger = yes
+				has_education_stewardship_trigger = yes
+				has_education_learning_trigger = yes
+			}
+			OR = {
+				diplomacy = 10
+				stewardship = 10
+				learning = 15
+				NOT = { age = 25 }
+			}
+			learning = 10
+		}
+	}
+}
+university_of_strugatsky = {
+	primary_attribute = learning
+	opinion_to_other_members = +10
+	opinion_per_rank_above = +5
+	sound = hermetic_society_interface
+	society_rank_up_decision = civilian_school_graduation_decision
+	active = { NOT = { has_global_flag = flag_no_university_of_strugatsky } }
+	
+	show_society = { c_novyy_sol = { holder_scope = { is_within_diplo_range = ROOT } } }
+	can_join_society = {
+		age = 18
+		NOT = { religion_group = outlaw_group }
+		NOT = { has_character_flag = flag_expelled_university_of_strugatsky }
+		OR = {
+			has_education_diplomacy_trigger = yes
+			has_education_stewardship_trigger = yes
+			has_education_learning_trigger = yes
+		}
+	}
+	potential = {
+		NOT = { has_character_flag = flag_expelled_university_of_strugatsky }
+		NOT = { c_novyy_sol = { holder_scope = { war_with = ROOT } } }
+	}
+	
+	# Student
+	society_rank = {
+		level = 1
+		limit = 200
+		startup_limit = 50
+		modifier = {
+			monthly_character_wealth = -0.2
+		}
+	}
+	
+	# Associate
+	society_rank = {
+		level = 2
+		limit = 500
+		startup_limit = 50
+		modifier = {
+			monthly_character_wealth = -0.1
+			monthly_character_prestige = 0.1
+		}
+	}
+	
+	# Professor
+	society_rank = {
+		level = 3
+		limit = 20
+		startup_limit = 10
+		modifier = {
+			monthly_character_wealth = 0.1
+			monthly_character_prestige = 0.1
+		}
+	}
+	
+	# Rector
+	society_rank = {
+		level = 4
+		limit = 1
+		startup_limit = 1
+		modifier = {
+			monthly_character_wealth = 0.2
+			monthly_character_prestige = 0.25
+		}
+	}
+	
+	monthly_currency_gain = {
+		name = currency_name_university_of_strugatsky
+		per_attribute = {
+			name = learning
+			value = 1
+		}
+		has_trait = {
+			trait = open_minded
+			value = 5
+		}
+		has_trait = {
+			trait = introverted
+			value = 5
+		}
+		has_trait = {
+			trait = disciplined
+			value = 5
+		}
+		has_trait = {
+			trait = honest
+			value = 5
+		}
+		has_trait = {
+			trait = intellectual
+			value = 10
+		}
+		triggered_gain = {
+			trigger = {
+				society_rank >= 2
+				society = {
+					any_society_member = {
+						is_society_grandmaster = yes
+						opinion = { who = ROOT value = 50 }
+					}
+				}
+			}
+			desc = "GRANDMASTERSFAVOR"
+			value = 10
+		}
+	}
+
+	member_score_per_attribute = 3
+	member_score_per_rank = 100
+
+	member_score = {
+		value = 10
+		
+		modifier = {
+			factor = 10
+			OR = {
+				trait = lawyer
+				trait = economist
+				trait = physician
+				trait = scientist
+			}
+		}
+		modifier = {
+			factor = 10
+			trait = intellectual
+		}
+		
+		modifier = {
+			factor = 2
+			crownlaw_title = {
+				OR = {
+					is_landed_title = e_terran_confederation
+					is_landed_title = e_strugatsky
+					is_landed_title = k_strugatsky
+				}
+			}
+		}
+		modifier = {
+			factor = 4
+			culture_group = goldrus_group
+		}
+		modifier = {
+			factor = 2
+			trait = disciplined
+		}
+		modifier = {
+			factor = 2
+			trait = open_minded
+		}
+		modifier = {
+			factor = 2
+			trait = confident
+		}
+	}
+
+	startup_populate = {
+	    trigger = {
+			ai = yes
+			historical = no # Historical members should be added manually
+	    	controls_religion = no
+			age = 18
+			is_in_society = no
+			is_dumb_trigger = no
+			NOT = { religion_group = outlaw_group }
+			OR = {
+				c_novyy_sol = { same_realm = ROOT }
+				culture_group = goldrus_group
+			}
+			OR = {
+				has_education_diplomacy_trigger = yes
+				has_education_stewardship_trigger = yes
+				has_education_learning_trigger = yes
+			}
+			OR = {
+				diplomacy = 10
+				stewardship = 10
+				learning = 15
+				NOT = { age = 25 }
+			}
+			learning = 10
+		}
+	}
+}
+university_of_novyy_edem = {
+	primary_attribute = learning
+	opinion_to_other_members = +10
+	opinion_per_rank_above = +5
+	sound = hermetic_society_interface
+	society_rank_up_decision = civilian_school_graduation_decision
+	active = { NOT = { has_global_flag = flag_no_university_of_novyy_edem } }
+	
+	show_society = { c_novyy_edem = { holder_scope = { is_within_diplo_range = ROOT } } }
+	can_join_society = {
+		age = 18
+		NOT = { religion_group = outlaw_group }
+		NOT = { has_character_flag = flag_expelled_university_of_novyy_edem }
+		OR = {
+			has_education_diplomacy_trigger = yes
+			has_education_stewardship_trigger = yes
+			has_education_learning_trigger = yes
+		}
+	}
+	potential = {
+		NOT = { has_character_flag = flag_expelled_university_of_novyy_edem }
+		NOT = { c_novyy_edem = { holder_scope = { war_with = ROOT } } }
+	}
+	
+	# Student
+	society_rank = {
+		level = 1
+		limit = 200
+		startup_limit = 50
+		modifier = {
+			monthly_character_wealth = -0.2
+		}
+	}
+	
+	# Associate
+	society_rank = {
+		level = 2
+		limit = 500
+		startup_limit = 50
+		modifier = {
+			monthly_character_wealth = -0.1
+			monthly_character_prestige = 0.1
+		}
+	}
+	
+	# Professor
+	society_rank = {
+		level = 3
+		limit = 20
+		startup_limit = 10
+		modifier = {
+			monthly_character_wealth = 0.1
+			monthly_character_prestige = 0.1
+		}
+	}
+	
+	# Rector
+	society_rank = {
+		level = 4
+		limit = 1
+		startup_limit = 1
+		modifier = {
+			monthly_character_wealth = 0.2
+			monthly_character_prestige = 0.25
+		}
+	}
+	
+	monthly_currency_gain = {
+		name = currency_name_university_of_novyy_edem
+		per_attribute = {
+			name = learning
+			value = 1
+		}
+		has_trait = {
+			trait = open_minded
+			value = 5
+		}
+		has_trait = {
+			trait = introverted
+			value = 5
+		}
+		has_trait = {
+			trait = disciplined
+			value = 5
+		}
+		has_trait = {
+			trait = honest
+			value = 5
+		}
+		has_trait = {
+			trait = intellectual
+			value = 10
+		}
+		triggered_gain = {
+			trigger = {
+				society_rank >= 2
+				society = {
+					any_society_member = {
+						is_society_grandmaster = yes
+						opinion = { who = ROOT value = 50 }
+					}
+				}
+			}
+			desc = "GRANDMASTERSFAVOR"
+			value = 10
+		}
+	}
+
+	member_score_per_attribute = 3
+	member_score_per_rank = 100
+
+	member_score = {
+		value = 10
+		
+		modifier = {
+			factor = 10
+			OR = {
+				trait = lawyer
+				trait = economist
+				trait = physician
+				trait = scientist
+			}
+		}
+		modifier = {
+			factor = 10
+			trait = intellectual
+		}
+		
+		modifier = {
+			factor = 2
+			crownlaw_title = {
+				OR = {
+					is_landed_title = e_terran_confederation
+					is_landed_title = e_novyy_edem
+					is_landed_title = k_novyy_edem
+				}
+			}
+		}
+		modifier = {
+			factor = 4
+			culture_group = goldrus_group
+		}
+		modifier = {
+			factor = 2
+			trait = disciplined
+		}
+		modifier = {
+			factor = 2
+			trait = open_minded
+		}
+		modifier = {
+			factor = 2
+			trait = confident
+		}
+	}
+
+	startup_populate = {
+	    trigger = {
+			ai = yes
+			historical = no # Historical members should be added manually
+	    	controls_religion = no
+			age = 18
+			is_in_society = no
+			is_dumb_trigger = no
+			NOT = { religion_group = outlaw_group }
+			OR = {
+				c_novyy_edem = { same_realm = ROOT }
+				culture_group = goldrus_group
+			}
+			OR = {
+				has_education_diplomacy_trigger = yes
+				has_education_stewardship_trigger = yes
+				has_education_learning_trigger = yes
+			}
+			OR = {
+				diplomacy = 10
+				stewardship = 10
+				learning = 15
+				NOT = { age = 25 }
+			}
+			learning = 10
+		}
+	}
+}
+# Military Academies
