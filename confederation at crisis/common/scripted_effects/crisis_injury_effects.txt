@@ -20,6 +20,61 @@ degrade_mood_effect = {
 		hidden_tooltip = { character_event = { id = health.51 } }
 	}
 }
+modify_stress_effect = {
+	if = {
+		limit = { NOT = { trait = stressed } }
+		# Gain Stressed at 50 Stress (Neurotic), 100 Stress (Neutral), or 150 Stress (Confident)
+		if = {
+			limit = {
+				OR = {
+					check_variable = { which = stress_var value = 150 }
+					AND = {
+						check_variable = { which = stress_var value = 100 }
+						NOT = { trait = confident }
+					}
+					AND = {
+						check_variable = { which = stress_var value = 50 }
+						trait = neurotic
+					}
+				}
+			}
+			add_trait = stressed
+			hidden_tooltip = { character_event = { id = health.51 } }
+		}
+	}
+	else_if = {
+		limit = {
+			# Lose Stressed at 49 Stress (Neurotic), 100 Stress (Neutral), or 150 Stress (Confident)
+			OR = {
+				NOT = { check_variable = { which = stress_var value = 50 } }
+				AND = {
+					NOT = { check_variable = { which = stress_var value = 100 } }
+					NOT = { trait = neurotic }
+				}
+				AND = {
+					NOT = { check_variable = { which = stress_var value = 150 } }
+					trait = confident
+				}
+			}
+		}
+		remove_trait = stressed
+		hidden_tooltip = { character_event = { id = health.52 } }
+	}
+	# Add/remove Relaxed at 0 Stress, regardless of neuroticism
+	if = {
+		limit = { NOT = { trait = relaxed } }
+		if = {
+			limit = { NOT = { check_variable = { which = stress_var value = 0 } } }
+			add_trait = relaxed
+			hidden_tooltip = { character_event = { id = health.53 } }
+		}
+	}
+	else_if = {
+		limit = { check_variable = { which = stress_var value = 0 } }
+		remove_trait = relaxed
+		hidden_tooltip = { character_event = { id = health.54 } }
+	}
+}
 
 inflict_minor_injury_effect = {
 	if = {

@@ -1,0 +1,6915 @@
+namespace = school
+
+# MAINTENANCE
+# Lose major when expelled
+character_event = {
+	id = school.0
+	hide_window = yes
+	is_triggered_only = yes
+	
+	trigger = { has_major_trigger = yes }
+	
+	immediate = {
+		set_variable = { which = times_cheated_in_school value = 0 }
+		remove_character_modifier = law_major
+		remove_character_modifier = economics_major
+		remove_character_modifier = medical_major
+		remove_character_modifier = science_major
+		remove_trait = on_leave
+	}
+}
+# Assign a field to automatically-generated alumni
+character_event = {
+	id = school.1
+	hide_window = yes
+	is_triggered_only = yes
+	
+	trigger = {
+		has_game_started = no
+		FROM = { is_civilian_school_trigger = yes }
+		age = 25
+		NOT = { has_post_secondary_education_trigger = yes }
+	}
+	
+	immediate = {
+		if = {
+			limit = { has_education_stewardship_trigger = yes }
+			add_trait = economist
+		}
+		else_if = {
+			limit = { has_education_diplomacy_trigger = yes }
+			add_trait = lawyer
+		}
+		else = {
+			random_list = {
+				50 = { add_trait = physician }
+				50 = { add_trait = scientist }
+			}
+		}
+		if = {
+			limit = { lifestyle_traits < 1 }
+			random = {
+				chance = 25
+				add_trait = intellectual
+			}
+		}
+	}
+}
+# Automatically rank up to Associate if you've already graduated
+character_event = {
+	id = school.2
+	hide_window = yes
+	is_triggered_only = yes
+	
+	trigger = {
+		society = { is_civilian_school_trigger = yes }
+		society_rank == 1
+		has_post_secondary_education_trigger = yes
+	}
+	
+	immediate = { society_rank_up = 1 }
+}
+# Select major
+character_event = {
+	id = school.3
+	desc = "EVTDESCSCHOOL2"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	trigger = {
+		FROM = { is_civilian_school_trigger = yes }
+		NOT = { society_rank > 1 }
+		NOT = { has_major_trigger = yes }
+		NOT = { has_post_secondary_education_trigger = yes }
+		has_game_started = yes # Historical students and alumni should have their majors and degrees coded manually
+	}
+	
+	# Law
+	option = {
+		name = "EVTOPTASCHOOL2"
+		add_trait = on_leave
+		add_character_modifier = {
+			name = law_major
+			duration = -1
+		}
+		ai_chance = {
+			factor = 0
+			root_diplomacy_score = yes
+			modifier = {
+				factor = 1.25
+				trait = deceitful
+			}
+			modifier = {
+				factor = 0.8
+				trait = honest
+			}
+			modifier = {
+				factor = 1.25
+				trait = extraverted
+			}
+			modifier = {
+				factor = 0.8
+				trait = introverted
+			}
+			modifier = {
+				factor = 1.25
+				OR = {
+					religion_group = political_group
+					religion_group = political_terran_group
+				}
+			}
+			modifier = {
+				factor = 1.25
+				OR = {
+					religion_group = political_group
+					religion_group = political_terran_group
+				}
+				trait = radical
+			}
+			modifier = {
+				factor = 1.25
+				father = {
+					trait = lawyer
+					reverse_opinion = { who = ROOT value = 0 }
+				}
+			}
+			modifier = {
+				factor = 1.25
+				mother = {
+					trait = lawyer
+					reverse_opinion = { who = ROOT value = 0 }
+				}
+			}
+			modifier = {
+				factor = 1.25
+				any_sibling = {
+					trait = lawyer
+					reverse_opinion = { who = ROOT value = 0 }
+				}
+			}
+		}
+	}
+	
+	# Economics
+	option = {
+		name = "EVTOPTBSCHOOL2"
+		add_trait = on_leave
+		add_character_modifier = {
+			name = economics_major
+			duration = -1
+		}
+		ai_chance = {
+			factor = 0
+			root_stewardship_score = yes
+			modifier = {
+				factor = 1.25
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.8
+				trait = carefree
+			}
+			modifier = {
+				factor = 1.25
+				is_patrician = yes
+			}
+			modifier = {
+				factor = 1.25
+				any_dynasty_member = { is_patrician = yes }
+			}
+			modifier = {
+				factor = 1.25
+				father = {
+					trait = economist
+					reverse_opinion = { who = ROOT value = 0 }
+				}
+			}
+			modifier = {
+				factor = 1.25
+				mother = {
+					trait = economist
+					reverse_opinion = { who = ROOT value = 0 }
+				}
+			}
+			modifier = {
+				factor = 1.25
+				any_sibling = {
+					trait = economist
+					reverse_opinion = { who = ROOT value = 0 }
+				}
+			}
+		}
+	}
+	
+	# Medicine
+	option = {
+		name = "EVTOPTCSCHOOL2"
+		add_trait = on_leave
+		add_character_modifier = {
+			name = medical_major
+			duration = -1
+		}
+		ai_chance = {
+			factor = 0
+			root_learning_score = yes
+			modifier = {
+				factor = 1.25
+				trait = friendly
+			}
+			modifier = {
+				factor = 0.8
+				trait = cold
+			}
+			modifier = {
+				factor = 1.25
+				religion = bio_directionist
+			}
+			modifier = {
+				factor = 1.25
+				religion = bio_directionist
+				trait = radical
+			}
+			modifier = {
+				factor = 1.25
+				father = {
+					trait = physician
+					reverse_opinion = { who = ROOT value = 0 }
+				}
+			}
+			modifier = {
+				factor = 1.25
+				mother = {
+					trait = physician
+					reverse_opinion = { who = ROOT value = 0 }
+				}
+			}
+			modifier = {
+				factor = 1.25
+				any_sibling = {
+					trait = physician
+					reverse_opinion = { who = ROOT value = 0 }
+				}
+			}
+		}
+	}
+	
+	# Science
+	option = {
+		name = "EVTOPTDSCHOOL2"
+		add_trait = on_leave
+		add_character_modifier = {
+			name = science_major
+			duration = -1
+		}
+		ai_chance = {
+			factor = 0
+			root_learning_score = yes
+			modifier = {
+				factor = 1.25
+				trait = open_minded
+			}
+			modifier = {
+				factor = 0.8
+				trait = close_minded
+			}
+			modifier = {
+				factor = 1.25
+				trait = skeptical
+			}
+			modifier = {
+				factor = 0.8
+				trait = spiritual
+			}
+			modifier = {
+				factor = 1.25
+				religion_group = transhumanist_group
+				NOT = { religion = bio_directionist }
+			}
+			modifier = {
+				factor = 1.25
+				religion_group = transhumanist_group
+				NOT = { religion = bio_directionist }
+				trait = radical
+			}
+			modifier = {
+				factor = 1.25
+				trait = intellectual
+			}
+			modifier = {
+				factor = 1.25
+				trait = mystic
+			}
+			modifier = {
+				factor = 1.25
+				father = {
+					trait = scientist
+					reverse_opinion = { who = ROOT value = 0 }
+				}
+			}
+			modifier = {
+				factor = 1.25
+				mother = {
+					trait = scientist
+					reverse_opinion = { who = ROOT value = 0 }
+				}
+			}
+			modifier = {
+				factor = 1.25
+				any_sibling = {
+					trait = scientist
+					reverse_opinion = { who = ROOT value = 0 }
+				}
+			}
+		}
+	}
+}
+
+# Alumni should eventually leave the society unless they're interested in becoming professors
+character_event = {
+	id = school.4
+	hide_window = yes
+	
+	trigger = {
+		ai = yes
+		society = { is_civilian_school_trigger = yes }
+		society_rank = 2
+		NOT = { society_rank = 3 }
+	}
+	
+	mean_time_to_happen = {
+		moths = 240
+		modifier = {
+			factor = 4
+			trait = intellectual
+		}
+		modifier = {
+			factor = 0.5
+			is_landed = yes
+		}
+	}
+	
+	immediate = { leave_society = yes }
+}
+
+# ADMINISTRATIVE EVENTS
+# Firing a professor
+character_event = {
+	id = school.10
+	desc = "EVTDESCSCHOOL10"
+	picture = GFX_evt_council_argument
+	border = GFX_event_normal_frame_learning
+	show_from_from = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASCHOOL10"
+		society_rank_down = 1
+		hidden_tooltip = { FROM = { FROM = { character_event = { id = school.11 } } } }
+	}
+}
+character_event = {
+	id = school.11
+	desc = "EVTDESCSCHOOL11"
+	picture = GFX_evt_council_argument
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASCHOOL11"
+		clr_character_flag = flag_busy
+		hidden_tooltip = {
+			society = {
+				any_society_member = {
+					limit = { society_rank == 3 }
+					character_event = { id = school.12 }
+				}
+			}
+		}
+	}
+}
+character_event = {
+	id = school.12
+	desc = "EVTDESCSCHOOL12"
+	picture = GFX_evt_council_argument
+	border = GFX_event_normal_frame_learning
+	show_from_from = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASCHOOL12"
+		opinion = { who = FROM modifier = opinion_fired_a_professor }
+		ai_chance = {
+			factor = 50
+			root_positive_opinion_of_fromfrom_score = yes
+		}
+	}
+	option = {
+		name = "EVTOPTBSCHOOL12"
+		ai_chance = { factor = 50 }
+	}
+}
+
+# Joining a school
+character_event = {
+	id = school.20
+	desc = "EVTDESCSCHOOL20"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	trigger = { FROM = { is_civilian_school_trigger = yes } }
+	
+	option = {
+		name = "EVTOPTASCHOOL20"
+		join_society = FROM
+	}
+	
+	option = {
+		name = "EVTOPTBSCHOOL20"
+	}
+}
+
+# ACADEMIC EVENTS
+# Struggling with coursework
+character_event = {
+	id = school.100
+	desc = "EVTDESCSCHOOL100"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	min_age = 18
+	prisoner = no
+	only_capable = yes
+	
+	trigger = { has_major_trigger = yes }
+	
+	weight_multiplier = {
+		modifier = {
+			factor = 1.25
+			trait = carefree
+		}
+		modifier = {
+			factor = 0.8
+			trait = disciplined
+		}
+		modifier = {
+			factor = 1.25
+			trait = neurotic
+		}
+		modifier = {
+			factor = 0.8
+			trait = confident
+		}
+		modifier = {
+			factor = 2
+			trait = imbecile
+		}
+		modifier = {
+			factor = 1.25
+			trait = slow
+		}
+		modifier = {
+			factor = 0.8
+			trait = quick
+		}
+		modifier = {
+			factor = 0.5
+			trait = genius
+		}
+	}
+	
+	immediate = {
+		if = {
+			limit = { has_character_modifier = law_major }
+			society = {
+				random_society_member = {
+					limit = {
+						society_rank >= 3
+						trait = lawyer
+					}
+					save_event_target_as = target_professor
+				}
+			}
+		}
+		else_if = {
+			limit = { has_character_modifier = economics_major }
+			society = {
+				random_society_member = {
+					limit = {
+						society_rank >= 3
+						trait = economist
+					}
+					save_event_target_as = target_professor
+				}
+			}
+		}
+		else_if = {
+			limit = { has_character_modifier = medical_major }
+			society = {
+				random_society_member = {
+					limit = {
+						society_rank >= 3
+						trait = physician
+					}
+					save_event_target_as = target_professor
+				}
+			}
+		}
+		else_if = {
+			limit = { has_character_modifier = science_major }
+			society = {
+				random_society_member = {
+					limit = {
+						society_rank >= 3
+						trait = scientist
+					}
+					save_event_target_as = target_professor
+				}
+			}
+		}
+	}
+	
+	# Let your work suffer
+	option = {
+		name = "EVTOPTASCHOOL100"
+		if = {
+			limit = { trait = disciplined }
+			custom_tooltip = { text = "BECAUSEDISCIPLINED" }
+			change_variable = { which = stress_var value = 5 }
+		}
+		modify_stress_effect = yes
+		change_society_currency = -100
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 0
+				trait = disciplined
+			}
+		}
+	}
+	
+	# Work harder to make up for it
+	option = {
+		trigger = { NOT = { trait = stressed } }
+		name = "EVTOPTBSCHOOL100"
+		change_variable = { which = stress_var value = 20 }
+		if = {
+			limit = { trait = carefree }
+			custom_tooltip = { text = "BECAUSECAREFREE" }
+			change_variable = { which = stress_var value = 10 }
+		}
+		if = {
+			limit = { trait = disciplined }
+			custom_tooltip = { text = "BECAUSEDISCIPLINED" }
+			change_variable = { which = stress_var value = -10 }
+		}
+		modify_stress_effect = yes
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 0
+				trait = carefree
+			}
+		}
+	}
+	
+	# Ask the professor for help
+	option = {
+		trigger = { event_target:target_professor = { always = yes } }
+		name = "EVTOPTCSCHOOL100"
+		if = {
+			limit = { trait = introverted }
+			custom_tooltip = { text = "BECAUSEINTROVERTED" }
+			change_variable = { which = stress_var value = 10 }
+		}
+		if = {
+			limit = { trait = neurotic }
+			custom_tooltip = { text = "BECAUSENEUROTIC" }
+			change_variable = { which = stress_var value = 10 }
+		}
+		modify_stress_effect = yes
+		event_target:target_professor = { character_event = { id = school.101 tooltip = "EVTTOOLTIPSCHOOL101" } }
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				trait = extraverted
+			}
+			modifier = {
+				factor = 0.5
+				trait = introverted
+			}
+			modifier = {
+				factor = 2
+				trait = confident
+			}
+			modifier = {
+				factor = 0.5
+				trait = neurotic
+			}
+		}
+	}
+}
+# One of your students is struggling with their coursework
+character_event = {
+	id = school.101
+	desc = "EVTDESCSCHOOL101"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	# Take time out of your work schedule to tutor them
+	option = {
+		name = "EVTOPTASCHOOL101"
+		change_society_currency = -50
+		FROM = {
+			opinion = { who = ROOT modifier = opinion_tutored_me }
+			hidden_tooltip = { character_event = { id = school.102 } }
+		}
+		ai_chance = {
+			factor = 75
+		}
+	}
+	
+	# Take time out of your personal schedule to tutor them
+	option = {
+		trigger = { NOT = { trait = stressed } }
+		name = "EVTOPTBSCHOOL101"
+		change_variable = { which = stress_var value = 20 }
+		if = {
+			limit = { trait = carefree }
+			custom_tooltip = { text = "BECAUSECAREFREE" }
+			change_variable = { which = stress_var value = 10 }
+		}
+		modify_stress_effect = yes
+		FROM = {
+			opinion = { who = ROOT modifier = opinion_tutored_me }
+			hidden_tooltip = { character_event = { id = school.102 } }
+		}
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 0
+				trait = carefree
+			}
+		}
+	}
+	
+	# Leave them to their own devices
+	option = {
+		name = "EVTOPTCSCHOOL101"
+		FROM = {
+			opinion = { who = ROOT modifier = opinion_didnt_tutor_me }
+			hidden_tooltip = { character_event = { id = school.103 } }
+		}
+		ai_chance = {
+			factor = 100
+			root_negative_opinion_of_from_score = yes
+		}
+	}
+}
+# The professor agreed to tutor you
+character_event = {
+	id = school.102
+	desc = "EVTDESCSCHOOL102"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASCHOOL102"
+		clear_event_target = event_target:target_professor
+	}
+}
+# The professor refused to tutor you
+character_event = {
+	id = school.103
+	desc = "EVTDESCSCHOOL103"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASCHOOL103"
+		change_society_currency = -100
+		clear_event_target = event_target:target_professor
+	}
+}
+# Your studies are going very smoothly
+character_event = {
+	id = school.104
+	desc = "EVTDESCSCHOOL104"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	min_age = 18
+	prisoner = no
+	only_capable = yes
+	
+	trigger = { has_major_trigger = yes }
+	
+	weight_multiplier = {
+		modifier = {
+			factor = 0.8
+			trait = carefree
+		}
+		modifier = {
+			factor = 1.25
+			trait = disciplined
+		}
+		modifier = {
+			factor = 0.8
+			trait = neurotic
+		}
+		modifier = {
+			factor = 1.25
+			trait = confident
+		}
+		modifier = {
+			factor = 0.5
+			trait = imbecile
+		}
+		modifier = {
+			factor = 0.8
+			trait = slow
+		}
+		modifier = {
+			factor = 1.25
+			trait = quick
+		}
+		modifier = {
+			factor = 2
+			trait = genius
+		}
+	}
+	
+	# Take some time off
+	option = {
+		name = "EVTOPTASCHOOL104"
+		change_variable = { which = stress_var value = -35 }
+		modify_stress_effect = yes
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				trait = carefree
+			}
+			modifier = {
+				factor = 0.5
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0
+				trait = relaxed
+				NOT = { trait = carefree }
+			}
+		}
+	}
+	
+	# Double down on your studies
+	option = {
+		name = "EVTOPTBSCHOOL104"
+		change_society_currency = 50
+		ai_chance = { factor = 50 }
+	}
+}
+# Setting an exam
+character_event = {
+	id = school.105
+	desc = "EVTDESCSCHOOL105"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	min_age = 18
+	only_capable = yes
+	prisoner = no
+	
+	trigger = {
+		# Must be a professor
+		society = { is_civilian_school_trigger = yes }
+		society_rank == 3
+	}
+	
+	immediate = {
+		save_event_target_as = target_professor
+		clr_character_flag = flag_easy_exam
+		clr_character_flag = flag_normal_exam
+		clr_character_flag = flag_hard_exam
+	}
+	
+	# Assign an easy exam
+	option = {
+		name = "EVTOPTASCHOOL105"
+		set_character_flag = flag_easy_exam
+		hidden_tooltip = {
+			if = {
+				limit = { trait = lawyer }
+				society = {
+					any_society_member = {
+						limit = { has_character_modifier = law_major }
+						character_event = { id = school.106 days = 10 random = 30 }
+					}
+				}
+			}
+			else_if = {
+				limit = { trait = economist }
+				society = {
+					any_society_member = {
+						limit = { has_character_modifier = economics_major }
+						character_event = { id = school.106 days = 10 random = 30 }
+					}
+				}
+			}
+			else_if = {
+				limit = { trait = physician }
+				society = {
+					any_society_member = {
+						limit = { has_character_modifier = medical_major }
+						character_event = { id = school.106 days = 10 random = 30 }
+					}
+				}
+			}
+			else_if = {
+				limit = { trait = scientist }
+				society = {
+					any_society_member = {
+						limit = { has_character_modifier = science_major }
+						character_event = { id = school.106 days = 10 random = 30 }
+					}
+				}
+			}
+		}
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2
+				trait = friendly
+			}
+			modifier = {
+				factor = 0.5
+				trait = cold
+			}
+		}
+	}
+	
+	# Assign a normal exam
+	option = {
+		name = "EVTOPTBSCHOOL105"
+		set_character_flag = flag_normal_exam
+		hidden_tooltip = {
+			if = {
+				limit = { trait = lawyer }
+				society = {
+					any_society_member = {
+						limit = { has_character_modifier = law_major }
+						character_event = { id = school.106 days = 10 random = 30 }
+					}
+				}
+			}
+			else_if = {
+				limit = { trait = economist }
+				society = {
+					any_society_member = {
+						limit = { has_character_modifier = economics_major }
+						character_event = { id = school.106 days = 10 random = 30 }
+					}
+				}
+			}
+			else_if = {
+				limit = { trait = physician }
+				society = {
+					any_society_member = {
+						limit = { has_character_modifier = medical_major }
+						character_event = { id = school.106 days = 10 random = 30 }
+					}
+				}
+			}
+			else_if = {
+				limit = { trait = scientist }
+				society = {
+					any_society_member = {
+						limit = { has_character_modifier = science_major }
+						character_event = { id = school.106 days = 10 random = 30 }
+					}
+				}
+			}
+		}
+		ai_chance = { factor = 50 }
+	}
+	
+	# Assign a hard exam
+	option = {
+		name = "EVTOPTCSCHOOL105"
+		set_character_flag = flag_hard_exam
+		hidden_tooltip = {
+			if = {
+				limit = { trait = lawyer }
+				society = {
+					any_society_member = {
+						limit = { has_character_modifier = law_major }
+						character_event = { id = school.106 days = 10 random = 30 }
+					}
+				}
+			}
+			else_if = {
+				limit = { trait = economist }
+				society = {
+					any_society_member = {
+						limit = { has_character_modifier = economics_major }
+						character_event = { id = school.106 days = 10 random = 30 }
+					}
+				}
+			}
+			else_if = {
+				limit = { trait = physician }
+				society = {
+					any_society_member = {
+						limit = { has_character_modifier = medical_major }
+						character_event = { id = school.106 days = 10 random = 30 }
+					}
+				}
+			}
+			else_if = {
+				limit = { trait = scientist }
+				society = {
+					any_society_member = {
+						limit = { has_character_modifier = science_major }
+						character_event = { id = school.106 days = 10 random = 30 }
+					}
+				}
+			}
+		}
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2
+				trait = cold
+			}
+			modifier = {
+				factor = 0.5
+				trait = friendly
+			}
+		}
+	}
+}
+# There's an upcoming exam!
+character_event = {
+	id = school.106
+	desc = "EVTDESCSCHOOL106"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	# Study hard
+	option = {
+		name = "EVTOPTASCHOOL106"
+		change_variable = { which = stress_var value = 40 }
+		if = {
+			limit = { trait = carefree }
+			custom_tooltip = { text = "BECAUSECAREFREE" }
+			change_variable = { which = stress_var value = 15 }
+		}
+		modify_stress_effect = yes
+		random_list = {
+			# Pass the exam
+			10 = {
+				root_learning_score = yes
+				character_event = { id = school.107 days = 10 random = 30 tooltip = "EVTTOOLTIPSCHOOL107" }
+			}
+			# Fail the exam
+			5 = {
+				modifier = {
+					factor = 2
+					FROM = { has_character_flag = flag_normal_exam }
+				}
+				modifier = {
+					factor = 3
+					FROM = { has_character_flag = flag_hard_exam }
+				}
+				character_event = { id = school.108 days = 10 random = 30 tooltip = "EVTTOOLTIPSCHOOL108" }
+			}
+		}
+		ai_chance = {
+			factor = 1
+			root_learning_score = yes
+			modifier = {
+				factor = 2
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.5
+				trait = carefree
+			}
+			modifier = {
+				factor = 0.1
+				trait = stressed
+			}
+		}
+	}
+	
+	# Study a reasonable amount
+	option = {
+		name = "EVTOPTBSCHOOL106"
+		random_list = {
+			# Pass the exam
+			5 = {
+				root_learning_score = yes
+				character_event = { id = school.107 days = 10 random = 30 tooltip = "EVTTOOLTIPSCHOOL107" }
+			}
+			# Fail the exam
+			5 = {
+				modifier = {
+					factor = 2
+					FROM = { has_character_flag = flag_normal_exam }
+				}
+				modifier = {
+					factor = 3
+					FROM = { has_character_flag = flag_hard_exam }
+				}
+				character_event = { id = school.108 days = 10 random = 30 tooltip = "EVTTOOLTIPSCHOOL108" }
+			}
+		}
+		ai_chance = {
+			factor = 1
+			root_learning_score = yes
+			modifier = {
+				factor = 2
+				always = yes
+			}
+		}
+	}
+	
+	# Don't study
+	option = {
+		name = "EVTOPTCSCHOOL106"
+		change_variable = { which = stress_var value = -20 }
+		modify_stress_effect = yes
+		random_list = {
+			# Pass the exam
+			0 = {
+				root_learning_score = yes
+				character_event = { id = school.107 days = 10 random = 30 tooltip = "EVTTOOLTIPSCHOOL107" }
+			}
+			# Fail the exam
+			5 = {
+				modifier = {
+					factor = 2
+					FROM = { has_character_flag = flag_normal_exam }
+				}
+				modifier = {
+					factor = 3
+					FROM = { has_character_flag = flag_hard_exam }
+				}
+				character_event = { id = school.108 days = 10 random = 30 tooltip = "EVTTOOLTIPSCHOOL108" }
+			}
+		}
+		ai_chance = {
+			factor = 1
+			root_learning_score = yes
+			modifier = {
+				factor = 0.5
+				trait = disciplined
+			}
+			modifier = {
+				factor = 2
+				trait = carefree
+			}
+		}
+	}
+	
+	# Cheat
+	option = {
+		if = {
+			limit = { trait = honest }
+			custom_tooltip = { text = "BECAUSEHONEST" }
+			change_variable = { which = stress_var value = 50 }
+		}
+		modify_stress_effect = yes
+		name = "EVTOPTDSCHOOL106"
+		hidden_tooltip = { change_variable = { which = "times_cheated_in_school" value = 1 } }
+		random_list = {
+			0 = {
+				root_intrigue_score = yes
+				character_event = { id = school.107 days = 10 random = 30 tooltip = "EVTTOOLTIPSCHOOL107" }
+			}
+			0 = {
+				from_intrigue_score = yes
+				event_target:target_professor = { character_event = { id = school.109 days = 10 random = 30 tooltip = "EVTTOOLTIPSCHOOL109" } }
+			}
+		}
+		ai_chance = {
+			factor = 0
+			root_intrigue_score = yes
+			modifier = {
+				factor = 4
+				trait = deceitful
+			}
+			modifier = {
+				factor = 0
+				trait = honest
+			}
+			modifier = {
+				factor = 0.5
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.5
+				trait = close_minded
+			}
+		}
+	}
+}
+
+# You passed the exam!
+character_event = {
+	id = school.107
+	desc = "EVTDESCSCHOOL107"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASCHOOL107"
+		if = {
+			limit = { event_target:target_professor = { has_character_flag = flag_easy_exam } }
+			change_society_currency = 25
+		}
+		else_if = {
+			limit = { event_target:target_professor = { has_character_flag = flag_normal_exam } }
+			change_society_currency = 50
+		}
+		else_if = {
+			limit = { event_target:target_professor = { has_character_flag = flag_hard_exam } }
+			change_society_currency = 100
+		}
+		hidden_tooltip = { event_target:target_professor = { character_event = { id = school.110 } } }
+	}
+}
+# You failed the exam!
+character_event = {
+	id = school.108
+	desc = "EVTDESCSCHOOL108"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASCHOOL108"
+		if = {
+			limit = {
+				event_target:target_professor = { has_character_flag = flag_easy_exam }
+				change_society_currency = -25
+			}
+		}
+		else_if = {
+			limit = {
+				event_target:target_professor = { has_character_flag = flag_normal_exam }
+				change_society_currency = -50
+			}
+		}
+		else_if = {
+			limit = {
+				event_target:target_professor = { has_character_flag = flag_hard_exam }
+				change_society_currency = -100
+			}
+		}
+		hidden_tooltip = { event_target:target_professor = { character_event = { id = school.111 } } }
+	}
+}
+# You caught a student cheating on your exam
+character_event = {
+	id = school.109
+	desc = "EVTDESCSCHOOL109"
+	picture = GFX_evt_quarrel
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	immediate = {
+		opinion = { who = FROM modifier = opinion_caught_cheating_on_exams }
+		if = {
+			limit = { FROM = { is_landed = yes } }
+			FROM = { save_event_target_as = target_important_person }
+		}
+		else_if = {
+			limit = { FROM = { any_close_relative = { is_landed = yes } } }
+			FROM = {
+				random_close_relative = {
+					limit = { is_landed = yes }
+					preferred_limit = { tier = EMPEROR }
+					preferred_limit = { tier = KING }
+					preferred_limit = { tier = DUKE }
+					preferred_limit = { tier = COUNT }
+					save_event_target_as = target_important_person
+				}
+			}
+		}
+	}
+	
+	# Expel them
+	option = {
+		name = "EVTOPTASCHOOL109"
+		if = {
+			limit = { trait = friendly }
+			custom_tooltip = { text = "BECAUSEFRIENDLY" }
+			change_variable = { which = stress_var value = 20 }
+		}
+		modify_stress_effect = yes
+		FROM = {
+			character_event = { id = school.112 tooltip = "EVTTOOLTIPSCHOOL112" }
+			opinion = { who = ROOT modifier = opinion_expelled_me }
+		}
+		if = {
+			limit = { event_target:target_important_person = { NOT = { character = FROM } } }
+			event_target:target_important_person = { opinion = { who = ROOT modifier = opinion_expelled_my_relative } }
+		}
+		if = {
+			limit = { event_target:target_important_person = { always = yes } }
+			add_society_modifier = { name = expelled_important_person years = 2 }
+		}
+		hidden_tooltip = {
+			society = {
+				random_society_member = {
+					limit = { is_society_grandmaster = yes }
+					character_event = { id = school.114 }
+				}
+			}
+		}
+		ai_chance = {
+			factor = 80
+			modifier = {
+				factor = 0.8
+				event_target:target_important_person = { always = yes }
+				NOT = { trait = honest }
+			}
+			modifier = {
+				factor = 0.8
+				event_target:target_important_person = { tier = COUNT }
+				NOT = { trait = honest }
+			}
+			modifier = {
+				factor = 0.8
+				event_target:target_important_person = { tier = DUKE }
+				NOT = { trait = honest }
+			}
+			modifier = {
+				factor = 0.8
+				event_target:target_important_person = { tier = KING }
+				NOT = { trait = honest }
+			}
+			modifier = {
+				factor = 0.8
+				event_target:target_important_person = { tier = EMPEROR }
+				NOT = { trait = honest }
+			}
+			modifier = {
+				factor = 0.8
+				event_target:target_important_person = { always = yes }
+				trait = deceitful
+			}
+			modifier = {
+				factor = 0.8
+				event_target:target_important_person = { tier = COUNT }
+				trait = deceitful
+			}
+			modifier = {
+				factor = 0.8
+				event_target:target_important_person = { tier = DUKE }
+				trait = deceitful
+			}
+			modifier = {
+				factor = 0.8
+				event_target:target_important_person = { tier = KING }
+				trait = deceitful
+			}
+			modifier = {
+				factor = 0.8
+				event_target:target_important_person = { tier = EMPEROR }
+				trait = deceitful
+			}
+		}
+	}
+	# Let them off with a warning
+	option = {
+		name = "EVTOPTBSCHOOL109"
+		FROM = { character_event = { id = school.117 tooltip = "EVTTOOLTIPSCHOOL117" } }
+		ai_chance = {
+			factor = 20
+			root_positive_opinion_of_from_score = yes
+			modifier = {
+				factor = 2
+				trait = friendly
+			}
+			modifier = {
+				factor = 0.5
+				trait = cold
+			}
+		}
+	}
+	# Demand a bribe from them
+	option = {
+		trigger = {
+			OR = {
+				NOT = { event_target:target_important_person = { always = yes } }
+				event_target:target_important_person = { character = FROM }
+			}
+			FROM = { wealth = 100 }
+		}
+		name = "EVTOPTCSCHOOL109"
+		if = {
+			limit = { trait = honest }
+			custom_tooltip = { text = "BECAUSEHONEST" }
+			change_variable = { which = stress_var value = 50 }
+		}
+		modify_stress_effect = yes
+		hidden_tooltip = { FROM = { character_event = { id = school.118 } } }
+		ai_chance = {
+			factor = 20
+			modifier = {
+				factor = 5
+				trait = deceitful
+			}
+			modifier = {
+				factor = 0
+				trait = honest
+			}
+			modifier = {
+				factor = 3
+				OR = {
+					has_ambition = obj_amass_wealth
+					has_ambition = obj_amass_wealth_2
+					has_ambition = obj_amass_wealth_3
+					has_ambition = obj_amass_wealth_4
+					has_ambition = obj_build_a_war_chest
+				}
+			}
+		}
+	}
+	# Demand a favor from them
+	option = {
+		trigger = {
+			event_target:target_important_person = {
+				character = FROM
+				NOT = { owes_favor_to = ROOT }
+			}
+		}
+		name = "EVTOPTDSCHOOL109"
+		if = {
+			limit = { trait = honest }
+			custom_tooltip = { text = "BECAUSEHONEST" }
+			change_variable = { which = stress_var value = 50 }
+		}
+		modify_stress_effect = yes
+		hidden_tooltip = { FROM = { character_event = { id = school.121 } } }
+		ai_chance = {
+			factor = 20
+			modifier = {
+				factor = 2
+				trait = ambitious
+			}
+			modifier = {
+				factor = 0.5
+				trait = content
+			}
+			modifier = {
+				factor = 5
+				trait = deceitful
+			}
+			modifier = {
+				factor = 0
+				trait = honest
+			}
+			modifier = {
+				factor = 3
+				owes_favor_to = FROM
+			}
+		}
+	}
+	# Demand a bribe from their important relative
+	option = {
+		trigger = {
+			event_target:target_important_person = {
+				NOT = { character = FROM }
+				wealth = 100
+			}
+		}
+		name = "EVTOPTESCHOOL109"
+		if = {
+			limit = { trait = honest }
+			custom_tooltip = { text = "BECAUSEHONEST" }
+			change_variable = { which = stress_var value = 50 }
+		}
+		modify_stress_effect = yes
+		hidden_tooltip = { FROM = { character_event = { id = school.124 } } }
+		ai_chance = {
+			factor = 20
+			modifier = {
+				factor = 5
+				trait = deceitful
+			}
+			modifier = {
+				factor = 0
+				trait = honest
+			}
+			modifier = {
+				factor = 3
+				OR = {
+					has_ambition = obj_amass_wealth
+					has_ambition = obj_amass_wealth_2
+					has_ambition = obj_amass_wealth_3
+					has_ambition = obj_amass_wealth_4
+					has_ambition = obj_build_a_war_chest
+				}
+			}
+		}
+	}
+	# Demand a favor from their important relative
+	option = {
+		trigger = {
+			event_target:target_important_person = {
+				NOT = { character = FROM }
+				NOT = { owes_favor_to = ROOT }
+			}
+		}
+		name = "EVTOPTFSCHOOL109"
+		if = {
+			limit = { trait = honest }
+			custom_tooltip = { text = "BECAUSEHONEST" }
+			change_variable = { which = stress_var value = 50 }
+		}
+		modify_stress_effect = yes
+		hidden_tooltip = { FROM = { character_event = { id = school.130 } } }
+		ai_chance = {
+			factor = 20
+			modifier = {
+				factor = 2
+				trait = ambitious
+			}
+			modifier = {
+				factor = 0.5
+				trait = content
+			}
+			modifier = {
+				factor = 5
+				trait = deceitful
+			}
+			modifier = {
+				factor = 0
+				trait = honest
+			}
+			modifier = {
+				factor = 3
+				owes_favor_to = event_target:target_important_person
+			}
+		}
+	}
+}
+# A student passed your exam
+character_event = {
+	id = school.110
+	desc = "EVTDESCSCHOOL110"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASCHOOL110"
+		if = {
+			limit = { has_character_flag = flag_easy_exam }
+			change_society_currency = 10
+		}
+		else_if = {
+			limit = { has_character_flag = flag_normal_exam }
+			change_society_currency = 25
+		}
+		else_if = {
+			limit = { has_character_flag = flag_hard_exam }
+			change_society_currency = 50
+		}
+	}
+}
+# A student failed your exam
+character_event = {
+	id = school.111
+	desc = "EVTDESCSCHOOL111"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTASCHOOL111" }
+}
+# You were expelled for cheating
+character_event = {
+	id = school.112
+	desc = "EVTDESCSCHOOL112"
+	picture = GFX_evt_quarrel
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASCHOOL112"
+		expel_student_effect = yes
+		hidden_tooltip = { any_close_relative = { character_event = { id = school.113 } } }
+	}
+}
+# Your close relative was expelled for cheating
+character_event = {
+	id = school.113
+	desc = "EVTDESCSCHOOL113"
+	picture = GFX_evt_quarrel
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+# One of your professors expelled a student for cheating
+character_event = {
+	id = school.114
+	desc = "EVTDESCSCHOOL114"
+	picture = GFX_evt_quarrel
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	# Approve
+	option = {
+		name = "EVTOPTASCHOOL114"
+		FROMFROM = { opinion = { who = ROOT modifier = opinion_expelled_me } }
+		if = {
+			limit = {
+				event_target:target_important_person = {
+					always = yes
+					NOT = { character = FROMFROM }
+				}
+			}
+			opinion = { who = ROOT modifier = opinion_expelled_my_relative }
+		}
+		hidden_tooltip = { FROM = { character_event = { id = school.115 } } }
+		ai_chance = {
+			factor = 80
+			modifier = {
+				factor = 0.8
+				event_target:target_important_person = { always = yes }
+			}
+			modifier = {
+				factor = 0.8
+				event_target:target_important_person = { tier = COUNT }
+			}
+			modifier = {
+				factor = 0.8
+				event_target:target_important_person = { tier = DUKE }
+			}
+			modifier = {
+				factor = 0.8
+				event_target:target_important_person = { tier = KING }
+			}
+			modifier = {
+				factor = 0.8
+				event_target:target_important_person = { tier = EMPEROR }
+			}
+			modifier = {
+				factor = 0.8
+				event_target:target_important_person = { always = yes }
+				trait = deceitful
+			}
+			modifier = {
+				factor = 0.8
+				event_target:target_important_person = { tier = COUNT }
+				trait = deceitful
+			}
+			modifier = {
+				factor = 0.8
+				event_target:target_important_person = { tier = DUKE }
+				trait = deceitful
+			}
+			modifier = {
+				factor = 0.8
+				event_target:target_important_person = { tier = KING }
+				trait = deceitful
+			}
+			modifier = {
+				factor = 0.8
+				event_target:target_important_person = { tier = EMPEROR }
+				trait = deceitful
+			}
+		}
+	}
+	# Disapprove
+	option = {
+		name = "EVTOPTBSCHOOL114"
+		if = {
+			limit = { trait = honest }
+			custom_tooltip = { text = "BECAUSEHONEST" }
+			change_variable = { which = stress_var value = 20 }
+		}
+		modify_stress_effect = yes
+		FROM = {
+			opinion = { who = ROOT modifier = opinion_academic_corruption }
+			hidden_tooltip = { character_event = { id = school.116 } }
+		}
+		ai_chance = {
+			factor = 20
+			modifier = {
+				factor = 0
+				trait = honest
+			}
+			modifier = {
+				factor = 0
+				NOT = { event_target:target_important_person = { always = yes } }
+				NOT = { opinion = { who = FROMFROM value = 25 } }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 100 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 90 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 80 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 70 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 60 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 50 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 40 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 30 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 20 }
+			}
+			modifier = {
+				factor = 1.25
+				opinion = { who = FROMFROM value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = FROMFROM value = -99 } }
+			}
+		}
+	}
+}
+# The rector approves of your decision to expel a cheating student
+character_event = {
+	id = school.115
+	desc = "EVTDESCSCHOOL115"
+	picture = GFX_evt_council
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		reverse_opinion = { who = FROM modifier = opinion_approves_of_expulsion }
+		change_society_currency = 100
+	}
+}
+# The rector disapproves of your decision to expel a cheating student
+character_event = {
+	id = school.116
+	desc = "EVTDESCSCHOOL116"
+	picture = GFX_evt_council_argument
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		reverse_opinion = { who = FROM modifier = opinion_disapproves_of_expulsion }
+		change_society_currency = -100
+	}
+}
+# You were let off with a warning and a failing grade
+character_event = {
+	id = school.117
+	desc = "EVTDESCSCHOOL117"
+	picture = GFX_evt_quarrel
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASCHOOL117"
+		if = {
+			limit = {
+				event_target:target_professor = { has_character_flag = flag_easy_exam }
+				change_society_currency = -25
+			}
+		}
+		else_if = {
+			limit = {
+				event_target:target_professor = { has_character_flag = flag_normal_exam }
+				change_society_currency = -50
+			}
+		}
+		else_if = {
+			limit = {
+				event_target:target_professor = { has_character_flag = flag_hard_exam }
+				change_society_currency = -100
+			}
+		}
+	}
+}
+# Your professor demands a bribe
+character_event = {
+	id = school.118
+	desc = "EVTDESCSCHOOL118"
+	picture = GFX_evt_bribe_accepted
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	# Pay the bribe
+	option = {
+		name = "EVTOPTASCHOOL118"
+		wealth = -100
+		hidden_tooltip = { FROM = { character_event = { id = school.119 } } }
+		ai_chance = { factor = 1 }
+	}
+	# Refuse to pay the bribe
+	option = {
+		name = "EVTOPTBSCHOOL118"
+		expel_student_effect = yes
+		hidden_tooltip = {
+			any_close_relative = { character_event = { id = school.113 } }
+			FROM = { character_event = { id = school.120 } }
+		}
+		ai_chance = { factor = 0 }
+	}
+}
+# Your student paid the bribe
+character_event = {
+	id = school.119
+	desc = "EVTDESCSCHOOL119"
+	picture = GFX_evt_bribe_accepted
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASCHOOL119"
+		wealth = 100
+		hidden_tooltip = {
+			society = {
+				random_society_member = {
+					limit = { is_society_grandmaster = yes }
+					save_event_target_as = target_rector
+				}
+			}
+		}
+		random_list = {
+			10 = {
+				root_intrigue_score = yes
+			}
+			0 = {
+				target_rector_intrigue_score = yes
+				event_target:target_rector = { character_event = { id = school.136 tooltip = "EVTTOOLTIPSCHOOL136" days = 10 random = 30 } }
+			}
+		}
+	}
+}
+# Your student refused to pay the bribe
+character_event = {
+	id = school.120
+	desc = "EVTDESCSCHOOL120"
+	picture = GFX_evt_quarrel
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASCHOOL120"
+		if = {
+			limit = { event_target:target_important_person = { always = yes } }
+			add_society_modifier = { name = expelled_important_person years = 2 }
+		}
+		hidden_tooltip = {
+			society = {
+				random_society_member = {
+					limit = { is_society_grandmaster = yes }
+					character_event = { id = school.114 }
+				}
+			}
+		}
+	}
+}
+# Your professor demands/repays a favor
+character_event = {
+	id = school.121
+	desc = "EVTDESCSCHOOL121"
+	picture = GFX_evt_bribe_accepted
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	# Accept the favor
+	option = {
+		trigger = { holds_favor_on = FROM }
+		name = "EVTOPTASCHOOL121"
+		remove_favor = FROM
+		hidden_tooltip = { FROM = { character_event = { id = school.122 } } }
+		ai_chance = { factor = 1 }
+	}
+	option = {
+		trigger = { NOT = { holds_favor_on = FROM } }
+		name = "EVTOPTBSCHOOL121"
+		reverse_add_favor = FROM
+		hidden_tooltip = { FROM = { character_event = { id = school.122 } } }
+		ai_chance = { factor = 1 }
+	}
+	# Refuse to pay the bribe
+	option = {
+		name = "EVTOPTCSCHOOL121"
+		expel_student_effect = yes
+		hidden_tooltip = {
+			any_close_relative = { character_event = { id = school.113 } }
+			FROM = { character_event = { id = school.123 } }
+		}
+		ai_chance = { factor = 0 }
+	}
+}
+# Your student accepted the favor
+character_event = {
+	id = school.122
+	desc = "EVTDESCSCHOOL122"
+	picture = GFX_evt_bribe_accepted
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASCHOOL122"
+		if = {
+			limit = { holds_favor_on = FROM }
+			tooltip = { add_favor = FROM }
+		}
+		else = { tooltip = { reverse_remove_favor = FROM } }
+		hidden_tooltip = {
+			society = {
+				random_society_member = {
+					limit = { is_society_grandmaster = yes }
+					save_event_target_as = target_rector
+				}
+			}
+		}
+		random_list = {
+			10 = {
+				root_intrigue_score = yes
+			}
+			0 = {
+				target_rector_intrigue_score = yes
+				event_target:target_rector = { character_event = { id = school.136 tooltip = "EVTTOOLTIPSCHOOL136" days = 10 random = 30 } }
+			}
+		}
+	}
+}
+# Your student refused to accept the favor
+character_event = {
+	id = school.123
+	desc = "EVTDESCSCHOOL123"
+	picture = GFX_evt_quarrel
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASCHOOL123"
+		if = {
+			limit = { event_target:target_important_person = { always = yes } }
+			add_society_modifier = { name = expelled_important_person years = 2 }
+		}
+		hidden_tooltip = {
+			society = {
+				random_society_member = {
+					limit = { is_society_grandmaster = yes }
+					character_event = { id = school.114 }
+				}
+			}
+		}
+	}
+}
+# Your important relative has been asked for a bribe
+character_event = {
+	id = school.124
+	hide_window = yes
+	is_triggered_only = yes
+	
+	immediate = { event_target:target_important_person = { character_event = { id = school.125 } } }
+}
+# You've been asked to pay a bribe to cover for your relative's cheating at school
+character_event = {
+	id = school.125
+	desc = "EVTDESCSCHOOL125"
+	picture = GFX_evt_bribe_accepted
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	immediate = { opinion = { who = FROM modifier = opinion_caught_cheating_on_exams } }
+	
+	# Accept
+	option = {
+		name = "EVTOPTACCEPT"
+		wealth = -100
+		hidden_tooltip = { FROM = { character_event = { id = school.126 } } }
+		ai_chance = {
+			factor = 50
+			root_positive_opinion_of_from_score = yes
+			modifier = {
+				factor = 4
+				trait = deceitful
+			}
+			modifier = {
+				factor = 0
+				trait = honest
+			}
+		}
+	}
+	
+	# Refuse
+	option = {
+		name = "EVTOPTREFUSE"
+		hidden_tooltip = { FROM = { character_event = { id = school.128 } } }
+		ai_chance = {
+			factor = 50
+		}
+	}
+}
+# Your relative paid a bribe for you
+character_event = {
+	id = school.126
+	desc = "EVTDESCSCHOOL126"
+	picture = GFX_evt_bribe_accepted
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASCHOOL126"
+		hidden_tooltip = { event_target:target_professor = { character_event = { id = school.127 } } }
+	}
+}
+# Your student's relative paid to cover up their cheating
+character_event = {
+	id = school.127
+	desc = "EVTDESCSCHOOL127"
+	picture = GFX_evt_bribe_accepted
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASCHOOL127"
+		wealth = 100
+		hidden_tooltip = {
+			society = {
+				random_society_member = {
+					limit = { is_society_grandmaster = yes }
+					save_event_target_as = target_rector
+				}
+			}
+		}
+		random_list = {
+			10 = {
+				root_intrigue_score = yes
+			}
+			0 = {
+				target_rector_intrigue_score = yes
+				event_target:target_rector = { character_event = { id = school.136 tooltip = "EVTTOOLTIPSCHOOL136" days = 10 random = 30 } }
+			}
+		}
+	}
+}
+# Your relative refused to pay a bribe for you
+character_event = {
+	id = school.128
+	desc = "EVTDESCSCHOOL112"
+	picture = GFX_evt_quarrel
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASCHOOL112"
+		expel_student_effect = yes
+		hidden_tooltip = {
+			any_close_relative = { character_event = { id = school.113 } }
+			event_target:target_professor = { character_event = { id = school.129 } }
+		}
+	}
+}
+# Your student's relative refused to pay a bribe
+character_event = {
+	id = school.129
+	desc = "EVTDESCSCHOOL129"
+	picture = GFX_evt_quarrel
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASCHOOL129"
+		if = {
+			limit = { event_target:target_important_person = { always = yes } }
+			add_society_modifier = { name = expelled_important_person years = 2 }
+		}
+		hidden_tooltip = {
+			society = {
+				random_society_member = {
+					limit = { is_society_grandmaster = yes }
+					character_event = { id = school.114 }
+				}
+			}
+		}
+	}
+}
+# Your important relative has been asked for a favor
+character_event = {
+	id = school.130
+	hide_window = yes
+	is_triggered_only = yes
+	
+	immediate = { event_target:target_important_person = { character_event = { id = school.131 } } }
+}
+# A professor has offered to overlook your relative's cheating at school as a personal favor
+character_event = {
+	id = school.131
+	desc = "EVTDESCSCHOOL131"
+	picture = GFX_evt_bribe_accepted
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	immediate = { opinion = { who = FROM modifier = opinion_caught_cheating_on_exams } }
+	
+	# Accept
+	option = {
+		trigger = { holds_favor_on = FROMFROM }
+		name = "EVTOPTACCEPT"
+		remove_favor = FROMFROM
+		hidden_tooltip = { FROM = { character_event = { id = school.132 } } }
+		ai_chance = {
+			factor = 50
+			root_positive_opinion_of_from_score = yes
+			modifier = {
+				factor = 4
+				trait = deceitful
+			}
+			modifier = {
+				factor = 0
+				trait = honest
+			}
+		}
+	}
+	option = {
+		trigger = { NOT = { holds_favor_on = FROMFROM } }
+		name = "EVTOPTACCEPT"
+		reverse_add_favor = FROMFROM
+		hidden_tooltip = { FROM = { character_event = { id = school.132 } } }
+		ai_chance = {
+			factor = 50
+			root_positive_opinion_of_from_score = yes
+			modifier = {
+				factor = 4
+				trait = deceitful
+			}
+			modifier = {
+				factor = 0
+				trait = honest
+			}
+		}
+	}
+	
+	# Refuse
+	option = {
+		name = "EVTOPTREFUSE"
+		hidden_tooltip = { FROM = { character_event = { id = school.134 } } }
+		ai_chance = {
+			factor = 50
+		}
+	}
+}
+# Your professor will overlook your cheating as a favor to your relative
+character_event = {
+	id = school.132
+	desc = "EVTDESCSCHOOL126"
+	picture = GFX_evt_bribe_accepted
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASCHOOL126"
+		hidden_tooltip = { event_target:target_professor = { character_event = { id = school.133 } } }
+	}
+}
+# You will overlook a student's cheating as a favor to their relative
+character_event = {
+	id = school.133
+	desc = "EVTDESCSCHOOL133"
+	picture = GFX_evt_bribe_accepted
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASCHOOL133"
+		if = {
+			limit = { holds_favor_on = FROMFROM }
+			tooltip = { add_favor = FROMFROM }
+		}
+		else = { tooltip = { reverse_remove_favor = FROMFROM } }
+		hidden_tooltip = {
+			society = {
+				random_society_member = {
+					limit = { is_society_grandmaster = yes }
+					save_event_target_as = target_rector
+				}
+			}
+		}
+		random_list = {
+			10 = {
+				root_intrigue_score = yes
+			}
+			0 = {
+				target_rector_intrigue_score = yes
+				event_target:target_rector = { character_event = { id = school.136 tooltip = "EVTTOOLTIPSCHOOL136" days = 10 random = 30 } }
+			}
+		}
+	}
+}
+# Your relative refused to cover for your cheating
+character_event = {
+	id = school.134
+	desc = "EVTDESCSCHOOL112"
+	picture = GFX_evt_quarrel
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASCHOOL112"
+		expel_student_effect = yes
+		hidden_tooltip = {
+			any_close_relative = { character_event = { id = school.113 } }
+			event_target:target_professor = { character_event = { id = school.135 } }
+		}
+	}
+}
+# Your student's relative refused to cover for their cheating
+character_event = {
+	id = school.135
+	desc = "EVTDESCSCHOOL129"
+	picture = GFX_evt_quarrel
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASCHOOL129"
+		if = {
+			limit = { event_target:target_important_person = { always = yes } }
+			add_society_modifier = { name = expelled_important_person years = 2 }
+		}
+		hidden_tooltip = {
+			society = {
+				random_society_member = {
+					limit = { is_society_grandmaster = yes }
+					character_event = { id = school.114 }
+				}
+			}
+		}
+	}
+}
+
+# One of your professors has overlooked academic misconduct
+character_event = {
+	id = school.136
+	desc = "EVTDESCSCHOOL136"
+	picture = GFX_evt_council_argument
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	
+	# Yes, and?
+	option = {
+		name = "EVTOPTASCHOOL136"
+		ai_chance = {
+			factor = 50
+			root_positive_opinion_of_from_score = yes
+			modifier = {
+				factor = 0
+				trait = honest
+			}
+			modifier = {
+				factor = 0.2
+				NOT = { trait = deceitful }
+			}
+		}
+	}
+	# Reprimand them immediately
+	option = {
+		name = "EVTOPTBSCHOOL136"
+		FROM = {
+			opinion = { who = ROOT modifier = opinion_reprimanded_me }
+			hidden_tooltip = { character_event = { id = school.137 } }
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+# You've been reprimanded for overlooking academic misconduct
+character_event = {
+	id = school.137
+	desc = "EVTDESCSCHOOL137"
+	picture = GFX_evt_council_argument
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASCHOOL137"
+		reverse_opinion = { who = FROM modifier = opinion_academic_corruption }
+		change_society_currency = -250
+	}
+}
+
+# Give a blatantly biased lecture and assignment?
+character_event = {
+	id = school.140
+	desc = "EVTDESCSCHOOL140"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	min_age = 18
+	only_capable = yes
+	prisoner = no
+	
+	trigger = {
+		society = { is_civilian_school_trigger = yes }
+		society_rank == 3
+		OR = {
+			# Lawyers and economists are motivated by political biases
+			AND = {
+				OR = {
+					trait = lawyer
+					trait = economist
+				}
+				OR = {
+					religion_group = political_terran_group
+					religion_group = political_group
+				}
+			}
+			# Scientists and doctors are motivated by transhumanist or religious biases
+			AND = {
+				OR = {
+					trait = physician
+					trait = scientist
+				}
+				OR = {
+					religion_group = religious_terran_group
+					religion_group = religious_group
+					religion_group = transhumanist_group
+				}
+			}
+		}
+	}
+	
+	# Sounds like a great idea!
+	option = {
+		name = "EVTOPTASCHOOL140"
+		hidden_tooltip = {
+			if = {
+				limit = { trait = lawyer }
+				society = {
+					any_society_member = {
+						limit = {
+							has_character_modifier = law_major
+							religion = ROOT
+						}
+						character_event = { id = school.141 days = 10 random = 30 }
+					}
+					any_society_member = {
+						limit = {
+							has_character_modifier = law_major
+							NOT = { religion = ROOT }
+							OR = {
+								religion_group = political_terran_group
+								religion_group = political_group
+							}
+						}
+						character_event = { id = school.143 days = 10 random = 30 }
+					}
+				}
+			}
+			else_if = {
+				limit = { trait = economist }
+				society = {
+					any_society_member = {
+						limit = {
+							has_character_modifier = economics_major
+							religion = ROOT
+						}
+						character_event = { id = school.141 days = 10 random = 30 }
+					}
+					any_society_member = {
+						limit = {
+							has_character_modifier = economics_major
+							NOT = { religion = ROOT }
+							OR = {
+								religion_group = political_terran_group
+								religion_group = political_group
+							}
+						}
+						character_event = { id = school.143 days = 10 random = 30 }
+					}
+				}
+			}
+			else_if = {
+				limit = { trait = physician }
+				society = {
+					any_society_member = {
+						limit = {
+							has_character_modifier = medical_major
+							religion = ROOT
+						}
+						character_event = { id = school.141 days = 10 random = 30 }
+					}
+					any_society_member = {
+						limit = {
+							has_character_modifier = medical_major
+							NOT = { religion = ROOT }
+							OR = {
+								religion_group = religious_terran_group
+								religion_group = religious_group
+								religion_group = transhumanist_group
+							}
+						}
+						character_event = { id = school.143 days = 10 random = 30 }
+					}
+				}
+			}
+			else_if = {
+				limit = { trait = scientist }
+				society = {
+					any_society_member = {
+						limit = {
+							has_character_modifier = science_major
+							religion = ROOT
+						}
+						character_event = { id = school.141 days = 10 random = 30 }
+					}
+					any_society_member = {
+						limit = {
+							has_character_modifier = science_major
+							NOT = { religion = ROOT }
+							OR = {
+								religion_group = religious_terran_group
+								religion_group = religious_group
+								religion_group = transhumanist_group
+							}
+						}
+						character_event = { id = school.143 days = 10 random = 30 }
+					}
+				}
+			}
+		}
+		society = {
+			random_society_member = {
+				limit = { rank = 4 }
+				character_event = { id = school.147 days = 10 random = 30 tooltip = "EVTTOOLTIPSCHOOL147" }
+			}
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 5
+				trait = radical
+			}
+			modifier = {
+				factor = 0.2
+				OR = {
+					trait = pragmatic
+					trait = amoral
+				}
+			}
+			modifier = {
+				factor = 2
+				trait = close_minded
+			}
+			modifier = {
+				factor = 0.5
+				trait = open_minded
+			}
+		}
+	}
+	# Sounds like a terrible idea
+	option = {
+		name = "EVTOPTBSCHOOL140"
+		if = {
+			limit = { trait = radical }
+			custom_tooltip = { text = "BECAUSERADICAL" }
+			change_variable = { which = stress_var value = 20 }
+		}
+		if = {
+			limit = { trait = close_minded }
+			custom_tooltip = { text = "BECAUSECLOSEMINDED" }
+			change_variable = { which = stress_var value = 10 }
+		}
+		modify_stress_effect = yes
+		ai_chance = { factor = 50 }
+	}
+}
+# Your professor gave a very affirmational lecture
+character_event = {
+	id = school.141
+	desc = "EVTDESCSCHOOL141"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASCHOOL141"
+		change_variable = { which = stress_var value = -15 }
+		modify_stress_effect = yes
+		change_society_currency = 50
+		hidden_tooltip = { FROM = { character_event = { id = school.142 } } }
+	}
+}
+# A student responded very positively to your lecture
+character_event = {
+	id = school.142
+	desc = "EVTDESCSCHOOL142"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASCHOOL142"
+		change_society_currency = 25
+	}
+}
+# Your professor gave a blatantly biased lecture and assignment
+character_event = {
+	id = school.143
+	desc = "EVTDESCSCHOOL143"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	# You don't have to believe what they said to do the work
+	option = {
+		name = "EVTOPTASCHOOL143"
+		change_variable = { which = stress_var value = 20 }
+		if = {
+			limit = { trait = close_minded }
+			custom_tooltip = { text = "BECAUSECLOSEMINDED" }
+			change_variable = { which = stress_var value = 10 }
+		}
+		if = {
+			limit = { trait = honest }
+			custom_tooltip = { text = "BECAUSEHONEST" }
+			change_variable = { which = stress_var value = 10 }
+		}
+		modify_stress_effect = yes
+		change_society_currency = 30
+		hidden_tooltip = { FROM = { character_event = { id = school.144 } } }
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				trait = pragmatic
+			}
+			modifier = {
+				factor = 2
+				trait = amoral
+			}
+			modifier = {
+				factor = 2
+				trait = open_minded
+			}
+			modifier = {
+				factor = 2
+				trait = deceitful
+			}
+			modifier = {
+				factor = 0.5
+				trait = radical
+			}
+			modifier = {
+				factor = 0.5
+				trait = close_minded
+			}
+			modifier = {
+				factor = 0.5
+				trait = honest
+			}
+			modifier = {
+				factor = 2
+				trait = confident
+			}
+			modifier = {
+				factor = 0.5
+				trait = neurotic
+			}
+		}
+	}
+	
+	# Maybe they have a point?
+	option = {
+		name = "EVTOPTBSCHOOL143"
+		if = {
+			limit = { trait = radical }
+			custom_tooltip = { text = "BECAUSERADICAL" }
+			change_variable = { which = stress_var value = 50 }
+		}
+		if = {
+			limit = { trait = close_minded }
+			custom_tooltip = { text = "BECAUSECLOSEMINDED" }
+			change_variable = { which = stress_var value = 50 }
+		}
+		modify_stress_effect = yes
+		change_society_currency = 50
+		religion = FROM
+		hidden_tooltip = { FROM = { character_event = { id = school.145 } } }
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 0
+				trait = radical
+			}
+			modifier = {
+				factor = 0.1
+				trait = close_minded
+			}
+		}
+	}
+	
+	# Refuse to do the assignment
+	option = {
+		name = "EVTOPTCSCHOOL143"
+		change_society_currency = -50
+		hidden_tooltip = { FROM = { character_event = { id = school.146 } } }
+		ai_chance = {
+			factor = 50
+		}
+	}
+}
+# A student grudgingly completed your assignment
+character_event = {
+	id = school.144
+	desc = "EVTDESCSCHOOL144"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASCHOOL144"
+		change_society_currency = 15
+		reverse_opinion = { who = FROM modifier = opinion_gave_biased_lecture }
+	}
+}
+# A student converted to your ideology
+character_event = {
+	id = school.145
+	desc = "EVTDESCSCHOOL145"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASCHOOL145"
+		change_society_currency = 25
+	}
+}
+# A student refused to complete your assignment
+character_event = {
+	id = school.146
+	desc = "EVTDESCSCHOOL146"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASCHOOL146"
+		change_society_currency = -25
+		reverse_opinion = { who = FROM modifier = opinion_gave_biased_lecture }
+	}
+}
+# One of your professors has been getting "political"
+character_event = {
+	id = school.147
+	desc = "EVTDESCSCHOOL147"
+	picture = GFX_evt_council_argument
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	# Yes, and?
+	option = {
+		name = "EVTOPTASCHOOL147"
+		if = {
+			limit = { religion = FROM }
+			piety = 100
+		}
+		else = { piety = 100 }
+		ai_chance = {
+			factor = 50
+			root_positive_opinion_of_from_score = yes
+			modifier = {
+				factor = 4
+				trait = open_minded
+			}
+			modifier = {
+				factor = 2
+				trait = amoral
+			}
+			modifier = {
+				factor = 0
+				NOT = { religion = FROM }
+				OR = {
+					trait = radical
+					trait = close_minded
+				}
+			}
+		}
+	}
+	# Reprimand them immediately
+	option = {
+		name = "EVTOPTBSCHOOL147"
+		if = {
+			limit = { religion = FROM }
+			piety = -100
+		}
+		else = { piety = 100 }
+		FROM = {
+			opinion = { who = ROOT modifier = opinion_reprimanded_me }
+			hidden_tooltip = { character_event = { id = school.148 } }
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				trait = pragmatic
+			}
+			modifier = {
+				factor = 0
+				religion = FROMFROM
+				OR = {
+					trait = radical
+					trait = close_minded
+				}
+			}
+		}
+	}
+}
+# You've been reprimanded for your biased lecture
+character_event = {
+	id = school.148
+	desc = "EVTDESCSCHOOL148"
+	picture = GFX_evt_council_argument
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASCHOOL148"
+		reverse_opinion = { who = FROM modifier = opinion_academic_bias }
+		change_society_currency = -100
+	}
+}
+
+# Workload from multiple professors
+character_event = {
+	id = school.151
+	desc = "EVTDESCSCHOOL151"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	only_capable = yes
+	prisoner = no
+	
+	trigger = {
+		has_major_trigger = yes
+		# Must have multiple professors for your major
+		OR = {
+			AND = {
+				has_character_modifier = law_major
+				society = {
+					any_society_member = {
+						society_rank == 3
+						trait = lawyer
+						count = 2
+					}
+				}
+			}
+			AND = {
+				has_character_modifier = economics_major
+				society = {
+					any_society_member = {
+						society_rank == 3
+						trait = economist
+						count = 2
+					}
+				}
+			}
+			AND = {
+				has_character_modifier = medical_major
+				society = {
+					any_society_member = {
+						society_rank == 3
+						trait = physician
+						count = 2
+					}
+				}
+			}
+			AND = {
+				has_character_modifier = science_major
+				society = {
+					any_society_member = {
+						society_rank == 3
+						trait = scientist
+						count = 2
+					}
+				}
+			}
+		}
+	}
+	
+	# Save two professors
+	immediate = {
+		if = {
+			limit = { has_character_modifier = law_major }
+			society = {
+				random_society_member = {
+					limit = {
+						society_rank == 3
+						trait = lawyer
+					}
+					save_event_target_as = professor_1
+				}
+				random_society_member = {
+					limit = {
+						society_rank == 3
+						trait = lawyer
+						NOT = { character = event_target:professor_1 }
+					}
+					save_event_target_as = professor_2
+				}
+			}
+		}
+		else_if = {
+			limit = { has_character_modifier = economics_major }
+			society = {
+				random_society_member = {
+					limit = {
+						society_rank == 3
+						trait = economist
+					}
+					save_event_target_as = professor_1
+				}
+				random_society_member = {
+					limit = {
+						society_rank == 3
+						trait = economist
+						NOT = { character = event_target:professor_1 }
+					}
+					save_event_target_as = professor_2
+				}
+			}
+		}
+		else_if = {
+			limit = { has_character_modifier = medical_major }
+			society = {
+				random_society_member = {
+					limit = {
+						society_rank == 3
+						trait = physician
+					}
+					save_event_target_as = professor_1
+				}
+				random_society_member = {
+					limit = {
+						society_rank == 3
+						trait = physician
+						NOT = { character = event_target:professor_1 }
+					}
+					save_event_target_as = professor_2
+				}
+			}
+		}
+		else_if = {
+			limit = { has_character_modifier = science_major }
+			society = {
+				random_society_member = {
+					limit = {
+						society_rank == 3
+						trait = scientist
+					}
+					save_event_target_as = professor_1
+				}
+				random_society_member = {
+					limit = {
+						society_rank == 3
+						trait = scientist
+						NOT = { character = event_target:professor_1 }
+					}
+					save_event_target_as = professor_2
+				}
+			}
+		}
+	}
+	
+	# Do professor 1's work first
+	option = {
+		name = "EVTOPTASCHOOL151"
+		change_society_currency = 50
+		event_target:professor_1 = {
+			opinion = { who = ROOT modifier = opinion_kept_up_in_class }
+			hidden_tooltip = { character_event = { id = school.152 } }
+		}
+		event_target:professor_2 = {
+			opinion = { who = ROOT modifier = opinion_fell_behind_in_class }
+			hidden_tooltip = { character_event = { id = school.153 } }
+		}
+		ai_chance = {
+			factor = 33
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = event_target:professor_2 value = -99 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = event_target:professor_2 value = -89 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = event_target:professor_2 value = -79 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = event_target:professor_2 value = -69 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = event_target:professor_2 value = -59 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = event_target:professor_2 value = -49 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = event_target:professor_2 value = -39 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = event_target:professor_2 value = -29 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = event_target:professor_2 value = -19 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = event_target:professor_2 value = 9 } }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = event_target:professor_2 value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = event_target:professor_2 value = 20 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = event_target:professor_2 value = 30 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = event_target:professor_2 value = 40 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = event_target:professor_2 value = 50 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = event_target:professor_2 value = 60 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = event_target:professor_2 value = 70 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = event_target:professor_2 value = 80 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = event_target:professor_2 value = 90 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = event_target:professor_2 value = 100 }
+			}
+		}
+	}
+	
+	# Do professor 2's work first
+	option = {
+		name = "EVTOPTBSCHOOL151"
+		change_society_currency = 50
+		event_target:professor_2 = {
+			opinion = { who = ROOT modifier = opinion_kept_up_in_class }
+			hidden_tooltip = { character_event = { id = school.152 } }
+		}
+		event_target:professor_1 = {
+			opinion = { who = ROOT modifier = opinion_fell_behind_in_class }
+			hidden_tooltip = { character_event = { id = school.153 } }
+		}
+		ai_chance = {
+			factor = 33
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = event_target:professor_1 value = -99 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = event_target:professor_1 value = -89 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = event_target:professor_1 value = -79 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = event_target:professor_1 value = -69 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = event_target:professor_1 value = -59 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = event_target:professor_1 value = -49 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = event_target:professor_1 value = -39 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = event_target:professor_1 value = -29 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = event_target:professor_1 value = -19 } }
+			}
+			modifier = {
+				factor = 1.25
+				NOT = { opinion = { who = event_target:professor_1 value = 9 } }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = event_target:professor_1 value = 10 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = event_target:professor_1 value = 20 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = event_target:professor_1 value = 30 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = event_target:professor_1 value = 40 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = event_target:professor_1 value = 50 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = event_target:professor_1 value = 60 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = event_target:professor_1 value = 70 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = event_target:professor_1 value = 80 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = event_target:professor_1 value = 90 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = event_target:professor_1 value = 100 }
+			}
+		}
+	}
+	
+	# Try to do both
+	option = {
+		name = "EVTOPTCSCHOOL151"
+		change_variable = { which = stress_var value = 25 }
+		modify_stress_effect = yes
+		change_society_currency = 100
+		event_target:professor_1 = {
+			opinion = { who = ROOT modifier = opinion_kept_up_in_class }
+			hidden_tooltip = { character_event = { id = school.152 } }
+		}
+		event_target:professor_2 = {
+			opinion = { who = ROOT modifier = opinion_kept_up_in_class }
+			hidden_tooltip = { character_event = { id = school.152 } }
+		}
+		ai_chance = {
+			factor = 33
+			modifier = {
+				factor = 0.1
+				trait = stressed
+			}
+			modifier = {
+				factor = 2
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.5
+				trait = carefree
+			}
+		}
+	}
+}
+
+character_event = {
+	id = school.152
+	desc = "EVTDESCSCHOOL152"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		change_society_currency = 50
+	}
+}
+
+character_event = {
+	id = school.153
+	desc = "EVTDESCSCHOOL153"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		change_society_currency = -50
+	}
+}
+
+# GRADUATION
+character_event = {
+	id = school.200
+	desc = "EVTDESCSSCHOOL200"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	immediate = {
+		if = {
+			limit = { has_character_modifier = law_major }
+			remove_character_modifier = law_major
+			add_trait = lawyer
+		}
+		if = {
+			limit = { has_character_modifier = economics_major }
+			remove_character_modifier = economics_major
+			add_trait = economist
+		}
+		if = {
+			limit = { has_character_modifier = medical_major }
+			remove_character_modifier = medical_major
+			add_trait = physician
+		}
+		if = {
+			limit = { has_character_modifier = science_major }
+			remove_character_modifier = science_major
+			add_trait = scientist
+		}
+	}
+	
+	option = {
+		name = "EVTOPTASCHOOL200"
+		remove_trait = on_leave
+		if = {
+			limit = { trait = lawyer }
+			add_trait = lawyer
+			if = {
+				limit = { check_variable = { which = times_cheated_in_school value = 3 } }
+				add_trait = fake_lawyer
+			}
+		}
+		if = {
+			limit = { trait = economist }
+			add_trait = economist
+			if = {
+				limit = { check_variable = { which = times_cheated_in_school value = 3 } }
+				add_trait = fake_economist
+			}
+		}
+		if = {
+			limit = { trait = physician }
+			add_trait = physician
+			if = {
+				limit = { check_variable = { which = times_cheated_in_school value = 3 } }
+				add_trait = fake_physician
+			}
+		}
+		if = {
+			limit = { trait = scientist }
+			add_trait = scientist
+			if = {
+				limit = { check_variable = { which = times_cheated_in_school value = 3 } }
+				add_trait = fake_scientist
+			}
+		}
+		society_rank_up = 1
+		clr_character_flag = has_sent_request_to_rank_up
+		hidden_tooltip = {
+			society = {
+				random_society_member = {
+					limit = { society_rank == 4 }
+					character_event = { id = school.201 }
+				}
+			}
+		}
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 1.25
+				trait = friendly
+			}
+			modifier = {
+				factor = 0.8
+				trait = cold
+			}
+			modifier = {
+				factor = 2
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.5
+				trait = carefree
+			}
+			modifier = {
+				factor = 2
+				trait = intellectual
+			}
+			modifier = {
+				factor = 2
+				trait = mystic
+			}
+			modifier = {
+				factor = 0.2
+				NOT = { monthly_income = 0.2 }
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTBSCHOOL200"
+		remove_trait = on_leave
+		if = {
+			limit = { trait = lawyer }
+			add_trait = lawyer
+			if = {
+				limit = { check_variable = { which = times_cheated_in_school value = 3 } }
+				add_trait = fake_lawyer
+			}
+		}
+		if = {
+			limit = { trait = economist }
+			add_trait = economist
+			if = {
+				limit = { check_variable = { which = times_cheated_in_school value = 3 } }
+				add_trait = fake_economist
+			}
+		}
+		if = {
+			limit = { trait = physician }
+			add_trait = physician
+			if = {
+				limit = { check_variable = { which = times_cheated_in_school value = 3 } }
+				add_trait = fake_physician
+			}
+		}
+		if = {
+			limit = { trait = scientist }
+			add_trait = scientist
+			if = {
+				limit = { check_variable = { which = times_cheated_in_school value = 3 } }
+				add_trait = fake_scientist
+			}
+		}
+		leave_society = yes
+		clr_character_flag = has_sent_request_to_rank_up
+		hidden_tooltip = {
+			society = {
+				random_society_member = {
+					limit = { society_rank == 4 }
+					character_event = { id = school.202 }
+				}
+			}
+		}
+		ai_chance = { factor = 50 }
+	}
+}
+character_event = {
+	id = school.201
+	desc = "EVTDESCSSCHOOL201"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+character_event = {
+	id = school.202
+	desc = "EVTDESCSSCHOOL202"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+# Applying for professorship
+character_event = {
+	id = school.203
+	hide_window = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		society = {
+			random_society_member = {
+				limit = { is_society_grandmaster = yes }
+				letter_event = { id = school.204 }
+			}
+		}
+	}
+}
+letter_event = {
+	id = school.204
+	desc = "EVTDESCSCHOOL204"
+	border = GFX_event_letter_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASCHOOL204"
+		FROM = {
+			tooltip = { society_rank_up = 1 }
+			hidden_tooltip = { letter_event = { id = school.205 } }
+		}
+		ai_chance = {
+			factor = 0
+			from_learning_score = yes
+			root_positive_opinion_of_from_score = yes
+		}
+	}
+	option = {
+		name = "EVTOPTBSCHOOL204"
+		FROM = { hidden_tooltip = { letter_event = { id = school.206 } } }
+		ai_chance = { factor = 10 }
+	}
+}
+letter_event = {
+	id = school.205
+	desc = "EVTDESCSCHOOL205"
+	border = GFX_event_letter_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		society_rank_up = 1
+		clr_character_flag = has_sent_request_to_rank_up
+	}
+}
+letter_event = {
+	id = school.206
+	desc = "EVTDESCSCHOOL206"
+	border = GFX_event_letter_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		clr_character_flag = has_sent_request_to_rank_up
+	}
+}
+
+# Donations from associates
+character_event = {
+	id = school.210
+	desc = "EVTDESCSCHOOL210"
+	picture = GFX_evt_bribe_accepted
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		add_society_modifier = { name = donation years = 2 }
+		prestige = 100
+		change_society_currency = 100
+		society = {
+			random_society_member = {
+				limit = { is_society_grandmaster = yes }
+				opinion = { who = ROOT modifier = opinion_donated_to_society }
+				hidden_tooltip = { character_event = { id = school.211 } }
+			}
+		}
+	}
+}
+character_event = {
+	id = school.211
+	desc = "EVTDESCSCHOOL211"
+	notification = yes
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+
+### CAMPUS LIFE EVENTS ###
+# Roommmates
+character_event = {
+	id = school.300
+	desc = "EVTDESCSCHOOL300"
+	picture = GFX_evt_council
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	min_age = 18
+	only_capable = yes
+	prisoner = no
+	
+	trigger = {
+		has_major_trigger = yes
+		OR = {
+			NOT = { has_character_flag = flag_roommate_selected }
+			had_character_flag = { flag = flag_roommate_selected months = 10 }
+		}
+		society = {
+			any_society_member = {
+				has_major_trigger = yes
+				NOT = { character = ROOT }
+				NOT = { any_friend = { character = ROOT } }
+				NOT = { any_rival = { character = ROOT } }
+				NOT = { any_lover = { character = ROOT } }
+				OR = {
+					NOT = { has_character_flag = flag_roommate_selected }
+					had_character_flag = { flag = flag_roommate_selected months = 10 }
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		clr_character_flag = flag_roommate_selected
+		set_character_flag = flag_roommate_selected
+		society = {
+			random_society_member = {
+				limit = {
+					has_major_trigger = yes
+					NOT = { character = ROOT }
+					NOT = { any_friend = { character = ROOT } }
+					NOT = { any_rival = { character = ROOT } }
+					NOT = { any_lover = { character = ROOT } }
+					OR = {
+						NOT = { has_character_flag = flag_roommate_selected }
+						had_character_flag = { flag = flag_roommate_selected months = 10 }
+					}
+				}
+				clr_character_flag = flag_roommate_selected
+				set_character_flag = flag_roommate_selected
+				save_event_target_as = target_roommate
+			}
+		}
+	}
+	
+	# Positive first impressions
+	# Try to make friends
+	option = {
+		trigger = { opinion = { who = event_target:target_roommate value = 0 } }
+		name = "EVTOPTASCHOOL300"
+		event_target:target_roommate = { character_event = { id = school.301 tooltip = "EVTTOOLTIPSCHOOL301" days = 10 random = 30 } }
+		if = {
+			limit = { trait = introverted }
+			custom_tooltip = { text = "BECAUSEINTROVERTED" }
+			change_variable = { which = stress_var value = 10 }
+		}
+		modify_stress_effect = yes
+		ai_chance = { factor = 50 }
+	}
+	# Try to become something more than just friends
+	option = {
+		trigger = {
+			opinion = { who = event_target:target_roommate value = 0 }
+			event_target:target_roommate = { root_attraction_trigger = yes }
+		}
+		name = "EVTOPTBSCHOOL300"
+		if = {
+			limit = { trait = introverted }
+			custom_tooltip = { text = "BECAUSEINTROVERTED" }
+			change_variable = { which = stress_var value = 10 }
+		}
+		if = {
+			limit = {
+				OR = {
+					is_married = yes
+					has_lover = yes
+					event_target:target_roommate = { is_married = yes }
+					event_target:target_roommate = { has_lover = yes }
+				}
+				NOT = { trait = deceitful }
+			}
+			change_variable = { which = stress_var value = 30 }
+		}
+		if = {
+			limit = {
+				is_close_relative = event_target:target_roommate
+				NOT = { trait = open_minded }
+			}
+			change_variable = { which = stress_var value = 30 }
+		}
+		modify_stress_effect = yes
+		event_target:target_roommate = { character_event = { id = school.304 tooltip = "EVTTOOLTIPSCHOOL304" days = 10 random = 30 } }
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 0
+				OR = {
+					has_lover = yes
+					is_married = yes
+					event_target:target_roommate = { has_lover = yes }
+					event_target:target_roommate = { is_married = yes }
+				}
+				NOT = { trait = deceitful }
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					has_lover = yes
+					is_married = yes
+					event_target:target_roommate = { has_lover = yes }
+					event_target:target_roommate = { is_married = yes }
+				}
+			}
+			modifier = {
+				factor = 0
+				is_close_relative = event_target:target_roommate
+				NOT = { trait = open_minded }
+			}
+			modifier = {
+				factor = 0.5
+				is_close_relative = event_target:target_roommate
+			}
+			modifier = {
+				factor = 2
+				event_target:target_roommate = { is_attractive_trigger = yes }
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					has_ambition = obj_marry_for_love
+					has_ambition = obj_find_lover
+				}
+			}
+		}
+	}
+	# Keep to yourself
+	option = {
+		trigger = { opinion = { who = event_target:target_roommate value = 0 } }
+		name = "EVTOPTCSCHOOL300"
+		if = {
+			limit = { trait = introverted }
+			custom_tooltip = { text = "BECAUSEINTROVERTED" }
+			change_variable = { which = stress_var value = -10 }
+		}
+		if = {
+			limit = { trait = extraverted }
+			custom_tooltip = { text = "BECAUSEEXTRAVERTED" }
+			change_variable = { which = stress_var value = 10 }
+		}
+		modify_stress_effect = yes
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.5
+				trait = extraverted
+			}
+			modifier = {
+				factor = 2
+				trait = introverted
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = event_target:target_roommate value = 100 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = event_target:target_roommate value = 90 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = event_target:target_roommate value = 80 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = event_target:target_roommate value = 70 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = event_target:target_roommate value = 60 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = event_target:target_roommate value = 50 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = event_target:target_roommate value = 40 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = event_target:target_roommate value = 30 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = event_target:target_roommate value = 20 }
+			}
+			modifier = {
+				factor = 0.8
+				opinion = { who = event_target:target_roommate value = 10 }
+			}
+		}
+	}
+	
+	# Negative first impressions
+	# Just keep to yourself
+	option = {
+		trigger = { NOT = { opinion = { who = event_target:target_roommate value = 0 } } }
+		name = "EVTOPTDSCHOOL300"
+		if = {
+			limit = { trait = introverted }
+			custom_tooltip = { text = "BECAUSEINTROVERTED" }
+			change_variable = { which = stress_var value = -10 }
+		}
+		if = {
+			limit = { trait = extraverted }
+			custom_tooltip = { text = "BECAUSEEXTRAVERTED" }
+			change_variable = { which = stress_var value = 10 }
+		}
+		if = {
+			limit = { trait = cold }
+			custom_tooltip = { text = "BECAUSECOLD" }
+			change_variable = { which = stress_var value = 10 }
+		}
+		modify_stress_effect = yes
+		event_target:target_roommate = { character_event = { id = school.310 tooltip = "EVTTOOLTIPSCHOOL310" days = 10 random = 30 } }
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = event_target:target_roommate value = -9 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = event_target:target_roommate value = -19 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = event_target:target_roommate value = -29 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = event_target:target_roommate value = -39 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = event_target:target_roommate value = -49 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = event_target:target_roommate value = -59 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = event_target:target_roommate value = -69 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = event_target:target_roommate value = -79 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = event_target:target_roommate value = -89 } }
+			}
+			modifier = {
+				factor = 0.8
+				NOT = { opinion = { who = event_target:target_roommate value = -99 } }
+			}
+		}
+	}
+	# Pick a fight
+	option = {
+		trigger = { NOT = { opinion = { who = event_target:target_roommate value = 0 } } }
+		name = "EVTOPTESCHOOL300"
+		if = {
+			limit = { trait = introverted }
+			custom_tooltip = { text = "BECAUSEINTROVERTED" }
+			change_variable = { which = stress_var value = 10 }
+		}
+		if = {
+			limit = { trait = friendly }
+			custom_tooltip = { text = "BECAUSEFRIENDLY" }
+			change_variable = { which = stress_var value = 20 }
+		}
+		modify_stress_effect = yes
+		tooltip = { add_rival = event_target:target_roommate }
+		hidden_tooltip = { event_target:target_roommate = { character_event = { id = school.309 } } }
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 0
+				NOT = { trait = cold }
+				NOT = { trait = deceitful }
+			}
+			modifier = {
+				factor = 0.5
+				trait = introverted
+			}
+			modifier = {
+				factor = 2
+				trait = extraverted
+			}
+			modifier = {
+				factor = 2
+				trait = cold
+			}
+			modifier = {
+				factor = 0.5
+				trait = friendly
+			}
+		}
+	}
+}
+# Your roommate is trying to make friends with you
+character_event = {
+	id = school.301
+	desc = "EVTDESCSCHOOL301"
+	picture = GFX_evt_council
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	min_age = 18
+	only_capable = yes
+	prisoner = no
+	
+	# Reciprocate
+	option = {
+		name = "EVTOPTASCHOOL301"
+		if = {
+			limit = { trait = introverted }
+			custom_tooltip = { text = "BECAUSEINTROVERTED" }
+			change_variable = { which = stress_var value = 10 }
+		}
+		if = {
+			limit = { NOT = { opinion = { who = FROM value = 0 } } }
+			change_variable = { which = stress_var value = 30 }
+		}
+		modify_stress_effect = yes
+		tooltip = { add_friend = FROM }
+		hidden_tooltip = { FROM = { character_event = { id = school.302 } } }
+		ai_chance = { factor = 50 }
+	}
+	# Friends... or more?
+	option = {
+		trigger = { FROM = { root_attraction_trigger = yes } }
+		name = "EVTOPTBSCHOOL301"
+		if = {
+			limit = { trait = introverted }
+			custom_tooltip = { text = "BECAUSEINTROVERTED" }
+			change_variable = { which = stress_var value = 10 }
+		}
+		if = {
+			limit = {
+				OR = {
+					has_lover = yes
+					is_married = yes
+					FROM = { has_lover = yes }
+					FROM = { is_married = yes }
+				}
+				NOT = { trait = deceitful }
+			}
+			change_variable = { which = stress_var value = 30 }
+		}
+		if = {
+			limit = {
+				is_close_relative = FROM
+				NOT = { trait = open_minded }
+			}
+			change_variable = { which = stress_var value = 30 }
+		}
+		if = {
+			limit = { NOT = { opinion = { who = FROM value = 0 } } }
+			change_variable = { which = stress_var value = 30 }
+		}
+		modify_stress_effect = yes
+		FROM = { character_event = { id = school.304 tooltip = "EVTTOOLTIPSCHOOL304" days = 10 random = 30 } }
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 0
+				OR = {
+					has_lover = yes
+					is_married = yes
+					FROM = { has_lover = yes }
+					FROM = { is_married = yes }
+				}
+				NOT = { trait = deceitful }
+			}
+			modifier = {
+				factor = 0
+				is_close_relative = FROM
+				NOT = { trait = open_minded }
+			}
+			modifier = {
+				factor = 2
+				FROM = { is_attractive_trigger = yes }
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					has_ambition = obj_marry_for_love
+					has_ambition = obj_find_lover
+				}
+			}
+		}
+	}
+	# Ignore them
+	option = {
+		name = "EVTOPTCSCHOOL301"
+		if = {
+			limit = { trait = extraverted }
+			custom_tooltip = { text = "BECAUSEEXTRAVERTED" }
+			change_variable = { which = stress_var value = 10 }
+		}
+		if = {
+			limit = { trait = friendly }
+			custom_tooltip = { text = "BECAUSEFRIENDLY" }
+			change_variable = { which = stress_var value = 10 }
+		}
+		modify_stress_effect = yes
+		hidden_tooltip = { FROM = { character_event = { id = school.303 days = 10 random = 30 } } }
+		ai_chance = {
+			factor = 50
+			root_negative_opinion_of_from_score = yes
+			modifier = {
+				factor = 2
+				trait = introverted
+			}
+			modifier = {
+				factor = 0.5
+				trait = extraverted
+			}
+			modifier = {
+				factor = 2
+				trait = cold
+			}
+			modifier = {
+				factor = 0.5
+				trait = friendly
+			}
+		}
+	}
+}
+# You've made friends with your roommate
+character_event = {
+	id = school.302
+	desc = "EVTDESCSCHOOL302"
+	picture = GFX_evt_council
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASCHOOL302"
+		add_friend = FROM
+	}
+}
+# You've failed to make friends with your roommate
+character_event = {
+	id = school.303
+	desc = "EVTDESCSCHOOL303"
+	picture = GFX_evt_council
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTASCHOOL303" }
+}
+# Your roommate wants to be more than just friends
+character_event = {
+	id = school.304
+	desc = "EVTDESCSCHOOL304"
+	picture = GFX_evt_lovers
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	# Reciprocate
+	option = {
+		trigger = { FROM = { root_attraction_trigger = yes } }
+		name = "EVTOPTASCHOOL304"
+		if = {
+			limit = { trait = introverted }
+			custom_tooltip = { text = "BECAUSEINTROVERTED" }
+			change_variable = { which = stress_var value = 10 }
+		}
+		if = {
+			limit = {
+				OR = {
+					has_lover = yes
+					is_married = yes
+					FROM = { has_lover = yes }
+					FROM = { is_married = yes }
+				}
+				NOT = { trait = deceitful }
+			}
+			change_variable = { which = stress_var value = 30 }
+		}
+		if = {
+			limit = {
+				is_close_relative = FROM
+				NOT = { trait = open_minded }
+			}
+			change_variable = { which = stress_var value = 30 }
+		}
+		if = {
+			limit = { NOT = { opinion = { who = FROM value = 0 } } }
+			change_variable = { which = stress_var value = 30 }
+		}
+		modify_stress_effect = yes
+		tooltip = { add_lover = FROM }
+		hidden_tooltip = { FROM = { character_event = { id = school.305 } } }
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				FROM = { is_attractive_trigger = yes }
+			}
+			modifier = {
+				factor = 2
+				OR = {
+					has_ambition = obj_find_lover
+					has_ambition = obj_marry_for_love
+				}
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_lover = yes
+					is_married = yes
+					FROM = { has_lover = yes }
+					FROM = { is_married = yes }
+				}
+				NOT = { trait = deceitful }
+			}
+			modifier = {
+				factor = 0
+				is_close_relative = FROM
+				NOT = { trait = open_minded }
+			}
+		}
+	}
+	# Can't we just be friends?
+	option = {
+		name = "EVTOPTBSCHOOL304"
+		if = {
+			limit = { trait = introverted }
+			custom_tooltip = { text = "BECAUSEINTROVERTED" }
+			change_variable = { which = stress_var value = 10 }
+		}
+		modify_stress_effect = yes
+		FROM = { character_event = { id = school.307 tooltip = "EVTTOOLTIPSCHOOL307" days = 10 random = 30 } }
+		ai_chance = { factor = 50 }
+	}
+	# Reject their company entirely
+	option = {
+		name = "EVTOPTCSCHOOL304"
+		if = {
+			limit = { trait = friendly }
+			custom_tooltip = { text = "BECAUSEFRIENDLY" }
+			change_variable = { which = stress_var value = 10 }
+		}
+		if = {
+			limit = { trait = extraverted }
+			custom_tooltip = { text = "BECAUSEEXTRAVERTED" }
+			change_variable = { which = stress_var value = 10 }
+		}
+		tooltip = { FROM = { opinion = { who = ROOT modifier = opinion_heartbroken } } }
+		hidden_tooltip = { FROM = { character_event = { id = school.306 } } }
+		ai_chance = {
+			factor = 50
+			root_negative_opinion_of_from_score = yes
+			modifier = {
+				factor = 2
+				trait = cold
+			}
+			modifier = {
+				factor = 0.5
+				trait = friendly
+			}
+			modifier = {
+				factor = 2
+				trait = introverted
+			}
+			modifier = {
+				factor = 0.5
+				trait = extraverted
+			}
+		}
+	}
+}
+# You and your roommate are now an item
+character_event = {
+	id = school.305
+	desc = "EVTDESCSCHOOL305"
+	picture = GFX_evt_lovers
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASCHOOL305"
+		add_lover = FROM
+	}
+}
+# Your roommate rejected your advances harshly
+character_event = {
+	id = school.306
+	desc = "EVTDESCSCHOOL306"
+	picture = GFX_evt_quarrel
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASCHOOL306"
+		change_variable = { which = stress_var value = 30 }
+		modify_stress_effect = yes
+		opinion = { who = FROM modifier = opinion_heartbroken duration = 120 }
+	}
+}
+# Your roommate just wants to be friends
+character_event = {
+	id = school.307
+	desc = "EVTDESCSCHOOL307"
+	picture = GFX_evt_council
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	# That's fine
+	option = {
+		name = "EVTOPTASCHOOL307"
+		if = {
+			limit = { trait = deceitful }
+			custom_tooltip = { text = "BECAUSEDECEITFUL" }
+			change_variable = { which = stress_var value = 10 }
+		}
+		if = {
+			limit = { trait = cold }
+			custom_tooltip = { text = "BECAUSECOLD" }
+			change_variable = { which = stress_var value = 10 }
+		}
+		if = {
+			limit = { trait = neurotic }
+			custom_tooltip = { text = "BECAUSENEUROTIC" }
+			change_variable = { which = stress_var value = 10 }
+		}
+		if = {
+			limit = { trait = introverted }
+			custom_tooltip = { text = "BECAUSEINTROVERTED" }
+			change_variable = { which = stress_var value = 10 }
+		}
+		modify_stress_effect = yes
+		tooltip = { add_friend = FROM }
+		FROM = { hidden_tooltip = { character_event = { id = school.302 } } }
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				trait = confident
+			}
+			modifier = {
+				factor = 0.5
+				trait = neurotic
+			}
+			modifier = {
+				factor = 2
+				trait = extraverted
+			}
+			modifier = {
+				factor = 0.5
+				trait = introverted
+			}
+		}
+	}
+	# Going separate ways
+	option = {
+		name = "EVTOPTBSCHOOL307"
+		if = {
+			limit = { trait = deceitful }
+			custom_tooltip = { text = "BECAUSEDECEITFUL" }
+			change_variable = { which = stress_var value = 10 }
+		}
+		if = {
+			limit = { trait = cold }
+			custom_tooltip = { text = "BECAUSECOLD" }
+			change_variable = { which = stress_var value = 10 }
+		}
+		modify_stress_effect = yes
+		FROM = { hidden_tooltip = { character_event = { id = school.303 } } }
+		ai_chance = { factor = 50 }
+	}
+	# Get mad!
+	option = {
+		name = "EVTOPTCSCHOOL308"
+		opinion = { who = FROM modifier = opinion_heartbroken duration = 120 }
+		FROM = { hidden_tooltip = { character_event = { id = school.308 } } }
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				trait = cold
+			}
+			modifier = {
+				factor = 0.5
+				trait = friendly
+			}
+			modifier = {
+				factor = 2
+				trait = deceitful
+			}
+			modifier = {
+				factor = 0.5
+				trait = honest
+			}
+		}
+	}
+}
+# Your roommate did not take your offer well
+character_event = {
+	id = school.308
+	desc = "EVTDESCSCHOOL308"
+	picture = GFX_evt_quarrel
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTASCHOOL308" }
+}
+# Your roommate is picking a fight with you
+character_event = {
+	id = school.309
+	desc = "EVTDESCSCHOOL309"
+	picture = GFX_evt_quarrel
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASCHOOL309"
+		add_rival = FROM
+	}
+}
+# Your roommate is deliberately avoiding you
+character_event = {
+	id = school.310
+	desc = "EVTDESCSCHOOL310"
+	picture = GFX_evt_council
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	# Suits me just fine
+	option = {
+		name = "EVTOPTASCHOOL310"
+		if = {
+			limit = { trait = introverted }
+			custom_tooltip = { text = "BECAUSEINTROVERTED" }
+			change_variable = { which = stress_var value = -10 }
+		}
+		if = {
+			limit = { trait = extraverted }
+			custom_tooltip = { text = "BECAUSEEXTRAVERTED" }
+			change_variable = { which = stress_var value = 10 }
+		}
+		if = {
+			limit = { trait = cold }
+			custom_tooltip = { text = "BECAUSECOLD" }
+			change_variable = { which = stress_var value = 10 }
+		}
+		if = {
+			limit = { trait = deceitful }
+			custom_tooltip = { text = "BECAUSEDECEITFUL" }
+			change_variable = { which = stress_var value = 20 }
+		}
+		modify_stress_effect = yes
+		ai_chance = {
+			factor = 50
+			root_positive_opinion_of_from_score = yes
+			modifier = {
+				factor = 2
+				trait = deceitful
+			}
+			modifier = {
+				factor = 2
+				trait = cold
+			}
+			modifier = {
+				factor = 0.5
+				trait = friendly
+			}
+			modifier = {
+				factor = 0.5
+				trait = honest
+			}
+			modifier = {
+				factor = 2
+				trait = introverted
+			}
+			modifier = {
+				factor = 0.5
+				trait = extraverted
+			}
+		}
+	}
+	
+	# Pick a fight over it
+	option = {
+		name = "EVTOPTBSCHOOL310"
+		if = {
+			limit = { trait = cold }
+			custom_tooltip = { text = "BECAUSECOLD" }
+			change_variable = { which = stress_var value = -10 }
+		}
+		if = {
+			limit = { trait = deceitful }
+			custom_tooltip = { text = "BECAUSEDECEITFUL" }
+			change_variable = { which = stress_var value = -10 }
+		}
+		if = {
+			limit = { trait = introverted }
+			custom_tooltip = { text = "BECAUSEINTROVERTED" }
+			change_variable = { which = stress_var value = 10 }
+		}
+		if = {
+			limit = { trait = friendly }
+			custom_tooltip = { text = "BECAUSEFRIENDLY" }
+			change_variable = { which = stress_var value = 10 }
+		}
+		if = {
+			limit = { trait = honest }
+			custom_tooltip = { text = "BECAUSEHONEST" }
+			change_variable = { which = stress_var value = 20 }
+		}
+		modify_stress_effect = yes
+		tooltip = { add_rival = FROM }
+		FROM = { hidden_tooltip = { character_event = { id = school.309 } } }
+		ai_chance = { factor = 50 }
+	}
+}
+
+# Join the fencing club
+character_event = {
+	id = school.311
+	desc = "EVTDESCSCHOOL311"
+	picture = GFX_evt_duel
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	min_age = 18
+	only_capable = yes
+	prisoner = no
+	
+	trigger = {
+		society = { is_civilian_school_trigger = yes }
+		NOT = { lifestyle_traits = 1 }
+	}
+	
+	option = {
+		name = "EVTOPTASCHOOL311"
+		add_trait = duelist
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				has_ambition = obj_adopt_a_lifestyle
+			}
+			modifier = {
+				factor = 2
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.5
+				trait = carefree
+			}
+			modifier = {
+				factor = 2
+				trait = brave
+			}
+			modifier = {
+				factor = 0.5
+				trait = craven
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTBSCHOOL311"
+		ai_chance = { factor = 50 }
+	}
+}
+# Join the football team
+character_event = {
+	id = school.312
+	desc = "EVTDESCSCHOOL312"
+	picture = GFX_evt_arena
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	min_age = 18
+	only_capable = yes
+	prisoner = no
+	
+	trigger = {
+		society = { is_civilian_school_trigger = yes }
+		NOT = { lifestyle_traits = 1 }
+	}
+	
+	option = {
+		name = "EVTOPTASCHOOL312"
+		add_trait = athlete
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				has_ambition = obj_adopt_a_lifestyle
+			}
+			modifier = {
+				factor = 2
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.5
+				trait = carefree
+			}
+			modifier = {
+				factor = 2
+				trait = brave
+			}
+			modifier = {
+				factor = 0.5
+				trait = craven
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTBSCHOOL312"
+		ai_chance = { factor = 50 }
+	}
+}
+# Browse the library
+character_event = {
+	id = school.313
+	desc = "EVTDESCSCHOOL313"
+	picture = GFX_evt_duel
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	min_age = 18
+	only_capable = yes
+	prisoner = no
+	
+	trigger = {
+		society = { is_civilian_school_trigger = yes }
+		NOT = { lifestyle_traits = 1 }
+	}
+	
+	option = {
+		name = "EVTOPTASCHOOL313"
+		add_trait = intellectual
+		ai_chance = {
+			factor = 50
+			modifier = {
+				factor = 2
+				has_ambition = obj_adopt_a_lifestyle
+			}
+			modifier = {
+				factor = 2
+				trait = introverted
+			}
+			modifier = {
+				factor = 0.5
+				trait = extraverted
+			}
+			modifier = {
+				factor = 2
+				trait = open_minded
+			}
+			modifier = {
+				factor = 0.5
+				trait = close_minded
+			}
+		}
+	}
+	option = {
+		name = "EVTOPTBSCHOOL313"
+		ai_chance = { factor = 50 }
+	}
+}
+# Browse the library decision
+character_event = {
+	id = school.314
+	desc = "EVTDESCSCHOOL314"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASCHOOL314"
+		change_variable = { which = stress_var value = -10 }
+		if = {
+			limit = { trait = intellectual }
+			change_variable = { which = stress_var value = -20 }
+		}
+		modify_stress_effect = yes
+		add_character_modifier = { name = recent_studies years = 3 }
+		clr_character_flag = flag_busy
+	}
+}
+# Enlist research assistant decision
+character_event = {
+	id = school.315
+	desc = "EVTDESCSCHOOL315"
+	picture = GFX_evt_laboratory
+	border = GFX_event_normal_frame_learning
+	show_from_from = yes
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTACCEPT"
+		hidden_tooltip = { FROMFROM = { character_event = { id = school.316 } } }
+		FROMFROM = { opinion = { who = ROOT modifier = opinion_agreed_to_help_research } }
+		change_variable = { which = stress_var value = 10 }
+		modify_stress_effect = yes
+		random_list = {
+			10 = {
+				root_learning_score = yes
+				FROMFROM = { character_event = { id = school.318 tooltip = "EVTTOOLTIPSCHOOL318" days = 30 random = 60 } }
+			}
+			20 = { FROMFROM = { character_event = { id = school.320 tooltip = "EVTTOOLTIPSCHOOL320" days = 30 random = 60 } } }
+		}
+		ai_chance = {
+			factor = 50
+			root_positive_opinion_of_fromfrom_score = yes
+			modifier = {
+				factor = 2
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.5
+				trait = carefree
+			}
+			modifier = {
+				factor = 2
+				trait = ambitious
+			}
+		}
+	}
+	
+	option = {
+		name = "EVTOPTREFUSE"
+		hidden_tooltip = { FROMFROM = { character_event = { id = school.317 } } }
+		FROMFROM = { opinion = { who = ROOT modifier = opinion_refused_to_help_research } }
+		ai_chance = { factor = 50 }
+	}
+}
+character_event = {
+	id = school.316
+	desc = "EVTDESCSCHOOL316"
+	picture = GFX_evt_laboratory
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTCONFIRM"
+		change_society_currency = -50
+	}
+}
+character_event = {
+	id = school.317
+	desc = "EVTDESCSCHOOL317"
+	picture = GFX_evt_laboratory
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTCONFIRM" }
+}
+# Good research results from your assistant
+character_event = {
+	id = school.318
+	desc = "EVTDESCSCHOOL318"
+	picture = GFX_evt_laboratory
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	trigger = {
+		OR = {
+			has_character_flag = flag_research_project_liege
+			has_character_flag = flag_research_project_self
+		}
+	}
+	
+	option = {
+		name = "EVTOPTASCHOOL318"
+		change_variable = { which = research_progress value = 5 }
+		hidden_tooltip = { FROM = { character_event = { id = school.319 } } }
+	}
+}
+character_event = {
+	id = school.319
+	desc = "EVTDESCSCHOOL319"
+	picture = GFX_evt_laboratory
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	trigger = { has_character_modifier = science_major }
+	
+	option = {
+		name = "EVTOPTASCHOOL319"
+		change_society_currency = 100
+	}
+}
+# Poor research results from your assistant
+character_event = {
+	id = school.320
+	desc = "EVTDESCSCHOOL320"
+	picture = GFX_evt_laboratory
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	trigger = {
+		OR = {
+			has_character_flag = flag_research_project_liege
+			has_character_flag = flag_research_project_self
+		}
+	}
+	
+	option = {
+		name = "EVTOPTASCHOOL318"
+		change_variable = { which = research_progress value = 2 }
+		hidden_tooltip = { FROM = { character_event = { id = school.321 } } }
+	}
+}
+character_event = {
+	id = school.321
+	desc = "EVTDESCSCHOOL321"
+	picture = GFX_evt_laboratory
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	trigger = { has_character_modifier = science_major }
+	
+	option = {
+		name = "EVTOPTASCHOOL321"
+		change_society_currency = 25
+	}
+}
+# Disappointing research results
+character_event = {
+	id = school.322
+	desc = "EVTDESCSCHOOL322"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASCHOOL322"
+		change_variable = { which = research_progress value = 1 }
+	}
+}
+# Acceptable research results
+character_event = {
+	id = school.323
+	desc = "EVTDESCSCHOOL323"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASCHOOL323"
+		change_variable = { which = research_progress value = 3 }
+	}
+}
+# Excellent research results
+character_event = {
+	id = school.324
+	desc = "EVTDESCSCHOOL324"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = {
+		name = "EVTOPTASCHOOL324"
+		change_variable = { which = research_progress value = 5 }
+	}
+}
+
+# SCHOOL FOUNDING EVENTS
+# University of the Confederation
+character_event = {
+	id = school.500
+	desc = "EVTDESCSCHOOL500"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	# Become the first rector yourself
+	option = {
+		trigger = { has_post_secondary_education_trigger = yes }
+		name = "EVTOPTASCHOOL500"
+		wealth = -1000
+		prestige = 1000
+		clr_global_flag = flag_no_university_of_the_confederation
+		join_society = university_of_the_confederation
+		set_society_grandmaster = yes
+		# Create initial professors
+		hidden_tooltip = {
+			c_sol = {
+				location = {
+					ROOT = {
+						create_lawyer_effect = yes
+						new_character = {
+							join_society = university_of_the_confederation
+							society_rank_up = 2
+						}
+						create_economist_effect = yes
+						new_character = {
+							join_society = university_of_the_confederation
+							society_rank_up = 2
+						}
+						create_scientist_effect = yes
+						new_character = {
+							join_society = university_of_the_confederation
+							society_rank_up = 2
+						}
+						create_physician_effect = yes
+						new_character = {
+							join_society = university_of_the_confederation
+							society_rank_up = 2
+						}
+					}
+				}
+			}
+		}
+		# Inform realm characters
+		hidden_tooltip = { any_realm_character = { character_event = { id = school.501 } } }
+		clr_character_flag = flag_busy
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2
+				trait = intellectual
+			}
+			modifier = {
+				factor = 2
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.5
+				trait = carefree
+			}
+			modifier = {
+				factor = 0.5
+				trait = close_minded
+			}
+		}
+	}
+	
+	# Name a new first rector
+	option = {
+		trigger = { has_post_secondary_education_trigger = yes }
+		name = "EVTOPTBSCHOOL500"
+		wealth = -1000
+		prestige = 1000
+		clr_global_flag = flag_no_university_of_the_confederation
+		# Create initial professors
+		hidden_tooltip = {
+			c_sol = {
+				location = {
+					ROOT = {
+						# Create rector
+						random_list = {
+							10 = { create_lawyer_effect = yes }
+							10 = { create_economist_effect = yes }
+							10 = { create_scientist_effect = yes }
+							10 = { create_physician_effect = yes }
+						}
+						new_character = {
+							join_society = university_of_the_confederation
+							set_society_grandmaster = yes
+						}
+						create_lawyer_effect = yes
+						new_character = {
+							join_society = university_of_the_confederation
+							society_rank_up = 2
+						}
+						create_economist_effect = yes
+						new_character = {
+							join_society = university_of_the_confederation
+							society_rank_up = 2
+						}
+						create_scientist_effect = yes
+						new_character = {
+							join_society = university_of_the_confederation
+							society_rank_up = 2
+						}
+						create_physician_effect = yes
+						new_character = {
+							join_society = university_of_the_confederation
+							society_rank_up = 2
+						}
+					}
+				}
+			}
+		}
+		# Inform realm characters
+		hidden_tooltip = { any_realm_character = { character_event = { id = school.501 } } }
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 75 }
+	}
+	
+	# Nevermind
+	option = {
+		name = "EVTOPTCSCHOOL500"
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 0 }
+	}
+}
+character_event = {
+	id = school.501
+	desc = "EVTDESCSCHOOL501"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	option = { name = "EVTOPTASCHOOL501" }
+}
+# University of Huangjing
+character_event = {
+	id = school.502
+	desc = "EVTDESCSCHOOL502"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	# Become the first rector yourself
+	option = {
+		trigger = { has_post_secondary_education_trigger = yes }
+		name = "EVTOPTASCHOOL500"
+		wealth = -1000
+		prestige = 1000
+		clr_global_flag = flag_no_university_of_huangjing
+		join_society = university_of_huangjing
+		set_society_grandmaster = yes
+		# Create initial professors
+		hidden_tooltip = {
+			c_huangjing = {
+				location = {
+					ROOT = {
+						create_lawyer_effect = yes
+						new_character = {
+							join_society = university_of_huangjing
+							society_rank_up = 2
+						}
+						create_economist_effect = yes
+						new_character = {
+							join_society = university_of_huangjing
+							society_rank_up = 2
+						}
+						create_scientist_effect = yes
+						new_character = {
+							join_society = university_of_huangjing
+							society_rank_up = 2
+						}
+						create_physician_effect = yes
+						new_character = {
+							join_society = university_of_huangjing
+							society_rank_up = 2
+						}
+					}
+				}
+			}
+		}
+		# Inform realm characters
+		hidden_tooltip = { any_realm_character = { character_event = { id = school.501 } } }
+		clr_character_flag = flag_busy
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2
+				trait = intellectual
+			}
+			modifier = {
+				factor = 2
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.5
+				trait = carefree
+			}
+			modifier = {
+				factor = 0.5
+				trait = close_minded
+			}
+		}
+	}
+	
+	# Name a new first rector
+	option = {
+		trigger = { has_post_secondary_education_trigger = yes }
+		name = "EVTOPTBSCHOOL500"
+		wealth = -1000
+		prestige = 1000
+		clr_global_flag = flag_no_university_of_huangjing
+		# Create initial professors
+		hidden_tooltip = {
+			c_huangjing = {
+				location = {
+					ROOT = {
+						# Create rector
+						random_list = {
+							10 = { create_lawyer_effect = yes }
+							10 = { create_economist_effect = yes }
+							10 = { create_scientist_effect = yes }
+							10 = { create_physician_effect = yes }
+						}
+						new_character = {
+							join_society = university_of_huangjing
+							set_society_grandmaster = yes
+						}
+						create_lawyer_effect = yes
+						new_character = {
+							join_society = university_of_huangjing
+							society_rank_up = 2
+						}
+						create_economist_effect = yes
+						new_character = {
+							join_society = university_of_huangjing
+							society_rank_up = 2
+						}
+						create_scientist_effect = yes
+						new_character = {
+							join_society = university_of_huangjing
+							society_rank_up = 2
+						}
+						create_physician_effect = yes
+						new_character = {
+							join_society = university_of_huangjing
+							society_rank_up = 2
+						}
+					}
+				}
+			}
+		}
+		# Inform realm characters
+		hidden_tooltip = { any_realm_character = { character_event = { id = school.501 } } }
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 75 }
+	}
+	
+	# Nevermind
+	option = {
+		name = "EVTOPTCSCHOOL500"
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 0 }
+	}
+}
+# University of Encrucijada
+character_event = {
+	id = school.503
+	desc = "EVTDESCSCHOOL503"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	# Become the first rector yourself
+	option = {
+		trigger = { has_post_secondary_education_trigger = yes }
+		name = "EVTOPTASCHOOL500"
+		wealth = -1000
+		prestige = 1000
+		clr_global_flag = flag_no_university_of_encrucijada
+		join_society = university_of_encrucijada
+		set_society_grandmaster = yes
+		# Create initial professors
+		hidden_tooltip = {
+			c_encrucijada = {
+				location = {
+					ROOT = {
+						create_lawyer_effect = yes
+						new_character = {
+							join_society = university_of_encrucijada
+							society_rank_up = 2
+						}
+						create_economist_effect = yes
+						new_character = {
+							join_society = university_of_encrucijada
+							society_rank_up = 2
+						}
+						create_scientist_effect = yes
+						new_character = {
+							join_society = university_of_encrucijada
+							society_rank_up = 2
+						}
+						create_physician_effect = yes
+						new_character = {
+							join_society = university_of_encrucijada
+							society_rank_up = 2
+						}
+					}
+				}
+			}
+		}
+		# Inform realm characters
+		hidden_tooltip = { any_realm_character = { character_event = { id = school.501 } } }
+		clr_character_flag = flag_busy
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2
+				trait = intellectual
+			}
+			modifier = {
+				factor = 2
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.5
+				trait = carefree
+			}
+			modifier = {
+				factor = 0.5
+				trait = close_minded
+			}
+		}
+	}
+	
+	# Name a new first rector
+	option = {
+		trigger = { has_post_secondary_education_trigger = yes }
+		name = "EVTOPTBSCHOOL500"
+		wealth = -1000
+		prestige = 1000
+		clr_global_flag = flag_no_university_of_encrucijada
+		# Create initial professors
+		hidden_tooltip = {
+			c_encrucijada = {
+				location = {
+					ROOT = {
+						# Create rector
+						random_list = {
+							10 = { create_lawyer_effect = yes }
+							10 = { create_economist_effect = yes }
+							10 = { create_scientist_effect = yes }
+							10 = { create_physician_effect = yes }
+						}
+						new_character = {
+							join_society = university_of_encrucijada
+							set_society_grandmaster = yes
+						}
+						create_lawyer_effect = yes
+						new_character = {
+							join_society = university_of_encrucijada
+							society_rank_up = 2
+						}
+						create_economist_effect = yes
+						new_character = {
+							join_society = university_of_encrucijada
+							society_rank_up = 2
+						}
+						create_scientist_effect = yes
+						new_character = {
+							join_society = university_of_encrucijada
+							society_rank_up = 2
+						}
+						create_physician_effect = yes
+						new_character = {
+							join_society = university_of_encrucijada
+							society_rank_up = 2
+						}
+					}
+				}
+			}
+		}
+		# Inform realm characters
+		hidden_tooltip = { any_realm_character = { character_event = { id = school.501 } } }
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 75 }
+	}
+	
+	# Nevermind
+	option = {
+		name = "EVTOPTCSCHOOL500"
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 0 }
+	}
+}
+# University of Makkat al-Jadiida
+character_event = {
+	id = school.504
+	desc = "EVTDESCSCHOOL504"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	# Become the first rector yourself
+	option = {
+		trigger = { has_post_secondary_education_trigger = yes }
+		name = "EVTOPTASCHOOL500"
+		wealth = -1000
+		prestige = 1000
+		clr_global_flag = flag_no_university_of_makkat_al_jadiida
+		join_society = university_of_makkat_al_jadiida
+		set_society_grandmaster = yes
+		# Create initial professors
+		hidden_tooltip = {
+			c_makkat_al_jadiida = {
+				location = {
+					ROOT = {
+						create_lawyer_effect = yes
+						new_character = {
+							join_society = university_of_makkat_al_jadiida
+							society_rank_up = 2
+						}
+						create_economist_effect = yes
+						new_character = {
+							join_society = university_of_makkat_al_jadiida
+							society_rank_up = 2
+						}
+						create_scientist_effect = yes
+						new_character = {
+							join_society = university_of_makkat_al_jadiida
+							society_rank_up = 2
+						}
+						create_physician_effect = yes
+						new_character = {
+							join_society = university_of_makkat_al_jadiida
+							society_rank_up = 2
+						}
+					}
+				}
+			}
+		}
+		# Inform realm characters
+		hidden_tooltip = { any_realm_character = { character_event = { id = school.501 } } }
+		clr_character_flag = flag_busy
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2
+				trait = intellectual
+			}
+			modifier = {
+				factor = 2
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.5
+				trait = carefree
+			}
+			modifier = {
+				factor = 0.5
+				trait = close_minded
+			}
+		}
+	}
+	
+	# Name a new first rector
+	option = {
+		trigger = { has_post_secondary_education_trigger = yes }
+		name = "EVTOPTBSCHOOL500"
+		wealth = -1000
+		prestige = 1000
+		clr_global_flag = flag_no_university_of_makkat_al_jadiida
+		# Create initial professors
+		hidden_tooltip = {
+			c_makkat_al_jadiida = {
+				location = {
+					ROOT = {
+						# Create rector
+						random_list = {
+							10 = { create_lawyer_effect = yes }
+							10 = { create_economist_effect = yes }
+							10 = { create_scientist_effect = yes }
+							10 = { create_physician_effect = yes }
+						}
+						new_character = {
+							join_society = university_of_makkat_al_jadiida
+							set_society_grandmaster = yes
+						}
+						create_lawyer_effect = yes
+						new_character = {
+							join_society = university_of_makkat_al_jadiida
+							society_rank_up = 2
+						}
+						create_economist_effect = yes
+						new_character = {
+							join_society = university_of_makkat_al_jadiida
+							society_rank_up = 2
+						}
+						create_scientist_effect = yes
+						new_character = {
+							join_society = university_of_makkat_al_jadiida
+							society_rank_up = 2
+						}
+						create_physician_effect = yes
+						new_character = {
+							join_society = university_of_makkat_al_jadiida
+							society_rank_up = 2
+						}
+					}
+				}
+			}
+		}
+		# Inform realm characters
+		hidden_tooltip = { any_realm_character = { character_event = { id = school.501 } } }
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 75 }
+	}
+	
+	# Nevermind
+	option = {
+		name = "EVTOPTCSCHOOL500"
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 0 }
+	}
+}
+# University of Nyota Mwisho
+character_event = {
+	id = school.505
+	desc = "EVTDESCSCHOOL505"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	# Become the first rector yourself
+	option = {
+		trigger = { has_post_secondary_education_trigger = yes }
+		name = "EVTOPTASCHOOL500"
+		wealth = -1000
+		prestige = 1000
+		clr_global_flag = flag_no_university_of_nyota_mwisho
+		join_society = university_of_nyota_mwisho
+		set_society_grandmaster = yes
+		# Create initial professors
+		hidden_tooltip = {
+			c_nyota_mwisho = {
+				location = {
+					ROOT = {
+						create_lawyer_effect = yes
+						new_character = {
+							join_society = university_of_nyota_mwisho
+							society_rank_up = 2
+						}
+						create_economist_effect = yes
+						new_character = {
+							join_society = university_of_nyota_mwisho
+							society_rank_up = 2
+						}
+						create_scientist_effect = yes
+						new_character = {
+							join_society = university_of_nyota_mwisho
+							society_rank_up = 2
+						}
+						create_physician_effect = yes
+						new_character = {
+							join_society = university_of_nyota_mwisho
+							society_rank_up = 2
+						}
+					}
+				}
+			}
+		}
+		# Inform realm characters
+		hidden_tooltip = { any_realm_character = { character_event = { id = school.501 } } }
+		clr_character_flag = flag_busy
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2
+				trait = intellectual
+			}
+			modifier = {
+				factor = 2
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.5
+				trait = carefree
+			}
+			modifier = {
+				factor = 0.5
+				trait = close_minded
+			}
+		}
+	}
+	
+	# Name a new first rector
+	option = {
+		trigger = { has_post_secondary_education_trigger = yes }
+		name = "EVTOPTBSCHOOL500"
+		wealth = -1000
+		prestige = 1000
+		clr_global_flag = flag_no_university_of_nyota_mwisho
+		# Create initial professors
+		hidden_tooltip = {
+			c_nyota_mwisho = {
+				location = {
+					ROOT = {
+						# Create rector
+						random_list = {
+							10 = { create_lawyer_effect = yes }
+							10 = { create_economist_effect = yes }
+							10 = { create_scientist_effect = yes }
+							10 = { create_physician_effect = yes }
+						}
+						new_character = {
+							join_society = university_of_nyota_mwisho
+							set_society_grandmaster = yes
+						}
+						create_lawyer_effect = yes
+						new_character = {
+							join_society = university_of_nyota_mwisho
+							society_rank_up = 2
+						}
+						create_economist_effect = yes
+						new_character = {
+							join_society = university_of_nyota_mwisho
+							society_rank_up = 2
+						}
+						create_scientist_effect = yes
+						new_character = {
+							join_society = university_of_nyota_mwisho
+							society_rank_up = 2
+						}
+						create_physician_effect = yes
+						new_character = {
+							join_society = university_of_nyota_mwisho
+							society_rank_up = 2
+						}
+					}
+				}
+			}
+		}
+		# Inform realm characters
+		hidden_tooltip = { any_realm_character = { character_event = { id = school.501 } } }
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 75 }
+	}
+	
+	# Nevermind
+	option = {
+		name = "EVTOPTCSCHOOL500"
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 0 }
+	}
+}
+# University of Armstrong
+character_event = {
+	id = school.506
+	desc = "EVTDESCSCHOOL506"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	# Become the first rector yourself
+	option = {
+		trigger = { has_post_secondary_education_trigger = yes }
+		name = "EVTOPTASCHOOL500"
+		wealth = -1000
+		prestige = 1000
+		clr_global_flag = flag_no_university_of_armstrong
+		join_society = university_of_armstrong
+		set_society_grandmaster = yes
+		# Create initial professors
+		hidden_tooltip = {
+			c_armstrong = {
+				location = {
+					ROOT = {
+						create_lawyer_effect = yes
+						new_character = {
+							join_society = university_of_armstrong
+							society_rank_up = 2
+						}
+						create_economist_effect = yes
+						new_character = {
+							join_society = university_of_armstrong
+							society_rank_up = 2
+						}
+						create_scientist_effect = yes
+						new_character = {
+							join_society = university_of_armstrong
+							society_rank_up = 2
+						}
+						create_physician_effect = yes
+						new_character = {
+							join_society = university_of_armstrong
+							society_rank_up = 2
+						}
+					}
+				}
+			}
+		}
+		# Inform realm characters
+		hidden_tooltip = { any_realm_character = { character_event = { id = school.501 } } }
+		clr_character_flag = flag_busy
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2
+				trait = intellectual
+			}
+			modifier = {
+				factor = 2
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.5
+				trait = carefree
+			}
+			modifier = {
+				factor = 0.5
+				trait = close_minded
+			}
+		}
+	}
+	
+	# Name a new first rector
+	option = {
+		trigger = { has_post_secondary_education_trigger = yes }
+		name = "EVTOPTBSCHOOL500"
+		wealth = -1000
+		prestige = 1000
+		clr_global_flag = flag_no_university_of_armstrong
+		# Create initial professors
+		hidden_tooltip = {
+			c_armstrong = {
+				location = {
+					ROOT = {
+						# Create rector
+						random_list = {
+							10 = { create_lawyer_effect = yes }
+							10 = { create_economist_effect = yes }
+							10 = { create_scientist_effect = yes }
+							10 = { create_physician_effect = yes }
+						}
+						new_character = {
+							join_society = university_of_armstrong
+							set_society_grandmaster = yes
+						}
+						create_lawyer_effect = yes
+						new_character = {
+							join_society = university_of_armstrong
+							society_rank_up = 2
+						}
+						create_economist_effect = yes
+						new_character = {
+							join_society = university_of_armstrong
+							society_rank_up = 2
+						}
+						create_scientist_effect = yes
+						new_character = {
+							join_society = university_of_armstrong
+							society_rank_up = 2
+						}
+						create_physician_effect = yes
+						new_character = {
+							join_society = university_of_armstrong
+							society_rank_up = 2
+						}
+					}
+				}
+			}
+		}
+		# Inform realm characters
+		hidden_tooltip = { any_realm_character = { character_event = { id = school.501 } } }
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 75 }
+	}
+	
+	# Nevermind
+	option = {
+		name = "EVTOPTCSCHOOL500"
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 0 }
+	}
+}
+# University of Tereshkova
+character_event = {
+	id = school.507
+	desc = "EVTDESCSCHOOL507"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	# Become the first rector yourself
+	option = {
+		trigger = { has_post_secondary_education_trigger = yes }
+		name = "EVTOPTASCHOOL500"
+		wealth = -1000
+		prestige = 1000
+		clr_global_flag = flag_no_university_of_tereshkova
+		join_society = university_of_tereshkova
+		set_society_grandmaster = yes
+		# Create initial professors
+		hidden_tooltip = {
+			c_tereshkova = {
+				location = {
+					ROOT = {
+						create_lawyer_effect = yes
+						new_character = {
+							join_society = university_of_tereshkova
+							society_rank_up = 2
+						}
+						create_economist_effect = yes
+						new_character = {
+							join_society = university_of_tereshkova
+							society_rank_up = 2
+						}
+						create_scientist_effect = yes
+						new_character = {
+							join_society = university_of_tereshkova
+							society_rank_up = 2
+						}
+						create_physician_effect = yes
+						new_character = {
+							join_society = university_of_tereshkova
+							society_rank_up = 2
+						}
+					}
+				}
+			}
+		}
+		# Inform realm characters
+		hidden_tooltip = { any_realm_character = { character_event = { id = school.501 } } }
+		clr_character_flag = flag_busy
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2
+				trait = intellectual
+			}
+			modifier = {
+				factor = 2
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.5
+				trait = carefree
+			}
+			modifier = {
+				factor = 0.5
+				trait = close_minded
+			}
+		}
+	}
+	
+	# Name a new first rector
+	option = {
+		trigger = { has_post_secondary_education_trigger = yes }
+		name = "EVTOPTBSCHOOL500"
+		wealth = -1000
+		prestige = 1000
+		clr_global_flag = flag_no_university_of_tereshkova
+		# Create initial professors
+		hidden_tooltip = {
+			c_tereshkova = {
+				location = {
+					ROOT = {
+						# Create rector
+						random_list = {
+							10 = { create_lawyer_effect = yes }
+							10 = { create_economist_effect = yes }
+							10 = { create_scientist_effect = yes }
+							10 = { create_physician_effect = yes }
+						}
+						new_character = {
+							join_society = university_of_tereshkova
+							set_society_grandmaster = yes
+						}
+						create_lawyer_effect = yes
+						new_character = {
+							join_society = university_of_tereshkova
+							society_rank_up = 2
+						}
+						create_economist_effect = yes
+						new_character = {
+							join_society = university_of_tereshkova
+							society_rank_up = 2
+						}
+						create_scientist_effect = yes
+						new_character = {
+							join_society = university_of_tereshkova
+							society_rank_up = 2
+						}
+						create_physician_effect = yes
+						new_character = {
+							join_society = university_of_tereshkova
+							society_rank_up = 2
+						}
+					}
+				}
+			}
+		}
+		ai_chance = { factor = 75 }
+		# Inform realm characters
+		hidden_tooltip = { any_realm_character = { character_event = { id = school.501 } } }
+		clr_character_flag = flag_busy
+	}
+	
+	# Nevermind
+	option = {
+		name = "EVTOPTCSCHOOL500"
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 0 }
+	}
+}
+# University of Xin Qin
+character_event = {
+	id = school.508
+	desc = "EVTDESCSCHOOL508"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	# Become the first rector yourself
+	option = {
+		trigger = { has_post_secondary_education_trigger = yes }
+		name = "EVTOPTASCHOOL500"
+		wealth = -1000
+		prestige = 1000
+		clr_global_flag = flag_no_university_of_xin_qin
+		join_society = university_of_xin_qin
+		set_society_grandmaster = yes
+		# Create initial professors
+		hidden_tooltip = {
+			c_xin_qin = {
+				location = {
+					ROOT = {
+						create_lawyer_effect = yes
+						new_character = {
+							join_society = university_of_xin_qin
+							society_rank_up = 2
+						}
+						create_economist_effect = yes
+						new_character = {
+							join_society = university_of_xin_qin
+							society_rank_up = 2
+						}
+						create_scientist_effect = yes
+						new_character = {
+							join_society = university_of_xin_qin
+							society_rank_up = 2
+						}
+						create_physician_effect = yes
+						new_character = {
+							join_society = university_of_xin_qin
+							society_rank_up = 2
+						}
+					}
+				}
+			}
+		}
+		# Inform realm characters
+		hidden_tooltip = { any_realm_character = { character_event = { id = school.501 } } }
+		clr_character_flag = flag_busy
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2
+				trait = intellectual
+			}
+			modifier = {
+				factor = 2
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.5
+				trait = carefree
+			}
+			modifier = {
+				factor = 0.5
+				trait = close_minded
+			}
+		}
+	}
+	
+	# Name a new first rector
+	option = {
+		trigger = { has_post_secondary_education_trigger = yes }
+		name = "EVTOPTBSCHOOL500"
+		wealth = -1000
+		prestige = 1000
+		clr_global_flag = flag_no_university_of_xin_qin
+		# Create initial professors
+		hidden_tooltip = {
+			c_xin_qin = {
+				location = {
+					ROOT = {
+						# Create rector
+						random_list = {
+							10 = { create_lawyer_effect = yes }
+							10 = { create_economist_effect = yes }
+							10 = { create_scientist_effect = yes }
+							10 = { create_physician_effect = yes }
+						}
+						new_character = {
+							join_society = university_of_xin_qin
+							set_society_grandmaster = yes
+						}
+						create_lawyer_effect = yes
+						new_character = {
+							join_society = university_of_xin_qin
+							society_rank_up = 2
+						}
+						create_economist_effect = yes
+						new_character = {
+							join_society = university_of_xin_qin
+							society_rank_up = 2
+						}
+						create_scientist_effect = yes
+						new_character = {
+							join_society = university_of_xin_qin
+							society_rank_up = 2
+						}
+						create_physician_effect = yes
+						new_character = {
+							join_society = university_of_xin_qin
+							society_rank_up = 2
+						}
+					}
+				}
+			}
+		}
+		# Inform realm characters
+		hidden_tooltip = { any_realm_character = { character_event = { id = school.501 } } }
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 75 }
+	}
+	
+	# Nevermind
+	option = {
+		name = "EVTOPTCSCHOOL500"
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 0 }
+	}
+}
+# University of Bianjiang
+character_event = {
+	id = school.509
+	desc = "EVTDESCSCHOOL509"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	# Become the first rector yourself
+	option = {
+		trigger = { has_post_secondary_education_trigger = yes }
+		name = "EVTOPTASCHOOL500"
+		wealth = -1000
+		prestige = 1000
+		clr_global_flag = flag_no_university_of_bianjiang
+		join_society = university_of_bianjiang
+		set_society_grandmaster = yes
+		# Create initial professors
+		hidden_tooltip = {
+			c_xie_xian = {
+				location = {
+					ROOT = {
+						create_lawyer_effect = yes
+						new_character = {
+							join_society = university_of_bianjiang
+							society_rank_up = 2
+						}
+						create_economist_effect = yes
+						new_character = {
+							join_society = university_of_bianjiang
+							society_rank_up = 2
+						}
+						create_scientist_effect = yes
+						new_character = {
+							join_society = university_of_bianjiang
+							society_rank_up = 2
+						}
+						create_physician_effect = yes
+						new_character = {
+							join_society = university_of_bianjiang
+							society_rank_up = 2
+						}
+					}
+				}
+			}
+		}
+		# Inform realm characters
+		hidden_tooltip = { any_realm_character = { character_event = { id = school.501 } } }
+		clr_character_flag = flag_busy
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2
+				trait = intellectual
+			}
+			modifier = {
+				factor = 2
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.5
+				trait = carefree
+			}
+			modifier = {
+				factor = 0.5
+				trait = close_minded
+			}
+		}
+	}
+	
+	# Name a new first rector
+	option = {
+		trigger = { has_post_secondary_education_trigger = yes }
+		name = "EVTOPTBSCHOOL500"
+		wealth = -1000
+		prestige = 1000
+		clr_global_flag = flag_no_university_of_bianjiang
+		# Create initial professors
+		hidden_tooltip = {
+			c_xie_xian = {
+				location = {
+					ROOT = {
+						# Create rector
+						random_list = {
+							10 = { create_lawyer_effect = yes }
+							10 = { create_economist_effect = yes }
+							10 = { create_scientist_effect = yes }
+							10 = { create_physician_effect = yes }
+						}
+						new_character = {
+							join_society = university_of_bianjiang
+							set_society_grandmaster = yes
+						}
+						create_lawyer_effect = yes
+						new_character = {
+							join_society = university_of_bianjiang
+							society_rank_up = 2
+						}
+						create_economist_effect = yes
+						new_character = {
+							join_society = university_of_bianjiang
+							society_rank_up = 2
+						}
+						create_scientist_effect = yes
+						new_character = {
+							join_society = university_of_bianjiang
+							society_rank_up = 2
+						}
+						create_physician_effect = yes
+						new_character = {
+							join_society = university_of_bianjiang
+							society_rank_up = 2
+						}
+					}
+				}
+			}
+		}
+		# Inform realm characters
+		hidden_tooltip = { any_realm_character = { character_event = { id = school.501 } } }
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 75 }
+	}
+	
+	# Nevermind
+	option = {
+		name = "EVTOPTCSCHOOL500"
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 0 }
+	}
+}
+# University of the Reach
+character_event = {
+	id = school.510
+	desc = "EVTDESCSCHOOL510"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	# Become the first rector yourself
+	option = {
+		trigger = { has_post_secondary_education_trigger = yes }
+		name = "EVTOPTASCHOOL500"
+		wealth = -1000
+		prestige = 1000
+		clr_global_flag = flag_no_university_of_the_reach
+		join_society = university_of_the_reach
+		set_society_grandmaster = yes
+		# Create initial professors
+		hidden_tooltip = {
+			c_seldon = {
+				location = {
+					ROOT = {
+						create_lawyer_effect = yes
+						new_character = {
+							join_society = university_of_the_reach
+							society_rank_up = 2
+						}
+						create_economist_effect = yes
+						new_character = {
+							join_society = university_of_the_reach
+							society_rank_up = 2
+						}
+						create_scientist_effect = yes
+						new_character = {
+							join_society = university_of_the_reach
+							society_rank_up = 2
+						}
+						create_physician_effect = yes
+						new_character = {
+							join_society = university_of_the_reach
+							society_rank_up = 2
+						}
+					}
+				}
+			}
+		}
+		# Inform realm characters
+		hidden_tooltip = { any_realm_character = { character_event = { id = school.501 } } }
+		clr_character_flag = flag_busy
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2
+				trait = intellectual
+			}
+			modifier = {
+				factor = 2
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.5
+				trait = carefree
+			}
+			modifier = {
+				factor = 0.5
+				trait = close_minded
+			}
+		}
+	}
+	
+	# Name a new first rector
+	option = {
+		trigger = { has_post_secondary_education_trigger = yes }
+		name = "EVTOPTBSCHOOL500"
+		wealth = -1000
+		prestige = 1000
+		clr_global_flag = flag_no_university_of_the_reach
+		# Create initial professors
+		hidden_tooltip = {
+			c_seldon = {
+				location = {
+					ROOT = {
+						# Create rector
+						random_list = {
+							10 = { create_lawyer_effect = yes }
+							10 = { create_economist_effect = yes }
+							10 = { create_scientist_effect = yes }
+							10 = { create_physician_effect = yes }
+						}
+						new_character = {
+							join_society = university_of_the_reach
+							set_society_grandmaster = yes
+						}
+						create_lawyer_effect = yes
+						new_character = {
+							join_society = university_of_the_reach
+							society_rank_up = 2
+						}
+						create_economist_effect = yes
+						new_character = {
+							join_society = university_of_the_reach
+							society_rank_up = 2
+						}
+						create_scientist_effect = yes
+						new_character = {
+							join_society = university_of_the_reach
+							society_rank_up = 2
+						}
+						create_physician_effect = yes
+						new_character = {
+							join_society = university_of_the_reach
+							society_rank_up = 2
+						}
+					}
+				}
+			}
+		}
+		# Inform realm characters
+		hidden_tooltip = { any_realm_character = { character_event = { id = school.501 } } }
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 75 }
+	}
+	
+	# Nevermind
+	option = {
+		name = "EVTOPTCSCHOOL500"
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 0 }
+	}
+}
+# University of Paraiso
+character_event = {
+	id = school.511
+	desc = "EVTDESCSCHOOL511"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	# Become the first rector yourself
+	option = {
+		trigger = { has_post_secondary_education_trigger = yes }
+		name = "EVTOPTASCHOOL500"
+		wealth = -1000
+		prestige = 1000
+		clr_global_flag = flag_no_university_of_paraiso
+		join_society = university_of_paraiso
+		set_society_grandmaster = yes
+		# Create initial professors
+		hidden_tooltip = {
+			c_paraiso = {
+				location = {
+					ROOT = {
+						create_lawyer_effect = yes
+						new_character = {
+							join_society = university_of_paraiso
+							society_rank_up = 2
+						}
+						create_economist_effect = yes
+						new_character = {
+							join_society = university_of_paraiso
+							society_rank_up = 2
+						}
+						create_scientist_effect = yes
+						new_character = {
+							join_society = university_of_paraiso
+							society_rank_up = 2
+						}
+						create_physician_effect = yes
+						new_character = {
+							join_society = university_of_paraiso
+							society_rank_up = 2
+						}
+					}
+				}
+			}
+		}
+		# Inform realm characters
+		hidden_tooltip = { any_realm_character = { character_event = { id = school.501 } } }
+		clr_character_flag = flag_busy
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2
+				trait = intellectual
+			}
+			modifier = {
+				factor = 2
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.5
+				trait = carefree
+			}
+			modifier = {
+				factor = 0.5
+				trait = close_minded
+			}
+		}
+	}
+	
+	# Name a new first rector
+	option = {
+		trigger = { has_post_secondary_education_trigger = yes }
+		name = "EVTOPTBSCHOOL500"
+		wealth = -1000
+		prestige = 1000
+		clr_global_flag = flag_no_university_of_paraiso
+		# Create initial professors
+		hidden_tooltip = {
+			c_paraiso = {
+				location = {
+					ROOT = {
+						# Create rector
+						random_list = {
+							10 = { create_lawyer_effect = yes }
+							10 = { create_economist_effect = yes }
+							10 = { create_scientist_effect = yes }
+							10 = { create_physician_effect = yes }
+						}
+						new_character = {
+							join_society = university_of_paraiso
+							set_society_grandmaster = yes
+						}
+						create_lawyer_effect = yes
+						new_character = {
+							join_society = university_of_paraiso
+							society_rank_up = 2
+						}
+						create_economist_effect = yes
+						new_character = {
+							join_society = university_of_paraiso
+							society_rank_up = 2
+						}
+						create_scientist_effect = yes
+						new_character = {
+							join_society = university_of_paraiso
+							society_rank_up = 2
+						}
+						create_physician_effect = yes
+						new_character = {
+							join_society = university_of_paraiso
+							society_rank_up = 2
+						}
+					}
+				}
+			}
+		}
+		# Inform realm characters
+		hidden_tooltip = { any_realm_character = { character_event = { id = school.501 } } }
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 75 }
+	}
+	
+	# Nevermind
+	option = {
+		name = "EVTOPTCSCHOOL500"
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 0 }
+	}
+}
+# University of Cauraha
+character_event = {
+	id = school.512
+	desc = "EVTDESCSCHOOL512"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	# Become the first rector yourself
+	option = {
+		trigger = { has_post_secondary_education_trigger = yes }
+		name = "EVTOPTASCHOOL500"
+		wealth = -1000
+		prestige = 1000
+		clr_global_flag = flag_no_university_of_cauraha
+		join_society = university_of_cauraha
+		set_society_grandmaster = yes
+		# Create initial professors
+		hidden_tooltip = {
+			c_cauraha = {
+				location = {
+					ROOT = {
+						create_lawyer_effect = yes
+						new_character = {
+							join_society = university_of_cauraha
+							society_rank_up = 2
+						}
+						create_economist_effect = yes
+						new_character = {
+							join_society = university_of_cauraha
+							society_rank_up = 2
+						}
+						create_scientist_effect = yes
+						new_character = {
+							join_society = university_of_cauraha
+							society_rank_up = 2
+						}
+						create_physician_effect = yes
+						new_character = {
+							join_society = university_of_cauraha
+							society_rank_up = 2
+						}
+					}
+				}
+			}
+		}
+		# Inform realm characters
+		hidden_tooltip = { any_realm_character = { character_event = { id = school.501 } } }
+		clr_character_flag = flag_busy
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2
+				trait = intellectual
+			}
+			modifier = {
+				factor = 2
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.5
+				trait = carefree
+			}
+			modifier = {
+				factor = 0.5
+				trait = close_minded
+			}
+		}
+	}
+	
+	# Name a new first rector
+	option = {
+		trigger = { has_post_secondary_education_trigger = yes }
+		name = "EVTOPTBSCHOOL500"
+		wealth = -1000
+		prestige = 1000
+		clr_global_flag = flag_no_university_of_cauraha
+		# Create initial professors
+		hidden_tooltip = {
+			c_cauraha = {
+				location = {
+					ROOT = {
+						# Create rector
+						random_list = {
+							10 = { create_lawyer_effect = yes }
+							10 = { create_economist_effect = yes }
+							10 = { create_scientist_effect = yes }
+							10 = { create_physician_effect = yes }
+						}
+						new_character = {
+							join_society = university_of_cauraha
+							set_society_grandmaster = yes
+						}
+						create_lawyer_effect = yes
+						new_character = {
+							join_society = university_of_cauraha
+							society_rank_up = 2
+						}
+						create_economist_effect = yes
+						new_character = {
+							join_society = university_of_cauraha
+							society_rank_up = 2
+						}
+						create_scientist_effect = yes
+						new_character = {
+							join_society = university_of_cauraha
+							society_rank_up = 2
+						}
+						create_physician_effect = yes
+						new_character = {
+							join_society = university_of_cauraha
+							society_rank_up = 2
+						}
+					}
+				}
+			}
+		}
+		# Inform realm characters
+		hidden_tooltip = { any_realm_character = { character_event = { id = school.501 } } }
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 75 }
+	}
+	
+	# Nevermind
+	option = {
+		name = "EVTOPTCSCHOOL500"
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 0 }
+	}
+}
+# University of Tarka
+character_event = {
+	id = school.513
+	desc = "EVTDESCSCHOOL513"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	# Become the first rector yourself
+	option = {
+		trigger = { has_post_secondary_education_trigger = yes }
+		name = "EVTOPTASCHOOL500"
+		wealth = -1000
+		prestige = 1000
+		clr_global_flag = flag_no_university_of_tarka
+		join_society = university_of_tarka
+		set_society_grandmaster = yes
+		# Create initial professors
+		hidden_tooltip = {
+			c_tarka = {
+				location = {
+					ROOT = {
+						create_lawyer_effect = yes
+						new_character = {
+							join_society = university_of_tarka
+							society_rank_up = 2
+						}
+						create_economist_effect = yes
+						new_character = {
+							join_society = university_of_tarka
+							society_rank_up = 2
+						}
+						create_scientist_effect = yes
+						new_character = {
+							join_society = university_of_tarka
+							society_rank_up = 2
+						}
+						create_physician_effect = yes
+						new_character = {
+							join_society = university_of_tarka
+							society_rank_up = 2
+						}
+					}
+				}
+			}
+		}
+		# Inform realm characters
+		hidden_tooltip = { any_realm_character = { character_event = { id = school.501 } } }
+		clr_character_flag = flag_busy
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2
+				trait = intellectual
+			}
+			modifier = {
+				factor = 2
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.5
+				trait = carefree
+			}
+			modifier = {
+				factor = 0.5
+				trait = close_minded
+			}
+		}
+	}
+	
+	# Name a new first rector
+	option = {
+		trigger = { has_post_secondary_education_trigger = yes }
+		name = "EVTOPTBSCHOOL500"
+		wealth = -1000
+		prestige = 1000
+		clr_global_flag = flag_no_university_of_tarka
+		# Create initial professors
+		hidden_tooltip = {
+			c_tarka = {
+				location = {
+					ROOT = {
+						# Create rector
+						random_list = {
+							10 = { create_lawyer_effect = yes }
+							10 = { create_economist_effect = yes }
+							10 = { create_scientist_effect = yes }
+							10 = { create_physician_effect = yes }
+						}
+						new_character = {
+							join_society = university_of_tarka
+							set_society_grandmaster = yes
+						}
+						create_lawyer_effect = yes
+						new_character = {
+							join_society = university_of_tarka
+							society_rank_up = 2
+						}
+						create_economist_effect = yes
+						new_character = {
+							join_society = university_of_tarka
+							society_rank_up = 2
+						}
+						create_scientist_effect = yes
+						new_character = {
+							join_society = university_of_tarka
+							society_rank_up = 2
+						}
+						create_physician_effect = yes
+						new_character = {
+							join_society = university_of_tarka
+							society_rank_up = 2
+						}
+					}
+				}
+			}
+		}
+		# Inform realm characters
+		hidden_tooltip = { any_realm_character = { character_event = { id = school.501 } } }
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 75 }
+	}
+	
+	# Nevermind
+	option = {
+		name = "EVTOPTCSCHOOL500"
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 0 }
+	}
+}
+# University of Avalon
+character_event = {
+	id = school.514
+	desc = "EVTDESCSCHOOL514"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	# Become the first rector yourself
+	option = {
+		trigger = { has_post_secondary_education_trigger = yes }
+		name = "EVTOPTASCHOOL500"
+		wealth = -1000
+		prestige = 1000
+		clr_global_flag = flag_no_university_of_avalon
+		join_society = university_of_avalon
+		set_society_grandmaster = yes
+		# Create initial professors
+		hidden_tooltip = {
+			c_merlin = {
+				location = {
+					ROOT = {
+						create_lawyer_effect = yes
+						new_character = {
+							join_society = university_of_avalon
+							society_rank_up = 2
+						}
+						create_economist_effect = yes
+						new_character = {
+							join_society = university_of_avalon
+							society_rank_up = 2
+						}
+						create_scientist_effect = yes
+						new_character = {
+							join_society = university_of_avalon
+							society_rank_up = 2
+						}
+						create_physician_effect = yes
+						new_character = {
+							join_society = university_of_avalon
+							society_rank_up = 2
+						}
+					}
+				}
+			}
+		}
+		# Inform realm characters
+		hidden_tooltip = { any_realm_character = { character_event = { id = school.501 } } }
+		clr_character_flag = flag_busy
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2
+				trait = intellectual
+			}
+			modifier = {
+				factor = 2
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.5
+				trait = carefree
+			}
+			modifier = {
+				factor = 0.5
+				trait = close_minded
+			}
+		}
+	}
+	
+	# Name a new first rector
+	option = {
+		trigger = { has_post_secondary_education_trigger = yes }
+		name = "EVTOPTBSCHOOL500"
+		wealth = -1000
+		prestige = 1000
+		clr_global_flag = flag_no_university_of_avalon
+		# Create initial professors
+		hidden_tooltip = {
+			c_merlin = {
+				location = {
+					ROOT = {
+						# Create rector
+						random_list = {
+							10 = { create_lawyer_effect = yes }
+							10 = { create_economist_effect = yes }
+							10 = { create_scientist_effect = yes }
+							10 = { create_physician_effect = yes }
+						}
+						new_character = {
+							join_society = university_of_avalon
+							set_society_grandmaster = yes
+						}
+						create_lawyer_effect = yes
+						new_character = {
+							join_society = university_of_avalon
+							society_rank_up = 2
+						}
+						create_economist_effect = yes
+						new_character = {
+							join_society = university_of_avalon
+							society_rank_up = 2
+						}
+						create_scientist_effect = yes
+						new_character = {
+							join_society = university_of_avalon
+							society_rank_up = 2
+						}
+						create_physician_effect = yes
+						new_character = {
+							join_society = university_of_avalon
+							society_rank_up = 2
+						}
+					}
+				}
+			}
+		}
+		# Inform realm characters
+		hidden_tooltip = { any_realm_character = { character_event = { id = school.501 } } }
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 75 }
+	}
+	
+	# Nevermind
+	option = {
+		name = "EVTOPTCSCHOOL500"
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 0 }
+	}
+}
+# University of Franklin
+character_event = {
+	id = school.515
+	desc = "EVTDESCSCHOOL515"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	# Become the first rector yourself
+	option = {
+		trigger = { has_post_secondary_education_trigger = yes }
+		name = "EVTOPTASCHOOL500"
+		wealth = -1000
+		prestige = 1000
+		clr_global_flag = flag_no_university_of_franklin
+		join_society = university_of_franklin
+		set_society_grandmaster = yes
+		# Create initial professors
+		hidden_tooltip = {
+			c_franklin = {
+				location = {
+					ROOT = {
+						create_lawyer_effect = yes
+						new_character = {
+							join_society = university_of_franklin
+							society_rank_up = 2
+						}
+						create_economist_effect = yes
+						new_character = {
+							join_society = university_of_franklin
+							society_rank_up = 2
+						}
+						create_scientist_effect = yes
+						new_character = {
+							join_society = university_of_franklin
+							society_rank_up = 2
+						}
+						create_physician_effect = yes
+						new_character = {
+							join_society = university_of_franklin
+							society_rank_up = 2
+						}
+					}
+				}
+			}
+		}
+		# Inform realm characters
+		hidden_tooltip = { any_realm_character = { character_event = { id = school.501 } } }
+		clr_character_flag = flag_busy
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2
+				trait = intellectual
+			}
+			modifier = {
+				factor = 2
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.5
+				trait = carefree
+			}
+			modifier = {
+				factor = 0.5
+				trait = close_minded
+			}
+		}
+	}
+	
+	# Name a new first rector
+	option = {
+		trigger = { has_post_secondary_education_trigger = yes }
+		name = "EVTOPTBSCHOOL500"
+		wealth = -1000
+		prestige = 1000
+		clr_global_flag = flag_no_university_of_franklin
+		# Create initial professors
+		hidden_tooltip = {
+			c_franklin = {
+				location = {
+					ROOT = {
+						# Create rector
+						random_list = {
+							10 = { create_lawyer_effect = yes }
+							10 = { create_economist_effect = yes }
+							10 = { create_scientist_effect = yes }
+							10 = { create_physician_effect = yes }
+						}
+						new_character = {
+							join_society = university_of_franklin
+							set_society_grandmaster = yes
+						}
+						create_lawyer_effect = yes
+						new_character = {
+							join_society = university_of_franklin
+							society_rank_up = 2
+						}
+						create_economist_effect = yes
+						new_character = {
+							join_society = university_of_franklin
+							society_rank_up = 2
+						}
+						create_scientist_effect = yes
+						new_character = {
+							join_society = university_of_franklin
+							society_rank_up = 2
+						}
+						create_physician_effect = yes
+						new_character = {
+							join_society = university_of_franklin
+							society_rank_up = 2
+						}
+					}
+				}
+			}
+		}
+		# Inform realm characters
+		hidden_tooltip = { any_realm_character = { character_event = { id = school.501 } } }
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 75 }
+	}
+	
+	# Nevermind
+	option = {
+		name = "EVTOPTCSCHOOL500"
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 0 }
+	}
+}
+# University of Hiyokuoka
+character_event = {
+	id = school.516
+	desc = "EVTDESCSCHOOL516"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	# Become the first rector yourself
+	option = {
+		trigger = { has_post_secondary_education_trigger = yes }
+		name = "EVTOPTASCHOOL500"
+		wealth = -1000
+		prestige = 1000
+		clr_global_flag = flag_no_university_of_hiyokuoka
+		join_society = university_of_hiyokuoka
+		set_society_grandmaster = yes
+		# Create initial professors
+		hidden_tooltip = {
+			c_hiyokuoka = {
+				location = {
+					ROOT = {
+						create_lawyer_effect = yes
+						new_character = {
+							join_society = university_of_hiyokuoka
+							society_rank_up = 2
+						}
+						create_economist_effect = yes
+						new_character = {
+							join_society = university_of_hiyokuoka
+							society_rank_up = 2
+						}
+						create_scientist_effect = yes
+						new_character = {
+							join_society = university_of_hiyokuoka
+							society_rank_up = 2
+						}
+						create_physician_effect = yes
+						new_character = {
+							join_society = university_of_hiyokuoka
+							society_rank_up = 2
+						}
+					}
+				}
+			}
+		}
+		# Inform realm characters
+		hidden_tooltip = { any_realm_character = { character_event = { id = school.501 } } }
+		clr_character_flag = flag_busy
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2
+				trait = intellectual
+			}
+			modifier = {
+				factor = 2
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.5
+				trait = carefree
+			}
+			modifier = {
+				factor = 0.5
+				trait = close_minded
+			}
+		}
+	}
+	
+	# Name a new first rector
+	option = {
+		trigger = { has_post_secondary_education_trigger = yes }
+		name = "EVTOPTBSCHOOL500"
+		wealth = -1000
+		prestige = 1000
+		clr_global_flag = flag_no_university_of_hiyokuoka
+		# Create initial professors
+		hidden_tooltip = {
+			c_hiyokuoka = {
+				location = {
+					ROOT = {
+						# Create rector
+						random_list = {
+							10 = { create_lawyer_effect = yes }
+							10 = { create_economist_effect = yes }
+							10 = { create_scientist_effect = yes }
+							10 = { create_physician_effect = yes }
+						}
+						new_character = {
+							join_society = university_of_hiyokuoka
+							set_society_grandmaster = yes
+						}
+						create_lawyer_effect = yes
+						new_character = {
+							join_society = university_of_hiyokuoka
+							society_rank_up = 2
+						}
+						create_economist_effect = yes
+						new_character = {
+							join_society = university_of_hiyokuoka
+							society_rank_up = 2
+						}
+						create_scientist_effect = yes
+						new_character = {
+							join_society = university_of_hiyokuoka
+							society_rank_up = 2
+						}
+						create_physician_effect = yes
+						new_character = {
+							join_society = university_of_hiyokuoka
+							society_rank_up = 2
+						}
+					}
+				}
+			}
+		}
+		# Inform realm characters
+		hidden_tooltip = { any_realm_character = { character_event = { id = school.501 } } }
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 75 }
+	}
+	
+	# Nevermind
+	option = {
+		name = "EVTOPTCSCHOOL500"
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 0 }
+	}
+}
+# University of Strugatsky
+character_event = {
+	id = school.517
+	desc = "EVTDESCSCHOOL517"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	# Become the first rector yourself
+	option = {
+		trigger = { has_post_secondary_education_trigger = yes }
+		name = "EVTOPTASCHOOL500"
+		wealth = -1000
+		prestige = 1000
+		clr_global_flag = flag_no_university_of_strugatsky
+		join_society = university_of_strugatsky
+		set_society_grandmaster = yes
+		# Create initial professors
+		hidden_tooltip = {
+			c_novyy_sol = {
+				location = {
+					ROOT = {
+						create_lawyer_effect = yes
+						new_character = {
+							join_society = university_of_strugatsky
+							society_rank_up = 2
+						}
+						create_economist_effect = yes
+						new_character = {
+							join_society = university_of_strugatsky
+							society_rank_up = 2
+						}
+						create_scientist_effect = yes
+						new_character = {
+							join_society = university_of_strugatsky
+							society_rank_up = 2
+						}
+						create_physician_effect = yes
+						new_character = {
+							join_society = university_of_strugatsky
+							society_rank_up = 2
+						}
+					}
+				}
+			}
+		}
+		# Inform realm characters
+		hidden_tooltip = { any_realm_character = { character_event = { id = school.501 } } }
+		clr_character_flag = flag_busy
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2
+				trait = intellectual
+			}
+			modifier = {
+				factor = 2
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.5
+				trait = carefree
+			}
+			modifier = {
+				factor = 0.5
+				trait = close_minded
+			}
+		}
+	}
+	
+	# Name a new first rector
+	option = {
+		trigger = { has_post_secondary_education_trigger = yes }
+		name = "EVTOPTBSCHOOL500"
+		wealth = -1000
+		prestige = 1000
+		clr_global_flag = flag_no_university_of_strugatsky
+		# Create initial professors
+		hidden_tooltip = {
+			c_novyy_sol = {
+				location = {
+					ROOT = {
+						# Create rector
+						random_list = {
+							10 = { create_lawyer_effect = yes }
+							10 = { create_economist_effect = yes }
+							10 = { create_scientist_effect = yes }
+							10 = { create_physician_effect = yes }
+						}
+						new_character = {
+							join_society = university_of_strugatsky
+							set_society_grandmaster = yes
+						}
+						create_lawyer_effect = yes
+						new_character = {
+							join_society = university_of_strugatsky
+							society_rank_up = 2
+						}
+						create_economist_effect = yes
+						new_character = {
+							join_society = university_of_strugatsky
+							society_rank_up = 2
+						}
+						create_scientist_effect = yes
+						new_character = {
+							join_society = university_of_strugatsky
+							society_rank_up = 2
+						}
+						create_physician_effect = yes
+						new_character = {
+							join_society = university_of_strugatsky
+							society_rank_up = 2
+						}
+					}
+				}
+			}
+		}
+		# Inform realm characters
+		hidden_tooltip = { any_realm_character = { character_event = { id = school.501 } } }
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 75 }
+	}
+	
+	# Nevermind
+	option = {
+		name = "EVTOPTCSCHOOL500"
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 0 }
+	}
+}
+# University of Novyy Edem
+character_event = {
+	id = school.518
+	desc = "EVTDESCSCHOOL518"
+	picture = GFX_evt_library
+	border = GFX_event_normal_frame_learning
+	is_triggered_only = yes
+	
+	# Become the first rector yourself
+	option = {
+		trigger = { has_post_secondary_education_trigger = yes }
+		name = "EVTOPTASCHOOL500"
+		wealth = -1000
+		prestige = 1000
+		clr_global_flag = flag_no_university_of_novyy_edem
+		join_society = university_of_novyy_edem
+		set_society_grandmaster = yes
+		# Create initial professors
+		hidden_tooltip = {
+			c_novyy_edem = {
+				location = {
+					ROOT = {
+						create_lawyer_effect = yes
+						new_character = {
+							join_society = university_of_novyy_edem
+							society_rank_up = 2
+						}
+						create_economist_effect = yes
+						new_character = {
+							join_society = university_of_novyy_edem
+							society_rank_up = 2
+						}
+						create_scientist_effect = yes
+						new_character = {
+							join_society = university_of_novyy_edem
+							society_rank_up = 2
+						}
+						create_physician_effect = yes
+						new_character = {
+							join_society = university_of_novyy_edem
+							society_rank_up = 2
+						}
+					}
+				}
+			}
+		}
+		# Inform realm characters
+		hidden_tooltip = { any_realm_character = { character_event = { id = school.501 } } }
+		clr_character_flag = flag_busy
+		ai_chance = {
+			factor = 25
+			modifier = {
+				factor = 2
+				trait = intellectual
+			}
+			modifier = {
+				factor = 2
+				trait = disciplined
+			}
+			modifier = {
+				factor = 0.5
+				trait = carefree
+			}
+			modifier = {
+				factor = 0.5
+				trait = close_minded
+			}
+		}
+	}
+	
+	# Name a new first rector
+	option = {
+		trigger = { has_post_secondary_education_trigger = yes }
+		name = "EVTOPTBSCHOOL500"
+		wealth = -1000
+		prestige = 1000
+		clr_global_flag = flag_no_university_of_novyy_edem
+		# Create initial professors
+		hidden_tooltip = {
+			c_novyy_edem = {
+				location = {
+					ROOT = {
+						# Create rector
+						random_list = {
+							10 = { create_lawyer_effect = yes }
+							10 = { create_economist_effect = yes }
+							10 = { create_scientist_effect = yes }
+							10 = { create_physician_effect = yes }
+						}
+						new_character = {
+							join_society = university_of_novyy_edem
+							set_society_grandmaster = yes
+						}
+						create_lawyer_effect = yes
+						new_character = {
+							join_society = university_of_novyy_edem
+							society_rank_up = 2
+						}
+						create_economist_effect = yes
+						new_character = {
+							join_society = university_of_novyy_edem
+							society_rank_up = 2
+						}
+						create_scientist_effect = yes
+						new_character = {
+							join_society = university_of_novyy_edem
+							society_rank_up = 2
+						}
+						create_physician_effect = yes
+						new_character = {
+							join_society = university_of_novyy_edem
+							society_rank_up = 2
+						}
+					}
+				}
+			}
+		}
+		# Inform realm characters
+		hidden_tooltip = { any_realm_character = { character_event = { id = school.501 } } }
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 75 }
+	}
+	
+	# Nevermind
+	option = {
+		name = "EVTOPTCSCHOOL500"
+		clr_character_flag = flag_busy
+		ai_chance = { factor = 0 }
+	}
+}

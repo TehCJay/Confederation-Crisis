@@ -6787,15 +6787,8 @@ character_event = {
 					trait = depressed
 				}
 			}
-			random = {
-				chance = 25
-				degrade_mood_effect = yes
-				hidden_tooltip = {
-					character_event ={
-						id = 38282 #Notify
-					}
-				}
-			}
+			change_variable = { which = stress_var value = 10 }
+			modify_stress_effect = yes
 		}
 	}
 	
@@ -7303,8 +7296,8 @@ character_event = {
 			hidden_tooltip = {
 				random_list = {
 					30 = {
-						degrade_mood_effect = yes
-						hidden_tooltip = { character_event = { id = 38282 } }
+						change_variable = { which = stress_var value = 20 }
+						modify_stress_effect = yes
 					}
 					10 = {
 						add_trait = depressed
@@ -7768,8 +7761,8 @@ character_event = {
 			hidden_tooltip = {
 				random_list = {
 					30 = {
-						degrade_mood_effect = yes
-						hidden_tooltip = { character_event = { id = 38282 } }
+						change_variable = { which = stress_var value = 20 }
+						modify_stress_effect = yes
 					}
 					10 = {
 						add_trait = depressed
@@ -8948,15 +8941,8 @@ character_event = {
 				NOT = { has_character_flag = experienced_beheader }
 				NOT = { trait = stressed } 
 			}
-			random = {
-				chance = 10
-				degrade_mood_effect = yes
-				hidden_tooltip = {
-					character_event = {
-						id = 38282 #Notify Stressed
-					}
-				}
-			}
+			change_variable = { which = stress_var value = 25 }
+			modify_stress_effect = yes
 			random = {
 				chance = 20
 				set_character_flag = experienced_beheader
@@ -8969,15 +8955,8 @@ character_event = {
 				NOT = { has_character_flag = experienced_beheader }
 				NOT = { trait = stressed } 
 			}
-			random = {
-				chance = 20
-				degrade_mood_effect = yes
-				hidden_tooltip = {
-					character_event = {
-						id = 38282 #Notify Stressed
-					}
-				}
-			}
+			change_variable = { which = stress_var value = 75 }
+			modify_stress_effect = yes
 			set_character_flag = one_beheading
 		}	
 	}
@@ -9832,13 +9811,8 @@ character_event = {
 				NOT = { trait = stressed }
 				NOT = { trait = depressed }
 			}
-			random = {
-				chance = 33
-				degrade_mood_effect = yes
-				hidden_tooltip = {
-					character_event = { id = 38282 days = 1 }
-				}
-			}
+			change_variable = { which = stress_var value = 10 }
+			modify_stress_effect = yes
 		}
 	}
 }

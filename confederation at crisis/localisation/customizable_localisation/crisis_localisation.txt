@@ -230,20 +230,20 @@ defined_text = {
 		trigger = {
 			OR = {
 				trait = warship_captain
-				trait = frigate_pilot
+				trait = fighter_pilot
 			}
 		}
 		localisation_key = String_navy
 	}
 	text = {
-		trigger = { trait = marine_captain }
+		trigger = { trait = marine_colonel }
 		localisation_key = String_marines
 	}
 	text = {
 		trigger = {
 			NOT = { trait = warship_captain }
-			NOT = { trait = frigate_pilot }
-			NOT = { trait = marine_captain }
+			NOT = { trait = fighter_pilot }
+			NOT = { trait = marine_colonel }
 		}
 		localisation_key = String_army
 	}
@@ -300,7 +300,7 @@ defined_text = {
 defined_text = {
 	name = GetOrbitalBombardmentDesc
 	use_first_valid = yes
-
+	
 	text = {
 		trigger = { event_target:bombardment_target = { NOT = { has_building = ct_homeworld_1 } } }
 		localisation_key = String_orbital_bombardment_generic
@@ -328,7 +328,7 @@ defined_text = {
 defined_text = {
 	name = GetOrbitalBombardmentOption
 	use_first_valid = yes
-
+	
 	text = {
 		trigger = { event_target:bombardment_target = { NOT = { has_building = ct_homeworld_1 } } }
 		localisation_key = String_orbital_bombardment_command_generic
@@ -351,4 +351,405 @@ defined_text = {
 		localisation_key = String_orbital_bombardment_command_generic
 	}
 	text = { localisation_key = String_orbital_bombardment_command_earth }
+}
+
+defined_text = {
+	name = GetSchoolGraduationDesc
+	use_first_valid = yes
+	
+	text = {
+		trigger = { society_rank == 1 }
+		localisation_key = String_graduate_cap
+	}
+	text = {
+		localisation_key = String_apply_for_professorship_cap
+	}
+}
+defined_text = {
+	name = GetSchoolGraduationRequirements
+	use_first_valid = yes
+	
+	text = {
+		trigger = { society_rank == 1 }
+		localisation_key = String_graduate_to_associate_requirements
+	}
+	text = {
+		localisation_key = String_graduate_to_professor_requirements
+	}
+}
+defined_text = {
+	name = GetSocietyHeadquarters
+	
+	text = {
+		trigger = { is_society = university_of_the_confederation }
+		localisation_key = String_earth_cap
+	}
+	text = {
+		trigger = { is_society = ares_military_academy }
+		localisation_key = String_mars_cap
+	}
+}
+
+defined_text = {
+	name = GetSocietyGrandmasterTitle
+	
+	text = {
+		trigger = { is_society = university_of_the_confederation }
+		localisation_key = String_rector_president_cap
+	}
+	text = {
+		trigger = { is_society = ares_military_academy }
+		localisation_key = String_commandant_cap
+	}
+}
+
+defined_text = {
+	name = GetSocietyProfessorTitle
+	
+	text = {
+		trigger = { is_society = university_of_the_confederation }
+		localisation_key = String_professor_cap
+	}
+	text = {
+		trigger = { is_society = ares_military_academy }
+		localisation_key = String_instructor_cap
+	}
+}
+
+defined_text = {
+	name = GetFalseGraduation
+	
+	text = {
+		trigger = { check_variable = { which = times_cheated_in_school value = 3 } }
+		localisation_key = String_false_graduation
+	}
+}
+
+defined_text = {
+	name = GetExamSubject
+	
+	text = {
+		trigger = {
+			OR = {
+				trait = lawyer
+				has_character_modifier = law_major
+			}
+		}
+		localisation_key = String_criminal_law
+	}
+	text = {
+		trigger = {
+			OR = {
+				trait = lawyer
+				has_character_modifier = law_major
+			}
+		}
+		localisation_key = String_civil_law
+	}
+	text = {
+		trigger = {
+			OR = {
+				trait = economist
+				has_character_modifier = economics_major
+			}
+		}
+		localisation_key = String_macroeconomics
+	}
+	text = {
+		trigger = {
+			OR = {
+				trait = economist
+				has_character_modifier = economics_major
+			}
+		}
+		localisation_key = String_microeconomics
+	}
+	text = {
+		trigger = {
+			OR = {
+				trait = economist
+				has_character_modifier = economics_major
+			}
+		}
+		localisation_key = String_interstellar_trade
+	}
+	text = {
+		trigger = {
+			OR = {
+				trait = physician
+				has_character_modifier = medical_major
+			}
+		}
+		localisation_key = String_anatomy
+	}
+	text = {
+		trigger = {
+			OR = {
+				trait = physician
+				has_character_modifier = medical_major
+			}
+		}
+		localisation_key = String_pathology
+	}
+	text = {
+		trigger = {
+			OR = {
+				trait = physician
+				has_character_modifier = medical_major
+			}
+		}
+		localisation_key = String_genetics
+	}
+	text = {
+		trigger = {
+			OR = {
+				trait = physician
+				has_character_modifier = medical_major
+			}
+		}
+		localisation_key = String_pharmacology
+	}
+	text = {
+		trigger = {
+			OR = {
+				trait = scientist
+				has_character_modifier = science_major
+			}
+		}
+		localisation_key = String_physics
+	}
+	text = {
+		trigger = {
+			OR = {
+				trait = scientist
+				has_character_modifier = science_major
+			}
+		}
+		localisation_key = String_chemistry
+	}
+	text = {
+		trigger = {
+			OR = {
+				trait = scientist
+				has_character_modifier = science_major
+			}
+		}
+		localisation_key = String_biology
+	}
+}
+
+defined_text = {
+	name = GetExamDifficulty
+	
+	text = {
+		trigger = { has_character_flag = flag_easy_exam }
+		localisation_key = String_easy_exam
+	}
+	text = {
+		trigger = { has_character_flag = flag_normal_exam }
+		localisation_key = String_normal_exam
+	}
+	text = {
+		trigger = { has_character_flag = flag_hard_exam }
+		localisation_key = String_hard_exam
+	}
+}
+
+defined_text = {
+	name = GetPassedExam
+	
+	text = {
+		trigger = { has_character_flag = flag_easy_exam }
+		localisation_key = String_passed_easy_exam
+	}
+	text = {
+		trigger = { has_character_flag = flag_normal_exam }
+		localisation_key = String_passed_normal_exam
+	}
+	text = {
+		trigger = { has_character_flag = flag_hard_exam }
+		localisation_key = String_passed_hard_exam
+	}
+}
+
+defined_text = {
+	name = GetFailedExam
+	
+	text = {
+		trigger = { has_character_flag = flag_easy_exam }
+		localisation_key = String_failed_easy_exam
+	}
+	text = {
+		trigger = { has_character_flag = flag_normal_exam }
+		localisation_key = String_failed_normal_exam
+	}
+	text = {
+		trigger = { has_character_flag = flag_hard_exam }
+		localisation_key = String_failed_hard_exam
+	}
+}
+
+defined_text = {
+	name = GetExamCheatingBlackmail
+	use_first_valid = yes
+	
+	text = {
+		trigger = { FROM = { character = event_target:target_important_person } }
+		localisation_key = String_exam_cheating_blackmail_from
+	}
+	text = {
+		trigger = { event_target:target_important_person = { always = yes } }
+		localisation_key = String_exam_cheating_blackmail_other
+	}
+}
+
+defined_text = {
+	name = GetExpulsionImportance
+	use_first_valid = yes
+	
+	text = {
+		trigger = { FROM = { character = event_target:target_important_person } }
+		localisation_key = String_expulsion_context_importance_fromfrom
+	}
+	text = {
+		trigger = { event_target:target_important_person = { always = yes } }
+		localisation_key = String_expulsion_context_importance_other
+	}
+}
+
+defined_text = {
+	name = GetRoommateDescription
+	
+	text = {
+		trigger = {
+			reverse_opinion = { who = ROOT value = 0 }
+			is_close_relative = ROOT
+		}
+		localisation_key = String_roommate_family_good
+	}
+	
+	text = {
+		trigger = {
+			NOT = { reverse_opinion = { who = ROOT value = 0 } }
+			is_close_relative = ROOT
+		}
+		localisation_key = String_roommate_family_bad
+	}
+	
+	text = {
+		trigger = {
+			reverse_opinion = { who = ROOT value = 0 }
+			NOT = { is_close_relative = ROOT }
+		}
+		localisation_key = String_roommate_generic_good
+	}
+	text = {
+		trigger = {
+			reverse_opinion = { who = ROOT value = 0 }
+			NOT = { is_close_relative = ROOT }
+			root_attraction_trigger = yes
+			is_attractive_trigger = yes
+		}
+		localisation_key = String_roommate_attractive_good
+	}
+	text = {
+		trigger = {
+			reverse_opinion = { who = ROOT value = 0 }
+			NOT = { is_close_relative = ROOT }
+			trait = friendly
+		}
+		localisation_key = String_roommate_friendly_good
+	}
+	text = {
+		trigger = {
+			reverse_opinion = { who = ROOT value = 0 }
+			NOT = { is_close_relative = ROOT }
+			trait = introverted
+		}
+		localisation_key = String_roommate_introverted_good
+	}
+	text = {
+		trigger = {
+			reverse_opinion = { who = ROOT value = 0 }
+			NOT = { is_close_relative = ROOT }
+			trait = extraverted
+		}
+		localisation_key = String_roommate_extraverted_good
+	}
+	text = {
+		trigger = {
+			reverse_opinion = { who = ROOT value = 0 }
+			NOT = { is_close_relative = ROOT }
+			religion = ROOT
+		}
+		localisation_key = String_roommate_coideologist_good
+	}
+	text = {
+		trigger = {
+			reverse_opinion = { who = ROOT value = 0 }
+			NOT = { is_close_relative = ROOT }
+			NOT = { religion = ROOT }
+		}
+		localisation_key = String_roommate_political_differences_good
+	}
+	text = {
+		trigger = {
+			NOT = { reverse_opinion = { who = ROOT value = 0 } }
+			NOT = { is_close_relative = ROOT }
+		}
+		localisation_key = String_roommate_generic_bad
+	}
+	text = {
+		trigger = {
+			NOT = { reverse_opinion = { who = ROOT value = 0 } }
+			NOT = { is_close_relative = ROOT }
+			trait = cold
+			NOT = { ROOT = { trait = cold } }
+		}
+		localisation_key = String_roommate_cold_bad
+	}
+	text = {
+		trigger = {
+			NOT = { reverse_opinion = { who = ROOT value = 0 } }
+			NOT = { is_close_relative = ROOT }
+			trait = carefree
+			NOT = { ROOT = { trait = carefree } }
+		}
+		localisation_key = String_roommate_carefree_bad
+	}
+	text = {
+		trigger = {
+			NOT = { reverse_opinion = { who = ROOT value = 0 } }
+			NOT = { is_close_relative = ROOT }
+			trait = disciplined
+			NOT = { ROOT = { trait = disciplined } }
+		}
+		localisation_key = String_roommate_disciplined_bad
+	}
+	text = {
+		trigger = {
+			NOT = { reverse_opinion = { who = ROOT value = 0 } }
+			NOT = { is_close_relative = ROOT }
+			trait = extraverted
+			NOT = { ROOT = { trait = extraverted } }
+		}
+		localisation_key = String_roommate_extraverted_bad
+	}
+	text = {
+		trigger = {
+			NOT = { reverse_opinion = { who = ROOT value = 0 } }
+			NOT = { is_close_relative = ROOT }
+			trait = deceitful
+			NOT = { ROOT = { trait = deceitful } }
+		}
+		localisation_key = String_roommate_deceitful_bad
+	}
+	text = {
+		trigger = {
+			NOT = { reverse_opinion = { who = ROOT value = 0 } }
+			NOT = { is_close_relative = ROOT }
+			NOT = { religion = ROOT }
+		}
+		localisation_key = String_roommate_political_differences_bad
+	}
 }

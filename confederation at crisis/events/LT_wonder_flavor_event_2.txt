@@ -173,7 +173,6 @@ character_event = {
 		any_realm_wonder = {
 			has_wonder_upgrade = upgrade_tavern
 		}
-		trait = stressed
 	}
 	
 	immediate = {
@@ -188,7 +187,8 @@ character_event = {
 
 	option = { #Let loose!
 		name = EVTOPTA_LT_60301
-		improve_mood_effect = yes
+		change_variable = { which = stress_var value = -20 }
+		modify_stress_effect = yes
 		if = {
 			limit = {
 				NOT = { trait = drunkard }
